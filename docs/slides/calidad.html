@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="./reveal.js/dist/reset.css">
   <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -202,53 +205,93 @@
   <p class="date">IES Doñana, curso 2021/2022</p>
 </section>
 <section id="TOC">
+<nav role="doc-toc"> 
 <ul>
-<li><a href="#/documentación-interna"><span class="toc-section-number">1</span> Documentación interna</a></li>
-<li><a href="#/depuración"><span class="toc-section-number">2</span> Depuración</a></li>
-<li><a href="#/pruebas"><span class="toc-section-number">3</span> Pruebas</a></li>
+<li><a href="#/documentación-interna"
+id="/toc-documentación-interna"><span
+class="toc-section-number">1</span> Documentación interna</a></li>
+<li><a href="#/depuración" id="/toc-depuración"><span
+class="toc-section-number">2</span> Depuración</a></li>
+<li><a href="#/pruebas" id="/toc-pruebas"><span
+class="toc-section-number">3</span> Pruebas</a></li>
 </ul>
+</nav>
 </section>
 
 <section>
-<section id="documentación-interna" class="title-slide slide level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Documentación interna</h1>
+<section id="documentación-interna" class="title-slide slide level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span>
+Documentación interna</h1>
 
 </section>
-<section id="concepto" class="title-slide slide level2" data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span> Concepto</h2>
+<section id="concepto" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Concepto</h2>
 <ul>
-<li><p>El uso apropiado de una clara disposición del texto, la inclusión de comentarios apropiados y una buena elección de los identificadores, se conoce como <strong>documentación interna</strong> o <strong>autodocumentación</strong>.</p></li>
-<li><p>La autodocumentación no es ningún lujo superfluo; por el contrario, se considera preciso adquirir desde el principio el hábito de desarrollar programas claros y bien autodocumentados.</p></li>
+<li><p>El uso apropiado de una clara disposición del texto, la inclusión
+de comentarios apropiados y una buena elección de los identificadores,
+se conoce como <strong>documentación interna</strong> o
+<strong>autodocumentación</strong>.</p></li>
+<li><p>La autodocumentación no es ningún lujo superfluo; por el
+contrario, se considera preciso adquirir desde el principio el hábito de
+desarrollar programas claros y bien autodocumentados.</p></li>
 </ul>
 </section>
 
-<section id="comentarios" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Comentarios</h2>
+<section id="comentarios" class="title-slide slide level2"
+data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+Comentarios</h2>
 <ul>
-<li><p>Recordaremos lo más importante que ya sabemos sobre los comentarios:</p>
+<li><p>Recordaremos lo más importante que ya sabemos sobre los
+comentarios:</p>
 <ul>
-<li><p>Los comentarios van desde el carácter <code class="sourceCode python"><span class="co">#</span></code> hasta el final de la línea.</p></li>
-<li><p>Para crear comentarios de varias líneas, se puede usar una cadena encerrada entre triples comillas (<code class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
-<li><p>Deben expresar información que no sea evidente por la simple lectura del código fuente.</p></li>
-<li><p>No deben decir lo mismo que el código, porque entonces será un comentario <em>redundante</em> que, si no tenemos cuidado, puede acabar diciendo algo incompatible con el código si no nos preocupamos de actualizar el comentario cuando cambie el código (que lo hará).</p></li>
-<li><p>Deben ser los justos: ni más ni menos que los necesarios.</p></li>
+<li><p>Los comentarios van desde el carácter <code
+class="sourceCode python"><span class="co">#</span></code> hasta el
+final de la línea.</p></li>
+<li><p>Para crear comentarios de varias líneas, se puede usar una cadena
+encerrada entre triples comillas (<code
+class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
+<li><p>Deben expresar información que no sea evidente por la simple
+lectura del código fuente.</p></li>
+<li><p>No deben decir lo mismo que el código, porque entonces será un
+comentario <em>redundante</em> que, si no tenemos cuidado, puede acabar
+diciendo algo incompatible con el código si no nos preocupamos de
+actualizar el comentario cuando cambie el código (que lo hará).</p></li>
+<li><p>Deben ser los justos: ni más ni menos que los
+necesarios.</p></li>
 </ul></li>
 </ul>
 </section>
 
-<section id="docstrings" class="title-slide slide level2" data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span> <em>Docstrings</em></h2>
+<section id="docstrings" class="title-slide slide level2"
+data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span>
+<em>Docstrings</em></h2>
 <ul>
-<li><p>Una <strong>cadena de documentación</strong> (<em>docstring</em>) es un literal de tipo cadena que aparece como primera sentencia en un módulo o función.</p></li>
-<li><p>Las <em>docstrings</em> son comentarios que tienen la finalidad de <strong>documentar</strong> el módulo o la función correspondientes.</p></li>
-<li><p>Por convenio, las <em>docstrings</em> siempre se delimitan mediante triples dobles comillas (<code class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
-<li><p>La función <code class="sourceCode python"><span class="bu">help</span></code> muestran la <em>docstring</em> del objeto para el que se solicita la ayuda.</p></li>
-<li><p>Internamente, la <em>docstring</em> se almacena en el atributo <code class="sourceCode python">__doc__</code> del objeto.</p></li>
+<li><p>Una <strong>cadena de documentación</strong> (<em>docstring</em>)
+es un literal de tipo cadena que aparece como primera sentencia en un
+módulo o función.</p></li>
+<li><p>Las <em>docstrings</em> son comentarios que tienen la finalidad
+de <strong>documentar</strong> el módulo o la función
+correspondientes.</p></li>
+<li><p>Por convenio, las <em>docstrings</em> siempre se delimitan
+mediante triples dobles comillas (<code
+class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">help</span></code> muestran
+la <em>docstring</em> del objeto para el que se solicita la
+ayuda.</p></li>
+<li><p>Internamente, la <em>docstring</em> se almacena en el atributo
+<code class="sourceCode python">__doc__</code> del objeto.</p></li>
 </ul>
 </section>
 <section id="ejemplo" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplo</h5>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;Módulo de ejemplo (ejemplo.py).&quot;&quot;&quot;</span></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;Módulo de ejemplo (ejemplo.py).&quot;&quot;&quot;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(nombre):</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve un saludo.</span></span>
@@ -263,14 +306,17 @@
 <ul>
 <li><p>Existen dos formas distintas de <em>docstrings</em>:</p>
 <ul>
-<li><p><strong>De una sola línea (<em>one-line</em>):</strong> para casos muy obvios que necesiten poca explicación.</p></li>
-<li><p><strong>De varias líneas (<em>multi-line</em>):</strong> para casos donde se necesita una explicación más detallada.</p></li>
+<li><p><strong>De una sola línea (<em>one-line</em>):</strong> para
+casos muy obvios que necesiten poca explicación.</p></li>
+<li><p><strong>De varias líneas (<em>multi-line</em>):</strong> para
+casos donde se necesita una explicación más detallada.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.0.0.1">
 
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(ejemplo)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Help on module ejemplo:</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -305,9 +351,17 @@
 <section class="slide level5" data-number="1.3.0.0.2">
 
 <ul>
-<li><p>Lo que hace básicamente la función <code class="sourceCode python"><span class="bu">help</span>(</code><em>objeto</em><code class="sourceCode python">)</code> es acceder al contenido del atributo <code class="sourceCode python">__doc__</code> del objeto y mostrarlo de forma legible.</p></li>
-<li><p>Siempre podemos acceder directamente al atributo <code class="sourceCode python">__doc__</code> para recuperar la <em>docstring</em> original usando <em>objeto</em><code class="sourceCode python">.__doc__</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
+<li><p>Lo que hace básicamente la función <code
+class="sourceCode python"><span class="bu">help</span>(</code><em>objeto</em><code
+class="sourceCode python">)</code> es acceder al contenido del atributo
+<code class="sourceCode python">__doc__</code> del objeto y mostrarlo de
+forma legible.</p></li>
+<li><p>Siempre podemos acceder directamente al atributo <code
+class="sourceCode python">__doc__</code> para recuperar la
+<em>docstring</em> original usando <em>objeto</em><code
+class="sourceCode python">.__doc__</code>:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.__doc__)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Módulo de ejemplo (ejemplo.py).</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.saluda.__doc__)</span>
@@ -318,23 +372,32 @@
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    Returns:</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">str</span>: El saludo.</span></code></pre></div></li>
-<li><p>Esta información también es usada por otras herramientas de documentación externa, como <code>pydoc</code>.</p></li>
+<li><p>Esta información también es usada por otras herramientas de
+documentación externa, como <code>pydoc</code>.</p></li>
 </ul>
 </section>
-<section id="cuándo-y-cómo-usar-cada-forma-de-docstring" class="title-slide slide level4" data-number="1.3.0.1">
-<h4 data-number="1.3.0.1"><span class="header-section-number">1.3.0.1</span> ¿Cuándo y cómo usar cada forma de <em>docstring</em> ?</h4>
+<section id="cuándo-y-cómo-usar-cada-forma-de-docstring"
+class="title-slide slide level4" data-number="1.3.0.1">
+<h4 data-number="1.3.0.1"><span
+class="header-section-number">1.3.0.1</span> ¿Cuándo y cómo usar cada
+forma de <em>docstring</em> ?</h4>
 <ul>
 <li><p><strong><em>Docstrings</em> de una sola línea:</strong></p>
 <ul>
 <li><p>Más apropiada para funciones sencillas.</p></li>
-<li><p>Las comillas de apertura y cierre deben aparecer en la misma línea.</p></li>
-<li><p>No hay líneas en blanco antes o despues de la <em>docstring</em>.</p></li>
-<li><p>Debe ser una frase acabada en punto que describa el efecto de la función («Hace <em>esto</em>», «Devuelve <em>aquello</em>»…).</p></li>
+<li><p>Las comillas de apertura y cierre deben aparecer en la misma
+línea.</p></li>
+<li><p>No hay líneas en blanco antes o despues de la
+<em>docstring</em>.</p></li>
+<li><p>Debe ser una frase acabada en punto que describa el efecto de la
+función («Hace <em>esto</em>», «Devuelve <em>aquello</em>»…).</p></li>
 <li><p>No debe ser una signatura, así que lo siguiente está mal:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;funcion(a, b) -&gt; tuple&quot;&quot;&quot;</span></span></code></pre></div>
 <p>Esto está mejor:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Hace esto y aquello, y devuelve una tupla.&quot;&quot;&quot;</span></span></code></pre></div></li>
 </ul></li>
 </ul>
@@ -344,40 +407,63 @@
 <ul>
 <li><p><strong><em>Docstrings</em> de varias líneas:</strong></p>
 <ul>
-<li><p>Toda la <em>docstring</em> debe ir indentada al mismo nivel que las comillas de apertura.</p></li>
-<li><p>La primera línea debe ser un resumen informativo y caber en 80 columnas.</p>
-<p>Puede ir en la misma línea que las comillas de apertura, o en la línea siguiente.</p></li>
-<li><p>A continuación, debe ir una línea en blanco, seguida de una descripción más detallada.</p></li>
-<li><p>La <em>docstring</em> de un módulo debe enumerar los elementos que exporta, con una línea resumen para cada uno.</p></li>
-<li><p>La <em>docstring</em> de una función debe resumir su comportamiento y documentar sus argumentos, valores de retorno, efectos laterales, excepciones que lanza y precondiciones (si tiene).</p></li>
+<li><p>Toda la <em>docstring</em> debe ir indentada al mismo nivel que
+las comillas de apertura.</p></li>
+<li><p>La primera línea debe ser un resumen informativo y caber en 80
+columnas.</p>
+<p>Puede ir en la misma línea que las comillas de apertura, o en la
+línea siguiente.</p></li>
+<li><p>A continuación, debe ir una línea en blanco, seguida de una
+descripción más detallada.</p></li>
+<li><p>La <em>docstring</em> de un módulo debe enumerar los elementos
+que exporta, con una línea resumen para cada uno.</p></li>
+<li><p>La <em>docstring</em> de una función debe resumir su
+comportamiento y documentar sus argumentos, valores de retorno, efectos
+laterales, excepciones que lanza y precondiciones (si tiene).</p></li>
 </ul></li>
 </ul>
 </section>
 
 
 <section id="pydoc" class="title-slide slide level2" data-number="1.4">
-<h2 data-number="1.4"><span class="header-section-number">1.4</span> <code>pydoc</code></h2>
+<h2 data-number="1.4"><span class="header-section-number">1.4</span>
+<code>pydoc</code></h2>
 <ul>
-<li><p>El módulo <code>pydoc</code> es un generador automático de documentación para programas Python.</p></li>
-<li><p>La documentación generada se puede presentar en forma de páginas de texto en la consola, enviada a un navegador web o guardada en archivos HTML.</p></li>
-<li><p>Dicha documentación se genera a partir de los <em>docstrings</em> de los elementos que aparecen en el código fuente del programa.</p></li>
-<li><p>La función <code class="sourceCode python"><span class="bu">help</span></code> llama al sistema de ayuda en línea del intérprete interactivo, el cual usa <code>pydoc</code> para generar su documentación en forma de texto para la la consola.</p></li>
+<li><p>El módulo <code>pydoc</code> es un generador automático de
+documentación para programas Python.</p></li>
+<li><p>La documentación generada se puede presentar en forma de páginas
+de texto en la consola, enviada a un navegador web o guardada en
+archivos HTML.</p></li>
+<li><p>Dicha documentación se genera a partir de los <em>docstrings</em>
+de los elementos que aparecen en el código fuente del programa.</p></li>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">help</span></code> llama al
+sistema de ayuda en línea del intérprete interactivo, el cual usa
+<code>pydoc</code> para generar su documentación en forma de texto para
+la la consola.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
-<li><p>En la línea de órdenes del sistema operativo, se puede usar <code>pydoc</code> pasándole el nombre de una función, módulo o atributo:</p>
+<li><p>En la línea de órdenes del sistema operativo, se puede usar
+<code>pydoc</code> pasándole el nombre de una función, módulo o
+atributo:</p>
 <ol>
-<li><p>Si no se indican más opciones, se visualizará en pantalla la documentación del objeto indicado:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc sys</span>
+<li><p>Si no se indican más opciones, se visualizará en pantalla la
+documentación del objeto indicado:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc sys</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc len</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc sys.argv</span></code></pre></div></li>
 <li><p>Con la opción <code>-w</code> se genera un archivo HTML:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -w ejemplo</span>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -w ejemplo</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>wrote ejemplo.html</span></code></pre></div></li>
-<li><p>Con la opción <code>-b</code> se arranca un servidor HTTP y se abre el navegador para visualizar la documentación:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -b</span>
+<li><p>Con la opción <code>-b</code> se arranca un servidor HTTP y se
+abre el navegador para visualizar la documentación:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -b</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Server ready at http://localhost:45373/</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Server commands: [b]rowser, [q]uit</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>server&gt; </span></code></pre></div></li>
@@ -385,30 +471,42 @@
 </ul>
 </section>
 
-<section id="estándares-de-codificación" class="title-slide slide level2" data-number="1.5">
-<h2 data-number="1.5"><span class="header-section-number">1.5</span> Estándares de codificación</h2>
+<section id="estándares-de-codificación"
+class="title-slide slide level2" data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span>
+Estándares de codificación</h2>
 
 </section>
-<section id="pep-8" class="title-slide slide level3" data-number="1.5.1">
-<h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span> PEP 8</h3>
+<section id="pep-8" class="title-slide slide level3"
+data-number="1.5.1">
+<h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span>
+PEP 8</h3>
 
 </section>
 
-<section id="pylint" class="title-slide slide level3" data-number="1.5.2">
-<h3 data-number="1.5.2"><span class="header-section-number">1.5.2</span> <code>pylint</code></h3>
+<section id="pylint" class="title-slide slide level3"
+data-number="1.5.2">
+<h3 data-number="1.5.2"><span class="header-section-number">1.5.2</span>
+<code>pylint</code></h3>
 <ul>
-<li><p><code>pylint</code> es una herramienta que comprueba determinado tipo de errores en el código fuente de un programa Python.</p></li>
-<li><p>Trata de asegurar que el programa se ajusta a un estándar de codificación.</p></li>
-<li><p>Localiza determinados patrones que están mal vistos o que pueden mejorarse fácilmente.</p></li>
-<li><p>Sugiere cambios en el código, recomienda refactorizaciones y ofrece detalles sobre la complejidad del código.</p></li>
+<li><p><code>pylint</code> es una herramienta que comprueba determinado
+tipo de errores en el código fuente de un programa Python.</p></li>
+<li><p>Trata de asegurar que el programa se ajusta a un estándar de
+codificación.</p></li>
+<li><p>Localiza determinados patrones que están mal vistos o que pueden
+mejorarse fácilmente.</p></li>
+<li><p>Sugiere cambios en el código, recomienda refactorizaciones y
+ofrece detalles sobre la complejidad del código.</p></li>
 <li><p>Se puede instalar o manualmente haciendo:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pip install pylint</span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pip install pylint</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.5.2.0.1">
 
 <ul>
-<li><p>También se puede instalar indirectamente a través de Visual Studio Code. Para ello:</p>
+<li><p>También se puede instalar indirectamente a través de Visual
+Studio Code. Para ello:</p>
 <ul>
 <li><p>Instalar la extensión <em>Python</em>.</p></li>
 <li><p>Configurar las siguientes opciones:</p></li>
@@ -417,105 +515,144 @@
 <li><em>Python &gt; Linting: Pylint Enabled</em>: Activado</li>
 </ul></li>
 </ul></li>
-<li><p>De esta forma, Visual Studio Code ejecutará <code>pylint</code> de forma automática cuando estemos editando un archivo de código fuente de Python.</p></li>
+<li><p>De esta forma, Visual Studio Code ejecutará <code>pylint</code>
+de forma automática cuando estemos editando un archivo de código fuente
+de Python.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.5.2.0.2">
 
 <ul>
-<li><p>Desde la consola, <code>pylint</code> se ejecuta directamente sobre un archivo <code>.py</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pylint prueba.py</span>
+<li><p>Desde la consola, <code>pylint</code> se ejecuta directamente
+sobre un archivo <code>.py</code>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pylint prueba.py</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>************* Module prueba</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>prueba.py:1:0: C0114: Missing module docstring (missing-module-docstring)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Your code has been rated at 5.00/10 (previous run: 10.00/10, -5.00)</span></code></pre></div></li>
-<li><p>Se puede deshabilitar la comprobación de determinados <em>defectos</em> usando la opción <code>--disable</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode console"><code class="sourceCode console"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pylint --disable=missing-docstring prueba.py</span>
+<li><p>Se puede deshabilitar la comprobación de determinados
+<em>defectos</em> usando la opción <code>--disable</code>:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pylint --disable=missing-docstring prueba.py</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>Your code has been rated at 10.00/10 (previous run: 5.00/10, +5.00)</span></code></pre></div></li>
-<li><p>Con la opción <code>--lists-msgs</code> se pueden consulta la lista de todos los comprobadores predefinidos.</p></li>
+<li><p>Con la opción <code>--lists-msgs</code> se pueden consulta la
+lista de todos los comprobadores predefinidos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.5.2.0.3">
 
 <ul>
-<li><p>En Visual Studio Code, se pueden establecer las opciones de arranque de <code>pylint</code> (por ejemplo, para deshabilitar ciertas comprobaciones).</p></li>
-<li><p>Para ello, en la configuración de VS Code se cambia la opción <em>Python › Linting: Pylint Args</em>.</p></li>
-<li><p>Por ejemplo, si queremos deshabilitar algunas comprobaciones, podemos poner lo siguiente en dicha opción:</p>
+<li><p>En Visual Studio Code, se pueden establecer las opciones de
+arranque de <code>pylint</code> (por ejemplo, para deshabilitar ciertas
+comprobaciones).</p></li>
+<li><p>Para ello, en la configuración de VS Code se cambia la opción
+<em>Python › Linting: Pylint Args</em>.</p></li>
+<li><p>Por ejemplo, si queremos deshabilitar algunas comprobaciones,
+podemos poner lo siguiente en dicha opción:</p>
 <p><code>--disable=invalid-name,redefined-outer-name,missing-docstring</code></p></li>
 </ul>
 </section>
 
-<section id="autopep8" class="title-slide slide level3" data-number="1.5.3">
-<h3 data-number="1.5.3"><span class="header-section-number">1.5.3</span> <code>autopep8</code></h3>
+<section id="autopep8" class="title-slide slide level3"
+data-number="1.5.3">
+<h3 data-number="1.5.3"><span class="header-section-number">1.5.3</span>
+<code>autopep8</code></h3>
 
 </section>
 
 </section>
 <section>
-<section id="depuración" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Depuración</h1>
+<section id="depuración" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Depuración</h1>
 
 </section>
 <section id="print" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> <code>print</code></h2>
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+<code>print</code></h2>
 
 </section>
 
-<section id="depuración-en-el-ide" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span> Depuración en el IDE</h2>
+<section id="depuración-en-el-ide" class="title-slide slide level2"
+data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+Depuración en el IDE</h2>
 
 </section>
 </section>
 <section>
 <section id="pruebas" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Pruebas</h1>
+<h1 data-number="3"><span class="header-section-number">3</span>
+Pruebas</h1>
 
 </section>
-<section id="enfoques-de-pruebas" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> Enfoques de pruebas</h2>
+<section id="enfoques-de-pruebas" class="title-slide slide level2"
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+Enfoques de pruebas</h2>
 
 </section>
-<section id="pruebas-de-caja-blanca" class="title-slide slide level3" data-number="3.1.1">
-<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Pruebas de caja blanca</h3>
-
-</section>
-
-<section id="pruebas-de-caja-negra" class="title-slide slide level3" data-number="3.1.2">
-<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Pruebas de caja negra</h3>
-
-</section>
-
-
-<section id="estrategias-de-pruebas" class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Estrategias de pruebas</h2>
-
-</section>
-<section id="unitarias" class="title-slide slide level3" data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span> Unitarias</h3>
+<section id="pruebas-de-caja-blanca" class="title-slide slide level3"
+data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span>
+Pruebas de caja blanca</h3>
 
 </section>
 
-<section id="funcionales" class="title-slide slide level3" data-number="3.2.2">
-<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span> Funcionales</h3>
-
-</section>
-
-<section id="de-aceptación" class="title-slide slide level3" data-number="3.2.3">
-<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span> De aceptación</h3>
+<section id="pruebas-de-caja-negra" class="title-slide slide level3"
+data-number="3.1.2">
+<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span>
+Pruebas de caja negra</h3>
 
 </section>
 
 
-<section id="doctest" class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span> <code>doctest</code></h2>
+<section id="estrategias-de-pruebas" class="title-slide slide level2"
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+Estrategias de pruebas</h2>
+
+</section>
+<section id="unitarias" class="title-slide slide level3"
+data-number="3.2.1">
+<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span>
+Unitarias</h3>
+
+</section>
+
+<section id="funcionales" class="title-slide slide level3"
+data-number="3.2.2">
+<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span>
+Funcionales</h3>
+
+</section>
+
+<section id="de-aceptación" class="title-slide slide level3"
+data-number="3.2.3">
+<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span>
+De aceptación</h3>
+
+</section>
+
+
+<section id="doctest" class="title-slide slide level2"
+data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+<code>doctest</code></h2>
 <ul>
-<li><p><code>doctest</code> es una herramienta que permite realizar pruebas de forma automática sobre una función.</p></li>
+<li><p><code>doctest</code> es una herramienta que permite realizar
+pruebas de forma automática sobre una función.</p></li>
 <li><p>Para ello, se usa la <em>docstring</em> de la función.</p></li>
-<li><p>En ella, se escribe una <em>simulación</em> de una pretendida ejecución de la función desde el intérprete interactivo de Python.</p></li>
-<li><p>La herramienta comprueba si la salida obtenida coincide con la esperada según dicta la <em>docstring</em> de la función.</p></li>
+<li><p>En ella, se escribe una <em>simulación</em> de una pretendida
+ejecución de la función desde el intérprete interactivo de
+Python.</p></li>
+<li><p>La herramienta comprueba si la salida obtenida coincide con la
+esperada según dicta la <em>docstring</em> de la función.</p></li>
 <li><p>De esta forma, la <em>docstring</em> cumple dos funciones:</p>
 <ul>
 <li><p>Documentación de la función.</p></li>
@@ -525,7 +662,8 @@
 </section>
 <section class="slide level5" data-number="3.3.0.0.1">
 
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo.py</span></span>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo.py</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> factorial(n):</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve el factorial de n, un número entero &gt;= 0.</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -551,7 +689,8 @@
 </section>
 <section class="slide level5" data-number="3.3.0.0.2">
 
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py</span>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py <span class="op">-</span>v</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Trying:</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    [factorial(n) <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
@@ -580,27 +719,44 @@
 </section>
 
 <section id="pytest" class="title-slide slide level2" data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span> <code>pytest</code></h2>
+<h2 data-number="3.4"><span class="header-section-number">3.4</span>
+<code>pytest</code></h2>
 <ul>
-<li><p><code>pytest</code> es una herramienta que permite realizar pruebas automáticas sobre una función o programa Python, pero de una manera más general que con <code>doctest</code>.</p></li>
-<li><p>La forma más sencilla de usarla es crear una función llamada <code>test_</code><span style="color:teal">⟨<em>nombre</em>⟩</span> por cada función <span style="color:teal">⟨<em>nombre</em>⟩</span> que queramos probar.</p></li>
-<li><p>Esa función <code>test_</code><span style="color:teal">⟨<em>nombre</em>⟩</span> será la encargada de probar automáticamente el funcionamiento correcto de la función <span style="color:teal">⟨<em>nombre</em>⟩</span>.</p></li>
-<li><p>Dentro de la función <code>test_</code><span style="color:teal">⟨<em>nombre</em>⟩</span>, usaremos la orden <code class="sourceCode python"><span class="cf">assert</span></code> para comprobar si se cumple una determinada condición.</p></li>
-<li><p>En caso de que no se cumpla, se entenderá que la función <span style="color:teal">⟨<em>nombre</em>⟩</span> no ha superado dicha prueba.</p></li>
-<li><p>En Python 3, la herramienta se llama <code>pytest-3</code> y se instala mediante:</p>
+<li><p><code>pytest</code> es una herramienta que permite realizar
+pruebas automáticas sobre una función o programa Python, pero de una
+manera más general que con <code>doctest</code>.</p></li>
+<li><p>La forma más sencilla de usarla es crear una función llamada
+<code>test_</code><span style="color:teal">⟨<em>nombre</em>⟩</span> por
+cada función <span style="color:teal">⟨<em>nombre</em>⟩</span> que
+queramos probar.</p></li>
+<li><p>Esa función <code>test_</code><span
+style="color:teal">⟨<em>nombre</em>⟩</span> será la encargada de probar
+automáticamente el funcionamiento correcto de la función <span
+style="color:teal">⟨<em>nombre</em>⟩</span>.</p></li>
+<li><p>Dentro de la función <code>test_</code><span
+style="color:teal">⟨<em>nombre</em>⟩</span>, usaremos la orden <code
+class="sourceCode python"><span class="cf">assert</span></code> para
+comprobar si se cumple una determinada condición.</p></li>
+<li><p>En caso de que no se cumpla, se entenderá que la función <span
+style="color:teal">⟨<em>nombre</em>⟩</span> no ha superado dicha
+prueba.</p></li>
+<li><p>En Python 3, la herramienta se llama <code>pytest-3</code> y se
+instala mediante:</p>
 <p><code>python $ sudo apt install python3-pytest</code></p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.1">
 
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_respuesta():</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">========================</span> test session starts <span class="op">=========================</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.8.5</span>, pytest<span class="op">-</span><span class="fl">4.6.9</span>, py<span class="op">-</span><span class="fl">1.8.1</span>, pluggy<span class="op">-</span><span class="fl">0.13.0</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>rootdir: <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python</span>
@@ -622,47 +778,75 @@
 <section class="slide level5" data-number="3.4.0.0.2">
 
 <ul>
-<li><p><code>pytest</code> sigue la siguiente estrategia a la hora de localizar pruebas:</p>
+<li><p><code>pytest</code> sigue la siguiente estrategia a la hora de
+localizar pruebas:</p>
 <ul>
-<li><p>Si no se especifica ningún argumento, empieza a buscar recursivamente empezando en el directorio actual.</p></li>
-<li><p>En esos directorios, busca todos los archivos <code>test_*.py</code> o <code>*_test.py</code>.</p></li>
-<li><p>En esos archivos, localiza todas las funciones cuyo nombre empiece por <code>test</code>.</p></li>
+<li><p>Si no se especifica ningún argumento, empieza a buscar
+recursivamente empezando en el directorio actual.</p></li>
+<li><p>En esos directorios, busca todos los archivos
+<code>test_*.py</code> o <code>*_test.py</code>.</p></li>
+<li><p>En esos archivos, localiza todas las funciones cuyo nombre
+empiece por <code>test</code>.</p></li>
 </ul></li>
 </ul>
 </section>
 
-<section id="desarrollo-conducido-por-pruebas" class="title-slide slide level2" data-number="3.5">
-<h2 data-number="3.5"><span class="header-section-number">3.5</span> Desarrollo conducido por pruebas</h2>
+<section id="desarrollo-conducido-por-pruebas"
+class="title-slide slide level2" data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span>
+Desarrollo conducido por pruebas</h2>
 <ul>
-<li><p>El <strong>desarrollo conducido por pruebas</strong> o <strong>TDD</strong> (del inglés, <em>test-driven development</em>) es una práctica de ingeniería de software que agrupa otras dos prácticas:</p>
+<li><p>El <strong>desarrollo conducido por pruebas</strong> o
+<strong>TDD</strong> (del inglés, <em>test-driven development</em>) es
+una práctica de ingeniería de software que agrupa otras dos
+prácticas:</p>
 <ul>
-<li><p>Escribir las pruebas primero (<em>test first development</em>).</p></li>
+<li><p>Escribir las pruebas primero (<em>test first
+development</em>).</p></li>
 <li><p>Refactorización (<em>refactoring</em>).</p></li>
 </ul></li>
-<li><p>Para escribir las pruebas generalmente se utilizan <strong>pruebas unitarias</strong> (<em>unit test</em>).</p></li>
-<li><p>El propósito del desarrollo guiado por pruebas es lograr un código limpio que funcione.</p></li>
-<li><p>La idea es que los requisitos sean traducidos a pruebas, de este modo, cuando las pruebas pasen se garantizará que el software cumple con los requisitos que se han establecido.</p></li>
+<li><p>Para escribir las pruebas generalmente se utilizan
+<strong>pruebas unitarias</strong> (<em>unit test</em>).</p></li>
+<li><p>El propósito del desarrollo guiado por pruebas es lograr un
+código limpio que funcione.</p></li>
+<li><p>La idea es que los requisitos sean traducidos a pruebas, de este
+modo, cuando las pruebas pasen se garantizará que el software cumple con
+los requisitos que se han establecido.</p></li>
 </ul>
 </section>
-<section id="ciclo-de-desarrollo" class="title-slide slide level3" data-number="3.5.1">
-<h3 data-number="3.5.1"><span class="header-section-number">3.5.1</span> Ciclo de desarrollo</h3>
+<section id="ciclo-de-desarrollo" class="title-slide slide level3"
+data-number="3.5.1">
+<h3 data-number="3.5.1"><span class="header-section-number">3.5.1</span>
+Ciclo de desarrollo</h3>
 <ul>
-<li><p>En primer lugar se debe definir una lista de requisitos y después se ejecuta el siguiente ciclo:</p>
+<li><p>En primer lugar se debe definir una lista de requisitos y después
+se ejecuta el siguiente ciclo:</p>
 <ol>
-<li><strong>Elegir un requisito:</strong> Se elige el que nos dará mayor conocimiento del problema y que además sea fácilmente implementable.</li>
-<li><strong>Escribir una prueba:</strong> Se comienza escribiendo una prueba para el requisito, para lo cual el programador debe entender claramente las especificaciones de la funcionalidad a implementar.</li>
-<li><strong>Verificar que la prueba falla:</strong> Si la prueba no falla es porque el requisito ya estaba implementado o porque la prueba es errónea.</li>
-<li><strong>Escribir la implementación:</strong> Se escribe el código más sencillo que haga que la prueba funcione.</li>
-<li><strong>Ejecutar las pruebas automatizadas:</strong> Se verifica si todo el conjunto de pruebas se pasa correctamente.</li>
-<li><strong>Refactorizar:</strong> Se modifica el código para hacerlo más mantenible con cuidado de que sigan pasando todas las pruebas.</li>
-<li><strong>Actualizar la lista de requisitos:</strong> Se tacha el requisito implementado y se agregan otros nuevos si hace falta.</li>
+<li><strong>Elegir un requisito:</strong> Se elige el que nos dará mayor
+conocimiento del problema y que además sea fácilmente
+implementable.</li>
+<li><strong>Escribir una prueba:</strong> Se comienza escribiendo una
+prueba para el requisito, para lo cual el programador debe entender
+claramente las especificaciones de la funcionalidad a implementar.</li>
+<li><strong>Verificar que la prueba falla:</strong> Si la prueba no
+falla es porque el requisito ya estaba implementado o porque la prueba
+es errónea.</li>
+<li><strong>Escribir la implementación:</strong> Se escribe el código
+más sencillo que haga que la prueba funcione.</li>
+<li><strong>Ejecutar las pruebas automatizadas:</strong> Se verifica si
+todo el conjunto de pruebas se pasa correctamente.</li>
+<li><strong>Refactorizar:</strong> Se modifica el código para hacerlo
+más mantenible con cuidado de que sigan pasando todas las pruebas.</li>
+<li><strong>Actualizar la lista de requisitos:</strong> Se tacha el
+requisito implementado y se agregan otros nuevos si hace falta.</li>
 </ol></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.1.0.1">
 
 <ul>
-<li><p>Todo este ciclo se resume en que, por cada requisito, hay que hacer:</p>
+<li><p>Todo este ciclo se resume en que, por cada requisito, hay que
+hacer:</p>
 <ol>
 <li><p><strong>Rojo:</strong> el test falla</p></li>
 <li><p><strong>Verde:</strong> se pasa el test</p></li>
@@ -671,8 +855,10 @@
 </ul>
 </section>
 
-<section id="ventajas" class="title-slide slide level3" data-number="3.5.2">
-<h3 data-number="3.5.2"><span class="header-section-number">3.5.2</span> Ventajas</h3>
+<section id="ventajas" class="title-slide slide level3"
+data-number="3.5.2">
+<h3 data-number="3.5.2"><span class="header-section-number">3.5.2</span>
+Ventajas</h3>
 
 </section>
 
@@ -682,7 +868,7 @@
 
   <script src="./reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="./reveal.js/plugin/notes/notes.js"></script>
   <script src="./reveal.js/plugin/search/search.js"></script>
   <script src="./reveal.js/plugin/zoom/zoom.js"></script>
@@ -695,85 +881,149 @@
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
         controlsTutorial: true,
+
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'bottom-right',
+
         // Visibility rule for backwards navigation arrows; "faded", "hidden"
         // or "visible"
         controlsBackArrows: 'faded',
+
         // Display a presentation progress bar
         progress: true,
+
         // Display the page number of the current slide
         slideNumber: true,
+
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: true,
+
         // Enable the slide overview mode
         overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
         // Vertical centering of slides
         center: true,
+
         // Enables touch navigation on devices with touch input
         touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
         // see https://revealjs.com/vertical-slides/#navigation-mode
         navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
         // Turns fragments on and off globally
         fragments: true,
+
         // Flags whether to include the current fragment in the URL,
         // so that reloading brings you to the same fragment position
         fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
         // Flags if we should show a help overlay when the questionmark
         // key is pressed
         help: true,
-       // Flags if it should be possible to pause the presentation (blackout)
-       pause: true,
-        // Global override for autoplaying embedded media (video/audio/iframe)
-        // - null: Media will only autoplay if data-autoplay is present
-        // - true: All media will autoplay, regardless of individual setting
-        // - false: No media will autoplay, regardless of individual setting
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
-        // Global override for preloading lazy-loaded iframes
-        // - null: Iframes with data-src AND data-preload will be loaded when within
-        //   the viewDistance, iframes with only data-src will be loaded when visible
-        // - true: All iframes with data-src will be loaded when within the viewDistance
-        // - false: All iframes with data-src will be loaded only when visible
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
+
         // Number of milliseconds between automatically proceeding to the
         // next slide, disabled when set to 0, this value can be overwritten
         // by using a data-autoslide attribute on your slides
         autoSlide: 0,
+
         // Stop auto-sliding after user input
         autoSlideStoppable: true,
+
         // Use this method for navigation when auto-sliding
         autoSlideMethod: null,
+
         // Specify the average time in seconds that you think you will spend
         // presenting each slide. This is used to show a pacing timer in the
         // speaker view
         defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
         // Hide cursor if inactive
         hideInactiveCursor: true,
+
         // Time before the cursor is hidden (in ms)
         hideCursorTime: 5000,
-        // Transition style
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
         // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
         // Number of slides away from the current that are visible
         viewDistance: 3,
+
         // Number of slides away from the current that are visible on mobile
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1280,
+
         height: 1080,
         // The display mode that will be used to show slides
         display: 'block',

@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="./reveal.js/dist/reset.css">
   <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -239,18 +242,22 @@
   <p class="date">IES Doñana, curso 2021/2022</p>
 </section>
 <section id="TOC">
+<nav role="doc-toc"> 
 <ul>
-<li><a href="#/introducción"><span class="toc-section-number">1</span>
-Introducción</a></li>
-<li><a href="#/diseño-modular"><span class="toc-section-number">2</span>
-Diseño modular</a></li>
-<li><a href="#/programación-modular-en-python"><span
+<li><a href="#/introducción" id="/toc-introducción"><span
+class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="#/diseño-modular" id="/toc-diseño-modular"><span
+class="toc-section-number">2</span> Diseño modular</a></li>
+<li><a href="#/programación-modular-en-python"
+id="/toc-programación-modular-en-python"><span
 class="toc-section-number">3</span> Programación modular en
 Python</a></li>
-<li><a href="#/criterios-de-descomposición-modular"><span
+<li><a href="#/criterios-de-descomposición-modular"
+id="/toc-criterios-de-descomposición-modular"><span
 class="toc-section-number">4</span> Criterios de descomposición
 modular</a></li>
 </ul>
+</nav>
 </section>
 
 <section>
@@ -908,8 +915,7 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a 
 <li><p><strong>Importándolo dentro de otros módulos</strong> que quieran
 usar los servicios que proporciona, usando la sentencia <code
 class="sourceCode python"><span class="im">import</span></code> (o <code
-class="sourceCode python"><span class="im">from</span> ... <span
-class="im">import</span></code>):</p>
+class="sourceCode python"><span class="im">from</span> ... <span class="im">import</span></code>):</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> modulo</span></code></pre></div></li>
 </ul></li>
@@ -920,13 +926,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 <ul>
 <li><p>Las sentencias que contiene un módulo <strong>se ejecutan sólo la
 primera vez</strong> que se encuentra el nombre de ese módulo en una
-sentencia <code class="sourceCode python"><span
-class="im">import</span></code>, o bien cuando el archivo se ejecuta
-como un <em>script</em>.</p></li>
+sentencia <code
+class="sourceCode python"><span class="im">import</span></code>, o bien
+cuando el archivo se ejecuta como un <em>script</em>.</p></li>
 <li><p>Dentro de un módulo, el nombre del módulo (como cadena) se
 encuentra almacenado en la variable global <code
-class="sourceCode python"><span
-class="va">__name__</span></code>.</p></li>
+class="sourceCode python"><span class="va">__name__</span></code>.</p></li>
 <li><p>Cada módulo define su propio <strong>ámbito local</strong>, que
 es usado como el <strong>ámbito global</strong> de todas las
 instrucciones que componen el módulo.</p></li>
@@ -938,8 +943,8 @@ accidentales con las variables globales o funciones de otros
 módulos.</p></li>
 <li><p>Esas variables y funciones serán los <strong>atributos</strong>
 del <strong>objeto <em>módulo</em></strong> que se creará si se importa
-el módulo con la sentencia <code class="sourceCode python"><span
-class="im">import</span></code>.</p></li>
+el módulo con la sentencia <code
+class="sourceCode python"><span class="im">import</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.2">
@@ -1027,13 +1032,13 @@ style="width:40.0%" alt="Entorno en la línea 3 del módulo uno" />
 <section class="slide level5" data-number="3.2.0.0.2">
 
 <ul>
-<li>Al ejecutar <code class="sourceCode python"><span
-class="im">import</span> dos</code> en la línea 5 de
-<code>uno.py</code>, pasaremos a ejecutar el <em>script</em>
-<code>dos.py</code> y el marco global del entorno será ahora el marco
-global de <code>dos</code>. Los marcos creados hasta ahora durante la
-ejecución de <code>uno</code> (incluyendo el marco global de
-<code>uno</code>) no estarán en el entorno:</li>
+<li>Al ejecutar <code
+class="sourceCode python"><span class="im">import</span> dos</code> en
+la línea 5 de <code>uno.py</code>, pasaremos a ejecutar el
+<em>script</em> <code>dos.py</code> y el marco global del entorno será
+ahora el marco global de <code>dos</code>. Los marcos creados hasta
+ahora durante la ejecución de <code>uno</code> (incluyendo el marco
+global de <code>uno</code>) no estarán en el entorno:</li>
 </ul>
 <div class="centered">
 <figure>
@@ -1060,8 +1065,8 @@ global del entorno:</li>
 <figure>
 <img data-src="images/import-modulo-sale-dos.svg" class="plain"
 style="width:70.0%" alt="Entorno tras ejecutar import dos" />
-<figcaption aria-hidden="true">Entorno tras ejecutar <code>import
-dos</code></figcaption>
+<figcaption aria-hidden="true">Entorno tras ejecutar
+<code>import dos</code></figcaption>
 </figure>
 </div>
 </section>
@@ -1119,8 +1124,9 @@ anteriores</figcaption>
 <p><br></p>
 <ul>
 <li>Se recomienda por regla de estilo (aunque no es obligatorio) colocar
-todas las sentencias <code class="sourceCode python"><span
-class="im">import</span></code> al principio del módulo importador.</li>
+todas las sentencias <code
+class="sourceCode python"><span class="im">import</span></code> al
+principio del módulo importador.</li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.7">
@@ -1128,8 +1134,7 @@ class="im">import</span></code> al principio del módulo importador.</li>
 <ul>
 <li><p>Se puede importar un módulo dándole otro nombre dentro del
 espacio de nombres actual, usando la sentencia <code
-class="sourceCode python"><span class="im">import</span> ... <span
-class="im">as</span></code>.</p></li>
+class="sourceCode python"><span class="im">import</span> ... <span class="im">as</span></code>.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
@@ -1245,8 +1250,8 @@ dentro del módulo importador, lo que incluso puede provocar que se
 
 <ul>
 <li><p>Para saber qué definiciones contiene un módulo, se puede usar la
-funcion <code class="sourceCode python"><span
-class="bu">dir</span></code>:</p>
+funcion <code
+class="sourceCode python"><span class="bu">dir</span></code>:</p>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">dir</span>(math)</span>
@@ -1257,9 +1262,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;inf&#39;</span>, <span class="st">&#39;isclose&#39;</span>, <span class="st">&#39;isfinite&#39;</span>, <span class="st">&#39;isinf&#39;</span>, <span class="st">&#39;isnan&#39;</span>, <span class="st">&#39;ldexp&#39;</span>, <span class="st">&#39;lgamma&#39;</span>, <span class="st">&#39;log&#39;</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;log10&#39;</span>, <span class="st">&#39;log1p&#39;</span>, <span class="st">&#39;log2&#39;</span>, <span class="st">&#39;modf&#39;</span>, <span class="st">&#39;nan&#39;</span>, <span class="st">&#39;pi&#39;</span>, <span class="st">&#39;pow&#39;</span>, <span class="st">&#39;radians&#39;</span>, <span class="st">&#39;sin&#39;</span>,</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;sinh&#39;</span>, <span class="st">&#39;sqrt&#39;</span>, <span class="st">&#39;tan&#39;</span>, <span class="st">&#39;tanh&#39;</span>, <span class="st">&#39;tau&#39;</span>, <span class="st">&#39;trunc&#39;</span>]</span></code></pre></div></li>
-<li><p>La función <code class="sourceCode python"><span
-class="bu">dir</span></code> puede usarse con cualquier objeto al que
-podamos acceder a través de una referencia.</p></li>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">dir</span></code> puede
+usarse con cualquier objeto al que podamos acceder a través de una
+referencia.</p></li>
 </ul>
 </section>
 
@@ -1273,12 +1279,12 @@ como:</p>
 <div class="sourceCode" id="cb16"><pre
 class="sourceCode console"><code class="sourceCode console"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
 <p>se ejecutará el módulo como un <em>script</em>, igual que si se
-hubiera importado con un <code class="sourceCode python"><span
-class="im">import</span></code> dentro de otro módulo, pero con la
-diferencia de que la variable global <code
+hubiera importado con un <code
+class="sourceCode python"><span class="im">import</span></code> dentro
+de otro módulo, pero con la diferencia de que la variable global <code
 class="sourceCode python"><span class="va">__name__</span></code>
-contendrá el valor <code class="sourceCode python"><span
-class="st">&quot;__main__&quot;</span></code>.</p>
+contendrá el valor <code
+class="sourceCode python"><span class="st">&quot;__main__&quot;</span></code>.</p>
 <p>Eso indica que ese <em>script</em> se considera el <strong>módulo
 principal</strong> (en inglés, <em>main module</em>) del
 programa.</p></li>
@@ -2002,7 +2008,7 @@ href="https://docs.python.org/3">https://docs.python.org/3</a>.
 
   <script src="./reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="./reveal.js/plugin/notes/notes.js"></script>
   <script src="./reveal.js/plugin/search/search.js"></script>
   <script src="./reveal.js/plugin/zoom/zoom.js"></script>
@@ -2015,88 +2021,149 @@ href="https://docs.python.org/3">https://docs.python.org/3</a>.
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
         controlsTutorial: true,
+
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'bottom-right',
+
         // Visibility rule for backwards navigation arrows; "faded", "hidden"
         // or "visible"
         controlsBackArrows: 'faded',
+
         // Display a presentation progress bar
         progress: true,
+
         // Display the page number of the current slide
         slideNumber: true,
+
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
+
         // Add the current slide number to the URL hash so that reloading the
         // page/copying the URL will return you to the same slide
         hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: true,
+
         // Enable the slide overview mode
         overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
         // Vertical centering of slides
         center: true,
+
         // Enables touch navigation on devices with touch input
         touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
         // see https://revealjs.com/vertical-slides/#navigation-mode
         navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
         // Turns fragments on and off globally
         fragments: true,
+
         // Flags whether to include the current fragment in the URL,
         // so that reloading brings you to the same fragment position
         fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
         // Flags if we should show a help overlay when the questionmark
         // key is pressed
         help: true,
-       // Flags if it should be possible to pause the presentation (blackout)
-       pause: true,
-        // Global override for autoplaying embedded media (video/audio/iframe)
-        // - null: Media will only autoplay if data-autoplay is present
-        // - true: All media will autoplay, regardless of individual setting
-        // - false: No media will autoplay, regardless of individual setting
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
-        // Global override for preloading lazy-loaded iframes
-        // - null: Iframes with data-src AND data-preload will be loaded when within
-        //   the viewDistance, iframes with only data-src will be loaded when visible
-        // - true: All iframes with data-src will be loaded when within the viewDistance
-        // - false: All iframes with data-src will be loaded only when visible
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
+
         // Number of milliseconds between automatically proceeding to the
         // next slide, disabled when set to 0, this value can be overwritten
         // by using a data-autoslide attribute on your slides
         autoSlide: 0,
+
         // Stop auto-sliding after user input
         autoSlideStoppable: true,
+
         // Use this method for navigation when auto-sliding
         autoSlideMethod: null,
+
         // Specify the average time in seconds that you think you will spend
         // presenting each slide. This is used to show a pacing timer in the
         // speaker view
         defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
         // Hide cursor if inactive
         hideInactiveCursor: true,
+
         // Time before the cursor is hidden (in ms)
         hideCursorTime: 5000,
-        // Transition style
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
         // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
         // Number of slides away from the current that are visible
         viewDistance: 3,
+
         // Number of slides away from the current that are visible on mobile
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1280,
+
         height: 1080,
         // The display mode that will be used to show slides
         display: 'block',

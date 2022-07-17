@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="./reveal.js/dist/reset.css">
   <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -221,16 +224,20 @@
   <p class="date">IES Doñana, curso 2021/2022</p>
 </section>
 <section id="TOC">
+<nav role="doc-toc"> 
 <ul>
-<li><a href="#/definición-de-clases"><span
-class="toc-section-number">1</span> Definición de clases</a></li>
-<li><a href="#/miembros-de-instancia"><span
+<li><a href="#/definición-de-clases"
+id="/toc-definición-de-clases"><span class="toc-section-number">1</span>
+Definición de clases</a></li>
+<li><a href="#/miembros-de-instancia"
+id="/toc-miembros-de-instancia"><span
 class="toc-section-number">2</span> Miembros de instancia</a></li>
-<li><a href="#/miembros-estáticos"><span
+<li><a href="#/miembros-estáticos" id="/toc-miembros-estáticos"><span
 class="toc-section-number">3</span> Miembros estáticos</a></li>
-<li><a href="#/clases-internas"><span
+<li><a href="#/clases-internas" id="/toc-clases-internas"><span
 class="toc-section-number">4</span> Clases internas</a></li>
 </ul>
+</nav>
 </section>
 
 <section>
@@ -365,8 +372,9 @@ data-number="1.3.2">
 Visibilidad pública</h3>
 <ul>
 <li><p>Para definir una clase con visibilidad pública, se usa el
-<em>modificador de acceso</em> <code class="sourceCode java"><span
-class="kw">public</span></code> en la definición de la clase.</p></li>
+<em>modificador de acceso</em> <code
+class="sourceCode java"><span class="kw">public</span></code> en la
+definición de la clase.</p></li>
 <li><p>En un archivo fuente pueden definirse muchas clases, pero sólo
 una de ellas puede ser pública.</p></li>
 <li><p>Además, el archivo fuente debe llamarse igual que la (única)
@@ -603,18 +611,18 @@ cada miembro</strong>:</p>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Pública</td>
-<td style="text-align: left;"><code class="sourceCode java"><span
-class="kw">public</span></code></td>
+<td style="text-align: left;"><code
+class="sourceCode java"><span class="kw">public</span></code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Privada</td>
-<td style="text-align: left;"><code class="sourceCode java"><span
-class="kw">private</span></code></td>
+<td style="text-align: left;"><code
+class="sourceCode java"><span class="kw">private</span></code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Protegida</td>
-<td style="text-align: left;"><code class="sourceCode java"><span
-class="kw">protected</span></code></td>
+<td style="text-align: left;"><code
+class="sourceCode java"><span class="kw">protected</span></code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Predeterminada</td>
@@ -815,9 +823,9 @@ style="color:teal">⟨<em>bloque</em>⟩</span><br />
         <span style="color:teal">⟨<em>sentencia</em>⟩</span>*<br />
 <strong><code>}</code></strong></div></li>
 <li><p>Los métodos de instancia son aquellos que <strong>no</strong>
-llevan el modificador <code class="sourceCode java"><span
-class="dt">static</span></code> (de lo contrario, serían <strong>métodos
-estáticos</strong>).</p></li>
+llevan el modificador <code
+class="sourceCode java"><span class="dt">static</span></code> (de lo
+contrario, serían <strong>métodos estáticos</strong>).</p></li>
 <li><p>Asimismo, también existen los <strong>métodos
 abstractos</strong>, que llevan el modificador <code
 class="sourceCode java"><span class="kw">abstract</span></code> pero que
@@ -898,15 +906,16 @@ retorno</strong> del método.</p></li>
 <div class="line-block"><strong><code>return</code></strong> [<span
 style="color:teal">⟨<em>expresión</em>⟩</span>]<strong><code>;</code></strong></div></li>
 <li><p>Si un método no devuelve <strong>ningún valor</strong>, su tipo
-de retorno debe ser <code class="sourceCode java"><span
-class="dt">void</span></code>. En ese caso, las sentencias <code
+de retorno debe ser <code
+class="sourceCode java"><span class="dt">void</span></code>. En ese
+caso, las sentencias <code
 class="sourceCode java"><span class="cf">return</span></code> que haya
 en el método no pueden llevar ninguna expresión.</p>
-<p>En caso contrario, las sentencias <code class="sourceCode java"><span
-class="cf">return</span></code> del método <em>deberán</em> llevar una
-expresión, cuyo valor será el valor de retorno del método y cuyo tipo
-deberá ser compatible con el tipo de retorno indicado en la signatura
-del método.</p></li>
+<p>En caso contrario, las sentencias <code
+class="sourceCode java"><span class="cf">return</span></code> del método
+<em>deberán</em> llevar una expresión, cuyo valor será el valor de
+retorno del método y cuyo tipo deberá ser compatible con el tipo de
+retorno indicado en la signatura del método.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.2.0.1">
@@ -933,9 +942,10 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>No es obligatorio que un método de tipo <code
 class="sourceCode java"><span class="dt">void</span></code> use una
-sentencia <code class="sourceCode java"><span
-class="cf">return</span></code>, salvo para forzar el final de la
-ejecución del método en alguna parte del mismo.</p></li>
+sentencia <code
+class="sourceCode java"><span class="cf">return</span></code>, salvo
+para forzar el final de la ejecución del método en alguna parte del
+mismo.</p></li>
 </ul>
 </section>
 
@@ -953,12 +963,12 @@ class="sourceCode python"><span class="va">self</span></code> en Python,
 pero aquí tiene la peculariedad de que es un <strong>parámetro
 implícito</strong> que se recibe siempre y que no hay que declararlo en
 la lista de parámetros.</p>
-<p>Por contra, el <code class="sourceCode python"><span
-class="va">self</span></code> de Python es un <em>parámetro
-explícito</em>.</p></li>
-<li><p>A través de la referencia <code class="sourceCode java"><span
-class="kw">this</span></code>, podemos acceder a los campos del objeto y
-manipularlo directamente.</p></li>
+<p>Por contra, el <code
+class="sourceCode python"><span class="va">self</span></code> de Python
+es un <em>parámetro explícito</em>.</p></li>
+<li><p>A través de la referencia <code
+class="sourceCode java"><span class="kw">this</span></code>, podemos
+acceder a los campos del objeto y manipularlo directamente.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.3.0.1">
@@ -1107,10 +1117,9 @@ dos cosas:</p>
 <li><p>La variable de instancia declarada en la clase.</p></li>
 </ul>
 <p>Para romper la ambigüedad, es necesario usar <code
-class="sourceCode java"><span class="kw">this</span><span
-class="op">.</span><span class="fu">x</span></code> para referirse a la
-variable de instancia, en lugar de sólo <code>x</code> (que se referirá
-al parámetro).</p></li>
+class="sourceCode java"><span class="kw">this</span><span class="op">.</span><span class="fu">x</span></code>
+para referirse a la variable de instancia, en lugar de sólo
+<code>x</code> (que se referirá al parámetro).</p></li>
 <li><p>Asimismo, en la línea 10 se puede llamar al método
 <code>getX</code> directamente sin usar <code
 class="sourceCode java"><span class="kw">this</span></code>, ya que no
@@ -1289,13 +1298,12 @@ clase.</p></li>
 <li><p>Su finalidad principal es inicializar el estado interno del
 objeto.</p></li>
 <li><p>En Python, el constructor es el método <code
-class="sourceCode python"><span
-class="fu">__init__</span></code>.</p></li>
+class="sourceCode python"><span class="fu">__init__</span></code>.</p></li>
 <li><p>En Java, <strong>el constructor es un método que tiene el mismo
 nombre de la clase</strong>.</p></li>
 <li><p>El constructor de una clase se define como un método sin tipo de
-retorno (ni siquiera <code class="sourceCode java"><span
-class="dt">void</span></code>).</p></li>
+retorno (ni siquiera <code
+class="sourceCode java"><span class="dt">void</span></code>).</p></li>
 <li><p>El constructor puede tener parámetros y, en tal caso, al crear la
 instancia se deberán indicar los argumentos que se pasarán a los
 parámetros correspondientes del constructor.</p></li>
@@ -1450,9 +1458,9 @@ class="sourceCode java"><span class="dt">static</span></code>.</p></li>
 no se invocan <em>sobre</em> un objeto, así que son lo más parecido que
 hay en Java a las <strong>funciones</strong>.</p></li>
 <li><p>Al no invocarse sobre un objeto, no tienen acceso al parámetro
-implícito <code class="sourceCode java"><span
-class="kw">this</span></code>, por lo que sólo pueden acceder a otros
-miembros estáticos de la clase.</p></li>
+implícito <code
+class="sourceCode java"><span class="kw">this</span></code>, por lo que
+sólo pueden acceder a otros miembros estáticos de la clase.</p></li>
 <li><p>Se les puede aplicar los mismos modificadores de acceso que a
 cualquier miembro no estático.</p></li>
 </ul>
@@ -1493,8 +1501,8 @@ especial del montículo conocida como <em>Metaspace</em>.</p></li>
 <li><p>Se les puede aplicar los mismos modificadores de acceso que a
 cualquier miembro no estático.</p></li>
 <li><p>Asimismo, también se pueden declarar como finales si es
-necesario, usando el modificador <code class="sourceCode java"><span
-class="dt">final</span></code>.</p></li>
+necesario, usando el modificador <code
+class="sourceCode java"><span class="dt">final</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
@@ -1640,9 +1648,9 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb20-1"><a href=
 <li><p>Sin embargo, si se intenta acceder a la variable de instancia de
 la clase externa usando la referencia <code
 class="sourceCode java"><span class="kw">this</span></code>, <strong>el
-acceso fallará</strong>, porque <code class="sourceCode java"><span
-class="kw">this</span></code> contiene una referencia al objeto de la
-clase interna, no de la externa:</p>
+acceso fallará</strong>, porque <code
+class="sourceCode java"><span class="kw">this</span></code> contiene una
+referencia al objeto de la clase interna, no de la externa:</p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Externa <span class="op">{</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> x <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
@@ -1670,8 +1678,8 @@ Clases anidadas estáticas</h2>
 <ul>
 <li><p>Las <strong>clases anidadas estáticas</strong> también se definen
 dentro de la clase externa sin usar ninguna sintaxis especial, excepto
-que se usa el modificador <code class="sourceCode java"><span
-class="dt">static</span></code>.</p></li>
+que se usa el modificador <code
+class="sourceCode java"><span class="dt">static</span></code>.</p></li>
 <li><p>Las <strong>clases anidadas estáticas</strong> no son
 técnicamente una clase interna, sino más bien un miembro estático de la
 clase externa.</p></li>
@@ -1735,7 +1743,7 @@ edition. Upper Saddle River, NJ: Addison-Wesley.
 
   <script src="./reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="./reveal.js/plugin/notes/notes.js"></script>
   <script src="./reveal.js/plugin/search/search.js"></script>
   <script src="./reveal.js/plugin/zoom/zoom.js"></script>
@@ -1748,88 +1756,149 @@ edition. Upper Saddle River, NJ: Addison-Wesley.
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
         controlsTutorial: true,
+
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'bottom-right',
+
         // Visibility rule for backwards navigation arrows; "faded", "hidden"
         // or "visible"
         controlsBackArrows: 'faded',
+
         // Display a presentation progress bar
         progress: true,
+
         // Display the page number of the current slide
         slideNumber: true,
+
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
+
         // Add the current slide number to the URL hash so that reloading the
         // page/copying the URL will return you to the same slide
         hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: true,
+
         // Enable the slide overview mode
         overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
         // Vertical centering of slides
         center: true,
+
         // Enables touch navigation on devices with touch input
         touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
         // see https://revealjs.com/vertical-slides/#navigation-mode
         navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
         // Turns fragments on and off globally
         fragments: true,
+
         // Flags whether to include the current fragment in the URL,
         // so that reloading brings you to the same fragment position
         fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
         // Flags if we should show a help overlay when the questionmark
         // key is pressed
         help: true,
-       // Flags if it should be possible to pause the presentation (blackout)
-       pause: true,
-        // Global override for autoplaying embedded media (video/audio/iframe)
-        // - null: Media will only autoplay if data-autoplay is present
-        // - true: All media will autoplay, regardless of individual setting
-        // - false: No media will autoplay, regardless of individual setting
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
-        // Global override for preloading lazy-loaded iframes
-        // - null: Iframes with data-src AND data-preload will be loaded when within
-        //   the viewDistance, iframes with only data-src will be loaded when visible
-        // - true: All iframes with data-src will be loaded when within the viewDistance
-        // - false: All iframes with data-src will be loaded only when visible
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
+
         // Number of milliseconds between automatically proceeding to the
         // next slide, disabled when set to 0, this value can be overwritten
         // by using a data-autoslide attribute on your slides
         autoSlide: 0,
+
         // Stop auto-sliding after user input
         autoSlideStoppable: true,
+
         // Use this method for navigation when auto-sliding
         autoSlideMethod: null,
+
         // Specify the average time in seconds that you think you will spend
         // presenting each slide. This is used to show a pacing timer in the
         // speaker view
         defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
         // Hide cursor if inactive
         hideInactiveCursor: true,
+
         // Time before the cursor is hidden (in ms)
         hideCursorTime: 5000,
-        // Transition style
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
         // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
         // Number of slides away from the current that are visible
         viewDistance: 3,
+
         // Number of slides away from the current that are visible on mobile
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1280,
+
         height: 1080,
         // The display mode that will be used to show slides
         display: 'block',

@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="./reveal.js/dist/reset.css">
   <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -239,20 +242,23 @@
   <p class="date">IES Doñana, curso 2021/2022</p>
 </section>
 <section id="TOC">
+<nav role="doc-toc"> 
 <ul>
-<li><a href="#/introducción"><span class="toc-section-number">1</span>
-Introducción</a></li>
-<li><a href="#/conceptos-básicos"><span
+<li><a href="#/introducción" id="/toc-introducción"><span
+class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="#/conceptos-básicos" id="/toc-conceptos-básicos"><span
 class="toc-section-number">2</span> Conceptos básicos</a></li>
-<li><a href="#/paso-de-mensajes"><span
+<li><a href="#/paso-de-mensajes" id="/toc-paso-de-mensajes"><span
 class="toc-section-number">3</span> Paso de mensajes</a></li>
-<li><a href="#/identidad-e-igualdad"><span
-class="toc-section-number">4</span> Identidad e igualdad</a></li>
-<li><a href="#/encapsulación"><span class="toc-section-number">5</span>
-Encapsulación</a></li>
-<li><a href="#/miembros-de-clase"><span
+<li><a href="#/identidad-e-igualdad"
+id="/toc-identidad-e-igualdad"><span class="toc-section-number">4</span>
+Identidad e igualdad</a></li>
+<li><a href="#/encapsulación" id="/toc-encapsulación"><span
+class="toc-section-number">5</span> Encapsulación</a></li>
+<li><a href="#/miembros-de-clase" id="/toc-miembros-de-clase"><span
 class="toc-section-number">6</span> Miembros de clase</a></li>
 </ul>
+</nav>
 </section>
 
 <section>
@@ -555,8 +561,8 @@ incorporará al sistema un nuevo tipo llamado <code>Deposito</code>.</li>
 implementaciones, pero ya apreciamos que por cada operación sigue
 habiendo una función (aquí llamada <strong>método</strong>), que
 desaparece la función <code>despacho</code> y que aparece una extraña
-función <code class="sourceCode python"><span
-class="fu">__init__</span></code>.</li>
+función <code
+class="sourceCode python"><span class="fu">__init__</span></code>.</li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.3">
@@ -588,12 +594,12 @@ espacio de nombres de la clase se denominan <strong>miembros</strong> o
 <section class="slide level5" data-number="2.2.0.0.4">
 
 <ul>
-<li><p>Por ejemplo, las funciones <code class="sourceCode python"><span
-class="fu">__init__</span></code>, <code>retirar</code>,
-<code>ingresar</code> y <code>saldo</code> pertenecen a la clase
-<code>Deposito</code> y sólo existen dentro de ella (son
-<em>locales</em> a la clase), porque sus definiciones se almacenan en el
-espacio de nombres de la clase.</p></li>
+<li><p>Por ejemplo, las funciones <code
+class="sourceCode python"><span class="fu">__init__</span></code>,
+<code>retirar</code>, <code>ingresar</code> y <code>saldo</code>
+pertenecen a la clase <code>Deposito</code> y sólo existen dentro de
+ella (son <em>locales</em> a la clase), porque sus definiciones se
+almacenan en el espacio de nombres de la clase.</p></li>
 <li><p>Ese espacio de nombres es un <strong>marco</strong> que se
 almacena en la pila mientras se ejecuta la definición de la clase, y que
 formará parte del entorno mientras dure esa ejecución.</p></li>
@@ -768,10 +774,12 @@ son instancias de clases.</p></li>
 objetos.</p></li>
 <li><p>Por ejemplo, en Python:</p>
 <ul>
-<li><p>El tipo <code class="sourceCode python"><span
-class="bu">int</span></code> es una clase.</p></li>
-<li><p>El entero <code class="sourceCode python"><span
-class="dv">5</span></code> es un objeto, instancia de la clase <code
+<li><p>El tipo <code
+class="sourceCode python"><span class="bu">int</span></code> es una
+clase.</p></li>
+<li><p>El entero <code
+class="sourceCode python"><span class="dv">5</span></code> es un objeto,
+instancia de la clase <code
 class="sourceCode python"><span class="bu">int</span></code>.</p></li>
 </ul></li>
 <li><p>Java es un lenguaje orientado a objetos <strong>impuro</strong>,
@@ -781,16 +789,17 @@ clase sino que pertenecen a un <em>tipo primitivo</em> del
 lenguaje.</p></li>
 <li><p>Por ejemplo, en Java:</p>
 <ul>
-<li><p>El tipo <code class="sourceCode java"><span
-class="bu">String</span></code> es una clase, por lo que la cadena <code
+<li><p>El tipo <code
+class="sourceCode java"><span class="bu">String</span></code> es una
+clase, por lo que la cadena <code
 class="sourceCode java"><span class="st">&quot;Hola&quot;</span></code>
-es un objeto, instancia de la clase <code class="sourceCode java"><span
-class="bu">String</span></code>.</p></li>
-<li><p>El tipo <code class="sourceCode python"><span
-class="bu">int</span></code> es un tipo primitivo del lenguaje, por lo
-que el número <code class="sourceCode python"><span
-class="dv">5</span></code> no es ningún objeto, sino un dato
-primitivo.</p></li>
+es un objeto, instancia de la clase <code
+class="sourceCode java"><span class="bu">String</span></code>.</p></li>
+<li><p>El tipo <code
+class="sourceCode python"><span class="bu">int</span></code> es un tipo
+primitivo del lenguaje, por lo que el número <code
+class="sourceCode python"><span class="dv">5</span></code> no es ningún
+objeto, sino un dato primitivo.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -828,14 +837,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
 <li><p>Se crea en el montículo un objeto, instancia de la clase
 <code>Deposito</code>, que contiene su propio espacio de nombres
 representado por una estructura con forma de diccionario.</p></li>
-<li><p>Se invoca al método <code class="sourceCode python"><span
-class="fu">__init__</span></code> sobre el objeto recién creado (ya
-hablaremos de ésto más adelante).</p></li>
-<li><p>La expresión <code class="sourceCode python">Deposito(<span
-class="dv">100</span>)</code> devuelve una <strong>referencia</strong>
-al nuevo objeto, que representa, a grandes rasgos, la posición de
-memoria donde se encuentra almacenado el objeto (su
-<strong><em>identidad</em></strong>).</p></li>
+<li><p>Se invoca al método <code
+class="sourceCode python"><span class="fu">__init__</span></code> sobre
+el objeto recién creado (ya hablaremos de ésto más adelante).</p></li>
+<li><p>La expresión <code
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>
+devuelve una <strong>referencia</strong> al nuevo objeto, que
+representa, a grandes rasgos, la posición de memoria donde se encuentra
+almacenado el objeto (su <strong><em>identidad</em></strong>).</p></li>
 <li><p>Esa referencia es la que se almacena en la variable
 <code>dep</code>. O sea: <strong>en la variable no se almacena el objeto
 en sí, sino una <em>referencia</em> al objeto</strong>.</p></li>
@@ -960,9 +969,10 @@ alt="Dos variables (dep1 y dep2) que apuntan al mismo objeto" />
 <ul>
 <li><p>Recordemos que en Python todos los tipos son clases.</p></li>
 <li><p>Para saber la clase a la que pertenece el objeto, se usa la
-función <code class="sourceCode python"><span
-class="bu">type</span></code> o el atributo <code
-class="sourceCode python">__class__</code> del objeto:</p>
+función <code
+class="sourceCode python"><span class="bu">type</span></code> o el
+atributo <code class="sourceCode python">__class__</code> del
+objeto:</p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(dep)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Deposito&#39;</span><span class="op">&gt;</span></span>
@@ -976,8 +986,8 @@ class="sourceCode python">__main__</code>.</p>
 clase que se usó para instanciarlo) porque lo guarda en un
 atributo.</p></li>
 <li><p>Otra forma de comprobar si un objeto es instancia de una clase
-determinada es usar la función <code class="sourceCode python"><span
-class="bu">isinstance</span></code><code>(</code><span
+determinada es usar la función <code
+class="sourceCode python"><span class="bu">isinstance</span></code><code>(</code><span
 class="math inline">obj</span><code>,</code> <span
 class="math inline">cls</span><code>)</code>, que devuelve <code
 class="sourceCode python"><span class="va">True</span></code> si el
@@ -1427,8 +1437,9 @@ class="sourceCode python"><span class="va">self</span></code>.</p></li>
 
 <ul>
 <li>Por ejemplo, en la clase <code>Deposito</code>, obsérvese que todos
-los métodos tienen <code class="sourceCode python"><span
-class="va">self</span></code> como primer parámetro:</li>
+los métodos tienen <code
+class="sourceCode python"><span class="va">self</span></code> como
+primer parámetro:</li>
 </ul>
 <div class="sourceCode" id="cb30"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
@@ -1452,18 +1463,19 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a h
 
 <ul>
 <li><p>El método <code>saldo</code> de la clase <code>Deposito</code>
-recibe un argumento <code class="sourceCode python"><span
-class="va">self</span></code> que, durante la llamada al método,
-contendrá el objeto sobre el que se ha invocado dicho método:</p>
+recibe un argumento <code
+class="sourceCode python"><span class="va">self</span></code> que,
+durante la llamada al método, contendrá el objeto sobre el que se ha
+invocado dicho método:</p>
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saldo(<span class="va">self</span>):</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
 <li><p>En este caso, contendrá el objeto del que se desea conocer los
 fondos que posee.</p></li>
 <li><p>Por tanto, dentro de <code>saldo</code>, accedemos a los fondos
-del objeto usando la expresión <code class="sourceCode python"><span
-class="va">self</span>.fondos</code>, y ese es el valor que retorna el
-método.</p></li>
+del objeto usando la expresión <code
+class="sourceCode python"><span class="va">self</span>.fondos</code>, y
+ese es el valor que retorna el método.</p></li>
 <li><p>Dentro del programa, la expresión <code>dep.saldo()</code> se
 traducirá como <code>Deposito.saldo(dep)</code>.</p></li>
 <li><p>Es importante recordar que <strong>el parámetro <code
@@ -1483,22 +1495,22 @@ es la cantidad a ingresar:</p>
 class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
-<li><p>En este caso, <code class="sourceCode python"><span
-class="va">self</span></code> contendrá el objeto en el que se desea
-ingresar la cantidad deseada.</p></li>
+<li><p>En este caso, <code
+class="sourceCode python"><span class="va">self</span></code> contendrá
+el objeto en el que se desea ingresar la cantidad deseada.</p></li>
 <li><p>Dentro del método <code>ingresar</code>, la expresión <code
 class="sourceCode python"><span class="va">self</span>.fondos</code>
 representa el valor del atributo <code>fondos</code> del objeto <code
 class="sourceCode python"><span class="va">self</span></code>.</p></li>
 <li><p>Por tanto, lo que hace el método es incrementar el valor de dicho
-atributo en el objeto <code class="sourceCode python"><span
-class="va">self</span></code>, sumándole la cantidad indicada en el
-parámetro.</p></li>
+atributo en el objeto <code
+class="sourceCode python"><span class="va">self</span></code>, sumándole
+la cantidad indicada en el parámetro.</p></li>
 <li><p>Por ejemplo, la expresión <code
-class="sourceCode python">dep.ingresar(<span
-class="dv">35</span>)</code> se traducirá como <code
-class="sourceCode python">Deposito.ingresar(dep, <span
-class="dv">35</span>)</code>. Por tanto, en la llamada al método, <code
+class="sourceCode python">dep.ingresar(<span class="dv">35</span>)</code>
+se traducirá como <code
+class="sourceCode python">Deposito.ingresar(dep, <span class="dv">35</span>)</code>.
+Por tanto, en la llamada al método, <code
 class="sourceCode python"><span class="va">self</span></code> valdrá
 <code>dep</code> y <code>cantidad</code> valdrá <code
 class="sourceCode python"><span class="dv">35</span></code>.</p></li>
@@ -1668,9 +1680,10 @@ Métodos <em>mágicos</em>  y constructores</h2>
 <li><p>En Python, los métodos cuyo nombre empieza y termina por
 <code>__</code> se denominan <strong>métodos mágicos</strong> y tienen
 un comportamiento especial.</p></li>
-<li><p>En concreto, el método <code class="sourceCode python"><span
-class="fu">__init__</span></code> se invoca automáticamente cada vez que
-se instancia un nuevo objeto a partir de una clase.</p></li>
+<li><p>En concreto, el método <code
+class="sourceCode python"><span class="fu">__init__</span></code> se
+invoca automáticamente cada vez que se instancia un nuevo objeto a
+partir de una clase.</p></li>
 <li><p>Coloquialmente, se le suele llamar el
 <strong>constructor</strong> de la clase, y es el responsable de
 <em>inicializar</em> el objeto de forma que tenga un estado inicial
@@ -1692,17 +1705,17 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a h
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div></li>
-<li><p>Ese método <code class="sourceCode python"><span
-class="fu">__init__</span></code> se encarga de crear el atributo
-<code>fondos</code> del objeto que se acaba de crear (y que recibe a
-través del parámetro <code>self</code>), asignándole el valor del
-parámetro <code>fondos</code>.</p>
+<li><p>Ese método <code
+class="sourceCode python"><span class="fu">__init__</span></code> se
+encarga de crear el atributo <code>fondos</code> del objeto que se acaba
+de crear (y que recibe a través del parámetro <code>self</code>),
+asignándole el valor del parámetro <code>fondos</code>.</p>
 <p>¡Cuidado! No confudir la expresión <code
 class="sourceCode python"><span class="va">self</span>.fondos</code> con
 <code>fondos</code>. La primera se refiere al atributo
-<code>fondos</code> del objeto <code class="sourceCode python"><span
-class="va">self</span></code>, mientras que la segunda se refiere al
-parámetro <code>fondos</code>.</p></li>
+<code>fondos</code> del objeto <code
+class="sourceCode python"><span class="va">self</span></code>, mientras
+que la segunda se refiere al parámetro <code>fondos</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.2">
@@ -1711,31 +1724,32 @@ parámetro <code>fondos</code>.</p></li>
 <li><p>Cuando se crea un nuevo objeto de la clase <code>Deposito</code>,
 llamando a la clase como si fuera una función, se debe indicar entre
 paréntesis (como argumento) el valor del parámetro que luego va a
-recibir el método <code class="sourceCode python"><span
-class="fu">__init__</span></code> (en este caso, los fondos
-iniciales):</p>
+recibir el método <code
+class="sourceCode python"><span class="fu">__init__</span></code> (en
+este caso, los fondos iniciales):</p>
 <div class="sourceCode" id="cb38"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
 <li><p>La ejecución de este código produce el siguiente efecto:</p>
 <ol type="1">
 <li><p>Se crea en memoria una instancia de la clase
 <code>Deposito</code>.</p></li>
-<li><p>Se invoca el método <code class="sourceCode python"><span
-class="fu">__init__</span></code> sobre el objeto recién creado, de
-forma que el parámetro <code class="sourceCode python"><span
-class="va">self</span></code> recibe una referencia a dicho objeto y el
-parámetro <code>fondos</code> toma el valor <code
+<li><p>Se invoca el método <code
+class="sourceCode python"><span class="fu">__init__</span></code> sobre
+el objeto recién creado, de forma que el parámetro <code
+class="sourceCode python"><span class="va">self</span></code> recibe una
+referencia a dicho objeto y el parámetro <code>fondos</code> toma el
+valor <code
 class="sourceCode python"><span class="dv">100</span></code>, que es el
 valor del argumento en la llamada a <code
-class="sourceCode python">Deposito(<span
-class="dv">100</span>)</code>.</p>
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>.</p>
 <p>En la práctica, esto equivale a decir que la expresión <code
 class="sourceCode python">Deposito(<span class="dv">100</span>)</code>
-se traduce a <em>ref</em><code class="sourceCode python">.<span
-class="fu">__init__</span>(<span class="dv">100</span>)</code>, donde
-<em>ref</em> es una referencia al objeto recién creado.</p></li>
-<li><p>La expresión <code class="sourceCode python">Deposito(<span
-class="dv">100</span>)</code> devuelve la referencia al objeto.</p></li>
+se traduce a <em>ref</em><code
+class="sourceCode python">.<span class="fu">__init__</span>(<span class="dv">100</span>)</code>,
+donde <em>ref</em> es una referencia al objeto recién creado.</p></li>
+<li><p>La expresión <code
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>
+devuelve la referencia al objeto.</p></li>
 <li><p>Esa referencia es la que se almacena en la variable
 <code>dep</code>.</p></li>
 </ol></li>
@@ -1776,11 +1790,11 @@ class="math inline">a_n</span><code>)</code></p></li>
 
 <ul>
 <li><p>En consecuencia, los argumentos que se indican al instanciar una
-clase se enviarán al método <code class="sourceCode python"><span
-class="fu">__init__</span></code> de la clase, lo que significa que
-tendremos que indicar tantos argumentos (y del tipo apropiado) como
-espere el método <code class="sourceCode python"><span
-class="fu">__init__</span></code>.</p>
+clase se enviarán al método <code
+class="sourceCode python"><span class="fu">__init__</span></code> de la
+clase, lo que significa que tendremos que indicar tantos argumentos (y
+del tipo apropiado) como espere el método <code
+class="sourceCode python"><span class="fu">__init__</span></code>.</p>
 <p>En caso contrario, tendremos un error:</p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito()  <span class="co"># no indicamos ningún argumento cuando se espera uno</span></span>
@@ -1794,9 +1808,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a h
 <li><p>Es importante tener en cuenta, además, que <strong>el constructor
 <code class="sourceCode python"><span class="fu">__init__</span></code>
 no debe devolver ningún valor</strong> (o, lo que es lo mismo, debe
-devolver <code class="sourceCode python"><span
-class="va">None</span></code>), o de lo contrario provocará un error de
-ejecución.</p></li>
+devolver <code
+class="sourceCode python"><span class="va">None</span></code>), o de lo
+contrario provocará un error de ejecución.</p></li>
 </ul>
 </section>
 </section>
@@ -1850,8 +1864,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a h
 <ul>
 <li><p>Es razonable decir que sí, ya que tanto <code>res1</code> como
 <code>res2</code> se comportan siempre de la misma forma (las dos son
-funciones que restan <code class="sourceCode python"><span
-class="dv">25</span></code> a su argumento).</p></li>
+funciones que restan <code
+class="sourceCode python"><span class="dv">25</span></code> a su
+argumento).</p></li>
 <li><p>De hecho, <code>res1</code> puede sustituirse por
 <code>res2</code> (y viceversa) en cualquier lugar del programa sin que
 afecte a su funcionamiento.</p></li>
@@ -1862,8 +1877,7 @@ afecte a su funcionamiento.</p></li>
 
 <ul>
 <li><p>En cambio, supongamos que hacemos dos llamadas a <code
-class="sourceCode python">Deposito(<span
-class="dv">100</span>)</code>:</p>
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>:</p>
 <div class="sourceCode" id="cb41"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
@@ -2106,8 +2120,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 <ul>
 <li><p>Como ya estudiamos en su día, la expresión <strong><em>o</em>
 <code>is</code> <em>p</em></strong> equivale a
-<strong><code>id(</code><em>o</em><code>) ==
-id(</code><em>p</em><code>)</code></strong>.</p></li>
+<strong><code>id(</code><em>o</em><code>) == id(</code><em>p</em><code>)</code></strong>.</p></li>
 <li><p>Por tanto, lo que hace es comparar el resultado de la función
 <code>id</code>, que devuelve un identificador único (un número) para
 cada objeto.</p></li>
@@ -2208,8 +2221,7 @@ mismos elementos en el mismo orden</em>.</p></li>
 <ul>
 <li><p>Para implementar nuestra propia lógica de igualdad en nuestra
 clase, debemos definir en ella el método mágico <code
-class="sourceCode python"><span
-class="fu">__eq__</span></code>.</p></li>
+class="sourceCode python"><span class="fu">__eq__</span></code>.</p></li>
 <li><p>Este método se invoca automáticamente cuando se hace una
 comparación con el operador <code>==</code> y el operando izquierdo es
 una instancia de nuestra clase. El operando derecho se envía como
@@ -2218,11 +2230,12 @@ argumento en la llamada al método.</p></li>
 <ul>
 <li><p>Si la clase de <code>cola1</code> tiene definido el método
 <code>__eq__</code>, entonces <code>cola1 == cola2</code> equivale a
-<code class="sourceCode python">cola1.<span
-class="fu">__eq__</span>(cola2)</code>.</p></li>
+<code
+class="sourceCode python">cola1.<span class="fu">__eq__</span>(cola2)</code>.</p></li>
 <li><p>En caso contrario, <code>cola1 == cola2</code> seguirá valiendo
-lo mismo que <code class="sourceCode python">cola1 <span
-class="kw">is</span> cola2</code>, como acabamos de ver.</p></li>
+lo mismo que <code
+class="sourceCode python">cola1 <span class="kw">is</span> cola2</code>,
+como acabamos de ver.</p></li>
 </ul></li>
 <li><p>No es necesario definir el operador <code>!=</code>, ya que
 Python 3 lo define automáticamente a partir del
@@ -2242,10 +2255,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a h
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span>   <span class="co"># no tiene sentido comparar objetos de distinto tipo</span></span>
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.items <span class="op">==</span> otro.items  <span class="co"># son iguales si tienen los mismos elementos</span></span></code></pre></div>
-<p>Se devuelve el valor especial <code class="sourceCode python"><span
-class="va">NotImplemented</span></code> cuando no tiene sentido comparar
-un objeto de la clase <code>Cola</code> con un objeto de otro
-tipo.</p></li>
+<p>Se devuelve el valor especial <code
+class="sourceCode python"><span class="va">NotImplemented</span></code>
+cuando no tiene sentido comparar un objeto de la clase <code>Cola</code>
+con un objeto de otro tipo.</p></li>
 <li><p>Si introducimos este método dentro de la definición de la clase
 <code>Cola</code>, tendremos el resultado deseado:</p></li>
 </ul>
@@ -2286,54 +2299,52 @@ llamado <em>hash</em>.</p></li>
 usarse como claves de un diccionario.</p></li>
 <li><p>Los datos mutables no pueden ser <em>hashables</em>.</p></li>
 <li><p>Si <span class="math inline">x</span> es <em>hashable</em>, <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> debe devolver un número que
 nunca cambie durante la vida de <span
 class="math inline">x</span>.</p></li>
 <li><p>Si <span class="math inline">x</span> no es <em>hashable</em>,
-<code class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+<code
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> lanza una excepción <code
-class="sourceCode python"><span
-class="pp">TypeError</span></code>.</p></li>
+class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 </ul></li>
-<li><p>Lo que hace la función <code class="sourceCode python"><span
-class="bu">hash</span></code> es llamar al método <code
+<li><p>Lo que hace la función <code
+class="sourceCode python"><span class="bu">hash</span></code> es llamar
+al método <code
 class="sourceCode python"><span class="fu">__hash__</span></code> de su
 argumento.</p></li>
-<li><p>Por tanto, la llamada a <code class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+<li><p>Por tanto, la llamada a <code
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> es equivalente a hacer <span
-class="math inline">x</span><code class="sourceCode python">.<span
-class="fu">__hash__</span>()</code>.</p></li>
+class="math inline">x</span><code
+class="sourceCode python">.<span class="fu">__hash__</span>()</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.2.0.1">
 
 <ul>
-<li><p>Los métodos <code class="sourceCode python"><span
-class="fu">__eq__</span></code> y <code class="sourceCode python"><span
-class="fu">__hash__</span></code> están relacionados entre sí, porque
-siempre se tiene que cumplir la siguiente condición:</p>
+<li><p>Los métodos <code
+class="sourceCode python"><span class="fu">__eq__</span></code> y <code
+class="sourceCode python"><span class="fu">__hash__</span></code> están
+relacionados entre sí, porque siempre se tiene que cumplir la siguiente
+condición:</p>
 <div class="caja centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> debe ser igual que <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p>
 </div></li>
 <li><p>Por tanto, siempre se tiene que cumplir que:</p>
 <div class="caja centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <span
-class="math inline">x</span><code class="sourceCode python">.<span
-class="fu">__hash__</span>()</code> <code>==</code> <span
-class="math inline">y</span><code class="sourceCode python">.<span
-class="fu">__hash__</span>()</code>.</p>
+class="math inline">x</span><code
+class="sourceCode python">.<span class="fu">__hash__</span>()</code>
+<code>==</code> <span class="math inline">y</span><code
+class="sourceCode python">.<span class="fu">__hash__</span>()</code>.</p>
 </div></li>
 <li><p>Lo que equivale también a decir que:</p>
 <div class="caja centered">
@@ -2353,18 +2364,20 @@ hora de crear nuestras clases:</p></li>
 <ol type="1">
 <li><p>Si una clase define su propio método <code
 class="sourceCode python"><span class="fu">__hash__</span></code>, debe
-definir también un <code class="sourceCode python"><span
-class="fu">__eq__</span></code> que vaya a juego con el <code
+definir también un <code
+class="sourceCode python"><span class="fu">__eq__</span></code> que vaya
+a juego con el <code
 class="sourceCode python"><span class="fu">__hash__</span></code>.</p>
 <p>Por tanto (<em>contrarrecíproco</em> del anterior), si una clase no
-define su propio método <code class="sourceCode python"><span
-class="fu">__eq__</span></code>, tampoco debe definir su propio método
-<code class="sourceCode python"><span
-class="fu">__hash__</span></code>.</p></li>
+define su propio método <code
+class="sourceCode python"><span class="fu">__eq__</span></code>, tampoco
+debe definir su propio método <code
+class="sourceCode python"><span class="fu">__hash__</span></code>.</p></li>
 <li><p>Las clases definidas por el programador ya traen de serie una
-implementación predefinida de <code class="sourceCode python"><span
-class="fu">__eq__</span></code> y <code class="sourceCode python"><span
-class="fu">__hash__</span></code> que cumplen que:</p>
+implementación predefinida de <code
+class="sourceCode python"><span class="fu">__eq__</span></code> y <code
+class="sourceCode python"><span class="fu">__hash__</span></code> que
+cumplen que:</p>
 <ul>
 <li><p><span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span> sólo si <span class="math inline">x</span>
@@ -2375,50 +2388,53 @@ class="sourceCode python">.<span class="fu">__hash__</span>()</code>
 devuelve un valor que garantiza que si <span
 class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>==</code> <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p></li>
 </ul>
 <p>(Esto se debe a que la clase <em>hereda</em> los métodos <code
 class="sourceCode python"><span class="fu">__eq__</span></code> y <code
 class="sourceCode python"><span class="fu">__hash__</span></code> de la
-clase <code class="sourceCode python"><span
-class="bu">object</span></code>, como veremos en la siguiente
-unidad.)</p></li>
+clase <code
+class="sourceCode python"><span class="bu">object</span></code>, como
+veremos en la siguiente unidad.)</p></li>
 </ol>
 </section>
 <section class="slide level5" data-number="4.2.2.0.3">
 
 <ol start="3" type="1">
-<li><p>Si una clase no define <code class="sourceCode python"><span
-class="fu">__eq__</span></code> pero no se desea que sus instancias sean
-<em>hashables</em>, debe definir su método <code
+<li><p>Si una clase no define <code
+class="sourceCode python"><span class="fu">__eq__</span></code> pero no
+se desea que sus instancias sean <em>hashables</em>, debe definir su
+método <code
 class="sourceCode python"><span class="fu">__hash__</span></code> como
 <code class="sourceCode python"><span class="va">None</span></code>
 incluyendo la sentencia:</p>
 <div class="centered">
-<p><code class="sourceCode python"><span
-class="fu">__hash__</span></code> <code>=</code> <code
+<p><code
+class="sourceCode python"><span class="fu">__hash__</span></code>
+<code>=</code> <code
 class="sourceCode python"><span class="va">None</span></code></p>
 </div>
 <p>en la definición de la clase.</p></li>
-<li><p>Si una clase define <code class="sourceCode python"><span
-class="fu">__eq__</span></code> pero no define <code
+<li><p>Si una clase define <code
+class="sourceCode python"><span class="fu">__eq__</span></code> pero no
+define <code
 class="sourceCode python"><span class="fu">__hash__</span></code>, es
 como si implícitamente hubiera definido <code
 class="sourceCode python"><span class="fu">__hash__</span></code>
-<code>=</code> <code class="sourceCode python"><span
-class="va">None</span></code> (lo hace el intérprete internamente).</p>
+<code>=</code> <code
+class="sourceCode python"><span class="va">None</span></code> (lo hace
+el intérprete internamente).</p>
 <p>Por tanto, en ese caso sus instancias no serán
 <em>hashables</em>.</p></li>
 <li><p>Si las instancias de la clase son mutables y ésta define <code
 class="sourceCode python"><span class="fu">__eq__</span></code>, lo
-normal es que no defina <code class="sourceCode python"><span
-class="fu">__hash__</span></code>, ya que los objetos mutables no
-deberían ser <em>hashables</em>, en general.</p>
+normal es que no defina <code
+class="sourceCode python"><span class="fu">__hash__</span></code>, ya
+que los objetos mutables no deberían ser <em>hashables</em>, en
+general.</p>
 <p>No obstante, hay casos particulares de objetos mutables que pueden
 ser <em>hashables</em>, como veremos en breve.</p></li>
 </ol>
@@ -2431,21 +2447,18 @@ es que:</p>
 <div class="centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>==</code> <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p>
 </div></li>
 <li><p>Y, por tanto, se tiene que cuplir su contrarrecíproco, que
 es:</p>
 <div class="centered">
-<p>Si <code class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+<p>Si <code
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>!=</code> <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>, entonces <span
 class="math inline">x</span> <code>!=</code> <span
 class="math inline">y</span>.</p>
@@ -2454,11 +2467,9 @@ class="math inline">y</span>.</p>
 <div class="centered">
 <p>Si <span class="math inline">x</span> <code>!=</code> <span
 class="math inline">y</span>, entonces <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>!=</code> <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p>
 </div></li>
 <li><p>Sin embargo, aunque no sea necesario que se cumpla, a efectos
@@ -2482,11 +2493,10 @@ tienen el mismo valor de <em>hash</em>.</p></li>
 <li><p>En tal caso, tenemos que:</p>
 <div class="centered">
 <p><span class="math inline">x</span> <code>!=</code> <span
-class="math inline">y</span>, pero <code class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span>, pero <code
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>==</code> <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p>
 </div></li>
 <li><p>Como dijimos antes, las colisiones son prácticamente inevitables,
@@ -2505,11 +2515,9 @@ cumplir <strong>siempre</strong>:</p>
 <div class="centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>==</code> <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code></p>
 </div>
 <p>pero, al mismo tiempo, debe procurar cumplir <strong>siempre que
@@ -2517,11 +2525,9 @@ pueda</strong>:</p>
 <div class="centered">
 <p>Si <span class="math inline">x</span> <code>!=</code> <span
 class="math inline">y</span>, entonces <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>!=</code> <code
-class="sourceCode python"><span
-class="bu">hash</span></code><code>(</code><span
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p>
 </div></li>
 <li><p>En realidad, una buena implementación de <code
@@ -2546,10 +2552,10 @@ costoso.</p></li>
 <ul>
 <li><p>Una forma sencilla de crear el <code
 class="sourceCode python"><span class="fu">__hash__</span></code> de una
-clase sería usar el <code class="sourceCode python"><span
-class="bu">hash</span></code> de una tupla que contenga las variables de
-estado de la clase (siempre que estas sean <em>hashables</em>
-también):</p>
+clase sería usar el <code
+class="sourceCode python"><span class="bu">hash</span></code> de una
+tupla que contenga las variables de estado de la clase (siempre que
+estas sean <em>hashables</em> también):</p>
 <div class="sourceCode" id="cb54"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__hash__</span>(<span class="va">self</span>):</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">hash</span>((<span class="va">self</span>.nombre, <span class="va">self</span>.apellidos))</span></code></pre></div></li>
@@ -2561,9 +2567,9 @@ clase <code>Cola</code>.</p></li>
 class="sourceCode python"><span class="fu">__eq__</span></code> en la
 clase, el intérprete automáticamente hará <code
 class="sourceCode python"><span class="fu">__hash__</span></code>
-<code>=</code> <code class="sourceCode python"><span
-class="va">None</span></code> y convertirá a las colas en <em>no
-hashables</em>.</p></li>
+<code>=</code> <code
+class="sourceCode python"><span class="va">None</span></code> y
+convertirá a las colas en <em>no hashables</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.2.0.8">
@@ -2571,8 +2577,7 @@ hashables</em>.</p></li>
 <ul>
 <li><p>Es importante no romper el contrato entre <code
 class="sourceCode python"><span class="fu">__eq__</span></code> y <code
-class="sourceCode python"><span
-class="fu">__hash__</span></code>.</p></li>
+class="sourceCode python"><span class="fu">__hash__</span></code>.</p></li>
 <li><p>Es decir, hay que garantizar que si dos objetos son iguales, sus
 <em>hash</em> también deben ser iguales.</p></li>
 <li><p>De lo contrario, se pueden dar situaciones extrañas:</p>
@@ -2627,10 +2632,11 @@ data-number="4.3.1">
 <h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span>
 <code>__repr__</code></h3>
 <ul>
-<li>Existe una función llamada <code class="sourceCode python"><span
-class="bu">repr</span></code> que devuelve la <strong>forma
-normal</strong> de una expresión, es decir, la cadena de símbolos que
-mejor <strong>representa</strong> al valor de la expresión.</li>
+<li>Existe una función llamada <code
+class="sourceCode python"><span class="bu">repr</span></code> que
+devuelve la <strong>forma normal</strong> de una expresión, es decir, la
+cadena de símbolos que mejor <strong>representa</strong> al valor de la
+expresión.</li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -2684,11 +2690,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a h
 <section class="slide level5" data-number="4.3.1.0.2">
 
 <ul>
-<li><p>Al aplicar la función <code class="sourceCode python"><span
-class="bu">repr</span></code> sobre una instancia de una clase definida
-por el programador, obtenemos una representación que, en general, no es
-correcta ni contiene la información suficiente como para representar al
-objeto o reconstruirlo.</p></li>
+<li><p>Al aplicar la función <code
+class="sourceCode python"><span class="bu">repr</span></code> sobre una
+instancia de una clase definida por el programador, obtenemos una
+representación que, en general, no es correcta ni contiene la
+información suficiente como para representar al objeto o
+reconstruirlo.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb62"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
@@ -2698,12 +2705,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a h
 <p>Nos devuelve una cadena que que simplemente nos informa de:</p>
 <ul>
 <li><p>La clase a la que pertenece el objeto, que se obtiene mediante
-<code class="sourceCode python"><span
-class="bu">type</span>(dep)</code>.</p></li>
-<li><p>El <code class="sourceCode python"><span
-class="bu">id</span></code> del objeto en hexadecimal, que se obtiene
-mediante <code class="sourceCode python"><span
-class="bu">hex</span>(<span class="bu">id</span>(dep))</code>.</p></li>
+<code
+class="sourceCode python"><span class="bu">type</span>(dep)</code>.</p></li>
+<li><p>El <code
+class="sourceCode python"><span class="bu">id</span></code> del objeto
+en hexadecimal, que se obtiene mediante <code
+class="sourceCode python"><span class="bu">hex</span>(<span class="bu">id</span>(dep))</code>.</p></li>
 </ul>
 <p>Pero esa cadena no contiene ninguna expresión válida en Python y
 tampoco nos dice cuántos fondos contiene el depósito, por ejemplo.</p>
@@ -2726,26 +2733,28 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a h
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">repr</span>(dep)</span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Deposito(70)&#39;</span></span></code></pre></div></li>
 <li><p>En este último caso, la cadena resultante contiene la expresión
-<code class="sourceCode python">Deposito(<span
-class="dv">70</span>)</code>, que sí representa adecuadamente al objeto
-<code>dep</code>:</p>
+<code
+class="sourceCode python">Deposito(<span class="dv">70</span>)</code>,
+que sí representa adecuadamente al objeto <code>dep</code>:</p>
 <div class="sourceCode" id="cb64"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">==</span> Deposito(<span class="dv">70</span>)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 <li><p>Es importante no confundir la cadena <code
-class="sourceCode python"><span
-class="st">&#39;Deposito(70)&#39;</span></code> que devuelve <code
+class="sourceCode python"><span class="st">&#39;Deposito(70)&#39;</span></code>
+que devuelve <code
 class="sourceCode python"><span class="bu">repr</span></code> con la
-expresión <code class="sourceCode python">Deposito(<span
-class="dv">70</span>)</code> que lleva dentro.</p></li>
+expresión <code
+class="sourceCode python">Deposito(<span class="dv">70</span>)</code>
+que lleva dentro.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.1.0.4">
 
 <ul>
-<li><p>La función <code class="sourceCode python"><span
-class="bu">eval</span></code> en Python evalúa la expresión contenida en
-una cadena y devuelve el valor resultante:</p>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">eval</span></code> en Python
+evalúa la expresión contenida en una cadena y devuelve el valor
+resultante:</p>
 <div class="sourceCode" id="cb65"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span>
@@ -2772,10 +2781,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a h
 <section class="slide level5" data-number="4.3.1.0.5">
 
 <ul>
-<li><p>Las funciones <code class="sourceCode python"><span
-class="bu">eval</span></code> y <code class="sourceCode python"><span
-class="bu">repr</span></code> están relacionadas de forma que
-<strong>siempre <em>debería</em> cumplirse lo siguiente</strong>:</p>
+<li><p>Las funciones <code
+class="sourceCode python"><span class="bu">eval</span></code> y <code
+class="sourceCode python"><span class="bu">repr</span></code> están
+relacionadas de forma que <strong>siempre <em>debería</em> cumplirse lo
+siguiente</strong>:</p>
 <div class="centered">
 <p><code>eval(repr(</code><em>v</em><code>))</code> <code>==</code>
 <em>v</em></p>
@@ -2800,8 +2810,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a h
 <ul>
 <li><p>Lo que hace realmente la expresión <code
 class="sourceCode python"><span class="bu">repr</span>(v)</code> es
-llamar al método <code class="sourceCode python"><span
-class="fu">__repr__</span></code> del objeto <code>v</code>.</p></li>
+llamar al método <code
+class="sourceCode python"><span class="fu">__repr__</span></code> del
+objeto <code>v</code>.</p></li>
 <li><p>Por tanto, la siguiente expresión:</p>
 <div class="sourceCode" id="cb70"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="bu">repr</span>(v)</span></code></pre></div>
@@ -2848,9 +2859,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a h
 <section class="slide level5" data-number="4.3.1.0.8">
 
 <ul>
-<li><p>Para implementar el método <code class="sourceCode python"><span
-class="fu">__repr__</span></code> de la clase <code>Persona</code>,
-podríamos probar a hacer:</p>
+<li><p>Para implementar el método <code
+class="sourceCode python"><span class="fu">__repr__</span></code> de la
+clase <code>Persona</code>, podríamos probar a hacer:</p>
 <div class="sourceCode" id="cb75"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni, nombre):</span>
@@ -2941,9 +2952,10 @@ data-number="4.3.2">
 <h3 data-number="4.3.2"><span class="header-section-number">4.3.2</span>
 <code>__str__</code></h3>
 <ul>
-<li><p>El método <code class="sourceCode python"><span
-class="fu">__str__</span></code> se invoca automáticamente cuando se
-necesita convertir un valor al tipo <code
+<li><p>El método <code
+class="sourceCode python"><span class="fu">__str__</span></code> se
+invoca automáticamente cuando se necesita convertir un valor al tipo
+<code
 class="sourceCode python"><span class="bu">str</span></code>.</p></li>
 <li><p>Por tanto, la siguiente expresión:</p>
 <div class="sourceCode" id="cb80"><pre
@@ -2972,20 +2984,20 @@ por defecto se entiende que se tiene <code
 class="sourceCode python"><span class="fu">__str__</span></code> = <code
 class="sourceCode python"><span class="fu">__repr__</span></code>. Por
 tanto, en tal caso se llama en su lugar al método <code
-class="sourceCode python"><span
-class="fu">__repr__</span></code>.</p></li>
+class="sourceCode python"><span class="fu">__repr__</span></code>.</p></li>
 <li><p>¿Cuál es la diferencia entre <code
 class="sourceCode python"><span class="fu">__repr__</span></code> y
-<code class="sourceCode python"><span
-class="fu">__str__</span></code>?</p>
+<code
+class="sourceCode python"><span class="fu">__str__</span></code>?</p>
 <ul>
-<li><p>La finalidad de <code class="sourceCode python"><span
-class="fu">__repr__</span></code> es ser <strong>no ambiguo</strong> y
-deberíamos implementarlo siempre en todas nuestras clases (cuando sea
-posible).</p></li>
-<li><p>La finalidad de <code class="sourceCode python"><span
-class="fu">__str__</span></code> es ser <strong>legible para el
-usuario</strong> y no es estrictamente necesario implementarlo.</p></li>
+<li><p>La finalidad de <code
+class="sourceCode python"><span class="fu">__repr__</span></code> es ser
+<strong>no ambiguo</strong> y deberíamos implementarlo siempre en todas
+nuestras clases (cuando sea posible).</p></li>
+<li><p>La finalidad de <code
+class="sourceCode python"><span class="fu">__str__</span></code> es ser
+<strong>legible para el usuario</strong> y no es estrictamente necesario
+implementarlo.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -3001,15 +3013,17 @@ objetos que representan fechas:</p>
 <div class="sourceCode" id="cb83"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> datetime</span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> datetime.date(<span class="dv">2020</span>, <span class="dv">4</span>, <span class="dv">30</span>)</span></code></pre></div></li>
-<li><p>Al llamar a <code class="sourceCode python"><span
-class="bu">repr</span></code> sobre <code>d</code> obtenemos una
-representación que nos permite reconstruir el objeto:</p>
+<li><p>Al llamar a <code
+class="sourceCode python"><span class="bu">repr</span></code> sobre
+<code>d</code> obtenemos una representación que nos permite reconstruir
+el objeto:</p>
 <div class="sourceCode" id="cb84"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">repr</span>(d)</span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;datetime.date(2020, 4, 30)&#39;</span></span></code></pre></div></li>
-<li><p>Y al llamar a <code class="sourceCode python"><span
-class="bu">str</span></code> sobre <code>d</code> obtenemos una versión
-más fácil de entender para un ser humano:</p>
+<li><p>Y al llamar a <code
+class="sourceCode python"><span class="bu">str</span></code> sobre
+<code>d</code> obtenemos una versión más fácil de entender para un ser
+humano:</p>
 <div class="sourceCode" id="cb85"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>(d)</span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;2020-04-30&#39;</span></span></code></pre></div></li>
@@ -3024,17 +3038,17 @@ mostrar la forma normal del objeto:</p>
 <div class="sourceCode" id="cb86"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;datetime.date(2020, 4, 30)&#39;</span></span></code></pre></div></li>
-<li><p>Y que <code class="sourceCode python"><span
-class="bu">print</span></code> usa <code class="sourceCode python"><span
-class="bu">str</span></code> para imprimir el objeto de una forma
-legible:</p>
+<li><p>Y que <code
+class="sourceCode python"><span class="bu">print</span></code> usa <code
+class="sourceCode python"><span class="bu">str</span></code> para
+imprimir el objeto de una forma legible:</p>
 <div class="sourceCode" id="cb87"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(d)</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2020</span><span class="op">-</span><span class="dv">04</span><span class="op">-</span><span class="dv">30</span></span></code></pre></div></li>
-<li><p>Recordemos que <code class="sourceCode python"><span
-class="bu">print</span></code> imprime una cadena por la salida (sin
-comillas) y devuelve <code class="sourceCode python"><span
-class="va">None</span></code>.</p></li>
+<li><p>Recordemos que <code
+class="sourceCode python"><span class="bu">print</span></code> imprime
+una cadena por la salida (sin comillas) y devuelve <code
+class="sourceCode python"><span class="va">None</span></code>.</p></li>
 </ul>
 </section>
 
@@ -3474,10 +3488,9 @@ cual podemos modificar la lista desde el exterior sin necesidad de usar
 los <em>setters</em>.</p></li>
 <li><p>Por tanto, podemos romper los invariantes de la clase, ya que
 ahora se cumple que <code>c.__cantidad</code> vale 2 y <code
-class="sourceCode python"><span
-class="bu">len</span></code><code>(c.__items)</code> vale <code
-class="sourceCode python"><span class="dv">1</span></code> (no
-coinciden).</p></li>
+class="sourceCode python"><span class="bu">len</span></code><code>(c.__items)</code>
+vale <code class="sourceCode python"><span class="dv">1</span></code>
+(no coinciden).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.2.4">
@@ -3705,15 +3718,15 @@ actualiza el estado interno de un objeto puede dar lugar a
 <strong>problemas de rendimiento</strong>, ya que las comprobaciones
 consumen tiempo de CPU.</p></li>
 <li><p>Una técnica alternativa a la comprobación con sentencias
-condicionales (<code class="sourceCode python"><span
-class="cf">if</span></code>s) es el uso de
-<strong>asertos</strong>.</p></li>
+condicionales (<code
+class="sourceCode python"><span class="cf">if</span></code>s) es el uso
+de <strong>asertos</strong>.</p></li>
 <li><p>Un aserto es una <strong>condición que se debe cumplir en un
 determinado punto del programa</strong>, de forma que el programa
 abortará en ese punto si no se cumple.</p></li>
 <li><p>Para insertar un aserto en un punto del programa, se usa la
-sentencia <code class="sourceCode python"><span
-class="cf">assert</span></code>.</p></li>
+sentencia <code
+class="sourceCode python"><span class="cf">assert</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.5.1">
@@ -3740,10 +3753,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a h
 <span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> edad <span class="op">&gt;=</span> <span class="dv">0</span>      <span class="co"># La edad tiene que ser &gt;= 0</span></span>
 <span id="cb97-17"><a href="#cb97-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span></code></pre></div></li>
 <li><p>El intérprete comprobará el aserto cuando el flujo de control
-llegue a la sentencia <code class="sourceCode python"><span
-class="cf">assert</span></code> y, en caso de que no se cumpla, lanzará
-una excepción de tipo <code class="sourceCode python"><span
-class="pp">AssertionError</span></code>.</p></li>
+llegue a la sentencia <code
+class="sourceCode python"><span class="cf">assert</span></code> y, en
+caso de que no se cumpla, lanzará una excepción de tipo <code
+class="sourceCode python"><span class="pp">AssertionError</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.5.2">
@@ -3842,9 +3855,9 @@ que se debe cumplir justo al finalizar la ejecución del método.</p></li>
 en un determinado punto del programa.</p></li>
 <li><p>Para <strong>implementar invariantes de clase, precondiciones o
 postcondiciones de métodos</strong> se pueden usar excepciones, asertos
-y sentencias <code class="sourceCode python"><span
-class="cf">assert</span></code> en puntos adecuados del código fuente de
-la clase.</p></li>
+y sentencias <code
+class="sourceCode python"><span class="cf">assert</span></code> en
+puntos adecuados del código fuente de la clase.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -4276,9 +4289,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb106-1"><a 
 anterior usamos <code class="sourceCode python">interes</code> en lugar
 de <code>Deposito.interes</code>? ¿Por qué?</p></li>
 <li><p>¿Qué problema puede haber si en el método <code>total</code> del
-código anterior usamos <code class="sourceCode python"><span
-class="va">self</span>.interes</code> en lugar de
-<code>Deposito.interes</code>? ¿Por qué?</p></li>
+código anterior usamos <code
+class="sourceCode python"><span class="va">self</span>.interes</code> en
+lugar de <code>Deposito.interes</code>? ¿Por qué?</p></li>
 </ol>
 </section>
 
@@ -4292,8 +4305,8 @@ dentro de una clase pero que <strong>no se ejecutan sobre ninguna
 instancia</strong>.</p></li>
 <li><p>Al no haber instancia, <strong>los métodos estáticos no reciben
 ninguna instancia como argumento</strong> a través del primer parámetro
-<code class="sourceCode python"><span
-class="va">self</span></code>.</p></li>
+<code
+class="sourceCode python"><span class="va">self</span></code>.</p></li>
 <li><p>En realidad, un método estático es básicamente <strong>una
 función normal definida dentro de una clase</strong> y que está pensada
 para ser ejecutada como cualquier otra función.</p></li>
@@ -4515,7 +4528,7 @@ href="https://docs.python.org/3">https://docs.python.org/3</a>.
 
   <script src="./reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="./reveal.js/plugin/notes/notes.js"></script>
   <script src="./reveal.js/plugin/search/search.js"></script>
   <script src="./reveal.js/plugin/zoom/zoom.js"></script>
@@ -4528,88 +4541,149 @@ href="https://docs.python.org/3">https://docs.python.org/3</a>.
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
         controlsTutorial: true,
+
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'bottom-right',
+
         // Visibility rule for backwards navigation arrows; "faded", "hidden"
         // or "visible"
         controlsBackArrows: 'faded',
+
         // Display a presentation progress bar
         progress: true,
+
         // Display the page number of the current slide
         slideNumber: true,
+
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
+
         // Add the current slide number to the URL hash so that reloading the
         // page/copying the URL will return you to the same slide
         hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: true,
+
         // Enable the slide overview mode
         overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
         // Vertical centering of slides
         center: true,
+
         // Enables touch navigation on devices with touch input
         touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
         // see https://revealjs.com/vertical-slides/#navigation-mode
         navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
         // Turns fragments on and off globally
         fragments: true,
+
         // Flags whether to include the current fragment in the URL,
         // so that reloading brings you to the same fragment position
         fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
         // Flags if we should show a help overlay when the questionmark
         // key is pressed
         help: true,
-       // Flags if it should be possible to pause the presentation (blackout)
-       pause: true,
-        // Global override for autoplaying embedded media (video/audio/iframe)
-        // - null: Media will only autoplay if data-autoplay is present
-        // - true: All media will autoplay, regardless of individual setting
-        // - false: No media will autoplay, regardless of individual setting
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
-        // Global override for preloading lazy-loaded iframes
-        // - null: Iframes with data-src AND data-preload will be loaded when within
-        //   the viewDistance, iframes with only data-src will be loaded when visible
-        // - true: All iframes with data-src will be loaded when within the viewDistance
-        // - false: All iframes with data-src will be loaded only when visible
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
+
         // Number of milliseconds between automatically proceeding to the
         // next slide, disabled when set to 0, this value can be overwritten
         // by using a data-autoslide attribute on your slides
         autoSlide: 0,
+
         // Stop auto-sliding after user input
         autoSlideStoppable: true,
+
         // Use this method for navigation when auto-sliding
         autoSlideMethod: null,
+
         // Specify the average time in seconds that you think you will spend
         // presenting each slide. This is used to show a pacing timer in the
         // speaker view
         defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
         // Hide cursor if inactive
         hideInactiveCursor: true,
+
         // Time before the cursor is hidden (in ms)
         hideCursorTime: 5000,
-        // Transition style
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
         // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
         // Number of slides away from the current that are visible
         viewDistance: 3,
+
         // Number of slides away from the current that are visible on mobile
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1280,
+
         height: 1080,
         // The display mode that will be used to show slides
         display: 'block',

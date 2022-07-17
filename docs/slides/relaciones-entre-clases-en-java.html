@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="./reveal.js/dist/reset.css">
   <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -239,16 +242,19 @@
   <p class="date">IES Doñana, curso 2021/2022</p>
 </section>
 <section id="TOC">
+<nav role="doc-toc"> 
 <ul>
-<li><a href="#/asociaciones-básicas"><span
-class="toc-section-number">1</span> Asociaciones básicas</a></li>
-<li><a href="#/generalización"><span class="toc-section-number">2</span>
-Generalización</a></li>
-<li><a href="#/polimorfismo"><span class="toc-section-number">3</span>
-Polimorfismo</a></li>
-<li><a href="#/restricciones"><span class="toc-section-number">4</span>
-Restricciones</a></li>
+<li><a href="#/asociaciones-básicas"
+id="/toc-asociaciones-básicas"><span class="toc-section-number">1</span>
+Asociaciones básicas</a></li>
+<li><a href="#/generalización" id="/toc-generalización"><span
+class="toc-section-number">2</span> Generalización</a></li>
+<li><a href="#/polimorfismo" id="/toc-polimorfismo"><span
+class="toc-section-number">3</span> Polimorfismo</a></li>
+<li><a href="#/restricciones" id="/toc-restricciones"><span
+class="toc-section-number">4</span> Restricciones</a></li>
 </ul>
+</nav>
 </section>
 
 <section>
@@ -366,8 +372,8 @@ subclase directa y la superclase directa, respectivamente.</p></li>
 <strong><em>extiende</em></strong> a su superclase directa.</p></li>
 <li><p>Cuando no se especifica la superclase directa a la hora de
 definir una clase, el compilador sobreentiende que esa clase es subclase
-directa de la clase <code class="sourceCode java"><span
-class="bu">Object</span></code>.</p></li>
+directa de la clase <code
+class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
 </ul>
 </section>
 
@@ -417,14 +423,14 @@ data-number="2.4">
 <h2 data-number="2.4"><span class="header-section-number">2.4</span> La
 clase <code>Object</code></h2>
 <ul>
-<li><p>La clase <code class="sourceCode java"><span
-class="bu">Object</span></code> es la raíz de la jerarquía de clases en
-Java.</p></li>
+<li><p>La clase <code
+class="sourceCode java"><span class="bu">Object</span></code> es la raíz
+de la jerarquía de clases en Java.</p></li>
 <li><p>Toda clase en Java es subclase (directa o indirecta) de <code
 class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
 <li><p>Eso significa que todas las clases heredarán los métodos
-definidos en <code class="sourceCode java"><span
-class="bu">Object</span></code>.</p></li>
+definidos en <code
+class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
 <li><p>Los más interesantes son <code
 class="sourceCode java">equals</code>, <code
 class="sourceCode java">hashCode</code> y <code
@@ -550,11 +556,10 @@ compilador en tiempo de compilación:</p>
 class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// El método «despedir» debe ser compatible con «Docente», porque un</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">// docente es un trabajador:</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="kw">new</span> <span class="fu">Docente</span><span class="op">()).</span><span class="fu">despedir</span><span class="op">();</span> </span></code></pre></div>
-<p>Aquí, la expresión <code class="sourceCode java"><span
-class="op">(</span><span class="kw">new</span> <span
-class="fu">Docente</span><span class="op">())</span></code> tiene el
-tipo <code>Docente</code>, cosa que el compilador puede calcular
-perfectamente.</p></li>
+<p>Aquí, la expresión <code
+class="sourceCode java"><span class="op">(</span><span class="kw">new</span> <span class="fu">Docente</span><span class="op">())</span></code>
+tiene el tipo <code>Docente</code>, cosa que el compilador puede
+calcular perfectamente.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -566,8 +571,9 @@ data-number="3.2">
 Sobreescritura de métodos</h2>
 <ul>
 <li><p>Los métodos heredados desde una superclase (siempre que no se
-hayan marcado como <code class="sourceCode java"><span
-class="dt">final</span></code>) se pueden sobreescribir.</p></li>
+hayan marcado como <code
+class="sourceCode java"><span class="dt">final</span></code>) se pueden
+sobreescribir.</p></li>
 <li><p><strong><em>Sobreescribir</em> o <em>redefinir</em> un método
 heredado</strong> consiste en definir, en la subclase, un método (el
 método que <em>sobreescribe</em> o que <em>redefine</em>) con el mismo
@@ -581,8 +587,7 @@ que estudiaremos luego con más profundidad.</p>
 entonces son compatibles.</p></li>
 <li><p>En Java, se recomienda (pero no es obligatorio) que el método que
 redefine (el de la subclase) se defina usando el decorador <code
-class="sourceCode java"><span
-class="at">@Override</span></code>.</p></li>
+class="sourceCode java"><span class="at">@Override</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
@@ -621,10 +626,10 @@ método.</p></li>
 </ul>
 <div class="caja">
 <p><strong>Java implementa el despacho dinámico</strong> en todos los
-métodos excepto en los <code class="sourceCode java"><span
-class="kw">private</span></code>, <code class="sourceCode java"><span
-class="dt">final</span></code> o <code class="sourceCode java"><span
-class="dt">static</span></code>.</p>
+métodos excepto en los <code
+class="sourceCode java"><span class="kw">private</span></code>, <code
+class="sourceCode java"><span class="dt">final</span></code> o <code
+class="sourceCode java"><span class="dt">static</span></code>.</p>
 </div>
 </section>
 <section id="ejemplo" class="slide level5 unnumbered unlisted">
@@ -983,15 +988,16 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb21-1"><a href=
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">nombre</span><span class="op">;</span> </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>En el método <code>getNombre</code> de <code>Base</code>, la
-referencia <code class="sourceCode java"><span
-class="kw">this</span></code> tiene el tipo estático <code>Base</code>.
-Por eso, el <code>getNombre</code> de <code>Base</code> accede siempre
-al <code>nombre</code> de <code>Base</code>.</p></li>
+referencia <code
+class="sourceCode java"><span class="kw">this</span></code> tiene el
+tipo estático <code>Base</code>. Por eso, el <code>getNombre</code> de
+<code>Base</code> accede siempre al <code>nombre</code> de
+<code>Base</code>.</p></li>
 <li><p>En cambio, en el mismo método redefinido en
-<code>Derivada</code>, la referencia <code class="sourceCode java"><span
-class="kw">this</span></code> tiene el tipo estático
-<code>Derivada</code>. Por eso, el <code>getNombre</code> de
-<code>Derivada</code> accede siempre al <code>nombre</code> de
+<code>Derivada</code>, la referencia <code
+class="sourceCode java"><span class="kw">this</span></code> tiene el
+tipo estático <code>Derivada</code>. Por eso, el <code>getNombre</code>
+de <code>Derivada</code> accede siempre al <code>nombre</code> de
 <code>Derivada</code>.</p></li>
 </ul>
 </section>
@@ -1008,18 +1014,18 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href=
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">());</span> <span class="co">// Imprime «Derivada»</span></span></code></pre></div>
 <p>tenemos que:</p>
 <ul>
-<li><p><code class="sourceCode java">b<span class="op">.</span><span
-class="fu">getNombre</span><span class="op">()</span></code> llama al
-método de <code>Base</code>, el cual accede al <code>nombre</code> de
-<code>Base</code>.</p></li>
-<li><p><code class="sourceCode java">d<span class="op">.</span><span
-class="fu">getNombre</span><span class="op">()</span></code> llama al
-método de <code>Derivada</code>, el cual accede al <code>nombre</code>
-de <code>Derivada</code>.</p></li>
-<li><p><code class="sourceCode java">bd<span class="op">.</span><span
-class="fu">getNombre</span><span class="op">()</span></code> llama al
-método de <code>Derivada</code>, el cual accede al <code>nombre</code>
-de <code>Derivada</code>.</p></li>
+<li><p><code
+class="sourceCode java">b<span class="op">.</span><span class="fu">getNombre</span><span class="op">()</span></code>
+llama al método de <code>Base</code>, el cual accede al
+<code>nombre</code> de <code>Base</code>.</p></li>
+<li><p><code
+class="sourceCode java">d<span class="op">.</span><span class="fu">getNombre</span><span class="op">()</span></code>
+llama al método de <code>Derivada</code>, el cual accede al
+<code>nombre</code> de <code>Derivada</code>.</p></li>
+<li><p><code
+class="sourceCode java">bd<span class="op">.</span><span class="fu">getNombre</span><span class="op">()</span></code>
+llama al método de <code>Derivada</code>, el cual accede al
+<code>nombre</code> de <code>Derivada</code>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1029,10 +1035,11 @@ data-number="3.2.4">
 <h3 data-number="3.2.4"><span class="header-section-number">3.2.4</span>
 <code>super</code></h3>
 <ul>
-<li><p>En Java, la palabra reservada <code class="sourceCode java"><span
-class="kw">super</span></code> es una variable especial que se puede
-usar dentro de una clase y que hace referencia a un objeto de la
-superclase directa de la clase actual.</p></li>
+<li><p>En Java, la palabra reservada <code
+class="sourceCode java"><span class="kw">super</span></code> es una
+variable especial que se puede usar dentro de una clase y que hace
+referencia a un objeto de la superclase directa de la clase
+actual.</p></li>
 <li><p>Cuando se crea una instancia de una clase, automáticamente se
 crea de forma implícita una instancia de su superclase directa, a la que
 se tiene acceso a través de la variable <code
@@ -1146,12 +1153,12 @@ Se ha creado un perro</code></pre></li>
 
 <ul>
 <li>El compilador introduce automáticamente una llamada a <code
-class="sourceCode java"><span class="kw">super</span><span
-class="op">()</span></code> como primera sentencia del constructor de la
-subclase si éste no incluye ninguna llamada a <code
-class="sourceCode java"><span class="kw">super</span><span
-class="op">()</span></code> o <code class="sourceCode java"><span
-class="kw">this</span><span class="op">()</span></code>:</li>
+class="sourceCode java"><span class="kw">super</span><span class="op">()</span></code>
+como primera sentencia del constructor de la subclase si éste no incluye
+ninguna llamada a <code
+class="sourceCode java"><span class="kw">super</span><span class="op">()</span></code>
+o <code
+class="sourceCode java"><span class="kw">this</span><span class="op">()</span></code>:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:33%;">
@@ -1176,9 +1183,9 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb30-1"><a href=
 <ul>
 <li>Sabemos que, si una clase no tiene constructores, el compilador
 introduce un constructor por defecto. En ese caso, ese constructor por
-defecto también llamará a <code class="sourceCode java"><span
-class="kw">super</span><span class="op">()</span></code> como primera
-sentencia:</li>
+defecto también llamará a <code
+class="sourceCode java"><span class="kw">super</span><span class="op">()</span></code>
+como primera sentencia:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:33%;">
@@ -1268,8 +1275,8 @@ tipo de retorno del método que redefine debe ser un
 class="sourceCode java"><span class="bu">Number</span></code>, el tipo
 de retorno del método que lo redefine deberá ser un subtipo de <code
 class="sourceCode java"><span class="bu">Number</span></code> (lo que
-incluye al propio <code class="sourceCode java"><span
-class="bu">Number</span></code>).</p></li>
+incluye al propio <code
+class="sourceCode java"><span class="bu">Number</span></code>).</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1355,31 +1362,32 @@ indistinta en cada uno de ellos.</p></li>
 otro tipo, que es el tipo de los elementos que contiene el
 <em>array</em>.</p>
 <ul>
-<li><p>«<em>Array</em> de enteros» (<code class="sourceCode java"><span
-class="dt">int</span><span class="op">[]</span></code>) es un tipo
-construido a partir del tipo <code class="sourceCode java"><span
-class="dt">int</span></code>.</p></li>
-<li><p>«<em>Array</em> de cadenas» (<code class="sourceCode java"><span
-class="bu">String</span><span class="op">[]</span></code>) es otro tipo
-construido a partir del tipo <code class="sourceCode java"><span
-class="bu">String</span></code>.</p></li>
+<li><p>«<em>Array</em> de enteros» (<code
+class="sourceCode java"><span class="dt">int</span><span class="op">[]</span></code>)
+es un tipo construido a partir del tipo <code
+class="sourceCode java"><span class="dt">int</span></code>.</p></li>
+<li><p>«<em>Array</em> de cadenas» (<code
+class="sourceCode java"><span class="bu">String</span><span class="op">[]</span></code>)
+es otro tipo construido a partir del tipo <code
+class="sourceCode java"><span class="bu">String</span></code>.</p></li>
 </ul></li>
 <li><p>Los <em>arrays</em> en Java son covariantes, lo que significa que
 si <span class="math inline">A</span> <code>&lt;:</code> <span
 class="math inline">B</span>, entonces <span
 class="math inline">A</span><code>[]</code> <code>&lt;:</code> <span
 class="math inline">B</span><code>[]</code>.</p>
-<p>Por ejemplo, como sabemos que <code class="sourceCode java"><span
-class="bu">String</span></code> <code>&lt;:</code> <code
+<p>Por ejemplo, como sabemos que <code
+class="sourceCode java"><span class="bu">String</span></code>
+<code>&lt;:</code> <code
 class="sourceCode java"><span class="bu">Object</span></code>, eso
-significa que <code class="sourceCode java"><span
-class="bu">String</span></code><code>[]</code> <code>&lt;:</code> <code
-class="sourceCode java"><span
-class="bu">Object</span></code><code>[]</code>.</p>
+significa que <code
+class="sourceCode java"><span class="bu">String</span></code><code>[]</code>
+<code>&lt;:</code> <code
+class="sourceCode java"><span class="bu">Object</span></code><code>[]</code>.</p>
 <p>Es decir: allí donde se espera un <em>array</em> de <code
 class="sourceCode java"><span class="bu">Object</span></code>, se puede
-poner un <em>array</em> de <code class="sourceCode java"><span
-class="bu">String</span></code>.</p></li>
+poner un <em>array</em> de <code
+class="sourceCode java"><span class="bu">String</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.5.0.6">
@@ -1560,43 +1568,38 @@ class="sourceCode java"><span class="bu">Object</span></code>.</p>
 valores referencia no nulas, siempre se tiene que cumplir:</p>
 <ul>
 <li><p><strong>Reflexividad</strong>: <code
-class="sourceCode java">x<span class="op">.</span><span
-class="fu">equals</span><span class="op">(</span>x<span
-class="op">)</span></code> <code>==</code> <code
+class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>x<span class="op">)</span></code>
+<code>==</code> <code
 class="sourceCode java"><span class="kw">true</span></code>.</p></li>
-<li><p><strong>Simetría</strong>: <code class="sourceCode java">x<span
-class="op">.</span><span class="fu">equals</span><span
-class="op">(</span>y<span class="op">)</span></code> <code>==</code>
-<code class="sourceCode java"><span class="kw">true</span></code> si y
-sólo si <code class="sourceCode java">y<span class="op">.</span><span
-class="fu">equals</span><span class="op">(</span>x<span
-class="op">)</span></code> <code>==</code> <code
+<li><p><strong>Simetría</strong>: <code
+class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span></code>
+<code>==</code> <code
+class="sourceCode java"><span class="kw">true</span></code> si y sólo si
+<code
+class="sourceCode java">y<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>x<span class="op">)</span></code>
+<code>==</code> <code
 class="sourceCode java"><span class="kw">true</span></code>.</p></li>
 <li><p><strong>Transitividad</strong>: si <code
-class="sourceCode java">x<span class="op">.</span><span
-class="fu">equals</span><span class="op">(</span>y<span
-class="op">)</span></code> <code>==</code> <code
+class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span></code>
+<code>==</code> <code
 class="sourceCode java"><span class="kw">true</span></code> e <code
-class="sourceCode java">y<span class="op">.</span><span
-class="fu">equals</span><span class="op">(</span>z<span
-class="op">)</span></code> <code>==</code> <code
+class="sourceCode java">y<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>z<span class="op">)</span></code>
+<code>==</code> <code
 class="sourceCode java"><span class="kw">true</span></code>, entonces
-<code class="sourceCode java">x<span class="op">.</span><span
-class="fu">equals</span><span class="op">(</span>z<span
-class="op">)</span></code> <code>==</code> <code
+<code
+class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>z<span class="op">)</span></code>
+<code>==</code> <code
 class="sourceCode java"><span class="kw">true</span></code>.</p></li>
 <li><p><strong>Consistencia</strong>: si invocamos varias veces <code
-class="sourceCode java">x<span class="op">.</span><span
-class="fu">equals</span><span class="op">(</span>y<span
-class="op">)</span></code>, debe devolver consistentemente <code
+class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span>y<span class="op">)</span></code>,
+debe devolver consistentemente <code
 class="sourceCode java"><span class="kw">true</span></code> o <code
 class="sourceCode java"><span class="kw">false</span></code>, suponiendo
 que no se ha modificado ninguna información usada en la comparación de
 igualdad de los objetos.</p></li>
-<li><p><strong>No nulidad</strong>: <code class="sourceCode java">x<span
-class="op">.</span><span class="fu">equals</span><span
-class="op">(</span><span class="kw">null</span><span
-class="op">)</span></code> <code>==</code> <code
+<li><p><strong>No nulidad</strong>: <code
+class="sourceCode java">x<span class="op">.</span><span class="fu">equals</span><span class="op">(</span><span class="kw">null</span><span class="op">)</span></code>
+<code>==</code> <code
 class="sourceCode java"><span class="kw">false</span></code>.</p></li>
 </ul></li>
 </ul>
@@ -1609,12 +1612,14 @@ primero hay que seleccionar los campos que se van a comparar.</p></li>
 <li><p>Luego, hay que realizar estos tres pasos en el método <code
 class="sourceCode java">equals</code>:</p>
 <ol>
-<li><p>Si <code class="sourceCode java"><span
-class="kw">this</span></code> y la referencia del otro objeto son
-iguales, los objetos son iguales; en otro caso, ir al paso 2.</p></li>
-<li><p>Si la otra referencia es <code class="sourceCode java"><span
-class="kw">null</span></code> o no tiene el tipo adecuado, los objetos
-son distintos; en otro caso, ir al paso 3.</p></li>
+<li><p>Si <code
+class="sourceCode java"><span class="kw">this</span></code> y la
+referencia del otro objeto son iguales, los objetos son iguales; en otro
+caso, ir al paso 2.</p></li>
+<li><p>Si la otra referencia es <code
+class="sourceCode java"><span class="kw">null</span></code> o no tiene
+el tipo adecuado, los objetos son distintos; en otro caso, ir al paso
+3.</p></li>
 <li><p>Si todos los campos seleccionados son iguales, los objetos son
 iguales; en otro caso, son distintos.</p></li>
 </ol></li>
@@ -1667,9 +1672,9 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb40-1"><a href=
 los objetos sean accesibles y no se hayan redefinido por otras distintas
 (en este último caso, se usarían las variables originales, sin
 redefinir).</p></li>
-<li><p>Además, el operador <code class="sourceCode java"><span
-class="kw">instanceof</span></code> tiene la ventaja de que también
-comprueba si es una referencia nula.</p></li>
+<li><p>Además, el operador <code
+class="sourceCode java"><span class="kw">instanceof</span></code> tiene
+la ventaja de que también comprueba si es una referencia nula.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.7.0.7">
@@ -1712,17 +1717,14 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb41-1"><a href=
 
 <ul>
 <li><p>En el ejemplo anterior hemos usado el método <code
-class="sourceCode java">java<span class="op">.</span><span
-class="fu">util</span><span class="op">.</span><span
-class="fu">Objects</span><span class="op">.</span><span
-class="fu">equals</span></code> (o, dicho de otra forma, el método <code
+class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">equals</span></code>
+(o, dicho de otra forma, el método <code
 class="sourceCode java">equals</code> de la clase <code
 class="sourceCode java">Objects</code> del paquete <code
-class="sourceCode java">java<span class="op">.</span><span
-class="fu">util</span></code>) para comprobar si dos cadenas son
-iguales, lo que nos previente de posibles errores de <code
-class="sourceCode java"><span
-class="bu">NullPointerException</span></code>.</p></li>
+class="sourceCode java">java<span class="op">.</span><span class="fu">util</span></code>)
+para comprobar si dos cadenas son iguales, lo que nos previente de
+posibles errores de <code
+class="sourceCode java"><span class="bu">NullPointerException</span></code>.</p></li>
 <li><p>Aquí comparamos la igualdad de tres objetos. Dos de ellos
 corresponden a la misma persona:</p>
 <div class="sourceCode" id="cb42"><pre
@@ -1749,8 +1751,8 @@ objeto.</p></li>
 <li><p>Lo más parecido a la función <code
 class="sourceCode python"><span class="bu">id</span></code> en Java es
 el método <code class="sourceCode java">hashCode</code> definido en la
-clase <code class="sourceCode java"><span
-class="bu">Object</span></code>.</p></li>
+clase <code
+class="sourceCode java"><span class="bu">Object</span></code>.</p></li>
 <li><p>Ya sabemos que el <code class="sourceCode java">hashCode</code>
 de un objeto en Java es el equivalente al <code
 class="sourceCode python"><span class="bu">hash</span></code> de Python
@@ -1777,11 +1779,12 @@ class="sourceCode java">equals</code>, es una buena práctica redefinir
 también el método <code
 class="sourceCode java">hashCode</code>.</p></li>
 <li><p>De no hacerlo, la clase podría no funcionar correctamente al
-almacenarse en colecciones (como <code class="sourceCode java"><span
-class="bu">HashMap</span></code>, <code class="sourceCode java"><span
-class="bu">HashSet</span></code> o <code class="sourceCode java"><span
-class="bu">Hashtable</span></code>) que usen mecanismos de
-<em>hashing</em> para acceder a los elementos.</p></li>
+almacenarse en colecciones (como <code
+class="sourceCode java"><span class="bu">HashMap</span></code>, <code
+class="sourceCode java"><span class="bu">HashSet</span></code> o <code
+class="sourceCode java"><span class="bu">Hashtable</span></code>) que
+usen mecanismos de <em>hashing</em> para acceder a los
+elementos.</p></li>
 <li><p>Estas colecciones, salvo algunas diferencias, almacenan los datos
 en «<em>cajones</em>» (del inglés, <em>buckets</em>) de la siguiente
 forma:</p>
@@ -1836,14 +1839,15 @@ class="sourceCode java">hashCode</code> deben estar coordinados entre
 sí.</p></li>
 <li><p>Por ejemplo, supongamos que guardamos tres objetos en esta
 estructura, y el método <code class="sourceCode java">hashCode</code> de
-los tres objetos devuelve <code class="sourceCode java"><span
-class="dv">0</span></code>.</p>
+los tres objetos devuelve <code
+class="sourceCode java"><span class="dv">0</span></code>.</p>
 <p>Esto quiere decir que los tres objetos se gurdarán en el cajón <code
 class="sourceCode java"><span class="dv">0</span></code>.</p></li>
 <li><p>Cuando quiera recuperarlos, tendré que recorrer de forma
-secuencial el cajón <code class="sourceCode java"><span
-class="dv">0</span></code> e ir mirando uno a uno todos los objetos que
-hay guardados en este cajón para acceder al que quiero.</p>
+secuencial el cajón <code
+class="sourceCode java"><span class="dv">0</span></code> e ir mirando
+uno a uno todos los objetos que hay guardados en este cajón para acceder
+al que quiero.</p>
 <p>El acceso pasa de ser <strong>directo</strong> a ser
 <strong>secuencial</strong>, que es mucho más lento.</p></li>
 <li><p>Por lo tanto, ese método <code
@@ -1936,51 +1940,44 @@ class="sourceCode java">hashCode</code> válido y efectivo, se recomienda
 el algoritmo propuesto por Joshua Bloch en su libro «<em>Effective
 Java</em>»:</p>
 <ol>
-<li><p>Crear un <code class="sourceCode java"><span
-class="dt">int</span> result</code> y asignarle un valor no cero (por
-ej., <code class="sourceCode java"><span
-class="dv">17</span></code>).</p></li>
+<li><p>Crear un <code
+class="sourceCode java"><span class="dt">int</span> result</code> y
+asignarle un valor no cero (por ej., <code
+class="sourceCode java"><span class="dv">17</span></code>).</p></li>
 <li><p>Para cada campo <code>f</code> usado en el método <code
 class="sourceCode java">equals</code>:</p>
 <ul>
 <li><p>Calcular un código <em>hash</em> para <code>f</code> y llamarlo
 <code>code</code>:</p>
 <ul>
-<li>Si <code>f</code> es un <code class="sourceCode java"><span
-class="dt">boolean</span></code>: calcular <code
-class="sourceCode java"><span class="op">(</span>f <span
-class="op">?</span> <span class="dv">0</span> <span class="op">:</span>
-<span class="dv">1</span><span class="op">)</span></code>;</li>
-<li>Si <code>f</code> es un <code class="sourceCode java"><span
-class="dt">byte</span></code>, <code class="sourceCode java"><span
-class="dt">char</span></code>, <code class="sourceCode java"><span
-class="dt">short</span></code> o <code class="sourceCode java"><span
-class="dt">int</span></code>: calcular <code
-class="sourceCode java"><span class="op">(</span><span
-class="dt">int</span><span class="op">)</span> f</code>;</li>
-<li>Si <code>f</code> es un <code class="sourceCode java"><span
-class="dt">long</span></code>: calcular <code
-class="sourceCode java"><span class="op">(</span><span
-class="dt">int</span><span class="op">)</span> <span
-class="op">(</span>f <span class="op">^</span> <span
-class="op">(</span>f <span class="op">&gt;&gt;&gt;</span> <span
-class="dv">32</span><span class="op">))</span></code>;</li>
-<li>Si <code>f</code> es un <code class="sourceCode java"><span
-class="dt">float</span></code>: calcular <code
-class="sourceCode java"><span class="bu">Float</span><span
-class="op">.</span><span class="fu">floatToIntBits</span><span
-class="op">(</span>f<span class="op">)</span></code>;</li>
-<li>Si <code>f</code> es un <code class="sourceCode java"><span
-class="dt">double</span></code>: calcula <code
-class="sourceCode java"><span class="bu">Double</span><span
-class="op">.</span><span class="fu">doubleToLongBits</span><span
-class="op">(</span>f<span class="op">)</span></code>;</li>
+<li>Si <code>f</code> es un <code
+class="sourceCode java"><span class="dt">boolean</span></code>: calcular
+<code
+class="sourceCode java"><span class="op">(</span>f <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> <span class="dv">1</span><span class="op">)</span></code>;</li>
+<li>Si <code>f</code> es un <code
+class="sourceCode java"><span class="dt">byte</span></code>, <code
+class="sourceCode java"><span class="dt">char</span></code>, <code
+class="sourceCode java"><span class="dt">short</span></code> o <code
+class="sourceCode java"><span class="dt">int</span></code>: calcular
+<code
+class="sourceCode java"><span class="op">(</span><span class="dt">int</span><span class="op">)</span> f</code>;</li>
+<li>Si <code>f</code> es un <code
+class="sourceCode java"><span class="dt">long</span></code>: calcular
+<code
+class="sourceCode java"><span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">(</span>f <span class="op">^</span> <span class="op">(</span>f <span class="op">&gt;&gt;&gt;</span> <span class="dv">32</span><span class="op">))</span></code>;</li>
+<li>Si <code>f</code> es un <code
+class="sourceCode java"><span class="dt">float</span></code>: calcular
+<code
+class="sourceCode java"><span class="bu">Float</span><span class="op">.</span><span class="fu">floatToIntBits</span><span class="op">(</span>f<span class="op">)</span></code>;</li>
+<li>Si <code>f</code> es un <code
+class="sourceCode java"><span class="dt">double</span></code>: calcula
+<code
+class="sourceCode java"><span class="bu">Double</span><span class="op">.</span><span class="fu">doubleToLongBits</span><span class="op">(</span>f<span class="op">)</span></code>;</li>
 <li>Si <code>f</code> es un objeto: usar <code
-class="sourceCode java">f<span class="op">.</span><span
-class="fu">hashCode</span><span class="op">()</span></code>, ó <code
-class="sourceCode java"><span class="dv">0</span></code> si
-<code>f</code> <code>==</code> <code class="sourceCode java"><span
-class="kw">null</span></code>;</li>
+class="sourceCode java">f<span class="op">.</span><span class="fu">hashCode</span><span class="op">()</span></code>,
+ó <code class="sourceCode java"><span class="dv">0</span></code> si
+<code>f</code> <code>==</code> <code
+class="sourceCode java"><span class="kw">null</span></code>;</li>
 <li>Si <code>f</code> es un <em>array</em>: ver cada elemento como un
 campo independiente y calcular el valor <em>hash</em>
 recursivamente.</li>
@@ -2015,12 +2012,10 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb48-1"><a href=
 <span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">;</span></span>
 <span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Desde Java 7, se dispone del método <code
-class="sourceCode java">java<span class="op">.</span><span
-class="fu">util</span><span class="op">.</span><span
-class="fu">Objects</span><span class="op">.</span><span
-class="fu">hash</span></code> que permite obtener un código
-<em>hash</em> de forma rápida y sencilla, ocultando todas esas
-constantes mágicas y todas esas comprobaciones de nulos.</p></li>
+class="sourceCode java">java<span class="op">.</span><span class="fu">util</span><span class="op">.</span><span class="fu">Objects</span><span class="op">.</span><span class="fu">hash</span></code>
+que permite obtener un código <em>hash</em> de forma rápida y sencilla,
+ocultando todas esas constantes mágicas y todas esas comprobaciones de
+nulos.</p></li>
 <li><p>Gracias a ese método, nuestro <code
 class="sourceCode java">hashCode</code> queda mucho más sencillo:</p>
 <div class="sourceCode" id="cb49"><pre
@@ -2069,9 +2064,9 @@ class="sourceCode java">hashCode</code>s sean distintos; de hecho, dos
 objetos diferentes pueden devolver el mismo valor
 <em>hash</em>.</p></li>
 <li><p>Si se necesita guardar los objetos en las estructuras señaladas
-anteriormente (<code class="sourceCode java"><span
-class="bu">HashMap</span></code> y similares) es absolutamente
-indispensable sobreescribir el método <code
+anteriormente (<code
+class="sourceCode java"><span class="bu">HashMap</span></code> y
+similares) es absolutamente indispensable sobreescribir el método <code
 class="sourceCode java">hashCode</code>; de lo contrario obtendrá
 resultados inesperados o no deseados cuando se realicen operaciones de
 guardar, consultar o eliminar los datos.</p></li>
@@ -2093,8 +2088,8 @@ class="title-slide slide level2" data-number="4.1">
 Clases y métodos abstractos</h2>
 <ul>
 <li><p>Una <strong>clase abstracta</strong> es aquella que se define con
-el modificador <code class="sourceCode java"><span
-class="kw">abstract</span></code>:</p>
+el modificador <code
+class="sourceCode java"><span class="kw">abstract</span></code>:</p>
 <div class="sourceCode" id="cb51"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
@@ -2105,9 +2100,9 @@ subclases:</p>
 <div class="sourceCode" id="cb52"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>Ejemplo e <span class="op">=</span> <span class="kw">new</span> <span class="fu">Ejemplo</span><span class="op">();</span> <span class="co">// Error: no se puede instanciar una clase abstracta</span></span></code></pre></div></li>
 <li><p>Un <strong>método abstracto</strong> es aquel que se define con
-el modificador <code class="sourceCode java"><span
-class="kw">abstract</span></code> y sin cuerpo (es decir, sin un bloque
-de sentencias):</p>
+el modificador <code
+class="sourceCode java"><span class="kw">abstract</span></code> y sin
+cuerpo (es decir, sin un bloque de sentencias):</p>
 <div class="sourceCode" id="cb53"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">);</span></span></code></pre></div></li>
 <li><p>Las clases abstractas pueden o no contener métodos
@@ -2198,8 +2193,8 @@ data-number="4.2">
 Clases y métodos finales</h2>
 <ul>
 <li><p>Una <strong>clase final</strong> es aquella que se define con el
-modificador <code class="sourceCode java"><span
-class="dt">final</span></code>:</p>
+modificador <code
+class="sourceCode java"><span class="dt">final</span></code>:</p>
 <div class="sourceCode" id="cb57"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="kw">class</span> Ejemplo <span class="op">{</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
@@ -2211,8 +2206,8 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb58-1"><a href=
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>Un <strong>método final</strong> es aquel que se define con el
-modificador <code class="sourceCode java"><span
-class="dt">final</span></code>:</p>
+modificador <code
+class="sourceCode java"><span class="dt">final</span></code>:</p>
 <div class="sourceCode" id="cb59"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="dt">final</span> <span class="dt">void</span> <span class="fu">mover</span><span class="op">(</span><span class="dt">double</span> x<span class="op">,</span> <span class="dt">double</span> y<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>   <span class="co">// ...</span></span>
@@ -2285,7 +2280,7 @@ edition. Upper Saddle River, NJ: Addison-Wesley.
 
   <script src="./reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="./reveal.js/plugin/notes/notes.js"></script>
   <script src="./reveal.js/plugin/search/search.js"></script>
   <script src="./reveal.js/plugin/zoom/zoom.js"></script>
@@ -2298,88 +2293,149 @@ edition. Upper Saddle River, NJ: Addison-Wesley.
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
         controlsTutorial: true,
+
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'bottom-right',
+
         // Visibility rule for backwards navigation arrows; "faded", "hidden"
         // or "visible"
         controlsBackArrows: 'faded',
+
         // Display a presentation progress bar
         progress: true,
+
         // Display the page number of the current slide
         slideNumber: true,
+
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
+
         // Add the current slide number to the URL hash so that reloading the
         // page/copying the URL will return you to the same slide
         hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: true,
+
         // Enable the slide overview mode
         overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
         // Vertical centering of slides
         center: true,
+
         // Enables touch navigation on devices with touch input
         touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
         // see https://revealjs.com/vertical-slides/#navigation-mode
         navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
         // Turns fragments on and off globally
         fragments: true,
+
         // Flags whether to include the current fragment in the URL,
         // so that reloading brings you to the same fragment position
         fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
         // Flags if we should show a help overlay when the questionmark
         // key is pressed
         help: true,
-       // Flags if it should be possible to pause the presentation (blackout)
-       pause: true,
-        // Global override for autoplaying embedded media (video/audio/iframe)
-        // - null: Media will only autoplay if data-autoplay is present
-        // - true: All media will autoplay, regardless of individual setting
-        // - false: No media will autoplay, regardless of individual setting
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
-        // Global override for preloading lazy-loaded iframes
-        // - null: Iframes with data-src AND data-preload will be loaded when within
-        //   the viewDistance, iframes with only data-src will be loaded when visible
-        // - true: All iframes with data-src will be loaded when within the viewDistance
-        // - false: All iframes with data-src will be loaded only when visible
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
+
         // Number of milliseconds between automatically proceeding to the
         // next slide, disabled when set to 0, this value can be overwritten
         // by using a data-autoslide attribute on your slides
         autoSlide: 0,
+
         // Stop auto-sliding after user input
         autoSlideStoppable: true,
+
         // Use this method for navigation when auto-sliding
         autoSlideMethod: null,
+
         // Specify the average time in seconds that you think you will spend
         // presenting each slide. This is used to show a pacing timer in the
         // speaker view
         defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
         // Hide cursor if inactive
         hideInactiveCursor: true,
+
         // Time before the cursor is hidden (in ms)
         hideCursorTime: 5000,
-        // Transition style
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
         // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
         // Number of slides away from the current that are visible
         viewDistance: 3,
+
         // Number of slides away from the current that are visible on mobile
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1280,
+
         height: 1080,
         // The display mode that will be used to show slides
         display: 'block',

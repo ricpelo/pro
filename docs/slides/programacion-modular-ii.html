@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="./reveal.js/dist/reset.css">
   <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
   <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     span.underline{text-decoration: underline;}
@@ -102,22 +105,24 @@
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: false
-     });
-  }}});
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -237,24 +242,38 @@
   <p class="date">IES Doñana, curso 2021/2022</p>
 </section>
 <section id="TOC">
+<nav role="doc-toc"> 
 <ul>
-<li><a href="#/interfaces"><span class="toc-section-number">1</span> Interfaces</a></li>
-<li><a href="#/paquetes-y-módulos"><span class="toc-section-number">2</span> Paquetes y módulos</a></li>
+<li><a href="#/interfaces" id="/toc-interfaces"><span
+class="toc-section-number">1</span> Interfaces</a></li>
+<li><a href="#/paquetes-y-módulos" id="/toc-paquetes-y-módulos"><span
+class="toc-section-number">2</span> Paquetes y módulos</a></li>
 </ul>
+</nav>
 </section>
 
 <section>
-<section id="interfaces" class="title-slide slide level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Interfaces</h1>
+<section id="interfaces" class="title-slide slide level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span>
+Interfaces</h1>
 
 </section>
-<section id="concepto-de-interfaz" class="title-slide slide level2" data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span> Concepto de interfaz</h2>
+<section id="concepto-de-interfaz" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Concepto de interfaz</h2>
 <ul>
-<li><p>Hay situaciones en ingeniería del software en las que es importante que grupos dispares de programadores acuerden un «contrato» que explique cómo interactúa su software.</p></li>
-<li><p>Cada grupo debería poder escribir su código sin ningún conocimiento de cómo se escribe el código del otro grupo.</p></li>
-<li><p>Ya hemos estudiado que, en esas situaciones, lo que cada grupo crea son <strong>módulos</strong>, y lo que un grupo debe conocer del módulo del otro es su <strong>interfaz</strong>.</p></li>
-<li><p>Por tanto, en términos generales, las interfaces son tales contratos.</p></li>
+<li><p>Hay situaciones en ingeniería del software en las que es
+importante que grupos dispares de programadores acuerden un «contrato»
+que explique cómo interactúa su software.</p></li>
+<li><p>Cada grupo debería poder escribir su código sin ningún
+conocimiento de cómo se escribe el código del otro grupo.</p></li>
+<li><p>Ya hemos estudiado que, en esas situaciones, lo que cada grupo
+crea son <strong>módulos</strong>, y lo que un grupo debe conocer del
+módulo del otro es su <strong>interfaz</strong>.</p></li>
+<li><p>Por tanto, en términos generales, las interfaces son tales
+contratos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
@@ -262,68 +281,110 @@
 <ul>
 <li><p>En Java:</p>
 <ul>
-<li><p>Las clases representan los módulos de los que se compone el programa.</p></li>
-<li><p>Una interfaz de Java es una descripción del contrato que debe cumplir una clase.</p></li>
+<li><p>Las clases representan los módulos de los que se compone el
+programa.</p></li>
+<li><p>Una interfaz de Java es una descripción del contrato que debe
+cumplir una clase.</p></li>
 </ul></li>
 </ul>
 <div class="caja">
-<p>Las interfaces de Java nos permiten desacoplar (separar) la interfaz de una clase de sus detalles de implementación.</p>
+<p>Las interfaces de Java nos permiten desacoplar (separar) la interfaz
+de una clase de sus detalles de implementación.</p>
 </div>
 <ul>
-<li><p>De esta forma, el usuario de una clase no tiene por qué hablar directamente con la clase, sino que lo hace a través de la interfaz que implementa.</p></li>
-<li><p>Eso permite cambiar una implementación por otra cuando sea necesario, simplemente cambiando la clase que implementa la interfaz por otra diferente, sin que los usuarios de la interfaz se vean afectados.</p></li>
+<li><p>De esta forma, el usuario de una clase no tiene por qué hablar
+directamente con la clase, sino que lo hace a través de la interfaz que
+implementa.</p></li>
+<li><p>Eso permite cambiar una implementación por otra cuando sea
+necesario, simplemente cambiando la clase que implementa la interfaz por
+otra diferente, sin que los usuarios de la interfaz se vean
+afectados.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.2">
 
 <ul>
-<li><p>Por ejemplo, imagine una sociedad futurista en la que automóviles robóticos controlados por computadora transporten pasajeros por las calles de la ciudad sin un operador humano.</p></li>
-<li><p>Los fabricantes de automóviles escriben software que hace funcionar el automóvil: detener, arrancar, acelerar, girar a la izquierda, etc.</p></li>
-<li><p>Otro grupo industrial, los fabricantes de instrumentos de guía electrónica, fabrica sistemas informáticos que reciben datos de posición GPS y transmisiones inalámbricas de las condiciones del tráfico, y utilizan esa información para conducir el automóvil.</p></li>
+<li><p>Por ejemplo, imagine una sociedad futurista en la que automóviles
+robóticos controlados por computadora transporten pasajeros por las
+calles de la ciudad sin un operador humano.</p></li>
+<li><p>Los fabricantes de automóviles escriben software que hace
+funcionar el automóvil: detener, arrancar, acelerar, girar a la
+izquierda, etc.</p></li>
+<li><p>Otro grupo industrial, los fabricantes de instrumentos de guía
+electrónica, fabrica sistemas informáticos que reciben datos de posición
+GPS y transmisiones inalámbricas de las condiciones del tráfico, y
+utilizan esa información para conducir el automóvil.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.3">
 
 <ul>
-<li><p>Los fabricantes de automóviles deben publicar una interfaz estándar que explique en detalle qué métodos pueden invocarse para hacer que el automóvil se mueva (cualquier automóvil, de cualquier fabricante).</p></li>
-<li><p>Los fabricantes de guías pueden entonces escribir un software que invoque los métodos descritos en la interfaz para controlar el automóvil.</p></li>
-<li><p>Ningún grupo industrial necesita saber cómo se implementa el software del otro grupo.</p></li>
-<li><p>De hecho, cada grupo considera que su software es altamente propietario y se reserva el derecho de modificarlo en cualquier momento, siempre que continúe adhiriéndose a la interfaz publicada.</p></li>
+<li><p>Los fabricantes de automóviles deben publicar una interfaz
+estándar que explique en detalle qué métodos pueden invocarse para hacer
+que el automóvil se mueva (cualquier automóvil, de cualquier
+fabricante).</p></li>
+<li><p>Los fabricantes de guías pueden entonces escribir un software que
+invoque los métodos descritos en la interfaz para controlar el
+automóvil.</p></li>
+<li><p>Ningún grupo industrial necesita saber cómo se implementa el
+software del otro grupo.</p></li>
+<li><p>De hecho, cada grupo considera que su software es altamente
+propietario y se reserva el derecho de modificarlo en cualquier momento,
+siempre que continúe adhiriéndose a la interfaz publicada.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.4">
 
 <ul>
-<li><p>La idea general de la programación orientada a objetos, y uno de sus principios fundamentales, es la abstracción.</p></li>
-<li><p>Significa que los objetos del mundo real se pueden representar mediante sus modelos abstractos.</p></li>
-<li><p>Diseñar modelos consiste en centrarse en las características esenciales de los objetos y descartar los demás.</p></li>
-<li><p>Para entender lo que significa, echemos un vistazo a un lápiz.</p></li>
-<li><p>Un lápiz es un objeto que podemos usar para dibujar. Otras propiedades como el material o la longitud pueden ser importantes para nosotros en ocasiones, pero no definen la idea de un lápiz.</p></li>
+<li><p>La idea general de la programación orientada a objetos, y uno de
+sus principios fundamentales, es la abstracción.</p></li>
+<li><p>Significa que los objetos del mundo real se pueden representar
+mediante sus modelos abstractos.</p></li>
+<li><p>Diseñar modelos consiste en centrarse en las características
+esenciales de los objetos y descartar los demás.</p></li>
+<li><p>Para entender lo que significa, echemos un vistazo a un
+lápiz.</p></li>
+<li><p>Un lápiz es un objeto que podemos usar para dibujar. Otras
+propiedades como el material o la longitud pueden ser importantes para
+nosotros en ocasiones, pero no definen la idea de un lápiz.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.5">
 
 <ul>
-<li><p>Supongamos que necesitamos crear un programa de edición gráfica.</p></li>
+<li><p>Supongamos que necesitamos crear un programa de edición
+gráfica.</p></li>
 <li><p>Una de las funciones básicas del programa es dibujar.</p></li>
-<li><p>Antes de dibujar, el programa le pide al usuario que seleccione una herramienta de dibujo.</p>
-<p>Puede ser un bolígrafo, lápiz, pincel, resaltador, marcador, aerosol y otros.</p></li>
-<li><p>Cada herramienta de un conjunto tiene sus propias características específicas: un lápiz y un spray dejan marcas diferentes y eso importa. Pero también hay una característica esencial que los une: la capacidad de dibujar.</p></li>
+<li><p>Antes de dibujar, el programa le pide al usuario que seleccione
+una herramienta de dibujo.</p>
+<p>Puede ser un bolígrafo, lápiz, pincel, resaltador, marcador, aerosol
+y otros.</p></li>
+<li><p>Cada herramienta de un conjunto tiene sus propias características
+específicas: un lápiz y un spray dejan marcas diferentes y eso importa.
+Pero también hay una característica esencial que los une: la capacidad
+de dibujar.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
-<li><p>Ahora consideremos la clase <code>Lapiz</code>, que es una abstracción de un lápiz.</p></li>
-<li><p>Como ya comentamos, la clase al menos debería tener un método <code>dibujar</code> que acepte un modelo de curva.</p></li>
-<li><p>Esta es una función crucial de un lápiz para nuestro programa.</p></li>
-<li><p>Supongamos que <code>Curva</code> es una clase que representa alguna curva:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Lapiz <span class="op">{</span></span>
+<li><p>Ahora consideremos la clase <code>Lapiz</code>, que es una
+abstracción de un lápiz.</p></li>
+<li><p>Como ya comentamos, la clase al menos debería tener un método
+<code>dibujar</code> que acepte un modelo de curva.</p></li>
+<li><p>Esta es una función crucial de un lápiz para nuestro
+programa.</p></li>
+<li><p>Supongamos que <code>Curva</code> es una clase que representa
+alguna curva:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Lapiz <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">(</span>Curva curva<span class="op">)</span> <span class="op">{</span><span class="kw">...</span><span class="op">}</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
-<li><p>Definamos clases para otras herramientas, por ejemplo, un pincel:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pincel <span class="op">{</span></span>
+<li><p>Definamos clases para otras herramientas, por ejemplo, un
+pincel:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pincel <span class="op">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">...</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">dibujar</span><span class="op">(</span>Curva curva<span class="op">)</span> <span class="op">{</span><span class="kw">...</span><span class="op">}</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
@@ -332,17 +393,27 @@
 <section class="slide level5" data-number="1.1.0.0.7">
 
 <ul>
-<li><p>Cada uno tiene método <code>dibujar</code>, aunque lo hace a su manera.</p></li>
-<li><p>La capacidad de dibujar es una característica común a todos ellos.</p></li>
-<li><p>Llamemos a esta característica <code>HerramientaQueDibuja</code>. Entonces podemos decir que si una clase tiene la característica <code>HerramientaQueDibuja</code>, entonces debería poder dibujar, lo que significa que la clase debería tener un método <code class="sourceCode java"><span class="dt">void</span> <span class="fu">dibujar</span><span class="op">(</span>Curva curva<span class="op">)</span> <span class="op">{</span><span class="kw">...</span><span class="op">}</span></code>.</p></li>
-<li><p>Java permite declarar esta característica mediante la introducción de interfaces.</p></li>
+<li><p>Cada uno tiene método <code>dibujar</code>, aunque lo hace a su
+manera.</p></li>
+<li><p>La capacidad de dibujar es una característica común a todos
+ellos.</p></li>
+<li><p>Llamemos a esta característica <code>HerramientaQueDibuja</code>.
+Entonces podemos decir que si una clase tiene la característica
+<code>HerramientaQueDibuja</code>, entonces debería poder dibujar, lo
+que significa que la clase debería tener un método <code
+class="sourceCode java"><span class="dt">void</span> <span class="fu">dibujar</span><span class="op">(</span>Curva curva<span class="op">)</span> <span class="op">{</span><span class="kw">...</span><span class="op">}</span></code>.</p></li>
+<li><p>Java permite declarar esta característica mediante la
+introducción de interfaces.</p></li>
 </ul>
 </section>
 
-<section id="definición-de-interfaces" class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span> Definición de interfaces</h2>
+<section id="definición-de-interfaces" class="title-slide slide level2"
+data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+Definición de interfaces</h2>
 <ul>
-<li><p>En Java, una <strong>interfaz</strong> es un tipo referencia, similar a una clase abstracta, que sólo puede contener:</p>
+<li><p>En Java, una <strong>interfaz</strong> es un tipo referencia,
+similar a una clase abstracta, que sólo puede contener:</p>
 <ul>
 <li><p>Constantes estáticas públicas.</p></li>
 <li><p>Métodos abstractos públicos (sin implementación).</p></li>
@@ -351,91 +422,187 @@
 <li><p>Métodos concretos privados (con implementación).</p></li>
 <li><p>Tipos anidados (clases anidadas, otras interfaces…).</p></li>
 </ul></li>
-<li><p>No se pueden crear instancias de interfaces; solo pueden implementarse mediante clases o ser usadas como supertipos de otras interfaces.</p></li>
+<li><p>No se pueden crear instancias de interfaces; solo pueden
+implementarse mediante clases o ser usadas como supertipos de otras
+interfaces.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.1">
 
 <ul>
-<li><p>La definición de una interfaz tiene una sintaxis similar a la de una clase:</p>
-<div class="line-block"><span style="color:teal">⟨<em>interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>interface</code></strong> <span style="color:teal">⟨<em>nombre</em>⟩</span> [<strong><code>extends</code></strong> <span style="color:teal">⟨<em>superinterfaces</em>⟩</span>] <strong><code>{</code></strong><br />
-        <span style="color:teal">⟨<em>miembro_interfaz</em>⟩</span>*<br />
+<li><p>La definición de una interfaz tiene una sintaxis similar a la de
+una clase:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>interfaz</em>⟩</span> ::=
+[<strong><code>public</code></strong>]
+<strong><code>interface</code></strong> <span
+style="color:teal">⟨<em>nombre</em>⟩</span>
+[<strong><code>extends</code></strong> <span
+style="color:teal">⟨<em>superinterfaces</em>⟩</span>]
+<strong><code>{</code></strong><br />
+        <span
+style="color:teal">⟨<em>miembro_interfaz</em>⟩</span>*<br />
 <strong><code>}</code></strong><br />
 <br />
-<span style="color:teal">⟨<em>nombre</em>⟩</span> ::= <strong><code>identificador</code></strong><br />
-<span style="color:teal">⟨<em>superinterfaces</em>⟩</span> ::= <span style="color:teal">⟨<em>superinterfaz</em>⟩</span>[<strong><code>,</code></strong> <span style="color:teal">⟨<em>superinterfaz</em>⟩</span>]*<br />
-<span style="color:teal">⟨<em>superinterfaz</em>⟩</span> ::= [<span style="color:teal">⟨<em>paquete</em>⟩</span><strong><code>.</code></strong>]<strong><code>identificador</code></strong><br />
-<span style="color:teal">⟨<em>miembro_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>constante</em>⟩</span> | <span style="color:teal">⟨<em>método_interfaz</em>⟩</span> | <span style="color:teal">⟨<em>tipo_anidado_interfaz</em>⟩</span><br />
-<span style="color:teal">⟨<em>constante</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>static</code></strong>] [<strong><code>final</code></strong>] <span style="color:teal">⟨<em>decl_constantes</em>⟩</span><br />
-<span style="color:teal">⟨<em>decl_constantes</em>⟩</span> ::= <span style="color:teal">⟨<em>tipo</em>⟩</span> <span style="color:teal">⟨<em>decl_constante</em>⟩</span> (<strong><code>,</code></strong> <span style="color:teal">⟨<em>decl_constante</em>⟩</span>)* <strong><code>;</code></strong><br />
-<span style="color:teal">⟨<em>decl_constante</em>⟩</span> ::= <strong><code>identificador</code></strong> <span style="color:teal">⟨<em>inic_variable</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> | <span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] [<strong><code>abstract</code></strong>] <span style="color:teal">⟨<em>decl_método</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>método_predeterminado_público_interfaz</em>⟩</span><br />
-                                                                | <span style="color:teal">⟨<em>método_estático_público_interfaz</em>⟩</span><br />
-                                                                | <span style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_predeterminado_público_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>default</code></strong> <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_estático_público_interfaz</em>⟩</span> ::= [<strong><code>public</code></strong>] <strong><code>static</code></strong> <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
-<span style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span> ::= <strong><code>private</code></strong> [<strong><code>static</code></strong>] <span style="color:teal">⟨<em>def_método</em>⟩</span><br />
-<span style="color:teal">⟨<em>tipo_anidado_interfaz</em>⟩</span> ::= <span style="color:teal">⟨<em>clase</em>⟩</span> | <span style="color:teal">⟨<em>interfaz</em>⟩</span></div></li>
+<span style="color:teal">⟨<em>nombre</em>⟩</span> ::=
+<strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>superinterfaces</em>⟩</span> ::= <span
+style="color:teal">⟨<em>superinterfaz</em>⟩</span>[<strong><code>,</code></strong>
+<span style="color:teal">⟨<em>superinterfaz</em>⟩</span>]*<br />
+<span style="color:teal">⟨<em>superinterfaz</em>⟩</span> ::= [<span
+style="color:teal">⟨<em>paquete</em>⟩</span><strong><code>.</code></strong>]<strong><code>identificador</code></strong><br />
+<span style="color:teal">⟨<em>miembro_interfaz</em>⟩</span> ::= <span
+style="color:teal">⟨<em>constante</em>⟩</span> | <span
+style="color:teal">⟨<em>método_interfaz</em>⟩</span> | <span
+style="color:teal">⟨<em>tipo_anidado_interfaz</em>⟩</span><br />
+<span style="color:teal">⟨<em>constante</em>⟩</span> ::=
+[<strong><code>public</code></strong>]
+[<strong><code>static</code></strong>]
+[<strong><code>final</code></strong>] <span
+style="color:teal">⟨<em>decl_constantes</em>⟩</span><br />
+<span style="color:teal">⟨<em>decl_constantes</em>⟩</span> ::= <span
+style="color:teal">⟨<em>tipo</em>⟩</span> <span
+style="color:teal">⟨<em>decl_constante</em>⟩</span>
+(<strong><code>,</code></strong> <span
+style="color:teal">⟨<em>decl_constante</em>⟩</span>)*
+<strong><code>;</code></strong><br />
+<span style="color:teal">⟨<em>decl_constante</em>⟩</span> ::=
+<strong><code>identificador</code></strong> <span
+style="color:teal">⟨<em>inic_variable</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_interfaz</em>⟩</span> ::= <span
+style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> | <span
+style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_abstracto_interfaz</em>⟩</span> ::=
+[<strong><code>public</code></strong>]
+[<strong><code>abstract</code></strong>] <span
+style="color:teal">⟨<em>decl_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>método_concreto_interfaz</em>⟩</span> ::=
+<span
+style="color:teal">⟨<em>método_predeterminado_público_interfaz</em>⟩</span><br />
+                                                                | <span
+style="color:teal">⟨<em>método_estático_público_interfaz</em>⟩</span><br />
+                                                                | <span
+style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span><br />
+<span
+style="color:teal">⟨<em>método_predeterminado_público_interfaz</em>⟩</span>
+::= [<strong><code>public</code></strong>]
+<strong><code>default</code></strong> <span
+style="color:teal">⟨<em>def_método</em>⟩</span><br />
+<span
+style="color:teal">⟨<em>método_estático_público_interfaz</em>⟩</span>
+::= [<strong><code>public</code></strong>]
+<strong><code>static</code></strong> <span
+style="color:teal">⟨<em>def_método</em>⟩</span><br />
+<span
+style="color:teal">⟨<em>método_concreto_privado_interfaz</em>⟩</span>
+::= <strong><code>private</code></strong>
+[<strong><code>static</code></strong>] <span
+style="color:teal">⟨<em>def_método</em>⟩</span><br />
+<span style="color:teal">⟨<em>tipo_anidado_interfaz</em>⟩</span> ::=
+<span style="color:teal">⟨<em>clase</em>⟩</span> | <span
+style="color:teal">⟨<em>interfaz</em>⟩</span></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.2">
 
 <ul>
-<li><p>Las <strong>interfaces</strong> sólo pueden tener dos <strong>visibilidades</strong>:</p>
+<li><p>Las <strong>interfaces</strong> sólo pueden tener dos
+<strong>visibilidades</strong>:</p>
 <ul>
-<li><p><strong>Predeterminada</strong>: la interfaz es visible sólo dentro del paquete donde se ha definido.</p></li>
-<li><p><strong>Pública</strong>: la interfaz es visible desde cualquier paquete.</p></li>
+<li><p><strong>Predeterminada</strong>: la interfaz es visible sólo
+dentro del paquete donde se ha definido.</p></li>
+<li><p><strong>Pública</strong>: la interfaz es visible desde cualquier
+paquete.</p></li>
 </ul></li>
-<li><p>Los <strong>miembros de una interfaz</strong> sólo pueden tener dos visibilidades:</p>
+<li><p>Los <strong>miembros de una interfaz</strong> sólo pueden tener
+dos visibilidades:</p>
 <ul>
-<li><p><strong>Pública</strong>: es la visibilidad predeterminada salvo que se indique lo contrario, por lo que, si no se usa ningún modificador de visibilidad, se entiende que es <code class="sourceCode java"><span class="kw">public</span></code>.</p></li>
-<li><p><strong>Privada</strong>: sólo los métodos concretos pueden tener visibilidad privada.</p></li>
+<li><p><strong>Pública</strong>: es la visibilidad predeterminada salvo
+que se indique lo contrario, por lo que, si no se usa ningún modificador
+de visibilidad, se entiende que es <code
+class="sourceCode java"><span class="kw">public</span></code>.</p></li>
+<li><p><strong>Privada</strong>: sólo los métodos concretos pueden tener
+visibilidad privada.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.3">
 
 <ul>
-<li><p>Todas las <strong>constantes</strong> de una interfaz son implícitamente <code class="sourceCode java"><span class="kw">public</span></code>, <code class="sourceCode java"><span class="dt">final</span></code> y <code class="sourceCode java"><span class="dt">static</span></code>, por lo que se pueden omitir todos esos modificadores.</p></li>
-<li><p>El cuerpo de una interfaz puede contener métodos abstractos, métodos predeterminados, métodos estáticos y métodos privados.</p></li>
-<li><p>Un <strong>método abstracto</strong> dentro de una interfaz no tiene cuerpo: es una declaración que acaba en <strong><code>;</code></strong> y no necesita el modificador <code class="sourceCode java"><span class="kw">abstract</span></code>.</p></li>
-<li><p>Los <strong>métodos predeterminados</strong> se definen con el modificador <code class="sourceCode java"><span class="kw">default</span></code> y sí tienen cuerpo.</p></li>
-<li><p>Todos los métodos abstractos y predeterminados de una interfaz son implícitamente públicos, así que se puede omitir el modificador <code class="sourceCode java"><span class="kw">public</span></code>.</p></li>
-<li><p>Los <strong>métodos estáticos</strong> llevan el modificador <code class="sourceCode java"><span class="dt">static</span></code> y también tienen cuerpo.</p></li>
-<li><p>Los <strong>métodos privados</strong> tienen cuerpo, llevan el modificador <code class="sourceCode java"><span class="kw">private</span></code>, pueden ser estáticos o de instancia, y se usan para descomponer otros métodos predeterminados o estáticos de la interfaz.</p></li>
+<li><p>Todas las <strong>constantes</strong> de una interfaz son
+implícitamente <code
+class="sourceCode java"><span class="kw">public</span></code>, <code
+class="sourceCode java"><span class="dt">final</span></code> y <code
+class="sourceCode java"><span class="dt">static</span></code>, por lo
+que se pueden omitir todos esos modificadores.</p></li>
+<li><p>El cuerpo de una interfaz puede contener métodos abstractos,
+métodos predeterminados, métodos estáticos y métodos privados.</p></li>
+<li><p>Un <strong>método abstracto</strong> dentro de una interfaz no
+tiene cuerpo: es una declaración que acaba en
+<strong><code>;</code></strong> y no necesita el modificador <code
+class="sourceCode java"><span class="kw">abstract</span></code>.</p></li>
+<li><p>Los <strong>métodos predeterminados</strong> se definen con el
+modificador <code
+class="sourceCode java"><span class="kw">default</span></code> y sí
+tienen cuerpo.</p></li>
+<li><p>Todos los métodos abstractos y predeterminados de una interfaz
+son implícitamente públicos, así que se puede omitir el modificador
+<code
+class="sourceCode java"><span class="kw">public</span></code>.</p></li>
+<li><p>Los <strong>métodos estáticos</strong> llevan el modificador
+<code class="sourceCode java"><span class="dt">static</span></code> y
+también tienen cuerpo.</p></li>
+<li><p>Los <strong>métodos privados</strong> tienen cuerpo, llevan el
+modificador <code
+class="sourceCode java"><span class="kw">private</span></code>, pueden
+ser estáticos o de instancia, y se usan para descomponer otros métodos
+predeterminados o estáticos de la interfaz.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.4">
 
 <ul>
-<li><p>Por ejemplo, podemos definir una interfaz <code>Sumable</code> que represente cualquier cosa que se pueda sumar:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Sumable <span class="op">{</span></span>
+<li><p>Por ejemplo, podemos definir una interfaz <code>Sumable</code>
+que represente cualquier cosa que se pueda sumar:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Sumable <span class="op">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    Sumable <span class="fu">sumar</span><span class="op">(</span>Sumable otro<span class="op">);</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
-<li><p>O una interfaz <code>Comparable</code> que represente cualquier cosa que se pueda comparar con otra para ver si es menor que ella:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<li><p>O una interfaz <code>Comparable</code> que represente cualquier
+cosa que se pueda comparar con otra para ver si es menor que ella:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">boolean</span> <span class="fu">menorQue</span><span class="op">(</span><span class="bu">Comparable</span> otro<span class="op">);</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 
-<section id="implementación-de-interfaces" class="title-slide slide level2" data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span> Implementación de interfaces</h2>
+<section id="implementación-de-interfaces"
+class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span>
+Implementación de interfaces</h2>
 <ul>
-<li><p>Para usar una interfaz, se necesita una clase que implemente esa interfaz.</p></li>
-<li><p>Para ello, la definición de la clase debe llevar la cláusula <strong><code>implements</code></strong> indicando las interfaces que implementa dicha clase.</p></li>
-<li><p>Además, las clases que deseen implementar esa interfaz, deben implementar (es decir, proporcionar un cuerpo) a todos los métodos abstractos declarados en la interfaz.</p></li>
-<li><p>En la implementación del método se recomienda (pero no es necesario) usar el decorador <code class="sourceCode java"><span class="at">@Override</span></code>.</p></li>
-<li><p>Por supuesto, una clase puede tener una superclase y, al mismo tiempo, implementar una o varias interfaces.</p></li>
+<li><p>Para usar una interfaz, se necesita una clase que implemente esa
+interfaz.</p></li>
+<li><p>Para ello, la definición de la clase debe llevar la cláusula
+<strong><code>implements</code></strong> indicando las interfaces que
+implementa dicha clase.</p></li>
+<li><p>Además, las clases que deseen implementar esa interfaz, deben
+implementar (es decir, proporcionar un cuerpo) a todos los métodos
+abstractos declarados en la interfaz.</p></li>
+<li><p>En la implementación del método se recomienda (pero no es
+necesario) usar el decorador <code
+class="sourceCode java"><span class="at">@Override</span></code>.</p></li>
+<li><p>Por supuesto, una clase puede tener una superclase y, al mismo
+tiempo, implementar una o varias interfaces.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable <span class="op">{</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> num<span class="op">;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
@@ -453,8 +620,10 @@
 <section class="slide level5" data-number="1.3.0.0.2">
 
 <ul>
-<li><p>Podemos hacer que una clase implemente tantas interfaces como sea necesario:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<li><p>Podemos hacer que una clase implemente tantas interfaces como sea
+necesario:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Numero <span class="kw">implements</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> num<span class="op">;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Numero</span><span class="op">(</span><span class="dt">int</span> num<span class="op">)</span> <span class="op">{</span></span>
@@ -476,42 +645,63 @@
 </ul>
 </section>
 
-<section id="las-interfaces-como-tipos" class="title-slide slide level2" data-number="1.4">
-<h2 data-number="1.4"><span class="header-section-number">1.4</span> Las interfaces como tipos</h2>
+<section id="las-interfaces-como-tipos" class="title-slide slide level2"
+data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> Las
+interfaces como tipos</h2>
 <ul>
 <li><p>Las interfaces son tipos en Java.</p></li>
-<li><p>Por tanto, ya hemos visto tres entidades distintas que representan tipos en Java:</p>
+<li><p>Por tanto, ya hemos visto tres entidades distintas que
+representan tipos en Java:</p>
 <ul>
 <li><p>Las clases</p></li>
 <li><p>Los <em>arrays</em></p></li>
 <li><p>Las interfaces.</p></li>
 </ul></li>
-<li><p>Por tanto, el nombre de una interfaz se puede usar allí donde se espere el nombre de un tipo.</p>
-<p>Eso significa que podemos declarar variables, parámetros, métodos, etc. cuyo tipo es una interfaz.</p></li>
+<li><p>Por tanto, el nombre de una interfaz se puede usar allí donde se
+espere el nombre de un tipo.</p>
+<p>Eso significa que podemos declarar variables, parámetros, métodos,
+etc. cuyo tipo es una interfaz.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
-<li><p>Cuando una clase implementa una interfaz, esa clase se convierte en subtipo directo del tipo que representa la interfaz:</p>
-<p>Si <code>C</code> implementa <code>I</code>, entonces <code>C</code> <span class="math inline">&lt;_1</span> <code>I</code>. <!-- _1 --></p></li>
-<li><p>Cuando algo se declara con un tipo representado mediante una interfaz, el valor de ese algo debe ser una instancia de una clase que implemente esa interfaz.</p></li>
-<li><p>Dicho de otra forma: allí donde se espere un valor de un tipo interfaz, se puede poner una instancia de una clase que implemente esa interfaz.</p></li>
+<li><p>Cuando una clase implementa una interfaz, esa clase se convierte
+en subtipo directo del tipo que representa la interfaz:</p>
+<p>Si <code>C</code> implementa <code>I</code>, entonces <code>C</code>
+<span class="math inline">&lt;_1</span> <code>I</code>.
+<!-- _1 --></p></li>
+<li><p>Cuando algo se declara con un tipo representado mediante una
+interfaz, el valor de ese algo debe ser una instancia de una clase que
+implemente esa interfaz.</p></li>
+<li><p>Dicho de otra forma: allí donde se espere un valor de un tipo
+interfaz, se puede poner una instancia de una clase que implemente esa
+interfaz.</p></li>
 <li><p>Eso significa que un objeto puede tener muchos tipos:</p>
 <ul>
-<li><p>El tipo de su propia clase (la que se usó para instanciar el objeto).</p></li>
+<li><p>El tipo de su propia clase (la que se usó para instanciar el
+objeto).</p></li>
 <li><p>El tipo de todas sus superclases.</p></li>
-<li><p>El tipo de todas las interfaces que implementa su propia clase.</p></li>
-<li><p>El tipo de todas las interfaces que implementa todas sus superclases.</p></li>
-<li><p>El tipo de todas las superinterfaces de todas las interfaces que implementan su propia clase y todas sus superclases (ya lo veremos).</p></li>
+<li><p>El tipo de todas las interfaces que implementa su propia
+clase.</p></li>
+<li><p>El tipo de todas las interfaces que implementa todas sus
+superclases.</p></li>
+<li><p>El tipo de todas las superinterfaces de todas las interfaces que
+implementan su propia clase y todas sus superclases (ya lo
+veremos).</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.2">
 
 <ul>
-<li><p>Por ejemplo, allí donde se espere un valor de tipo <code>Sumable</code>, se puede poner una instancia de la clase <code>Numero</code>, ya que la clase <code>Numero</code> implementa la interfaz <code>Sumable</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
+<li><p>Por ejemplo, allí donde se espere un valor de tipo
+<code>Sumable</code>, se puede poner una instancia de la clase
+<code>Numero</code>, ya que la clase <code>Numero</code> implementa la
+interfaz <code>Sumable</code>:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        Numero n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        Numero n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
@@ -520,15 +710,21 @@
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
-<li><p>El parámetro del método <code>sumar</code> está declarado de tipo <code>Sumable</code>, pero en el código anterior le hemos enviado un argumento de tipo <code>Numero</code>.</p>
-<p>Esto es perfectamente válido, ya que <code>Numero</code> <code>&lt;:</code> <code>Sumable</code> y, por el principio de sustitución, podemos enviar un valor de un subtipo del tipo declarado para el parámetro.</p></li>
+<li><p>El parámetro del método <code>sumar</code> está declarado de tipo
+<code>Sumable</code>, pero en el código anterior le hemos enviado un
+argumento de tipo <code>Numero</code>.</p>
+<p>Esto es perfectamente válido, ya que <code>Numero</code>
+<code>&lt;:</code> <code>Sumable</code> y, por el principio de
+sustitución, podemos enviar un valor de un subtipo del tipo declarado
+para el parámetro.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.3">
 
 <ul>
 <li><p>También podríamos haber hecho:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Interfaces <span class="op">{</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        Sumable n1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">4</span><span class="op">);</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        Sumable n2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Numero</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
@@ -537,17 +733,27 @@
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>resultado<span class="op">.</span><span class="fu">num</span><span class="op">);</span>     <span class="co">// Imprime «9»</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>Es decir: usar <code>Sumable</code> en lugar de <code>Numero</code> como tipo estático de las variables <code>n1</code>, <code>n2</code> y <code>resultado</code>.</p></li>
+<p>Es decir: usar <code>Sumable</code> en lugar de <code>Numero</code>
+como tipo estático de las variables <code>n1</code>, <code>n2</code> y
+<code>resultado</code>.</p></li>
 </ul>
 </section>
 
-<section id="herencia-entre-interfaces" class="title-slide slide level2" data-number="1.5">
-<h2 data-number="1.5"><span class="header-section-number">1.5</span> Herencia entre interfaces</h2>
+<section id="herencia-entre-interfaces" class="title-slide slide level2"
+data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span>
+Herencia entre interfaces</h2>
 <ul>
-<li><p>Es posible establecer relaciones de generalización entre interfaces.</p></li>
-<li><p>En tal caso, podemos hablar de subinterfaces y superinterfaces.</p></li>
-<li><p>En Java, la generalización entre interfaces es múltiple, lo que significa que una interfaz puede tener más de una superinterfaz directa.</p></li>
-<li><p>Las superinterfaces directas de una interfaz se indican en la definición de la subinterfaz usando la clásula <code class="sourceCode java"><span class="kw">extends</span></code>.</p></li>
+<li><p>Es posible establecer relaciones de generalización entre
+interfaces.</p></li>
+<li><p>En tal caso, podemos hablar de subinterfaces y
+superinterfaces.</p></li>
+<li><p>En Java, la generalización entre interfaces es múltiple, lo que
+significa que una interfaz puede tener más de una superinterfaz
+directa.</p></li>
+<li><p>Las superinterfaces directas de una interfaz se indican en la
+definición de la subinterfaz usando la clásula <code
+class="sourceCode java"><span class="kw">extends</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.5.0.0.1">
@@ -556,19 +762,24 @@
 <li><p>Por tanto:</p>
 <ul>
 <li><p>Una clase puede implementar varias interfaces:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> A <span class="op">{</span> <span class="op">}</span></span>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> A <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> B <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> C <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D <span class="kw">implements</span> A<span class="op">,</span> B<span class="op">,</span> C <span class="op">{</span> <span class="op">}</span></span></code></pre></div></li>
-<li><p>Una interfaz puede extender una o varias interfaces usando <code class="sourceCode java"><span class="kw">extends</span></code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> A <span class="op">{</span> <span class="op">}</span></span>
+<li><p>Una interfaz puede extender una o varias interfaces usando <code
+class="sourceCode java"><span class="kw">extends</span></code>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> A <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> B <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> C <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> E <span class="kw">extends</span> A<span class="op">,</span> B<span class="op">,</span> C <span class="op">{</span> <span class="op">}</span></span></code></pre></div></li>
-<li><p>Una clase puede extender otra clase e implementar varias interfaces, todo al mismo tiempo:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="op">{</span> <span class="op">}</span></span>
+<li><p>Una clase puede extender otra clase e implementar varias
+interfaces, todo al mismo tiempo:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> B <span class="op">{</span> <span class="op">}</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> C <span class="op">{</span> <span class="op">}</span></span>
@@ -581,7 +792,8 @@
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SumableRestableComparable <span class="kw">extends</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> SumableRestableComparable <span class="kw">extends</span> Sumable<span class="op">,</span> <span class="bu">Comparable</span> <span class="op">{</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    SumableRestableComparable <span class="fu">restar</span><span class="op">(</span>SumableRestableComparable otro<span class="op">);</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -609,15 +821,24 @@
 </ul>
 </section>
 
-<section id="métodos-predeterminados" class="title-slide slide level2" data-number="1.6">
-<h2 data-number="1.6"><span class="header-section-number">1.6</span> Métodos predeterminados</h2>
+<section id="métodos-predeterminados" class="title-slide slide level2"
+data-number="1.6">
+<h2 data-number="1.6"><span class="header-section-number">1.6</span>
+Métodos predeterminados</h2>
 <ul>
-<li><p>Los métodos predeterminados son un mecanismo de reutilización de código entre clases que no tienen por qué pertenecer a la misma jerarquía de generalización.</p></li>
-<li><p>Cuando una clase implementa una interfaz con un método predeterminado, la clase «hereda» el método junto con su implementación.</p></li>
-<li><p>Cuando una interfaz extiende a otra interfaz que contiene un método predeterminado, se puede hacer lo siguiente:</p>
+<li><p>Los métodos predeterminados son un mecanismo de reutilización de
+código entre clases que no tienen por qué pertenecer a la misma
+jerarquía de generalización.</p></li>
+<li><p>Cuando una clase implementa una interfaz con un método
+predeterminado, la clase «hereda» el método junto con su
+implementación.</p></li>
+<li><p>Cuando una interfaz extiende a otra interfaz que contiene un
+método predeterminado, se puede hacer lo siguiente:</p>
 <ul>
-<li><p>No mencionar el método predeterminado, lo que hará que la subinterfaz herede el método y su implementación.</p></li>
-<li><p>Redeclarar el método predeterminado, lo que lo convertirá en un método abstracto.</p></li>
+<li><p>No mencionar el método predeterminado, lo que hará que la
+subinterfaz herede el método y su implementación.</p></li>
+<li><p>Redeclarar el método predeterminado, lo que lo convertirá en un
+método abstracto.</p></li>
 <li><p>Redefinir el método predeterminado.</p></li>
 </ul></li>
 </ul>
@@ -625,9 +846,13 @@
 <section class="slide level5" data-number="1.6.0.0.1">
 
 <ul>
-<li>En el caso de que se implementen varias interfaces y ambas contengan métodos predeterminados con la misma signatura, la clase implementadora tendrá que especificar explícitamente qué método predeterminado se usará, o redefinir el método predeterminado.</li>
+<li>En el caso de que se implementen varias interfaces y ambas contengan
+métodos predeterminados con la misma signatura, la clase implementadora
+tendrá que especificar explícitamente qué método predeterminado se
+usará, o redefinir el método predeterminado.</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> TestInterface1</span>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> TestInterface1</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">default</span> <span class="dt">void</span> <span class="fu">show</span><span class="op">()</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
@@ -645,7 +870,8 @@
 </section>
 <section class="slide level5" data-number="1.6.0.0.2">
 
-<div class="sourceCode" id="cb14"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestClass <span class="kw">implements</span> TestInterface1<span class="op">,</span> TestInterface2</span>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestClass <span class="kw">implements</span> TestInterface1<span class="op">,</span> TestInterface2</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">show</span><span class="op">()</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
@@ -662,23 +888,32 @@
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
-<section id="ejemplo-interfaz-charsequence" class="title-slide slide level2" data-number="1.7">
-<h2 data-number="1.7"><span class="header-section-number">1.7</span> Ejemplo: Interfaz <code>CharSequence</code></h2>
+<section id="ejemplo-interfaz-charsequence"
+class="title-slide slide level2" data-number="1.7">
+<h2 data-number="1.7"><span class="header-section-number">1.7</span>
+Ejemplo: Interfaz <code>CharSequence</code></h2>
 
 </section>
 
-<section id="ejemplo-clonación-de-objetos" class="title-slide slide level2" data-number="1.8">
-<h2 data-number="1.8"><span class="header-section-number">1.8</span> Ejemplo: Clonación de objetos</h2>
+<section id="ejemplo-clonación-de-objetos"
+class="title-slide slide level2" data-number="1.8">
+<h2 data-number="1.8"><span class="header-section-number">1.8</span>
+Ejemplo: Clonación de objetos</h2>
 
 </section>
-<section id="cloneable" class="title-slide slide level3" data-number="1.8.1">
-<h3 data-number="1.8.1"><span class="header-section-number">1.8.1</span> <code>Cloneable</code></h3>
+<section id="cloneable" class="title-slide slide level3"
+data-number="1.8.1">
+<h3 data-number="1.8.1"><span class="header-section-number">1.8.1</span>
+<code>Cloneable</code></h3>
 
 </section>
 
-<section id="object.clone" class="title-slide slide level3" data-number="1.8.2">
-<h3 data-number="1.8.2"><span class="header-section-number">1.8.2</span> <code>Object.clone()</code></h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Factura <span class="kw">implements</span> <span class="bu">Cloneable</span> <span class="op">{</span></span>
+<section id="object.clone" class="title-slide slide level3"
+data-number="1.8.2">
+<h3 data-number="1.8.2"><span class="header-section-number">1.8.2</span>
+<code>Object.clone()</code></h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Factura <span class="kw">implements</span> <span class="bu">Cloneable</span> <span class="op">{</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
@@ -696,42 +931,75 @@
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </section>
 
-<section id="constructor-de-copia" class="title-slide slide level3" data-number="1.8.3">
-<h3 data-number="1.8.3"><span class="header-section-number">1.8.3</span> Constructor de copia</h3>
+<section id="constructor-de-copia" class="title-slide slide level3"
+data-number="1.8.3">
+<h3 data-number="1.8.3"><span class="header-section-number">1.8.3</span>
+Constructor de copia</h3>
 
 </section>
 
 
-<section id="clases-abstractas-vs.-interfaces" class="title-slide slide level2" data-number="1.9">
-<h2 data-number="1.9"><span class="header-section-number">1.9</span> Clases abstractas vs. interfaces</h2>
+<section id="clases-abstractas-vs.-interfaces"
+class="title-slide slide level2" data-number="1.9">
+<h2 data-number="1.9"><span class="header-section-number">1.9</span>
+Clases abstractas vs. interfaces</h2>
 <ul>
-<li><p>Las clases abstractas y las interfaces son herramientas para lograr la abstracción que nos permiten declarar métodos abstractos.</p></li>
-<li><p>No podemos crear directamente instancias de clases abstractas ni de interfaces; sólo podemos hacerlo a través de clases que implementen los métodos abstractos.</p></li>
-<li><p>Desde Java 8, una interfaz puede tener métodos predeterminados y estáticos que contienen una implementación, lo que hace que las interfaces sean más parecidas a clases abstractas.</p></li>
-<li><p>Entonces, ¿cuál es la diferencia entre una interfaz y una clase abstracta?</p></li>
+<li><p>Las clases abstractas y las interfaces son herramientas para
+lograr la abstracción que nos permiten declarar métodos
+abstractos.</p></li>
+<li><p>No podemos crear directamente instancias de clases abstractas ni
+de interfaces; sólo podemos hacerlo a través de clases que implementen
+los métodos abstractos.</p></li>
+<li><p>Desde Java 8, una interfaz puede tener métodos predeterminados y
+estáticos que contienen una implementación, lo que hace que las
+interfaces sean más parecidas a clases abstractas.</p></li>
+<li><p>Entonces, ¿cuál es la diferencia entre una interfaz y una clase
+abstracta?</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.9.0.0.1">
 
 <ul>
-<li><p>Una <strong>clase abstracta</strong> puede tener métodos de instancia abstractos y no abstractos, mientras que una <strong>interfaz</strong> puede tener métodos de instancia abstractos o predeterminados.</p></li>
-<li><p>Una <strong>clase abstracta</strong> puede extender una clase abstracta o concreta, pero una <strong>interfaz</strong> solo puede extender a otra interfaz</p></li>
-<li><p>Una <strong>clase abstracta</strong> puede extender una sola clase, mientras que una <strong>interfaz</strong> puede extender cualquier número de interfaces.</p></li>
-<li><p>Una <strong>clase abstracta</strong> puede tener variables finales, no finales, estáticas y no estáticas (de instancia), mientras que una <strong>interfaz</strong> sólo puede tener variables finales estáticas.</p></li>
-<li><p>Una <strong>clase abstracta</strong> puede implementar una interfaz, pero no al revés (las <strong>interfaces</strong> no implementan).</p></li>
-<li><p>Una <strong>clase abstracta</strong> puede tener un constructor, pero una <strong>interfaz</strong> no.</p></li>
-<li><p>En una <strong>clase abstracta</strong>, la palabra clave <code class="sourceCode java"><span class="kw">abstract</span></code> es obligatoria para declarar un método como abstracto, mientras que en una <strong>interfaz</strong> esta palabra clave es opcional.</p></li>
+<li><p>Una <strong>clase abstracta</strong> puede tener métodos de
+instancia abstractos y no abstractos, mientras que una
+<strong>interfaz</strong> puede tener métodos de instancia abstractos o
+predeterminados.</p></li>
+<li><p>Una <strong>clase abstracta</strong> puede extender una clase
+abstracta o concreta, pero una <strong>interfaz</strong> solo puede
+extender a otra interfaz</p></li>
+<li><p>Una <strong>clase abstracta</strong> puede extender una sola
+clase, mientras que una <strong>interfaz</strong> puede extender
+cualquier número de interfaces.</p></li>
+<li><p>Una <strong>clase abstracta</strong> puede tener variables
+finales, no finales, estáticas y no estáticas (de instancia), mientras
+que una <strong>interfaz</strong> sólo puede tener variables finales
+estáticas.</p></li>
+<li><p>Una <strong>clase abstracta</strong> puede implementar una
+interfaz, pero no al revés (las <strong>interfaces</strong> no
+implementan).</p></li>
+<li><p>Una <strong>clase abstracta</strong> puede tener un constructor,
+pero una <strong>interfaz</strong> no.</p></li>
+<li><p>En una <strong>clase abstracta</strong>, la palabra clave <code
+class="sourceCode java"><span class="kw">abstract</span></code> es
+obligatoria para declarar un método como abstracto, mientras que en una
+<strong>interfaz</strong> esta palabra clave es opcional.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.9.0.0.2">
 
 <ul>
 <li><p>La lista de diferencias anterior no es completa.</p></li>
-<li><p>Las clases abstractas y las interfaces tienen muchas más diferencias, pero la principal es su <strong>finalidad</strong>:</p>
+<li><p>Las clases abstractas y las interfaces tienen muchas más
+diferencias, pero la principal es su <strong>finalidad</strong>:</p>
 <ul>
-<li><p>Normalmente, <strong>las <em>interfaces</em> se usan</strong> para desacoplar la interfaz de un módulo (la clase) de su implementación.</p>
-<p>Es decir: proporciona una interfaz estandarizada a los clientes de una clase, ocultando su implementación.</p></li>
-<li><p>En cambio, <strong>las <em>clases abstractas</em> se usan</strong> habitualmente como clases base que tienen miembros comunes para varias subclases.</p></li>
+<li><p>Normalmente, <strong>las <em>interfaces</em> se usan</strong>
+para desacoplar la interfaz de un módulo (la clase) de su
+implementación.</p>
+<p>Es decir: proporciona una interfaz estandarizada a los clientes de
+una clase, ocultando su implementación.</p></li>
+<li><p>En cambio, <strong>las <em>clases abstractas</em> se
+usan</strong> habitualmente como clases base que tienen miembros comunes
+para varias subclases.</p></li>
 </ul></li>
 </ul>
 <div class="caja">
@@ -744,16 +1012,23 @@
 </div>
 </section>
 </section>
-<section id="paquetes-y-módulos" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Paquetes y módulos</h1>
+<section id="paquetes-y-módulos" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Paquetes y módulos</h1>
 
 </section>
 
-<section id="bibliografía" class="title-slide slide level1 unnumbered unlisted">
+<section id="bibliografía"
+class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-gosling_java_2014" class="csl-entry" role="doc-biblioentry">
-Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8 edition. Upper Saddle River, NJ: Addison-Wesley.
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-gosling_java_2014" class="csl-entry"
+role="doc-biblioentry">
+Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley.
+2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8
+edition. Upper Saddle River, NJ: Addison-Wesley.
 </div>
 </div>
 </section>
@@ -762,7 +1037,7 @@ Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <
 
   <script src="./reveal.js/dist/reveal.js"></script>
 
-  // reveal.js plugins
+  <!-- reveal.js plugins -->
   <script src="./reveal.js/plugin/notes/notes.js"></script>
   <script src="./reveal.js/plugin/search/search.js"></script>
   <script src="./reveal.js/plugin/zoom/zoom.js"></script>
@@ -775,85 +1050,149 @@ Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley. 2014. <
       Reveal.initialize({
         // Display controls in the bottom right corner
         controls: true,
+
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
         controlsTutorial: true,
+
         // Determines where controls appear, "edges" or "bottom-right"
         controlsLayout: 'bottom-right',
+
         // Visibility rule for backwards navigation arrows; "faded", "hidden"
         // or "visible"
         controlsBackArrows: 'faded',
+
         // Display a presentation progress bar
         progress: true,
+
         // Display the page number of the current slide
         slideNumber: true,
+
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
         // Push each slide change to the browser history
-        history: true,
+        history: false,
+
         // Enable keyboard shortcuts for navigation
         keyboard: true,
+
         // Enable the slide overview mode
         overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
         // Vertical centering of slides
         center: true,
+
         // Enables touch navigation on devices with touch input
         touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
         // see https://revealjs.com/vertical-slides/#navigation-mode
         navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
         // Turns fragments on and off globally
         fragments: true,
+
         // Flags whether to include the current fragment in the URL,
         // so that reloading brings you to the same fragment position
         fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
         // Flags if we should show a help overlay when the questionmark
         // key is pressed
         help: true,
-       // Flags if it should be possible to pause the presentation (blackout)
-       pause: true,
-        // Global override for autoplaying embedded media (video/audio/iframe)
-        // - null: Media will only autoplay if data-autoplay is present
-        // - true: All media will autoplay, regardless of individual setting
-        // - false: No media will autoplay, regardless of individual setting
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
         autoPlayMedia: null,
-        // Global override for preloading lazy-loaded iframes
-        // - null: Iframes with data-src AND data-preload will be loaded when within
-        //   the viewDistance, iframes with only data-src will be loaded when visible
-        // - true: All iframes with data-src will be loaded when within the viewDistance
-        // - false: All iframes with data-src will be loaded only when visible
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
+
         // Number of milliseconds between automatically proceeding to the
         // next slide, disabled when set to 0, this value can be overwritten
         // by using a data-autoslide attribute on your slides
         autoSlide: 0,
+
         // Stop auto-sliding after user input
         autoSlideStoppable: true,
+
         // Use this method for navigation when auto-sliding
         autoSlideMethod: null,
+
         // Specify the average time in seconds that you think you will spend
         // presenting each slide. This is used to show a pacing timer in the
         // speaker view
         defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
         // Hide cursor if inactive
         hideInactiveCursor: true,
+
         // Time before the cursor is hidden (in ms)
         hideCursorTime: 5000,
-        // Transition style
-        transition: 'slide', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
         // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
         // Number of slides away from the current that are visible
         viewDistance: 3,
+
         // Number of slides away from the current that are visible on mobile
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
         width: 1280,
+
         height: 1080,
         // The display mode that will be used to show slides
         display: 'block',
