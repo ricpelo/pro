@@ -336,22 +336,27 @@ author: Ricardo Pérez López
 
 ### Dominio, rango, conjunto origen y conjunto imagen
 
-- Se llama **dominio** de $f$ al conjunto $A$ y **rango** o **codominio** al
-  conjunto $B$.
+- Se llama **dominio** de $f$, y se representa como **!DOM(_f_)**, al conjunto
+  $A$.
 
-- Asimismo, se llama **conjunto origen** (o simplemente **origen**) al conjunto
-  de todos los orígenes de $f$, y **conjunto imagen** (o simplemente
-  **imagen**) al conjunto de todas las imágenes de $f$. Nosotros lo vamos a
-  escribir como $A_f$ y $B_f$, respectivamente. 
+- Se llama **rango** o **codominio** de $f$, y se representa como
+  **!RANG(_f_)**, al conjunto $B$.
 
-- Es evidente que $A_f \subseteq A$ y que $B_f \subseteq B$.
+- Se llama **conjunto origen** (o simplemente **origen**), y se representa como
+  **!ORIG(_f_)**, al conjunto de todos los orígenes de $f$.
+
+- Se llama **conjunto imagen** (o simplemente **imagen**), y se representa como
+  **!IMG(_f_)**, al conjunto de todas las imágenes de $f$.
+
+- Es evidente que $!ORIG(f) \subseteq A$ y que $!IMG(f) \subseteq B$.
 
 ### Tipos de funciones
 
-- Si se cumple que $A_f !NEQ A$, decimos que $f$ es una **función parcial**. En
-  caso contrario (cuando $A_f = A$), decimos que es una **función total**.
+- Si se cumple que $!ORIG(f) !NEQ A$, decimos que $f$ es una **función
+  parcial**. En caso contrario (cuando $!ORIG(f) = A$), decimos que es
+  una **función total**.
 
-- Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $B_f = B$, es
+- Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $!IMG(f) = B$, es
   decir, si cada elemento de $B$ es imagen de algún elemento de $A$.
 
 - Se dice que $f$ es **inyectiva** si para todo $a, b \in A$, $f(a) = f(b)
