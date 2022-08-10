@@ -150,7 +150,7 @@ author: Ricardo Pérez López
 #### Por definición inductiva
 
 - Indicando un método que permite obtener los elementos de un conjunto de forma
-  progresiva (de «abajo» a «arriba») a partir de los anteriores.
+  progresiva («hacia delante» o «de abajo arriba») a partir de los anteriores.
 
 - Por ejemplo, para representar el conjunto de los números naturales podemos
   seguir las siguientes reglas:
