@@ -2683,6 +2683,99 @@ intérprete? Razona la respuesta.
 - El desarrollo de software complejo requiere pasar por varias etapas que,
   juntas, forman lo que se llama el **ciclo de vida** del software.
 
+## Implementación
+
+- El concepto de **implementación** es muy importante en Programación.
+
+- Está muy relacionado con los conceptos de _especificación_, _diseño_ y
+  _codificación_.
+
+- En esencia:
+
+  - La _especificación_ describe _qué_ hay que hacer.
+
+  - La _implementación_, en cambio, describe _cómo_ hay que hacerlo.
+
+- Cuando lo que se está especificando es un _programa_ (es decir, cuando la
+  especificación describe lo que tiene que hacer un programa), la
+  _implementación_ es el _algoritmo_ o _programa_ que hace lo que la
+  especificación dice que hay que hacer.
+
+---
+
+- En ese sentido, _implementar_ puede verse como sinónimo de _realizar_,
+  _diseñar_ o _codificar_.
+
+- Por tanto, _programar_ consiste en: primero, _especificar_ y después
+  _implementar_.
+
+- En ese sentido, la implementación va asociada siempre a una especificación,
+  ya que debe satisfacer a ésta.
+
+- Decimos que **una implementación _satisface_ a una especificación** cuando
+  dicha implementación cumple con las condiciones y los requisitos establecidos
+  por la especificación.
+
+---
+
+- En Programación podemos implementar algoritmos o programas (y también otras
+  cosas que ya veremos posteriormente).
+
+- «_Implementar un algoritmo_» e «_implementar un programa_» son expresiones
+  que a veces se suelen usar indistintamente, ya que tienen un significado
+  similar o casi idéntico.
+
+- Por ejemplo, podemos decir que «implementamos un algoritmo» cuando diseñamos
+  un algoritmo a partir de una especificación y lo representamos usando una
+  herramienta apropiada (pseudocódigo, diagramas, etc.). En este caso, se está
+  usando «implementar» como sinónimo de «diseñar un algoritmo».
+
+- Pero también podemos decir que «implementamos un algoritmo» cuando ya tenemos
+  un algoritmo y lo codificamos en un determinado lenguaje de programación,
+  creando así un programa. En este caso, se está usando «implementar» como
+  sinónimo de «codificar».
+
+- Y también podemos decir que «implementamos un programa» cuando el producto
+  resultante es un programa, ya sea a partir de una especificación o de un
+  algoritmo ya diseñado a partir de esa especificación.
+
+---
+
+- Por tanto, «implementar» es el acto de crear algo a partir de una
+  especificación. El producto resultante (la implementación) puede ser un
+  algoritmo, un programa o más cosas que ya veremos en su momento.
+
+- Separar el _qué_ hace (la _especificación_) del _cómo_ lo hace (la
+  _implementación_) es una de las tareas más importantes del buen programador.
+
+- Esta separación es útil tanto si se trata de especificar grandes programas o
+  sistemas como si se trata de pequeñas piezas de software que puedan usarse
+  como partes de un programa más grande.
+
+---
+
+- Llamaremos **usuario** de un software al entorno externo del software
+  especificado, es decir, a los posibles usuarios humanos o a los posibles
+  programas que podrían utilizar los servicios del software especificado y que,
+  en principio, están interesados en saber _qué_ hace el programa, pero no
+  _cómo_ lo hace.
+
+- La especificación de un software tiene un doble destinatario:
+
+  - Los _usuarios_ del software. En este sentido, debe recoger todo lo
+    necesario para poder usarlo conrrectamente.
+
+  - El _implementador_ del software. En este sentido, describe los requisitos
+    que cualquier implementación válida debe satisfacer; es decir, las
+    obligaciones del implementador. Ha de dejar suficiente libertad para que
+    éste pueda escoger la implementación que estime más adecuada con los
+    recursos disponibles. Por eso, la especificación no debería entrar en
+    detalles de _cómo_ se debe implementar el software, ya que entonces el
+    implementador tendría menos libertad crear su implementación.
+
+- La especificación actúa, por tanto, como una _barrera_ y como un _contrato_
+  entre los usuarios y el implementador.
+
 # Entornos integrados de desarrollo
 
 ## Definición
