@@ -254,7 +254,7 @@ $\left\{\begin{array}{ll}
 !define(DOM)(\textrm{dom}(!1))
 !define(RANG)(\textrm{rang}(!1))
 !define(ORIG)(\textrm{orig}(!1))
-!define(IMG)(\textrm{img}(!1))
+!define(IMAG)(\textrm{imag}(!1))
 !define(SEP)(!MASSEP)
 !define(MASSEP)(!ifdef(HTML)([0.5em])())
 !define(MENOSSEP)(!ifndef(HTML)([-0.5em])([0.1em]))

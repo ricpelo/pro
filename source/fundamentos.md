@@ -336,19 +336,19 @@ author: Ricardo Pérez López
 
 ### Dominio, rango, conjunto origen y conjunto imagen
 
-- Se llama **dominio** de $f$, y se representa como **!DOM(_f_)**, al conjunto
-  $A$.
+- Se llama **dominio** de $f$, y se representa como $\underline{!DOM(f)}$, al
+  conjunto $A$.
 
 - Se llama **rango** o **codominio** de $f$, y se representa como
-  **!RANG(_f_)**, al conjunto $B$.
+  $\underline{!RANG(f)}$, al conjunto $B$.
 
 - Se llama **conjunto origen** (o simplemente **origen**), y se representa como
-  **!ORIG(_f_)**, al conjunto de todos los orígenes de $f$.
+  $\underline{!ORIG(f)}$, al conjunto de todos los orígenes de $f$.
 
 - Se llama **conjunto imagen** (o simplemente **imagen**), y se representa como
-  **!IMG(_f_)**, al conjunto de todas las imágenes de $f$.
+  $\underline{!IMAG(f)}$, al conjunto de todas las imágenes de $f$.
 
-- Es evidente que $!ORIG(f) \subseteq A$ y que $!IMG(f) \subseteq B$.
+- Es evidente que $!ORIG(f) \subseteq A$ y que $!IMAG(f) \subseteq B$.
 
 ### Tipos de funciones
 
@@ -356,8 +356,8 @@ author: Ricardo Pérez López
   parcial**. En caso contrario (cuando $!ORIG(f) = A$), decimos que es
   una **función total**.
 
-- Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $!IMG(f) = B$, es
-  decir, si cada elemento de $B$ es imagen de algún elemento de $A$.
+- Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $!IMAG(f) = B$,
+  es decir, si cada elemento de $B$ es imagen de algún elemento de $A$.
 
 - Se dice que $f$ es **inyectiva** si para todo $a, b \in A$, $f(a) = f(b)
   \implies a = b$.
@@ -376,8 +376,10 @@ author: Ricardo Pérez López
 
   - **Con ecuaciones:** expresando algebraicamente la correspondencia entre los
     elementos del conjunto origen y del conjunto imagen. Por ejemplo:
-    $$\begin{array}{c}f: \mathbb{N} \longrightarrow \mathbb{R} \\ f(x) =
-    \frac{1}{x}\end{array}$$ donde $x$ es la **variable independiente**.
+    $$\begin{array}{c}f: \mathbb{N} \longrightarrow \mathbb{R} \\
+    f(x) = \frac{1}{x}\end{array}$$
+
+    donde $x$ es la **variable independiente**.
 
 - Recordemos que una función es un caso particular de relación, la cual a su
   vez es un conjunto de tuplas.
@@ -397,9 +399,12 @@ author: Ricardo Pérez López
   podría ser otra tupla, pero ese ya es otro tema).
 
 - Por ejemplo, la función que asocia cada pareja de números enteros con su
-  suma, se podría representar así: $$\begin{array}{c}f: \mathbb{N} \times
-  \mathbb{N} \longrightarrow \mathbb{N} \\ f(x, y) = x + y\end{array}$$ donde
-  $x$ e $y$ son las variables independientes.
+  suma, se podría representar así:
+
+  $$\begin{array}{c}f: \mathbb{N} \times \mathbb{N} \longrightarrow \mathbb{N} \\
+  f(x, y) = x + y\end{array}$$
+
+  donde $x$ e $y$ son las variables independientes.
 
   En este caso, $f(2, 3) = 5$, así que la función $f$ asocia a la pareja
   $\langle 2, 5\rangle$ con el valor entero $5$. Por tanto, la función $f$
