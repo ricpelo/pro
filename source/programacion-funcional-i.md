@@ -226,8 +226,9 @@ nocite: |
   sobre esos valores.
 
   Esto es así porque recordemos que las operaciones actúan como funciones que
-  están definidas sobre un **dominio**. Ese dominio sería, a grandes rasgos, el
-  tipo de los valores sobre los que puede actuar.
+  están definidas sobre un **dominio**, que es un subconjunto del **conjunto
+  origen**. Ese conjunto origen sería, a grandes rasgos, el tipo de los valores
+  sobre los que puede actuar.
 
   Por ejemplo: sobre un valor de tipo _entero_ se puede realizar la operación
   _cambio de signo_ (pero no _raíz cuadrada_), y sobre dos enteros se pueden

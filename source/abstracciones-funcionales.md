@@ -2385,18 +2385,18 @@ cg [label = "(caso general)"]
 - La especificación de una abstracción funcional describe tres características
   fundamentales de dicha función:
 
-  - El **conjunto origen**: el conjunto de datos de entrada válidos.
+  - El **dominio**: el conjunto de datos de entrada válidos.
 
-  - El **conjunto imagen**: el conjunto de posibles valores que devuelve.
+  - El **rango** o **codominio**: el conjunto de posibles valores que devuelve.
 
   - El **propósito**: qué hace la función, es decir, la relación entre su
     entrada y su salida.
 
 ---
 
-- Hasta ahora, al especificar **programas**, llamamos «**entrada**» al conjunto
-  origen, y agrupamos el conjunto imagen y el propósito en una sola propiedad
-  que llamamos «**salida**».
+- Hasta ahora, al especificar **programas**, llamamos «**entrada**» al dominio
+  origen, y agrupamos el rango y el propósito en una sola propiedad que
+  llamamos «**salida**».
 
 - Por ejemplo, cualquier función !PYTHON(cuadrado) que usemos para implementar
   !PYTHON(area) debe satisfacer esta especificación:
@@ -2465,34 +2465,35 @@ cg [label = "(caso general)"]
 
   - **Dominio** y **conjunto origen** de una función.
 
-  - **Rango** y **conjunto imagen** de una función.
+  - **Rango** (o **codominio**) y **conjunto imagen** de una función.
 
 - ¿Cómo recoge la especificación esas cuatro características de la función?
 
-  - La **signatura** expresa el **dominio** y el **rango** de la función.
+  - La **signatura** expresa el **conjunto origen** y el **conjunto imagen** de
+    la función.
 
-  - El **conjunto origen** viene determinado por los valores del dominio que
+  - El **dominio** viene determinado por los valores del conjunto origen que
     cumplen la **precondición**.
 
-  - El **conjunto imagen** viene determinado por los valores del rango que
+  - El **codominio** viene determinado por los valores del conjunto imagen que
     cumplen la **postcondición**.
 
 ---
 
 - En el caso de la función !PYTHON(cuadrado) tenemos que:
 
-  - El dominio es !PYTHON(float), ya que su parámetro $n$ está declarado de
-    tipo !PYTHON(float) en la signatura de la función.
+  - El conjunto origen es !PYTHON(float), ya que su parámetro $n$ está
+    declarado de tipo !PYTHON(float) en la signatura de la función.
 
     Por tanto, los datos de entrada a la función deberán pertenecer al tipo
     !PYTHON(float).
 
-  - El conjunto origen coincide con el dominio, ya que su precondición es
+  - El dominio coincide con el conjunto origen, ya que su precondición es
     !PYTHON(True). Eso quiere decir que cualquier dato de entrada es válido
     siempre que pertenezca al dominio (en este caso, el tipo !PYTHON(float)).
 
-  - El rango también es !PYTHON(float), ya que así está declarado el tipo de
-    retorno de la función.
+  - El conjunto imagen también es !PYTHON(float), ya que así está declarado el
+    tipo de retorno de la función.
 
 ---
 
@@ -2543,8 +2544,8 @@ cg [label = "(caso general)"]
   tienen que cumplir la precondición.
 
   Eso significa, entre otras cosas, que **el _dominio_ y el _conjunto origen_
-  de la función no coinciden** (no todos los valores pertenecientes al dominio
-  sirven como datos de entrada válidos para la función).
+  de la función no coinciden** (no todos los valores pertenecientes al conjunto
+  origen sirven como datos de entrada válidos para la función).
 
 - Además, estamos diciendo que devuelve el mismo resultado que devuelve el
   método !PYTHON{count} (que casualmente ya existe en Python).

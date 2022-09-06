@@ -686,18 +686,17 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Una operación es _parcial_ cuando su **_dominio_** no coincide con su
   **_conjunto origen_**.
 
-- Por ejemplo `cima` es una operación parcial porque su dominio es _pila_, pero
-  su conjunto origen no contiene a todas las pilas, ya que no está definida
-  para el valor `pvacia` (que también es una pila).
+- Por ejemplo `cima` es una operación parcial porque su cojunto origen es
+  _pila_, pero su dominio no contiene a todas las pilas, ya que no está
+  definida para el valor `pvacia` (que también es una pila).
 
-- Por tanto, el conjunto imagen de `cima` es
-  ( _pila_ $\setminus\ \{$ `pvacia` $\}$ ).
+- Por tanto, el dominio de `cima` es ( _pila_ $\setminus\ \{$ `pvacia` $\}$ ).
 
 - Las operaciones que no son parciales se denominan **operaciones _totales_**.
 
 - En teoría, cualquier operación parcial se podría convertir en total si
-  cambiáramos su dominio para hacer que coincida exactamente con su conjunto
-  origen.
+  cambiáramos su conjunto origen para hacer que coincida exactamente con su
+  dominio.
 
 - De esta forma, podríamos hacer que `cima` sea total si la definimos con la
   siguiente signatura:

@@ -681,7 +681,10 @@ global</strong>.</p></li>
 instrucciones. El ámbito actual de cada una de las instrucciones es el
 ámbito global, que es el único ámbito que existe en el
 <em>script</em>:</p>
-<p>(ambito-global.png)</p></li>
+<div class="centered">
+<p><img data-src="images/ambito-global.png" class="plain"
+style="width:40.0%" /></p>
+</div></li>
 </ul>
 </section>
 
@@ -1254,7 +1257,10 @@ define un nuevo ámbito.</p></li>
 <li><p>Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito
 global (más externo) y el ámbito del cuerpo de la expresión lambda (más
 interno y anidado dentro del ámbito global):</p>
-<p>(ambitos-anidados.png)</p></li>
+<div class="centered">
+<p><img data-src="images/ambitos-anidados.png" class="plain"
+style="width:60.0%" /></p>
+</div></li>
 <li><p>Además, cada vez que se llama a <code
 class="sourceCode python">suma</code>, la ejecución del programa entra
 en su cuerpo, lo que crea un nuevo marco que almacena las ligaduras
@@ -1463,7 +1469,10 @@ class="sourceCode numberSource python number-lines"><code class="sourceCode pyth
 <span id="cb26-3"><a href="#cb26-3"></a>r <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb26-4"><a href="#cb26-4"></a>m <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)(<span class="dv">3</span>)</span></code></pre></div>
 <p>existen cuatro ámbitos:</p>
-<p>(cuatro-ambitos.png)</p></li>
+<div class="centered">
+<p><img data-src="images/cuatro-ambitos.png" class="plain"
+style="width:100.0%" /></p>
+</div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.2">
@@ -1521,7 +1530,17 @@ ejecución de su cuerpo</figcaption>
 </section>
 <section class="slide level5" data-number="3.3.0.0.5">
 
-<p>(cuatro-ambitos-entorno-linea3-durante-primer-lambda.svg)</p>
+<div class="centered">
+<figure>
+<img
+data-src="images/cuatro-ambitos-entorno-linea3-durante-primer-lambda.svg"
+class="plain" style="width:60.0%"
+alt="Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de ejecutar su cuerpo y devolver su resultado" />
+<figcaption aria-hidden="true">Entorno en la línea 3 en el cuerpo de la
+segunda expresión lambda, después de ejecutar su cuerpo y devolver su
+resultado</figcaption>
+</figure>
+</div>
 </section>
 <section class="slide level5" data-number="3.3.0.0.6">
 
@@ -2574,10 +2593,10 @@ hacerlo</em>.</p></li>
 <li><p>La especificación de una abstracción funcional describe tres
 características fundamentales de dicha función:</p>
 <ul>
-<li><p>El <strong>conjunto origen</strong>: el conjunto de datos de
-entrada válidos.</p></li>
-<li><p>El <strong>conjunto imagen</strong>: el conjunto de posibles
-valores que devuelve.</p></li>
+<li><p>El <strong>dominio</strong>: el conjunto de datos de entrada
+válidos.</p></li>
+<li><p>El <strong>rango</strong> o <strong>codominio</strong>: el
+conjunto de posibles valores que devuelve.</p></li>
 <li><p>El <strong>propósito</strong>: qué hace la función, es decir, la
 relación entre su entrada y su salida.</p></li>
 </ul></li>
@@ -2587,8 +2606,8 @@ relación entre su entrada y su salida.</p></li>
 
 <ul>
 <li><p>Hasta ahora, al especificar <strong>programas</strong>, llamamos
-«<strong>entrada</strong>» al conjunto origen, y agrupamos el conjunto
-imagen y el propósito en una sola propiedad que llamamos
+«<strong>entrada</strong>» al dominio origen, y agrupamos el rango y el
+propósito en una sola propiedad que llamamos
 «<strong>salida</strong>».</p></li>
 <li><p>Por ejemplo, cualquier función <code
 class="sourceCode python">cuadrado</code> que usemos para implementar
@@ -2666,19 +2685,19 @@ lenguaje de programación que se vaya a usar para implementar la función
 <ul>
 <li><p><strong>Dominio</strong> y <strong>conjunto origen</strong> de
 una función.</p></li>
-<li><p><strong>Rango</strong> y <strong>conjunto imagen</strong> de una
-función.</p></li>
+<li><p><strong>Rango</strong> (o <strong>codominio</strong>) y
+<strong>conjunto imagen</strong> de una función.</p></li>
 </ul></li>
 <li><p>¿Cómo recoge la especificación esas cuatro características de la
 función?</p>
 <ul>
-<li><p>La <strong>signatura</strong> expresa el <strong>dominio</strong>
-y el <strong>rango</strong> de la función.</p></li>
-<li><p>El <strong>conjunto origen</strong> viene determinado por los
-valores del dominio que cumplen la
-<strong>precondición</strong>.</p></li>
-<li><p>El <strong>conjunto imagen</strong> viene determinado por los
-valores del rango que cumplen la
+<li><p>La <strong>signatura</strong> expresa el <strong>conjunto
+origen</strong> y el <strong>conjunto imagen</strong> de la
+función.</p></li>
+<li><p>El <strong>dominio</strong> viene determinado por los valores del
+conjunto origen que cumplen la <strong>precondición</strong>.</p></li>
+<li><p>El <strong>codominio</strong> viene determinado por los valores
+del conjunto imagen que cumplen la
 <strong>postcondición</strong>.</p></li>
 </ul></li>
 </ul>
@@ -2689,7 +2708,7 @@ valores del rango que cumplen la
 <li><p>En el caso de la función <code
 class="sourceCode python">cuadrado</code> tenemos que:</p>
 <ul>
-<li><p>El dominio es <code
+<li><p>El conjunto origen es <code
 class="sourceCode python"><span class="bu">float</span></code>, ya que
 su parámetro <span class="math inline">n</span> está declarado de tipo
 <code class="sourceCode python"><span class="bu">float</span></code> en
@@ -2697,13 +2716,13 @@ la signatura de la función.</p>
 <p>Por tanto, los datos de entrada a la función deberán pertenecer al
 tipo <code
 class="sourceCode python"><span class="bu">float</span></code>.</p></li>
-<li><p>El conjunto origen coincide con el dominio, ya que su
+<li><p>El dominio coincide con el conjunto origen, ya que su
 precondición es <code
 class="sourceCode python"><span class="va">True</span></code>. Eso
 quiere decir que cualquier dato de entrada es válido siempre que
 pertenezca al dominio (en este caso, el tipo <code
 class="sourceCode python"><span class="bu">float</span></code>).</p></li>
-<li><p>El rango también es <code
+<li><p>El conjunto imagen también es <code
 class="sourceCode python"><span class="bu">float</span></code>, ya que
 así está declarado el tipo de retorno de la función.</p></li>
 </ul></li>
@@ -2759,8 +2778,8 @@ cadena y un carácter (otra cadena con un único carácter dentro).</p>
 sino que tienen que cumplir la precondición.</p>
 <p>Eso significa, entre otras cosas, que <strong>el <em>dominio</em> y
 el <em>conjunto origen</em> de la función no coinciden</strong> (no
-todos los valores pertenecientes al dominio sirven como datos de entrada
-válidos para la función).</p></li>
+todos los valores pertenecientes al conjunto origen sirven como datos de
+entrada válidos para la función).</p></li>
 <li><p>Además, estamos diciendo que devuelve el mismo resultado que
 devuelve el método <code class="sourceCode python">count</code> (que
 casualmente ya existe en Python).</p></li>

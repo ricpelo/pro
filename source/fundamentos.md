@@ -329,34 +329,34 @@ author: Ricardo Pérez López
 
     - $b$ se puede expresar como $f(a)$.
 
-    - Se puede escribir: $$f: a \rightarrow b$$
+    - Se puede escribir: $$f: a \longrightarrow b$$
 
 - Por lo dicho anteriormente, la imagen de $a$ es única, es decir, cada
   elemento de $A$ sólo puede tener una imagen como mucho (puede que ninguna).
 
 ### Dominio, rango, conjunto origen y conjunto imagen
 
+- Se llama **conjunto origen** de $f$ (o simplemente **origen** de $f$), y se
+  representa como $\underline{!ORIG(f)}$, al conjunto $A$.
+
+- Se llama **conjunto imagen** de $f$ (o simplemente **imagen** de $f$), y se
+  representa como $\underline{!IMAG(f)}$, al conjunto $B$.
+
 - Se llama **dominio** de $f$, y se representa como $\underline{!DOM(f)}$, al
-  conjunto $A$.
+  conjunto de todos los orígenes de $f$.
 
 - Se llama **rango** o **codominio** de $f$, y se representa como
-  $\underline{!RANG(f)}$, al conjunto $B$.
+  $\underline{!RANG(f)}$, , al conjunto de todas las imágenes de $f$.
 
-- Se llama **conjunto origen** (o simplemente **origen**), y se representa como
-  $\underline{!ORIG(f)}$, al conjunto de todos los orígenes de $f$.
-
-- Se llama **conjunto imagen** (o simplemente **imagen**), y se representa como
-  $\underline{!IMAG(f)}$, al conjunto de todas las imágenes de $f$.
-
-- Es evidente que $!ORIG(f) \subseteq A$ y que $!IMAG(f) \subseteq B$.
+- Es evidente que $!DOM(f) \subseteq A$ y que $!RANG(f) \subseteq B$.
 
 ### Tipos de funciones
 
-- Si se cumple que $!ORIG(f) !NEQ A$, decimos que $f$ es una **función
-  parcial**. En caso contrario (cuando $!ORIG(f) = A$), decimos que es
-  una **función total**.
+- Si se cumple que $!DOM(f) !NEQ A$, decimos que $f$ es una **función
+  parcial**. En caso contrario (cuando $!DOM(f) = A$), decimos que es una
+  **función total**.
 
-- Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $!IMAG(f) = B$,
+- Se dice que $f$ es **suprayectiva** (o **sobreyectiva**) si $!RANG(f) = B$,
   es decir, si cada elemento de $B$ es imagen de algún elemento de $A$.
 
 - Se dice que $f$ es **inyectiva** si para todo $a, b \in A$, $f(a) = f(b)
@@ -389,14 +389,14 @@ author: Ricardo Pérez López
 
 ## Funciones de varias variables
 
-- Cuando el dominio de una función es el producto cartesiano de varios
+- Cuando el conjunto origen de una función es el producto cartesiano de varios
   conjuntos, tenemos una **función de varias variables**.
 
 - Las funciones de varias variables se llaman así porque tienen varias
   variables independientes.
 
-- En realidad, lo que hace es asociar una tupla con una imagen (que también
-  podría ser otra tupla, pero ese ya es otro tema).
+- En realidad, lo que hace es asociar tuplas con imágenes (que también podrían
+  ser otras tuplas, pero ese ya es otro tema).
 
 - Por ejemplo, la función que asocia cada pareja de números enteros con su
   suma, se podría representar así:

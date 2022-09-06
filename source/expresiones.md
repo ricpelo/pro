@@ -879,8 +879,11 @@ $$
   _función_.
 
 - En Matemáticas, una **función** es una regla que **asocia** a cada elemento
-  de un conjunto (el **dominio**) **no más de un elemento** de un segundo
-  conjunto (el **codominio**).
+  de un conjunto (el **dominio**) **exactamente un elemento** (ni más ni menos)
+  de un segundo conjunto (el **codominio** o **rango**).
+
+- A su vez, las funciones están definidas sobre un **conjunto origen** y un
+  **conjunto imagen**.
 
 :::
 
@@ -927,29 +930,59 @@ $$
 
 - En la práctica, apenas hay diferencias sustanciales entre las tres formas.
 
-- Por ejemplo, la operación «inverso» actúa asocia cada número real con otro
-  número real: el inverso del número (1 dividido entre el número).
+- Por ejemplo, la operación «cuadrado» actúa asociando cada número real con
+  otro número real: el cuadrado del número (el número multiplicado por sí
+  mismo).
 
-  Así, esa operación asocia el número $4$ con el $1/4$, y el $7$ con el $1/7$.
+- Así, esa operación asocia el número $4$ con el $16$, y el $7$ con el $49$.
 
-  Aquí, tanto el dominio como el codominio de la operación serían $\mathbb{R}$,
-  el conjunto de los números reales, lo que se puede representar así:
+- Aquí, tanto el dominio como el codominio de la operación serían $\mathbb{R}$,
+  el conjunto de los números reales.
+
+- Por tanto, podemos definirla diciendo que es una función que asocia
+  $\mathbb{R}$ (su _conjunto origen_) con $\mathbb{R}$ (su _conjunto imagen_),
+  lo que se puede representar así: $$cuadrado: \mathbb{R} \longrightarrow
+  \mathbb{R}$$
+
+---
+
+- Otro ejemplo sería la operación «inverso», que asocia a cada número real otro
+  número real: el inverso del número ($1$ dividido entre el número).
+
+- Así, esa operación asocia el número $4$ con el $0.25$ ($\frac{1}{4}$) y el
+  $5$ con $0.2$ ($\frac{1}{5}$).
+
+- El conjunto origen y el conjunto imagen siguen siendo $\mathbb{R}$.
+
+- Pero, en este caso, el dominio no coincide con el conjunto origen, ya que no
+  existe el inverso del número $0$ ($\frac{1}{0}$) («inverso» es una operación
+  _parcial_). Por tanto, el conjunto origen podrá ser $\mathbb{R}$ pero su
+  dominio deberá excluir al cero: $$!DOM(inverso) = \mathbb{R} - \{0\}$$
+
+  (En cambio, el conjunto imagen sí coincide con el codominio.)
+
+- En consecuencia, podemos definir la función de la siguiente manera:
   $$inverso: \mathbb{R} \longrightarrow \mathbb{R}$$
+
+  sabiendo que el dominio de la función no contiene a todo el conjunto origen
+  (el cero no está).
 
 ---
 
 - Otro ejemplo sería la operación «suma», que asocia a cada pareja de números
   reales otro número real: la suma de ambos.
 
-  Esa operación asociaría, por ejemplo, los números **dos** y **tres** con el
-  número **cinco**.
+- Esa operación asocia, por ejemplo, los números $2$ y $3$ con el
+  número $5$.
 
-  En este caso, el dominio de la operación «suma» sería el producto cartesiano
+- En este caso, el dominio de la operación «suma» sería el producto cartesiano
   del conjunto de los números reales consigo mismo (es decir, el conjunto
   $\mathbb{R} \times \mathbb{R}$ formado por parejas de números reales).
 
-  Por tanto, la operación «suma» se podría representar así: $$suma: \mathbb{R}
-  \times \mathbb{R} \longrightarrow \mathbb{R}$$
+- Por tanto, podemos definir la operación «suma» diciendo que es una operación
+  que asocia $\mathbb{R} \times \mathbb{R}$ (su conjunto origen) con
+  $\mathbb{R}$ (su conjunto imagen), lo que se puede representar así: $$suma:
+  \mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$$
 
 <!--
 
@@ -1354,10 +1387,11 @@ $$
 - De aquí se puede deducir que:
 
   - El **producto cartesiano de los tipos de los parámetros** de una función en
-    Programación se corresponde con el **dominio** de una función matemática.
+    Programación se corresponde con el **conjunto origen** de una función
+    matemática.
 
   - El **tipo de retorno** de una función en Programación se corresponde con el
-    **codominio** de una función matemática.
+    **conjunto imagen** de una función matemática.
 
 ---
 
@@ -2177,10 +2211,10 @@ $$
 - Por eso, al hablar de operaciones, y mientras no se diga lo contrario,
   podremos suponer que están representadas como funciones.
 
-- Eso implica que los conceptos de *dominio*, *rango*, *aridad*, *argumento*,
-  *resultado*, *composición* y *asociación* (o *correspondencia*), que
-  estudiamos cuando hablamos de las funciones, también existen en los
-  operadores y los métodos.
+- Eso implica que los conceptos de *conjunto origen*, *conjunto imagen*,
+  *dominio*, *rango*, *aridad*, *argumento*, *resultado*, *composición* y
+  *asociación* (o *correspondencia*), que estudiamos cuando hablamos de las
+  funciones, también existen en los operadores y los métodos.
 
 - Es decir: todos esos son conceptos propios de cualquier operación, da igual
   la forma que tenga esta.
