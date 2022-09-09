@@ -530,7 +530,7 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
 ### Generalización
 
-- En programación nos interesa siempre resolver problemas generales y no casos
+- En Programación nos interesa siempre resolver problemas generales y no casos
   particulares.
 
 - Por ejemplo, el problema de calcular la suma de 4 y 3 es un **problema
