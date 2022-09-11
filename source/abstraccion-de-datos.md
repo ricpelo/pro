@@ -357,7 +357,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~
   !NT(decl_var) ::= !NT{variable} !T{:} !NT{tipo}
-!NT(ecuación) ::= !NT(izquierda) $\doteq$ !NT(derecha)
+!NT(ecuación) ::= !NT(izquierda) $\equiv$ !NT(derecha)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 - Las **operaciones** son **abstracciones funcionales**.
@@ -408,16 +408,16 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
     **var**
           $x$ : _elemento_; $l, l_1, l_2, l_3$ : _lista_
     **ecuaciones**
-          $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
-          `[`$x$`]` $\doteq$ $x$ `:` `[]`
-          $l$ `++` `[]` $\doteq$ $l$
-          `[]` `++` $l$ $\doteq$ $l$
-          ($x$ `:` $l_1$) `++` $l_2$ $\doteq$ $x$ `:` ($l_1$ `++` $l_2$) 
-          ($l_1$ `++` $l_2$) `++` $l_3$ $\doteq$ $l_1$ `++` ($l_2$ `++` $l_3$)
-          `len`(`[]`) $\doteq$ 0
-          `len`(`[`$x$`]`) $\doteq$ 1
-          `len`($x$ `:` $l$) $\doteq$ 1 + `len`($l$)
-          `len`($l_1$ `++` $l_2$) $\doteq$ `len`($l_1$) + `len`($l_2$)
+          $x$ `:` $l$ $\equiv$ `[`$x$`]` `++` $l$
+          `[`$x$`]` $\equiv$ $x$ `:` `[]`
+          $l$ `++` `[]` $\equiv$ $l$
+          `[]` `++` $l$ $\equiv$ $l$
+          ($x$ `:` $l_1$) `++` $l_2$ $\equiv$ $x$ `:` ($l_1$ `++` $l_2$) 
+          ($l_1$ `++` $l_2$) `++` $l_3$ $\equiv$ $l_1$ `++` ($l_2$ `++` $l_3$)
+          `len`(`[]`) $\equiv$ 0
+          `len`(`[`$x$`]`) $\equiv$ 1
+          `len`($x$ `:` $l$) $\equiv$ 1 + `len`($l$)
+          `len`($l_1$ `++` $l_2$) $\equiv$ `len`($l_1$) + `len`($l_2$)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -430,7 +430,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 - Este es un ejemplo de especificación de las **listas** como tipo abstracto.
 
-- La ecuación $t_1 \doteq t_2$ significa que el valor construido mediante $t_1$
+- La ecuación $t_1 \equiv t_2$ significa que el valor construido mediante $t_1$
   es *el mismo* que el construido mediante $t_2$.
 
 - Los _parámetros_ son variables que representan cualquier tipo.
@@ -485,7 +485,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Esto lo podemos expresar en la especificación de la lista con la siguiente
   ecuación (siendo $\underline{x}$ un elemento y $\underline{l}$ una lista):
 
-  $x$ `:` $l$ $\doteq$ `[`$x$`]` `++` $l$
+  $x$ `:` $l$ $\equiv$ `[`$x$`]` `++` $l$
 
   Se puede observar que no se modifica la lista $\underline{l}$ para añadir el
   elemento $\underline{x}$ al principio, sino que se crea una lista nueva por
@@ -530,11 +530,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
     **var**
           $x$ : _elemento_; $l, l_1, l_2$ : _lista_
     **ecuaciones**
-          `[`$x$`]` $\doteq$ $x$ `:` `[]`
-          `[]` `++` $l$ $\doteq$ $l$
-          ($x$ `:` $l_1$) `++` $l_2$ $\doteq$ $x$ `:` ($l_1$ `++` $l_2$)
-          `len`(`[]`) $\doteq$ 0
-          `len`($x$ `:` $l$) $\doteq$ 1 + `len`($l$)
+          `[`$x$`]` $\equiv$ $x$ `:` `[]`
+          `[]` `++` $l$ $\equiv$ $l$
+          ($x$ `:` $l_1$) `++` $l_2$ $\equiv$ $x$ `:` ($l_1$ `++` $l_2$)
+          `len`(`[]`) $\equiv$ 0
+          `len`($x$ `:` $l$) $\equiv$ 1 + `len`($l$)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -568,7 +568,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~
-  $l$ `++` `[]` $\doteq$ $l$
+  $l$ `++` `[]` $\equiv$ $l$
   ~~~~~~~~~~~~~~~~~~~~
 
   siendo $\underline{l}$ una lista cualquiera.
@@ -598,33 +598,33 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
      ----------------------- ---------------------------------
      $l$ `++` `[]`           # _por definición de $l$_
 
-     $\doteq$ `[]` `++` `[]` # _por el primer axioma de `++`_
+     $\equiv$ `[]` `++` `[]` # _por el primer axioma de `++`_
 
-     $\doteq$ `[]`           # _por definición de $l$_
+     $\equiv$ `[]`           # _por definición de $l$_
 
-     $\doteq$ $l$
+     $\equiv$ $l$
      ----------------------- ---------------------------------
 
   b. Caso $l$ = $x$ `:` $l_1$ (caso inductivo):
 
      Suponemos que la propiedad se cumple para $l_1$ (hipótesis inductiva), es
-     decir, que $l_1$ `++` `[]` $\doteq$ $l_1$. En tal caso, tenemos:
+     decir, que $l_1$ `++` `[]` $\equiv$ $l_1$. En tal caso, tenemos:
 
      ---------------------------------- ----------------------------------
      $l$ `++` `[]`                      # _por definición de $l$_
  
-     $\doteq$ ($x$ `:` $l_1$) `++` `[]` # _por el segundo axioma de `++`_
+     $\equiv$ ($x$ `:` $l_1$) `++` `[]` # _por el segundo axioma de `++`_
  
-     $\doteq$ $x$ `:` ($l_1$ `++` `[]`) # _por hipótesis inductiva_
+     $\equiv$ $x$ `:` ($l_1$ `++` `[]`) # _por hipótesis inductiva_
 
-     $\doteq$ $x$ `:` $l_1$             # _por definición de $l$_
+     $\equiv$ $x$ `:` $l_1$             # _por definición de $l$_
  
-     $\doteq$ $l$
+     $\equiv$ $l$
      ---------------------------------- ----------------------------------
 
 ---
 
-- Como hemos demostrado que $l$ `++` `[]` $\doteq$ $l$ para cualquiera de las
+- Como hemos demostrado que $l$ `++` `[]` $\equiv$ $l$ para cualquiera de las
   dos formas posibles que puede tener $l$, hemos logrado demostrar la propiedad
   para cualquier valor de $l$.
 
@@ -650,12 +650,12 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
     **var**
           $p$ : _pila_; $x$ : _elemento_
     **ecuaciones**
-          `cima`(`apilar`($p$, $x$)) $\doteq$ $x$
-          `desapilar`(`apilar`($p$, $x$)) $\doteq$ $p$
-          `vacia?`(`pvacia`) $\doteq$ $V$
-          `vacia?`(`apilar`($p$, $x$)) $\doteq$ $F$
-          `cima`(`pvacia`) $\doteq$ **error**
-          `desapilar`(`pvacia`) $\doteq$ **error**
+          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
+          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
+          `vacia?`(`pvacia`) $\equiv$ $V$
+          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
+          `cima`(`pvacia`) $\equiv$ **error**
+          `desapilar`(`pvacia`) $\equiv$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -777,15 +777,15 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
     **var**
           $x$ : _elemento_; $l, l_1, l_2$ : _lista_
     **ecuaciones**
-          `[`$x$`]` $\doteq$ $x$ `:` `[]`
-          `[]` `++` $l$ $\doteq$ $l$
-          ($x$ `:` $l_1$) `++` $l_2$ $\doteq$ $x$ `:` ($l_1$ `++` $l_2$)
-          `primero`(`[]`) $\doteq$ **error**
-          `primero`($x$ `:` $l$) $\doteq$ $x$
-          `resto`(`[]`) $\doteq$ **error**
-          `resto`($x$ `:` $l$) $\doteq$ $l$
-          `len`(`[]`) $\doteq$ 0
-          `len`($x$ `:` $l$) $\doteq$ 1 + `len`($l$)
+          `[`$x$`]` $\equiv$ $x$ `:` `[]`
+          `[]` `++` $l$ $\equiv$ $l$
+          ($x$ `:` $l_1$) `++` $l_2$ $\equiv$ $x$ `:` ($l_1$ `++` $l_2$)
+          `primero`(`[]`) $\equiv$ **error**
+          `primero`($x$ `:` $l$) $\equiv$ $x$
+          `resto`(`[]`) $\equiv$ **error**
+          `resto`($x$ `:` $l$) $\equiv$ $l$
+          `len`(`[]`) $\equiv$ 0
+          `len`($x$ `:` $l$) $\equiv$ 1 + `len`($l$)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -810,13 +810,13 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
     **var**
           $r$ : _rac_; $n$, $d$, $n_1$, $n_2$, $d_1$, $d_2$ : $\mathbb{Z}$
     **ecuaciones**
-          `numer`(`racional`($n$, $d$)) $\doteq$ $n$
-          `denom`(`racional`($n$, $d$)) $\doteq$ $d$
-          `suma`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ `racional`($n_1\cdot{}d_2 + n_2\cdot{}d_1$, $d_1\cdot{}d_2$)
-          `mult`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ `racional`($n_1\cdot{}n_2$, $d_1\cdot{}d_2$)
-          `iguales?`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\doteq$ $n_1\cdot{}d_2 = n_2\cdot{}d_1$
+          `numer`(`racional`($n$, $d$)) $\equiv$ $n$
+          `denom`(`racional`($n$, $d$)) $\equiv$ $d$
+          `suma`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\equiv$ `racional`($n_1\cdot{}d_2 + n_2\cdot{}d_1$, $d_1\cdot{}d_2$)
+          `mult`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\equiv$ `racional`($n_1\cdot{}n_2$, $d_1\cdot{}d_2$)
+          `iguales?`(`racional`($n_1$, $d_1$), `racional`($n_2$, $d_2$)) $\equiv$ $n_1\cdot{}d_2 = n_2\cdot{}d_1$
           `imprimir`($r$) \ \ \{ imprime el racional $r$ \}
-          `racional`($n$, 0) $\doteq$ **error**
+          `racional`($n$, 0) $\equiv$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2459,10 +2459,10 @@ def deposito(fondos):
             `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
             `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
       **ecuaciones**
-            $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ $error$
-            $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\doteq$ `depósito`($f - c$)
-            `ingresar`(`depósito`($f$), $c$) $\doteq$ `depósito`($f + c$)
-            `saldo`(`depósito`($f$)) $\doteq$ $f$
+            $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ $error$
+            $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
+            `ingresar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f + c$)
+            `saldo`(`depósito`($f$)) $\equiv$ $f$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `depósito` es la operación generadora.
@@ -2494,9 +2494,9 @@ def deposito(fondos):
     **ecuaciones**
           `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
                                      y lo devuelve }
-          `saldo`($d$) $\doteq$ «los fondos actuales de $d$»
+          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
           `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
-          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\doteq$ $error$
+          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
           `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2541,10 +2541,10 @@ def deposito(fondos):
     **ecuaciones**
           `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
                                      y lo devuelve }
-          `saldo`($d$) $\doteq$ «los fondos actuales de $d$»
+          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
           `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
                                                                   y devuelve el saldo que queda \}
-          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\doteq$ $error$
+          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
           `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
                                          y devuelve el saldo que queda \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
