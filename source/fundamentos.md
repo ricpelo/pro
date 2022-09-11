@@ -336,10 +336,10 @@ author: Ricardo Pérez López
 
 ### Dominio, rango, conjunto origen y conjunto imagen
 
-- Se llama **conjunto origen** de $f$ (o simplemente **origen** de $f$), y se
+- Se llama **conjunto origen** (o simplemente **origen**) de $f$, y se
   representa como $\underline{!ORIG(f)}$, al conjunto $A$.
 
-- Se llama **conjunto imagen** de $f$ (o simplemente **imagen** de $f$), y se
+- Se llama **conjunto imagen** (o simplemente **imagen**) de $f$, y se
   representa como $\underline{!IMAG(f)}$, al conjunto $B$.
 
 - Se llama **dominio** de $f$, y se representa como $\underline{!DOM(f)}$, al
