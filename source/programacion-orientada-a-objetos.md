@@ -3428,7 +3428,7 @@ class Deposito:
           `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
           **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
           **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
-          `vacia?` : _pila_ $\rightarrow$ $\mathfrak{B}$
+          `vacia?` : _pila_ $\rightarrow$ $\mathbb{B}$
     **var**
           $p$ : _pila_; $x$ : _elemento_
     **ecuaciones**
@@ -3454,8 +3454,8 @@ class Deposito:
           `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ $\empty$
           **parcial** `desapilar` : _pila_ $\rightarrow$ $\empty$
           **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
-          `vacía?` : _pila_ $\rightarrow$ $\mathfrak{B}$
-          _ `==` _ : _pila_ $\times$ _pila_ $\rightarrow$ $\mathfrak{B}$
+          `vacía?` : _pila_ $\rightarrow$ $\mathbb{B}$
+          _ `==` _ : _pila_ $\times$ _pila_ $\rightarrow$ $\mathbb{B}$
     **var**
           $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
     **ecuaciones**
@@ -3524,14 +3524,14 @@ class Deposito:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Operaciones selectoras:**
 
-- $p_1$: _pila_ `==` $p_2$: _pila_ $\rightarrow$ $\mathfrak{B}$
+- $p_1$: _pila_ `==` $p_2$: _pila_ $\rightarrow$ $\mathbb{B}$
 
   Devuelve $V$ si $p_1$ y $p_2$ son dos pilas iguales, y $F$ en caso
   contrario.
 
   Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.
 
-- `vacía?(`$p$: _pila_`)` $\rightarrow$ $\mathfrak{B}$
+- `vacía?(`$p$: _pila_`)` $\rightarrow$ $\mathbb{B}$
 
   Devuelve $V$ si la pila $p$ no tiene elementos, y $F$ en caso contrario.
 

@@ -646,7 +646,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
           `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
           **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
           **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
-          `vacia?` : _pila_ $\rightarrow$ $\mathfrak{B}$
+          `vacia?` : _pila_ $\rightarrow$ $\mathbb{B}$
     **var**
           $p$ : _pila_; $x$ : _elemento_
     **ecuaciones**
@@ -805,7 +805,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
           `denom` : _rac_ $\rightarrow$ $\mathbb{Z}$
           `suma`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
           `mult`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
-          `iguales?` : _rac_ $\times$ _rac_ $\rightarrow$ $\mathfrak{B}$
+          `iguales?` : _rac_ $\times$ _rac_ $\rightarrow$ $\mathbb{B}$
           `imprimir` : _rac_ $\rightarrow$ $\emptyset$
     **var**
           $r$ : _rac_; $n$, $d$, $n_1$, $n_2$, $d_1$, $d_2$ : $\mathbb{Z}$

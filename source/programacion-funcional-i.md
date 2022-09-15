@@ -870,35 +870,35 @@ True
 
 1. Ley asociativa:
    $\begin{cases}
-    \forall a,b,c \in \mathfrak{B}: (a \lor b) \lor c = a \lor (b \lor c) \\
-    \forall a,b,c \in \mathfrak{B}: (a \land b) \land c = a \land (b \land c)
+    \forall a,b,c \in \mathbb{B}: (a \lor b) \lor c = a \lor (b \lor c) \\
+    \forall a,b,c \in \mathbb{B}: (a \land b) \land c = a \land (b \land c)
     \end{cases}$
 
 2. Ley conmutativa:
    $\begin{cases}
-    \forall a,b \in \mathfrak{B}: a \lor b = b \lor a \\
-    \forall a,b \in \mathfrak{B}: a \land b = b \land a
+    \forall a,b \in \mathbb{B}: a \lor b = b \lor a \\
+    \forall a,b \in \mathbb{B}: a \land b = b \land a
     \end{cases}$
 
 3. Ley distributiva:
    $\begin{cases}
-    \forall a,b,c \in \mathfrak{B}: a \lor (b \land c) = (a \lor b) \land (a \lor c) \\
-    \forall a,b,c \in \mathfrak{B}: a \land (b \lor c) = (a \land b) \lor (a \land c)
+    \forall a,b,c \in \mathbb{B}: a \lor (b \land c) = (a \lor b) \land (a \lor c) \\
+    \forall a,b,c \in \mathbb{B}: a \land (b \lor c) = (a \land b) \lor (a \land c)
     \end{cases}$
 
 4. Elemento neutro:
    $\begin{cases}
-    \forall a \in \mathfrak{B}: a \lor F = a \\
-    \forall a \in \mathfrak{B}: a \land V = a
+    \forall a \in \mathbb{B}: a \lor F = a \\
+    \forall a \in \mathbb{B}: a \land V = a
     \end{cases}$
 
 5. Elemento complementario:
    $\begin{cases}
-    \forall a \in \mathfrak{B}; \exists \lnot a \in \mathfrak{B}: a \lor \lnot a = V \\
-    \forall a \in \mathfrak{B}; \exists \lnot a \in \mathfrak{B}: a \land \lnot a = F
+    \forall a \in \mathbb{B}; \exists \lnot a \in \mathbb{B}: a \lor \lnot a = V \\
+    \forall a \in \mathbb{B}; \exists \lnot a \in \mathbb{B}: a \land \lnot a = F
     \end{cases}$
 
-Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
+Luego $(\mathbb{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 ### Traducción a Python
 
@@ -948,33 +948,33 @@ Luego $(\mathfrak{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 6. Ley de idempotencia:
    $\begin{cases}
-    \forall a \in \mathfrak{B}: a \lor a = a \\
-    \forall a \in \mathfrak{B}: a \land a = a
+    \forall a \in \mathbb{B}: a \lor a = a \\
+    \forall a \in \mathbb{B}: a \land a = a
     \end{cases}$
 
 7. Ley de absorción:
    $\begin{cases}
-    \forall a \in \mathfrak{B}: a \lor V = V \\
-    \forall a \in \mathfrak{B}: a \land F = F
+    \forall a \in \mathbb{B}: a \lor V = V \\
+    \forall a \in \mathbb{B}: a \land F = F
     \end{cases}$
 
 8. Ley de identidad:
    $\begin{cases}
-    \forall a \in \mathfrak{B}: a \lor F = a \\
-    \forall a \in \mathfrak{B}: a \land V = a
+    \forall a \in \mathbb{B}: a \lor F = a \\
+    \forall a \in \mathbb{B}: a \land V = a
     \end{cases}$
 
 9. Ley de involución:
    $\begin{cases}
-    \forall a \in \mathfrak{B}: \lnot \lnot a = a \\
+    \forall a \in \mathbb{B}: \lnot \lnot a = a \\
     \lnot V = F \\
     \lnot F = V
     \end{cases}$
 
 10. Leyes de De Morgan:
     $\begin{cases}
-     \forall a,b \in \mathfrak{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b \\
-     \forall a,b \in \mathfrak{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
+     \forall a,b \in \mathbb{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b \\
+     \forall a,b \in \mathbb{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
      \end{cases}$
 
 ### Traducción a Python
