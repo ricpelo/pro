@@ -2861,24 +2861,6 @@ intérprete? Razona la respuesta.
   van a permitir construirnos nuestro propio IDE para los lenguajes que vamos a
   usar en clase.
 
-!SECCIONEJERCICIOS
-
-@. Supongamos los siguientes problemas:
-
-    i. Resolver una ecuación de primer grado de la forma $a + bx = 0$.
-    i. Sumar dos fracciones.
-    i. Interpretar una partitura al violín.
-    i. Hacer la cuenta atrás, desde 10 hasta 0.
-
-    - Para cada uno de ellos, se pide:
-
-      a. Identificar la entrada y la salida.
-      b. Describir un problema más general y, si se puede, otro menos general.
-      c. Distinguir cuáles de esos problemas pueden resolverse mediante
-         algoritmos y cuáles no.
-      d. Esbozar, con tus propias palabras o en pseudocódigo, un algoritmo para
-         los problemas (i), (ii) y (iv).
-
 <!--
 
 ---
