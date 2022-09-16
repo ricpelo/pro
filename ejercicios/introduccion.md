@@ -9,7 +9,7 @@ author:
   IES Doñana
 ---
 
-#. Supongamos los siguientes problemas:
+@. Supongamos los siguientes problemas:
 
     i. Resolver una ecuación de primer grado de la forma $a + bx = 0$.
     i. Sumar dos fracciones.
@@ -25,7 +25,8 @@ author:
       d. Esbozar, con tus propias palabras o en pseudocódigo, un algoritmo para
          los problemas (i), (ii) y (iv).
 
-#. Pregunta a tu profesor en qué consiste el problema de la **suma lenta**.
+@. Pregunta a tu profesor en qué consiste el algoritmo de la **suma lenta**
+   para resolver el problema de sumar dos números enteros.
 
     - Se pide:
 
@@ -35,8 +36,10 @@ author:
       d. Estudiar su corrección.
       e. Expresar el algoritmo en pseudocódigo.
 
-#. El problema de restar dos enteros positivos se puede resolver por un
-procedimiento análogo al de la suma lenta, al que llamaremos **resta lenta**.
+<!--
+
+#. El problema de restar dos enteros positivos se puede resolver con un
+   algoritmo análogo al de la suma lenta, al que llamaremos **resta lenta**.
 
     - Se pide:
 
@@ -45,3 +48,18 @@ procedimiento análogo al de la suma lenta, al que llamaremos **resta lenta**.
       c. Estudiar su complejidad.
       d. Estudiar su corrección.
       e. Expresar el algoritmo en pseudocódigo.
+
+-->
+
+@. El problema de multiplicar dos enteros positivos se puede resolver con un
+   algoritmo parecido al de la suma lenta, al que llamaremos **multiplicación
+   lenta**.
+
+    - Se pide:
+
+      a. Escribir un ordinograma para este problema.
+      b. Estudiar cómo evoluciona para el cálculo de $5 \times 3$.
+      c. Estudiar su complejidad.
+      d. Estudiar su corrección.
+      e. Expresar el algoritmo en pseudocódigo.
+
