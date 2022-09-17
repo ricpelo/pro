@@ -2745,6 +2745,12 @@ intérprete? Razona la respuesta.
   especificación. El producto resultante (la implementación) puede ser un
   algoritmo, un programa o más cosas que ya veremos en su momento.
 
+- Puede haber varias implementaciones (algoritmos) que satisfagan la misma
+  especificación.
+
+- Asimismo, puede haber varias implementaciones (programas) del mismo
+  algoritmo.
+
 - Separar el _qué_ hace (la _especificación_) del _cómo_ lo hace (la
   _implementación_) es una de las tareas más importantes del buen programador.
 
