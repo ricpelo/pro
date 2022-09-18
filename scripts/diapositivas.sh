@@ -28,7 +28,7 @@ echo "| Título | HTML | PDF | Apuntes | Ejercicios | Prácticas |"
 echo "| ------ |:----:|:---:|:-------:|:----------:|:---------:|"
 
 for f in $FILES; do
-    FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $SOURCE/$f))
+    FECHA=$(date +'%Y-%m-%d %H:%M:%S%:z' --date @$(stat -c %Y $SOURCE/$f))
     HTML="slides/${f%.md}.html"
     PDF="pdf/${f%.md}.pdf"
     APUNTES="apuntes/${f%.md}-apuntes.pdf"
@@ -40,13 +40,13 @@ for f in $FILES; do
     echo -n " | [Apuntes]($APUNTES){:target=\"_blank\"}"
     if [ -f "$EJERCICIOS/$f" ]; then
         EJER="$EJERCICIOS/${f%.md}-ejercicios.pdf"
-        FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $EJERCICIOS/$f))
+        FECHA=$(date +'%Y-%m-%d %H:%M:%S%:z' --date @$(stat -c %Y $EJERCICIOS/$f))
         echo -n " | [Ejercicios]($EJER){:target=\"_blank\"}<br>"
         echo -n    "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
     fi
     if [ -f "$PRACTICAS/$f" ]; then
         PRAC="$PRACTICAS/${f%.md}-practicas.pdf"
-        FECHA=$(date +'%Y-%m-%d %H:%M:%S %z' --date @$(stat -c %Y $PRACTICAS/$f))
+        FECHA=$(date +'%Y-%m-%d %H:%M:%S%:z' --date @$(stat -c %Y $PRACTICAS/$f))
         echo -n " | [Prácticas]($PRAC){:target=\"_blank\"}<br>"
         echo -n    "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
     fi
