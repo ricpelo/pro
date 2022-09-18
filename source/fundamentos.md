@@ -12,7 +12,7 @@ author: Ricardo Pérez López
   ejemplo: $X$, $x$, $a$, $total$.
 
 - Una **constante** es un símbolo que representa un valor que nunca cambia. Por
-  ejemplo: $1$, $($, $=$, $\pi$.
+  ejemplo: $1$, $=$, $\pi$.
 
 - Muchas veces, el que un símbolo sea constante o variable depende del contexto
   y del acuerdo al que se haya llegado. Por ejemplo, el símbolo $+$ puede
