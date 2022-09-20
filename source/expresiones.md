@@ -323,10 +323,10 @@ que denominamos el **valor** de la expresión.
 ## Datos, tipos y valores
 
 - La Informática es la ciencia que estudia los sistemas de procesamiento
-  automático de la información.
+  automático de la información, también llamados _sistemas informáticos_.
 
-- Esos sistemas (los sistemas informáticos) procesan la información de forma
-  automática siguiendo las instrucciones de un programa.
+- Esos sistemas procesan la información de forma automática siguiendo las
+  instrucciones de un programa.
 
 - Las instrucciones que forman el programa son las que dictan qué operaciones
   hay que realizar con la información.
@@ -358,22 +358,29 @@ que denominamos el **valor** de la expresión.
 ---
 
 - Los valores se agrupan en **tipos**, que son conjuntos de valores que
-  comparten características comunes (las cuales son, principalmente, las
-  **operaciones** que se pueden realizar con esos valores).
+  comparten características comunes.
 
-  Por tanto, **un determinado valor pertenece a un tipo**. <!-- (y, a veces, a
-  más de uno) -->
+  Entre esas características comunes destacan, principalmente, las
+  **operaciones** que se pueden realizar con esos valores.
+
+- En consecuencia, el tipo al que pertenece un valor determina también el
+  conjunto de operaciones que se pueden realizar sobre ese valor.
+
+- Por tanto, **cada _valor_ pertenece a un _tipo_**. <!-- (y, a veces, a más de
+  uno) -->
 
 - Igualmente, también decimos que **los datos tienen un _tipo_**, que es el
   tipo de los valores que puede tener el dato. Por eso, a los tipos también se
   les llama **tipos de datos**.
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  El **tipo de un dato** determina el conjunto de **_valores_** que puede tomar
-  un dato de ese tipo y, por tanto, también las **_operaciones_** que se pueden
-  realizar con ese dato.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El **tipo de un dato** determina el conjunto de **_valores_** que puede tomar
+un dato de ese tipo y, por tanto, también las **_operaciones_** que se pueden
+realizar con ese dato.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los datos se pueden manipular dentro de un programa haciendo que formen parte
   de **expresiones** y evaluando dichas expresiones.
@@ -381,6 +388,24 @@ que denominamos el **valor** de la expresión.
 - El **_valor_ de una expresión** se obtiene a través del valor de los datos
   que contiene, y podemos manipular esos datos a través de las **operaciones**
   que actúan sobre ellos dentro de la expresión.
+
+---
+
+!DOT(datos-informacion-tipos-valores.svg)(Relación entre información, datos, valores, tipos y operaciones)(width=100%)(width=100%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rankdir = LR;
+I [label = "Información"];
+D [label = "Datos"]
+V [label = "Valores"];
+T [label = "Tipo"];
+O [label = "Operaciones"];
+D -> I [label = "\n\nAl interpretarse, se obtiene"]
+I -> D [label = "Se codifica en forma de\n"]
+D -> V [label = "Poseen"]
+V -> T [label = "Pertenecen a un\n"]
+T -> V [label = "\n\nDetermina un conjunto de"]
+T -> O [label = "Determina un conjunto de"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJEMPLO
 
@@ -904,11 +929,11 @@ $$
   que **transforman datos de _entrada_ en datos de _salida_**:
 
   !DOT(operacion-dispositivo.svg)()(width=50%)(width=50%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~               
-  E [label = "Entrada", shape = plaintext, fillcolor = transparent];               
-  S [label = "Salida", shape = plaintext, fillcolor = transparent];                
-  E -> Operación -> S                                                                
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  E [label = "Entrada", shape = plaintext, fillcolor = transparent];
+  S [label = "Salida", shape = plaintext, fillcolor = transparent];
+  E -> Operación -> S
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Esos datos de entrada se denominan **argumentos** u **operandos**, según el
   tipo de operación.
@@ -957,7 +982,8 @@ $$
 - Pero, en este caso, el dominio no coincide con el conjunto origen, ya que no
   existe el inverso del número $0$ ($\frac{1}{0}$) («inverso» es una operación
   _parcial_). Por tanto, el conjunto origen podrá ser $\mathbb{R}$ pero su
-  dominio deberá excluir al cero: $$!DOM(inverso) = \mathbb{R} - \{0\}$$
+  dominio deberá excluir al cero: $$!DOM(inverso) = \mathbb{R} \setminus
+  \{0\}$$
 
   (En cambio, el conjunto imagen sí coincide con el codominio.)
 
