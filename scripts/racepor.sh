@@ -5,12 +5,14 @@ read header
 
 echo -E '\begin{center}'
 echo -E '\small'
-echo -E '\begin{longtable}{|c|c|c|}'
+echo -E '\begin{longtable}{|c|l|c|}'
 echo -E '\hline'
-echo -E '\textbf{Resultado de aprendizaje} (\RA{$i$})& \textbf{Criterio de evaluación} (\CE{$i$}{$j$}) & \textbf{Porcentaje} $(p_{ij})$ \\'
+echo -E '\textbf{Resultado de aprendizaje} (\RA{$i$}) & \textbf{Criterio de evaluación} (\CE{$i$}{$j$}) & \textbf{Porcentaje} ($p_{ij}$) \\'
 echo -E '\hline'
 echo -E '\hline'
 echo -E '\endhead'
+echo -E '\hline'
+echo -E '\endfoot'
 
 while IFS="," read -r col1 col2 col3 col4
 do
@@ -22,16 +24,12 @@ do
         if [ "$viejo" != "$col1" ]; then
             echo -E ' \\ \hline'
         else
-            echo -E ' \\ \cline{2-3}'
+            echo -E ' \\ \nopagebreak \cline{2-3} \nopagebreak'
         fi
     fi
-    if [ "$col1$col2" == "5a" -o "$col1$col2" == "10a" ]; then
-        echo -nE '\pagebreak '
-    fi
-    echo -nE "\RA{$col1} \\ra$col1 & \CE{$col1}{$col2} \ce{$col1$col2} & $col3"
+    echo -nE "\RA{$col1} \\ra$col1 & \hspace{1.5cm}\CE{$col1}{$col2} \ce{$col1$col2} & $col3"
     viejo=$col1
 done
 
-echo -E ' \\ \hline'
 echo -E '\end{longtable}'
 echo -E '\par\end{center}'
