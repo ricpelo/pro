@@ -2174,21 +2174,22 @@ F -> I
   **traductor** y un **ejecutor**:
 
   - El **traductor** traduce el código fuente, instrucción por instrucción, a
-    una representación interna denominada **código intermedio**.
+    una representación interna llamada **árbol sintáctico** (que no hay que
+    confundir con el _árbol de análisis sintáctico_).
 
-  - Ese código intermedio no se vuelca directamente a la salida, sino que es
+  - Ese árbol sintáctico no se vuelca directamente a la salida, sino que es
     consumida directamente por el _ejecutor_.
 
-  - El **ejecutor** se encarga de decodificar el código intermedio de la
-    instrucción traducida y ejecutarla, llevando a cabo las acciones que
-    correspondan dependiendo de la instrucción que sea.
+  - El **ejecutor** se encarga de recorrer el árbol sintáctico y de ir
+    ejecutando las instrucciones que éste representa, llevando a cabo las
+    acciones que correspondan dependiendo de la instrucción que sea.
 
 !DOT(traductor-ejecutor.svg)()(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
 subgraph cluster0 {
     label = "Intérprete"
-    I [label = "Código intermedio", shape = note, fillcolor = aliceblue];
+    I [label = "Árbol sintáctico", shape = note, fillcolor = aliceblue];
     Traductor -> I -> Ejecutor
 }
 F -> Traductor
