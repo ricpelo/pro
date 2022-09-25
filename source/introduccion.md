@@ -690,6 +690,12 @@ Un algoritmo es un método para resolver un problema.
 - El estudio de los algoritmos es importante porque la resolución de un
   problema exige el diseño de un algoritmo que lo resuelva.
 
+- Puede haber muchas formas distintas de resolver el mismo problema, por lo que
+  **pueden existir muchos algoritmos distintos que resuelvan el mismo
+  problema**.
+
+  Un algoritmo será mejor que otro si es más claro o más eficiente.
+
 - Una vez diseñado el algoritmo, se traduce a un programa informático usando un
   *lenguaje de programación*.
 
@@ -780,7 +786,7 @@ Un algoritmo es un método para resolver un problema.
 
 :::::: {.columns}
 
-:::: {.column width=50%}
+:::: {.column width=47%}
 
 - Un algoritmo se puede describir usando el **lenguaje natural**, es decir,
   cualquier idioma humano.
@@ -799,7 +805,11 @@ Un algoritmo es un método para resolver un problema.
 
 ::::
 
-:::: {.column width=50%}
+:::: {.column width=3%}
+
+::::
+
+:::: {.column width=47%}
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -852,7 +862,14 @@ Determinar cuál es el máximo de dos números
   codificación interna...), siempre y cuando no sea importante el estudio de la
   eficiencia o la complejidad del algoritmo.
 
-- En ese sentido, se usa como un lenguaje de programación *idealizado*.
+- En ese sentido, se usa como un lenguaje de programación *idealizado*, es
+  decir, una _abstracción_ de un lenguaje de programación real en el que no se
+  tienen en cuenta ciertos detalles que resultan innecesarios para entender el
+  funcionamiento del algoritmo.
+
+- Por ejemplo, en general no nos tenemos que preocupar de si el resultado de
+  sumar dos números enteros sobrepasa el tamaño máximo establecido para
+  almacenar un entero.
 
 !EJEMPLO
 
@@ -868,6 +885,31 @@ Determinar cuál es el máximo de dos números
 6. **escribir** "X es mayor que Y"
 7. **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- No existe un único _pseudocódigo_.
+
+- A la hora de usar un pseudocódigo para representar un algoritmo, el diseñador
+  del mismo decidirá qué instrucciones son válidas en ese pseudocódigo y qué
+  estilo de programación (lo que luego llamaremos _paradigma_) seguirá el
+  mismo.
+
+- Además, es importante es que no haya ninguna duda posible sobre cómo
+  interpretar las instrucciones del pseudocódigo.
+
+- Lo más apropiado sería usar un pseudocódigo que se parezca lo más posible al
+  lenguaje de programación con el que finalmente se escribirá el programa, de
+  forma que la tarea de traducir el algoritmo en su correspondiente programa
+  sea lo más fácil y directa posible.
+
+- Por ejemplo, el algoritmo anterior sería relativamente fácil de traducir a
+  _lenguaje ensamblador_ o _lenguaje máquina_, ya que las instrucciones que se
+  usan en ese pseudocódigo son fáciles de adaptar a esos lenguajes (lecturas,
+  escrituras, saltos...).
+
+- En cambio, sería bastante más complicado traducirlo a un lenguaje funcional
+  como Haskell.
 
 ### Cualidades deseables
 
@@ -2197,9 +2239,9 @@ F -> Traductor
 
 ---
 
-- **Programar** con un intérprete es **más rápido** que con un compilador, ya
-  que, para poder ejecutar el programa, no hace falta compilar ni generar el
-  código objeto.
+- **Programar** con un intérprete es una tarea **más rápida** de realizar que
+  con un compilador, ya que, para poder ejecutar el programa, no hace falta
+  compilar ni generar el código objeto.
 
 - Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete
   no informará de ellos hasta el momento en el que intente ejecutar la
@@ -2391,29 +2433,33 @@ F -> Traductor
 
 ## Diseño del algoritmo
 
-- Una vez analizado el problema con detalle, se diseña un algoritmo que cumpla
-  con todas las posibles restricciones y satisfaga la especificación del
-  problema.
-
-- El estilo en el que se describa el algoritmo debe ir acorde con el paradigma
-  del lenguaje de programación que se usará luego para codificar el algoritmo
-  en un programa.
+- Una vez analizado el problema con detalle, se diseña un algoritmo que lo
+  resuelva, cumpliendo con todas las posibles restricciones y satisfaciendo la
+  especificación del problema.
 
 - El algoritmo se representa con cualquier herramienta adecuada para ello
-  (ordinogramas, pseudocódigo, etc.) la cual también depende del estilo o
-  paradigma utilizado.
+  (ordinogramas, pseudocódigo, etc.) la cual depende del paradigma utilizado.
 
-  - Por ejemplo, se podría usar un ordinograma para representar un algoritmo
-    imperativo pero no para uno funcional.
+- El paradigma usado para describir el algoritmo debería ir acorde con el
+  paradigma del lenguaje de programación que se usará luego para codificar el
+  algoritmo en forma de programa.
+
+  Por ejemplo, se podría usar un ordinograma para representar un algoritmo
+  imperativo pero no es apropiado para uno funcional.
+
+- Igualmente, hay distintos pseudocódigos y cada uno sigue un determinado
+  paradigma y posee un determinado juego de instrucciones válidas, por lo que
+  ciertos pseudocódigos serán más apropiados que otros para ser traducidos
+  luego a un determinado lenguaje de programación.
 
 ---
 
-- Un algoritmo descrito en pseudocódigo siguiendo un estilo estructurado podría
-  ser:
+- Por ejemplo, un algoritmo descrito en pseudocódigo siguiendo un estilo
+  estructurado podría ser:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Algoritmo:** Cálculo del máximo de dos números
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Algoritmo:** Cálculo del máximo de dos números
 **Entrada:** $n_1, n_2 \in \mathbb{Z}$
 **Salida:** el mayor de ambos
 
@@ -2424,6 +2470,11 @@ F -> Traductor
         **devolver** $n_2$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por tanto, este algoritmo, así representado, sería muy apropiado para
+  traducirlo luego a un programa escrito en un lenguaje estructurado (como
+  Python o Java), pero no tanto para traducirlo a un lenguaje funcional como
+  Haskell.
 
 ## Verificación
 
@@ -2443,9 +2494,8 @@ F -> Traductor
 ## Estudio de la eficiencia
 
 - Cuando disponemos de un algoritmo correcto que resuelve el problema, podemos
-  optar por estudiar la eficiencia del mismo.
-
-- Un algoritmo es más eficiente que otro si consume menos recursos que el otro.
+  optar por estudiar la eficiencia del mismo (es decir, la cantidad de recursos
+  que consume).
 
 - Si el algoritmo es correcto pero ineficiente, no suele resultar práctico, y
   se debe optar por diseñar otro algoritmo más eficiente.
@@ -2453,8 +2503,22 @@ F -> Traductor
 - Los algoritmos ineficientes sólo resultan útiles cuando el tamaño del
   problema es relativamente pequeño.
 
-- También hay que tener en cuenta que existen problemas para los que no se
-  conoce ningún algoritmo eficiente.
+- Hay que tener en cuenta que existen problemas para los que no se conoce
+  ningún algoritmo eficiente.
+
+---
+
+- También puede resultar muy interesante estudiar la eficiencia cuando tenemos
+  varios algoritmos que resuelven el mismo problema y queremos determinar cuál
+  de ellos es _mejor_.
+
+- En ese sentido, la eficiencia sería un criterio (entre otros) a la hora de
+  comparar algoritmos para determinar si un algoritmo es mejor que otro.
+
+- Otros criterios importantes son la claridad, la elegancia o la reusabilidad.
+
+- Es importante recordar que hay una regla no escrita que dice que un algoritmo
+  más eficiente suele ser menos claro o elegante, y viceversa.
 
 ## Codificación
 
@@ -2469,9 +2533,51 @@ F -> Traductor
 - El lenguaje de programación utilizado es una decisión de diseño que hay que
   justificar.
 
-- El diseño del algoritmo debería ser independiente del lenguaje de
+- En teoría, el diseño del algoritmo debería ser independiente del lenguaje de
   programación en el que se vaya a codificar posteriormente el programa, pero
-  el *estilo* (paradigma) influye mucho.
+  el *estilo* (paradigma) utilizado influye mucho.
+
+- Por tanto, en la práctica se procura que el algoritmo esté escrito en el
+  mismo paradigma que sigue el lenguaje de programación que se va a usar para
+  codificar el programa.
+
+---
+
+- Por otra parte, el lenguaje de programación o la arquitectura hardware donde
+  se va a ejecutar el programa pueden incorporar **restricciones o
+  condiciones** que hasta ahora no se habían tenido en cuenta al diseñar el
+  algoritmo.
+
+- Por ejemplo, es muy común que los lenguajes de programación impongan un
+  tamaño máximo de almacenamiento de los datos que maneja.
+
+- En el caso del problema de sumar dos números enteros, eso significa que el
+  programa podría no admitir números demasiado grandes, lo que habría que
+  tenerlo en cuenta a la hora de escribir el programa.
+
+- Ese detalle no lo consideramos al diseñar el algoritmo, ya que **los
+  algoritmos son _ideales_ y se representan con herramientas _ideales_** (los
+  pseudocódigos).
+
+---
+
+- Un programador experimentado podría saltarse el paso de representar el
+  algoritmo usando pseudocódigo y podría pasar directamente a escribir el
+  correspondiente programa en un lenguaje de programación.
+
+- En el pasado, los lenguajes de programación eran poco expresivos y poco ricos
+  en tipos de instrucciones y estructuras de datos, lo que hacía que traducir
+  un algoritmo escrito en pseudocódigo a un programa resultara una trabajo más
+  costoso y menos directo.
+
+- Asimismo, el programa resultante era mucho menos claro y difícil de entender
+  que su algoritmo equivalente escrito en pseudocódigo.
+
+- Hoy día existen lenguajes de programación de alto nivel muy expresivos y con
+  una sintaxis muy clara y legible que funcionan casi como «pseudocódigos
+  directamente interpretables por el ordenador».
+
+- Python, por ejemplo, se considera un ejemplo de este tipo de lenguajes.
 
 ---
 
@@ -2479,7 +2585,7 @@ F -> Traductor
 
   ```python
   def maximo(n1, n2):
-      """Calcula el máximo de dos números."""
+      """Calcula el máximo de dos números enteros."""
       if n1 > n2:
           return n1
       else:
@@ -2492,7 +2598,7 @@ F -> Traductor
 
   ```java
   /*
-   * Calcula el máximo de dos números.
+   * Calcula el máximo de dos números enteros.
    */
   public static int maximo(int n1, int n2) {
       if (n1 > n2) {
@@ -2508,6 +2614,7 @@ F -> Traductor
 - Codificación en lenguaje Haskell:
 
   ```haskell
+  -- Calcula el máximo de dos números enteros.
   max :: (Ord a) => a -> a -> a
   max a b
       | a > b     = a
@@ -2519,6 +2626,7 @@ F -> Traductor
 - Codificación en lenguaje Scheme:
 
   ```scheme
+  ; Calcula el máximo de dos números enteros.
   (define (maximo n1 n2)
     (cond ((> n1 n2) n1)
           (else n2)))
@@ -2615,9 +2723,9 @@ intérprete? Razona la respuesta.
 - La documentación de un programa puede ser interna o externa:
 
   - La **documentación interna** forma parte del código fuente del programa y
-    se refiere al uso de comentarios, identificadores descriptivos,
-    indentación, reglas de estilo, etc. Todo orientado a ayudar a entender el
-    código cuando lo lea un humano.
+    se refiere al uso de **comentarios**, identificadores descriptivos,
+    indentación, **reglas de estilo**, etc. Todo orientado a ayudar a entender
+    el código cuando lo lea un humano.
   
   - La **documentación externa** va fuera del código fuente e incluye análisis,
     diagramas de flujo y/o pseudocódigos, manuales de usuario con instrucciones
