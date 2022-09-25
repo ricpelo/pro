@@ -493,6 +493,39 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 - El ISO-8859-1 es un código de 8 bits que extiende el ASCII con un bit más
   para contener caracteres latinos.
 
+---
+
+- Tabla de caracteres ASCII estándar de 7 bits:
+
+  ```
+  Dec Hex Car    Dec Hex Car    Dec Hex Car    Dec Hex Car
+  --- --- ---    --- --- ---    --- --- ---    --- --- ---
+  32  20         56  38   8     80  50   P     104 68   h
+  33  21   !     57  39   9     81  51   Q     105 69   i
+  34  22   "     58  3A   :     82  52   R     106 6A   j
+  35  23   #     59  3B   ;     83  53   S     107 6B   k
+  36  24   $     60  3C   <     84  54   T     108 6C   l
+  37  25   %     61  3D   =     85  55   U     109 6D   m
+  38  26   &     62  3E   >     86  56   V     110 6E   n
+  39  27   '     63  3F   ?     87  57   W     111 6F   o
+  40  28   (     64  40   @     88  58   X     112 70   p
+  41  29   )     65  41   A     89  59   Y     113 71   q
+  42  2A   *     66  42   B     90  5A   Z     114 72   r
+  43  2B   +     67  43   C     91  5B   [     115 73   s
+  44  2C   ,     68  44   D     92  5C   \     116 74   t
+  45  2D   -     69  45   E     93  5D   ]     117 75   u
+  46  2E   .     70  46   F     94  5E   ^     118 76   v
+  47  2F   /     71  47   G     95  5F   _     119 77   w
+  48  30   0     72  48   H     96  60   `     120 78   x
+  49  31   1     73  49   I     97  61   a     121 79   y
+  50  32   2     74  4A   J     98  62   b     122 7A   z
+  51  33   3     75  4B   K     99  63   c     123 7B   {
+  52  34   4     76  4C   L     100 64   d     124 7C   |
+  53  35   5     77  4D   M     101 65   e     125 7D   }
+  54  36   6     78  4E   N     102 66   f     126 7E   ~
+  55  37   7     79  4F   O     103 67   g
+  ```
+
 #### Unicode
 
 - Con 8 bits (y con 7 bits aún menos) no es posible representar todos los
@@ -905,11 +938,11 @@ Determinar cuál es el máximo de dos números
 
 - Por ejemplo, el algoritmo anterior sería relativamente fácil de traducir a
   _lenguaje ensamblador_ o _lenguaje máquina_, ya que las instrucciones que se
-  usan en ese pseudocódigo son fáciles de adaptar a esos lenguajes (lecturas,
-  escrituras, saltos...).
+  usan en ese pseudocódigo (lecturas, escrituras, saltos...) son fáciles de
+  adaptar a esos lenguajes.
 
 - En cambio, sería bastante más complicado traducirlo a un lenguaje funcional
-  como Haskell.
+  como Haskell, donde no existen esas instrucciones.
 
 ### Cualidades deseables
 

@@ -771,6 +771,38 @@ de control).</p></li>
 bit más para contener caracteres latinos.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="1.2.2.10.1">
+
+<ul>
+<li><p>Tabla de caracteres ASCII estándar de 7 bits:</p>
+<pre><code>Dec Hex Car    Dec Hex Car    Dec Hex Car    Dec Hex Car
+--- --- ---    --- --- ---    --- --- ---    --- --- ---
+32  20         56  38   8     80  50   P     104 68   h
+33  21   !     57  39   9     81  51   Q     105 69   i
+34  22   &quot;     58  3A   :     82  52   R     106 6A   j
+35  23   #     59  3B   ;     83  53   S     107 6B   k
+36  24   $     60  3C   &lt;     84  54   T     108 6C   l
+37  25   %     61  3D   =     85  55   U     109 6D   m
+38  26   &amp;     62  3E   &gt;     86  56   V     110 6E   n
+39  27   &#39;     63  3F   ?     87  57   W     111 6F   o
+40  28   (     64  40   @     88  58   X     112 70   p
+41  29   )     65  41   A     89  59   Y     113 71   q
+42  2A   *     66  42   B     90  5A   Z     114 72   r
+43  2B   +     67  43   C     91  5B   [     115 73   s
+44  2C   ,     68  44   D     92  5C   \     116 74   t
+45  2D   -     69  45   E     93  5D   ]     117 75   u
+46  2E   .     70  46   F     94  5E   ^     118 76   v
+47  2F   /     71  47   G     95  5F   _     119 77   w
+48  30   0     72  48   H     96  60   `     120 78   x
+49  31   1     73  49   I     97  61   a     121 79   y
+50  32   2     74  4A   J     98  62   b     122 7A   z
+51  33   3     75  4B   K     99  63   c     123 7B   {
+52  34   4     76  4C   L     100 64   d     124 7C   |
+53  35   5     77  4D   M     101 65   e     125 7D   }
+54  36   6     78  4E   N     102 66   f     126 7E   ~
+55  37   7     79  4F   O     103 67   g</code></pre></li>
+</ul>
+</section>
 
 <section id="unicode" class="title-slide slide level4"
 data-number="1.2.2.11">
@@ -1179,10 +1211,10 @@ el programa, de forma que la tarea de traducir el algoritmo en su
 correspondiente programa sea lo más fácil y directa posible.</p></li>
 <li><p>Por ejemplo, el algoritmo anterior sería relativamente fácil de
 traducir a <em>lenguaje ensamblador</em> o <em>lenguaje máquina</em>, ya
-que las instrucciones que se usan en ese pseudocódigo son fáciles de
-adaptar a esos lenguajes (lecturas, escrituras, saltos…).</p></li>
+que las instrucciones que se usan en ese pseudocódigo (lecturas,
+escrituras, saltos…) son fáciles de adaptar a esos lenguajes.</p></li>
 <li><p>En cambio, sería bastante más complicado traducirlo a un lenguaje
-funcional como Haskell.</p></li>
+funcional como Haskell, donde no existen esas instrucciones.</p></li>
 </ul>
 </section>
 
@@ -3165,45 +3197,45 @@ lenguajes.</p></li>
 
 <ul>
 <li><p>Codificación del algoritmo anterior en lenguaje Python:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximo(n1, n2):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Calcula el máximo de dos números enteros.&quot;&quot;&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n1 <span class="op">&gt;</span> n2:</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n1</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n2</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximo(n1, n2):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Calcula el máximo de dos números enteros.&quot;&quot;&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n1 <span class="op">&gt;</span> n2:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n1</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n2</span></code></pre></div>
 <p><br></p></li>
 <li><p>Codificación en lenguaje Java:</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Calcula el máximo de dos números enteros.</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">int</span> <span class="fu">maximo</span><span class="op">(</span><span class="dt">int</span> n1<span class="op">,</span> <span class="dt">int</span> n2<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n1 <span class="op">&gt;</span> n2<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n1<span class="op">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n2<span class="op">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Calcula el máximo de dos números enteros.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">int</span> <span class="fu">maximo</span><span class="op">(</span><span class="dt">int</span> n1<span class="op">,</span> <span class="dt">int</span> n2<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>n1 <span class="op">&gt;</span> n2<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n1<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n2<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.7.0.0.4">
 
 <ul>
 <li><p>Codificación en lenguaje Haskell:</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calcula el máximo de dos números enteros.</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span><span class="ot"> ::</span> (<span class="dt">Ord</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span> a b</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> a <span class="op">&gt;</span> b     <span class="ot">=</span> a</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> b</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Calcula el máximo de dos números enteros.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span><span class="ot"> ::</span> (<span class="dt">Ord</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span> a b</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> a <span class="op">&gt;</span> b     <span class="ot">=</span> a</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> b</span></code></pre></div>
 <p><br></p></li>
 <li><p>Codificación en lenguaje Scheme:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode scheme"><code class="sourceCode scheme"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Calcula el máximo de dos números enteros.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(<span class="ex">define</span><span class="fu"> </span>(maximo n1 n2)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">cond</span> ((<span class="op">&gt;</span> n1 n2) n1)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">else</span> n2)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode scheme"><code class="sourceCode scheme"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">; Calcula el máximo de dos números enteros.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>(<span class="ex">define</span><span class="fu"> </span>(maximo n1 n2)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">cond</span> ((<span class="op">&gt;</span> n1 n2) n1)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">else</span> n2)))</span></code></pre></div></li>
 </ul>
 </section>
 
