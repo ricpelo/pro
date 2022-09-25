@@ -320,7 +320,8 @@ legible</strong>.</p></li>
 Esto significa que más que forzar a los programadores a adoptar un
 estilo particular de programación, permite varios estilos:
 <strong>programación orientada a objetos</strong>, <strong>programación
-imperativa</strong> y <strong>programación funcional</strong>.</p></li>
+estructurada</strong> y <strong>programación
+funcional</strong>.</p></li>
 <li><p>Tiene una <strong>gran biblioteca estándar</strong>, usada para
 una diversidad de tareas. Esto viene de la filosofía «pilas incluidas»
 (<em>batteries included</em>) en referencia a los módulos de
@@ -338,20 +339,19 @@ data-number="1.3">
 <h2 data-number="1.3"><span class="header-section-number">1.3</span>
 Instalación</h2>
 <ul>
-<li><p><strong>Instalación en Ubuntu:</strong></p>
+<li><p><strong>Instalación en Debian:</strong></p>
 <ol type="1">
-<li><p>Python 3 ya viene instalado en Ubuntu 20.04 y posteriores, pero
-es conveniente ejecutar los siguientes comandos desde un terminal del
+<li><p>Python 3 ya viene instalado en Debian 11 y posteriores, pero es
+conveniente ejecutar los siguientes comandos desde un terminal del
 sistema operativo:</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo add-apt-repository universe</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt update</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python-is-python3 python3-pip</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>mkdir -p ~/.local/bin</span></code></pre></div>
+class="sourceCode console"><code class="sourceCode console"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt update</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python-is-python3 python3-pip</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>mkdir -p ~/.local/bin</span></code></pre></div>
 <p>Al acabar, cerrar la sesión con el sistema operativo y abrir una
 nueva antes de continuar.</p></li>
 <li><p>Asimismo, es conveniente asegurarse de que no hay ciertos
-paquetes de Python instalados provenientes del repositorio de Ubuntu (se
+paquetes de Python instalados provenientes del repositorio de Debian (se
 instalarán directamente desde Visual Studio Code):</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode console"><code class="sourceCode console"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt purge --autoremove pylint jupyter mypy python3-autopep8</span></code></pre></div></li>
@@ -407,10 +407,9 @@ Entrar y salir del intérprete</h3>
 <code>python</code> desde la línea de órdenes del sistema operativo:</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode console"><code class="sourceCode console"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Python 3.8.2 (default, Apr 27 2020, 15:53:34)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>[GCC 9.3.0] on linux</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;</span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Python 3.10.7 (main, Sep  8 2022, 14:34:29) [GCC 12.2.0] on linux</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;</span></code></pre></div>
 <p>El mensaje que obtengamos puede que no sea exactamente igual, pero es
 importante comprobar que estamos usando Python 3 y no 2.</p></li>
 <li><p>Para salir, se pulsa <code>Ctrl+D</code> en Ubuntu o
@@ -497,8 +496,8 @@ Sintaxis y semántica de las expresiones</h2>
 <p>Una <strong>expresión</strong> es una frase (secuencia de símbolos)
 sintáctica y semánticamente correcta según las reglas del lenguaje que
 estamos utilizando, cuya finalidad es la de <em>representar</em> o
-<strong>denotar</strong> un determinado objeto, al que denominamos el
-<strong>valor</strong> de la expresión.</p>
+<strong>denotar</strong> un determinado objeto abstracto, al que
+denominamos el <strong>valor</strong> de la expresión.</p>
 </div>
 <ul>
 <li><p>El ejemplo clásico es el de las <em>expresiones
@@ -589,6 +588,43 @@ style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></stro
 <section class="slide level5" data-number="2.2.0.0.3">
 
 <ul>
+<li><p>Los símbolos terminales
+<strong><code>identificador</code></strong>,
+<strong><code>entero</code></strong>, <strong><code>real</code></strong>
+y <strong><code>cadena</code></strong> representan cada uno de ellos a
+una multitud de secuencias de caracteres que siguen un determinado
+patrón.</p></li>
+<li><p>A las secuencias de caracteres que se ajustan al patrón léxico de
+un símbolo terminal determinado se les denomina
+<strong>lexemas</strong>.</p>
+<ul>
+<li><p>Un <strong><code>identificador</code></strong> es una secuencia
+de caracteres que puede estar formada por letras y dígitos, siempre y
+cuando empiece por una letra. Los identificadores representan
+<em>nombres</em>. Por ej.: <code>x</code>, <code>n1</code> o
+<code>dni</code>.</p></li>
+<li><p>Un <strong><code>entero</code></strong> es una secuencia de
+dígitos sin punto decimal que representa a un número entero. Por ej.:
+<code>25</code> o <code>140</code>.</p></li>
+<li><p>Un <strong><code>real</code></strong> es una secuencia de dígitos
+y otros caracteres especiales (el <strong><code>.</code></strong> o la
+<strong><code>e</code></strong>) que representa a un número real. Por
+ej.: <code>12.4</code> o <code>4e3</code>.</p></li>
+<li><p>Una <strong><code>cadena</code></strong> es una secuencia de
+caracteres encerrada entre comillas simples
+(<strong><code>'</code></strong>) o dobles
+(<strong><code>"</code></strong>). Por ej.: <code>"Hola"</code> o
+<code>'Juan Martínez'</code>.</p></li>
+</ul></li>
+<li><p>Normalmente, los espacios en blanco se usan para separar y
+distinguir los diferentes componentes léxicos. Así se sabe que
+<code>12</code> representa al entero <code>12</code> y no a los dos
+enteros <code>1</code> y <code>2</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.4">
+
+<ul>
 <li><p>Esta gramática reconoce <strong>expresiones <em>totalmente
 parentizadas</em></strong>, en las que cada operación a realizar con
 operadores va agrupada entre paréntesis, aunque no sea estrictamente
@@ -618,7 +654,7 @@ hasta cada expresión.</p></li>
 expresiones.</li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.2.0.0.4">
+<section class="slide level5" data-number="2.2.0.0.5">
 
 <ul>
 <li><p>Muchas veces, de ahora en adelante representaremos las
@@ -1555,7 +1591,7 @@ class="sourceCode python"><span class="dv">8</span></code>.</p></li>
 <ul>
 <li><p>Por tanto, la operación «suma» de la que hablamos anteriormente,
 se puede representar así usando el operador <code>+</code>: <span
-class="math display">+: \mathbb{R} \times \mathbb{R}
+class="math display">\_+\_: \mathbb{R} \times \mathbb{R}
 \longrightarrow \mathbb{R}</span></p></li>
 <li><p>Por tanto, el operador <code>+</code> acepta dos operandos (dos
 números reales) y devuelve un número real.</p></li>
@@ -1968,7 +2004,7 @@ funciones.</p></li>
 <li><p>El tipo de una función (su signatura) se puede representar de
 varias formas según el lenguaje utilizado. Por ejemplo:</p>
 <ul>
-<li><p>En Matemáticas y Teoría de Tipos:</p>
+<li><p>En Matemáticas y en Teoría de tipos:</p>
 <p><span class="math inline">abs: \mathbb{Z} \longrightarrow
 \mathbb{Z}</span></p>
 <p><span class="math inline">pow: \mathbb{R} \times \mathbb{R}
@@ -2174,10 +2210,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <li><p>Otro ejemplo es la función <code
 class="sourceCode python"><span class="bu">pow</span></code>, que
 realiza la operación de elevar un número a la potencia de otro. Su
-signatura podría ser:</p>
+signatura (simplificada) podría ser:</p>
 <p><code>pow(</code><span
-class="math inline">base</span><code>: Number,</code> <code></code><span
-class="math inline">exp</span><code>: Number) -&gt; Number</code></p></li>
+class="math inline">base</span><code>: int,</code> <code></code><span
+class="math inline">exp</span><code>: int) -&gt; int</code></p></li>
 <li><p>Curiosamente, la misma operación existe en Python de dos formas
 diferentes:</p>
 <ul>
@@ -2491,7 +2527,8 @@ style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></stro
 <span style="color:teal">⟨<em>expresión</em>⟩</span>)*</div></li>
 <li><p>Según esta gramática, las llamadas a métodos tienen esta
 forma:</p>
-<p><span class="math display">o.m(a_1, a_2, \ldots, a_n)</span></p>
+<p><span
+class="math display">o\texttt{.}m\texttt{(}a_1\texttt{,}\  a_2\texttt{,}\  \ldots\texttt{,}\  a_n\texttt{)}</span></p>
 <p>donde:</p>
 <ul>
 <li><p><span class="math inline">\underline{o}</span> es el
@@ -2533,9 +2570,11 @@ class="math inline">\underline{a_1}, \underline{a_2}, \ldots,
 <ul>
 <li><p>En la práctica, no habría mucha diferencia entre tener un método
 y hacer:</p>
-<p><span class="math display">o.m(a_1, a_2, ..., a_n)</span></p>
+<p><span
+class="math display">o\texttt{.}m\texttt{(}a_1\texttt{,}\  a_2\texttt{,}\  \ldots\texttt{,}\  a_n\texttt{)}</span></p>
 <p>y tener una función y hacer:</p>
-<p><span class="math display">m(o, a_1, a_2, ..., a_n)</span></p></li>
+<p><span class="math display">m\texttt{(}o\texttt{,}\
+a_1\texttt{,}\  a_2\texttt{,}\  \ldots\texttt{,}\  a_n\texttt{)}</span></p></li>
 <li><p>Pero conceptualmente, hay una gran diferencia entre un estilo y
 otro:</p>
 <ul>
@@ -3512,120 +3551,6 @@ métodos interesantes que operan sobre cadenas:</p>
 href="https://docs.python.org/3/library/stdtypes.html#string-methods"
 target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
 </ul>
-</section>
-</section>
-<section>
-<section id="ejercicios"
-class="title-slide slide level1 unnumbered unlisted">
-<h1 class="unnumbered unlisted">Ejercicios</h1>
-
-</section>
-<section id="ejercicios-1"
-class="title-slide slide level2 unnumbered unlisted">
-<h2 class="unnumbered unlisted">Ejercicios</h2>
-<ol start="2" class="example" type="1">
-<li><p>Representar la evaluación las siguientes expresiones, aplicando
-paso a paso la reducción que corresponda. Indicar también el tipo del
-valor resultante:</p>
-<ol type="a">
-<li><code
-class="sourceCode python"><span class="dv">3</span> <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> <span class="dv">14</span></code></li>
-<li><code
-class="sourceCode python"><span class="dv">8</span> <span class="op">+</span> <span class="dv">7</span> <span class="op">*</span> <span class="fl">3.0</span> <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span></code></li>
-<li><code
-class="sourceCode python"><span class="op">-</span><span class="dv">4</span> <span class="op">*</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span> <span class="op">/</span> <span class="dv">4</span> <span class="op">-</span> <span class="dv">5</span></code></li>
-<li><code
-class="sourceCode python"><span class="dv">4</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">/</span> <span class="dv">6</span> <span class="op">+</span> <span class="dv">6</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">/</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">5</span> <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">2</span></code></li>
-</ol></li>
-<li><p>Convertir en expresiones aritméticas algorítmicas las siguientes
-expresiones algebraicas:</p>
-<ol type="a">
-<li><p><span class="math inline">5\cdot(x + y)</span></p></li>
-<li><p><span class="math inline">a^2 + b^2</span></p></li>
-<li><p><span class="math inline">\frac{x + y}{u +
-\frac{w}{a}}</span></p></li>
-<li><p><span class="math inline">\frac{x}{y}\cdot(z + w)</span></p></li>
-</ol></li>
-</ol>
-</section>
-<section class="slide level5" data-number="6.3.0.0.1">
-
-<ol start="4" class="example" type="1">
-<li><p>Determinar, según las reglas de prioridad y asociatividad del
-lenguaje Python, qué paréntesis sobran en las siguientes expresiones.
-Reescribirlas sin los paréntesis sobrantes. Calcular su valor y deducir
-su tipo:</p>
-<ol type="a">
-<li><code
-class="sourceCode python">(<span class="dv">8</span> <span class="op">+</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span>)</code></li>
-<li><code
-class="sourceCode python"><span class="op">-</span>(<span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span>)</code></li>
-<li><code
-class="sourceCode python">(<span class="dv">33</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span>)) <span class="op">/</span> <span class="dv">5</span></code></li>
-<li><code
-class="sourceCode python"><span class="dv">2</span> <span class="op">**</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span>)</code></li>
-<li><code
-class="sourceCode python">(<span class="fl">3.0</span>) <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">18</span> <span class="op">-</span> <span class="dv">4</span> <span class="op">**</span> <span class="dv">2</span>))</code></li>
-<li><code
-class="sourceCode python">(<span class="dv">16</span> <span class="op">*</span> <span class="dv">6</span>) <span class="op">-</span> (<span class="dv">3</span>) <span class="op">*</span> <span class="dv">2</span></code></li>
-</ol></li>
-<li><p>Usar la función <code class="sourceCode python">math.sqrt</code>
-para escribir dos expresiones en Python que calculen las dos soluciones
-a la ecuación de segundo grado <span
-class="math display">ax^2+bx+c=0.</span></p>
-<p>Recordar que las soluciones son:</p>
-<p><span class="math display">x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
-  x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}</span></p></li>
-</ol>
-</section>
-<section class="slide level5" data-number="6.3.0.0.2">
-
-<ol start="6" class="example" type="1">
-<li><p>Evaluar las siguientes expresiones:</p>
-<ol type="a">
-<li><code
-class="sourceCode python"><span class="dv">9</span> – <span class="dv">5</span> – <span class="dv">3</span></code></li>
-<li><code
-class="sourceCode python"><span class="dv">2</span> <span class="op">//</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">/</span> <span class="dv">5</span></code></li>
-<li><code
-class="sourceCode python"><span class="dv">9</span> <span class="op">//</span> <span class="dv">2</span> <span class="op">/</span> <span class="dv">5</span></code></li>
-<li><code
-class="sourceCode python"><span class="dv">7</span> <span class="op">%</span> <span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span></code></li>
-<li><code
-class="sourceCode python"><span class="dv">7</span> <span class="op">%</span> (<span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span>)</code></li>
-<li><code
-class="sourceCode python">(<span class="dv">7</span> <span class="op">%</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">3</span></code></li>
-<li><code
-class="sourceCode python">(<span class="dv">7</span> <span class="op">%</span> <span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span>)</code></li>
-<li><code
-class="sourceCode python">((<span class="dv">12</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">//</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="dv">8</span> – (<span class="dv">5</span> <span class="op">+</span> <span class="dv">1</span>))</code></li>
-<li><code
-class="sourceCode python"><span class="dv">12</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span></code></li>
-<li><code
-class="sourceCode python">math.sqrt(math.cos(<span class="dv">4</span>))</code></li>
-<li><code
-class="sourceCode python">math.cos(math.sqrt(<span class="dv">4</span>))</code></li>
-<li><code
-class="sourceCode python">math.trunc(<span class="fl">815.66</span>) <span class="op">+</span> <span class="bu">round</span>(<span class="fl">815.66</span>)</code></li>
-</ol></li>
-</ol>
-</section>
-<section class="slide level5" data-number="6.3.0.0.3">
-
-<ol start="7" class="example" type="1">
-<li><p>Escribir las siguientes expresiones algorítmicas como expresiones
-algebraicas:</p>
-<ol type="a">
-<li><code
-class="sourceCode python">b <span class="op">**</span> <span class="dv">2</span> – <span class="dv">4</span> <span class="op">*</span> a <span class="op">*</span> c</code></li>
-<li><code
-class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> x <span class="op">**</span> <span class="dv">4</span> – <span class="dv">5</span> <span class="op">*</span> x <span class="op">**</span> <span class="dv">3</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">12</span> – <span class="dv">17</span></code></li>
-<li><code
-class="sourceCode python">(b <span class="op">+</span> d) <span class="op">/</span> (c <span class="op">+</span> <span class="dv">4</span>)</code></li>
-<li><code
-class="sourceCode python">(x <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> y <span class="op">**</span> <span class="dv">2</span>) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">2</span>)</code></li>
-</ol></li>
-</ol>
 </section>
 </section>
 <section id="bibliografía"

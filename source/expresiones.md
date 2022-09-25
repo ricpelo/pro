@@ -49,7 +49,7 @@ nocite: |
 - Es un lenguaje de programación **multiparadigma**. Esto significa que más que
   forzar a los programadores a adoptar un estilo particular de programación,
   permite varios estilos: **programación orientada a objetos**, **programación
-  imperativa** y **programación funcional**.
+  estructurada** y **programación funcional**.
 
 - Tiene una **gran biblioteca estándar**, usada para una diversidad de tareas.
   Esto viene de la filosofía «pilas incluidas» (*batteries included*) en
@@ -62,14 +62,13 @@ nocite: |
 
 ## Instalación
 
-- **Instalación en Ubuntu:**
+- **Instalación en Debian:**
 
-  1. Python 3 ya viene instalado en Ubuntu 20.04 y posteriores, pero es
+  1. Python 3 ya viene instalado en Debian 11 y posteriores, pero es
      conveniente ejecutar los siguientes comandos desde un terminal del
      sistema operativo:
 
      ```console
-     $ sudo add-apt-repository universe
      $ sudo apt update
      $ sudo apt install python-is-python3 python3-pip
      $ mkdir -p ~/.local/bin
@@ -79,7 +78,7 @@ nocite: |
      antes de continuar.
 
   2. Asimismo, es conveniente asegurarse de que no hay ciertos paquetes de
-     Python instalados provenientes del repositorio de Ubuntu (se instalarán
+     Python instalados provenientes del repositorio de Debian (se instalarán
      directamente desde Visual Studio Code):
 
      ```console
@@ -125,8 +124,7 @@ nocite: |
 
   ```console
   $ python
-  Python 3.8.2 (default, Apr 27 2020, 15:53:34)
-  [GCC 9.3.0] on linux
+  Python 3.10.7 (main, Sep  8 2022, 14:34:29) [GCC 12.2.0] on linux
   Type "help", "copyright", "credits" or "license" for more information.
   >>>
   ```
@@ -205,8 +203,8 @@ Las **sentencias** se *ejecutan* y provocan una _acción_.
 
 Una **expresión** es una frase (secuencia de símbolos) sintáctica y
 semánticamente correcta según las reglas del lenguaje que estamos utilizando,
-cuya finalidad es la de *representar* o **denotar** un determinado objeto, al
-que denominamos el **valor** de la expresión.
+cuya finalidad es la de *representar* o **denotar** un determinado objeto
+abstracto, al que denominamos el **valor** de la expresión.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El ejemplo clásico es el de las *expresiones aritméticas*:
@@ -259,6 +257,32 @@ que denominamos el **valor** de la expresión.
 !NT(método) ::= !T(identificador)
 !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Los símbolos terminales !T(identificador), !T(entero), !T(real) y !T(cadena)
+  representan cada uno de ellos a una multitud de secuencias de caracteres que
+  siguen un determinado patrón.
+
+- A las secuencias de caracteres que se ajustan al patrón léxico de un símbolo
+  terminal determinado se les denomina **lexemas**.
+
+  - Un !T(identificador) es una secuencia de caracteres que puede estar formada
+    por letras y dígitos, siempre y cuando empiece por una letra. Los
+    identificadores representan _nombres_. Por ej.: `x`, `n1` o `dni`.
+
+  - Un !T(entero) es una secuencia de dígitos sin punto decimal que representa
+    a un número entero. Por ej.: `25` o `140`.
+
+  - Un !T(real) es una secuencia de dígitos y otros caracteres especiales (el
+    !T(.) o la !T{e}) que representa a un número real. Por ej.: `12.4` o `4e3`.
+
+  - Una !T(cadena) es una secuencia de caracteres encerrada entre comillas
+    simples (!T{'}) o dobles (!T{"}). Por ej.: `"Hola"` o `'Juan Martínez'`.
+
+- Normalmente, los espacios en blanco se usan para separar y distinguir los
+  diferentes componentes léxicos. Así se sabe que `12` representa al entero
+  `12` y no a los dos enteros `1` y `2`.
 
 ---
 
@@ -1053,7 +1077,7 @@ $$
 ---
 
 - Por tanto, la operación «suma» de la que hablamos anteriormente, se puede
-  representar así usando el operador `+`: $$+: \mathbb{R} \times \mathbb{R}
+  representar así usando el operador `+`: $$\_+\_: \mathbb{R} \times \mathbb{R}
   \longrightarrow \mathbb{R}$$
 
 - Por tanto, el operador `+` acepta dos operandos (dos números reales) y
@@ -1390,7 +1414,7 @@ $$
 - El tipo de una función (su signatura) se puede representar de varias formas
   según el lenguaje utilizado. Por ejemplo:
 
-  - En Matemáticas y Teoría de Tipos:
+  - En Matemáticas y en Teoría de tipos:
 
     $abs: \mathbb{Z} \longrightarrow \mathbb{Z}$
 
@@ -1565,9 +1589,9 @@ $$
 ---
 
 - Otro ejemplo es la función !PYTHON(pow), que realiza la operación de elevar
-  un número a la potencia de otro. Su signatura podría ser:
+  un número a la potencia de otro. Su signatura (simplificada) podría ser:
 
-  `pow(`$base$`: Number,` ` `$exp$`: Number) -> Number`
+  `pow(`$base$`: int,` ` `$exp$`: int) -> int`
 
 - Curiosamente, la misma operación existe en Python de dos formas diferentes:
 
@@ -1820,9 +1844,9 @@ $$
 !DOT(composicion-funciones.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -23.459 [shape = plaintext, fillcolor = transparent]
-23.459 [shape = plaintext, fillcolor = transparent]
+23.459 [shape = plaintext, color = transparent, fillcolor = transparent]
 23.46 [shape = plaintext, fillcolor = transparent]
-2 [shape = plaintext, fillcolor = transparent]
+2 [shape = plaintext, fillcolor = transparent, fixedsize = shape]
 -23.459 -> abs -> 23.459 -> round -> 23.46
 2 -> round
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1862,7 +1886,7 @@ $$
 
 - Según esta gramática, las llamadas a métodos tienen esta forma:
 
-  $$o.m(a_1, a_2, \ldots, a_n)$$
+  $$o\texttt{.}m\texttt{(}a_1\texttt{,}\  a_2\texttt{,}\  \ldots\texttt{,}\  a_n\texttt{)}$$
 
   donde:
 
@@ -1893,11 +1917,11 @@ $$
 
 - En la práctica, no habría mucha diferencia entre tener un método y hacer:
 
-  $$o.m(a_1, a_2, ..., a_n)$$
+  $$o\texttt{.}m\texttt{(}a_1\texttt{,}\  a_2\texttt{,}\  \ldots\texttt{,}\  a_n\texttt{)}$$
 
   y tener una función y hacer:
 
-  $$m(o, a_1, a_2, ..., a_n)$$
+  $$m\texttt{(}o\texttt{,}\ a_1\texttt{,}\  a_2\texttt{,}\  \ldots\texttt{,}\  a_n\texttt{)}$$
 
 - Pero conceptualmente, hay una gran diferencia entre un estilo y otro:
 
@@ -2565,74 +2589,5 @@ Función                       Descripción           Ejemplo                   
   interesantes que operan sobre cadenas:
 
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
-
-!SECCIONEJERCICIOS
-
-@. Representar la evaluación las siguientes expresiones, aplicando paso a paso
-la reducción que corresponda. Indicar también el tipo del valor resultante:
-
-    a. !PYTHON(3 + 6 * 14)
-    b. !PYTHON(8 + 7 * 3.0 + 4 * 6)
-    c. !PYTHON(-4 * 7 + 2 ** 3 / 4 - 5)
-    d. !PYTHON(4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2)
-
-@. Convertir en expresiones aritméticas algorítmicas las siguientes expresiones
-   algebraicas:
-
-    a. $5\cdot(x + y)$
-
-    b. $a^2 + b^2$
-
-    c. $\frac{x + y}{u + \frac{w}{a}}$
-
-    d. $\frac{x}{y}\cdot(z + w)$
-
----
-
-@. Determinar, según las reglas de prioridad y asociatividad del lenguaje
-   Python, qué paréntesis sobran en las siguientes expresiones. Reescribirlas
-   sin los paréntesis sobrantes. Calcular su valor y deducir su tipo:
-
-    a. !PYTHON((8 + (7 * 3) + 4 * 6))
-    b. !PYTHON(-(2 ** 3))
-    c. !PYTHON((33 + (3 * 4)) / 5)
-    d. !PYTHON(2 ** (2 * 3))
-    e. !PYTHON((3.0) + (2 * (18 - 4 ** 2)))
-    f. !PYTHON((16 * 6) - (3) * 2)
-
-@. Usar la función !PYTHON(math.sqrt) para escribir dos expresiones en Python
-que calculen las dos soluciones a la ecuación de segundo grado $$ax^2+bx+c=0.$$
-
-    Recordar que las soluciones son:
-    
-    $$x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
-      x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}$$
-
----
-
-@. Evaluar las siguientes expresiones:
-
-    a. !PYTHON(9 – 5 – 3)
-    b. !PYTHON(2 // 3 + 3 / 5)
-    c. !PYTHON(9 // 2 / 5)
-    d. !PYTHON(7 % 5 % 3)
-    e. !PYTHON(7 % (5 % 3))
-    f. !PYTHON((7 % 5) % 3)
-    g. !PYTHON((7 % 5 % 3))
-    h. !PYTHON(((12 + 3) // 2) / (8 – (5 + 1)))
-    i. !PYTHON(12 / 2 * 3)
-    j. !PYTHON(math.sqrt(math.cos(4)))
-    k. !PYTHON(math.cos(math.sqrt(4)))
-    l. !PYTHON(math.trunc(815.66) + round(815.66))
-
----
-
-@. Escribir las siguientes expresiones algorítmicas como expresiones
-   algebraicas:
-
-    a. !PYTHON(b ** 2 – 4 * a * c)
-    b. !PYTHON(3 * x ** 4 – 5 * x ** 3 + x * 12 – 17)
-    c. !PYTHON((b + d) / (c + 4))
-    d. !PYTHON((x ** 2 + y ** 2) ** (1 / 2))
 
 !BIBLIOGRAFIA
