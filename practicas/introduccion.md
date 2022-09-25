@@ -23,10 +23,10 @@ problemas usando un lenguaje similar al lenguaje Ensamblador.
        #. Teclea las siguientes órdenes (al final de cada una de ellas, pulsa
           la tecla `Entrar`):
 
-          ```
+          ```console
           cd
           cd Descargas
-          sh sh HumanResourceMachine-*.sh
+          sh HumanResourceMachine*.sh
           ```
 
     #. Arranca el juego desde el menú principal.
