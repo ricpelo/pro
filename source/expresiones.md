@@ -3,7 +3,7 @@ title: Expresiones
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @blanco_calculo_2009, @abelson_structure_1996, @van-roy_concepts_2004
+  @python_software_foundation_sitio_nodate, @blanco_calculo_2009, @abelson_structure_1996, @van-roy_concepts_2004
 ---
 
 # El lenguaje de programación Python
@@ -42,9 +42,9 @@ nocite: |
 
 ## Características principales
 
-- Python es un lenguaje **interpretado**, **dinámico** y **multiplataforma**,
-  cuya filosofía hace hincapié en una sintaxis que favorezca un **código
-  legible**.
+- Python es un lenguaje **interpretado**, de **tipado dinámico** y
+  **multiplataforma**, cuya filosofía hace hincapié en una sintaxis que
+  favorezca un **código legible**.
 
 - Es un lenguaje de programación **multiparadigma**. Esto significa que más que
   forzar a los programadores a adoptar un estilo particular de programación,
@@ -117,7 +117,7 @@ nocite: |
      Es el modo que utilizan los usuarios para ejecutar los programas
      previamente confeccionados por los programadores.
 
-### Entrar y salir del intérprete
+### Entrar y salir del intérprete interactivo
 
 - Para entrar en el intérprete interactivo, se usa el comando `python` desde la
   línea de órdenes del sistema operativo:
@@ -147,13 +147,14 @@ nocite: |
 
 ## Expresiones y sentencias
 
-- El código fuente de un programa está formado por **instrucciones** que
-  pertenecen a dos grandes grupos principales:
+- El código fuente de un programa está formado por **instrucciones**.
 
-  - **Expresiones**: son secuencias de símbolos que *representan valores* y que
-    están formados por *datos* y (posiblemente) *operaciones* a realizar sobre
-    esos datos. El valor al que representa la expresión se obtiene *evaluando*
-    dicha expresión.
+- Las instrucciones se clasifican en:
+
+  - **Expresiones**: son secuencias de símbolos las cuales *representan
+    valores* y están formados por *datos* y (posiblemente) *operaciones* a
+    realizar sobre esos datos. El valor al que representa la expresión se
+    obtiene *evaluando* dicha expresión.
 
   - **Sentencias**: son *órdenes* que sirven para pedirle al intérprete que
     *ejecute* una determinada *acción*.
@@ -168,7 +169,7 @@ nocite: |
 
 $$\begin{array}{c}
   \text{En un programa hay dos} \\
-  \text{tipos de instrucciones}
+  \text{clases de instrucciones}
   \end{array}
   \begin{cases}
     \text{\textbf{Expresiones}} \begin{cases}
@@ -224,7 +225,7 @@ abstracto, al que denominamos el **valor** de la expresión.
   gramática del lenguaje en el que están escritas.
 
 - Si una expresión es sintácticamente correcta, su **semántica** (es decir, su
-  _significado_) es el valor al que representa.
+  _significado_) es **el valor al que representa**.
 
 - En un lenguaje de programación existen muchos tipos de expresiones,
   dependiendo del tipo de los datos y de las operaciones involucradas en dicha
@@ -234,7 +235,7 @@ abstracto, al que denominamos el **valor** de la expresión.
   incorporando cada vez más elementos nuevos que nos permitan crear expresiones
   más complejas.
 
-----
+---
 
 - Para ello, nos basaremos en la siguiente gramática, la cual es una
   simplificación modificada de la gramática real que deben satisfacer las
@@ -281,7 +282,7 @@ abstracto, al que denominamos el **valor** de la expresión.
     simples (!T{'}) o dobles (!T{"}). Por ej.: `"Hola"` o `'Juan Martínez'`.
 
 - Normalmente, los espacios en blanco se usan para separar y distinguir los
-  diferentes componentes léxicos. Así se sabe que `12` representa al entero
+  diferentes símbolos terminales. Así se sabe que `12` representa al entero
   `12` y no a los dos enteros `1` y `2`.
 
 ---
@@ -344,7 +345,7 @@ abstracto, al que denominamos el **valor** de la expresión.
 
 # Valores
 
-## Datos, tipos y valores
+## Información, datos, tipos y valores
 
 - La Informática es la ciencia que estudia los sistemas de procesamiento
   automático de la información, también llamados _sistemas informáticos_.
@@ -370,9 +371,10 @@ abstracto, al que denominamos el **valor** de la expresión.
 
   - **Datos internos** que usa el programa para su correcto funcionamiento.
 
-- La información concreta que un dato almacena en un momento dado se denomina
-  el **valor** del dato. Se dice que un dato _posee_ (o _tiene_ o _contiene_)
-  un **valor**, o que _vale_ ese valor.
+- El objeto abstracto que representa un dato en un momento dado (es decir, la
+  información que actualmente «contiene» el dato) se denomina el **valor** del
+  dato. Se dice que un dato _posee_ (o _tiene_ o _contiene_) un **valor**, o
+  que _vale_ ese valor.
 
   - Si el valor de un dato nunca cambia, decimos que ese dato es **constante**.
 
@@ -423,7 +425,7 @@ D [label = "Datos"]
 V [label = "Valores"];
 T [label = "Tipo"];
 O [label = "Operaciones"];
-D -> I [label = "\n\nAl interpretarse, se obtiene"]
+D -> I [label = "\n\nCuando lo interpreta\nun ser humano, se obtiene"]
 I -> D [label = "Se codifica en forma de\n"]
 D -> V [label = "Poseen"]
 V -> T [label = "Pertenecen a un\n"]
@@ -503,7 +505,11 @@ T -> O [label = "Determina un conjunto de"]
 - Por ejemplo, si queremos indicar que el dato _edad_ es un número entero (es
   decir, que es de tipo entero), se puede representar así:
 
-  - En Matemáticas y Teoría de Tipos:
+  - En Matemáticas:
+
+    $edad \in \mathbb{Z}$
+
+  - En Teoría de tipos:
 
     $edad: \mathbb{Z}$
 
@@ -513,7 +519,7 @@ T -> O [label = "Determina un conjunto de"]
 
   - En Java:
 
-    `int`\ \  $edad$
+    `int` $\,edad$
 
 ## Evaluación de expresiones
 
@@ -646,8 +652,8 @@ Se dice:
 
 ---
 
-- El orden en el que se van reduciendo las subexpresiones no debe influir en el
-  resultado de evaluar una expresión, así que debería dar igual elegir una u
+- El orden en el que se van reduciendo las subexpresiones no debería influir en
+  el resultado de evaluar una expresión, así que debería dar igual elegir una u
   otra subexpresión.
 
 - De todas formas, los lenguajes de programación suelen imponer un orden
@@ -705,12 +711,12 @@ endwhile (no)
 
 ---
 
-- Evaluar la expresión !PYTHON((2 * (3 + 5))):
+- Evaluar la expresión !PYTHON((2 + (3 * 5))):
 
-  - La expresión está formada por un operador `*` que actúa sobre las dos
-    subexpresiones !PYTHON(2) y !PYTHON((3 + 5)).
+  - La expresión está formada por un operador `+` que actúa sobre las dos
+    subexpresiones !PYTHON(2) y !PYTHON((3 * 5)).
 
-  - La segunda subexpresión, a su vez, está formada por un operador `+` que
+  - La segunda subexpresión, a su vez, está formada por un operador `*` que
     actúa sobre las dos subexpresiones !PYTHON(3) y !PYTHON(5).
 
   - Todas las subexpresiones se evalúan siempre de izquierda a derecha, a
@@ -782,6 +788,9 @@ endwhile (no)
 - Los literales tienen que satisfacer las **reglas léxicas** del lenguaje, que
   son las que determinan qué forma pueden tener los componentes léxicos del
   programa (como números, cadenas, identificadores, etc.).
+
+  Esos componentes léxicos son los _símbolos terminales_ de la gramática del
+  lenguaje.
 
 - Gracias a esas reglas, el intérprete puede identificar qué literales son, qué
   **valor** representan y de qué **tipo** son.
@@ -1077,8 +1086,8 @@ $$
 ---
 
 - Por tanto, la operación «suma» de la que hablamos anteriormente, se puede
-  representar así usando el operador `+`: $$\_+\_: \mathbb{R} \times \mathbb{R}
-  \longrightarrow \mathbb{R}$$
+  representar así usando el operador `+`: $$\_\texttt{+}\_: \mathbb{R} \times
+  \mathbb{R} \longrightarrow \mathbb{R}$$
 
 - Por tanto, el operador `+` acepta dos operandos (dos números reales) y
   devuelve un número real.
@@ -1665,7 +1674,7 @@ $$
   !PYTHON(abs), !PYTHON(len) o !PYTHON(max)) es un **identificador** que
   **representa a la propia función**.
 
-- Es decir, que !PYTHON(max) (sin paréntesis detrás) es una **expresión válida
+- Es decir, que !PYTHON{max} (sin paréntesis detrás) es una **expresión válida
   cuyo valor es la propia función «_máximo de dos números_»**.
 
 - Si le pedimos al intérprete que nos muestre el valor de la expresión
@@ -1991,8 +2000,8 @@ $$
     atributo que pertenece al objeto sobre el que se ejecuta el método.
 
   - Si !NT(método) es el nombre de un método válido para el objeto !NT(objeto),
-    la expresión !NT(objeto)`.`!NT(método) (sin paréntesis detrás) **nos
-    devuelve el propio método en sí**.
+    entonces la expresión !NT(objeto)`.`!NT{método} (sin paréntesis detrás)
+    **nos devuelve el propio método en sí**.
 
 - Por tanto, si le pedimos al intérprete que nos muestre el valor de la
   expresión !PYTHON('hola'.count) (sin paréntesis), nos dirá algo así:
@@ -2120,10 +2129,10 @@ $$
 
   de forma que, al usar el operador en una expresión del tipo:
 
-  !NT($expr_1$) `+` !NT($expr_2$)
+  !NT(expr)$_1$ `+` !NT(expr)$_2$ <!-- $_ -->
 
   el intérprete llamará a una de las dos operaciones, dependiendo de los tipos
-  de !NT($expr_1$) y !NT($expr_2$).
+  de !NT(expr)$_1$ y !NT(expr)$_2$. <!-- $_ -->
 
 - La sobrecarga no es polimorfismo, pero induce un cierto tipo de polimorfismo
   que se denomina **polimorfismo _ad-hoc_**.
