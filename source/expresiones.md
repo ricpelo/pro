@@ -880,7 +880,7 @@ endwhile (no)
 - Por ejemplo, el nombre de una función es un identificador porque representa a
   la función.
 
-- Los identificadores **deben cumplir unas _reglas sintácticas_** que dependen
+- Los identificadores **deben cumplir unas _reglas léxicas_** que dependen
   del lenguaje de programación, pero generalmente se resumen en que:
 
   - Pueden estar formados por combinaciones de **letras**, **dígitos** y
@@ -1059,6 +1059,28 @@ $$
 
 -->
 
+---
+
+- En Programación, las operaciones no se definen sobre conjuntos, sino sobre
+  **tipos**.
+
+- Por ejemplo, la operación «suma» podría definirse sobre sobre el tipo
+  !PYTHON(float) de Python, que es el más parecido al conjunto $\mathbb{R}$ de
+  los números reales.
+
+- Eso se podría representar así:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $suma:$ `float` $\times$ `float` $\longrightarrow$ `float`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Pero, en la práctica, usaremos una notación más apropiada para representar
+  los tipos sobre los que se definen las operaciones en nuestros programas y
+  nuestros lenguajes de programación.
+
+- Esa notación, llamada _signatura_, la estudiaremos en breve.
+
 ## Operadores
 
 - Un **operador** es un símbolo o palabra clave que representa una _operación_
@@ -1089,7 +1111,7 @@ $$
   representar así usando el operador `+`: $$\_\texttt{+}\_: \mathbb{R} \times
   \mathbb{R} \longrightarrow \mathbb{R}$$
 
-- Por tanto, el operador `+` acepta dos operandos (dos números reales) y
+- Eso significa que el operador `+` acepta dos operandos (dos números reales) y
   devuelve un número real.
 
 ### Aridad de operadores
