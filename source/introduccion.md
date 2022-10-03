@@ -1708,7 +1708,7 @@ adverbio -> mucho
   resultan ser programas válidos según las reglas de la semántica estática del
   lenguaje.
 
-- La semántica estática de un lenguaje está fuertemente relacionado con su
+- La semántica estática de un lenguaje está fuertemente relacionada con su
   **sistema de tipos**.
 
 ---
@@ -2084,7 +2084,7 @@ lenguaje.
    característicos son los lenguajes de **programación visual**.
 
 5. **Quinta generación**: Es una denominación que se usó durante un tiempo para
-   los lenguajes de programación de muy alto nivel (funciones y lógicos)
+   los lenguajes de programación de muy alto nivel (funcional y lógicos)
    destinados principalmente a resolver problemas de **Inteligencia
    Artificial**, pero como término ya ha caído en desuso.
 
