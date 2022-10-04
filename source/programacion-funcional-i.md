@@ -230,8 +230,8 @@ nocite: |
   origen**. Ese conjunto origen sería, a grandes rasgos, el tipo de los valores
   sobre los que puede actuar.
 
-  Por ejemplo: sobre un valor de tipo _entero_ se puede realizar la operación
-  _cambio de signo_ (pero no _raíz cuadrada_), y sobre dos enteros se pueden
+  Por ejemplo: sobre un valor de tipo _cadena_ se puede realizar la operación
+  _longitud_ (pero no la _raíz cuadrada_), y sobre dos _enteros_ se pueden
   realizar las operaciones de _suma_ y _producto_.
 
 - En resumen, podemos decir que **un tipo**:

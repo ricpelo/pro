@@ -597,13 +597,43 @@ y:f1 -> 5
 
 - A este enfoque se le denomina **tipado dinámico**.
 
+- En esos lenguajes, no existen mecanismos que permitan asignar de manera fija
+  y única el tipo de una variable de forma que siempre sea el mismo durante
+  toda la ejecución del programa.
+
+- Así, los traductores de un lenguaje dinámico no tratan de asignar un tipo a
+  las variables durante la fase de compilación o al empezar a leer el código
+  fuente del programa, sino que el tipo es una propiedad de la variable que va
+  cambiando a medida que se van ejecutando las instrucciones del programa, de
+  forma dinámica.
+
+- Por esta razón, en general, en un lenguaje dinámico no se puede determinar el
+  tipo de una variable simplemente leyendo el código fuente del programa, sin
+  ejecutarlo.
+
+---
+
+- Asimismo, en esos lenguajes tampoco es posible, en general, deteminar de
+  antemano (sin ejecutar el programa) la signatura de las funciones, es decir,
+  el tipo de sus parámetros y el de su valor de retorno, ya que todos ellos
+  también son variables.
+
+  Por tanto, es la propia función la que, durante una llamada a la misma, se
+  encarga de comprobar en tiempo de ejecución si los argumentos de entrada que
+  le han pasado en la llamada son del tipo correcto.
+
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Lenguajes de tipado dinámico:**
 
   Son aquellos que **permiten** que el tipo de una variable **cambie** durante
-  la ejecución del programa.
+  la ejecución del programa y en los que, por tanto, en general, no es posible
+  determinar de antemano el tipo de la variable sin ejecutar el programa. Eso
+  incluye también la signatura de las funciones, es decir, el tipo de sus
+  parámetros y su tipo de retorno.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
 
 - En contraste con los lenguajes de tipado dinámico, existen los llamados
   **lenguajes de tipado estático**.
@@ -612,18 +642,22 @@ y:f1 -> 5
   vez (en la fase de compilación o justo al empezar a ejecutarse el programa),
   y **no puede cambiar** durante la ejecución del mismo.
 
----
-
 - Definición:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Lenguajes de tipado estático:**
 
-  Son aquellos que asocian forzosamente un tipo a cada variable del programa
-  desde que comienza a ejecutarse y **prohíben** que dicho tipo **cambie**
-  durante la ejecución del programa.
+  Son aquellos que asocian forzosamente y de forma única un tipo a cada
+  variable del programa antes de comenzar a ejecutarse y **prohíben** que dicho
+  tipo **cambie** durante la ejecución del mismo.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por tanto, en un programa escrito en un lenguaje de tipado estático es
+  posible determinar el tipo de una variable simplemente leyendo el código
+  fuente del mismo, sin necesidad de ejecutarlo.
+
+---
 
 - Estos lenguajes disponen de instrucciones que permiten _declarar_ de qué tipo
   serán los datos que se pueden asignar a una variable.
@@ -638,8 +672,6 @@ y:f1 -> 5
   tipo !JAVA(String) (es decir, *cadenas*) desde el primer momento y a lo largo
   de toda la ejecución del programa.
 
----
-
 - A veces, se pueden realizar al mismo tiempo la declaración del tipo y la
   asignación del valor:
 
@@ -647,8 +679,11 @@ y:f1 -> 5
   String x = "Hola";
   ```
 
-- Otros lenguajes disponen de un mecanismo conocido como **inferencia de
-  tipos**, que permite *deducir* automáticamente el tipo de una variable.
+---
+
+- Otros lenguajes de tipado estático disponen de un mecanismo conocido como
+  **inferencia de tipos**, que permite *deducir* automáticamente el tipo de una
+  variable.
 
 - Por ejemplo, en Java podemos hacer:
 
@@ -659,6 +694,70 @@ y:f1 -> 5
   El compilador de Java deduce que la variable !JAVA(x) debe ser de tipo
   !JAVA(String) porque se le está asignando una cadena (el valor
   !JAVA("Hola")).
+
+- La inferencia de tipos permite el tipado estático sin necesidad de usar
+  declaraciones explícitas de tipos.
+
+- Aún así, la inmensa mayoría de los lenguajes estáticos con inferencia de
+  tipos disponen de mecanismos de declaración explícita de tipos, ya que a
+  veces es necesario «ayudar» al traductor a deducir el tipo de una variable.
+
+- Así ocurre, por ejemplo, con algunos lenguajes funcionales como Haskell o ML.
+
+---
+
+- En los lenguajes de tipado estático, el traductor es capaz de comprobar si
+  existen errores de tipos **antes de empezar la ejecución del programa**, es
+  decir, durante la fase de compilación (si es un compilador) o justo al
+  empezar a leer el código fuente (si es un intérprete).
+
+- Por ejemplo, el compilador de Java podría detectar, en tiempo de compilación
+  y sin tener que ejecutarlo, que el siguiente trozo de código es erróneo, ya
+  que se intenta asignar un valor de tipo cadena a una variable declarada de
+  tipo entero:
+
+  ```{.java .number-lines}
+  int x;
+
+  x = "Hola";
+  ```
+
+- Al ser un lenguaje de tipado estático, el compilador conoce (o deduce) **en
+  tiempo de compilación** el tipo de la variable `x` y el del valor
+  !JAVA("Hola"), sabe que son tipos diferentes (!JAVA(int) y !JAVA(String),
+  respectivamente) y concluye que no es correcto asignar ese valor a esa
+  variable puesto que sus tipos son incompatibles, generando un **error de
+  tipos** en la línea 3 y deteniendo la generación del código objeto.
+
+---
+
+- De igual forma, el compilador detecta en tiempo de compilación que la
+  siguiente expresión no es correcta, ya que se intenta multiplicar un número
+  con una cadena, algo que no está permitido en Java:
+
+  ```java
+  x * "Hola"
+  ```
+
+- Por contra, el lenguaje Python es un lenguaje dinámico, por lo que el
+  intérprete desconoce de antemano el tipo de las variables, ya que éste va
+  cambiando sobre la marcha a medida que se va ejecutando el programa:
+
+  ```python
+  x = 4       # Ahora x es de tipo int
+  x = 'Hola'  # Ahora x es de tipo str
+  ```
+
+- Por tanto, el intérprete no puede saber de antemano (antes de ejecutar el
+  programa) si la siguiente expresión es correcta o incorrecta:
+
+  ```python
+  x / 2       # Se puede dividir un entero, pero no una cadena
+  ```
+
+  Sólo podrá saberlo cuando esté ejecutando el programa y esté a punto de
+  evaluar la expresión, porque hasta entonces no sabrá cuál es el tipo de la
+  variable `x` _en ese momento_.
 
 ---
 

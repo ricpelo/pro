@@ -239,7 +239,7 @@
 <section id="title-slide">
   <h1 class="title">Programación imperativa</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2021/2022</p>
+  <p class="date">IES Doñana, curso 2022/2023</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -898,31 +898,67 @@ nuevo valor que se le ha asignado.</p></li>
 <li><p>Eso quiere decir que <strong>el tipo de una variable podría
 cambiar durante la ejecución del programa</strong>.</p></li>
 <li><p>A este enfoque se le denomina <strong>tipado
-dinámico</strong>.</p>
+dinámico</strong>.</p></li>
+<li><p>En esos lenguajes, no existen mecanismos que permitan asignar de
+manera fija y única el tipo de una variable de forma que siempre sea el
+mismo durante toda la ejecución del programa.</p></li>
+<li><p>Así, los traductores de un lenguaje dinámico no tratan de asignar
+un tipo a las variables durante la fase de compilación o al empezar a
+leer el código fuente del programa, sino que el tipo es una propiedad de
+la variable que va cambiando a medida que se van ejecutando las
+instrucciones del programa, de forma dinámica.</p></li>
+<li><p>Por esta razón, en general, en un lenguaje dinámico no se puede
+determinar el tipo de una variable simplemente leyendo el código fuente
+del programa, sin ejecutarlo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.9.0.0.2">
+
+<ul>
+<li><p>Asimismo, en esos lenguajes tampoco es posible, en general,
+deteminar de antemano (sin ejecutar el programa) la signatura de las
+funciones, es decir, el tipo de sus parámetros y el de su valor de
+retorno, ya que todos ellos también son variables.</p>
+<p>Por tanto, es la propia función la que, durante una llamada a la
+misma, se encarga de comprobar en tiempo de ejecución si los argumentos
+de entrada que le han pasado en la llamada son del tipo correcto.</p>
 <div class="caja">
 <p><strong>Lenguajes de tipado dinámico:</strong></p>
 <p>Son aquellos que <strong>permiten</strong> que el tipo de una
-variable <strong>cambie</strong> durante la ejecución del programa.</p>
+variable <strong>cambie</strong> durante la ejecución del programa y en
+los que, por tanto, en general, no es posible determinar de antemano el
+tipo de la variable sin ejecutar el programa. Eso incluye también la
+signatura de las funciones, es decir, el tipo de sus parámetros y su
+tipo de retorno.</p>
 </div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.9.0.0.3">
+
+<ul>
 <li><p>En contraste con los lenguajes de tipado dinámico, existen los
 llamados <strong>lenguajes de tipado estático</strong>.</p></li>
 <li><p>En un lenguaje de tipado estático, el tipo de una variable se
 define una sola vez (en la fase de compilación o justo al empezar a
 ejecutarse el programa), y <strong>no puede cambiar</strong> durante la
 ejecución del mismo.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.9.0.0.2">
-
-<ul>
 <li><p>Definición:</p>
 <div class="caja">
 <p><strong>Lenguajes de tipado estático:</strong></p>
-<p>Son aquellos que asocian forzosamente un tipo a cada variable del
-programa desde que comienza a ejecutarse y <strong>prohíben</strong> que
-dicho tipo <strong>cambie</strong> durante la ejecución del
-programa.</p>
+<p>Son aquellos que asocian forzosamente y de forma única un tipo a cada
+variable del programa antes de comenzar a ejecutarse y
+<strong>prohíben</strong> que dicho tipo <strong>cambie</strong> durante
+la ejecución del mismo.</p>
 </div></li>
+<li><p>Por tanto, en un programa escrito en un lenguaje de tipado
+estático es posible determinar el tipo de una variable simplemente
+leyendo el código fuente del mismo, sin necesidad de
+ejecutarlo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.9.0.0.4">
+
+<ul>
 <li><p>Estos lenguajes disponen de instrucciones que permiten
 <em>declarar</em> de qué tipo serán los datos que se pueden asignar a
 una variable.</p>
@@ -933,18 +969,18 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="
 sólo se le podrán asignar valores de tipo <code
 class="sourceCode java"><span class="bu">String</span></code> desde el
 primer momento y a lo largo de toda la ejecución del programa.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.9.0.0.3">
-
-<ul>
 <li><p>A veces, se pueden realizar al mismo tiempo la declaración del
 tipo y la asignación del valor:</p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span> x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span></span></code></pre></div></li>
-<li><p>Otros lenguajes disponen de un mecanismo conocido como
-<strong>inferencia de tipos</strong>, que permite <em>deducir</em>
-automáticamente el tipo de una variable.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.9.0.0.5">
+
+<ul>
+<li><p>Otros lenguajes de tipado estático disponen de un mecanismo
+conocido como <strong>inferencia de tipos</strong>, que permite
+<em>deducir</em> automáticamente el tipo de una variable.</p></li>
 <li><p>Por ejemplo, en Java podemos hacer:</p>
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span></span></code></pre></div>
@@ -953,9 +989,71 @@ class="sourceCode java">x</code> debe ser de tipo <code
 class="sourceCode java"><span class="bu">String</span></code> porque se
 le está asignando una cadena (el valor <code
 class="sourceCode java"><span class="st">&quot;Hola&quot;</span></code>).</p></li>
+<li><p>La inferencia de tipos permite el tipado estático sin necesidad
+de usar declaraciones explícitas de tipos.</p></li>
+<li><p>Aún así, la inmensa mayoría de los lenguajes estáticos con
+inferencia de tipos disponen de mecanismos de declaración explícita de
+tipos, ya que a veces es necesario «ayudar» al traductor a deducir el
+tipo de una variable.</p></li>
+<li><p>Así ocurre, por ejemplo, con algunos lenguajes funcionales como
+Haskell o ML.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.9.0.0.4">
+<section class="slide level5" data-number="2.9.0.0.6">
+
+<ul>
+<li><p>En los lenguajes de tipado estático, el traductor es capaz de
+comprobar si existen errores de tipos <strong>antes de empezar la
+ejecución del programa</strong>, es decir, durante la fase de
+compilación (si es un compilador) o justo al empezar a leer el código
+fuente (si es un intérprete).</p></li>
+<li><p>Por ejemplo, el compilador de Java podría detectar, en tiempo de
+compilación y sin tener que ejecutarlo, que el siguiente trozo de código
+es erróneo, ya que se intenta asignar un valor de tipo cadena a una
+variable declarada de tipo entero:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode numberSource java number-lines"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1"></a><span class="dt">int</span> x<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span><span class="op">;</span></span></code></pre></div></li>
+<li><p>Al ser un lenguaje de tipado estático, el compilador conoce (o
+deduce) <strong>en tiempo de compilación</strong> el tipo de la variable
+<code>x</code> y el del valor <code
+class="sourceCode java"><span class="st">&quot;Hola&quot;</span></code>,
+sabe que son tipos diferentes (<code
+class="sourceCode java"><span class="dt">int</span></code> y <code
+class="sourceCode java"><span class="bu">String</span></code>,
+respectivamente) y concluye que no es correcto asignar ese valor a esa
+variable puesto que sus tipos son incompatibles, generando un
+<strong>error de tipos</strong> en la línea 3 y deteniendo la generación
+del código objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.9.0.0.7">
+
+<ul>
+<li><p>De igual forma, el compilador detecta en tiempo de compilación
+que la siguiente expresión no es correcta, ya que se intenta multiplicar
+un número con una cadena, algo que no está permitido en Java:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> <span class="st">&quot;Hola&quot;</span></span></code></pre></div></li>
+<li><p>Por contra, el lenguaje Python es un lenguaje dinámico, por lo
+que el intérprete desconoce de antemano el tipo de las variables, ya que
+éste va cambiando sobre la marcha a medida que se va ejecutando el
+programa:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>       <span class="co"># Ahora x es de tipo int</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;Hola&#39;</span>  <span class="co"># Ahora x es de tipo str</span></span></code></pre></div></li>
+<li><p>Por tanto, el intérprete no puede saber de antemano (antes de
+ejecutar el programa) si la siguiente expresión es correcta o
+incorrecta:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">/</span> <span class="dv">2</span>       <span class="co"># Se puede dividir un entero, pero no una cadena</span></span></code></pre></div>
+<p>Sólo podrá saberlo cuando esté ejecutando el programa y esté a punto
+de evaluar la expresión, porque hasta entonces no sabrá cuál es el tipo
+de la variable <code>x</code> <em>en ese momento</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.9.0.0.8">
 
 <ul>
 <li><p>Normalmente, los lenguajes de tipado estático son también
@@ -1148,8 +1246,8 @@ style="color:teal">⟨<em>expresión</em>⟩</span>(<strong><code>,</code></stro
 <p>con la condición de que tiene que haber tantos identificadores como
 expresiones.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="dv">10</span>, <span class="dv">20</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="dv">10</span>, <span class="dv">20</span></span></code></pre></div>
 <p>asigna el valor <code
 class="sourceCode python"><span class="dv">10</span></code> a <code
 class="sourceCode python">x</code> y el valor <code
@@ -1167,14 +1265,14 @@ no una tras otra.</p></li>
 <code>x</code> e <code>y</code> sin asignación múltiple, tendríamos que
 usar una variable auxiliar que almacenara el valor de una de las
 variables para no perderlo:</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>aux <span class="op">=</span> x</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> y</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> aux</span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>aux <span class="op">=</span> x</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> y</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> aux</span></code></pre></div></li>
 <li><p>En cambio, si usamos la asignación múltiple, se puede hacer
 simplemente:</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> y, x</span></code></pre></div></li>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> y, x</span></code></pre></div></li>
 <li><p>Lo que ocurre es que la <code>x</code> toma el valor que tenía
 <code>y</code> <strong>justo antes de ejecutar la sentencia</strong>, y
 la <code>y</code> toma el valor que tenía <code>x</code> <strong>justo
@@ -1189,16 +1287,16 @@ múltiple <strong>no se afectan entre ellas</strong>.</p></li>
 <li><p>A la asignación múltiple también se la denomina
 <strong>desempaquetado de tuplas</strong>, ya que, técnicamente, es una
 asignación entre dos tuplas, como si se hubiera escrito así:</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(x, y) <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">20</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(x, y) <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">20</span>)</span></code></pre></div></li>
 <li><p>Esto es así porque, en realidad, los paréntesis que rodean a una
 tupla casi nunca son estrictamente necesarios (salvo para la tupla vacía
 y para evitar ambigüedades) y, por tanto:</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>, <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>, <span class="dv">3</span></span></code></pre></div>
 <p>es lo mismo que</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div></li>
 <li><p>En consecuencia, lo que ocurre es que <em>se desempaquetan</em>
 las dos tuplas y se asigna cada elemento de la tupla derecha a la
 variable correspondiente de la tupla izquierda.</p></li>
@@ -1286,17 +1384,17 @@ durante la ejecución del programa.</li>
 <div class="columns">
 <div class="column">
 <p>Si tenemos:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/inmutable1.svg" class="plain"
 style="width:35.0%" /></p>
 </div>
 </div><div class="column">
 <p>y hacemos:</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">7</span></span></code></pre></div>
 <p>quedaría:</p>
 <div class="centered">
 <p><img data-src="images/inmutable2.svg" class="plain"
@@ -1322,15 +1420,15 @@ no se cambia internamente en ningún momento).</li>
 inmutables</em> y, por tanto, con ellas ocurre exactamente
 igual.</p></li>
 <li><p>Si tenemos:</p>
-<div class="sourceCode" id="cb20"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/inmutable3.svg" class="plain"
 style="width:20.0%" /></p>
 </div>
 <p>y luego hacemos:</p>
-<div class="sourceCode" id="cb21"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola manolo&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola manolo&#39;</span></span></code></pre></div>
 <p><strong>se crea una nueva cadena</strong> y se la asignamos a la
 variable <code class="sourceCode python">x</code>.</p></li>
 </ul>
@@ -1367,16 +1465,16 @@ permanecen inalteradas):</p></li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> x <span class="op">+</span> y</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div>
 </div><div class="column">
 <div class="centered">
 <p><img data-src="images/inmutable5.svg" class="plain"
@@ -1391,8 +1489,8 @@ tupla, sin modificar a la anterior:</li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div>
 </div><div class="column">
 <div class="centered">
 <p><img data-src="images/inmutable6.svg" class="plain"
@@ -1563,18 +1661,18 @@ corchetes:</li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">|</span> P <span class="op">|</span> y <span class="op">|</span> t <span class="op">|</span> h <span class="op">|</span> o <span class="op">|</span> n <span class="op">|</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">5</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>   <span class="op">-</span><span class="dv">6</span>  <span class="op">-</span><span class="dv">5</span>  <span class="op">-</span><span class="dv">4</span>  <span class="op">-</span><span class="dv">3</span>  <span class="op">-</span><span class="dv">2</span>  <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">|</span> P <span class="op">|</span> y <span class="op">|</span> t <span class="op">|</span> h <span class="op">|</span> o <span class="op">|</span> n <span class="op">|</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">5</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>   <span class="op">-</span><span class="dv">6</span>  <span class="op">-</span><span class="dv">5</span>  <span class="op">-</span><span class="dv">4</span>  <span class="op">-</span><span class="dv">3</span>  <span class="op">-</span><span class="dv">2</span>  <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;t&#39;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">2</span>]</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;o&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;t&#39;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;o&#39;</span></span></code></pre></div>
 </div>
 </div>
 <ul>
@@ -1597,34 +1695,34 @@ secuencia, indicando los <em>índices</em> de los elementos
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>     con paso positivo</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>s <span class="op">|</span> P <span class="op">|</span> y <span class="op">|</span> t <span class="op">|</span> h <span class="op">|</span> o <span class="op">|</span> n <span class="op">|</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">5</span>   <span class="dv">6</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a> <span class="op">-</span><span class="dv">6</span>  <span class="op">-</span><span class="dv">5</span>  <span class="op">-</span><span class="dv">4</span>  <span class="op">-</span><span class="dv">3</span>  <span class="op">-</span><span class="dv">2</span>  <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>     con paso negativo</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>s <span class="op">|</span> P <span class="op">|</span> y <span class="op">|</span> t <span class="op">|</span> h <span class="op">|</span> o <span class="op">|</span> n <span class="op">|</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>      <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">5</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a> <span class="op">-</span><span class="dv">7</span>  <span class="op">-</span><span class="dv">6</span>  <span class="op">-</span><span class="dv">5</span>  <span class="op">-</span><span class="dv">4</span>  <span class="op">-</span><span class="dv">3</span>  <span class="op">-</span><span class="dv">2</span>  <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>     con paso positivo</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>s <span class="op">|</span> P <span class="op">|</span> y <span class="op">|</span> t <span class="op">|</span> h <span class="op">|</span> o <span class="op">|</span> n <span class="op">|</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">5</span>   <span class="dv">6</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a> <span class="op">-</span><span class="dv">6</span>  <span class="op">-</span><span class="dv">5</span>  <span class="op">-</span><span class="dv">4</span>  <span class="op">-</span><span class="dv">3</span>  <span class="op">-</span><span class="dv">2</span>  <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>     con paso negativo</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>s <span class="op">|</span> P <span class="op">|</span> y <span class="op">|</span> t <span class="op">|</span> h <span class="op">|</span> o <span class="op">|</span> n <span class="op">|</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">+---+---+---+---+---+---+</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>      <span class="dv">0</span>   <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">5</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a> <span class="op">-</span><span class="dv">7</span>  <span class="op">-</span><span class="dv">6</span>  <span class="op">-</span><span class="dv">5</span>  <span class="op">-</span><span class="dv">4</span>  <span class="op">-</span><span class="dv">3</span>  <span class="op">-</span><span class="dv">2</span>  <span class="op">-</span><span class="dv">1</span></span></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">2</span>]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Py&#39;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;y&#39;</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">4</span>:<span class="op">-</span><span class="dv">5</span>]</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">4</span>:<span class="dv">2</span>]</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Pt&#39;</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>]</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>:<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hty&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">2</span>]</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Py&#39;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;y&#39;</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">4</span>:<span class="op">-</span><span class="dv">5</span>]</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>:<span class="dv">4</span>:<span class="dv">2</span>]</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Pt&#39;</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>]</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">3</span>:<span class="op">-</span><span class="dv">6</span>:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hty&#39;</span></span></code></pre></div>
 </div>
 </div>
 <ul>
@@ -1703,8 +1801,8 @@ class="sourceCode python">s</code>.</p></li>
 <h5 class="unnumbered unlisted">Ejercicio</h5>
 <ol class="example" type="1">
 <li><p>Dada la siguiente lista:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span></code></pre></div>
 <p>¿Qué valor devuelven las siguientes expresiones?</p>
 <ol type="a">
 <li><code
@@ -1754,10 +1852,10 @@ interno</em></strong>.</p></li>
 class="sourceCode python"><span class="bu">list</span></code> se crean
 separando sus elementos con comas y encerrándolos entre corchetes
 <code>[</code> y <code>]</code>:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.2.0.1">
@@ -1766,26 +1864,26 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a h
 <li><p>También se pueden crear listas a partir de otros datos
 estructurados (cadenas, tuplas, rangos, etcétera) usando la función
 <code class="sourceCode python"><span class="bu">list</span></code>:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;hola&#39;</span>)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>]</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">6</span>))</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>]</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">6</span>))</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span></code></pre></div></li>
 <li><p>No se puede crear una lista con <code
 class="sourceCode python"><span class="bu">list</span></code> a partir
 de un dato no estructurado:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="dv">1</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;int&#39;</span> <span class="bu">object</span> <span class="kw">is</span> <span class="kw">not</span> iterable</span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="dv">1</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;int&#39;</span> <span class="bu">object</span> <span class="kw">is</span> <span class="kw">not</span> iterable</span></code></pre></div></li>
 <li><p>Para ello, lo mejor sería encerrar directamente el valor entre
 corchetes:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>]</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.2.0.2">
@@ -1803,19 +1901,19 @@ l | 124 | 333 | &#39;a&#39; | 3.2 |  9  |  53 |
   +-----+-----+-----+-----+-----+-----+
   0     1     2     3     4     5     6
  -6    -5    -4    -3    -2    -1</code></pre>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>]</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.2</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">99</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> [<span class="dv">40</span>]</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">del</span> l[<span class="dv">3</span>]</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">53</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="fl">3.2</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>]</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.2</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">124</span>, <span class="dv">333</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> [<span class="dv">40</span>]</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">9</span>, <span class="dv">53</span>]</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">del</span> l[<span class="dv">3</span>]</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> l</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">40</span>, <span class="st">&#39;a&#39;</span>, <span class="dv">99</span>, <span class="dv">53</span>]</span></code></pre></div></li>
 <li><p><em>Métodos</em> como <code
 class="sourceCode python">append</code>, <code
 class="sourceCode python">clear</code>, <code
@@ -1831,11 +1929,11 @@ class="sourceCode python">sort</code>.</p></li>
 <ul>
 <li><p>Al cambiar el estado interno de una lista no se crea una nueva
 lista, sino que <strong>se modifica la ya existente</strong>:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">99</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">24</span>, <span class="dv">99</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">24</span>, <span class="dv">99</span>, <span class="dv">15</span>, <span class="dv">81</span>]</span></code></pre></div></li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -2143,11 +2241,11 @@ class="sourceCode python">[<span class="dv">7</span>, <span class="dv">8</span>,
 <li><p>Es importante tener en cuenta que, si <span
 class="math inline">\underline{s}</span> es una lista (o cualquier otro
 objeto mutable) no es lo mismo hacer:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">+=</span> t</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">+=</span> t</span></code></pre></div>
 <p>que hacer:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> t</span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> s <span class="op">+</span> t</span></code></pre></div></li>
 <li><p>En el primer caso, estamos <em>extendiendo</em> la lista <span
 class="math inline">\underline{s}</span> y, por tanto, la estamos
 <em>mutando</em>. Es decir, estamos cambiando internamente la lista sin
@@ -2175,9 +2273,9 @@ Alias de variables</h2>
 variables pasan a tener <strong>el mismo valor (lo
 <em>comparten</em>)</strong>, produciéndose un fenómeno conocido como
 <strong>alias de variables</strong>.</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x  <span class="co"># x se asigna a y; ahora y tiene el mismo valor que x</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x  <span class="co"># x se asigna a y; ahora y tiene el mismo valor que x</span></span></code></pre></div></li>
 <li><p>Esto se debe a que las variables almacenan
 <strong>referencias</strong> a los valores, no los valores en sí mismos
 (éstos se almacenan en el montículo).</p></li>
@@ -2195,10 +2293,10 @@ style="width:60.0%" /></p>
 class="sourceCode python">x</code>, también cambiará <code
 class="sourceCode python">y</code>, pues ambas variables <strong>apuntan
 al mismo dato</strong>:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">40</span>, <span class="dv">99</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">40</span>, <span class="dv">99</span>]</span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -2214,10 +2312,10 @@ elemento de una lista):</p></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">2</span>] <span class="op">=</span> <span class="dv">40</span></span></code></pre></div>
 </div><div class="column" style="width:60%;">
 <div class="centered">
 <p><img data-src="images/alias1.svg" class="plain"
@@ -2236,10 +2334,10 @@ valor</strong>:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
 </div><div class="column" style="width:60%;">
 <div class="centered">
 <p><img data-src="images/alias2.svg" class="plain"
@@ -2263,9 +2361,9 @@ compartirán el mismo valor (serán <em>alias</em>):</p></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span> <span class="co"># está entre -5 y 256</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span> <span class="co"># está entre -5 y 256</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
 <div class="centered">
 <figure>
 <img data-src="images/inmutable7.svg" class="plain" style="width:35.0%"
@@ -2274,9 +2372,9 @@ alt="Se comparte el valor" />
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">480</span> <span class="co"># no está entre -5 y 256</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">480</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">480</span> <span class="co"># no está entre -5 y 256</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">480</span></span></code></pre></div>
 <div class="centered">
 <figure>
 <img data-src="images/inmutable8.svg" class="plain" style="width:35.0%"
@@ -2296,17 +2394,17 @@ mismas cadenas.</li>
 <div class="columns">
 <div class="column">
 <p>Si tenemos:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/inmutable9.svg" class="plain"
 style="width:45.0%" /></p>
 </div>
 </div><div class="column">
 <p>y hacemos:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&#39;pepe&#39;</span></span></code></pre></div>
 <p>quedaría:</p>
 <div class="centered">
 <p><img data-src="images/inmutable10.svg" class="plain"
@@ -2325,11 +2423,11 @@ nueva, para ahorrar memoria.</li>
 <li><p>También se comparten valores si se usa el mismo dato varias
 veces, aunque sea un dato mutable.</p></li>
 <li><p>Por ejemplo, si hacemos:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [x, x]</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [x, x]</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span></code></pre></div>
 <p>se compartiría la lista <code>x</code>, por lo que nos
 quedaría:</p></li>
 </ul>
@@ -2343,11 +2441,11 @@ style="width:50.0%" /></p>
 <div class="columns">
 <div class="column">
 <p>Y si ahora hacemos:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">77</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>], [<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y[<span class="dv">0</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">77</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>], [<span class="dv">99</span>, <span class="dv">77</span>, <span class="dv">3</span>]]</span></code></pre></div>
 </div><div class="column">
 <p>nos quedaría:</p>
 <div class="centered">
@@ -2381,15 +2479,15 @@ programa.</p></li>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>lista1 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="co"># crea la lista y guarda una referencia a ella en lista1</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>lista2 <span class="op">=</span> lista1     <span class="co"># almacena en lista2 la referencia que hay en lista1</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>lista1 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="co"># crea la lista y guarda una referencia a ella en lista1</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>lista2 <span class="op">=</span> lista1     <span class="co"># almacena en lista2 la referencia que hay en lista1</span></span></code></pre></div>
 <p>A partir de ahora, ambas variables apuntan al mismo dato y, por
 tanto, decimos que el dato tiene dos referencias, o que hay dos
 referencias apuntándole.</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> lista1          <span class="co"># elimina una referencia pero el dato aún tiene otra</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> lista2          <span class="co"># elimina la otra referencia y ahora el dato es inaccesible</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> lista1          <span class="co"># elimina una referencia pero el dato aún tiene otra</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> lista2          <span class="co"># elimina la otra referencia y ahora el dato es inaccesible</span></span></code></pre></div>
 <p>Como ya no hay ninguna referencia apuntándole, se marca como
 <em>candidato a ser eliminado</em> y, por tanto, la próxima vez que se
 active el recolector de basura, se eliminará la lista del
@@ -2420,22 +2518,22 @@ dato</em>.</p></li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(<span class="st">&#39;hola&#39;</span>) <span class="op">==</span> <span class="bu">id</span>(<span class="st">&#39;hola&#39;</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(<span class="st">&#39;hola&#39;</span>) <span class="op">==</span> <span class="bu">id</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(x) <span class="op">==</span> <span class="bu">id</span>(y)</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </div>
 </div>
 </section>
@@ -2476,21 +2574,21 @@ style="color:teal">⟨<em>valor2</em>⟩</span><code>)</code>.</p></li>
 </section>
 <section class="slide level5" data-number="3.3.2.0.2">
 
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">500</span> <span class="kw">is</span> <span class="dv">500</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>stdin<span class="op">&gt;</span>:<span class="dv">1</span>: <span class="pp">SyntaxWarning</span>: <span class="st">&quot;is&quot;</span> <span class="cf">with</span> a literal. Did you mean <span class="st">&quot;==&quot;</span>?</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">500</span> <span class="kw">is</span> <span class="dv">500</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>stdin<span class="op">&gt;</span>:<span class="dv">1</span>: <span class="pp">SyntaxWarning</span>: <span class="st">&quot;is&quot;</span> <span class="cf">with</span> a literal. Did you mean <span class="st">&quot;==&quot;</span>?</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </section>
 
 </section>
@@ -2578,14 +2676,14 @@ referencial</strong>, ya que ahora el valor de una función puede
 depender no sólo de los valores de sus argumentos, sino también además
 de los valores de las variables libres que ahora pueden cambiar durante
 la ejecución del programa:</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span></code></pre></div></li>
 <li><p>Por tanto, cambiar el valor de una variable global (en cualquier
 parte del programa) es considerado un <strong>efecto lateral</strong>,
 ya que puede alterar el comportamiento de otras partes del programa de
@@ -2607,15 +2705,15 @@ función, por lo que tampoco es una función pura y, por tanto, en ella no
 se cumple la transparencia referencial.</p></li>
 <li><p>Lo mismo pasa con las funciones que modifican algún argumento
 mutable. Por ejemplo:</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista</span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo(lista)</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.4.0.0.2">
@@ -2694,9 +2792,9 @@ class="sourceCode python"><span class="st">&#39;</span><span class="ch">\n</span
 <li><p>Las expresiones se convierten en cadenas antes de
 imprimirse.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span></span></code></pre></div></li>
 </ul>
 </section>
 <section id="paso-de-argumentos-por-palabras-clave"
@@ -2730,11 +2828,11 @@ imprimir.</p></li>
 <li><p>Si se combinan ambas técnicas en una misma llamada, los
 argumentos pasados por palabas clave se ponen al final.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb56"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, sep<span class="op">=</span><span class="st">&#39;*&#39;</span>)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>hola<span class="op">*</span>pepe<span class="op">*</span><span class="dv">23</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, end<span class="op">=</span><span class="st">&#39;-&#39;</span>)</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span><span class="op">-</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, sep<span class="op">=</span><span class="st">&#39;*&#39;</span>)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>hola<span class="op">*</span>pepe<span class="op">*</span><span class="dv">23</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, end<span class="op">=</span><span class="st">&#39;-&#39;</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span><span class="op">-</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2771,10 +2869,10 @@ class="sourceCode python"><span class="kw">is</span> <span class="va">None</span
 <li><p>Podemos comprobar que, efectivamente, <code
 class="sourceCode python"><span class="bu">print</span></code> devuelve
 <code class="sourceCode python"><span class="va">None</span></code>:</p>
-<div class="sourceCode" id="cb57"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2799,11 +2897,11 @@ class="sourceCode python"><span class="bu">str</span></code>]<code>) -&gt;</code
 <code
 class="sourceCode python"><span class="bu">str</span></code></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb58"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>Introduce tu nombre: Ramón</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>Hola, Ramón</span></code></pre></div></li>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>Introduce tu nombre: Ramón</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>Hola, Ramón</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.2.0.1">
@@ -2842,8 +2940,8 @@ operativo, llamando al intérprete por lotes y pasándole el nombre del
 <li><p>Por ejemplo, para ejecutar el <em>script</em>
 <code>programa.py</code>, el usuario escribiría lo siguiente en un
 terminal del sistema operativo:</p>
-<div class="sourceCode" id="cb59"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python programa.py</span></code></pre></div></li>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python programa.py</span></code></pre></div></li>
 <li><p>Observar que no se usa ninguna opción en la orden; solamente el
 nombre del archivo.</p></li>
 </ul>
@@ -2906,29 +3004,29 @@ orden en el que aparecen en la línea de órdenes.</p></li>
 <li><p>Por ejemplo, un programa puede saludar al usuario dirigiéndose a
 él por su nombre, el cual tendrá que pasarlo mediante la línea de
 órdenes de la siguiente forma:</p>
-<div class="sourceCode" id="cb60"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python saluda.py Ricardo</span></code></pre></div></li>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python saluda.py Ricardo</span></code></pre></div></li>
 <li><p>Al ejecutar el <em>script</em> <code>saluda.py</code>, el nombre
 del <em>script</em> aparecerá en <code
 class="sourceCode python">sys.argv[<span class="dv">0</span>]</code> y
 el primer argumento enviado al mismo (en este caso, el nombre del
 usuario <code>Ricardo</code>) aparecerá en <code
 class="sourceCode python">sys.argv[<span class="dv">1</span>]</code>:</p>
-<div class="sourceCode" id="cb61"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span></code></pre></div></li>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span></code></pre></div></li>
 <li><p>Si el usuario no le pasa ningún argumento en la línea de órdenes,
 <code
 class="sourceCode python">sys.argv[<span class="dv">1</span>]</code> no
 existirá y se producirá un error <code
 class="sourceCode python"><span class="pp">IndexError</span></code> al
 intentar acceder a él:</p>
-<div class="sourceCode" id="cb62"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>$ python saluda.py</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;saluda.py&quot;</span>, line <span class="dv">2</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="pp">IndexError</span>: <span class="bu">list</span> index out of <span class="bu">range</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb66"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>$ python saluda.py</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;saluda.py&quot;</span>, line <span class="dv">2</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="pp">IndexError</span>: <span class="bu">list</span> index out of <span class="bu">range</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.1.0.2">
@@ -2939,15 +3037,15 @@ mediante la línea de órdenes.</p></li>
 <li><p>En este caso, hay que tener en cuenta que los argumentos siempre
 se pasan como cadenas, así que habría que convertirlos previamente a
 números:</p>
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">1</span>])</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">2</span>])</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;La suma de&#39;</span>, x, <span class="st">&#39;+&#39;</span>, y, <span class="st">&#39;es&#39;</span>, x <span class="op">+</span> y)</span></code></pre></div></li>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">1</span>])</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">2</span>])</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;La suma de&#39;</span>, x, <span class="st">&#39;+&#39;</span>, y, <span class="st">&#39;es&#39;</span>, x <span class="op">+</span> y)</span></code></pre></div></li>
 <li><p>Un ejemplo de ejecución de este programa sería:</p>
-<div class="sourceCode" id="cb64"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python suma.py 4 3</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>La suma de 4.0 + 3.0 es 7.0</span></code></pre></div></li>
+<div class="sourceCode" id="cb68"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python suma.py 4 3</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>La suma de 4.0 + 3.0 es 7.0</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -3174,8 +3272,8 @@ class="sourceCode python"><span class="bu">bytes</span></code>.</p>
 <p>El modo binario es el que debe usarse cuando se trabaje con archivos
 que no contengan texto (datos binarios <em>crudos</em>).</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb65"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb69"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.7.1.0.3">
@@ -3254,25 +3352,25 @@ indicado.</p></li>
 
 <ul>
 <li><p>Ejemplos de lectura de todo el archivo:</p>
-<div class="sourceCode" id="cb66"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb70"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
 <li><p>Ejemplos de lectura del archivo en varios trozos:</p>
-<div class="sourceCode" id="cb67"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este&#39;</span></span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;el c&#39;</span></span>
-<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;ontenido del archivo</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este&#39;</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;el c&#39;</span></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;ontenido del archivo</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -3327,29 +3425,29 @@ indicado.</p></li>
 </section>
 <section id="ejemplos" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb68"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
-<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
-<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
-<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
-<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
-<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb68-21"><a href="#cb68-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb68-22"><a href="#cb68-22" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-20"><a href="#cb72-20" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb72-21"><a href="#cb72-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb72-22"><a href="#cb72-22" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
 </section>
 
 <section id="readlines" class="title-slide slide level3"
@@ -3406,22 +3504,22 @@ puntero.</p></li>
 </section>
 <section id="ejemplos-1" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb69"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>[]</span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines(<span class="dv">5</span>)</span>
-<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
-<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39; es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>[]</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines(<span class="dv">5</span>)</span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39; es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
 </section>
 
 <section id="write" class="title-slide slide level3"
@@ -3463,13 +3561,13 @@ escribir en un archivo.</p></li>
 class="sourceCode python"><span class="bu">print</span></code> y usar
 <code class="sourceCode python">write</code>.</p></li>
 <li><p>Hacer:</p>
-<div class="sourceCode" id="cb70"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
 <p>equivale a hacer:</p>
-<div class="sourceCode" id="cb71"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
+<div class="sourceCode" id="cb75"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
 <li><p>Hay que tener en cuenta los separadores y los saltos de línea que
 introduce <code
 class="sourceCode python"><span class="bu">print</span></code>.</p></li>
@@ -3492,25 +3590,25 @@ archivo</strong> y la escritura <strong>siempre</strong> se realizará a
 partir de ese punto, aunque previamente hayamos leído algo o hayamos
 movido el puntero explícitamente mediante <code
 class="sourceCode python">seek</code>:</p>
-<div class="sourceCode" id="cb72"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/añadir</span></span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># El puntero está situado al final, y...</span></span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span>                                 <span class="co"># ... si leemos algo, allí no hay nada</span></span>
-<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres al final</span></span>
-<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
-<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
-<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
-<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
-<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
-<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb76"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/añadir</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># El puntero está situado al final, y...</span></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span>                                 <span class="co"># ... si leemos algo, allí no hay nada</span></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres al final</span></span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
+<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
+<span id="cb76-16"><a href="#cb76-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
+<span id="cb76-17"><a href="#cb76-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb76-18"><a href="#cb76-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.7.5.0.3">
@@ -3524,25 +3622,25 @@ escribir en él, la escritura se hará <em>al final</em></strong> del
 archivo (como si lo hubiésemos abierto con un modo <code>'a+'</code>) a
 menos que primero movamos el puntero explícitamente mediante <code
 class="sourceCode python">seek</code>:</p>
-<div class="sourceCode" id="cb73"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/escritura</span></span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># Leemos cuatro caracteres (desde el principio)</span></span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
-<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres</span></span>
-<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
-<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
-<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
-<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
-<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
-<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb77"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/escritura</span></span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># Leemos cuatro caracteres (desde el principio)</span></span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres</span></span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.7.5.0.4">
@@ -3555,13 +3653,13 @@ escribir en un archivo.</p></li>
 class="sourceCode python"><span class="bu">print</span></code> y usar
 <code class="sourceCode python">write</code>.</p></li>
 <li><p>Hacer:</p>
-<div class="sourceCode" id="cb74"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
 <p>equivale a hacer:</p>
-<div class="sourceCode" id="cb75"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
+<div class="sourceCode" id="cb79"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
 <li><p>Hay que tener en cuenta los separadores y los saltos de línea que
 introduce <code
 class="sourceCode python"><span class="bu">print</span></code>.</p></li>
@@ -3605,18 +3703,18 @@ class="sourceCode python">writelines</code>.</p></li>
 </section>
 <section id="ejemplos-2" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb76"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
-<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.writelines([<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>])</span>
-<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.writelines([<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>])</span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
 <ul>
 <li>Al igual que <code class="sourceCode python">write</code>, el método
 <code class="sourceCode python">writelines</code> NO escribe el
@@ -3663,49 +3761,49 @@ actual del puntero.</p></li>
 </section>
 <section id="ejemplos-3" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb77"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)    <span class="co"># Abre en modo lectura/escritura</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al principio</span></span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Lee una línea de texto</span></span>
-<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># Se ha movido el puntero</span></span>
-<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
-<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
-<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la misma línea</span></span>
-<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
-<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Cambiar&#39;</span>)               <span class="co"># Escribe desde el principio</span></span>
-<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
-<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
-<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb77-20"><a href="#cb77-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Se ha cambiado la primera línea</span></span>
-<span id="cb77-21"><a href="#cb77-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)    <span class="co"># Abre en modo lectura/escritura</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al principio</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Lee una línea de texto</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># Se ha movido el puntero</span></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la misma línea</span></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb81-14"><a href="#cb81-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Cambiar&#39;</span>)               <span class="co"># Escribe desde el principio</span></span>
+<span id="cb81-15"><a href="#cb81-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb81-16"><a href="#cb81-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb81-17"><a href="#cb81-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb81-18"><a href="#cb81-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb81-19"><a href="#cb81-19" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb81-20"><a href="#cb81-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Se ha cambiado la primera línea</span></span>
+<span id="cb81-21"><a href="#cb81-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
 </section>
 <section class="slide level5" data-number="4.7.7.0.1">
 
-<div class="sourceCode" id="cb78"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)    <span class="co"># Abre en modo lectura/escritura</span></span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="dv">69</span></span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Allí no hay nada</span></span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Movemos el puntero al principio</span></span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero se ha movido</span></span>
-<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la misma línea</span></span>
-<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
-<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)              <span class="co"># Siempre se escribe al final</span></span>
-<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb78-16"><a href="#cb78-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
-<span id="cb78-17"><a href="#cb78-17" aria-hidden="true" tabindex="-1"></a><span class="dv">76</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)    <span class="co"># Abre en modo lectura/escritura</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="dv">69</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Allí no hay nada</span></span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Movemos el puntero al principio</span></span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero se ha movido</span></span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la misma línea</span></span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
+<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)              <span class="co"># Siempre se escribe al final</span></span>
+<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
+<span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a><span class="dv">76</span></span></code></pre></div>
 </section>
 
 <section id="close" class="title-slide slide level3"
@@ -3727,12 +3825,12 @@ del sistema operativo y liberar inmediatamente los recursos del sistema
 que pudiera estar consumiendo.</p></li>
 <li><p>Una vez que se ha cerrado el archivo ya no se podrá seguir
 usando:</p>
-<div class="sourceCode" id="cb79"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: I<span class="op">/</span>O operation on closed <span class="bu">file</span>.</span></code></pre></div></li>
+<div class="sourceCode" id="cb83"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: I<span class="op">/</span>O operation on closed <span class="bu">file</span>.</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.7.8.0.1">
@@ -3740,13 +3838,13 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a h
 <ul>
 <li><p>Podemos comprobar si un archivo ya se ha cerrado consultando su
 atributo <code class="sourceCode python">closed</code>:</p>
-<div class="sourceCode" id="cb80"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
-<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb84"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.closed</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 <li><p>Observa que no es un método (no lleva paréntesis), sino un
 atributo que contiene directamente un valor lógico que el propio objeto
 modifica al cambiar su estado de abierto a cerrado o viceversa.</p></li>
@@ -3824,9 +3922,9 @@ style="width:60.0%" /></p>
 <li><p>Python no incluye la instrucción <em>GOTO</em> pero se puede
 simular usando el módulo <code>with_goto</code> del paquete llamado
 <code>goto-statement</code>:</p>
-<div class="sourceCode" id="cb81"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
+<div class="sourceCode" id="cb85"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pip</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 -m pip install goto-statement</span></code></pre></div></li>
 </ul>
 <p><br></p>
 <div class="columns">
@@ -3847,18 +3945,18 @@ style="color:teal">⟨<em>identificador</em>⟩</span></div>
 <ul>
 <li>Un ejemplo de uso:</li>
 </ul>
-<div class="sourceCode" id="cb82"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="st">goto .fin</span></span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se hace&#39;)</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="st">goto .fin</span></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Esto se salta&#39;)</span></span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="st">print(&#39;Aquí se acaba&#39;)</span></span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div>
 </div>
 </div>
 </section>
@@ -3918,26 +4016,26 @@ style="width:50.0%" /></p>
 
 <ul>
 <li><p>Traducción a Python usando el módulo <code>with_goto</code>:</p>
-<div class="sourceCode" id="cb83"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="st">primero = 2</span></span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="st">ultimo = 25</span></span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a><span class="st">i = primero</span></span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a><span class="st">label .inicio</span></span>
-<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a><span class="st">if i == ultimo: goto .fin</span></span>
-<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
-<span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="st">i += 1</span></span>
-<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="st">goto .inicio</span></span>
-<span id="cb83-15"><a href="#cb83-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-16"><a href="#cb83-16" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
-<span id="cb83-17"><a href="#cb83-17" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb83-18"><a href="#cb83-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-19"><a href="#cb83-19" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
+<div class="sourceCode" id="cb87"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> goto <span class="im">import</span> with_goto</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>CODIGO <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="st">primero = 2</span></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="st">ultimo = 25</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a><span class="st">i = primero</span></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a><span class="st">label .inicio</span></span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a><span class="st">if i == ultimo: goto .fin</span></span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a><span class="st">print(i, end=&#39; &#39;)</span></span>
+<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a><span class="st">i += 1</span></span>
+<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a><span class="st">goto .inicio</span></span>
+<span id="cb87-15"><a href="#cb87-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-16"><a href="#cb87-16" aria-hidden="true" tabindex="-1"></a><span class="st">label .fin</span></span>
+<span id="cb87-17"><a href="#cb87-17" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb87-18"><a href="#cb87-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-19"><a href="#cb87-19" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(with_goto(<span class="bu">compile</span>(CODIGO, <span class="st">&#39;&#39;</span>, <span class="st">&#39;exec&#39;</span>)))</span></code></pre></div></li>
 </ul>
 </section>
 </section>
