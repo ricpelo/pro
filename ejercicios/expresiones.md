@@ -10,15 +10,14 @@ author:
 ---
 
 @. Representar la evaluación las siguientes expresiones, aplicando paso a paso
-la reducción que corresponda. Indicar también el tipo del valor resultante:
+   la reducción que corresponda. Indicar también el tipo del valor resultante:
 
     a. !PYTHON(3 + 6 * 14)
     b. !PYTHON(8 + 7 * 3.0 + 4 * 6)
     c. !PYTHON(-4 * 7 + 2 ** 3 / 4 - 5)
     d. !PYTHON(4 / 2 * 3 / 6 + 6 / 2 / 1 / 5 ** 2 / 4 * 2)
 
-@. Convertir en expresiones aritméticas algorítmicas las siguientes expresiones
-   algebraicas:
+@. Escribir en lenguaje Python las siguientes expresiones algebraicas:
 
     a. $5\cdot(x + y)$
 
@@ -40,14 +39,15 @@ la reducción que corresponda. Indicar también el tipo del valor resultante:
     f. !PYTHON((16 * 6) - (3) * 2)
 
 @. Usar la función !PYTHON(math.sqrt) para escribir dos expresiones en Python
-que calculen las dos soluciones a la ecuación de segundo grado $$ax^2+bx+c=0.$$
+   que calculen las dos soluciones a la ecuación de segundo grado
+   $$ax^2+bx+c=0.$$
 
     Recordar que las soluciones son:
     
     $$x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
       x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}$$
 
-@. Evaluar las siguientes expresiones:
+@. Evaluar las siguientes expresiones escritas en lenguaje Python:
 
     a. !PYTHON(9 – 5 – 3)
     b. !PYTHON(2 // 3 + 3 / 5)
@@ -62,8 +62,8 @@ que calculen las dos soluciones a la ecuación de segundo grado $$ax^2+bx+c=0.$$
     k. !PYTHON(math.cos(math.sqrt(4)))
     l. !PYTHON(math.trunc(815.66) + round(815.66))
 
-@. Escribir las siguientes expresiones algorítmicas como expresiones
-   algebraicas:
+@. Escribir como expresiones algebraicas las siguientes expresiones escritas en
+   lenguaje Python:
 
     a. !PYTHON(b ** 2 – 4 * a * c)
     b. !PYTHON(3 * x ** 4 – 5 * x ** 3 + x * 12 – 17)
