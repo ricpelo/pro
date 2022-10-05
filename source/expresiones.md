@@ -1209,7 +1209,7 @@ $$
 
   El !PYTHON(4) está afectado a izquierda y derecha por los operadores `+` y
   `*`, que tienen distinta prioridad, por lo que se aplican las reglas de la
-  prioridad. El `*` tiene *más prioridad* que el `+`, así que agrupa primero el
+  prioridad. El `*` tiene *más prioridad* que el `+`, así que se agrupa con el
   `*`. Equivale a:
 
   ```python
@@ -1239,8 +1239,8 @@ $$
 
   El !PYTHON(4) está afectado a derecha e izquierda por el mismo operador `/`,
   por lo que se aplican las reglas de la asociatividad. El `/` es *asociativo
-  por la izquierda*, así que agrupa primero el operador que está a la
-  izquierda. Equivale a hacer:
+  por la izquierda*, así que se agrupa con el operador que está a la izquierda.
+  Equivale a hacer:
 
   ```python
   (8 / 4) / 2
@@ -1256,6 +1256,113 @@ $$
 
 - En Python, todos los operadores son **asociativos por la izquierda** excepto
   el `**`, que es asociativo por la derecha.
+
+---
+
+- Por ejemplo, en este caso tenemos a un operando (el !PYTHON(3)) afectado a
+  derecha e izquierda por el mismo operador (el `**`), por lo que, de nuevo,
+  tenemos que aplicar las reglas de la asociatividad:
+
+  ```python
+  2 ** 3 ** 2
+  ```
+
+  Pero como el operador `**` es asociativo por la derecha, se agrupa con el
+  operador de la derecha, resultando equivalente a hacer:
+
+  ```python
+  2 ** (3 ** 2)
+  ```
+
+---
+
+- En este ejemplo, el mismo operando (el !PYTHON(4)) está afectado a derecha e
+  izquierda por distintos operadores (el `*` y el `/`), pero estos operadores
+  tienen la misma prioridad, así que, de nuevo, tenemos que aplicar las reglas
+  de la asociatividad:
+
+  ```python
+  8 * 4 / 2
+  ```
+
+  Los operadores (`*` y `/`) son asociativos por la izquierda, por lo que,
+  nuevamente, el !PYTHON(4) se agrupa con el operador que está a la izquierda,
+  lo que equivale a hacer:
+
+  ```python
+  (8 * 4) / 2
+  ```
+
+---
+
+- En todos los casos, es necesario que ambos operadores tengan la misma
+  asociatividad.
+
+- Podríamos plantearnos ahora qué ocurriría si los dos operadores tuvieran la
+  misma prioridad pero distinta asociatividad.
+
+- Por ejemplo, supongamos que tenemos dos extraños operadores `&` y `@`.
+
+- Ahora mismo no nos interesa saber qué hacen; sólo que ambos tienen la misma
+  prioridad pero distinta asociatividad.
+
+- Para este ejemplo, supongamos que `&` es asociativo por la izquierda y `@`
+  por la derecha).
+
+---
+
+- En ese caso, sería imposible interpretar correctamente la siguiente
+  expresión, ya que un operador dice que hay que agrupar por la izquierda
+  pero el otro dice lo contrario:
+
+  ```python
+  4 & 3 @ 5
+  ```
+
+- Y lo mismo ocurriría con esta expresión:
+
+  ```python
+  4 @ 3 & 5
+  ```
+
+- Si se diera un caso así, sería porque el lenguaje no está bien diseñado, ya
+  que la gramática del lenguaje no aclararía con qué operador hay que agrupar
+  en casos así.
+
+- De hecho, se nos estaría obligando a usar paréntesis para dejar claro cómo se
+  agrupan los elementos que forman la expresión.
+
+- Por eso, lo normal es que los operadores que tienen la misma prioridad tengan
+  también la misma asociatividad.
+
+---
+
+- También puede ocurrir que existan operadores que no son asociativos ni por la
+  derecha ni por la izquierda.
+
+- Tales operadores se dice que son **no asociativos**.
+
+- En Python no hay ningún operador no asociativo, pero, por ejemplo, en el
+  lenguaje PHP existen varios operadores que sí lo son, entre ellos `==`.
+
+- Por tanto, la siguiente expresión en PHP sería incorrecta y daría lugar a un
+  error sintáctico:
+
+  ```php
+  2 == 3 == 4
+  ```
+
+- Tendríamos que usar paréntesis para dejar claro cómo se deben agrupar los
+  elementos que forman la expresión, lo que daría lugar a dos posibles
+  expresiones distintas:
+
+  ```php
+  (2 == 3) == 4
+  ```
+
+  ```php
+  2 == (3 == 4)
+  ```
 
 ---
 
