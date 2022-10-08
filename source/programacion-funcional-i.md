@@ -898,7 +898,8 @@ True
     \forall a \in \mathbb{B}; \exists \lnot a \in \mathbb{B}: a \land \lnot a = F
     \end{cases}$
 
-Luego $(\mathbb{B},\lnot,\lor,\land)$ es un álgebra de Boole.
+Si $(\mathbb{B},\lnot,\lor,\land)$ cumple lo anterior, entonces es un álgebra
+de Boole.
 
 ### Traducción a Python
 
@@ -952,7 +953,7 @@ Luego $(\mathbb{B},\lnot,\lor,\land)$ es un álgebra de Boole.
     \forall a \in \mathbb{B}: a \land a = a
     \end{cases}$
 
-7. Ley de absorción:
+7. Ley del elemento absorbente:
    $\begin{cases}
     \forall a \in \mathbb{B}: a \lor V = V \\
     \forall a \in \mathbb{B}: a \land F = F
@@ -964,14 +965,22 @@ Luego $(\mathbb{B},\lnot,\lor,\land)$ es un álgebra de Boole.
     \forall a \in \mathbb{B}: a \land V = a
     \end{cases}$
 
-9. Ley de involución:
+9. Ley de absorción:
    $\begin{cases}
-    \forall a \in \mathbb{B}: \lnot \lnot a = a \\
-    \lnot V = F \\
-    \lnot F = V
+    \forall a \in \mathbb{B}: a \lor (a \land b) = a \\
+    \forall a \in \mathbb{B}: a \land (a \lor b) = a
     \end{cases}$
 
-10. Leyes de De Morgan:
+10. Ley de involución:
+    $\forall a \in \mathbb{B}: \lnot \lnot a = a$
+
+11. Ley del complemento:
+    $\begin{cases}
+     \lnot V = F \\
+     \lnot F = V
+     \end{cases}$
+
+12. Leyes de De Morgan:
     $\begin{cases}
      \forall a,b \in \mathbb{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b \\
      \forall a,b \in \mathbb{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
@@ -981,14 +990,15 @@ Luego $(\mathbb{B},\lnot,\lor,\land)$ es un álgebra de Boole.
 
 :::: columns
 
-::: column
+::: {.column width=40%}
 
 6. Ley de idempotencia:
    ```python
    a or a == a
    a and a == a
    ```
-7. Ley de absorción:
+
+7. Ley del elemento absorbente:
    ```python
    a or True == True
    a and False == False
@@ -999,21 +1009,35 @@ Luego $(\mathbb{B},\lnot,\lor,\land)$ es un álgebra de Boole.
    a and True == a
    ```
 
+9. Ley de absorción:
+   ```python
+   a or (a and b) == a
+   a and (a or b) == a
+   ```
+
 :::
 
-::: column
+::: {.column width=60%}
 
-9. Ley de involución:
-   ```python
-   not (not a) == a
-   not True == False
-   not False == True
-   ```
-#. Leyes de De Morgan:
-   ```python
-   not (a or b) == (not a) and (not b)
-   not (a and b) == (not a) or (not b)
-   ```
+10. Ley de involución:
+
+    ```python
+    not (not a) == a
+    ```
+
+11. Ley del complemento:
+
+    ```python
+    not True == False
+    not False == True
+    ```
+
+12. Leyes de De Morgan:
+
+    ```python
+    not (a or b) == (not a) and (not b)
+    not (a and b) == (not a) or (not b)
+    ```
 
 :::
 
@@ -1171,12 +1195,14 @@ Luego $(\mathbb{B},\lnot,\lor,\land)$ es un álgebra de Boole.
   x -> 25
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Las ligaduras empiezan a existir cuando se crean, no antes.
+- En Python (a diferencia de lo que ocurre en un **lenguaje funcional _puro_**)
+  las ligaduras empiezan a existir en el momento en que se ejecuta su
+  definición, no antes.
 
 ---
 
-- En un **lenguaje funcional puro**, un identificador ya ligado no se puede
-  ligar a otro valor. Por ejemplo, lo siguiente daría un error:
+- Además, en un **lenguaje funcional _puro_**, un identificador ya ligado no se
+  puede ligar a otro valor. Por ejemplo, lo siguiente daría un error:
 
   ```python
   x = 4  # ligamos el identificador x al valor 4
@@ -1424,6 +1450,31 @@ maximo -> lambda
   Por tanto, las definiciones que se ejecutan directamente en una sesión
   interactiva con el intérprete, crean ligaduras que se almacenan en el marco
   global.
+
+---
+
+- Es importante aclarar que, en un programa escrito en un lenguaje funcional
+  puro, no importa el orden en el que aparezcan las definiciones, por lo que se
+  podría usar un nombre antes de que aparezca su definición en el código fuente
+  del programa.
+
+- Por ejemplo, en un lenguaje funcional puro como Haskell podríamos escribir lo
+  siguiente:
+
+  ```haskell
+  a = 2 + b
+  b = 5
+  ```
+
+  y funcionaría perfectamente, aunque en la primera línea de código estemos
+  usando un nombre que se define después en el código fuente, en la segunda
+  línea.
+
+- Eso es debido a que los lenguajes funcionales puros no dependen del orden de
+  ejecución de las instrucciones.
+
+- En cambio, Python no es un lenguaje funcional puro, así que el orden de
+  ejecución de las instrucciones sí que importa.
 
 ---
 
