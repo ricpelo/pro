@@ -901,7 +901,7 @@ True
 Si $(\mathbb{B},\lnot,\lor,\land)$ cumple lo anterior, entonces es un álgebra
 de Boole.
 
-### Traducción a Python
+#### Traducción a Python
 
 :::: columns
 
@@ -986,7 +986,7 @@ de Boole.
      \forall a,b \in \mathbb{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
      \end{cases}$
 
-### Traducción a Python
+#### Traducción a Python
 
 :::: columns
 
@@ -1042,6 +1042,45 @@ de Boole.
 :::
 
 ::::
+
+#### Lógica binaria
+
+- Otra forma de representar los operadores y los valores del álgebra de Boole
+  es mediante la notación de la **lógica binaria**.
+
+- Según la notación de la lógica binaria, los diferentes valores y operaciones
+  del álgebra de Boole se representan de la siguiente forma:
+
+  ------------------------------------------------------
+  Valor u operación                 Notación
+  -------------------------------   --------------------
+  Valor verdadero                   $1$
+                                  
+  Valor falso                       $0$
+                                  
+  Producto de $A$ y $B$             $A \cdot B$ \
+                                    $AB$
+                                  
+  Suma de $A$ y $B$                 $A + B$
+                                  
+  Complemento de $A$                $\overline{A}$
+  ------------------------------------------------------
+
+---
+
+- Por ejemplo, las leyes de DeMorgan, que en Python se escriben así:
+
+  ```python
+  not (a or b) == (not a) and (not b)
+  not (a and b) == (not a) or (not b)
+  ```
+
+  se escribirían así según la notación de la lógica binaria:
+
+  $$\overline{A + B} = \overline{A} \cdot \overline{B}$$
+  $$\overline{AB} = \overline{A} + \overline{B}$$
+
+- Esta notación se emplea principalmente en el diseño de circuitos digitales.
 
 ## El operador ternario
 
