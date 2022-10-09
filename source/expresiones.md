@@ -2179,7 +2179,7 @@ $$
 
 # Otros conceptos sobre operaciones
 
-## Árboles sintácticos
+## Árboles sintácticos y evaluación
 
 - Durante la fase de análisis sintáctico, el compilador o el intérprete
   traducen el programa fuente en una representación intermedia llamada **árbol
@@ -2211,7 +2211,7 @@ $$
 2
 ```
 
-!DOT(arbol-dos.svg)()(width=10%)(width=10%)
+!DOT(arbol-dos.svg)()(width=10%)(width=5%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
 rankdir = TB
@@ -2240,7 +2240,7 @@ mas -> 3
 2 + 3 * 5
 ```
 
-!DOT(arbol-dos-mas-tres-por-cinco.svg)()(width=30%)(width=10%)
+!DOT(arbol-dos-mas-tres-por-cinco.svg)()(width=30%)(width=14%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 edge [dir = none]
 node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
@@ -2257,7 +2257,7 @@ mas -> por
 2 * 3 + 5
 ```
 
-!DOT(arbol-dos-por-tres-mas-cinco.svg)()(width=30%)(width=10%)
+!DOT(arbol-dos-por-tres-mas-cinco.svg)()(width=30%)(width=14%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 edge [dir = none]
 node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
@@ -2282,7 +2282,7 @@ mas -> por
   max(2, 3 + 5)
   ```
 
-  !DOT(arbol-max-dos-tres-mas-cinco.svg)()(width=25%)(width=10%)
+  !DOT(arbol-max-dos-tres-mas-cinco.svg)()(width=25%)(width=22%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   edge [dir = none]
   node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
@@ -2314,8 +2314,8 @@ mas -> por
   profundidad**, donde se van visitando los nodos del árbol de izquierda a
   derecha y de arriba abajo, buscando siempre el nodo que está más al fondo.
 
-- La idea es que, antes de visitar un nodo, debemos visitar
-  primero todos sus nodos hijos, en orden, de izquierda a derecha.
+- La idea es que, antes de evaluar un nodo, debemos evaluar primero todos sus
+  nodos hijos, en orden, de izquierda a derecha.
 
 - De esta forma, para evaluar (reducir) un nodo, debemos reducir primero todos
   sus nodos hijo antes de reducir el propio nodo.
@@ -2330,120 +2330,126 @@ mas -> por
 
 - Por ejemplo, en la expresión !PYTHON(2 + 3 * 5), representada por este árbol:
 
-  !IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=15%)
+  !IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=15%)(width=15%)
 
-- El orden en el que vamos visitando los nodos sería el siguiente:
+- El orden en el que vamos evaluando los nodos sería el siguiente:
 
-  #. `2`
-  #. `3`
-  #. `5`
-  #. `*`
-  #. `+`
+`2`, `3`, `5`, `*`, `+`
 
 ---
 
-- Y la evaluación se realizaría de la siguiente forma (en azul, los nodos que
-  ya están evaluados):
+- La evaluación se realizaría de la siguiente forma, donde en azul destacamos
+  los nodos que ya están evaluados:
 
-Paso 1:
+- **Paso 1**: Se empieza visitando la raíz `+` pero, como tiene hijos, antes de
+  evaluarlo se pasa a visitar su primer hijo (`2`).
 
-!IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=12%)
+  !IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=12%)(width=15%)
 
-Paso 2:
+- **Paso 2**: Como estamos en el nodo `2` y éste no tiene hijos, se puede
+  evaluar directamente, ya que es un nodo hoja y, por tanto, representa un
+  valor. La evaluación del nodo no cambia el nodo ni lo sustituye por ningún
+  otro.
 
-!DOT(arbol-dos-mas-tres-por-cinco-dos-azul.svg)()(width=12%)(width=10%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-edge [dir = none]
-node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
-rankdir = TB
-dos[label = "2", color = blue, fontcolor = blue]
-mas -> dos
-mas[label = "+"]
-por[label = "*"]
-por -> 3
-por -> 5
-mas -> por
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(arbol-dos-mas-tres-por-cinco-dos-azul.svg)()(width=12%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  por[label = "*"]
+  por -> 3
+  por -> 5
+  mas -> por
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:::: columns
+---
 
-::: column
+- **Paso 3**: Volvemos al padre del nodo `2`, que es el nodo raíz `+`, el cual
+  todavía no lo podemos evaluar porque aún le queda otro nodo hijo por evaluar
+  (el nodo `*`), así que bajamos hasta él. Éste, a su vez, tampoco se puede
+  evaluar porque tiene hijos que hay que evaluar antes, el primero de los
+  cuales es el nodo `3`, así que evaluamos `3`, que se evalúa directamente ya
+  que es un nodo hoja.
 
-!IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=22%)
+  !DOT(arbol-dos-mas-tres-por-cinco-tres-azul.svg)()(width=12%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  tres[label = "3", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  por[label = "*"]
+  por -> tres
+  por -> 5
+  mas -> por
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(arbol-dos-mas-tres-por-cinco-dos-azul.svg)()(width=22%)(width=10%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-edge [dir = none]
-node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
-rankdir = TB
-dos[label = "2", color = blue, fontcolor = blue]
-mas -> dos
-mas[label = "+"]
-por[label = "*"]
-por -> 3
-por -> 5
-mas -> por
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 
-!DOT(arbol-dos-mas-tres-por-cinco-tres-azul.svg)()(width=22%)(width=10%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-edge [dir = none]
-node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
-rankdir = TB
-dos[label = "2", color = blue, fontcolor = blue]
-tres[label = "3", color = blue, fontcolor = blue]
-mas -> dos
-mas[label = "+"]
-por[label = "*"]
-por -> tres
-por -> 5
-mas -> por
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- **Paso 4**: Volvemos al padre del nodo `3`, que es el nodo `*`, el cual
+  todavía no lo podemos evaluar porque aún le queda otro nodo hijo por evaluar
+  (el nodo `5`), así que bajamos hasta éste, el cual se evalúa directamente ya
+  que es un nodo hoja.
 
-:::
+  !DOT(arbol-dos-mas-tres-por-cinco-cinco-azul.svg)()(width=12%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  tres[label = "3", color = blue, fontcolor = blue]
+  cinco[label = "5", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  por[label = "*"]
+  por -> tres
+  por -> cinco
+  mas -> por
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-::: column
+- **Paso 5**: Volvemos al padre del nodo `5`, que es el nodo `*`, el cual ya se
+  puede evaluar porque ya se han evaluado todos sus hijos, así que se realiza
+  la operación !PYTHON(3 * 5), dando como resultado !PYTHON(15), por lo que el
+  subárbol que cuelga del nodo `*` se reduce y se sustituye por un único nodo
+  hoja `15`.
 
-!DOT(arbol-dos-mas-tres-por-cinco-cinco-azul.svg)()(width=22%)(width=10%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-edge [dir = none]
-node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
-rankdir = TB
-dos[label = "2", color = blue, fontcolor = blue]
-tres[label = "3", color = blue, fontcolor = blue]
-cinco[label = "5", color = blue, fontcolor = blue]
-mas -> dos
-mas[label = "+"]
-por[label = "*"]
-por -> tres
-por -> cinco
-mas -> por
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(arbol-dos-mas-quince-azul.svg)()(width=12%)(width=13%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  quince[label = "15", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  mas -> quince
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(arbol-dos-mas-quince-azul.svg)()(width=22%)(width=10%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-edge [dir = none]
-node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
-rankdir = TB
-dos[label = "2", color = blue, fontcolor = blue]
-quince[label = "15", color = blue, fontcolor = blue]
-mas -> dos
-mas[label = "+"]
-mas -> quince
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
 
-!DOT(arbol-diecisiete-azul.svg)()(width=12%)(width=10%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-edge [dir = none]
-node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
-rankdir = TB
-diecisiete[label = "17", color = blue, fontcolor = blue]
-diecisiete
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- **Paso 6**: Volvemos al padre del que ahora es el nodo `15`, que es el nodo
+  `+`, el cual ya se puede evaluar porque ya se han evaluado todos sus hijos,
+  así que se realiza la operación !PYTHON(2 + 15), dando como resultado
+  !PYTHON(17), por lo que el subárbol que cuelga del nodo `+` se reduce y se
+  sustituye por un único nodo hoja `17`.
 
-:::
+  !DOT(arbol-diecisiete-azul.svg)()(width=8%)(width=5%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.4, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  diecisiete[label = "17", color = blue, fontcolor = blue]
+  diecisiete
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-::::
+- Como ya se ha reducido el nodo raíz, la evaluación de la expresión ha
+  terminado, dando como resultado un árbol que representa a la forma normal de
+  la expresión inicial.
 
 ## Tipos polimórficos y operaciones polimórficas
 
