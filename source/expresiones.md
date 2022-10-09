@@ -2451,6 +2451,23 @@ mas -> por
   terminado, dando como resultado un árbol que representa a la forma normal de
   la expresión inicial.
 
+#### Importante
+
+- Recordar que este orden concreto de evaluación (_primero en profundidad_,
+  donde se evalúan primero todos los nodos hijos antes de evaluar al nodo
+  padre) es uno más de entre varios órdenes de evaluación que existen.
+
+- El orden de evaluación concreto que se use dependerá del lenguaje de
+  programación utilizado.
+
+- Incluso dentro de un mismo lenguaje, podemos encontrarnos con algunas
+  operaciones concretas que no siguen este orden de evaluación, aunque el resto
+  de las operaciones sí lo hagan.
+
+- Por ejemplo, los operadores lógicos o el operador ternario en Python se
+  evalúan siguiendo un orden diferente al indicado aquí, como ya veremos más
+  adelante.
+
 ## Tipos polimórficos y operaciones polimórficas
 
 - Hasta ahora, hemos visto que la función !PYTHON(abs) de Python tiene la
