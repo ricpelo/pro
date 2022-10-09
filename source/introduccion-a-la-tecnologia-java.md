@@ -103,14 +103,24 @@ Java SE 17   14-sep-2021
 ## Máquinas reales vs. virtuales
 
 - Una **máquina abstracta** es una máquina diseñada independientemente de una
-  determinada tecnología de fabricación.
+  determinada tecnología de fabricación. 
 
-  Su finalidad no es la de ser construida, sino servir como **modelo de
-  computación teórica**.
+- Su finalidad no es la de ser construida físicamente, sino servir como
+  **modelo teórico de computación** con el que modelar el comportamiento de un
+  determinado hardware o software.
 
-- Una **máquina virtual** es una máquina emulada mediante hardware o software.
+- Para ello, el diseño de la máquina abstracta debe incluir una descripción
+  detallada de su funcionamiento, las unidades funcionales que la componen, el
+  conjunto de instrucciones que es capaz de ejecutar y el efecto que producen
+  dichas instrucciones en el estado de la máquina.
+
+- Una **máquina virtual** (también llamado **emulador**) es un software que
+  emula el funcionamiento de otra máquina.
 
   Las máquinas virtuales pueden emular máquinas reales o abstractas.
+
+- Cuando una máquina virtual emula a una máquina abstracta, se dice que la
+  máquina virtual _implementa_ a la máquina abstracta.
 
 ## Código objeto (*bytecode*!ifdef(HTML)(&nbsp;)())
 

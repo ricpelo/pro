@@ -2129,9 +2129,9 @@ lenguaje.
 
   - Lenguajes multiparadigma
 
-# Traductores
+# Traductores e intérpretes
 
-## Definición
+## Traductores
 
 - El único lenguaje que entiende la máquina directamente es el **lenguaje
   máquina** o **código máquina**, que es un lenguaje de **bajo nivel**.
@@ -2227,7 +2227,7 @@ F -> Compilador -> E -> Ensamblador -> O
   ejecuta directamente**, reconociendo y ejecutando sus instrucciones una por
   una hasta que se acaba el programa.
 
-- El intérprete funciona, por tanto, como un **simulador** de una máquina que
+- El intérprete funciona, por tanto, como un **emulador** de una máquina que
   entendiera directamente el lenguaje de alto nivel en el que está escrito el
   programa fuente. Esa máquina no existe físicamente, y por eso decimos que es
   una _máquina abstracta_, para distinguirla de la real.
@@ -2245,31 +2245,30 @@ F -> I
 
 ---
 
-- Podría decirse que un intérprete está formado por un **analizador** y un
-  **ejecutor**:
+- Un intérprete está formado por un **analizador** y un **emulador**:
 
-  - El **analizador** traduce todo el código fuente a
-    una representación interna llamada **árbol sintáctico** (que no hay que
-    confundir con el _árbol de análisis sintáctico_).
+  - El **analizador** traduce todo el código fuente a una representación
+    interna llamada **árbol sintáctico** (que no hay que confundir con el
+    _árbol de análisis sintáctico_).
 
     Ese árbol sintáctico no se vuelca directamente a la salida, sino que es
-    consumida directamente por el _ejecutor_.
+    consumida directamente por el _emulador_.
 
-  - El **ejecutor** se encarga de recorrer el árbol sintáctico y de ir
+  - El **emulador** se encarga de recorrer el árbol sintáctico y de ir
     ejecutando las instrucciones que éste representa, llevando a cabo las
     acciones que correspondan dependiendo de la instrucción que sea.
 
     Para ello, tiene que ir traduciendo sobre la marcha, instrucción por
-    instrucción, esas acciones a realizar sobre la máquina abstracta en
-    acciones a realizar sobre la máquina real.
+    instrucción, las acciones a realizar sobre la máquina abstracta en acciones
+    a realizar sobre la máquina real.
 
-!DOT(analizador-ejecutor.svg)()(width=70%)
+!DOT(analizador-emulador.svg)()(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
 subgraph cluster0 {
     label = "Intérprete"
     I [label = "Árbol sintáctico", shape = note, fillcolor = aliceblue];
-    Analizador -> I -> Ejecutor
+    Analizador -> I -> Emulador
 }
 F -> Analizador
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
