@@ -2179,6 +2179,272 @@ $$
 
 # Otros conceptos sobre operaciones
 
+## Árboles sintácticos
+
+- Durante la fase de análisis sintáctico, el compilador o el intérprete
+  traducen el programa fuente en una representación intermedia llamada **árbol
+  sintáctico**.
+
+- Resulta conveniente comprender qué forma tiene ese árbol sintáctico para
+  entender adecuadamente cómo se evalúan las expresiones y, más concretamente,
+  en qué orden se van evaluando las subexpresiones.
+
+- En un árbol sintáctico, las hojas representan valores, mientras que los nodos
+  intermedios representan operaciones.
+
+- Si una expresión está correctamente escrita según la sintaxis del lenguaje,
+  sólo tendrá un único árbol sintáctico equivalente.
+
+  En caso contrario, es que la expresión no es sintácticamente correcta, o bien
+  que la gramática del lenguaje no está bien diseñada.
+
+---
+
+- Por ejemplo, tenemos las siguientes expresiones y sus árboles sintácticos
+  equivalentes:
+
+:::: columns
+
+::: column
+
+```python
+2
+```
+
+!DOT(arbol-dos.svg)()(width=10%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```python
+2 + 3
+```
+
+!DOT(arbol-dos-mas-tres.svg)()(width=22%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+mas[label = "+"]
+mas -> 2
+mas -> 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+```python
+2 + 3 * 5
+```
+
+!DOT(arbol-dos-mas-tres-por-cinco.svg)()(width=30%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+mas -> 2
+mas[label = "+"]
+por[label = "*"]
+por -> 3
+por -> 5
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```python
+2 * 3 + 5
+```
+
+!DOT(arbol-dos-por-tres-mas-cinco.svg)()(width=30%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+por -> 2
+por -> 3
+mas[label = "+"]
+por[label = "*"]
+mas -> 5
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- Si la expresión contiene llamadas a funciones, se haría:
+
+  ```python
+  max(2, 3 + 5)
+  ```
+
+  !DOT(arbol-max-dos-tres-mas-cinco.svg)()(width=25%)(width=10%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  aplica[label = <<i>aplica</i>>, fixedsize = false, shape = ellipse, fontname = "Lato"]
+  max[fixedsize = false, shape = ellipse]
+  aplica -> max
+  aplica -> 2
+  aplica -> mas
+  mas -> 3
+  mas -> 5
+  mas[label = "+"]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  El nodo _aplica_ representa la llamada a la función representada por su
+  primer hijo, pasándole los argumentos representados por el resto de sus
+  hijos.
+
+  Por tanto, tendrá tantos hijos como parámetros tenga la función, más uno (la
+  propia función).
+
+---
+
+- Para evaluar una expresión representada por su árbol sintáctico, se va
+  recorriendo éste siguiendo un orden que dependerá del lenguaje de
+  programación uilizado.
+
+- En Python se sigue un esquema de recorrido llamado **primero en
+  profundidad**, donde se van visitando los nodos del árbol de izquierda a
+  derecha y de arriba abajo, buscando siempre el nodo que está más al fondo.
+
+- La idea es que, antes de visitar un nodo, debemos visitar
+  primero todos sus nodos hijos, en orden, de izquierda a derecha.
+
+- De esta forma, para evaluar (reducir) un nodo, debemos reducir primero todos
+  sus nodos hijo antes de reducir el propio nodo.
+
+- Si el nodo no tiene hijos, entonces se podrá evaluar directamente.
+
+- La evaluación consiste en ir sustituyendo unos subárboles por otros más
+  reducidos hasta acabar teniendo un árbol que represente la forma normal de la
+  expresión a evaluar.
+
+---
+
+- Por ejemplo, en la expresión !PYTHON(2 + 3 * 5), representada por este árbol:
+
+  !IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=15%)
+
+- El orden en el que vamos visitando los nodos sería el siguiente:
+
+  #. `2`
+  #. `3`
+  #. `5`
+  #. `*`
+  #. `+`
+
+---
+
+- Y la evaluación se realizaría de la siguiente forma (en azul, los nodos que
+  ya están evaluados):
+
+Paso 1:
+
+!IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=12%)
+
+Paso 2:
+
+!DOT(arbol-dos-mas-tres-por-cinco-dos-azul.svg)()(width=12%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+dos[label = "2", color = blue, fontcolor = blue]
+mas -> dos
+mas[label = "+"]
+por[label = "*"]
+por -> 3
+por -> 5
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::: columns
+
+::: column
+
+!IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=22%)
+
+!DOT(arbol-dos-mas-tres-por-cinco-dos-azul.svg)()(width=22%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+dos[label = "2", color = blue, fontcolor = blue]
+mas -> dos
+mas[label = "+"]
+por[label = "*"]
+por -> 3
+por -> 5
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!DOT(arbol-dos-mas-tres-por-cinco-tres-azul.svg)()(width=22%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+dos[label = "2", color = blue, fontcolor = blue]
+tres[label = "3", color = blue, fontcolor = blue]
+mas -> dos
+mas[label = "+"]
+por[label = "*"]
+por -> tres
+por -> 5
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+!DOT(arbol-dos-mas-tres-por-cinco-cinco-azul.svg)()(width=22%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+dos[label = "2", color = blue, fontcolor = blue]
+tres[label = "3", color = blue, fontcolor = blue]
+cinco[label = "5", color = blue, fontcolor = blue]
+mas -> dos
+mas[label = "+"]
+por[label = "*"]
+por -> tres
+por -> cinco
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!DOT(arbol-dos-mas-quince-azul.svg)()(width=22%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+dos[label = "2", color = blue, fontcolor = blue]
+quince[label = "15", color = blue, fontcolor = blue]
+mas -> dos
+mas[label = "+"]
+mas -> quince
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!DOT(arbol-diecisiete-azul.svg)()(width=12%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+diecisiete[label = "17", color = blue, fontcolor = blue]
+diecisiete
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
 ## Tipos polimórficos y operaciones polimórficas
 
 - Hasta ahora, hemos visto que la función !PYTHON(abs) de Python tiene la
