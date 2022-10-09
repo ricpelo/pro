@@ -2176,6 +2176,8 @@ es sintácticamente correcta (podemos derivarla a partir del símbolo
 inicial de la gramática), pero sabemos que no es <em>completamente</em>
 correcta porque no hay concordancia de género entre el artículo
 <code>la</code> y el sustantivo <code>niño</code>.</p></li>
+<li><p>Ese error de concordancia es un error de semántica
+estática.</p></li>
 </ul>
 </section>
 
@@ -2755,48 +2757,49 @@ Intérpretes</h2>
 <li><p>Un <strong>intérprete</strong> es un caso muy especial de
 traductor.</p></li>
 <li><p>En lugar de generar código objeto, el intérprete <strong>lee el
-código fuente y lo ejecuta directamente</strong>, traduciendo y
+código fuente y lo ejecuta directamente</strong>, reconociendo y
 ejecutando sus instrucciones una por una hasta que se acaba el
 programa.</p></li>
-<li><p>Por tanto, el intérprete <strong>repite continuamente el
-siguiente ciclo</strong>:</p>
-<ol type="1">
-<li><p><strong>Lee</strong> la siguiente instrucción del código
-fuente.</p></li>
-<li><p>La <strong>traduce</strong> a una representación interna propia
-del intérprete.</p></li>
-<li><p>La <strong>ejecuta</strong>, realizando las acciones propias de
-esa instrucción.</p></li>
-</ol></li>
 <li><p>El intérprete funciona, por tanto, como un
-<strong>simulador</strong> de una máquina que hablara el lenguaje de
-alto nivel en el que está escrito el programa fuente.</p></li>
+<strong>simulador</strong> de una máquina que entendiera directamente el
+lenguaje de alto nivel en el que está escrito el programa fuente. Esa
+máquina no existe físicamente, y por eso decimos que es una <em>máquina
+abstracta</em>, para distinguirla de la real.</p></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/interpretes.svg" class="plain"
 style="width:60.0%" /></p>
 </div>
+<ul>
+<li>En rigor, como los intérpretes no generan código objeto, no
+podríamos considerarlos traductores, sino que más bien entran dentro de
+la categoría más general de <strong>procesadores de
+lenguajes</strong>.</li>
+</ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.1">
 
 <ul>
-<li><p>Podría decirse, por tanto, que un intérprete está formado por un
-<strong>traductor</strong> y un <strong>ejecutor</strong>:</p>
+<li><p>Podría decirse que un intérprete está formado por un
+<strong>analizador</strong> y un <strong>ejecutor</strong>:</p>
 <ul>
-<li><p>El <strong>traductor</strong> traduce el código fuente,
-instrucción por instrucción, a una representación interna llamada
-<strong>árbol sintáctico</strong> (que no hay que confundir con el
-<em>árbol de análisis sintáctico</em>).</p></li>
-<li><p>Ese árbol sintáctico no se vuelca directamente a la salida, sino
-que es consumida directamente por el <em>ejecutor</em>.</p></li>
+<li><p>El <strong>analizador</strong> traduce todo el código fuente a
+una representación interna llamada <strong>árbol sintáctico</strong>
+(que no hay que confundir con el <em>árbol de análisis
+sintáctico</em>).</p>
+<p>Ese árbol sintáctico no se vuelca directamente a la salida, sino que
+es consumida directamente por el <em>ejecutor</em>.</p></li>
 <li><p>El <strong>ejecutor</strong> se encarga de recorrer el árbol
 sintáctico y de ir ejecutando las instrucciones que éste representa,
 llevando a cabo las acciones que correspondan dependiendo de la
-instrucción que sea.</p></li>
+instrucción que sea.</p>
+<p>Para ello, tiene que ir traduciendo sobre la marcha, instrucción por
+instrucción, esas acciones a realizar sobre la máquina abstracta en
+acciones a realizar sobre la máquina real.</p></li>
 </ul></li>
 </ul>
 <div class="centered">
-<p><img data-src="images/traductor-ejecutor.svg" class="plain"
+<p><img data-src="images/analizador-ejecutor.svg" class="plain"
 style="width:70.0%" /></p>
 </div>
 </section>
@@ -2806,18 +2809,44 @@ style="width:70.0%" /></p>
 <li><p><strong>Programar</strong> con un intérprete es una tarea
 <strong>más rápida</strong> de realizar que con un compilador, ya que,
 para poder ejecutar el programa, no hace falta compilar ni generar el
-código objeto.</p></li>
-<li><p>Sin embargo, si el programa fuente tiene errores sintácticos, el
+código objeto, por lo que se evita dar un paso que en muchos casos puede
+llegar a consumir mucho tiempo.</p></li>
+<li><p>Por la misma razón, a muchos programadores les resulta
+<strong>más cómodo</strong> y fluido programar usando un intérprete
+(aunque con los modernos <em>entornos de desarrollo</em> esto ya no
+supone tanta diferencia como antes).</p></li>
+<li><p>Sin embargo, si el programa fuente tiene <em>errores
+sintácticos</em> (o ciertos errores de <em>semántica estática</em>), el
 intérprete no informará de ellos hasta el momento en el que intente
 ejecutar la instrucción errónea.</p>
-<p>Es decir: <strong>los errores sintácticos se muestran en tiempo de
-ejecución</strong>, no en tiempo de compilación.</p></li>
+<p>Es decir: <strong>esos errores se detectarán y se mostrarán en
+<em>tiempo de ejecución</em></strong>, no en <em>tiempo de
+compilación</em>.</p></li>
+<li><p>Por tanto, muchos errores que pueden ser detectados por un
+compilador sólo se podrán detectar cuando ya se esté ejecutando el
+programa, lo que hace que el coste (en tiempo y dinero) de corregir el
+error sea mucho mayor.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.3">
+
+<ul>
 <li><p>Además, los programas interpretados suelen ser <strong>varias
-veces más lentos</strong> que los compilados, ya que hay que traducir
-cada instrucción que se va encontrando justo antes de ejecutarla, una
-tras otra.</p>
-<p>En cambio, un compilador las traduce todas de una vez y al
-ejecutarlas ya están todas traducidas al lenguaje objeto.</p></li>
+veces más lentos</strong> que los compilados, ya que:</p>
+<ul>
+<li><p>hay que ir recorriendo continuamente el árbol sintáctico para
+encontrarse con las instrucciones que allí aparecen, lo que consume
+tiempo y memoria;</p></li>
+<li><p>hay que traducir las instrucciones de la máquina abstracta a
+instrucciones de la máquina real, cosa que no se hace de una vez y para
+siempre, sino que <strong>se va haciendo poco a poco a medida que se va
+encontrando con una nueva instrucción</strong> al recorrer el árbol
+sintáctico.</p></li>
+</ul></li>
+<li><p>En cambio, <strong>un compilador traduce todas las instrucciones
+de una vez y sólo una vez</strong>, de forma que, al ejecutarlas, ya
+están todas traducidas al lenguaje objeto, formando el código
+objeto.</p></li>
 <li><p>Hay lenguajes <em>compilados</em> y lenguajes
 <em>interpretados</em>, e incluso lenguajes que son ambas cosas (tienen
 compiladores e intérpretes).</p></li>

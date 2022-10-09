@@ -1745,6 +1745,8 @@ adverbio -> mucho
   pero sabemos que no es _completamente_ correcta porque no hay concordancia de
   género entre el artículo `la` y el sustantivo `niño`.
 
+- Ese error de concordancia es un error de semántica estática.
+
 ### Semántica dinámica
 
 - La semántica dinámica (o simplemente **semántica**) de un lenguaje de
@@ -2222,19 +2224,13 @@ F -> Compilador -> E -> Ensamblador -> O
 - Un **intérprete** es un caso muy especial de traductor.
 
 - En lugar de generar código objeto, el intérprete **lee el código fuente y lo
-  ejecuta directamente**, traduciendo y ejecutando sus instrucciones una por
+  ejecuta directamente**, reconociendo y ejecutando sus instrucciones una por
   una hasta que se acaba el programa.
 
-- Por tanto, el intérprete **repite continuamente el siguiente ciclo**:
-
-  1. **Lee** la siguiente instrucción del código fuente.
-
-  2. La **traduce** a una representación interna propia del intérprete.
-
-  3. La **ejecuta**, realizando las acciones propias de esa instrucción.
-
 - El intérprete funciona, por tanto, como un **simulador** de una máquina que
-  hablara el lenguaje de alto nivel en el que está escrito el programa fuente.
+  entendiera directamente el lenguaje de alto nivel en el que está escrito el
+  programa fuente. Esa máquina no existe físicamente, y por eso decimos que es
+  una _máquina abstracta_, para distinguirla de la real.
 
 !DOT(interpretes.svg)()(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2243,52 +2239,79 @@ I [label = "Intérprete\n(ejecuta el programa directamente)"];
 F -> I
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- En rigor, como los intérpretes no generan código objeto, no podríamos
+  considerarlos traductores, sino que más bien entran dentro de la categoría
+  más general de **procesadores de lenguajes**.
+
 ---
 
-- Podría decirse, por tanto, que un intérprete está formado por un
-  **traductor** y un **ejecutor**:
+- Podría decirse que un intérprete está formado por un **analizador** y un
+  **ejecutor**:
 
-  - El **traductor** traduce el código fuente, instrucción por instrucción, a
+  - El **analizador** traduce todo el código fuente a
     una representación interna llamada **árbol sintáctico** (que no hay que
     confundir con el _árbol de análisis sintáctico_).
 
-  - Ese árbol sintáctico no se vuelca directamente a la salida, sino que es
+    Ese árbol sintáctico no se vuelca directamente a la salida, sino que es
     consumida directamente por el _ejecutor_.
 
   - El **ejecutor** se encarga de recorrer el árbol sintáctico y de ir
     ejecutando las instrucciones que éste representa, llevando a cabo las
     acciones que correspondan dependiendo de la instrucción que sea.
 
-!DOT(traductor-ejecutor.svg)()(width=70%)
+    Para ello, tiene que ir traduciendo sobre la marcha, instrucción por
+    instrucción, esas acciones a realizar sobre la máquina abstracta en
+    acciones a realizar sobre la máquina real.
+
+!DOT(analizador-ejecutor.svg)()(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
 subgraph cluster0 {
     label = "Intérprete"
     I [label = "Árbol sintáctico", shape = note, fillcolor = aliceblue];
-    Traductor -> I -> Ejecutor
+    Analizador -> I -> Ejecutor
 }
-F -> Traductor
+F -> Analizador
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - **Programar** con un intérprete es una tarea **más rápida** de realizar que
   con un compilador, ya que, para poder ejecutar el programa, no hace falta
-  compilar ni generar el código objeto.
+  compilar ni generar el código objeto, por lo que se evita dar un paso
+  que en muchos casos puede llegar a consumir mucho tiempo.
 
-- Sin embargo, si el programa fuente tiene errores sintácticos, el intérprete
-  no informará de ellos hasta el momento en el que intente ejecutar la
-  instrucción errónea.
+- Por la misma razón, a muchos programadores les resulta **más cómodo** y
+  fluido programar usando un intérprete (aunque con los modernos _entornos de
+  desarrollo_ esto ya no supone tanta diferencia como antes).
 
-  Es decir: **los errores sintácticos se muestran en tiempo de ejecución**, no
-  en tiempo de compilación.
+- Sin embargo, si el programa fuente tiene _errores sintácticos_ (o ciertos
+  errores de _semántica estática_), el intérprete no informará de ellos hasta
+  el momento en el que intente ejecutar la instrucción errónea.
+
+  Es decir: **esos errores se detectarán y se mostrarán en _tiempo de
+  ejecución_**, no en _tiempo de compilación_.
+
+- Por tanto, muchos errores que pueden ser detectados por un compilador sólo se
+  podrán detectar cuando ya se esté ejecutando el programa, lo que hace que el
+  coste (en tiempo y dinero) de corregir el error sea mucho mayor.
+
+---
 
 - Además, los programas interpretados suelen ser **varias veces más lentos**
-  que los compilados, ya que hay que traducir cada instrucción que se va
-  encontrando justo antes de ejecutarla, una tras otra.
+  que los compilados, ya que:
 
-  En cambio, un compilador las traduce todas de una vez y al ejecutarlas ya
-  están todas traducidas al lenguaje objeto.
+  - hay que ir recorriendo continuamente el árbol sintáctico para encontrarse
+    con las instrucciones que allí aparecen, lo que consume tiempo y memoria;
+
+  - hay que traducir las instrucciones de la máquina abstracta a instrucciones
+    de la máquina real, cosa que no se hace de una vez y para siempre, sino que
+    **se va haciendo poco a poco a medida que se va encontrando con una nueva
+    instrucción** al recorrer el árbol sintáctico.
+
+- En cambio, **un compilador traduce todas las instrucciones de una vez y sólo
+  una vez**, de forma que, al ejecutarlas, ya están todas traducidas al
+  lenguaje objeto, formando el código objeto.
 
 - Hay lenguajes *compilados* y lenguajes *interpretados*, e incluso lenguajes
   que son ambas cosas (tienen compiladores e intérpretes).
