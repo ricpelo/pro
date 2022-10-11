@@ -25,7 +25,8 @@ nocite: |
 !NT(lista_parámetros) := !T{identificador} (!T(,) !T(identificador))\*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por ejemplo, la siguiente expresión lambda la idea general de «_suma_»:
+- Por ejemplo, la siguiente expresión lambda captura la idea general de
+  «_suma_»:
 
   ```python
   lambda x, y: x + y
@@ -58,8 +59,8 @@ nocite: |
 
 ## Aplicación funcional
 
-- De la misma manera que decíamos que podemos aplicar una función a unos
-  argumentos, también podemos aplicar una expresión lambda a unos argumentos.
+- De la misma manera que podemos aplicar una función a unos argumentos, también
+  podemos aplicar una expresión lambda a unos argumentos.
 
 - Por ejemplo, la aplicación de la función !PYTHON(max) sobre los argumentos
   !PYTHON(3) y !PYTHON(5) es una expresión que se escribe como
@@ -120,12 +121,12 @@ nocite: |
   ```
 
   el intérprete no evalúa la expresión del cuerpo (!PYTHON{x + y}), sino que
-  crea un valor de tipo «función», pero sin entrar a ver «cuánto vale» el
+  crea un valor de tipo «función», pero sin entrar a ver «qué hay» en el
   cuerpo.
 
   Eso es algo que sólo hará si aplica la expresión lambda a unos argumentos.
 
-### Llamadas a funciones
+### Funciones con nombre
 
 - Si hacemos la siguiente definición:
 
@@ -133,7 +134,9 @@ nocite: |
   suma = lambda x, y: x + y
   ```
 
-  a partir de ese momento podemos usar !PYTHON(suma) en lugar de su valor (la
+  le estamos dando un nombre a la expresión lambda, es decir, a una función.
+
+- A partir de ese momento podemos usar !PYTHON(suma) en lugar de su valor (la
   expresión lambda), por lo que podemos hacer:
 
   ```python
@@ -156,9 +159,10 @@ nocite: |
 - La evaluación de la llamada a !PYTHON(suma(4, 3)) implicaría realizar los
   siguientes tres pasos y en este orden:
 
-  1. Sustituir el nombre de la función !PYTHON(suma) por su definición.
+  1. Sustituir el nombre de la función !PYTHON(suma) por su definición, es
+     decir, por la expresión lambda a la cual está ligado.
 
-  2. Evaluar sus argumentos.
+  2. Evaluar los argumentos que aparecen en la llamada.
 
   3. Aplicar la expresión lambda a sus argumentos.
 
@@ -242,7 +246,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # evaluación de 4
   = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # evaluación de 3
   = (lambda x, y: x + y)(4, 3) * suma(2, 7)  # aplicación a 4 y 3
-  = (4 + 3) * suma(2, 7)                     # evalúa 4 + 3
+  = (4 + 3) * suma(2, 7)                     # evaluación de 4 + 3
   = 7 * suma(2, 7)                           # definición de suma
   = 7 * (lambda x, y: x + y)(2, 7)           # evaluación de 2
   = 7 * (lambda x, y: x + y)(2, 7)           # evaluación de 7
@@ -316,38 +320,55 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   - En cambio, una _ligadura_ es la asociación que se establece entre un
     _identificador_ y un _valor_.
 
-# Ámbitos léxicos
+# Ámbitos
 
-## Ámbitos
+## Ámbitos léxicos
 
-- Un **ámbito** es una porción del código fuente de un programa.
+- Un **ámbito léxico** es una porción del código fuente de un programa.
 
-- Decimos que **ciertas construcciones sintácticas definen ámbitos**.
+- Decimos que **ciertas construcciones sintácticas definen ámbitos léxicos**.
 
-- Cuando una construcción define un ámbito, **la sintaxis del lenguaje
-  determina dónde empieza y acaba** ese ámbito en el código fuente.
+- Cuando una construcción define un ámbito léxico, **la sintaxis del lenguaje
+  determina dónde empieza y acaba** ese ámbito léxico en el código fuente.
 
 - Por tanto, siempre se puede determinar sin ambigüedad si **una instrucción
-  está dentro de un determinado ámbito**, tan sólo leyendo el código fuente del
-  programa y sin necesidad de ejecutarlo.
+  está dentro de un determinado ámbito léxico**, tan sólo leyendo el código
+  fuente del programa y sin necesidad de ejecutarlo.
 
-- Por ejemplo: en el lenguaje de programación Java, los bloques son estructuras
-  sintácticas delimitadas por llaves `{` y `}` que contienen instrucciones. Los
-  bloques de Java definen ámbitos; por tanto, si una instrucción está dentro de
-  un bloque (es decir, si está situada entre las llaves `{` y `}` que delimitan
-  el bloque), entonces esa instrucción se encuentra dentro del ámbito que
-  define el bloque.
+- Eso significa que el concepto de _ámbito léxico_ es un concepto **estático**.
 
 ---
 
-- Los ámbitos **se anidan recursivamente**, o sea, que están contenidos unos
-  dentro de otros.
+- Por ejemplo: en el lenguaje de programación Java, los bloques son estructuras
+  sintácticas delimitadas por llaves `{` y `}` que contienen instrucciones.
+
+- Los bloques de Java definen ámbitos léxicos; por tanto, si una instrucción
+  está dentro de un bloque (es decir, si está situada entre las llaves `{` y
+  `}` que delimitan el bloque), entonces esa instrucción se encuentra dentro
+  del ámbito léxico que define el bloque.
+
+---
+
+- Además de los ámbitos léxicos, existen también los llamados **ámbitos
+  dinámicos**, que funcionan de otra forma y que no estudiaremos en este curso.
+
+- La mayoría de los lenguajes de programación usan ámbitos léxicos, salvo
+  excepciones (como LISP o los _shell scripts_) que usan ámbitos dinámicos.
+
+- Por esa razón, a partir de ahora, cuando hablemos de «ámbitos» sin
+  especificar de qué tipo, nos estaremos siempre refiriendo a «ámbitos
+  léxicos».
+
+---
+
+- Los ámbitos **se pueden anidar recursivamente**, o sea, que pueden estar
+  contenidos unos dentro de otros.
 
 - Por tanto, una instrucción puede estar en varios ámbitos al mismo tiempo
   (anidados unos dentro de otros).
 
 - De todos ellos, el **ámbito más interno** es el que no contiene, a su vez, a
-  otro ámbito.
+  ningún otro ámbito.
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
   se encuentra la instrucción que se está ejecutando actualmente.
@@ -371,8 +392,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - En el momento en que se empieza a ejecutar un _script_ o se arranca una
   sesión con el intérprete interactivo, se entra en el _ámbito global_.
 
-- Del ámbito global se sale cuando se finaliza la ejecución del _script_ o se
-  cierra el intérprete interactivo.
+- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
+  se cierra el intérprete interactivo.
 
 ---
 
@@ -398,23 +419,32 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   Dicho de otra forma: es el ámbito más interno donde se crea la ligadura.
 
-- Ese ámbito siempre está definido por una construcción sintáctica.
-
-- Por tanto, sus límites vienen marcados únicamente por la sintaxis de la
-  construcción sintáctica que define el ámbito y dentro de la cual se está
-  creando la ligadura.
-
 - Se dice que **la ligadura es _local_ al ámbito donde se crea la ligadura**.
 
-  Si ese ámbito es el ámbito _global_, decimos que la ligadura es _global_.
+- Si ese ámbito es el ámbito _global_, decimos que la ligadura es _global_.
+
+---
+
+- Al ser un ámbito léxico, el ámbito de creación de una ligadura siempre está
+  definido por una construcción sintáctica.
+
+- Por tanto:
+
+  - Sus límites vienen marcados únicamente por la sintaxis de la construcción
+    sintáctica que define el ámbito y dentro de la cual se está creando la
+    ligadura.
+
+  - El ámbito de creación de una ligadura se puede determinar simplemente
+    leyendo el código fuente del programa, sin tener que ejecutarlo.
 
 ### Visibilidad
 
 - El ámbito de creación de una ligadura es una «frontera» que limita la porción
   del código fuente en la que es visible esa ligadura.
 
-- Las ligaduras empiezan a existir justo donde se crea la ligadura, es decir,
-  en el punto donde se ejecuta la instrucción que _define_ la ligadura.
+- En la mayoría de los lenguajes (incluyendo Python y Java), las ligaduras
+  empiezan a existir justo donde se crea la ligadura, es decir, en el punto
+  donde se ejecuta la instrucción que _define_ la ligadura.
 
   Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto.
 
@@ -438,17 +468,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
     o **_dinámico_** si es interpretado.
 
 -->
-
----
-
-- El ámbito de creación de una ligadura se puede determinar simplemente leyendo
-  el código del programa, sin tener que ejecutarlo.
-
-  A este tipo de ámbitos se les denomina **ámbitos léxicos**.
-
-- La mayoría de los lenguajes de programación usa ámbitos léxicos, salvo
-  excepciones (como LISP o los _shell scripts_) que usan otro tipo de ámbitos
-  denominados **ámbitos dinámicos** (que no estudiaremos en este curso).
 
 ---
 
@@ -482,7 +501,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Ámbito:**
+  **Ámbito (léxico):**
 
   Porción del código fuente de un programa.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -496,14 +515,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
   construcciones sintácticas definen su propio ámbito.
 
-  Este ámbito determina dónde está el límite de visibilidad de la ligadura.
+  Este ámbito determina dónde está el límite de visibilidad de la ligadura
+  (_dónde_ se puede ver la ligadura dentro del programa).
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Como a nosotros nos interesan principalmente los _ámbitos de creación_, en la
-  práctica supondremos que, cuando hablamos de _ámbito_, nos referimos al
-  _ambito de creación de una ligadura_, si no se dice lo contrario.
+- Como a nosotros nos interesan principalmente los _ámbitos de creación_, a
+  partir de ahora supondremos que, cuando hablamos de «_ámbito_», nos referimos
+  al _ambito de creación de una ligadura_, si no se dice lo contrario.
 
-## Ámbitos y espacios de nombres
+### Almacenamiento
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -531,21 +551,18 @@ todos los ámbitos van asociados a un espacio de nombres.
 
 - Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
-  éste (en orden, de más interno a más externo), hasta encontrar el primero que
-  lleve asociado un espacio de nombres.
+  éste (en orden, de más interno a más externo), hasta encontrar el primer
+  ámbito que lleve asociado un espacio de nombres.
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **En resumen:**
 
   - El **ámbito** de una ligadura determina la **visibilidad** de una ligadura:
-    hasta dónde es visible esa ligadura.
+    hasta dónde es _visible_ esa ligadura.
 
   - El **espacio de nombres** determina el **almacenamiento** de una ligadura:
-    dónde se almacena esa ligadura.
-
-    El espacio de nombres va asociado al **ámbito de creación** de esa
-    ligadura.
+    dónde se _almacena_ esa ligadura.
 
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -667,12 +684,13 @@ todos los ámbitos van asociados a un espacio de nombres.
   entre éste y su argumento correspondiente, y se corresponde con el **cuerpo**
   de la expresión lambda donde aparece.
 
-- Por tanto, el parámetro sólo existe dentro del cuerpo de la expresión lambda,
-  y no podemos **acceder** a su valor fuera del mismo.
+- Por tanto, el parámetro sólo existe dentro del cuerpo de la expresión lambda
+  y no podemos **acceder** a su valor fuera del mismo; por eso se dice que
+  tiene un **ámbito _local_** a la expresión lambda.
 
 - Además, **la ligadura** entre el parámetro y su argumento **se almacena en el
   marco** de la llamada a la expresión lambda, y por eso se dice que tiene un
-  **almacenamiento local** a la expresión lambda.
+  **almacenamiento _local_** a la expresión lambda.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -694,9 +712,8 @@ todos los ámbitos van asociados a un espacio de nombres.
   podremos acceder al valor de la variable ligada (que también será el valor
   del argumento con el que está ligada).
 
-- En consecuencia, también se dice que la variable ligada tiene un **ámbito
-  local** al cuerpo de la expresión lambda o que es **local** a dicha expresión
-  lambda.
+- Por eso también se dice que la variable ligada tiene un **ámbito local** al
+  cuerpo de la expresión lambda o que es **local** a dicha expresión lambda.
 
 ---
 
@@ -724,7 +741,8 @@ todos los ámbitos van asociados a un espacio de nombres.
   **cuerpo** de la expresión lambda donde aparece.
 
 - Por tanto, la variable ligada sólo existe dentro del cuerpo de la expresión
-  lambda, y no podemos **acceder** a su valor fuera del mismo.
+  lambda y no podemos **acceder** a su valor fuera del mismo; por eso se dice
+  que tiene un **ámbito _local_** a la expresión lambda.
 
 - Además, **la ligadura** entre la variable ligada y su argumento **se almacena
   en el marco** de la llamada a la expresión lambda, y por eso se dice que
@@ -732,9 +750,9 @@ todos los ámbitos van asociados a un espacio de nombres.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- O sea: con los variables ligadas ocurre exactamente lo mismo que con los
-  parámetros, ya que, de hecho, un parámetro y una variable ligada son la misma
-  cosa, como ya hemos visto.
+- O sea: con los **variables ligadas** ocurre exactamente lo mismo que con los
+  **parámetros**, ya que, de hecho, **un parámetro y una variable ligada son la
+  misma cosa**, como ya hemos visto.
 
 !EJEMPLO
 
