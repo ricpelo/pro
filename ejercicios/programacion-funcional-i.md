@@ -20,7 +20,7 @@ author:
 
    #. !PYTHON(a and not b or not (a or b))
 
-   #. !PYTHON(not(a and b) or not a and (b or not b))
+   #. !PYTHON(not (a and b) or not a and (b or not b))
 
 #. Demostrar los siguientes teoremas del álgebra de Boole, suponiendo que $A$,
    $B$ y $C$ toman valores lógicos:

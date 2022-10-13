@@ -814,7 +814,7 @@ True
 
 ---
 
-- Que traducido a Python sería:
+Que traducido a Python sería:
 
   !SALTO
 
@@ -1081,6 +1081,59 @@ de Boole.
   $$\overline{AB} = \overline{A} + \overline{B}$$
 
 - Esta notación se emplea principalmente en el diseño de circuitos digitales.
+
+## Equivalencia lógica
+
+- Decimos que dos expresiones lógicas $P$ y $Q$ son **equivalentes** (y se
+  representa como $P \equiv Q$, aunque nosotros lo representaremos simplemente
+  como $P = Q$) si tienen las mismas tablas de verdad, es decir, si se cumple
+  que $P$ vale $V$ cuando $Q$ también, y viceversa.
+
+- Para demostrar que se cumple una equivalencia en el álgebra de Boole, se
+  pueden usar dos técnicas:
+
+  - Demostrar que la propiedad es un _teorema_ que se puede deducir que axiomas
+    y teoremas ya demostrados.
+
+  - Usar las _tablas de verdad_ para comprobar si los valores de verdad de $P$
+    y $Q$ coinciden exactamente.
+
+---
+
+- Por ejemplo, supongamos que queremos demostrar la siguiente propiedad:
+  $$A(A + B) = A$$
+
+- Podemos demostrarlo siguiendo la siguiente secuencia de razonamientos:
+
+  $$\begin{array}{ccl}
+  & A(A + B) \\
+  = & & \text{\{Ley distributiva\}} \\
+  & AA + AB \\
+  = & & \text{\{Ley de idempotencia\}} \\
+  & A + AB \\
+  = & & \text{\{Ley de absorción\}} \\
+  & A
+  \end{array}$$
+
+---
+
+- También podemos obtener sus tablas de verdad y comprobar que son idénticas:
+
+  -----------------------------------
+   $A$   $B$   $A + B$    $A(A + B)$
+  ----- ----- --------- -------------
+    0     0       0           0
+
+    0     1       1           0
+
+    1     0       1           1
+
+    1     0       1           1
+  -----------------------------------
+
+- Como podemos observar, las columnas de $A$ y de $A(A + B)$ son idénticas, lo
+  que significa que toman siempre los mismos valores de verdad y, por tanto,
+  ambas expresiones son equivalentes.
 
 ## El operador ternario
 
