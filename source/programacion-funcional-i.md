@@ -1092,8 +1092,8 @@ de Boole.
 - Para demostrar que se cumple una equivalencia en el álgebra de Boole, se
   pueden usar dos técnicas:
 
-  - Demostrar que la propiedad es un _teorema_ que se puede deducir que axiomas
-    y teoremas ya demostrados.
+  - Demostrar que la propiedad es un _teorema_ que se puede deducir de los
+    axiomas y de otros teoremas ya demostrados.
 
   - Usar las _tablas de verdad_ para comprobar si los valores de verdad de $P$
     y $Q$ coinciden exactamente.
