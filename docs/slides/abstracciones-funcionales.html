@@ -2778,7 +2778,8 @@ especiales que no se tienen en cuenta.</p></li>
 <section class="slide level5" data-number="4.2.1.0.7">
 
 <ul>
-<li><p>Otro ejemplo más completo:</p>
+<li><p>En este otro ejemplo, más completo, se especifica una función
+llamada <code class="sourceCode python">cuenta</code>:</p>
 <p><span class="math display">\left\{\begin{array}{ll}
   \text{\textbf{Pre}}: &amp; car \mathrel{\char`≠}
 \text{\texttt{&quot;&quot;}} \land \texttt{len(}car\texttt{)} = 1
@@ -2790,29 +2791,42 @@ especiales que no se tienen en cuenta.</p></li>
 &amp; \texttt{cuenta(\(cadena\), \(car\))} =
 cadena\texttt{.count(\(car\))}
 \end{array}\right.</span></p></li>
-<li><p><code class="sourceCode python">count</code> es una
-<strong>función <em>oculta</em> o <em>auxiliar</em></strong> (en este
-caso, un <em>método auxiliar</em>). Las funciones auxiliares se puede
-usar en la especificación siempre que estén perfectamente especificadas,
-aunque no estén implementadas.</p></li>
-<li><p>Con esto estamos diciendo que <code
+<li><p>Con esta especificación, estamos diciendo que <code
 class="sourceCode python">cuenta</code> es una función que recibe una
-cadena y un carácter (otra cadena con un único carácter dentro).</p>
-<p>Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera,
-sino que tienen que cumplir la precondición.</p>
-<p>Eso significa, entre otras cosas, que <strong>el <em>dominio</em> y
-el <em>conjunto origen</em> de la función no coinciden</strong> (no
-todos los valores pertenecientes al conjunto origen sirven como datos de
-entrada válidos para la función).</p></li>
-<li><p>Además, estamos diciendo que devuelve el mismo resultado que
-devuelve el método <code class="sourceCode python">count</code> (que
-casualmente ya existe en Python).</p></li>
-<li><p>Es decir: cuenta el número de veces que el carácter <span
-class="math inline">car</span> aparece en <span
-class="math inline">cadena</span>.</p></li>
+cadena y un carácter (otra cadena con un único carácter
+dentro).</p></li>
+<li><p>Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera,
+sino que tienen que cumplir la <em>precondición</em>.</p></li>
+<li><p>Eso significa, entre otras cosas, que aquí <strong>el
+<em>dominio</em> y el <em>conjunto origen</em> de la función no
+coinciden</strong> (no todos los valores pertenecientes al conjunto
+origen sirven como datos de entrada válidos para la función).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.1.0.8">
+
+<ul>
+<li><p>En esta especificación, <code
+class="sourceCode python">count</code> se usa como un <strong>método
+auxiliar</strong>.</p>
+<p>Las <em>operaciones auxiliares</em> se puede usar en una
+especificación siempre que estén perfectamente especificadas, aunque no
+estén implementadas.</p></li>
+<li><p>En este caso, se usa en la <em>postcondición</em> para decir que
+la función <code class="sourceCode python">cuenta</code>, la que se está
+especificando, debe devolver el mismo resultado que devuelve el método
+<code class="sourceCode python">count</code> (el cual ya conocemos
+perfectamente y sabemos qué hace, puesto que es un método que ya existe
+en Python).</p></li>
+<li><p>Es decir: la especificación anterior describe con total precisión
+que la función <code class="sourceCode python">cuenta</code>
+<strong>cuenta el número de veces que el carácter <span
+class="math inline">\underline{\textbf{\textit{car}}}</span> aparece en
+la cadena <span
+class="math inline">\underline{\textbf{\textit{cadena}}}</span></strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.9">
 
 <ul>
 <li><p>En realidad, las condiciones de la especificación anterior se
@@ -2833,7 +2847,7 @@ cadena\texttt{.count(\(car\))}
 <li>¿Por qué?</li>
 </ol>
 </section>
-<section class="slide level5" data-number="4.2.1.0.9">
+<section class="slide level5" data-number="4.2.1.0.10">
 
 <ul>
 <li><p>Finalmente, podríamos escribir la misma especificación en

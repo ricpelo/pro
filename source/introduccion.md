@@ -2455,12 +2455,12 @@ F -> Analizador
   ejemplo) siempre y cuando estén perfectamente especificadas, aunque no estén
   implementadas en el lenguaje de programación.
 
-- A esas operaciones se las denomina **operaciones ocultas** o **auxiliares**.
+- A esas operaciones se las denomina **operaciones auxiliares**.
 
 ---
 
-- Por ejemplo, si disponemos de la función oculta $max$ que devuelve el máximo
-  de dos números, nuestra especificación podría quedar así:
+- Por ejemplo, si disponemos de la función auxiliar $max$ que devuelve el
+  máximo de dos números, nuestra especificación podría quedar así:
 
   $$\begin{cases}
     \text{\textbf{Entrada}}: n_1, n_2 \in \mathbb{Z} \\

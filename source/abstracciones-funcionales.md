@@ -2537,7 +2537,8 @@ cg [label = "(caso general)"]
 
 ---
 
-- Otro ejemplo más completo:
+- En este otro ejemplo, más completo, se especifica una función llamada
+  !PYTHON(cuenta):
 
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2550,26 +2551,34 @@ cg [label = "(caso general)"]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- !PYTHON(count) es una **función _oculta_ o _auxiliar_** (en este caso, un
-  *método auxiliar*). Las funciones auxiliares se puede usar en la
-  especificación siempre que estén perfectamente especificadas, aunque no estén
-  implementadas.
+- Con esta especificación, estamos diciendo que !PYTHON(cuenta) es una función
+  que recibe una cadena y un carácter (otra cadena con un único carácter
+  dentro).
 
-- Con esto estamos diciendo que !PYTHON(cuenta) es una función que recibe una
-  cadena y un carácter (otra cadena con un único carácter dentro).
+- Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera, sino que
+  tienen que cumplir la _precondición_.
 
-  Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera, sino que
-  tienen que cumplir la precondición.
+- Eso significa, entre otras cosas, que aquí **el _dominio_ y el _conjunto
+  origen_ de la función no coinciden** (no todos los valores pertenecientes al
+  conjunto origen sirven como datos de entrada válidos para la función).
 
-  Eso significa, entre otras cosas, que **el _dominio_ y el _conjunto origen_
-  de la función no coinciden** (no todos los valores pertenecientes al conjunto
-  origen sirven como datos de entrada válidos para la función).
+---
 
-- Además, estamos diciendo que devuelve el mismo resultado que devuelve el
-  método !PYTHON{count} (que casualmente ya existe en Python).
+- En esta especificación, !PYTHON(count) se usa como un **método auxiliar**.
 
-- Es decir: cuenta el número de veces que el carácter $car$ aparece en
-  $cadena$.
+  Las _operaciones auxiliares_ se puede usar en una especificación siempre que
+  estén perfectamente especificadas, aunque no estén implementadas.
+
+- En este caso, se usa en la _postcondición_ para decir que la función
+  !PYTHON(cuenta), la que se está especificando, debe devolver el mismo
+  resultado que devuelve el método !PYTHON{count} (el cual ya conocemos
+  perfectamente y sabemos qué hace, puesto que es un método que ya existe en
+  Python).
+
+- Es decir: la especificación anterior describe con total precisión que la
+  función !PYTHON(cuenta) **cuenta el número de veces que el carácter
+  $\underline{\textbf{\textit{car}}}$ aparece en la cadena
+  $\underline{\textbf{\textit{cadena}}}$**.
 
 ---
 
