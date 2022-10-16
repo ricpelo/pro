@@ -534,34 +534,49 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ### Almacenamiento
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Todo espacio de nombres va asociado a un ámbito** (_de creación_), pero NO
-todos los ámbitos van asociados a un espacio de nombres.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Las ligaduras se almacenan en _espacios de nombres_.
 
-- **Ciertas construcciones sintácticas definen un _espacio de nombres_** (y,
-  por tanto, también un ámbito).
+- El espacio de nombres que se usa para almacenar la ligadura creada por una
+  determinada instrucción del programa es el **espacio de nombres actual** para
+  esa instrucción.
 
-- En este último caso, **ese espacio de nombres almacenará las ligaduras** que
-  se crean dentro de ese ámbito.
+- Ese espacio de nombres actual, el cual el intérprete selecciona para
+  almacenar una ligadura, depende del _contexto_ en el que se ha creado la
+  ligadura.
 
-- O sea: si el ámbito de creación de una ligadura va asociado a un espacio
-  de nombres, la ligadura se almacenará en ese espacio de nombres.
+- Tenemos dos posibilidades:
 
-- Si no, entonces la ligadura se almacenará en el espacio de nombres del ámbito
-  de creación más interno que contenga al actual y que sí lleve asociado un
-  espacio de nombres.
+  - El espacio de nombres seleccionado depende del ámbito donde se crea la ligadura.
 
-- El espacio de nombres que se usa para almacenar las ligaduras creadas en el
-  ámbito actual se denomina el **espacio de nombres actual**.
+  - El espacio de nombres seleccionado NO depende del ámbito donde se crea la ligadura.
 
----
+- En el primer caso, tenemos que:
+
+  - Si el ámbito donde se crea la ligadura lleva asociado un espacio de nombres, ese espacio de nombres almacenará las ligaduras que se crean dentro de ese ámbito.
+
+  - Si no, entonces la ligadura se almacenará en el espacio de nombres del ámbito de creación más interno que contenga al actual y que sí lleve asociado un espacio de nombres.
+
+  En este caso, en Python, el espacio de nombres será un marco.
 
 - Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
   éste (en orden, de más interno a más externo), hasta encontrar el primer
   ámbito que lleve asociado un espacio de nombres.
+
+- En el segundo caso, tenemos que el intérprete no selecciona el espacio de nombres actual en función del ámbito en el que se encuentre la instrucción que crea la ligadura, sino que el espacio de nombres ya se está accediendo directamente desde la propia instrucción.
+
+  - Esto es lo que ocurre cuando se crea una ligadura dentro de un objeto en Python, ya que los objetos son espacios de nombres en este lenguaje.
+
+  - Por ejemplo, si en Python hacemos:
+
+    ```python
+    import math
+    math.x = 75
+    ```
+
+    Estamos creando la ligadura `x` → `75` en el espacio de nombres que representa el módulo `math`, el cual es un objeto en Python.
+
+    En este caso, el espacio de nombres ha sido seleccionado a través del operador `.`, no en función del ámbito donde se ha ejecutado la sentencia !PYTHON(math.x = 75).
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -575,10 +590,8 @@ todos los ámbitos van asociados a un espacio de nombres.
 
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
----
-
-- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global, por
-  lo que se almacenan en el espacio de nombres global.
+- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global y se
+  almacenan en el espacio de nombres global.
 
 - Por tanto:
 
