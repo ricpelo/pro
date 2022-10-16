@@ -2440,7 +2440,7 @@ cg [label = "(caso general)"]
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(\texttt{True})
-  !SIGNAT(\texttt{cuadrado(!VAR(n\,): float) -> float})
+  !SIGNAT(\texttt{cuadrado(!VAR(n):\,float)\;->\;float})
   !POST(\texttt{cuadrado(}n\texttt{)} = n^2)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2543,11 +2543,11 @@ cg [label = "(caso general)"]
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(car !NEQ \text{\texttt{""}} \land \texttt{len(}car\texttt{)} = 1)
-  !SIGNAT(\texttt{cuenta(!VAR(cadena\,): str, !VAR(car\,): str) -> int})
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
   !POST
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    \texttt{cuenta(!VAR(cadena), !VAR(car))} \geq 0\ \land
-  & \texttt{cuenta(!VAR(cadena), !VAR(car))} = cadena\texttt{.count(!VAR(car))}
+    \texttt{cuenta(!VAR(cadena),\;!VAR(car))} \geq 0\ \land
+  & \texttt{cuenta(!VAR(cadena),\;!VAR(car))} = cadena\texttt{.count(!VAR(car))}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2589,8 +2589,8 @@ cg [label = "(caso general)"]
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(\texttt{len(!VAR(car))} = 1)
-  !SIGNAT(\texttt{cuenta(!VAR(cadena\,): str, !VAR(car\,): str) -> int})
-  !POST(\texttt{cuenta(!VAR(cadena), !VAR(car))} = cadena\texttt{.count(!VAR(car))})
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str, !VAR(car):\,str)\;->\;int})
+  !POST(\texttt{cuenta(!VAR(cadena),\;!VAR(car))} = cadena\texttt{.count(!VAR(car))})
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJERCICIO
@@ -2604,10 +2604,10 @@ cg [label = "(caso general)"]
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(car \text{ debe ser un único carácter})
-  !SIGNAT(\texttt{cuenta(!VAR(cadena\,): str, !VAR(car\,): str) -> int})
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str, !VAR(car):\,str)\;->\;int})
   !POST
   ~~~~~~~~~~~~~~~~~~~~~~~~~
-    \texttt{cuenta(!VAR(cadena), !VAR(car))} \text{ devuelve el número de veces}
+    \texttt{cuenta(!VAR(cadena),\;!VAR(car))} \text{ devuelve el número de veces}
   & \text{que aparece el carácter } car \text{ en la cadena } cadena.
   & \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la}
   & \text{cadena } cadena \text{, debe devolver } 0.
