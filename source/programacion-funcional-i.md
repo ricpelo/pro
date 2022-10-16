@@ -1756,22 +1756,46 @@ z -> 3
 
 ### Resolución de identificadores
 
-- Durante la evaluación de la expresión, el intérprete tiene que comprobar si
-  el identificador que aparece en la expresión está ligado o no.
+- Durante la evaluación de una expresión, para cada uno de los diferentes
+  identificadores que aparecen en ella, habrá que comprobar si ese
+  identificador está ligado y a qué valor.
 
   - Si no está ligado, es un error de _nombre no definido_.
 
-  - Si lo está, tendrá que determinar a qué valor está ligado para poder
+  - En caso contrario, tendrá que determinar a qué valor está ligado para poder
     sustituir, en la expresión, cada aparición del identificador por su valor.
 
-- Para ello, buscará una ligadura con ese identificador en el espacio de
-  nombres correspondiente.
-
-- Por ahora, el espacio de nombres donde lo busca tendrá que ser el marco
-  global, ya que es el único que existe hasta ahora.
+- Para ello, habrá que buscar una ligadura con ese identificador en uno o
+  varios espacios de nombres.
 
 - El proceso de localizar (si es que existe) la ligadura adecuada que liga a un
   identificador con su valor, se denomina **resolución del identificador**.
+
+---
+
+- Los espacios de nombres donde se buscan las ligaduras para ese identificador
+  dependerán del _contexto_ en el que se está intentando resolver dicho
+  identificador.
+
+- Por ejemplo, en el siguiente código:
+
+  ```python
+  >>> x = 4
+  >>> x
+  4
+  ```
+
+  se busca una ligadura para `x` en el marco global.
+
+- En cambio, si se intenta acceder a un atributo de un objeto:
+
+  ```python
+  >>> import math
+  >>> math.pi
+  3.141592653589793
+  ```
+
+  se busca una ligadura para `pi` en el espacio de nombres asociado al módulo `math`.
 
 ---
 

@@ -532,74 +532,141 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   partir de ahora supondremos que, cuando hablamos de «_ámbito_», nos referimos
   al _ambito de creación de una ligadura_, si no se dice lo contrario.
 
+---
+
+- Un caso especial ocurre con los atributos de los _objetos_ de Python.
+
+- Recordemos que, por ejemplo, cuando importamos un módulo usando la sentencia
+  !PYTHON(import), podemos acceder al objeto que representa ese módulo usando
+  su nombre, lo que nos permite acceder a sus atributos y crear otros nuevos.
+
+- Esos atributos y sus ligaduras correspondientes (tanto las ya existentes como
+  las nuevas que podamos crear) sólo son visibles cuando accedemos a ellas
+  usando el operador punto (`.`) a través del objeto donde se ha definido, que
+  es quien determina el contexto válido en el que esos atributos son visibles.
+
+- Por tanto, no son visibles fuera del objeto:
+
+  ```python
+  >>> import math
+  >>> math.pi
+  3.141592653589793     # El nombre 'pi' es visible dentro del objeto
+  >>> pi                # El nombre 'pi' no es visible fuera del objeto
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'pi' is not defined
+  ```
+
+---
+
+- Igualmente, si creamos un nuevo atributo dentro del objeto, esa ligadura sólo
+  existirá en el propio objeto y, por tanto, sólo será visible cuando accedamos
+  al atributo a través del objeto donde se ha definido.
+
+  ```python
+  >>> import math
+  >>> math.x = 95       # Creamos un nuevo atributo en el objeto
+  >>> math.x            # El nombre 'x' es visible dentro del objeto
+  95
+  >>> x                 # El nombre 'x' no es visible fuera del objeto
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'x' is not defined
+  ```
+
+- En resumen: al resolver el nombre de un atributo de un objeto, la visibilidad
+  de su ligadura no vendrá definida por un determinado ámbito, sino por el
+  _contexto_ en el que se quiere acceder al atributo.
+
+  Sólo podremos acceder al atributo si usamos el contexto adecuado, que en este
+  caso es el objeto que contiene ese atributo.
+
 ### Almacenamiento
 
 - Las ligaduras se almacenan en _espacios de nombres_.
 
-- El espacio de nombres que se usa para almacenar la ligadura creada por una
-  determinada instrucción del programa es el **espacio de nombres actual** para
-  esa instrucción.
+- Si una instrucción crea una ligadura, se denomina **espacio de nombres
+  actual** al espacio de nombres donde se almacena dicha ligadura.
 
-- Ese espacio de nombres actual, el cual el intérprete selecciona para
-  almacenar una ligadura, depende del _contexto_ en el que se ha creado la
-  ligadura.
+- El espacio de nombres actual, es decir, el espacio de nombres que el
+  compilador o el intérprete selecciona para almacenar una ligadura, depende
+  del _contexto_ en el que se crea la ligadura.
 
 - Tenemos dos posibilidades:
 
-  - El espacio de nombres seleccionado depende del ámbito donde se crea la ligadura.
+  1. El espacio de nombres seleccionado depende del ámbito donde se crea la
+     ligadura.
 
-  - El espacio de nombres seleccionado NO depende del ámbito donde se crea la ligadura.
+  2. El espacio de nombres seleccionado NO depende del ámbito donde se crea la
+     ligadura.
 
-- En el primer caso, tenemos que:
+---
 
-  - Si el ámbito donde se crea la ligadura lleva asociado un espacio de nombres, ese espacio de nombres almacenará las ligaduras que se crean dentro de ese ámbito.
+1. Si el espacio de nombres seleccionado depende del ámbito donde se crea la
+   ligadura, tenemos que:
 
-  - Si no, entonces la ligadura se almacenará en el espacio de nombres del ámbito de creación más interno que contenga al actual y que sí lleve asociado un espacio de nombres.
+   a. Si el ámbito donde se crea la ligadura lleva asociado un espacio de
+      nombres, ese espacio de nombres almacenará las ligaduras que se crean
+      dentro de ese ámbito.
 
-  En este caso, en Python, el espacio de nombres será un marco.
+   b. Si no, entonces la ligadura se almacenará en el espacio de nombres del
+      ámbito de creación más interno que contenga al actual y que sí lleve
+      asociado un espacio de nombres.
 
-- Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
-  ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
-  éste (en orden, de más interno a más externo), hasta encontrar el primer
-  ámbito que lleve asociado un espacio de nombres.
+   Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
+   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
+   éste (en orden, de más interno a más externo), hasta encontrar el primer
+   ámbito que lleve asociado un espacio de nombres.
 
-- En el segundo caso, tenemos que el intérprete no selecciona el espacio de nombres actual en función del ámbito en el que se encuentre la instrucción que crea la ligadura, sino que el espacio de nombres ya se está accediendo directamente desde la propia instrucción.
+   En todo caso, en Python, cuando el lugar donde se almacena la ligadura
+   depende del ámbito donde se crea la ligadura, el espacio de nombres
+   seleccionado será siempre un marco.
 
-  - Esto es lo que ocurre cuando se crea una ligadura dentro de un objeto en Python, ya que los objetos son espacios de nombres en este lenguaje.
+---
 
-  - Por ejemplo, si en Python hacemos:
+2. Si el espacio de nombres seleccionado NO depende del ámbito donde se crea la
+   ligadura, entonces es porque la instrucción ya está indicando directamente
+   el espacio de nombres apropiado.
 
-    ```python
-    import math
-    math.x = 75
-    ```
+   - Esto es lo que ocurre cuando se crea una ligadura dentro de un objeto en
+     Python usando el operador punto (`.`), ya que los objetos son espacios de
+     nombres en este lenguaje.
 
-    Estamos creando la ligadura `x` → `75` en el espacio de nombres que representa el módulo `math`, el cual es un objeto en Python.
+   - Por ejemplo, si en Python hacemos:
 
-    En este caso, el espacio de nombres ha sido seleccionado a través del operador `.`, no en función del ámbito donde se ha ejecutado la sentencia !PYTHON(math.x = 75).
+     ```python
+     import math
+     math.x = 75
+     ```
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **En resumen:**
+     estamos creando la ligadura `x` → `75` en el espacio de nombres que
+     representa el módulo `math` (que es un objeto en Python y que, por tanto,
+     es quien almacena la ligadura), no en el espacio de nombres global ni en
+     ningún otro.
 
-  - El **ámbito** de una ligadura determina la **visibilidad** de una ligadura:
-    hasta dónde es _visible_ esa ligadura.
+     Por tanto, el espacio de nombres ha sido seleccionado a través del
+     operador punto (`.`), no en función del ámbito donde se ha ejecutado la
+     sentencia !PYTHON(math.x = 75).
 
-  - El **espacio de nombres** determina el **almacenamiento** de una ligadura:
-    dónde se _almacena_ esa ligadura.
+---
 
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**En resumen:**
 
-- Hasta ahora, todas las ligaduras las hemos definido en el ámbito global y se
-  almacenan en el espacio de nombres global.
+- El **ámbito** de una ligadura determina la **visibilidad** de la ligadura:
+  dónde es _visible_ esa ligadura.
 
-- Por tanto:
+- El **espacio de nombres** determina el **almacenamiento** de la ligadura:
+  dónde se _almacena_ esa ligadura.
 
-  - Como esas ligaduras se definen en el ámbito global, se dice que tienen
-    **ámbito global**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  - Como esas ligaduras se almacenan en el espacio de nombres global, se dice
-    que tienen **almacenamiento global**.
+- Cuando las ligaduras se definen en el ámbito global, se dice que tienen
+  **ámbito global**.
+
+- Cuando las ligaduras se almacenan en el espacio de nombres global, se dice
+  que tienen **almacenamiento global**.
 
 - Ampliaremos ahora el concepto de _ámbito_ para incluir los aspectos nuevos
   que incorporan las expresiones lambda.

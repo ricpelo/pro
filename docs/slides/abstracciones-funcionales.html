@@ -837,65 +837,145 @@ creación</em>, a partir de ahora supondremos que, cuando hablamos de
 ligadura</em>, si no se dice lo contrario.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="2.2.1.0.3">
+
+<ul>
+<li><p>Un caso especial ocurre con los atributos de los <em>objetos</em>
+de Python.</p></li>
+<li><p>Recordemos que, por ejemplo, cuando importamos un módulo usando
+la sentencia <code
+class="sourceCode python"><span class="im">import</span></code>, podemos
+acceder al objeto que representa ese módulo usando su nombre, lo que nos
+permite acceder a sus atributos y crear otros nuevos.</p></li>
+<li><p>Esos atributos y sus ligaduras correspondientes (tanto las ya
+existentes como las nuevas que podamos crear) sólo son visibles cuando
+accedemos a ellas usando el operador punto (<code>.</code>) a través del
+objeto donde se ha definido, que es quien determina el contexto válido
+en el que esos atributos son visibles.</p></li>
+<li><p>Por tanto, no son visibles fuera del objeto:</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.pi</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.141592653589793</span>     <span class="co"># El nombre &#39;pi&#39; es visible dentro del objeto</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> pi                <span class="co"># El nombre &#39;pi&#39; no es visible fuera del objeto</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;pi&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.4">
+
+<ul>
+<li><p>Igualmente, si creamos un nuevo atributo dentro del objeto, esa
+ligadura sólo existirá en el propio objeto y, por tanto, sólo será
+visible cuando accedamos al atributo a través del objeto donde se ha
+definido.</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.x <span class="op">=</span> <span class="dv">95</span>       <span class="co"># Creamos un nuevo atributo en el objeto</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.x            <span class="co"># El nombre &#39;x&#39; es visible dentro del objeto</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                 <span class="co"># El nombre &#39;x&#39; no es visible fuera del objeto</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<li><p>En resumen: al resolver el nombre de un atributo de un objeto, la
+visibilidad de su ligadura no vendrá definida por un determinado ámbito,
+sino por el <em>contexto</em> en el que se quiere acceder al
+atributo.</p>
+<p>Sólo podremos acceder al atributo si usamos el contexto adecuado, que
+en este caso es el objeto que contiene ese atributo.</p></li>
+</ul>
+</section>
 
 <section id="almacenamiento" class="title-slide slide level3"
 data-number="2.2.2">
 <h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
 Almacenamiento</h3>
-<div class="caja">
-<p><strong>Todo espacio de nombres va asociado a un ámbito</strong>
-(<em>de creación</em>), pero NO todos los ámbitos van asociados a un
-espacio de nombres.</p>
-</div>
 <ul>
-<li><p><strong>Ciertas construcciones sintácticas definen un <em>espacio
-de nombres</em></strong> (y, por tanto, también un ámbito).</p></li>
-<li><p>En este último caso, <strong>ese espacio de nombres almacenará
-las ligaduras</strong> que se crean dentro de ese ámbito.</p></li>
-<li><p>O sea: si el ámbito de creación de una ligadura va asociado a un
-espacio de nombres, la ligadura se almacenará en ese espacio de
-nombres.</p></li>
-<li><p>Si no, entonces la ligadura se almacenará en el espacio de
-nombres del ámbito de creación más interno que contenga al actual y que
-sí lleve asociado un espacio de nombres.</p></li>
-<li><p>El espacio de nombres que se usa para almacenar las ligaduras
-creadas en el ámbito actual se denomina el <strong>espacio de nombres
-actual</strong>.</p></li>
+<li><p>Las ligaduras se almacenan en <em>espacios de
+nombres</em>.</p></li>
+<li><p>Si una instrucción crea una ligadura, se denomina <strong>espacio
+de nombres actual</strong> al espacio de nombres donde se almacena dicha
+ligadura.</p></li>
+<li><p>El espacio de nombres actual, es decir, el espacio de nombres que
+el compilador o el intérprete selecciona para almacenar una ligadura,
+depende del <em>contexto</em> en el que se crea la ligadura.</p></li>
+<li><p>Tenemos dos posibilidades:</p>
+<ol type="1">
+<li><p>El espacio de nombres seleccionado depende del ámbito donde se
+crea la ligadura.</p></li>
+<li><p>El espacio de nombres seleccionado NO depende del ámbito donde se
+crea la ligadura.</p></li>
+</ol></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.2.0.1">
 
-<ul>
-<li><p>Por tanto, a la hora de almacenar una ligadura, se van mirando
-todos los ámbitos desde el ámbito actual, pasando por todos los ámbitos
-que incluyen a éste (en orden, de más interno a más externo), hasta
+<ol type="1">
+<li><p>Si el espacio de nombres seleccionado depende del ámbito donde se
+crea la ligadura, tenemos que:</p>
+<ol type="a">
+<li><p>Si el ámbito donde se crea la ligadura lleva asociado un espacio
+de nombres, ese espacio de nombres almacenará las ligaduras que se crean
+dentro de ese ámbito.</p></li>
+<li><p>Si no, entonces la ligadura se almacenará en el espacio de
+nombres del ámbito de creación más interno que contenga al actual y que
+sí lleve asociado un espacio de nombres.</p></li>
+</ol>
+<p>Por tanto, a la hora de almacenar una ligadura, se van mirando todos
+los ámbitos desde el ámbito actual, pasando por todos los ámbitos que
+incluyen a éste (en orden, de más interno a más externo), hasta
 encontrar el primer ámbito que lleve asociado un espacio de nombres.</p>
+<p>En todo caso, en Python, cuando el lugar donde se almacena la
+ligadura depende del ámbito donde se crea la ligadura, el espacio de
+nombres seleccionado será siempre un marco.</p></li>
+</ol>
+</section>
+<section class="slide level5" data-number="2.2.2.0.2">
+
+<ol start="2" type="1">
+<li><p>Si el espacio de nombres seleccionado NO depende del ámbito donde
+se crea la ligadura, entonces es porque la instrucción ya está indicando
+directamente el espacio de nombres apropiado.</p>
+<ul>
+<li><p>Esto es lo que ocurre cuando se crea una ligadura dentro de un
+objeto en Python usando el operador punto (<code>.</code>), ya que los
+objetos son espacios de nombres en este lenguaje.</p></li>
+<li><p>Por ejemplo, si en Python hacemos:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>math.x <span class="op">=</span> <span class="dv">75</span></span></code></pre></div>
+<p>estamos creando la ligadura <code>x</code> → <code>75</code> en el
+espacio de nombres que representa el módulo <code>math</code> (que es un
+objeto en Python y que, por tanto, es quien almacena la ligadura), no en
+el espacio de nombres global ni en ningún otro.</p>
+<p>Por tanto, el espacio de nombres ha sido seleccionado a través del
+operador punto (<code>.</code>), no en función del ámbito donde se ha
+ejecutado la sentencia <code
+class="sourceCode python">math.x <span class="op">=</span> <span class="dv">75</span></code>.</p></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level5" data-number="2.2.2.0.3">
+
 <div class="caja">
 <p><strong>En resumen:</strong></p>
 <ul>
 <li><p>El <strong>ámbito</strong> de una ligadura determina la
-<strong>visibilidad</strong> de una ligadura: hasta dónde es
-<em>visible</em> esa ligadura.</p></li>
+<strong>visibilidad</strong> de la ligadura: dónde es <em>visible</em>
+esa ligadura.</p></li>
 <li><p>El <strong>espacio de nombres</strong> determina el
-<strong>almacenamiento</strong> de una ligadura: dónde se
+<strong>almacenamiento</strong> de la ligadura: dónde se
 <em>almacena</em> esa ligadura.</p></li>
 </ul>
-</div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.2.2.0.2">
-
+</div>
 <ul>
-<li><p>Hasta ahora, todas las ligaduras las hemos definido en el ámbito
-global, por lo que se almacenan en el espacio de nombres
-global.</p></li>
-<li><p>Por tanto:</p>
-<ul>
-<li><p>Como esas ligaduras se definen en el ámbito global, se dice que
+<li><p>Cuando las ligaduras se definen en el ámbito global, se dice que
 tienen <strong>ámbito global</strong>.</p></li>
-<li><p>Como esas ligaduras se almacenan en el espacio de nombres global,
-se dice que tienen <strong>almacenamiento global</strong>.</p></li>
-</ul></li>
+<li><p>Cuando las ligaduras se almacenan en el espacio de nombres
+global, se dice que tienen <strong>almacenamiento
+global</strong>.</p></li>
 <li><p>Ampliaremos ahora el concepto de <em>ámbito</em> para incluir los
 aspectos nuevos que incorporan las expresiones lambda.</p></li>
 </ul>
@@ -912,8 +992,8 @@ class="title-slide slide level2" data-number="2.3">
 hablar del «<em>ámbito de creación de la ligadura que liga ese
 identificador con un valor</em>».</p></li>
 <li><p>Por ejemplo, en el siguiente <em>script</em>:</p>
-<div class="sourceCode" id="cb20"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span></code></pre></div>
 <p>tenemos que:</p>
 <ul>
 <li><p>En el ámbito global, se crea una ligadura que liga al
@@ -944,9 +1024,9 @@ identificador</strong>.</p></li>
 cuando no haya ninguna ambigüedad respecto a qué aparición concreta nos
 estamos refiriendo.</p></li>
 <li><p>Por ejemplo, en el siguiente <em>script</em>:</p>
-<div class="sourceCode" id="cb21"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)(<span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
 <p>el identificador <code class="sourceCode python">x</code> que aparece
 en la línea 1 y el identificador <code
 class="sourceCode python">x</code> que aparece en la línea 2 pertenecen
@@ -1099,11 +1179,11 @@ como ya hemos visto.</li>
 <h5 class="unnumbered unlisted">Ejemplo</h5>
 <ul>
 <li><p>En el siguiente <em>script</em>:</p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Aquí empieza el script (no hay más definiciones antes de esta línea):</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb22-3"><a href="#cb22-3"></a>y <span class="op">=</span> producto(<span class="dv">3</span>)</span>
-<span id="cb22-4"><a href="#cb22-4"></a>z <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span>       <span class="co"># da error</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Aquí empieza el script (no hay más definiciones antes de esta línea):</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb25-3"><a href="#cb25-3"></a>y <span class="op">=</span> producto(<span class="dv">3</span>)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>z <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span>       <span class="co"># da error</span></span></code></pre></div></li>
 <li><p>Hay dos ámbitos: (1) el ámbito global y (2) el ámbito local
 definido el cuerpo de la expresión lambda (la expresión <code
 class="sourceCode python">x <span class="op">*</span> x</code>).</p></li>
@@ -1287,8 +1367,8 @@ saliendo de ciertos ámbitos.</p></li>
 
 <ul>
 <li><p>Por ejemplo, en el siguiente código:</p>
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span></code></pre></div>
 <p>el cuerpo de la función <code class="sourceCode python">suma</code>
 define un nuevo ámbito.</p></li>
 <li><p>Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito
@@ -1377,12 +1457,12 @@ class="sourceCode python"><span class="pp">NameError</span></code>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>z <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a>suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</span>
-<span id="cb24-4"><a href="#cb24-4"></a>y <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>w <span class="op">=</span> <span class="dv">9</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>z <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>suma <span class="op">=</span> (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z)(<span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb27-4"><a href="#cb27-4"></a>y <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>w <span class="op">=</span> <span class="dv">9</span></span></code></pre></div></li>
 <li><p>A medida que vamos ejecutando cada línea del código, tendríamos
 los siguientes entornos:</p></li>
 </ul>
@@ -1462,13 +1542,13 @@ deben estar ligadas a algún valor en el entorno <strong>en el momento de
 <em>evaluar</em> la aplicación de la expresión lambda sobre unos
 argumentos</strong>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># aquí no da error</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)                     <span class="co"># aquí sí</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a>Traceback (most recent call last):</span>
-<span id="cb25-4"><a href="#cb25-4"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="pp">NameError</span>: name <span class="st">&#39;z&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># aquí no da error</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)                     <span class="co"># aquí sí</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>Traceback (most recent call last):</span>
+<span id="cb28-4"><a href="#cb28-4"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="pp">NameError</span>: name <span class="st">&#39;z&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div>
 <p>da error porque <code class="sourceCode python">z</code> no está
 definido (no está ligado a ningún valor en el entorno) en el momento de
 llamar a <code class="sourceCode python">prueba</code> en la línea
@@ -1479,11 +1559,11 @@ llamar a <code class="sourceCode python">prueba</code> en la línea
 
 <ul>
 <li><p>En cambio:</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="dv">16</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="dv">16</span></span></code></pre></div>
 <p>sí funciona (y devuelve <code
 class="sourceCode python"><span class="dv">16</span></code>) porque, en
 el momento de evaluar la aplicación de la expresión lambda (en la línea
@@ -1500,11 +1580,11 @@ lambda</strong>, o sea, cuando se llama a la expresión lambda.</p></li>
 <h5 class="unnumbered unlisted">Ejemplo</h5>
 <ul>
 <li><p>En el siguiente <em>script</em>:</p>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>w <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="dv">5</span> <span class="op">+</span> (<span class="kw">lambda</span> z: z <span class="op">+</span> <span class="dv">3</span>)(x <span class="op">+</span> y)</span>
-<span id="cb27-3"><a href="#cb27-3"></a>r <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb27-4"><a href="#cb27-4"></a>m <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>w <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="dv">5</span> <span class="op">+</span> (<span class="kw">lambda</span> z: z <span class="op">+</span> <span class="dv">3</span>)(x <span class="op">+</span> y)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>r <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb30-4"><a href="#cb30-4"></a>m <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)(<span class="dv">3</span>)</span></code></pre></div>
 <p>existen cuatro ámbitos:</p>
 <div class="centered">
 <p><img data-src="images/cuatro-ambitos.png" class="plain"
@@ -1634,9 +1714,9 @@ identificador.</p></li>
 identificadores que ya están ligados en el entorno, en un espacio de
 nombres asociado a un ámbito más global?</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>total <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 9</span></span></code></pre></div></li>
 <li><p>¿Cómo resuelve el intérprete de Python las distintas
 <code>x</code> que aparecen en el código? ¿Son la misma <code>x</code>?
 ¿Se corresponden con la misma ligadura? ¿Están todas esas <code>x</code>
@@ -1761,9 +1841,9 @@ al valor de la <code class="sourceCode python">x</code> que está fuera
 de la expresión lambda, lo que podemos hacer es <strong>cambiar el
 nombre</strong> al parámetro <code class="sourceCode python">x</code>.
 Por ejemplo:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> (<span class="kw">lambda</span> w: w <span class="op">*</span> x)(<span class="dv">3</span>)  <span class="co"># Su valor es 12</span></span></code></pre></div>
 <p>Así, tendremos en la expresión lambda una variable ligada (el
 parámetro <code class="sourceCode python">w</code>) y una variable libre
 (el identificador <code class="sourceCode python">x</code> ligado en el
@@ -1794,12 +1874,12 @@ lambda.</p></li>
 <li><p>Un ejemplo de α-conversión es la que hicimos antes.</p></li>
 <li><p>La α-conversión hay que hacerla correctamente para evitar efectos
 indeseados. Por ejemplo, en:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
 <p>si renombramos <code class="sourceCode python">x</code> a <code
 class="sourceCode python">z</code> tendríamos:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> z, y: z <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div>
 <p>lo que es claramente incorrecto. A este fenómeno indeseable se le
 denomina <strong>captura de variables</strong>.</p></li>
 </ul>
@@ -1842,11 +1922,11 @@ Pythontutor</a></p>
 <h5 class="unnumbered unlisted">Ejercicio</h5>
 <ol class="example" type="1">
 <li><p>En el <em>script</em> anterior:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>w <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="dv">5</span> <span class="op">+</span> (<span class="kw">lambda</span> z: z <span class="op">+</span> <span class="dv">3</span>)(x <span class="op">+</span> y)</span>
-<span id="cb32-3"><a href="#cb32-3"></a>r <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb32-4"><a href="#cb32-4"></a>m <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>w <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="dv">5</span> <span class="op">+</span> (<span class="kw">lambda</span> z: z <span class="op">+</span> <span class="dv">3</span>)(x <span class="op">+</span> y)</span>
+<span id="cb35-3"><a href="#cb35-3"></a>r <span class="op">=</span> f(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb35-4"><a href="#cb35-4"></a>m <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>)(<span class="dv">3</span>)</span></code></pre></div>
 <p>indicar:</p>
 <ol type="a">
 <li><p>Los identificadores.</p></li>
@@ -1936,19 +2016,19 @@ denomina <strong>paso de argumentos por valor</strong>
 
 <ul>
 <li><p>Por ejemplo, si tenemos la siguiente función:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
 <p>según el orden aplicativo, la expresión <code
 class="sourceCode python">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</code>
 se reduce así:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)               <span class="co"># definición de cuadrado</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 3 y devuelve 3</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 4 y devuelve 4</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 3 + 4 y devuelve 7</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">7</span>)        <span class="co"># aplicación a 7</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>)                     <span class="co"># evalúa (7 * 7) y devuelve 49</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)               <span class="co"># definición de cuadrado</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 3 y devuelve 3</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 4 y devuelve 4</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># evalúa 3 + 4 y devuelve 7</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">7</span>)        <span class="co"># aplicación a 7</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>)                     <span class="co"># evalúa (7 * 7) y devuelve 49</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1978,22 +2058,22 @@ denomina <strong>paso de argumentos por nombre</strong>
 
 <ul>
 <li><p>Por ejemplo, si tenemos la siguiente función:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span></code></pre></div>
 <p>según el orden normal, la expresión <code
 class="sourceCode python">cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)</code>
 se reduce así:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)               <span class="co"># definición de cuadrado</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># aplicación a (3 + 4)</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa 3 y devuelve 3</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa 4 y devuelve 4</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa (3 + 4) y devuelve 7</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa 3 y devuelve 3</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa 4 y devuelve 4</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa (3 + 4) y devuelve 7</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>                       <span class="co"># evalúa 7 * 7 y devuelve 49</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cuadrado(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)               <span class="co"># definición de cuadrado</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)    <span class="co"># aplicación a (3 + 4)</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa 3 y devuelve 3</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa 4 y devuelve 4</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>) <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>))         <span class="co"># evalúa (3 + 4) y devuelve 7</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa 3 y devuelve 3</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa 4 y devuelve 4</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">+</span> <span class="dv">4</span>)                 <span class="co"># evalúa (3 + 4) y devuelve 7</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">7</span> <span class="op">*</span> <span class="dv">7</span>                       <span class="co"># evalúa 7 * 7 y devuelve 49</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">49</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2006,24 +2086,24 @@ Composición de funciones</h3>
 <li><p>Podemos crear una función que use otra función. Por ejemplo, para
 calcular el área de un círculo usamos otra función que calcule el
 cuadrado de un número:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
 <li><p>La expresión <code
 class="sourceCode python">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)</code>
 se evaluaría así según el <em>orden aplicativo</em>:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 11 y devuelve 11</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 1 y devuelve 1</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 11 + 1 y devuelve 12</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)      <span class="co"># aplicación a 12</span></span>
-<span id="cb38-6"><a href="#cb38-6"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))                   <span class="co"># evalúa 3.1416 y devuelve 3.1416</span></span>
-<span id="cb38-7"><a href="#cb38-7"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))                   <span class="co"># definición de cuadrado</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))          <span class="co"># aplicación a 12</span></span>
-<span id="cb38-9"><a href="#cb38-9"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># evalúa (12 * 12) y devuelve 144</span></span>
-<span id="cb38-10"><a href="#cb38-10"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># evalúa (3.1416 * 11) y...</span></span>
-<span id="cb38-11"><a href="#cb38-11"></a><span class="op">=</span> <span class="fl">452.3904</span>                                  <span class="co"># ... devuelve 452.3904</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 11 y devuelve 11</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 1 y devuelve 1</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># evalúa 11 + 1 y devuelve 12</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">12</span>)      <span class="co"># aplicación a 12</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))                   <span class="co"># evalúa 3.1416 y devuelve 3.1416</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">12</span>))                   <span class="co"># definición de cuadrado</span></span>
+<span id="cb41-8"><a href="#cb41-8"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">12</span>))          <span class="co"># aplicación a 12</span></span>
+<span id="cb41-9"><a href="#cb41-9"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># evalúa (12 * 12) y devuelve 144</span></span>
+<span id="cb41-10"><a href="#cb41-10"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># evalúa (3.1416 * 11) y...</span></span>
+<span id="cb41-11"><a href="#cb41-11"></a><span class="op">=</span> <span class="fl">452.3904</span>                                  <span class="co"># ... devuelve 452.3904</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.2.0.1">
@@ -2064,17 +2144,17 @@ class="sourceCode python"><span class="dv">12</span></code>.</p></li>
 <li><p>La expresión <code
 class="sourceCode python">area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)</code>
 se evaluaría así según el <em>orden normal</em>:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># aplicación a (11 + 1)</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># evalúa 3.1416 y devuelve 3.1416</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># definición de cuadrado</span></span>
-<span id="cb39-5"><a href="#cb39-5"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))      <span class="co"># aplicación a (11 + 1)</span></span>
-<span id="cb39-6"><a href="#cb39-6"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> ((<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))          <span class="co"># evalúa (11 + 1) y devuelve 12</span></span>
-<span id="cb39-7"><a href="#cb39-7"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))                <span class="co"># evalúa (11 + 1) y devuelve 12</span></span>
-<span id="cb39-8"><a href="#cb39-8"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># evalúa (12 * 12) y devuelve 144</span></span>
-<span id="cb39-9"><a href="#cb39-9"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># evalúa (3.1416 * 144) y...</span></span>
-<span id="cb39-10"><a href="#cb39-10"></a><span class="op">=</span> <span class="fl">452.3904</span>                                  <span class="co"># ... devuelve 452.3904</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>area(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)                                <span class="co"># definición de area</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="op">=</span> (<span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r))(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># aplicación a (11 + 1)</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># evalúa 3.1416 y devuelve 3.1416</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> cuadrado(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))               <span class="co"># definición de cuadrado</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="kw">lambda</span> x: x <span class="op">*</span> x)(<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>))      <span class="co"># aplicación a (11 + 1)</span></span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> ((<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))          <span class="co"># evalúa (11 + 1) y devuelve 12</span></span>
+<span id="cb42-7"><a href="#cb42-7"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> (<span class="dv">11</span> <span class="op">+</span> <span class="dv">1</span>)))                <span class="co"># evalúa (11 + 1) y devuelve 12</span></span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> (<span class="dv">12</span> <span class="op">*</span> <span class="dv">12</span>))                      <span class="co"># evalúa (12 * 12) y devuelve 144</span></span>
+<span id="cb42-9"><a href="#cb42-9"></a><span class="op">=</span> (<span class="fl">3.1416</span> <span class="op">*</span> <span class="dv">144</span>)                            <span class="co"># evalúa (3.1416 * 144) y...</span></span>
+<span id="cb42-10"><a href="#cb42-10"></a><span class="op">=</span> <span class="fl">452.3904</span>                                  <span class="co"># ... devuelve 452.3904</span></span></code></pre></div></li>
 <li><p>En ambos casos (orden aplicativo y orden normal) se obtiene el
 mismo resultado.</p></li>
 </ul>
@@ -2116,12 +2196,12 @@ operadores en una misma expresión.</p></li>
 <li><p>En ese caso, puede resultar útil reescribir los operadores como
 funciones, cuando sea posible.</p></li>
 <li><p>Por ejemplo, la siguiente expresión:</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">+</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">+</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</span></code></pre></div>
 <p>se puede reescribir como:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>add(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>), <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>add(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>), <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>))</span></code></pre></div>
 <p>lo que muestra claramente que la suma es más externa que el valor
 absoluto y el máximo (que están, a su vez, al mismo nivel de
 profundidad).</p></li>
@@ -2131,12 +2211,12 @@ profundidad).</p></li>
 
 <ul>
 <li><p>Un ejemplo más complicado:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">*</span> <span class="bu">max</span>((<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">**</span> <span class="dv">5</span>), <span class="dv">37</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">*</span> <span class="bu">max</span>((<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">**</span> <span class="dv">5</span>), <span class="dv">37</span>)</span></code></pre></div>
 <p>se reescribiría como:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add, mul</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>mul(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>), <span class="bu">max</span>(<span class="bu">pow</span>(add(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dv">5</span>), <span class="dv">37</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add, mul</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>mul(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>), <span class="bu">max</span>(<span class="bu">pow</span>(add(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dv">5</span>), <span class="dv">37</span>))</span></code></pre></div>
 <p>donde se aprecia claramente que el orden de las operaciones, de más
 interna a más externa, sería:</p>
 <ol type="1">
@@ -2176,14 +2256,14 @@ calcular el valor de la expresión.</p></li>
 <li><p>Sabemos que la expresión <code
 class="sourceCode python"><span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></code>
 da un error de <em>división por cero</em>:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ZeroDivisionError</span>: division by zero</span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ZeroDivisionError</span>: division by zero</span></code></pre></div></li>
 <li><p>Supongamos que tenemos la siguiente definición:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>primero <span class="op">=</span> <span class="kw">lambda</span> x, y: x</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>primero <span class="op">=</span> <span class="kw">lambda</span> x, y: x</span></code></pre></div>
 <p>de forma que <code class="sourceCode python">primero</code> es una
 función que simplemente devuelve el primero de sus argumentos.</p></li>
 <li><p>Es evidente que la función <code
@@ -2199,8 +2279,8 @@ class="sourceCode python"><span class="dv">4</span></code>.</p></li>
 
 <ul>
 <li><p>Sabiendo eso… ¿qué valor devolvería la siguiente expresión?</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>primero(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>primero(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>)</span></code></pre></div></li>
 <li><p>Curiosamente, el resultado dependerá de si la evaluación es
 estricta o perezosa:</p>
 <ul>
@@ -2218,8 +2298,8 @@ sin evaluar el segundo, no dará error y devolverá directamente <code
 class="sourceCode python"><span class="dv">4</span></code>.</p>
 <p>Es lo que ocurre cuando se evalúa siguiendo el <strong>orden
 normal</strong>:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>primero(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>) <span class="op">=</span> (<span class="kw">lambda</span> x, y: x)(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>) <span class="op">=</span> (<span class="dv">4</span>) <span class="op">=</span> <span class="dv">4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>primero(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>) <span class="op">=</span> (<span class="kw">lambda</span> x, y: x)(<span class="dv">4</span>, <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span>) <span class="op">=</span> (<span class="dv">4</span>) <span class="op">=</span> <span class="dv">4</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
@@ -2326,11 +2406,11 @@ valor que depende, no sólo de los valores de <code
 class="sourceCode python">x</code> e <code
 class="sourceCode python">y</code>, sino también del valor de <code
 class="sourceCode python">z</code>:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.1">
@@ -2339,9 +2419,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a h
 <li><p>En este otro ejemplo, escribimos una expresión lambda que calcula
 la suma de tres números a partir de otra expresión lambda que calcula la
 suma de dos números:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
 <p>En este caso, hay un identificador (<code
 class="sourceCode python">suma</code>) que no aparece en la lista de
 parámetros de la expresión lambda <code
@@ -2387,15 +2467,15 @@ valores.</p></li>
 <li><p>Por ejemplo, las siguientes expresiones lambda están ordenadas de
 mayor a menor pureza, siendo la primera totalmente
 <strong>pura</strong>:</p>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus variables libres (en este</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su variable libre (z) no es una función:</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus variables libres (en este</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su variable libre (z) no es una función:</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
 <li><p><strong>La pureza de una función es un rasgo deseado y que hay
 que tratar de alcanzar siempre que sea posible</strong>, ya que facilita
 el desarrollo y mantenimiento de los programas, además de simplificar el
@@ -2416,9 +2496,9 @@ funciones como abstracciones</h2>
 <ul>
 <li><p>Recordemos la definición de la función <code
 class="sourceCode python">area</code>:</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
 <li><p>Aunque es muy sencilla, la función <code
 class="sourceCode python">area</code> ejemplifica la propiedad más
 potente de las funciones definidas por el programador: la
@@ -2455,10 +2535,10 @@ función que calcule el cuadrado de un número.</p></li>
 las tres funciones siguientes son indistinguibles e igual de válidas
 para <code class="sourceCode python">area</code>. Ambas reciben un
 argumento numérico y devuelven el cuadrado de ese número:</p>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
 <li><p>En otras palabras: la definición de una función debe ser capaz de
 <strong>ocultar sus detalles internos de funcionamiento</strong>, ya que
 para usar la función no debe ser necesario conocer esos
@@ -2497,10 +2577,10 @@ conocer los detalles internos del procesamiento que realizan.</p></li>
 class="sourceCode python">cubo</code> (que calcula el cubo de un
 número), nos da igual que dicha función esté implementada de cualquiera
 de las siguientes maneras:</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Para <strong>usar</strong> la función, nos basta con saber que
 calcula el cubo de un número, sin necesidad de saber qué cálculo
 concreto realiza para obtener el resultado.</p></li>
@@ -2518,8 +2598,8 @@ cuáles sean esos valores en concreto (son
 <strong><em>generalizaciones</em></strong> de casos
 particulares).</p></li>
 <li><p>Por ejemplo, cuando definimos:</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
 <p>no estamos hablando del cubo de un número en particular, sino más
 bien de un <strong>método</strong> para calcular el cubo de cualquier
 número.</p></li>

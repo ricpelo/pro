@@ -2288,26 +2288,46 @@ class="title-slide slide level3" data-number="4.5.1">
 <h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span>
 Resolución de identificadores</h3>
 <ul>
-<li><p>Durante la evaluación de la expresión, el intérprete tiene que
-comprobar si el identificador que aparece en la expresión está ligado o
-no.</p>
+<li><p>Durante la evaluación de una expresión, para cada uno de los
+diferentes identificadores que aparecen en ella, habrá que comprobar si
+ese identificador está ligado y a qué valor.</p>
 <ul>
 <li><p>Si no está ligado, es un error de <em>nombre no
 definido</em>.</p></li>
-<li><p>Si lo está, tendrá que determinar a qué valor está ligado para
-poder sustituir, en la expresión, cada aparición del identificador por
-su valor.</p></li>
+<li><p>En caso contrario, tendrá que determinar a qué valor está ligado
+para poder sustituir, en la expresión, cada aparición del identificador
+por su valor.</p></li>
 </ul></li>
-<li><p>Para ello, buscará una ligadura con ese identificador en el
-espacio de nombres correspondiente.</p></li>
-<li><p>Por ahora, el espacio de nombres donde lo busca tendrá que ser el
-marco global, ya que es el único que existe hasta ahora.</p></li>
+<li><p>Para ello, habrá que buscar una ligadura con ese identificador en
+uno o varios espacios de nombres.</p></li>
 <li><p>El proceso de localizar (si es que existe) la ligadura adecuada
 que liga a un identificador con su valor, se denomina <strong>resolución
 del identificador</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.5.1.0.1">
+
+<ul>
+<li><p>Los espacios de nombres donde se buscan las ligaduras para ese
+identificador dependerán del <em>contexto</em> en el que se está
+intentando resolver dicho identificador.</p></li>
+<li><p>Por ejemplo, en el siguiente código:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
+<p>se busca una ligadura para <code>x</code> en el marco
+global.</p></li>
+<li><p>En cambio, si se intenta acceder a un atributo de un objeto:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.pi</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.141592653589793</span></span></code></pre></div>
+<p>se busca una ligadura para <code>pi</code> en el espacio de nombres
+asociado al módulo <code>math</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.5.1.0.2">
 
 <ul>
 <li><p>La resolución de identificadores es un proceso que usa mecanismos
@@ -2362,8 +2382,8 @@ class="sourceCode python"><span class="im">from</span></code> dentro de
 la sesión actual.</p>
 <p>Por ejemplo, para cargar un <em>script</em> llamado
 <code>definiciones.py</code>, usaremos:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>Observar que en el <code
 class="sourceCode python"><span class="im">from</span></code> se pone el
 nombre del script pero <strong>sin la extensión
@@ -2371,9 +2391,9 @@ nombre del script pero <strong>sin la extensión
 <li><p>Iniciar una nueva sesión con el intérprete interactivo
 indicándole que cargue el <em>script</em> mediante la opción
 <code>-i</code> en la línea de órdenes del sistema operativo:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python -i definiciones.py</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python -i definiciones.py</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;</span></code></pre></div>
 <p>En este caso <strong>sí</strong> se pone el nombre completo del
 script, <strong>con la extensión <code>.py</code></strong>.</p></li>
 </ol></li>
@@ -2387,22 +2407,22 @@ usar las definiciones que se hayan cargado desde del
 <em>script</em>.</p></li>
 <li><p>Por ejemplo, si el <em>script</em> <code>definiciones.py</code>
 tiene el siguiente contenido:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">14</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">14</span></span></code></pre></div></li>
 <li><p>Al cargar el <em>script</em> (usando cualquiera de las dos
 opciones que hemos visto anteriormente) se ejecutarán sus instrucciones
 (las dos definiciones) y, en consecuencia, se crearán en el marco global
 las ligaduras <code>x</code> → <code>25</code> y <code>j</code> →
 <code>14</code>:</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># antes de cargar el script, da error</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span>          <span class="co"># aquí cargamos el script, y ahora</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># la x sí está ligada a un valor</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># antes de cargar el script, da error</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span>          <span class="co"># aquí cargamos el script, y ahora</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># la x sí está ligada a un valor</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.0.0.3">
@@ -2414,18 +2434,18 @@ creado en el mismo <em>script</em></strong> (exceptuando las
 definiciones predefinidas del lenguaje).</p></li>
 <li><p>Por ejemplo, si tenemos el siguiente <em>script</em> llamado
 <code>prueba.py</code>:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
 <p>donde se intenta ligar a <code>j</code> el valor ligado a
 <code>w</code> más uno, lo siguiente no funcionará:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> w <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> prueba <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;/home/ricardo/python/prueba.py&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;w&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> w <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> prueba <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;/home/ricardo/python/prueba.py&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;w&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 <li><p>Aunque <code>w</code> esté ligado a un valor al cargar el
 <em>script</em>, éste no podrá acceder a esa ligadura y da error de
 «<em>nombre no definido</em>».</p></li>
@@ -2506,22 +2526,22 @@ Identificadores significativos</h2>
 <ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
 <p>que</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
 <p>aunque ambos programas sean equivalentes en cuanto al efecto que
 producen y el resultado que generan.</p></li>
 <li><p>Si el identificador representa varias palabras, se puede usar el
 carácter de guión bajo (<code>_</code>) para separarlas y formar un
 único identificador:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2538,11 +2558,11 @@ continuación de un espacio en blanco o una porción de código.</p></li>
 cadena.</p>
 <p>Un carácter <code>#</code> dentro de un literal cadena es sólo un
 carácter más.</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.1">
@@ -2550,14 +2570,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 <ul>
 <li><p>Cuando un comentario ocupa varias líneas, se puede usar el
 «truco» de poner una cadena con triples comillas:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Python evaluará la cadena pero, al no usarse dentro de ninguna
 expresión ni ligarse a ningún identificador, simplementa la ignorará
 (como un comentario).</p></li>
