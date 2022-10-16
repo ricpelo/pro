@@ -1525,7 +1525,7 @@ $$
 - Por ejemplo, la función !PYTHON(abs), que está predefinida en Python, podría
   tener la siguiente signatura:
 
-  `abs(`$x$`:` `int)` `->` `int`
+  $\texttt{abs(!VAR(x):\,int)\;->\;int}$
 
 - Esa signatura nos dice que:
 
@@ -1560,15 +1560,15 @@ $$
 
   - En Python:
 
-    `abs(`$x$`:` `int)` `->` `int`
+    $\texttt{abs(!VAR(x):\,int)\;->\;int}$
 
-    `pow(`$base$`:` `float,` $exp$`:` `float)` `->` `float`
+    $\texttt{pow(!VAR(base):\,float,\;!VAR(exp):\,float)\;->\;float}$
 
   - En Java:
 
-    `int abs(int`\ \  $x$`)`
+    $\texttt{int abs(int\;\,!VAR(x))}$
 
-    `double pow(double`\ \  $base$`, double`\ \  $exp$`)`
+    $\texttt{double pow(double\;\,!VAR(base),\;double\;\,!VAR(exp))}$
 
 ---
 
@@ -1700,7 +1700,7 @@ $$
 - Otro ejemplo es la función !PYTHON(len), que devuelve la longitud de una
   cadena (el número de caracteres que contiene). Su signatura sería:
 
-  `len(`$cadena$`: str) -> int`
+  $\texttt{len(!VAR(cadena):\,str)\;->\;int}$
 
 - Un ejemplo de llamada a la función !PYTHON(len):
 
@@ -1729,7 +1729,7 @@ $$
 - Otro ejemplo es la función !PYTHON(pow), que realiza la operación de elevar
   un número a la potencia de otro. Su signatura (simplificada) podría ser:
 
-  `pow(`$base$`: int,` ` `$exp$`: int) -> int`
+  $\texttt{pow(!VAR(base):\,int,\;!VAR(exp):\,int)\;->\;int}$
 
 - Curiosamente, la misma operación existe en Python de dos formas diferentes:
 

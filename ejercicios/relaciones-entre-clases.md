@@ -61,9 +61,7 @@ author:
    `add` añade nuevas notas musicales. La clase también dispone del método
    abstracto `interpretar` con la siguiente signatura:
 
-    ```python
-    interpretar() -> None
-    ```
+    $\texttt{interpretar()\;->\;\,None}$
 
     que, en cada subclase que herede de `Instrumento`, mostrará por la salida
     las notas musicales según las interprete. Las notas serán constantes

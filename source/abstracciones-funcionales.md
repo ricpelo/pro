@@ -2589,7 +2589,7 @@ cg [label = "(caso general)"]
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(\texttt{len(!VAR(car))} = 1)
-  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str, !VAR(car):\,str)\;->\;int})
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
   !POST(\texttt{cuenta(!VAR(cadena),\;!VAR(car))} = cadena\texttt{.count(!VAR(car))})
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2604,7 +2604,7 @@ cg [label = "(caso general)"]
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(car \text{ debe ser un único carácter})
-  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str, !VAR(car):\,str)\;->\;int})
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
   !POST
   ~~~~~~~~~~~~~~~~~~~~~~~~~
     \texttt{cuenta(!VAR(cadena),\;!VAR(car))} \text{ devuelve el número de veces}

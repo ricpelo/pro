@@ -23,8 +23,8 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(b \geq 0)
-   !SIGNAT(\texttt{potencia(!VAR(a\,): int, !VAR(b\,): int) -> int})
-   !POST(\texttt{potencia(!VAR(a), !VAR(b))}=a^{b})
+   !SIGNAT(\texttt{potencia(!VAR(a):\,int,\;!VAR(b):\,int)\;->\;\,int})
+   !POST(\texttt{potencia(!VAR(a),\;!VAR(b))}=a^{b})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    #. Implementar la función de forma no recursiva.
@@ -36,8 +36,8 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(n \geq 0)
-   !SIGNAT(\texttt{repite(!VAR(s\,): str, !VAR(n\,): int) -> str})
-   !POST(\texttt{repite(!VAR(s), !VAR(n))}=s\texttt{ * }n)
+   !SIGNAT(\texttt{repite(!VAR(s):\,str,\;!VAR(n):\,int)\;->\;\,str})
+   !POST(\texttt{repite(!VAR(s),\;!VAR(n))}=s\texttt{ * }n)
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Implementar la función de forma recursiva.
@@ -144,10 +144,10 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{elem(!VAR(e), !VAR(t\,): tuple) -> bool})
+   !SIGNAT(\texttt{elem(!VAR(e),\;!VAR(t):\,tuple)\;->\;\,bool})
    !POST
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-   \texttt{elem(!VAR(e), !VAR(t))} = \begin{cases}\texttt{True} & \text{si \emph{e} está en \emph{t}}\\\texttt{False} & \text{en caso contrario}\end{cases}
+   \texttt{elem(!VAR(e),\;!VAR(t))} = \begin{cases}\texttt{True} & \text{si \emph{e} está en \emph{t}}\\\texttt{False} & \text{en caso contrario}\end{cases}
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -158,8 +158,8 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{cuantos(!VAR(e), !VAR(t\,): tuple) -> int})
-   !POST(\texttt{cuantos(!VAR(e), !VAR(t))} = \text{el número de veces que aparece \emph{e} en \emph{t}})
+   !SIGNAT(\texttt{cuantos(!VAR(e),\;!VAR(t):\,tuple)\;->\;\,int})
+   !POST(\texttt{cuantos(!VAR(e),\;!VAR(t))} = \text{el número de veces que aparece \emph{e} en \emph{t}})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Escribir una función recursiva que satisfaga dicha especificación y que
@@ -174,8 +174,8 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{quita(!VAR(e), !VAR(t\,): tuple) -> tuple})
-   !POST(\texttt{quita(!VAR(e), !VAR(t))} = \text{una tupla igual que \emph{t} pero sin los \emph{e}})
+   !SIGNAT(\texttt{quita(!VAR(e),\;!VAR(t):\,tuple)\;->\;\,tuple})
+   !POST(\texttt{quita(!VAR(e),\;!VAR(t))} = \text{una tupla igual que \emph{t} pero sin los \emph{e}})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Escribir una función recursiva que satisfaga dicha especificación y que
@@ -190,10 +190,10 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{sustituye(!VAR(a), !VAR(b), !VAR(t\,): tuple) -> tuple})
+   !SIGNAT(\texttt{sustituye(!VAR(a),\;!VAR(b),\;!VAR(t):\,tuple)\;->\;\,tuple})
    !POST
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     \texttt{sustituye(!VAR(a), !VAR(b), !VAR(t))} = \text{una tupla igual que \emph{t} pero}
+     \texttt{sustituye(!VAR(a),\;!VAR(b),\;!VAR(t))} = \text{una tupla igual que \emph{t} pero}
    & \text{sustituyendo los \emph{a} por \emph{b}}
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,7 +210,7 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(t \neq \texttt{()})
-   !SIGNAT(\texttt{ultimo(!VAR(t\,): tuple)})
+   !SIGNAT(\texttt{ultimo(!VAR(t):\,tuple)})
    !POST(\texttt{ultimo(!VAR(t))} = \text{el último elemento de \emph{t}})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -221,8 +221,8 @@ author:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(t \neq \texttt{()} \land 0 \leq n < \texttt{len(!VAR(t))})
-   !SIGNAT(\texttt{enesimo(!VAR(n\,): int, !VAR(t\,): tuple)})
-   !POST(\texttt{enesimo(!VAR(n), !VAR(t))} = \text{el \emph{n}-ésimo elemento de \emph{t}})
+   !SIGNAT(\texttt{enesimo(!VAR(n):\,int,\;!VAR(t):\,tuple)})
+   !POST(\texttt{enesimo(!VAR(n),\;!VAR(t))} = \text{el \emph{n}-ésimo elemento de \emph{t}})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Escribir una función recursiva que satisfaga dicha especificación.
@@ -263,8 +263,8 @@ author:
     #. !ESPECINLINE
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        !PRE(a \geq 0)
-       !SIGNAT(\texttt{suma\_lenta(!VAR(a\,): int, !VAR(b\,): int) -> int})
-       !POST(\texttt{suma\_lenta(!VAR(a), !VAR(b))} = a + b)
+       !SIGNAT(\texttt{suma\_lenta(!VAR(a):\,int,\;!VAR(b):\,int)\;->\;\,int})
+       !POST(\texttt{suma\_lenta(!VAR(a),\;!VAR(b))} = a + b)
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #.
@@ -277,7 +277,7 @@ author:
     #. !ESPECINLINE
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        !PRE(n \geq 0)
-       !SIGNAT(\texttt{suma\_digitos(!VAR(n\,): int) -> int})
+       !SIGNAT(\texttt{suma\_digitos(!VAR(n):\,int)\;->\;\,int})
        !POST(\texttt{suma\_digitos(!VAR(n))} = \text{la suma de los dígitos de \emph{n}})
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -291,7 +291,7 @@ author:
     #. !ESPECINLINE
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        !PRE(n \geq 0)
-       !SIGNAT(\texttt{voltea(!VAR(n\,): int) -> int})
+       !SIGNAT(\texttt{voltea(!VAR(n):\,int)\;->\;\,int})
        !POST(\texttt{voltea(!VAR(n))} = \text{el número \emph{n} con los dígitos al revés})
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -306,7 +306,7 @@ author:
     #. !ESPECINLINE
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        !PRE(n \geq 0)
-       !SIGNAT(\texttt{par\_positivo(!VAR(n\,): int) -> bool}) \\[-1.2em]
+       !SIGNAT(\texttt{par\_positivo(!VAR(n):\,int)\;->\;\,bool}) \\[-1.2em]
        !POST
        ~~~~~~~~~~~~~~~~~~~~~~~~~~
        \texttt{par\_positivo(!VAR(n))} = \begin{cases}\texttt{True} & \text{si \emph{n} es par}\\\texttt{False} & \text{en caso contrario}\end{cases}
@@ -325,7 +325,7 @@ author:
    #. !ESPECINLINE
       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       !PRE(\texttt{True})
-      !SIGNAT(\texttt{par(n: int) -> bool}) \\[-1.2em]
+      !SIGNAT(\texttt{par(n:\,int)\;->\;\,bool}) \\[-1.2em]
       !POST
       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       \texttt{par(!VAR(n))} = \begin{cases}\texttt{True} & \textrm{si \emph{n} es par }\\ \texttt{False} & \textrm{en caso contrario}\end{cases}

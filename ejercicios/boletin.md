@@ -270,8 +270,8 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
 
 #. Pedir diez números enteros por teclado y mostrar la media.
 
-#. Implementar un programa que pida al usuario un número comprendido entre 1 y 10.
-   Hay que mostrar la tabla de multiplicar de dicho número, asegurándose de
+#. Implementar un programa que pida al usuario un número comprendido entre 1 y
+   10. Hay que mostrar la tabla de multiplicar de dicho número, asegurándose de
    que el número introducido se encuentra en el rango establecido.
 
 #. Diseñar un programa que muestre las tablas de multiplicar del 1 al 10.
@@ -394,10 +394,10 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(n \geq 0)
-   !SIGNAT(\texttt{es\_primo(!VAR(n\,): int) -> bool})
+   !SIGNAT(\texttt{es\_primo(!VAR(n):\,int)\;->\;bool})
    !POST
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-   \texttt{es\_primo(!VAR(n\,))} = \begin{cases}\texttt{True} & \text{si \emph{n} es primo}\\\texttt{False} & \text{en caso contrario}\end{cases}
+   \texttt{es\_primo(!VAR(n))} = \begin{cases}\texttt{True} & \text{si \emph{n} es primo}\\\texttt{False} & \text{en caso contrario}\end{cases}
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -425,11 +425,11 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{es\_primo(!VAR(x_1\,): float, !VAR(y_1\,): float, !VAR(x_2\,): float, !VAR(y_2\,): float) -> float})
+   !SIGNAT(\texttt{es\_primo(!VAR(x_1):\,float,\;!VAR(y_1):\,float,\;!VAR(x_2):\,float,\;!VAR(y_2):\,float)\;->\;float})
    !POST
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-     \texttt{es\_primo(!VAR(x_1), !VAR(y_1), !VAR(x_2), !VAR(y_2))} = \text{la distancia euclídea de}
-   & \hspace{5.15cm} \text{los puntos } (x_1,y_1) \text{ y } (x_2,y_2)
+     \texttt{es\_primo(!VAR(x_1),\;!VAR(y_1),\;!VAR(x_2),\;!VAR(y_2))} = \text{la distancia euclídea de}
+   & \hspace{4.87cm} \text{los puntos } (x_1,y_1) \text{ y } (x_2,y_2)
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -487,7 +487,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(longitud \geq 0 \land fin \geq 2)
-   !SIGNAT(\texttt{rellena\_pares(!VAR(longitud\,): int, !VAR(fin\,): int) -> List[int]})
+   !SIGNAT(\texttt{rellena\_pares(!VAR(longitud):\,int,\;!VAR(fin):\,int)\;->\;List[int]})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
    que crea y devuelve una lista ordenada de la longitud especificada, rellena
@@ -498,7 +498,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{buscar(!VAR(lista\,): List[int], !VAR(clave\,): int) -> int})
+   !SIGNAT(\texttt{buscar(!VAR(lista):\,List[int],\;!VAR(clave):\,int)\;->\;int})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    que busca de forma secuencial el valor $clave$ en la lista $lista$. En caso
@@ -522,7 +522,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{eliminar\_mayores(!VAR(lista\,): List[int], !VAR(valor\,): int) -> List[int]})
+   !SIGNAT(\texttt{eliminar\_mayores(!VAR(lista):\,List[int],\;!VAR(valor):\,int)\;->\;List[int]})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    que crea y devuelve una copia de la lista $lista$ donde se han eliminado
@@ -559,7 +559,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{buscar\_todos(!VAR(lista\,): List[int], !VAR(clave\,): int) -> List[int]})
+   !SIGNAT(\texttt{buscar\_todos(!VAR(lista):\,List[int],\;!VAR(clave):\,int)\;->\;List[int]})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    que crea y devuelve una lista con todos los índices de los elementos donde
@@ -599,7 +599,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{suma(!VAR(lista\,): List[int], !VAR(num\_elem\,): int) -> List[int]})
+   !SIGNAT(\texttt{suma(!VAR(lista):\,List[int],\;!VAR(num\_elem):\,int)\;->\;List[int]})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    que crea y devuelve una lista con las sumas de los $num\_elem$ elementos
@@ -690,8 +690,13 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{len(!VAR(c))} = 1)
-   !SIGNAT(\texttt{codifica(!VAR(sec1\,): str, !VAR(sec2\,): str, !VAR(c\,): str) -> str})
-   !POST(\texttt{len(codifica(!VAR(sec1), !VAR(sec2), !VAR(c)))} = 1)
+   !SIGNAT(\texttt{codifica(!VAR(sec_1):\,str,\;!VAR(sec_2):\,str,\;!VAR(c):\,str)\;->\;str})
+   !POST
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     \texttt{len(codifica(!VAR(sec_1),\;!VAR(sec_2),\;!VAR(c)))} = 1\;\land
+   & c \in sec_1 \rightarrow \texttt{codifica(!VAR(sec_1),\;!VAR(sec_2),\;!VAR(c))} = \text{el correspondiente de }c\text{ en }sec_2
+   & c \notin sec_1 \rightarrow \texttt{codifica(!VAR(sec_1),\;!VAR(sec_2),\;!VAR(c))} = c
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    que devuelve el carácter $c$ codificado según las secuencias 1 y 2 que se le
@@ -812,7 +817,7 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{lee\_enteros(!VAR(texto\,): str) -> List[int]})
+   !SIGNAT(\texttt{lee\_enteros(!VAR(texto):\,str)\;->\;List[int]})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    a la que se le pasa una cadena y devuelve una lista con todos los enteros
