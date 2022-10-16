@@ -1472,21 +1472,21 @@ maximo -> lambda
 - Por tanto, podemos tener **espacios de nombres _estáticos_** y **espacios de
   nombres _dinámicos_**.
 
-- En Java, las clases y los paquetes son espacios de nombres estáticos.
+- En Java, las clases y los paquetes son _espacios de nombres estáticos_.
 
 - Por otra parte, durante la ejecución de un programa se pueden ir creando
-  ciertas estructuras en memoria que representan espacios de nombres dinámicos.
+  ciertas estructuras en memoria que representan _espacios de nombres dinámicos_.
 
-  Los ejemplos más comunes de esas estructuras son:
+  Los ejemplos más comunes de estas estructuras son:
 
-  - Los **marcos** que se crean al ejecutar _scripts_ de Python y funciones o
-    métodos definidos por el programador.
+  - Los **marcos** que se crean al ejecutar _scripts_ de Python y al invocar
+    funciones (o métodos) definidas por el programador en Python y Java.
 
   - Los **módulos** de Python.
 
   - Los **objetos** y las **clases** de Python.
 
-- En resumen: en Python, todos los espacios de nombres son dinámicos.
+- En resumen: **en Python, todos los espacios de nombres son _dinámicos_**.
 
 ---
 

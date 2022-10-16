@@ -121,10 +121,17 @@ nocite: |
   ```
 
   el intérprete no evalúa la expresión del cuerpo (!PYTHON{x + y}), sino que
-  crea un valor de tipo «función», pero sin entrar a ver «qué hay» en el
-  cuerpo.
+  crea un valor de tipo «función» pero sin entrar a ver «qué hay» en el cuerpo.
 
-  Eso es algo que sólo hará si aplica la expresión lambda a unos argumentos.
+  Sólo se mira lo que hay en el cuerpo cuando se aplica la expresión lambda a
+  unos argumentos.
+
+- En particular, podemos tener una expresión lambda como la siguiente, que sólo
+  dará error cuando se aplique a un argumento, no antes:
+
+  ```python
+  lambda x: x + 1/0
+  ```
 
 ### Funciones con nombre
 
@@ -156,7 +163,7 @@ nocite: |
 
 ---
 
-- La evaluación de la llamada a !PYTHON(suma(4, 3)) implicaría realizar los
+- La evaluación de la llamada a !PYTHON(suma(4, 3)) implicará realizar los
   siguientes tres pasos y en este orden:
 
   1. Sustituir el nombre de la función !PYTHON(suma) por su definición, es
@@ -258,9 +265,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ## Variables ligadas y libres
 
-- Si un _identificador_ que aparece en el _cuerpo_ de una expresión lambda,
-  también aparece en la _lista de parámetros_ de esa expresión lambda, a ese
-  identificador le llamamos **variable ligada** de la expresión lambda.
+- Si un _identificador_ de los que aparecen en el _cuerpo_ de una expresión
+  lambda también aparece en la _lista de parámetros_ de esa expresión lambda, a
+  ese identificador le llamamos **variable ligada** de la expresión lambda.
 
 - En caso contrario, le llamamos **variable libre** de la expresión lambda.
 
@@ -290,9 +297,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Tan sólo cambia su denominación dependiendo del lugar donde aparece su
   identificador en la expresión lambda:
 
-  - Si aparece **antes** del «`:`», le llamamos «_parámetro_».
+  - Cuando aparece **antes** del «`:`», le llamamos «_parámetro_».
 
-  - Si aparece **después** del «`:`», le llamamos «_variable ligada_».
+  - Cuando aparece **después** del «`:`», le llamamos «_variable ligada_».
 
 - Por ejemplo: en la siguiente expresión lambda:
 
@@ -309,7 +316,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- El que se llame «_variable ligada_» no tiene nada que ver con las ligaduras
+- El que se llame «_variable ligada_» no tiene nada que ver con las _ligaduras_
   que hemos estudiado hasta ahora.
 
 - Son conceptos totalmente distintos:
@@ -425,22 +432,24 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Al ser un ámbito léxico, el ámbito de creación de una ligadura siempre está
-  definido por una construcción sintáctica.
+- Como estamos usando un lenguaje de programación que trabaja con _ámbitos
+  léxicos_, **el ámbito de creación de una ligadura siempre estará definido por
+  una construcción sintáctica**.
 
 - Por tanto:
 
-  - Sus límites vienen marcados únicamente por la sintaxis de la construcción
-    sintáctica que define el ámbito y dentro de la cual se está creando la
-    ligadura.
+  - Sus _límites_ vienen marcados únicamente por la _sintaxis_ de la
+    construcción sintáctica que define el ámbito y dentro de la cual se está
+    creando la ligadura.
 
   - El ámbito de creación de una ligadura se puede determinar simplemente
-    leyendo el código fuente del programa, sin tener que ejecutarlo.
+    leyendo el código fuente del programa, sin tener que ejecutarlo (es decir,
+    que se puede determinar de forma _estática_).
 
 ### Visibilidad
 
-- El ámbito de creación de una ligadura es una «frontera» que limita la porción
-  del código fuente en la que es visible esa ligadura.
+- El ámbito de creación de una ligadura es una «región» cuyas fronteras limitan
+  la porción del código fuente en la que es visible esa ligadura.
 
 - En la mayoría de los lenguajes (incluyendo Python y Java), las ligaduras
   empiezan a existir justo donde se crea la ligadura, es decir, en el punto
@@ -746,7 +755,7 @@ todos los ámbitos van asociados a un espacio de nombres.
 
 - Además, **la ligadura** entre la variable ligada y su argumento **se almacena
   en el marco** de la llamada a la expresión lambda, y por eso se dice que
-  tiene un **almacenamiento local** a la expresión lambda.
+  tiene un **almacenamiento _local_** a la expresión lambda.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -818,14 +827,15 @@ todos los ámbitos van asociados a un espacio de nombres.
   ejecutando hasta llegar a la instrucción actual.
 
 - El entorno **siempre contendrá**, al menos, un marco: el _marco global_, que
-  **siempre será el último de la secuencia de marcos** que forman el entorno.
+  **siempre será _el último_ de la secuencia de marcos** que forman el entorno.
 
 ---
 
-- Gráficamente, representaremos los entornos como una lista enlazada de marcos
-  que se conectan entre sí formando cadenas, de manera que:
+- Gráficamente, representaremos los entornos como una **lista enlazada de
+  marcos** conectados entre sí formando secuencias, de manera que:
 
-  - La $E$ siempre representa el primer marco de la lista (el _marco actual_).
+  - Usaremos la letra $E$ como un indicador que siempre apunta al primer marco
+    de la lista (el _marco actual_).
 
   - El último marco siempre será el marco global.
 
@@ -864,8 +874,8 @@ todos los ámbitos van asociados a un espacio de nombres.
   nombres_), y un entorno es una secuencia de marcos.
 
 - Los marcos se van creando y destruyendo a medida que se van activando ciertas
-  partes del programa (_scripts_, funciones o métodos) durante la ejecución de
-  éste.
+  partes del programa (_scripts_, funciones o métodos) durante la ejecución del
+  mismo.
 
 - Una expresión lambda representa una función.
 
@@ -876,7 +886,7 @@ todos los ámbitos van asociados a un espacio de nombres.
 
 - El cuerpo de una expresión lambda define su propio ámbito, de forma que, las
   ligaduras que ligan a los parámetros con los argumentos, se definen dentro de
-  ese ámbito y son, por tanto, locales a ese ámbito.
+  ese ámbito y son, por tanto, _locales_ a ese ámbito.
 
 - Es decir: los parámetros (y las ligaduras entre los parámetros y los
   argumentos) tienen **un ámbito local** al cuerpo de la expresión lambda y
@@ -887,11 +897,11 @@ todos los ámbitos van asociados a un espacio de nombres.
 
 - Ese **marco** y ese **ámbito** van ligados:
 
-  - Cuando se empieza a ejecutar el cuerpo de la expresión lambda, se entra en
-    el ámbito y se crea el marco en la memoria.
+  - Cuando **se _empieza_** a ejecutar el cuerpo de la expresión lambda, **se
+    _entra_** en el ámbito y **se _crea_** el marco en la memoria.
 
-  - Cuando se termina de ejecutar el cuerpo de la expresión lambda, se sale del
-    ámbito y se elimina el marco de la memoria.
+  - Cuando **se _termina_** de ejecutar el cuerpo de la expresión lambda, **se
+    _sale_** del ámbito y **se _elimina_** el marco de la memoria.
 
 - **Todo marco lleva asociado un ámbito, ya que todo espacio de nombres va
   asociado a un ámbito, y un marco es un espacio de nombres**.
