@@ -983,8 +983,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   - Cuando **se _termina_** de ejecutar el cuerpo de la expresión lambda, **se
     _sale_** del ámbito y **se _elimina_** el marco de la memoria.
 
-- **Todo marco lleva asociado un ámbito, ya que todo espacio de nombres va
-  asociado a un ámbito, y un marco es un espacio de nombres**.
+- Todo marco lleva asociado un ámbito.
 
 ---
 
