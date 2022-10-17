@@ -207,17 +207,21 @@ nocite: |
 - Por ello, la ejecución de un programa funcional se puede modelar como un
   **sistema de reescritura** al que llamaremos **modelo de sustitución**.
 
+- El modelo de sustitución es un buen modelo de ejecución para la programación
+  funcional gracias a que se cumple la _transparencia referencial_.
+
 ---
 
-- La ventaja de este modelo es que no necesitamos recurrir a pensar que debajo
-  de todo esto hay un ordenador con una determinada arquitectura *hardware*,
-  que almacena los datos en celdas de la memoria principal, que ejecuta ciclos
-  de instrucción en la CPU, que las instrucciones modifican los datos de la
-  memoria...
+- La ventaja del modelo de sustitución es que no necesitamos recurrir a pensar
+  que debajo de todo esto hay un ordenador con una determinada arquitectura
+  *hardware*, que almacena los datos en celdas de la memoria principal, que
+  ejecuta ciclos de instrucción en la CPU, que las instrucciones modifican los
+  datos de la memoria...
   
 - Todo resulta mucho más fácil que eso, ya que **todo se reduce a evaluar
-  expresiones**, sin importar aspectos secundarios como la tecnología, el
-  momento en el que se evalúan, el orden en el que se evalúan, etc.
+  expresiones**, reescribiendo unas subexpresiones por otras, sin importar
+  aspectos secundarios como la tecnología, el momento en el que se evalúan, el
+  orden en el que se evalúan, etc.
 
 - Y la evaluación de expresiones no requiere pensar que hay un ordenador que
   lleva a cabo el proceso de evaluación.
