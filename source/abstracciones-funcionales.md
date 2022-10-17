@@ -2296,8 +2296,7 @@ E -> w [lhead = cluster1]
   En el ejemplo anterior, tenemos que la expresión lambda de !PYTHON(suma3),
   sin ser *totalmente pura*, a efectos prácticos se la puede considerar
   **pura**, ya que su única variable libre (!PYTHON(suma)) se usa como una
-  **función**, y las funciones tienden a no cambiar durante la ejecución del
-  programa, al contrario que los demás tipos de valores.
+  **función**.
 
 ---
 
@@ -2482,7 +2481,7 @@ E -> w [lhead = cluster1]
 
 ---
 
-- Por ejemplo, cuando vemos que en nuetros programas es frecuente tener que
+- Por ejemplo, cuando vemos que en nuestros programas es frecuente tener que
   multiplicar una cosa por sí misma tres veces, deducimos que ahí hay un patrón
   común que se repite en todos los casos.
 
@@ -2547,8 +2546,8 @@ cg [label = "(caso general)"]
 
 ---
 
-- Hasta ahora, al especificar **programas**, llamamos «**entrada**» al dominio
-  origen, y agrupamos el rango y el propósito en una sola propiedad que
+- Hasta ahora, al especificar **programas**, hemos llamado «**entrada**» al
+  dominio, y hemos agrupado el rango y el propósito en una sola propiedad que
   llamamos «**salida**».
 
 - Por ejemplo, cualquier función !PYTHON(cuadrado) que usemos para implementar
@@ -2565,7 +2564,8 @@ cg [label = "(caso general)"]
 
 - Este esquema es el que hemos usado hasta ahora para especificar programas, y
   se podría seguir usando para especificar funciones, ya que éstas son
-  consideradas _subprogramas_ (programas que forman parte de otros programas).
+  consideradas _subprogramas_ (programas que forman parte de otros programas
+  más grandes).
 
 ---
 
@@ -2576,7 +2576,7 @@ cg [label = "(caso general)"]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(\texttt{True})
   !SIGNAT(\texttt{cuadrado(!VAR(n):\,float)\;->\;float})
-  !POST(\texttt{cuadrado(}n\texttt{)} = n^2)
+  !POST(\texttt{cuadrado(!VAR(n))} = n^2)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - «**Pre**» representa la **precondición**: la propiedad que debe cumplirse
