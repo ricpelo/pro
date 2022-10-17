@@ -1846,4 +1846,48 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
    ('c', 1), ('c', 2), ('c', 3))
   ```
 
+---
+
+- Las expresiones generadoras, al igual que las expresiones lambda, **crean su
+  propio _ámbito_**.
+
+- Ese ámbito abarca toda la expresión generadora, de principio a fin.
+
+- Los identificadores que aparecen en la cláusula !PYTHON(for) se consideran
+  _variables ligadas_ en la expresión generadora.
+
+- Esos identificadores se van ligando, uno a uno, a cada elemento de la
+  secuencia indicada en la cláusula !PYTHON(in).
+
+---
+
+- Como son variables ligadas, cumplen estas dos propiedades:
+
+  - Se pueden renombrar (siempre de forma consistente) sin que la expresión
+    cambie su significado.
+
+    Por ejemplo, las dos expresiones generadoras siguientes son equivalentes,
+    puesto que producen el mismo resultado:
+
+    ```python
+    (x for x in (1, 2, 3))
+    ```
+
+    ```python
+    (y for y in (1, 2, 3))
+    ```
+
+  - No se pueden usar fuera de la expresión generadora, ya que estarían fuera
+    de su ámbito y no serían visibles.
+
+    Por ejemplo, lo siguiente daría un error de nombre:
+
+    ```python
+    >>> e = (x for x in (1, 2, 3))
+    >>> x       # Intento acceder a la 'x' de la expresión generadora
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    NameError: name 'x' is not defined
+    ```
+
 !BIBLIOGRAFIA

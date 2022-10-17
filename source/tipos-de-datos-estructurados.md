@@ -1218,6 +1218,50 @@ True
   podemos acceder directamente a cualquier elemento de la lista mediante la
   indexación.
 
+---
+
+- Las listas por comprensión, al igual que las expresiones generadoras, **crean
+  su propio _ámbito_**.
+
+- Ese ámbito abarca toda la lista por comprensión, de principio a fin.
+
+- Los identificadores que aparecen en la cláusula !PYTHON(for) se consideran
+  _variables ligadas_ en la lista por comprensión.
+
+- Esos identificadores se van ligando, uno a uno, a cada elemento de la
+  secuencia indicada en la cláusula !PYTHON(in).
+
+---
+
+- Como son variables ligadas, cumplen estas dos propiedades:
+
+  - Se pueden renombrar (siempre de forma consistente) sin que la lista por
+    comprensión cambie su significado.
+
+    Por ejemplo, las dos listas por comprensión siguientes son equivalentes,
+    puesto que producen el mismo resultado:
+
+    ```python
+    [x for x in (1, 2, 3)]
+    ```
+
+    ```python
+    [y for y in (1, 2, 3)]
+    ```
+
+  - No se pueden usar fuera de la lista por comprensión, ya que estarían fuera
+    de su ámbito y no serían visibles.
+
+    Por ejemplo, lo siguiente daría un error de nombre:
+
+    ```python
+    >>> e = [x for x in (1, 2, 3)]
+    >>> x       # Intento acceder a la 'x' de la lista por comprensión
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    NameError: name 'x' is not defined
+    ```
+
 ### Operaciones mutadoras
 
 - En la siguiente tabla, $\underline{s}$ es una instancia de un tipo de
@@ -1455,8 +1499,8 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 #### Conjuntos por comprensión
 
 - También se pueden crear **conjuntos por comprensión** usando la misma
-  sintaxis de las **expresiones generadoras** pero encerrando la expresión
-  entre llaves en lugar de entre paréntesis:
+  sintaxis de las **expresiones generadoras** y las **listas por comprensión**,
+  pero esta vez encerrando la expresión entre llaves:
 
   ```python
   >>> {x ** 2 for x in [1, 2, 3]}
@@ -1464,6 +1508,50 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
   ```
 
 - El resultado es directamente un valor de tipo !PYTHON(set), no un iterador.
+
+---
+
+- Los conjuntos por comprensión, al igual que las expresiones generadoras y las
+  listas por comprensión, **crean su propio _ámbito_**.
+
+- Ese ámbito abarca todo el conjunto por comprensión, de principio a fin.
+
+- Los identificadores que aparecen en la cláusula !PYTHON(for) se consideran
+  _variables ligadas_ en el conjunto por comprensión.
+
+- Esos identificadores se van ligando, uno a uno, a cada elemento de la
+  secuencia indicada en la cláusula !PYTHON(in).
+
+---
+
+- Como son variables ligadas, cumplen estas dos propiedades:
+
+  - Se pueden renombrar (siempre de forma consistente) sin que el conjunto por
+    comprensión cambie su significado.
+
+    Por ejemplo, los dos conjuntos por comprensión siguientes son equivalentes,
+    puesto que producen el mismo resultado:
+
+    ```python
+    {x for x in (1, 2, 3)}
+    ```
+
+    ```python
+    {y for y in (1, 2, 3)}
+    ```
+
+  - No se pueden usar fuera del conjunto por comprensión, ya que estarían fuera
+    de su ámbito y no serían visibles.
+
+    Por ejemplo, lo siguiente daría un error de nombre:
+
+    ```python
+    >>> e = {x for x in (1, 2, 3)}
+    >>> x       # Intento acceder a la 'x' del conjunto por comprensión
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    NameError: name 'x' is not defined
+    ```
 
 ### Operaciones
 

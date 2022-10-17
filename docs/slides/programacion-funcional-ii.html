@@ -239,7 +239,7 @@
 <section id="title-slide">
   <h1 class="title">Programación funcional (II)</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2021/2022</p>
+  <p class="date">IES Doñana, curso 2022/2023</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -2148,6 +2148,47 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a h
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>((<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">3</span>),</span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">3</span>),</span>
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>))</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.3">
+
+<ul>
+<li><p>Las expresiones generadoras, al igual que las expresiones lambda,
+<strong>crean su propio <em>ámbito</em></strong>.</p></li>
+<li><p>Ese ámbito abarca toda la expresión generadora, de principio a
+fin.</p></li>
+<li><p>Los identificadores que aparecen en la cláusula <code
+class="sourceCode python"><span class="cf">for</span></code> se
+consideran <em>variables ligadas</em> en la expresión
+generadora.</p></li>
+<li><p>Esos identificadores se van ligando, uno a uno, a cada elemento
+de la secuencia indicada en la cláusula <code
+class="sourceCode python"><span class="kw">in</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.4">
+
+<ul>
+<li><p>Como son variables ligadas, cumplen estas dos propiedades:</p>
+<ul>
+<li><p>Se pueden renombrar (siempre de forma consistente) sin que la
+expresión cambie su significado.</p>
+<p>Por ejemplo, las dos expresiones generadoras siguientes son
+equivalentes, puesto que producen el mismo resultado:</p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>(y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div></li>
+<li><p>No se pueden usar fuera de la expresión generadora, ya que
+estarían fuera de su ámbito y no serían visibles.</p>
+<p>Por ejemplo, lo siguiente daría un error de nombre:</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> (x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la expresión generadora</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+</ul></li>
 </ul>
 </section>
 </section>
