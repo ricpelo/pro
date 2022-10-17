@@ -1802,6 +1802,52 @@ E -> w [lhead = cluster1]
 
     a. Los identificadores y ligaduras que hacen sombra.
 
+## Resolución de atributos de objetos
+
+- Ya estudiamos que el acceso a un atributo de un objeto suponía buscar la
+  correspondiente ligadura únicamente en el espacio de nombres asociado a ese
+  objeto, y no en ningún otro.
+
+- Por tanto, dicha resolución requiere de un mecanismo algo distinto a lo visto
+  hasta ahora, ya que las ligaduras que ligan el nombre del atributo con su
+  valor se almacenan en el propio objeto, no en un marco.
+
+- En consecuencia, el acceso a un atributo de un objeto usando el operador
+  punto (`.`), como en la expresión !PYTHON(math.pi) de este ejemplo:
+
+  ```python
+  import math
+  x = math.pi * 2
+  ```
+
+  no requiere usar el entorno.
+
+- De hecho, el lenguaje ni siquiera tiene por qué tener entornos. Recordemos
+  que los lenguajes compilados no usan entornos para resolver identificadores y
+  pueden resolver perfectamente los atributos de los objetos.
+
+---
+
+- Concretamente, resolver el identificador `pi` en la expresión
+  !PYTHON(math.pi) requerirá de los siguientes pasos:
+
+  #. Se busca el valor de `math` en el entorno, que devuelve el objeto que
+     representa al módulo `math`.
+
+  #. Una vez que sabemos que el operando izquierdo del operador punto (`.`) es
+     un objeto, procedemos a resolver el identificador `pi`, pero para ello
+     sólo se considera el espacio de nombres asociado al objeto `math`.
+
+     Es decir: buscamos el valor de `pi` en el espacio de nombres de `math`, y
+     sólo ahí.
+
+  #. Una vez localizado, se devolverá el valor ligado al nombre `pi` en el
+     espacio de nombres de `math`, o se lanzará un error !PYTHON(NameError) en
+     caso de que no haya ninguna ligadura para `pi` en `math`.
+
+- Como se puede observar, en ningún momento se usa el entorno para resolver el
+  identificador `pi` dentro de `math`.
+
 ## Estrategias de evaluación
 
 - A la hora de evaluar una expresión (cualquier expresión) existen varias
