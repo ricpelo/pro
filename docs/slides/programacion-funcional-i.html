@@ -330,9 +330,9 @@ data-number="1.2">
 Transparencia referencial</h2>
 <ul>
 <li><p>En programación funcional, el valor de una expresión depende,
-exclusivamente, de los valores de sus sub-expresiones
-constituyentes.</p></li>
-<li><p>Dichas sub-expresiones, además, pueden ser sustituidas libremente
+exclusivamente, de los valores de las subexpresiones que la
+forman.</p></li>
+<li><p>Dichas subexpresiones, además, pueden ser sustituidas libremente
 por otras que tengan el mismo valor.</p></li>
 <li><p>A esta propiedad se la denomina <strong>transparencia
 referencial</strong>.</p></li>
@@ -343,11 +343,15 @@ referencial</strong>.</p></li>
 class="math inline">f(p) = f(q)</span>.</p>
 </div></li>
 <li><p>En la práctica, eso significa que la evaluación de una expresión
-no puede provocar <strong>efectos laterales</strong>.</p></li>
+no puede provocar <strong>efectos laterales</strong> y que su valor no
+puede depender del momento en el que se evalúe la expresión (<strong>la
+expresión siempre va a valer lo mismo</strong>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.0.0.1">
-
+<section id="efectos-laterales" class="title-slide slide level3"
+data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span>
+Efectos laterales</h3>
 <ul>
 <li><p>Los <strong>efectos laterales</strong> son aquellos que provocan
 un cambio de estado irremediable en el sistema, que además son
@@ -369,10 +373,63 @@ salida.</p></li>
 </ul></li>
 <li><p>En posteriores temas veremos que existe un paradigma (el
 <strong>paradigma imperativo</strong>) que se basa principalmente en
-provocar efectos laterales, principalmente mediante una instrucción
-llamada <em>asignación destructiva</em>.</p></li>
+provocar efectos laterales, sobre todo mediante una instrucción llamada
+<em>asignación destructiva</em>.</p></li>
 </ul>
 </section>
+
+<section id="inmutabilidad-y-ligaduras-irrompibles"
+class="title-slide slide level3" data-number="1.2.2">
+<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span>
+Inmutabilidad y ligaduras irrompibles</h3>
+<ul>
+<li><p>Otro requisito para conseguir la transparencia referencial es que
+las expresiones no cambien de valor dependiendo de cuándo se
+evalúen.</p></li>
+<li><p>Es decir: una expresión en programación funcional siempre tiene
+el mismo valor.</p></li>
+<li><p>Por tanto, en programación funcional no se permite que la misma
+expresión, evaluada en dos momentos diferentes, devuelva como resultado
+dos valores diferentes.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.2.0.1">
+
+<ul>
+<li><p>Para cumplir con ese requisito, se necesita que:</p>
+<ol>
+<li><p><strong>Los objetos</strong> de datos que manipula el programa
+(es decir, los valores) <strong>no tengan un estado interno</strong> que
+pueda cambiar durante la ejecución del programa.</p>
+<p>Eso se consigue haciendo que los valores sean
+<strong>inmutables</strong>.</p>
+<p>Por ejemplo, en Python las cadenas son inmutables porque, una vez
+creadas, no se pueden cambiar los caracteres que la forman.</p>
+<p>Si hago <code
+class="sourceCode python">x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span></code>,
+luego no puedo cambiar la <code
+class="sourceCode python"><span class="st">&#39;o&#39;</span></code> por
+una <code
+class="sourceCode python"><span class="st">&#39;a&#39;</span></code>,
+porque entonces la expresión <code class="sourceCode python">x</code>
+tendría distintos valores dependiendo del momento en el que se
+evalúe.</p></li>
+<li><p><strong>Las ligaduras</strong> entre nombres y valores <strong>no
+se puedan romper</strong>, de forma que un nombre, una vez ligado a un
+valor, <strong>no se pueda volver a ligar a otro valor distinto</strong>
+durante la ejecución del programa (lo que se conoce como
+<em>rebinding</em>).</p>
+<p>Si hago <code
+class="sourceCode python">x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span></code>,
+luego no puedo hacer <code
+class="sourceCode python">x <span class="op">=</span> <span class="st">&quot;Hala&quot;</span></code>,
+porque eso sería hacer un <em>rebinding</em> y provocaría que, de nuevo,
+la expresión <code class="sourceCode python">x</code> tuviera distintos
+valores según el momento.</p></li>
+</ol></li>
+</ul>
+</section>
+
 
 <section id="modelo-de-ejecución" class="title-slide slide level2"
 data-number="1.3">
@@ -428,7 +485,7 @@ operadores y funciones predefinidas por el lenguaje, así como las
 definidas por el programador en el código fuente del programa.</p></li>
 <li><p>Recordemos que la <strong>evaluación de una expresión</strong>,
 en esencia, es el proceso de <strong>sustituir</strong>, dentro de ella,
-unas <em>sub-expresiones</em> por otras que, de alguna manera bien
+unas <em>subexpresiones</em> por otras que, de alguna manera bien
 definida, estén <em>más cerca</em> del valor a calcular, y así hasta
 calcular el valor de la expresión al completo.</p></li>
 <li><p>Por ello, la ejecución de un programa funcional se puede modelar
@@ -443,9 +500,11 @@ como un <strong>sistema de reescritura</strong> al que llamaremos
 que debajo de todo esto hay un ordenador con una determinada
 arquitectura <em>hardware</em>, que almacena los datos en celdas de la
 memoria principal, que ejecuta ciclos de instrucción en la CPU, que las
-instrucciones modifican los datos de la memoria, etc.</p></li>
+instrucciones modifican los datos de la memoria…</p></li>
 <li><p>Todo resulta mucho más fácil que eso, ya que <strong>todo se
-reduce a evaluar expresiones</strong>.</p></li>
+reduce a evaluar expresiones</strong>, sin importar aspectos secundarios
+como la tecnología, el momento en el que se evalúan, el orden en el que
+se evalúan, etc.</p></li>
 <li><p>Y la evaluación de expresiones no requiere pensar que hay un
 ordenador que lleva a cabo el proceso de evaluación.</p></li>
 <li><p>Esto se debe a que la programación funcional se basa en el
@@ -461,13 +520,13 @@ forma normal.</p></li>
 <li><p>En programación funcional:</p>
 <ul>
 <li><p>Los intérpretes alcanzan este objetivo a través de múltiples
-pasos de reducción de las expresiones para obtener otra equivalente más
-simple.</p></li>
-<li><p><strong>Toda expresión posee un valor definido</strong>, y ese
-valor no depende del orden en el que se evalúe.</p></li>
-<li><p>El significado de una expresión es su valor, y no puede ocurrir
-ningún otro efecto, ya sea oculto o no, en ninguna operación que se
-utilice para calcularlo.</p></li>
+pasos de <strong>reducción</strong> de las expresiones para obtener otra
+equivalente más simple.</p></li>
+<li><p>Toda expresión posee un valor definido, y ese valor <strong>no
+depende del orden ni el momento</strong> en el que se evalúe.</p></li>
+<li><p>El significado de una expresión es su valor, y <strong>no puede
+ocurrir ningún otro efecto</strong>, ya sea oculto o no, en ninguna
+operación que se utilice para calcularlo.</p></li>
 </ul></li>
 </ul>
 </section>

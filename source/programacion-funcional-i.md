@@ -64,9 +64,9 @@ nocite: |
 ## Transparencia referencial
 
 - En programación funcional, el valor de una expresión depende, exclusivamente,
-  de los valores de sus sub-expresiones constituyentes.
+  de los valores de las subexpresiones que la forman.
 
-- Dichas sub-expresiones, además, pueden ser sustituidas libremente por otras
+- Dichas subexpresiones, además, pueden ser sustituidas libremente por otras
   que tengan el mismo valor.
 
 - A esta propiedad se la denomina **transparencia referencial**.
@@ -81,9 +81,11 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
 - En la práctica, eso significa que la evaluación de una expresión no puede
-  provocar **efectos laterales**.
+  provocar **efectos laterales** y que su valor no puede depender del momento
+  en el que se evalúe la expresión (**la expresión siempre va a valer lo
+  mismo**).
 
----
+### Efectos laterales
 
 - Los **efectos laterales** son aquellos que provocan un cambio de estado
   irremediable en el sistema, que además son observables fuera del contexto
@@ -104,7 +106,45 @@ nocite: |
 
 - En posteriores temas veremos que existe un paradigma (el **paradigma
   imperativo**) que se basa principalmente en provocar efectos laterales,
-  principalmente mediante una instrucción llamada _asignación destructiva_.
+  sobre todo mediante una instrucción llamada _asignación destructiva_.
+
+### Inmutabilidad y ligaduras irrompibles
+
+- Otro requisito para conseguir la transparencia referencial es que las
+  expresiones no cambien de valor dependiendo de cuándo se evalúen.
+
+- Es decir: una expresión en programación funcional siempre tiene el mismo
+  valor.
+
+- Por tanto, en programación funcional no se permite que la misma expresión,
+  evaluada en dos momentos diferentes, devuelva como resultado dos valores
+  diferentes.
+
+---
+
+- Para cumplir con ese requisito, se necesita que:
+
+  #. **Los objetos** de datos que manipula el programa (es decir, los valores)
+     **no tengan un estado interno** que pueda cambiar durante la ejecución del
+     programa.
+
+     Eso se consigue haciendo que los valores sean **inmutables**.
+
+     Por ejemplo, en Python las cadenas son inmutables porque, una vez creadas,
+     no se pueden cambiar los caracteres que la forman.
+
+     Si hago !PYTHON(x = "Hola"), luego no puedo cambiar la !PYTHON('o') por
+     una !PYTHON('a'), porque entonces la expresión !PYTHON(x) tendría
+     distintos valores dependiendo del momento en el que se evalúe.
+
+  #. **Las ligaduras** entre nombres y valores **no se puedan romper**, de
+     forma que un nombre, una vez ligado a un valor, **no se pueda volver a
+     ligar a otro valor distinto** durante la ejecución del programa (lo que se
+     conoce como _rebinding_).
+
+     Si hago !PYTHON(x = "Hola"), luego no puedo hacer !PYTHON(x = "Hala"),
+     porque eso sería hacer un _rebinding_ y provocaría que, de nuevo, la
+     expresión !PYTHON(x) tuviera distintos valores según el momento.
 
 ## Modelo de ejecución
 
@@ -154,7 +194,7 @@ nocite: |
   como las definidas por el programador en el código fuente del programa.
 
 - Recordemos que la **evaluación de una expresión**, en esencia, es el proceso
-  de **sustituir**, dentro de ella, unas *sub-expresiones* por otras que, de
+  de **sustituir**, dentro de ella, unas *subexpresiones* por otras que, de
   alguna manera bien definida, estén *más cerca* del valor a calcular, y así
   hasta calcular el valor de la expresión al completo.
 
@@ -167,10 +207,11 @@ nocite: |
   de todo esto hay un ordenador con una determinada arquitectura *hardware*,
   que almacena los datos en celdas de la memoria principal, que ejecuta ciclos
   de instrucción en la CPU, que las instrucciones modifican los datos de la
-  memoria, etc.
+  memoria...
   
 - Todo resulta mucho más fácil que eso, ya que **todo se reduce a evaluar
-  expresiones**.
+  expresiones**, sin importar aspectos secundarios como la tecnología, el
+  momento en el que se evalúan, el orden en el que se evalúan, etc.
 
 - Y la evaluación de expresiones no requiere pensar que hay un ordenador que
   lleva a cabo el proceso de evaluación.
@@ -180,18 +221,19 @@ nocite: |
 
 ---
 
-- Ya estudiamos que evaluar una expresión consiste en encontrar su forma normal.
+- Ya estudiamos que evaluar una expresión consiste en encontrar su forma
+  normal.
 
 - En programación funcional:
 
   - Los intérpretes alcanzan este objetivo a través de múltiples pasos de
-    reducción de las expresiones para obtener otra equivalente más simple.
+    **reducción** de las expresiones para obtener otra equivalente más simple.
 
-  - **Toda expresión posee un valor definido**, y ese valor no depende del
-    orden en el que se evalúe.
+  - Toda expresión posee un valor definido, y ese valor **no depende del
+    orden ni el momento** en el que se evalúe.
 
-  - El significado de una expresión es su valor, y no puede ocurrir ningún
-    otro efecto, ya sea oculto o no, en ninguna operación que se utilice para
+  - El significado de una expresión es su valor, y **no puede ocurrir ningún
+    otro efecto**, ya sea oculto o no, en ninguna operación que se utilice para
     calcularlo.
 
 # Tipos de datos
