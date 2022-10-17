@@ -37,10 +37,16 @@ nocite: |
   imprescindibles del programa.
 
 - Por todo lo expuesto anteriormente, se dice que las funciones en programación
-  funcional son **funciones puras**.
+  funcional son **funciones puras**, es decir, funciones que lo único que hacen
+  es calcular su resultado (sin ningún otro efecto) y en las que ese resultado
+  sólo depende de los datos de entrada.
 
-- En consecuencia, es posible sustituir cualquier expresión por su valor,
-  propiedad que se denomina **transparencia referencial**.
+- Además, los valores nunca cambian porque no tienen estado interno que se
+  pueda alterar con el tiempo.
+
+- Como consecuencia de todo lo anterior, en programación funcional es posible
+  sustituir cualquier expresión por su valor, propiedad que se denomina
+  **transparencia referencial**.
 
 ---
 
@@ -63,8 +69,8 @@ nocite: |
 
 ## Transparencia referencial
 
-- En programación funcional, el valor de una expresión depende, exclusivamente,
-  de los valores de las subexpresiones que la forman.
+- En programación funcional, **el valor de una expresión depende,
+  exclusivamente, de los valores de las subexpresiones que la forman**.
 
 - Dichas subexpresiones, además, pueden ser sustituidas libremente por otras
   que tengan el mismo valor.
@@ -84,6 +90,21 @@ nocite: |
   provocar **efectos laterales** y que su valor no puede depender del momento
   en el que se evalúe la expresión (**la expresión siempre va a valer lo
   mismo**).
+
+---
+
+- En consecuencia, un requisito para conseguir la transparencia referencial es
+  que las expresiones no cambien de valor dependiendo de cuándo se evalúen.
+
+- Es decir: una expresión en programación funcional siempre debe tener el mismo
+  valor.
+
+- Por tanto, en programación funcional no se permite que la misma expresión,
+  evaluada en dos momentos diferentes, devuelva como resultado dos valores
+  diferentes.
+
+- Asimismo, el valor de una expresión tampoco debe depender del orden en el que
+  se evalúen sus subexpresiones.
 
 ### Efectos laterales
 
@@ -105,46 +126,31 @@ nocite: |
     al estado del dispositivo de salida.
 
 - En posteriores temas veremos que existe un paradigma (el **paradigma
-  imperativo**) que se basa principalmente en provocar efectos laterales,
-  sobre todo mediante una instrucción llamada _asignación destructiva_.
+  imperativo**) que se basa principalmente en provocar efectos laterales.
 
-### Inmutabilidad y ligaduras irrompibles
-
-- Otro requisito para conseguir la transparencia referencial es que las
-  expresiones no cambien de valor dependiendo de cuándo se evalúen.
-
-- Es decir: una expresión en programación funcional siempre tiene el mismo
-  valor.
-
-- Por tanto, en programación funcional no se permite que la misma expresión,
-  evaluada en dos momentos diferentes, devuelva como resultado dos valores
-  diferentes.
+<!-- sobre todo mediante una instrucción llamada _asignación destructiva_. -->
 
 ---
 
-- Para cumplir con ese requisito, se necesita que:
+- Uno de los requisitos para alcanzar la transparencia referencial es que no
+  existan efectos laterales.
 
-  #. **Los objetos** de datos que manipula el programa (es decir, los valores)
-     **no tengan un estado interno** que pueda cambiar durante la ejecución del
-     programa.
+- Por tanto, en programación funcional no están permitidos los efectos
+  laterales.
 
-     Eso se consigue haciendo que los valores sean **inmutables**.
+- Eso significa que:
 
-     Por ejemplo, en Python las cadenas son inmutables porque, una vez creadas,
-     no se pueden cambiar los caracteres que la forman.
+  - Al evaluar una expresión no se pueden provocar efectos laterales.
 
-     Si hago !PYTHON(x = "Hola"), luego no puedo cambiar la !PYTHON('o') por
-     una !PYTHON('a'), porque entonces la expresión !PYTHON(x) tendría
-     distintos valores dependiendo del momento en el que se evalúe.
+    Si esto ocurriera, no podríamos sustituir una expresión por su valor.
 
-  #. **Las ligaduras** entre nombres y valores **no se puedan romper**, de
-     forma que un nombre, una vez ligado a un valor, **no se pueda volver a
-     ligar a otro valor distinto** durante la ejecución del programa (lo que se
-     conoce como _rebinding_).
+  - El valor de una expresión no puede depender de un efecto lateral ni verse
+    afectado por la existencia de efectos laterales.
 
-     Si hago !PYTHON(x = "Hola"), luego no puedo hacer !PYTHON(x = "Hala"),
-     porque eso sería hacer un _rebinding_ y provocaría que, de nuevo, la
-     expresión !PYTHON(x) tuviera distintos valores según el momento.
+    Si esto ocurriera, la expresión podría tener valores distintos en momentos
+    distintos.
+
+- En cualquiera de los dos casos, se rompería la transparencia referencial.
 
 ## Modelo de ejecución
 
@@ -1333,17 +1339,18 @@ de Boole.
   las ligaduras empiezan a existir en el momento en que se ejecuta su
   definición, no antes.
 
----
+### Ligaduras irrompibles
 
-- Además, en un **lenguaje funcional _puro_**, un identificador ya ligado no se
-  puede ligar a otro valor. Por ejemplo, lo siguiente daría un error:
+- En un **lenguaje funcional _puro_**, un identificador ya ligado no se puede
+  ligar a otro valor. Por ejemplo, lo siguiente daría un error en un lenguaje
+  funcional puro:
 
   ```python
   x = 4  # ligamos el identificador x al valor 4
   x = 7  # intentamos ligar x al valor 7, pero ya está ligado al valor 4
   ```
 
-!DOT(rebinding.svg)()(width=25%)(width=15%)
+!DOT(rebinding.svg)()(width=20%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
 4 [shape = circle]
@@ -1353,17 +1360,43 @@ x -> 4 [style = dashed, color = grey]
 x -> 7
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Python no es un lenguaje funcional puro, por lo que sí se permite volver a
-  ligar el mismo identificador a otro valor distinto (situación que se denomina
-  **_rebinding_**).
-
-  - Eso hace que se pierda el valor anterior.
-
-  - Por ahora, **no lo hagamos**.
+- En consecuencia, **las ligaduras** entre nombres y valores **no se pueden
+  romper**, de forma que un nombre, una vez ligado a un valor, **no se puede
+  volver a ligar a otro valor distinto** durante la ejecución del programa
+  (efecto que se conoce como _rebinding_).
 
 ---
 
-- Podemos hacer:
+- Que las ligaduras sean irrompibles son un requisito necesario para alcanzar
+  la **transparencia referencial**.
+
+- Si hago:
+
+  ```python
+  x = "Hola"
+  ```
+
+  en un lenguaje funcional puro, luego no puedo hacer:
+
+  ```python
+  x = "Hala"
+  ```
+
+  porque eso sería hacer un _rebinding_ y provocaría que, de nuevo, la
+  expresión !PYTHON(x) tuviera distintos valores según el momento, lo que va en
+  contra de la transparencia referencial.
+
+- Python no es un lenguaje funcional puro, por lo que sí se permite volver a
+  ligar el mismo identificador a otro valor distinto.
+
+  - Al hacer esto, se estaría perdiendo el valor anterior.
+
+  - Así que, por ahora, el _rebinding_ está prohibido para nosotros (**no lo
+    hagamos**).
+
+---
+
+- Lo que sí se puede hacer es:
 
   ```python
   x = 25
@@ -1371,13 +1404,13 @@ x -> 7
   ```
 
 - En este caso estamos ligando a !PYTHON(y) el mismo valor que tiene
-  !PYTHON(x).
+  !PYTHON(x), algo perfectamente válido en un lenguaje funcional.
 
 - Lo que hace el intérprete en este caso no es crear dos valores !PYTHON(25) en
-  memoria (sería un gasto inútil), sino que !PYTHON(x) e !PYTHON(y) _comparten_
-  el único valor !PYTHON(25) que existe:
+  memoria (sería un gasto inútil de memoria), sino que !PYTHON(x) e !PYTHON(y)
+  _comparten_ el único valor !PYTHON(25) que existe:
 
-  !DOT(ligadura-compartida.svg)()(width=25%)(width=20%)
+  !DOT(ligadura-compartida.svg)()(width=20%)(width=20%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fixedsize = shape, fontname = "monospace"]
   25 [shape = circle]
@@ -1413,9 +1446,9 @@ x -> 7
   max -> lambda
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Ese valor se puede ligar a otro identificador y, de esta forma, ambos
-  identificadores compartirían el mismo valor y, por tanto, representarían a la
-  misma función. Por ejemplo:
+- Así que ese valor se puede ligar a otro identificador y, de esta forma, ambos
+  identificadores compartirían el mismo valor (y, por tanto, representarían a
+  la misma función). Por ejemplo:
 
 :::: columns
 
@@ -1444,6 +1477,51 @@ maximo -> lambda
 :::
 
 ::::
+
+### Inmutabilidad
+
+- Para alcanzar la transparencia referencial, también es necesario que **los
+  objetos** de datos que manipula el programa (es decir, los valores) **no
+  tengan un estado interno** que pueda cambiar durante la ejecución del
+  programa.
+
+- Eso se consigue haciendo que los valores sean **inmutables**.
+
+- Por ejemplo, en Python las cadenas son inmutables porque, una vez creadas,
+  no se pueden cambiar los caracteres que la forman.
+
+  Si hago !PYTHON(x = "Hola"), luego no puedo cambiar el interior de esa cadena
+  (por ejemplo, cambiando la !PYTHON('o') por una !PYTHON('a')), porque
+  entonces la expresión !PYTHON(x) tendría distintos valores dependiendo del
+  momento en el que se evalúe, lo que va en contra de la transparencia
+  referencial.
+
+---
+
+- Eso significa que en programación funcional tampoco estaría permitido hacer
+  cosas como esta:
+
+  ```python
+  import math
+  math.constante = 405
+  ```
+
+  ya que entonces estaríamos **creando una nueva ligadura dentro del objeto**
+  que representa al módulo `math`, lo que en la práctica supone que estamos
+  **cambiando el estado interno de ese objeto** y, por tanto, estaría **dejando
+  de ser inmutable**.
+
+- Recordemos que **los módulos son objetos** y, como tales, **son valores**
+  como cualquier otro.
+
+- En cambio, sí sería correcto hacer algo así:
+
+  ```python
+  import math
+  constante = 405
+  ```
+
+  ya que ahí no se está cambiando el estado interno de ningún valor.
 
 ### Reglas léxicas
 
@@ -1517,7 +1595,8 @@ maximo -> lambda
 - En Java, las clases y los paquetes son _espacios de nombres estáticos_.
 
 - Por otra parte, durante la ejecución de un programa se pueden ir creando
-  ciertas estructuras en memoria que representan _espacios de nombres dinámicos_.
+  ciertas estructuras en memoria que representan _espacios de nombres
+  dinámicos_.
 
   Los ejemplos más comunes de estas estructuras son:
 
@@ -1837,7 +1916,8 @@ z -> 3
   3.141592653589793
   ```
 
-  se busca una ligadura para `pi` en el espacio de nombres asociado al módulo `math`.
+  se busca una ligadura para `pi` en el espacio de nombres asociado al módulo
+  `math`.
 
 ---
 
@@ -2018,6 +2098,37 @@ z -> 3
    - _Files: Trim Final Newlines_: Activado
 
    - _Files: Trim Trailing Whitespace_: Activado
+
+# Resumen
+
+## Resumen
+
+- Resumiendo, los conceptos fundamentales sobre los que se asienta la
+  programación funcional son:
+
+  - Casi todas las instrucciones son expresiones, no sentencias.
+  - Definiciones, las únicas sentencias de un programa funcional.
+  - Transparencia referencial.
+  - Ausencia de efectos laterales.
+  - Funciones puras.
+  - El valor de una expresión no depende de nada ajeno a la misma, sólo de las
+    subexpresiones que la forman.
+  - Ligaduras irrompibles.
+  - Inmutabilidad.
+  - Las funciones también son valores.
+  - Ejecutar un programa es evaluar una expresión.
+  - No importa el orden en el que se ejecuten las instrucciones.
+  - No importa el orden en el que se evalúen las subexpresiones de una
+    expresión.
+
+---
+
+- Y otros dos conceptos fundamentales que aún no hemos estudiado pero que
+  veremos en breve:
+
+  - Abstracciones lambda.
+
+  - Funciones de orden superior.
 
 # Documentación interna
 

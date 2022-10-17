@@ -252,9 +252,11 @@ class="toc-section-number">2</span> Tipos de datos</a></li>
 class="toc-section-number">3</span> Álgebra de Boole</a></li>
 <li><a href="#/definiciones" id="/toc-definiciones"><span
 class="toc-section-number">4</span> Definiciones</a></li>
+<li><a href="#/resumen" id="/toc-resumen"><span
+class="toc-section-number">5</span> Resumen</a></li>
 <li><a href="#/documentación-interna"
 id="/toc-documentación-interna"><span
-class="toc-section-number">5</span> Documentación interna</a></li>
+class="toc-section-number">6</span> Documentación interna</a></li>
 </ul>
 </nav>
 </section>
@@ -298,10 +300,15 @@ calcular y devolver su resultado.</p></li>
 efectos laterales, o se dan de forma muy localizada en partes muy
 concretas e imprescindibles del programa.</p></li>
 <li><p>Por todo lo expuesto anteriormente, se dice que las funciones en
-programación funcional son <strong>funciones puras</strong>.</p></li>
-<li><p>En consecuencia, es posible sustituir cualquier expresión por su
-valor, propiedad que se denomina <strong>transparencia
-referencial</strong>.</p></li>
+programación funcional son <strong>funciones puras</strong>, es decir,
+funciones que lo único que hacen es calcular su resultado (sin ningún
+otro efecto) y en las que ese resultado sólo depende de los datos de
+entrada.</p></li>
+<li><p>Además, los valores nunca cambian porque no tienen estado interno
+que se pueda alterar con el tiempo.</p></li>
+<li><p>Como consecuencia de todo lo anterior, en programación funcional
+es posible sustituir cualquier expresión por su valor, propiedad que se
+denomina <strong>transparencia referencial</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.2">
@@ -329,9 +336,9 @@ data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span>
 Transparencia referencial</h2>
 <ul>
-<li><p>En programación funcional, el valor de una expresión depende,
-exclusivamente, de los valores de las subexpresiones que la
-forman.</p></li>
+<li><p>En programación funcional, <strong>el valor de una expresión
+depende, exclusivamente, de los valores de las subexpresiones que la
+forman</strong>.</p></li>
 <li><p>Dichas subexpresiones, además, pueden ser sustituidas libremente
 por otras que tengan el mismo valor.</p></li>
 <li><p>A esta propiedad se la denomina <strong>transparencia
@@ -346,6 +353,21 @@ class="math inline">f(p) = f(q)</span>.</p>
 no puede provocar <strong>efectos laterales</strong> y que su valor no
 puede depender del momento en el que se evalúe la expresión (<strong>la
 expresión siempre va a valer lo mismo</strong>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.1">
+
+<ul>
+<li><p>En consecuencia, un requisito para conseguir la transparencia
+referencial es que las expresiones no cambien de valor dependiendo de
+cuándo se evalúen.</p></li>
+<li><p>Es decir: una expresión en programación funcional siempre debe
+tener el mismo valor.</p></li>
+<li><p>Por tanto, en programación funcional no se permite que la misma
+expresión, evaluada en dos momentos diferentes, devuelva como resultado
+dos valores diferentes.</p></li>
+<li><p>Asimismo, el valor de una expresión tampoco debe depender del
+orden en el que se evalúen sus subexpresiones.</p></li>
 </ul>
 </section>
 <section id="efectos-laterales" class="title-slide slide level3"
@@ -373,60 +395,30 @@ salida.</p></li>
 </ul></li>
 <li><p>En posteriores temas veremos que existe un paradigma (el
 <strong>paradigma imperativo</strong>) que se basa principalmente en
-provocar efectos laterales, sobre todo mediante una instrucción llamada
-<em>asignación destructiva</em>.</p></li>
+provocar efectos laterales.</p></li>
 </ul>
+<!-- sobre todo mediante una instrucción llamada _asignación destructiva_. -->
 </section>
-
-<section id="inmutabilidad-y-ligaduras-irrompibles"
-class="title-slide slide level3" data-number="1.2.2">
-<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span>
-Inmutabilidad y ligaduras irrompibles</h3>
-<ul>
-<li><p>Otro requisito para conseguir la transparencia referencial es que
-las expresiones no cambien de valor dependiendo de cuándo se
-evalúen.</p></li>
-<li><p>Es decir: una expresión en programación funcional siempre tiene
-el mismo valor.</p></li>
-<li><p>Por tanto, en programación funcional no se permite que la misma
-expresión, evaluada en dos momentos diferentes, devuelva como resultado
-dos valores diferentes.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.2.2.0.1">
+<section class="slide level5" data-number="1.2.1.0.1">
 
 <ul>
-<li><p>Para cumplir con ese requisito, se necesita que:</p>
-<ol>
-<li><p><strong>Los objetos</strong> de datos que manipula el programa
-(es decir, los valores) <strong>no tengan un estado interno</strong> que
-pueda cambiar durante la ejecución del programa.</p>
-<p>Eso se consigue haciendo que los valores sean
-<strong>inmutables</strong>.</p>
-<p>Por ejemplo, en Python las cadenas son inmutables porque, una vez
-creadas, no se pueden cambiar los caracteres que la forman.</p>
-<p>Si hago <code
-class="sourceCode python">x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span></code>,
-luego no puedo cambiar la <code
-class="sourceCode python"><span class="st">&#39;o&#39;</span></code> por
-una <code
-class="sourceCode python"><span class="st">&#39;a&#39;</span></code>,
-porque entonces la expresión <code class="sourceCode python">x</code>
-tendría distintos valores dependiendo del momento en el que se
-evalúe.</p></li>
-<li><p><strong>Las ligaduras</strong> entre nombres y valores <strong>no
-se puedan romper</strong>, de forma que un nombre, una vez ligado a un
-valor, <strong>no se pueda volver a ligar a otro valor distinto</strong>
-durante la ejecución del programa (lo que se conoce como
-<em>rebinding</em>).</p>
-<p>Si hago <code
-class="sourceCode python">x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span></code>,
-luego no puedo hacer <code
-class="sourceCode python">x <span class="op">=</span> <span class="st">&quot;Hala&quot;</span></code>,
-porque eso sería hacer un <em>rebinding</em> y provocaría que, de nuevo,
-la expresión <code class="sourceCode python">x</code> tuviera distintos
-valores según el momento.</p></li>
-</ol></li>
+<li><p>Uno de los requisitos para alcanzar la transparencia referencial
+es que no existan efectos laterales.</p></li>
+<li><p>Por tanto, en programación funcional no están permitidos los
+efectos laterales.</p></li>
+<li><p>Eso significa que:</p>
+<ul>
+<li><p>Al evaluar una expresión no se pueden provocar efectos
+laterales.</p>
+<p>Si esto ocurriera, no podríamos sustituir una expresión por su
+valor.</p></li>
+<li><p>El valor de una expresión no puede depender de un efecto lateral
+ni verse afectado por la existencia de efectos laterales.</p>
+<p>Si esto ocurriera, la expresión podría tener valores distintos en
+momentos distintos.</p></li>
+</ul></li>
+<li><p>En cualquiera de los dos casos, se rompería la transparencia
+referencial.</p></li>
 </ul>
 </section>
 
@@ -1922,60 +1914,85 @@ funcional <em>puro</em></strong>) las ligaduras empiezan a existir en el
 momento en que se ejecuta su definición, no antes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.1">
-
+<section id="ligaduras-irrompibles" class="title-slide slide level3"
+data-number="4.2.1">
+<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span>
+Ligaduras irrompibles</h3>
 <ul>
-<li><p>Además, en un <strong>lenguaje funcional <em>puro</em></strong>,
-un identificador ya ligado no se puede ligar a otro valor. Por ejemplo,
-lo siguiente daría un error:</p>
+<li><p>En un <strong>lenguaje funcional <em>puro</em></strong>, un
+identificador ya ligado no se puede ligar a otro valor. Por ejemplo, lo
+siguiente daría un error en un lenguaje funcional puro:</p>
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>  <span class="co"># ligamos el identificador x al valor 4</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">7</span>  <span class="co"># intentamos ligar x al valor 7, pero ya está ligado al valor 4</span></span></code></pre></div></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/rebinding.svg" class="plain"
-style="width:25.0%" /></p>
+style="width:20.0%" /></p>
 </div>
 <ul>
-<li><p>Python no es un lenguaje funcional puro, por lo que sí se permite
-volver a ligar el mismo identificador a otro valor distinto (situación
-que se denomina <strong><em>rebinding</em></strong>).</p>
+<li>En consecuencia, <strong>las ligaduras</strong> entre nombres y
+valores <strong>no se pueden romper</strong>, de forma que un nombre,
+una vez ligado a un valor, <strong>no se puede volver a ligar a otro
+valor distinto</strong> durante la ejecución del programa (efecto que se
+conoce como <em>rebinding</em>).</li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.1.0.1">
+
 <ul>
-<li><p>Eso hace que se pierda el valor anterior.</p></li>
-<li><p>Por ahora, <strong>no lo hagamos</strong>.</p></li>
+<li><p>Que las ligaduras sean irrompibles son un requisito necesario
+para alcanzar la <strong>transparencia referencial</strong>.</p></li>
+<li><p>Si hago:</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span></span></code></pre></div>
+<p>en un lenguaje funcional puro, luego no puedo hacer:</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">&quot;Hala&quot;</span></span></code></pre></div>
+<p>porque eso sería hacer un <em>rebinding</em> y provocaría que, de
+nuevo, la expresión <code class="sourceCode python">x</code> tuviera
+distintos valores según el momento, lo que va en contra de la
+transparencia referencial.</p></li>
+<li><p>Python no es un lenguaje funcional puro, por lo que sí se permite
+volver a ligar el mismo identificador a otro valor distinto.</p>
+<ul>
+<li><p>Al hacer esto, se estaría perdiendo el valor anterior.</p></li>
+<li><p>Así que, por ahora, el <em>rebinding</em> está prohibido para
+nosotros (<strong>no lo hagamos</strong>).</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.2">
+<section class="slide level5" data-number="4.2.1.0.2">
 
 <ul>
-<li><p>Podemos hacer:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span></code></pre></div></li>
+<li><p>Lo que sí se puede hacer es:</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span></code></pre></div></li>
 <li><p>En este caso estamos ligando a <code
 class="sourceCode python">y</code> el mismo valor que tiene <code
-class="sourceCode python">x</code>.</p></li>
+class="sourceCode python">x</code>, algo perfectamente válido en un
+lenguaje funcional.</p></li>
 <li><p>Lo que hace el intérprete en este caso no es crear dos valores
 <code class="sourceCode python"><span class="dv">25</span></code> en
-memoria (sería un gasto inútil), sino que <code
+memoria (sería un gasto inútil de memoria), sino que <code
 class="sourceCode python">x</code> e <code
 class="sourceCode python">y</code> <em>comparten</em> el único valor
 <code class="sourceCode python"><span class="dv">25</span></code> que
 existe:</p>
 <div class="centered">
 <p><img data-src="images/ligadura-compartida.svg" class="plain"
-style="width:25.0%" /></p>
+style="width:20.0%" /></p>
 </div></li>
 <li><p>Por tanto:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.3">
+<section class="slide level5" data-number="4.2.1.0.3">
 
 <ul>
 <li><p>El <strong>nombre</strong> de una <strong>función</strong> es un
@@ -1989,16 +2006,16 @@ identificador ligado a la función que devuelve el máximo de dos números
 <p><img data-src="images/ligadura-funcion-max.svg" class="plain"
 style="width:25.0%" /></p>
 </div></li>
-<li><p>Ese valor se puede ligar a otro identificador y, de esta forma,
-ambos identificadores compartirían el mismo valor y, por tanto,
-representarían a la misma función. Por ejemplo:</p></li>
+<li><p>Así que ese valor se puede ligar a otro identificador y, de esta
+forma, ambos identificadores compartirían el mismo valor (y, por tanto,
+representarían a la misma función). Por ejemplo:</p></li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo <span class="op">=</span> <span class="bu">max</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo <span class="op">=</span> <span class="bu">max</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
 </div><div class="column">
 <div class="centered">
 <p><img data-src="images/ligadura-funcion-max-maximo.svg" class="plain"
@@ -2007,9 +2024,59 @@ style="width:55.0%" /></p>
 </div>
 </div>
 </section>
+
+<section id="inmutabilidad" class="title-slide slide level3"
+data-number="4.2.2">
+<h3 data-number="4.2.2"><span class="header-section-number">4.2.2</span>
+Inmutabilidad</h3>
+<ul>
+<li><p>Para alcanzar la transparencia referencial, también es necesario
+que <strong>los objetos</strong> de datos que manipula el programa (es
+decir, los valores) <strong>no tengan un estado interno</strong> que
+pueda cambiar durante la ejecución del programa.</p></li>
+<li><p>Eso se consigue haciendo que los valores sean
+<strong>inmutables</strong>.</p></li>
+<li><p>Por ejemplo, en Python las cadenas son inmutables porque, una vez
+creadas, no se pueden cambiar los caracteres que la forman.</p>
+<p>Si hago <code
+class="sourceCode python">x <span class="op">=</span> <span class="st">&quot;Hola&quot;</span></code>,
+luego no puedo cambiar el interior de esa cadena (por ejemplo, cambiando
+la <code
+class="sourceCode python"><span class="st">&#39;o&#39;</span></code> por
+una <code
+class="sourceCode python"><span class="st">&#39;a&#39;</span></code>),
+porque entonces la expresión <code class="sourceCode python">x</code>
+tendría distintos valores dependiendo del momento en el que se evalúe,
+lo que va en contra de la transparencia referencial.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.2.2.0.1">
+
+<ul>
+<li><p>Eso significa que en programación funcional tampoco estaría
+permitido hacer cosas como esta:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>math.constante <span class="op">=</span> <span class="dv">405</span></span></code></pre></div>
+<p>ya que entonces estaríamos <strong>creando una nueva ligadura dentro
+del objeto</strong> que representa al módulo <code>math</code>, lo que
+en la práctica supone que estamos <strong>cambiando el estado interno de
+ese objeto</strong> y, por tanto, estaría <strong>dejando de ser
+inmutable</strong>.</p></li>
+<li><p>Recordemos que <strong>los módulos son objetos</strong> y, como
+tales, <strong>son valores</strong> como cualquier otro.</p></li>
+<li><p>En cambio, sí sería correcto hacer algo así:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>constante <span class="op">=</span> <span class="dv">405</span></span></code></pre></div>
+<p>ya que ahí no se está cambiando el estado interno de ningún
+valor.</p></li>
+</ul>
+</section>
+
 <section id="reglas-léxicas" class="title-slide slide level3"
-data-number="4.2.1">
-<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span>
+data-number="4.2.3">
+<h3 data-number="4.2.3"><span class="header-section-number">4.2.3</span>
 Reglas léxicas</h3>
 <ul>
 <li><p>Cuando hacemos una definición debemos tener en cuenta ciertas
@@ -2036,8 +2103,8 @@ con una palabra reservada y pueden tener cualquier longitud.</p></li>
 </section>
 
 <section id="tipo-de-un-identificador" class="title-slide slide level3"
-data-number="4.2.2">
-<h3 data-number="4.2.2"><span class="header-section-number">4.2.2</span>
+data-number="4.2.4">
+<h3 data-number="4.2.4"><span class="header-section-number">4.2.4</span>
 Tipo de un identificador</h3>
 <ul>
 <li><p>Cuando un identificador está ligado a un valor, a efectos
@@ -2127,9 +2194,9 @@ directamente las definiciones que contiene, por lo que se pueden usar
 directamente.</p></li>
 <li><p>Por tanto, es como si Python ejecutara las siguientes sentencias
 nada más entrar en el intérprete:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> __builtins__</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> __builtins__ <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> __builtins__</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> __builtins__ <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2182,9 +2249,9 @@ definiciones, por lo que se podría usar un nombre antes de que aparezca
 su definición en el código fuente del programa.</p></li>
 <li><p>Por ejemplo, en un lenguaje funcional puro como Haskell podríamos
 escribir lo siguiente:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">2</span> <span class="op">+</span> b</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">2</span> <span class="op">+</span> b</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="dv">5</span></span></code></pre></div>
 <p>y funcionaría perfectamente, aunque en la primera línea de código
 estemos usando un nombre que se define después en el código fuente, en
 la segunda línea.</p></li>
@@ -2199,14 +2266,14 @@ orden de ejecución de las instrucciones sí que importa.</p></li>
 <ul>
 <li><p>Por ejemplo, si iniciamos una sesión con el intérprete
 interactivo y justo a continuación tecleamos lo siguiente:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb33-2"><a href="#cb33-2"></a>Traceback (most recent call last):</span>
-<span id="cb33-3"><a href="#cb33-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
-<span id="cb33-5"><a href="#cb33-5"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb33-6"><a href="#cb33-6"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="dv">25</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb37-2"><a href="#cb37-2"></a>Traceback (most recent call last):</span>
+<span id="cb37-3"><a href="#cb37-3"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb37-7"><a href="#cb37-7"></a><span class="dv">25</span></span></code></pre></div>
 <ul>
 <li><p>Aquí estamos trabajando con el <em>marco global</em> (el único
 marco que existe hasta ahora para nosotros).</p></li>
@@ -2230,12 +2297,12 @@ y destruyendo durante la ejecución del programa.</p></li>
 destruyendo a medida que se van ejecutando las instrucciones que forman
 el programa.</p></li>
 <li><p>Si tenemos la siguiente sesión interactiva:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="dv">5</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="dv">5</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> y</span></code></pre></div>
 <p>Según hasta donde hayamos ejecutado, el marco global contendrá lo
 siguiente:</p></li>
 </ul>
@@ -2327,19 +2394,19 @@ siempre que la expresión resulte ser válida según las reglas del
 lenguaje.</p></li>
 <li><p>El identificador representa a su valor ligado y se evalúa a dicho
 valor en cualquier expresión donde aparezca ese identificador:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="dv">77</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> x <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="dv">77</span></span></code></pre></div></li>
 <li><p>Intentar usar en una expresión un identificador no ligado provoca
 un error de tipo <code
 class="sourceCode python"><span class="pp">NameError</span></code>
 (<em>nombre no definido</em>):</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;y&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;y&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ul>
 </section>
 <section id="resolución-de-identificadores"
@@ -2371,17 +2438,17 @@ del identificador</strong>.</p></li>
 identificador dependerán del <em>contexto</em> en el que se está
 intentando resolver dicho identificador.</p></li>
 <li><p>Por ejemplo, en el siguiente código:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
 <p>se busca una ligadura para <code>x</code> en el marco
 global.</p></li>
 <li><p>En cambio, si se intenta acceder a un atributo de un objeto:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.pi</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.141592653589793</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.pi</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.141592653589793</span></span></code></pre></div>
 <p>se busca una ligadura para <code>pi</code> en el espacio de nombres
 asociado al módulo <code>math</code>.</p></li>
 </ul>
@@ -2441,8 +2508,8 @@ class="sourceCode python"><span class="im">from</span></code> dentro de
 la sesión actual.</p>
 <p>Por ejemplo, para cargar un <em>script</em> llamado
 <code>definiciones.py</code>, usaremos:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>Observar que en el <code
 class="sourceCode python"><span class="im">from</span></code> se pone el
 nombre del script pero <strong>sin la extensión
@@ -2450,9 +2517,9 @@ nombre del script pero <strong>sin la extensión
 <li><p>Iniciar una nueva sesión con el intérprete interactivo
 indicándole que cargue el <em>script</em> mediante la opción
 <code>-i</code> en la línea de órdenes del sistema operativo:</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python -i definiciones.py</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python -i definiciones.py</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;</span></code></pre></div>
 <p>En este caso <strong>sí</strong> se pone el nombre completo del
 script, <strong>con la extensión <code>.py</code></strong>.</p></li>
 </ol></li>
@@ -2466,22 +2533,22 @@ usar las definiciones que se hayan cargado desde del
 <em>script</em>.</p></li>
 <li><p>Por ejemplo, si el <em>script</em> <code>definiciones.py</code>
 tiene el siguiente contenido:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">14</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">14</span></span></code></pre></div></li>
 <li><p>Al cargar el <em>script</em> (usando cualquiera de las dos
 opciones que hemos visto anteriormente) se ejecutarán sus instrucciones
 (las dos definiciones) y, en consecuencia, se crearán en el marco global
 las ligaduras <code>x</code> → <code>25</code> y <code>j</code> →
 <code>14</code>:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># antes de cargar el script, da error</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span>          <span class="co"># aquí cargamos el script, y ahora</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># la x sí está ligada a un valor</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># antes de cargar el script, da error</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> definiciones <span class="im">import</span> <span class="op">*</span>          <span class="co"># aquí cargamos el script, y ahora</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x                                   <span class="co"># la x sí está ligada a un valor</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.0.0.3">
@@ -2493,18 +2560,18 @@ creado en el mismo <em>script</em></strong> (exceptuando las
 definiciones predefinidas del lenguaje).</p></li>
 <li><p>Por ejemplo, si tenemos el siguiente <em>script</em> llamado
 <code>prueba.py</code>:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
 <p>donde se intenta ligar a <code>j</code> el valor ligado a
 <code>w</code> más uno, lo siguiente no funcionará:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> w <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> prueba <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;/home/ricardo/python/prueba.py&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;w&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> w <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> prueba <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;/home/ricardo/python/prueba.py&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> w <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;w&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 <li><p>Aunque <code>w</code> esté ligado a un valor al cargar el
 <em>script</em>, éste no podrá acceder a esa ligadura y da error de
 «<em>nombre no definido</em>».</p></li>
@@ -2572,41 +2639,84 @@ Configuración básica de Visual Studio Code</h3>
 
 </section>
 <section>
-<section id="documentación-interna" class="title-slide slide level1"
-data-number="5">
+<section id="resumen" class="title-slide slide level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span>
+Resumen</h1>
+
+</section>
+<section id="resumen-1" class="title-slide slide level2"
+data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span>
+Resumen</h2>
+<ul>
+<li><p>Resumiendo, los conceptos fundamentales sobre los que se asienta
+la programación funcional son:</p>
+<ul>
+<li>Casi todas las instrucciones son expresiones, no sentencias.</li>
+<li>Definiciones, las únicas sentencias de un programa funcional.</li>
+<li>Transparencia referencial.</li>
+<li>Ausencia de efectos laterales.</li>
+<li>Funciones puras.</li>
+<li>El valor de una expresión no depende de nada ajeno a la misma, sólo
+de las subexpresiones que la forman.</li>
+<li>Ligaduras irrompibles.</li>
+<li>Inmutabilidad.</li>
+<li>Las funciones también son valores.</li>
+<li>Ejecutar un programa es evaluar una expresión.</li>
+<li>No importa el orden en el que se ejecuten las instrucciones.</li>
+<li>No importa el orden en el que se evalúen las subexpresiones de una
+expresión.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.0.0.1">
+
+<ul>
+<li><p>Y otros dos conceptos fundamentales que aún no hemos estudiado
+pero que veremos en breve:</p>
+<ul>
+<li><p>Abstracciones lambda.</p></li>
+<li><p>Funciones de orden superior.</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="documentación-interna" class="title-slide slide level1"
+data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span>
 Documentación interna</h1>
 
 </section>
 <section id="identificadores-significativos"
-class="title-slide slide level2" data-number="5.1">
-<h2 data-number="5.1"><span class="header-section-number">5.1</span>
+class="title-slide slide level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span>
 Identificadores significativos</h2>
 <ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
 <p>que</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
 <p>aunque ambos programas sean equivalentes en cuanto al efecto que
 producen y el resultado que generan.</p></li>
 <li><p>Si el identificador representa varias palabras, se puede usar el
 carácter de guión bajo (<code>_</code>) para separarlas y formar un
 único identificador:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
 </ul>
 </section>
 
 <section id="comentarios" class="title-slide slide level2"
-data-number="5.2">
-<h2 data-number="5.2"><span class="header-section-number">5.2</span>
+data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span>
 Comentarios</h2>
 <ul>
 <li><p>Los comentarios en Python empiezan con el carácter <code>#</code>
@@ -2617,26 +2727,26 @@ continuación de un espacio en blanco o una porción de código.</p></li>
 cadena.</p>
 <p>Un carácter <code>#</code> dentro de un literal cadena es sólo un
 carácter más.</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.1">
+<section class="slide level5" data-number="6.2.0.0.1">
 
 <ul>
 <li><p>Cuando un comentario ocupa varias líneas, se puede usar el
 «truco» de poner una cadena con triples comillas:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Python evaluará la cadena pero, al no usarse dentro de ninguna
 expresión ni ligarse a ningún identificador, simplementa la ignorará
 (como un comentario).</p></li>
