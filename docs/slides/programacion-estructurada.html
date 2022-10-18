@@ -239,7 +239,7 @@
 <section id="title-slide">
   <h1 class="title">Programación estructurada</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2021/2022</p>
+  <p class="date">IES Doñana, curso 2022/2023</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -280,7 +280,8 @@ programación <strong>imperativa</strong> que se apoya en tres pilares
 fundamentales:</p>
 <ul>
 <li><p><strong>Estructuras básicas:</strong> los programas se escriben
-usando sólo unos pocos componentes constructivos básicos.</p></li>
+usando sólo unos pocos componentes constructivos básicos que se combinan
+entre sí mediante composición.</p></li>
 <li><p><strong>Recursos abstractos:</strong> los programas se escriben
 sin tener en cuenta inicialmente el ordenador que lo va a ejecutar ni
 las instrucciones de las que dispone el lenguaje de programación que se
@@ -304,14 +305,17 @@ en ver qué se entiende por «programa estructurado» para estudiar con
 detalle sus características fundamentales.</p></li>
 <li><p>Por otra parte, dentro del <strong>enfoque práctico</strong> se
 presentará una metodología que permite construir programas estructurados
-paso a paso, detallando cada vez más sus instrucciones
-componentes.</p></li>
+paso a paso, detallando cada vez más las instrucciones que lo
+componen.</p></li>
 </ul></li>
 <li><p>Las ideas que dieron lugar a la programación estructurada ya
 fueron expuestas por <strong>E. W. Dijkstra</strong> en 1965, aunque el
 fundamento teórico está basado en los trabajos de <strong>Böhm y
 Jacopini</strong> publicados en 1966.</p></li>
 </ul>
+<!--
+- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd para establecer una metodología disciplinada y sistemática de programación en la cual los programas se escriben al mismo tiempo que se va demostrando su corrección, en un estilo formal y riguroso.
+-->
 </section>
 <section class="slide level5" data-number="1.1.0.0.2">
 
@@ -320,7 +324,8 @@ Jacopini</strong> publicados en 1966.</p></li>
 que aparecen cuando se programa sin una disciplina y unos límites que
 marquen la creación de programas claros y correctos.</p></li>
 <li><p>Un programador <em>disciplinado</em> crearía programas fáciles de
-leer.</p></li>
+leer en los que resulta relativamente fácil demostrar su
+corrección.</p></li>
 <li><p>Por ejemplo, el siguiente programa que calcula el producto de dos
 números:</p></li>
 </ul>
@@ -335,7 +340,8 @@ style="width:95.0%" /></p>
 <div class="column" style="width:45%;">
 <ul>
 <li><p>En cambio, un programador <em>indisciplinado</em> crearía
-programas más difíciles de leer.</p></li>
+programas más difíciles de leer y, por tanto, de demostrar que son
+correctos.</p></li>
 <li><p>Este programa resuelve el mismo problema que el anterior, pero
 mediante saltos contínuos y líneas que se cruzan, lo que resulta en un
 programa más complicado de seguir.</p></li>
@@ -353,18 +359,18 @@ style="width:100.0%" /></p>
 <ul>
 <li><p>Esos dos programas son <strong>equivalentes</strong>, lo que
 significa que producen el mismo resultado y los mismos efectos ante los
-mismos datos de entrada, pero lo hacen de distinta forma.</p></li>
+mismos datos de entrada, aunque lo hacen de distinta forma.</p></li>
 <li><p>Pero el primer programa es <strong>mucho más fácil de leer y
 modificar</strong> que el segundo, aunque los dos resuelvan el mismo
 problema.</p></li>
 <li><p>Si un programa se escribe de cualquier manera, aunque funcione
-correctamente, puede resultar engorroso, críptico, ilegible y casi
-imposible de modificar.</p></li>
+correctamente, puede resultar engorroso, críptico, ilegible, casi
+imposible de modificar y de comprobar su corrección.</p></li>
 <li><p>Por tanto, lo que hay que hacer es <strong>impedir que el
 programador pueda escribir programas de cualquier manera</strong>, y
 para ello hay que <strong>restringir sus opciones</strong> a la hora de
 construir programas, de forma que el programa resultante sea fácil de
-leer, entender y mantener.</p></li>
+leer, entender, mantener y verificar.</p></li>
 <li><p>Ese programa, una vez terminado, debe estar construido combinando
 sólo unos pocos tipos de componentes y cumpliendo una serie de
 restricciones.</p></li>
@@ -519,7 +525,7 @@ cruzarse:</p></li>
 <div class="centered">
 <figure>
 <img data-src="images/estructura-si.svg" class="plain"
-style="width:70.0%" alt="Estructuras" />
+style="width:90.0%" alt="Estructuras" />
 <figcaption aria-hidden="true">Estructuras</figcaption>
 </figure>
 </div>
@@ -537,7 +543,7 @@ style="width:20.0%" alt="Estas no son estructuras" />
 <section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
-<li><p>Las estructuras forman los elementos constructivos básicos de
+<li><p>Las estructuras forman los componentes constructivos básicos de
 cualquier programa estructurado.</p></li>
 <li><p>Por tanto, un programa estructurado se crea combinando entre sí
 varias estructuras.</p></li>
@@ -681,12 +687,15 @@ salida.</p></li>
 mucho más claro, sería:</li>
 </ul>
 <div class="columns">
-<div class="column" style="width:70%;">
+<div class="column" style="width:65%;">
 <div class="centered">
 <p><img data-src="images/claro.svg" class="plain"
-style="width:70.0%" /></p>
+style="width:90.0%" /></p>
 </div>
-</div><div class="column" style="width:30%;">
+</div><div class="column" style="width:35%;">
+<p>Los cuadrados de trazo discontinuo representan las estructuras que
+forman el programa.</p>
+<p><br></p>
 <div class="line-block"><strong>leer</strong> <span
 class="math inline">a</span><br />
 <strong>leer</strong> <span class="math inline">b</span><br />
@@ -742,7 +751,7 @@ propio se puede estructurar.</p></li>
 <li><p>Por tanto, los programas estructurados son suficientemente
 expresivos como para expresar cualquier programa razonable.</p></li>
 <li><p>Y además, por su naturaleza estructurada resultan programas más
-sencillos y claros.</p></li>
+sencillos, claros y fáciles de entender, mantener y verificar.</p></li>
 <li><p>En consecuencia, no hay excusa para no estructurar nuestros
 programas.</p></li>
 </ul>
@@ -804,7 +813,8 @@ bloque.</p></li>
 por la <strong>indentación</strong> del código.</p>
 <p>Por tanto, las instrucciones que aparecen consecutivamente una tras
 otra en el mismo nivel de indentación (es decir, las que empiezan en la
-misma columna) pertenecen a la misma estructura.</p>
+misma columna en el archivo fuente) pertenecen a la misma
+estructura.</p>
 </div>
 </section>
 <section class="slide level5" data-number="2.1.0.0.2">
@@ -937,7 +947,7 @@ y <code
 class="sourceCode python">b <span class="op">=</span> <span class="dv">3</span></code>
 y la sentencia <code
 class="sourceCode python"><span class="cf">if</span> ... <span class="cf">else</span></code>
-que va desde la línea 3 hasta la 8.</p></li>
+que va desde la línea 3 hasta la 7.</p></li>
 <li><p>La <em>selección</em> <code
 class="sourceCode python"><span class="cf">if</span> ... <span class="cf">else</span></code>.</p></li>
 <li><p>Una <em>secuencia</em> formada por las sentencias de las líneas

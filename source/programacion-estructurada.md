@@ -14,7 +14,8 @@ nocite: |
   **imperativa** que se apoya en tres pilares fundamentales:
 
   - **Estructuras básicas:** los programas se escriben usando sólo unos pocos
-    componentes constructivos básicos.
+    componentes constructivos básicos que se combinan entre sí mediante
+    composición.
 
   - **Recursos abstractos:** los programas se escriben sin tener en cuenta
     inicialmente el ordenador que lo va a ejecutar ni las instrucciones de las
@@ -37,11 +38,15 @@ nocite: |
 
   - Por otra parte, dentro del **enfoque práctico** se presentará una
     metodología que permite construir programas estructurados paso a paso,
-    detallando cada vez más sus instrucciones componentes.
+    detallando cada vez más las instrucciones que lo componen.
 
 - Las ideas que dieron lugar a la programación estructurada ya fueron expuestas
   por **E. W. Dijkstra** en 1965, aunque el fundamento teórico está basado en
   los trabajos de **Böhm y Jacopini** publicados en 1966.
+
+<!--
+- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd para establecer una metodología disciplinada y sistemática de programación en la cual los programas se escriben al mismo tiempo que se va demostrando su corrección, en un estilo formal y riguroso.
+-->
 
 ---
 
@@ -49,7 +54,8 @@ nocite: |
   aparecen cuando se programa sin una disciplina y unos límites que marquen la
   creación de programas claros y correctos.
 
-- Un programador _disciplinado_ crearía programas fáciles de leer.
+- Un programador _disciplinado_ crearía programas fáciles de leer en los que
+  resulta relativamente fácil demostrar su corrección.
 
 - Por ejemplo, el siguiente programa que calcula el producto de dos números:
 
@@ -62,7 +68,7 @@ nocite: |
 ::: {.column width=45%}
 
 - En cambio, un programador _indisciplinado_ crearía programas más difíciles de
-  leer.
+  leer y, por tanto, de demostrar que son correctos.
 
 - Este programa resuelve el mismo problema que el anterior, pero mediante
   saltos contínuos y líneas que se cruzan, lo que resulta en un programa más
@@ -81,19 +87,20 @@ nocite: |
 ---
 
 - Esos dos programas son **equivalentes**, lo que significa que producen el
-  mismo resultado y los mismos efectos ante los mismos datos de entrada, pero
+  mismo resultado y los mismos efectos ante los mismos datos de entrada, aunque
   lo hacen de distinta forma.
 
 - Pero el primer programa es **mucho más fácil de leer y modificar** que el
   segundo, aunque los dos resuelvan el mismo problema.
 
 - Si un programa se escribe de cualquier manera, aunque funcione correctamente,
-  puede resultar engorroso, críptico, ilegible y casi imposible de modificar.
+  puede resultar engorroso, críptico, ilegible, casi imposible de modificar y
+  de comprobar su corrección.
 
 - Por tanto, lo que hay que hacer es **impedir que el programador pueda
   escribir programas de cualquier manera**, y para ello hay que **restringir
   sus opciones** a la hora de construir programas, de forma que el programa
-  resultante sea fácil de leer, entender y mantener.
+  resultante sea fácil de leer, entender, mantener y verificar.
 
 - Ese programa, una vez terminado, debe estar construido combinando sólo unos
   pocos tipos de componentes y cumpliendo una serie de restricciones.
@@ -208,7 +215,7 @@ completamente** unas dentro de otras.
 
 ::: column
 
-!DOT(estructura-si.svg)(Estructuras)(width=70%)(width=40%)
+!DOT(estructura-si.svg)(Estructuras)(width=90%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fillcolor = transparent]
 rankdir = "TB"
@@ -243,7 +250,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ---
 
-- Las estructuras forman los elementos constructivos básicos de cualquier
+- Las estructuras forman los componentes constructivos básicos de cualquier
   programa estructurado.
 
 - Por tanto, un programa estructurado se crea combinando entre sí varias
@@ -382,13 +389,18 @@ $B$
 
 :::: columns
 
-::: {.column width=70%}
+::: {.column width=65%}
 
-!IMGP(claro.!EXT)()(width=70%)(width=60%)
+!IMGP(claro.!EXT)()(width=90%)(width=80%)
 
 :::
 
-::: {.column width=30%}
+::: {.column width=35%}
+
+Los cuadrados de trazo discontinuo representan las estructuras que forman el
+programa.
+
+!SALTO
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -442,8 +454,8 @@ $B$
 - Por tanto, los programas estructurados son suficientemente expresivos como
   para expresar cualquier programa razonable.
 
-- Y además, por su naturaleza estructurada resultan programas más sencillos y
-  claros.
+- Y además, por su naturaleza estructurada resultan programas más sencillos,
+  claros y fáciles de entender, mantener y verificar.
 
 - En consecuencia, no hay excusa para no estructurar nuestros programas.
 
@@ -506,8 +518,8 @@ En Python, la **estructura** del programa viene definida por la **indentación**
 del código.
 
 Por tanto, las instrucciones que aparecen consecutivamente una tras otra en el
-mismo nivel de indentación (es decir, las que empiezan en la misma columna)
-pertenecen a la misma estructura.
+mismo nivel de indentación (es decir, las que empiezan en la misma columna en
+el archivo fuente) pertenecen a la misma estructura.
 ~~~~~~~~~~~~~~~~~
 
 ---
@@ -637,7 +649,7 @@ pertenecen a la misma estructura.
 
   #. Una _secuencia_ formada por un bloque de tres sentencias: las asignaciones
      !PYTHON(a = 4) y !PYTHON(b = 3) y la sentencia !PYTHON(if ... else) que va
-     desde la línea 3 hasta la 8.
+     desde la línea 3 hasta la 7.
 
   #. La _selección_ !PYTHON(if ... else).
 
@@ -1142,7 +1154,7 @@ while not salida:
 
 ---
 
-!IMGP(refinamiento.png)(Diseño descendente por refinamiento sucesivo)(width=60%)(width=40%)
+!IMGP(refinamiento.png)(Diseño descendente por refinamiento sucesivo)(width=60%)(width=45%)
 
 ## Recursos abstractos
 
