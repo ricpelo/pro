@@ -1189,6 +1189,22 @@ while not salida:
   usando los elementos del lenguaje de programación (ya no hay recursos
   abstractos).
 
+---
+
+- Al diseñar un programa estructurado, **se deben estructurar al mismo tiempo
+  tanto el _programa_ como los _datos_** que éste manipula.
+
+- Por tanto, el diseño descendente por refinamiento sucesivo se debe ir
+  aplicando también a los datos además de a las instrucciones.
+
+- En cada paso del refinamiento, tanto las instrucciones como los datos se
+  deben considerar recursos abstractos, de forma que, en un determinado nivel
+  de abstracción, las instrucciones y los datos deberían estar refiniados con
+  el mismo nivel de detalle.
+
+- Hay que evitar, por tanto, que las instrucciones estén poco detalladas y los
+  datos muy detallados, o viceversa.
+
 ## Ejemplo
 
 - Supongamos que queremos escribir un programa que muestre una tabla de
@@ -1306,9 +1322,9 @@ while not salida:
       print('Número incorrecto')
   ```
 
-# Funciones imperativas
+# Programación procedimental
 
-## Programación procedimental
+## Procedimientos
 
 - A un bloque de sentencias que realiza una tarea específica se le puede dar un
   **nombre**.
@@ -1343,7 +1359,7 @@ while not salida:
 - Por tanto, podría considerarse que **un procedimiento es una sentencia
   compuesta que actúa como una sentencia simple**.
 
----
+## El paradigma de programación procedimental
 
 - La **programación procedimental** es un paradigma de programación imperativa
   basada en los conceptos de **procedimiento** y **llamada a procedimientos**.
@@ -1360,7 +1376,86 @@ while not salida:
   lenguaje de programación usado) también podrían acceder a otros ámbitos no
   locales dentro del entorno, como el ámbito global.
 
+## Procedimientos y refinamiento sucesivo
+
+- Durante el proceso de refinamiento sucesivo que acabamos de estudiar, se
+  pueden ir creando procedimientos que representen **diferentes niveles de
+  detalle** en el diseño descendente.
+
+- Recordemos que una estructura de control es una sentencia compuesta y, como
+  tal, podemos estudiarla como si fuera una sola sentencia (con su entrada y su
+  salida), sin tener que conocer el detalle de cómo funciona por dentro, es
+  decir, qué sentencias más simples contiene.
+
 ---
+
+:::: columns
+
+::: {.column width=60%}
+
+!IMGP(claro.!EXT)()(width=100%)(width=50%)
+
+:::
+
+::: {.column width=40%}
+
+- Las cajas con trazo discontinuo, que representan los límites de cada
+  estructura, nos hacen entender que podemos ver cada una de esas estructuras
+  como una sola sentencia.
+
+:::
+
+::::
+
+---
+
+- De igual forma, una llamada a un procedimiento es una sentencia simple pero
+  que actúa como una sentencia compuesta, formada por varias instrucciones (el
+  _cuerpo_ del procedimiento) que actúan como una sola.
+
+- En ese caso, **el procedimiento actúa como un recurso abstracto en un
+  determinado nivel** (en ese nivel, se invoca al procedimiento aunque aún no
+  exista) y luego se implementa en un nivel de mayor refinamiento.
+
+- El uso de procedimientos para escribir programas siguiendo un diseño
+  descendente nos lleva a un código descompuesto en partes en lugar de tener un
+  único código enorme con todo el texto del programa escrito directamente al
+  mismo nivel.
+
+- Esta forma de refinamiento y de diseño descendente está ya más relacionado
+  con el concepto de **programación modular**, que estudiaremos luego.
+
+- En un ordinograma, una llamada a un procedimiento se representa como un
+  rectángulo con doble trazo superior.
+
+---
+
+- El código escrito mediante su descomposición en procedimientos tiene dos
+  grandes ventajas:
+
+  - Es más fácil de entender un código basado en abstracciones independientes y
+    separadas que se llaman entre sí, antes que un código donde todo está en el
+    mismo nivel de refinamiento formando un texto monolítico de principio a
+    fin.
+
+  - Es probable que los procedimientos así obtenidos puedan _reutilizarse_ en
+    otros programas con poca o ninguna variación, siempre y cuando sean lo
+    suficientemente independientes del resto del programa que los utiliza.
+
+---
+
+- Estas ventajas nos están ya haciendo entender que puede resultar interesante
+  diseñar un programa descomponiéndolo en partes separadas, asunto que veremos
+  con más detalle al estudiar la _programación modular_.
+
+- Pero no debemos confundir la programación procedimental con la programación
+  modular, que son términos relacionados pero diferentes.
+
+- Asimismo, la mayoría de los lenguajes estructurados permiten la creación de
+  procedimientos, lo que a veces lleva a la confusión de creer que la
+  programación estructurada y la procedimental son el mismo paradigma.
+
+## Funciones imperativas
 
 - Cada lenguaje de programación procedimental establece sus propios mecanismos
   de creación de procedimientos.
@@ -1376,7 +1471,7 @@ while not salida:
   momento veremos también cómo crear métodos haciendo uso de funciones
   imperativas.
 
-## Definición de funciones imperativas
+### Definición de funciones imperativas
 
 - En programación imperativa también podemos definir funciones.
 
@@ -1387,8 +1482,11 @@ while not salida:
 - Pero a diferencia de lo que ocurre en programación funcional, una función en
   programación imperativa contiene **sentencias**.
 
+---
+
 - Las funciones en programación imperativa conforman los bloques básicos que
-  nos permiten **descomponer un programa en partes** que se combinan entre sí.
+  nos permiten **descomponer un programa en partes** que se combinan entre sí,
+  lo que resulta el complemento perfecto para la programación estructurada.
 
 - Todavía podemos construir funciones mediante expresiones lambda, pero las
   funciones imperativas tienen ventajas:
@@ -1465,7 +1563,7 @@ while not salida:
 
 ---
 
-!IMGP(ambitos-funciones-imperativas.!EXT)(El cuerpo de una función define un ámbito)(width=100%)(width=50%)
+!IMGP(ambitos-funciones-imperativas.!EXT)(El cuerpo de una función define un ámbito)(width=80%)(width=50%)
 
 ---
 
@@ -1521,6 +1619,10 @@ while not salida:
      retorno.
 
   5. Se continúa la ejecución del programa desde ese punto.
+
+- En consecuencia, podemos considerar que la llamada a una función es una
+  sentencia simple que, en realidad, actúa como una sentencia compuesta, una
+  estructura secuencial (o bloque), que es el cuerpo de la función.
 
 ---
 

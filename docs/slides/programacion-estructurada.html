@@ -256,9 +256,9 @@ Python</a></li>
 id="/toc-metodología-de-la-programación-estructurada"><span
 class="toc-section-number">3</span> Metodología de la programación
 estructurada</a></li>
-<li><a href="#/funciones-imperativas"
-id="/toc-funciones-imperativas"><span
-class="toc-section-number">4</span> Funciones imperativas</a></li>
+<li><a href="#/programación-procedimental"
+id="/toc-programación-procedimental"><span
+class="toc-section-number">4</span> Programación procedimental</a></li>
 </ul>
 </nav>
 </section>
@@ -1575,6 +1575,23 @@ completamente definida usando los elementos del lenguaje de programación
 (ya no hay recursos abstractos).</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="3.2.0.0.2">
+
+<ul>
+<li><p>Al diseñar un programa estructurado, <strong>se deben estructurar
+al mismo tiempo tanto el <em>programa</em> como los
+<em>datos</em></strong> que éste manipula.</p></li>
+<li><p>Por tanto, el diseño descendente por refinamiento sucesivo se
+debe ir aplicando también a los datos además de a las
+instrucciones.</p></li>
+<li><p>En cada paso del refinamiento, tanto las instrucciones como los
+datos se deben considerar recursos abstractos, de forma que, en un
+determinado nivel de abstracción, las instrucciones y los datos deberían
+estar refiniados con el mismo nivel de detalle.</p></li>
+<li><p>Hay que evitar, por tanto, que las instrucciones estén poco
+detalladas y los datos muy detallados, o viceversa.</p></li>
+</ul>
+</section>
 
 <section id="ejemplo" class="title-slide slide level2"
 data-number="3.3">
@@ -1702,16 +1719,16 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a h
 </section>
 </section>
 <section>
-<section id="funciones-imperativas" class="title-slide slide level1"
-data-number="4">
+<section id="programación-procedimental"
+class="title-slide slide level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span>
-Funciones imperativas</h1>
+Programación procedimental</h1>
 
 </section>
-<section id="programación-procedimental"
-class="title-slide slide level2" data-number="4.1">
+<section id="procedimientos" class="title-slide slide level2"
+data-number="4.1">
 <h2 data-number="4.1"><span class="header-section-number">4.1</span>
-Programación procedimental</h2>
+Procedimientos</h2>
 <ul>
 <li><p>A un bloque de sentencias que realiza una tarea específica se le
 puede dar un <strong>nombre</strong>.</p></li>
@@ -1749,8 +1766,11 @@ una sentencia compuesta que actúa como una sentencia
 simple</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.2">
 
+<section id="el-paradigma-de-programación-procedimental"
+class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> El
+paradigma de programación procedimental</h2>
 <ul>
 <li><p>La <strong>programación procedimental</strong> es un paradigma de
 programación imperativa basada en los conceptos de
@@ -1769,8 +1789,100 @@ a otros ámbitos no locales dentro del entorno, como el ámbito
 global.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.3">
 
+<section id="procedimientos-y-refinamiento-sucesivo"
+class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span>
+Procedimientos y refinamiento sucesivo</h2>
+<ul>
+<li><p>Durante el proceso de refinamiento sucesivo que acabamos de
+estudiar, se pueden ir creando procedimientos que representen
+<strong>diferentes niveles de detalle</strong> en el diseño
+descendente.</p></li>
+<li><p>Recordemos que una estructura de control es una sentencia
+compuesta y, como tal, podemos estudiarla como si fuera una sola
+sentencia (con su entrada y su salida), sin tener que conocer el detalle
+de cómo funciona por dentro, es decir, qué sentencias más simples
+contiene.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.1">
+
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="centered">
+<p><img data-src="images/claro.svg" class="plain"
+style="width:100.0%" /></p>
+</div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>Las cajas con trazo discontinuo, que representan los límites de cada
+estructura, nos hacen entender que podemos ver cada una de esas
+estructuras como una sola sentencia.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="4.3.0.0.2">
+
+<ul>
+<li><p>De igual forma, una llamada a un procedimiento es una sentencia
+simple pero que actúa como una sentencia compuesta, formada por varias
+instrucciones (el <em>cuerpo</em> del procedimiento) que actúan como una
+sola.</p></li>
+<li><p>En ese caso, <strong>el procedimiento actúa como un recurso
+abstracto en un determinado nivel</strong> (en ese nivel, se invoca al
+procedimiento aunque aún no exista) y luego se implementa en un nivel de
+mayor refinamiento.</p></li>
+<li><p>El uso de procedimientos para escribir programas siguiendo un
+diseño descendente nos lleva a un código descompuesto en partes en lugar
+de tener un único código enorme con todo el texto del programa escrito
+directamente al mismo nivel.</p></li>
+<li><p>Esta forma de refinamiento y de diseño descendente está ya más
+relacionado con el concepto de <strong>programación modular</strong>,
+que estudiaremos luego.</p></li>
+<li><p>En un ordinograma, una llamada a un procedimiento se representa
+como un rectángulo con doble trazo superior.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.3">
+
+<ul>
+<li><p>El código escrito mediante su descomposición en procedimientos
+tiene dos grandes ventajas:</p>
+<ul>
+<li><p>Es más fácil de entender un código basado en abstracciones
+independientes y separadas que se llaman entre sí, antes que un código
+donde todo está en el mismo nivel de refinamiento formando un texto
+monolítico de principio a fin.</p></li>
+<li><p>Es probable que los procedimientos así obtenidos puedan
+<em>reutilizarse</em> en otros programas con poca o ninguna variación,
+siempre y cuando sean lo suficientemente independientes del resto del
+programa que los utiliza.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.4">
+
+<ul>
+<li><p>Estas ventajas nos están ya haciendo entender que puede resultar
+interesante diseñar un programa descomponiéndolo en partes separadas,
+asunto que veremos con más detalle al estudiar la <em>programación
+modular</em>.</p></li>
+<li><p>Pero no debemos confundir la programación procedimental con la
+programación modular, que son términos relacionados pero
+diferentes.</p></li>
+<li><p>Asimismo, la mayoría de los lenguajes estructurados permiten la
+creación de procedimientos, lo que a veces lleva a la confusión de creer
+que la programación estructurada y la procedimental son el mismo
+paradigma.</p></li>
+</ul>
+</section>
+
+<section id="funciones-imperativas" class="title-slide slide level2"
+data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span>
+Funciones imperativas</h2>
 <ul>
 <li><p>Cada lenguaje de programación procedimental establece sus propios
 mecanismos de creación de procedimientos.</p></li>
@@ -1786,11 +1898,10 @@ procedimental, en su momento veremos también cómo crear métodos haciendo
 uso de funciones imperativas.</p></li>
 </ul>
 </section>
-
 <section id="definición-de-funciones-imperativas"
-class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span>
-Definición de funciones imperativas</h2>
+class="title-slide slide level3" data-number="4.4.1">
+<h3 data-number="4.4.1"><span class="header-section-number">4.4.1</span>
+Definición de funciones imperativas</h3>
 <ul>
 <li><p>En programación imperativa también podemos definir
 funciones.</p></li>
@@ -1800,9 +1911,15 @@ argumentos y produce un resultado.</p></li>
 <li><p>Pero a diferencia de lo que ocurre en programación funcional, una
 función en programación imperativa contiene
 <strong>sentencias</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.4.1.0.1">
+
+<ul>
 <li><p>Las funciones en programación imperativa conforman los bloques
 básicos que nos permiten <strong>descomponer un programa en
-partes</strong> que se combinan entre sí.</p></li>
+partes</strong> que se combinan entre sí, lo que resulta el complemento
+perfecto para la programación estructurada.</p></li>
 <li><p>Todavía podemos construir funciones mediante expresiones lambda,
 pero las funciones imperativas tienen ventajas:</p>
 <ul>
@@ -1813,7 +1930,7 @@ porque su cometido es provocar algún efecto lateral.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.1">
+<section class="slide level5" data-number="4.4.1.0.2">
 
 <ul>
 <li><p>La <strong>definición</strong> de una función imperativa tiene la
@@ -1842,7 +1959,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.2">
+<section class="slide level5" data-number="4.4.1.0.3">
 
 <ul>
 <li><p>La definición de una función imperativa es una <strong>sentencia
@@ -1863,7 +1980,7 @@ indentada</strong> que el cuerpo, o bien el final del
 <em>script</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.3">
+<section class="slide level5" data-number="4.4.1.0.4">
 
 <ul>
 <li><p>La definición de una función es una sentencia ejecutable que,
@@ -1883,18 +2000,18 @@ función</strong> (normalmente, el marco global).</p></li>
 lambda.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.4">
+<section class="slide level5" data-number="4.4.1.0.5">
 
 <div class="centered">
 <figure>
 <img data-src="images/ambitos-funciones-imperativas.svg" class="plain"
-style="width:100.0%" alt="El cuerpo de una función define un ámbito" />
+style="width:80.0%" alt="El cuerpo de una función define un ámbito" />
 <figcaption aria-hidden="true">El cuerpo de una función define un
 ámbito</figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="4.2.0.0.5">
+<section class="slide level5" data-number="4.4.1.0.6">
 
 <ul>
 <li><p>Nuestra gramática se vuelve a ampliar para incluir las
@@ -1922,9 +2039,10 @@ style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>)</code
 </ul>
 </section>
 
+
 <section id="llamadas-a-funciones-imperativas"
-class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span>
+class="title-slide slide level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span>
 Llamadas a funciones imperativas</h2>
 <ul>
 <li><p>Cuando se llama a una función imperativa, ocurre lo siguiente (en
@@ -1946,7 +2064,7 @@ sentencias que forman el cuerpo de la función y se empieza a ejecutar
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.3.0.0.1">
+<section class="slide level5" data-number="4.5.0.0.1">
 
 <ul>
 <li><p>Cuando se terminan de ejecutar las sentencias que forman el
@@ -1960,9 +2078,13 @@ la función.</p></li>
 valor de retorno.</p></li>
 <li><p>Se continúa la ejecución del programa desde ese punto.</p></li>
 </ol></li>
+<li><p>En consecuencia, podemos considerar que la llamada a una función
+es una sentencia simple que, en realidad, actúa como una sentencia
+compuesta, una estructura secuencial (o bloque), que es el cuerpo de la
+función.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.3.0.0.2">
+<section class="slide level5" data-number="4.5.0.0.2">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -1992,7 +2114,7 @@ Sayonara, baby</code></pre></li>
 href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
 </section>
-<section class="slide level5" data-number="4.3.0.0.3">
+<section class="slide level5" data-number="4.5.0.0.3">
 
 <p>Una función puede llamar a otra.</p>
 <div class="columns">
@@ -2036,7 +2158,7 @@ Sayonara, baby</code></pre></li>
 href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28&#39;Me%20llamo%20Ricardo&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
 </section>
-<section class="slide level5" data-number="4.3.0.0.4">
+<section class="slide level5" data-number="4.5.0.0.4">
 
 <ul>
 <li><p>La función debe estar definida antes de poder llamarla.</p></li>
@@ -2060,8 +2182,8 @@ class="sourceCode numberSource python number-lines"><code class="sourceCode pyth
 </section>
 
 <section id="paso-de-argumentos" class="title-slide slide level2"
-data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span>
+data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span>
 Paso de argumentos</h2>
 <ul>
 <li><p>En el marco de la función llamada se almacenan, entre otras
@@ -2085,7 +2207,7 @@ todo lo relacionado con los <em>alias</em> de variables, mutabilidad,
 etc.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.1">
+<section class="slide level5" data-number="4.6.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -2110,7 +2232,7 @@ class="sourceCode python">x</code>, lo que sabemos que crea un
 pasado como argumento es una cadena y, por tanto, inmutable.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.2">
+<section class="slide level5" data-number="4.6.0.0.2">
 
 <ul>
 <li><p>En caso de pasar un argumento mutable:</p>
@@ -2141,8 +2263,8 @@ argumento.</p></li>
 </section>
 
 <section id="la-sentencia-return" class="title-slide slide level2"
-data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span> La
+data-number="4.7">
+<h2 data-number="4.7"><span class="header-section-number">4.7</span> La
 sentencia <code
 class="sourceCode python"><span class="cf">return</span></code></h2>
 <ul>
@@ -2166,7 +2288,7 @@ valor de retorno (el calculado en el paso 1 anterior).</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.1">
+<section class="slide level5" data-number="4.7.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -2197,7 +2319,7 @@ suma anterior (el valor de la expresión que acompaña al <code
 class="sourceCode python"><span class="cf">return</span></code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.2">
+<section class="slide level5" data-number="4.7.0.0.2">
 
 <ul>
 <li><p>El valor de retorno de la función sustituye a la llamada a la
@@ -2218,7 +2340,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a h
 como está ahora.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.0.3">
+<section class="slide level5" data-number="4.7.0.0.3">
 
 <ul>
 <li><p>También es posible usar la sentencia <code
@@ -2262,7 +2384,7 @@ None</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="4.5.0.0.4">
+<section class="slide level5" data-number="4.7.0.0.4">
 
 <ul>
 <li><p>Cuando se alcanza el final del cuerpo de una función sin haberse
@@ -2289,8 +2411,8 @@ quedan más sentencias que ejecutar en su cuerpo.</p></li>
 </section>
 
 <section id="ámbito-de-variables" class="title-slide slide level2"
-data-number="4.6">
-<h2 data-number="4.6"><span class="header-section-number">4.6</span>
+data-number="4.8">
+<h2 data-number="4.8"><span class="header-section-number">4.8</span>
 Ámbito de variables</h2>
 <ul>
 <li><p>La función <code class="sourceCode python">suma</code> se podría
@@ -2317,7 +2439,7 @@ está formado sólo por el marco global) y por eso da error en la línea
 6.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.0.0.1">
+<section class="slide level5" data-number="4.8.0.0.1">
 
 <ul>
 <li><p>Eso significa que se crea un nuevo marco en el entorno que
@@ -2355,8 +2477,8 @@ style="width:80.0%" alt="Entorno en la línea 6" />
 </div>
 </section>
 <section id="variables-locales" class="title-slide slide level3"
-data-number="4.6.1">
-<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span>
+data-number="4.8.1">
+<h3 data-number="4.8.1"><span class="header-section-number">4.8.1</span>
 Variables locales</h3>
 <ul>
 <li><p>Al igual que pasa con las expresiones lambda, las definiciones de
@@ -2385,8 +2507,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a h
 </section>
 
 <section id="variables-globales" class="title-slide slide level3"
-data-number="4.6.2">
-<h3 data-number="4.6.2"><span class="header-section-number">4.6.2</span>
+data-number="4.8.2">
+<h3 data-number="4.8.2"><span class="header-section-number">4.8.2</span>
 Variables globales</h3>
 <ul>
 <li><p>Desde dentro de una función es posible usar variables globales,
@@ -2403,7 +2525,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a h
 <span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>prueba()       <span class="co"># imprime 4</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.0.1">
+<section class="slide level5" data-number="4.8.2.0.1">
 
 <ul>
 <li><p>Pero para poder <strong>modificar</strong> una variable global es
@@ -2431,7 +2553,7 @@ lugar <strong>dentro</strong> de una función, esa variable se considera
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.0.2">
+<section class="slide level5" data-number="4.8.2.0.2">
 
 <ul>
 <li><p>El siguiente código genera un error «<em>UnboundLocalError: local
@@ -2456,9 +2578,9 @@ valor asignado, por lo que genera un error «<em>variable local
 </ul>
 </section>
 <section id="global" class="title-slide slide level4"
-data-number="4.6.2.1">
-<h4 data-number="4.6.2.1"><span
-class="header-section-number">4.6.2.1</span> <code
+data-number="4.8.2.1">
+<h4 data-number="4.8.2.1"><span
+class="header-section-number">4.8.2.1</span> <code
 class="sourceCode python"><span class="kw">global</span></code></h4>
 <ul>
 <li><p>Para informar al intérprete que una determinada variable es
@@ -2481,7 +2603,7 @@ que, por tanto, debe saltarse los demás marcos que haya en el
 entorno.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.1.1">
+<section class="slide level5" data-number="4.8.2.1.1">
 
 <ul>
 <li><p>Si la variable global no existe en el momento de realizar la
@@ -2497,7 +2619,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a h
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)  <span class="co"># imprime 9</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.1.2">
+<section class="slide level5" data-number="4.8.2.1.2">
 
 <ul>
 <li><p>Las reglas básicas de uso de la sentencia <code
@@ -2528,9 +2650,9 @@ correspondiente.</p></li>
 </section>
 
 <section id="efectos-laterales" class="title-slide slide level4"
-data-number="4.6.2.2">
-<h4 data-number="4.6.2.2"><span
-class="header-section-number">4.6.2.2</span> Efectos laterales</h4>
+data-number="4.8.2.2">
+<h4 data-number="4.8.2.2"><span
+class="header-section-number">4.8.2.2</span> Efectos laterales</h4>
 <ul>
 <li><p>Cambiar el estado de una variable global es uno de los ejemplos
 más claros y conocidos de los llamados <strong>efectos
@@ -2551,7 +2673,7 @@ laterales.</p></li>
 sea más difícil de predecir.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.2.1">
+<section class="slide level5" data-number="4.8.2.2.1">
 
 <ul>
 <li><p>La pureza o impureza de una función tienen mucho que ver con los
@@ -2574,7 +2696,7 @@ una función impura por su valor de retorno.</p></li>
 <strong>transparencia referencial</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.2.2">
+<section class="slide level5" data-number="4.8.2.2.2">
 
 <ul>
 <li><p>El siguiente es un ejemplo de <strong>función impura</strong>, ya
@@ -2612,7 +2734,7 @@ La suma vale 13
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="4.6.2.2.3">
+<section class="slide level5" data-number="4.8.2.2.3">
 
 <ul>
 <li><p>No podemos sustituir libremente en una expresión las llamadas a
@@ -2632,7 +2754,7 @@ referencial</em></strong>, y no la cumple porque provoca un
 <strong>efecto lateral</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.2.4">
+<section class="slide level5" data-number="4.8.2.2.4">
 
 <ul>
 <li><p>Si una función necesita <strong>acceder al valor de una variable
@@ -2659,7 +2781,7 @@ modifican el valor de la variable global <code
 class="sourceCode python">z</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.2.5">
+<section class="slide level5" data-number="4.8.2.2.5">
 
 <ul>
 <li><p>Igualmente, el <strong>uso de la sentencia <code
@@ -2684,7 +2806,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a h
 <span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.2.6">
+<section class="slide level5" data-number="4.8.2.2.6">
 
 <ul>
 <li><p>O también podría afectar a otras funciones que dependan del valor
@@ -2710,7 +2832,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a h
 depende de una variable global.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.2.2.7">
+<section class="slide level5" data-number="4.8.2.2.7">
 
 <ul>
 <li><p>Aunque los efectos laterales resultan indeseables en general, a
@@ -2741,8 +2863,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a h
 
 
 <section id="funciones-locales-a-funciones"
-class="title-slide slide level2" data-number="4.7">
-<h2 data-number="4.7"><span class="header-section-number">4.7</span>
+class="title-slide slide level2" data-number="4.9">
+<h2 data-number="4.9"><span class="header-section-number">4.9</span>
 Funciones locales a funciones</h2>
 <ul>
 <li><p>En Python es posible definir <strong>funciones locales</strong> a
@@ -2764,7 +2886,7 @@ función interna.</p></li>
 cuando sólo tiene sentido su uso en un ámbito más interno.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.1">
+<section class="slide level5" data-number="4.9.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -2788,7 +2910,7 @@ sólo existe en el ámbito de la función <code>fact</code> (es decir, en
 el cuerpo de la función <code>fact</code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.2">
+<section class="slide level5" data-number="4.9.0.0.2">
 
 <ul>
 <li><p>Tampoco se puede usar <code>fact_iter</code> dentro de
@@ -2819,7 +2941,7 @@ línea 3).</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.3">
+<section class="slide level5" data-number="4.9.0.0.3">
 
 <ul>
 <li><p>Como cualquier otra función, las funciones locales también
@@ -2838,8 +2960,8 @@ global.</p></li>
 </ul>
 </section>
 <section id="nonlocal" class="title-slide slide level3"
-data-number="4.7.1">
-<h3 data-number="4.7.1"><span class="header-section-number">4.7.1</span>
+data-number="4.9.1">
+<h3 data-number="4.9.1"><span class="header-section-number">4.9.1</span>
 <code
 class="sourceCode python"><span class="kw">nonlocal</span></code></h3>
 <ul>
@@ -2865,7 +2987,7 @@ variable <code>n</code> debe buscarla en el entorno saltándose el marco
 de la función actual y el marco global.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.1.0.1">
+<section class="slide level5" data-number="4.9.1.0.1">
 
 <div class="sourceCode" id="cb60"><pre
 class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a><span class="kw">def</span> fact(n):</span>
@@ -2982,7 +3104,7 @@ espacio en blanco):</p>
 *****     ␣␣␣␣␣*     ␣␣␣␣*␣␣␣␣</code></pre></li>
 </ol>
 </section>
-<section class="slide level5" data-number="4.7.1.0.2">
+<section class="slide level5" data-number="4.9.1.0.2">
 
 <ol start="3" class="example" type="1">
 <li><p>Convertir una cantidad de tiempo (en segundos, <span
@@ -3004,7 +3126,7 @@ respectivamente, la salida puede ser:</p>
 p(2) = 9</code></pre></li>
 </ol>
 </section>
-<section class="slide level5" data-number="4.7.1.0.3">
+<section class="slide level5" data-number="4.9.1.0.3">
 
 <ol start="5" class="example" type="1">
 <li><p>Escribir un programa apropiado para cada una de las siguientes
@@ -3024,7 +3146,7 @@ sus divisores.</p></li>
 </ol></li>
 </ol>
 </section>
-<section class="slide level5" data-number="4.7.1.0.4">
+<section class="slide level5" data-number="4.9.1.0.4">
 
 <ol start="6" class="example" type="1">
 <li><p>Escribir un programa que lea un carácter, correspondiente a un
@@ -3050,7 +3172,7 @@ que realice estos cálculos, produciendo una entrada y salida
 claras.</p></li>
 </ol>
 </section>
-<section class="slide level5" data-number="4.7.1.0.5">
+<section class="slide level5" data-number="4.9.1.0.5">
 
 <ol start="8" class="example" type="1">
 <li><p>Escribir una función para hallar <span
