@@ -2295,11 +2295,11 @@ E -> w [lhead = cluster1]
 
     - !PYTHON(True or) \ $\;\underline{x}$
 
-      siempre es igual a !PYTHON(True).
+      siempre es igual a !PYTHON(True), valga lo que valga $\underline{x}$.
 
     - !PYTHON(False and) \ $\;\underline{x}$
 
-      siempre es igual a !PYTHON(False).
+      siempre es igual a !PYTHON(False), valga lo que valga $\underline{x}$.
 
     En ambos casos no es necesario evaluar $\underline{x}$.
 
