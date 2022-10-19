@@ -378,7 +378,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ningún otro ámbito.
 
 - En un momento dado, el **ámbito actual** es el ámbito más interno en el que
-  se encuentra la instrucción que se está ejecutando actualmente.
+  se encuentra la instrucción que se está ejecutando actualmente (es decir, la
+  **instrucción actual**).
 
 ---
 
@@ -597,8 +598,12 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   1. El espacio de nombres seleccionado depende del ámbito donde se crea la
      ligadura.
 
+     Es el caso de las definiciones que hemos visto hasta ahora.
+
   2. El espacio de nombres seleccionado NO depende del ámbito donde se crea la
      ligadura.
+
+     Es el caso de los atributos de los objetos, por ejemplo.
 
 ---
 
@@ -722,8 +727,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - **El cuerpo de la expresión lambda define un ámbito.**
 
-- **Al llamar a la expresión lambda**, se empieza a ejecutar su cuerpo y, por
-  tanto, **se entra en dicho ámbito**.
+- **Al llamar a la expresión lambda** (es decir, al aplicar la expresión lambda
+  a unos argumentos), se empieza a ejecutar su cuerpo y, por tanto, **se entra
+  en dicho ámbito**.
 
 - En ese momento, **se crea un nuevo marco** en la memoria, que representa esa
   ejecución concreta de dicha expresión lambda.
@@ -745,13 +751,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   - El **ámbito de creación de la ligadura** entre un parámetro y su argumento
     es el **cuerpo** de la expresión lambda, así que la **visibilidad** del
-    parámetro es ese cuerpo.
+    parámetro (o de la ligadura) es ese cuerpo.
 
   - Esa ligadura se crea justo al entrar en ese ámbito, así que se puede
     **acceder** a ella en cualquier parte del cuerpo de la expresión lambda.
 
   - El **espacio de nombres** que almacena las ligaduras entre parámetros y
-    argumentos es el marco que se crea al llamar a la expresión lambda.
+    argumentos es el **marco** que se crea al llamar a la expresión lambda.
 
 - Esto se resume diciendo que «el **ámbito de un parámetro** es el **cuerpo**
   de su expresión lambda».
@@ -762,6 +768,29 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - En consecuencia, **sólo podemos acceder al valor de un parámetro dentro del
   cuerpo de su expresión lambda**.
+
+---
+
+<!-- Esta diapositiva está repetida en una sección posterior -->
+
+- Por ejemplo, en el siguiente código:
+
+  ```python
+  suma = lambda x, y: x + y
+  ```
+
+  el cuerpo de la expresión lambda ligada a !PYTHON(suma) define un nuevo
+  ámbito.
+
+- Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
+  externo) y el ámbito del cuerpo de la expresión lambda (más interno y
+  anidado dentro del ámbito global):
+
+  !IMGP(ambitos-anidados.png)()(width=60%)
+
+- Además, cada vez que se llama a !PYTHON(suma), la ejecución del programa
+  entra en su cuerpo, lo que crea un nuevo marco que almacena las ligaduras
+  entre sus parámetros y los argumentos usados en esa llamada.
 
 ---
 
@@ -806,21 +835,6 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Por contraste, las variables, identificadores y ligaduras que no tienen
-  ámbito local se dice que tienen un **ámbito _no local_** o, a veces, un
-  **ámbito _más global_**.
-
-  Si, además, ese ámbito resulta ser el **ámbito global**, decimos directamente
-  que esa variable, identificador o ligadura es **global**.
-
-- Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
-  son locales a dicha expresión (ya que no representan parámetros de la
-  expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha
-  expresión lambda y se almacenarán en otro espacio de nombres distinto al
-  marco que se crea al llamar a la expresión lambda.
-
----
-
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **En resumen:**
@@ -854,8 +868,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   z = x + 1       # da error
   ```
 
-- Hay dos ámbitos: (1) el ámbito global y (2) el ámbito local definido el
-  cuerpo de la expresión lambda (la expresión !PYTHON(x * x)).
+- Hay dos ámbitos: el ámbito global y el ámbito local definido por el cuerpo de
+  la expresión lambda (la expresión !PYTHON(x * x)).
 
 - La expresión lambda de la línea 2 tiene un parámetro (!PYTHON(x)) que aparece
   como la variable ligada !PYTHON(x) en el cuerpo de la expresión lambda.
@@ -865,11 +879,28 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Por tanto, fuera del cuerpo de la expresión lambda, no es posible acceder al
   valor de la variable ligada !PYTHON(x), al encontrarnos **fuera de su
-  ámbito** (la !PYTHON(x) **sólo está ligada en el cuerpo** de la expresión
+  ámbito** (la ligadura **sólo es visible dentro del cuerpo** de la expresión
   lambda).
 
 - Por eso, la línea 4 dará un error al intentar acceder al valor del
-  identificador !PYTHON(x), que no está ligado en el ámbito actual (el global).
+  identificador !PYTHON(x), cuya ligadura no es visible fuera de la expresión
+  lambda.
+
+## Ámbito de una variable libre
+
+- Por contraste, las variables, identificadores y ligaduras que no tienen
+  ámbito local se dice que tienen un **ámbito _no local_** o, a veces, un
+  **ámbito _más global_**.
+
+  Si, además, ese ámbito resulta ser el **ámbito global**, decimos directamente
+  que esa variable, identificador o ligadura es **global**.
+
+- Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
+  son locales a dicha expresión (ya que no representan parámetros de la
+  expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha
+  expresión lambda y se almacenarán en otro espacio de nombres distinto al
+  marco que se crea al llamar a la expresión lambda.
+
 
 # Evaluación
 
@@ -880,12 +911,24 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  El **entorno** nos dice **_todas_ las ligaduras que son _accesibles_ en un
+  El **entorno** nos da acceso a **_todas_ las ligaduras (almacenadas en
+  marcos, es decir, no de atributos de objetos) que son _visibles_ en un
   momento concreto de la ejecución de un programa interpretado**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
+- El intérprete usa el entorno para resolver los identificadores que se
+  encuentran ligados mediante ligaduras cuya visibilidad depende de un ámbito y
+  que estén, por tanto, almacenadas en un marco.
+
+- Por tanto, no lo usa para resolver los identificadores asociados a atributos
+  de objetos.
+
+---
+
 - Durante la ejecución del programa, se van creando y destruyendo marcos a
   medida que se van ejecutando _scripts_, funciones o métodos.
+
+- Asimismo, en esos marcos se van almacenando ligaduras.
 
 - **Según se van creando en memoria, esos marcos van enlazándose unos con
   otros** creando una **secuencia de marcos** que se denomina **entorno** (del
@@ -900,7 +943,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   momento en el que se calcule**, es decir, de por dónde va la ejecución del
   programa.
 
-- O, más concretamente: depende de qué _scripts_, funciones, métodos y
+- Más concretamente: depende de qué _scripts_, funciones, métodos y
   definiciones se han ejecutado hasta ahora.
 
 - Por tanto, el entorno depende de qué partes del programa se han ido
@@ -909,13 +952,20 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - El entorno **siempre contendrá**, al menos, un marco: el _marco global_, que
   **siempre será _el último_ de la secuencia de marcos** que forman el entorno.
 
+- Asimismo, el primer marco del entorno se denomina el **marco actual**.
+
+- Si el marco global es el único que existe, entonces el marco actual será el
+  marco global.
+
 ---
 
 - Gráficamente, representaremos los entornos como una **lista enlazada de
   marcos** conectados entre sí formando secuencias, de manera que:
 
   - Usaremos la letra $E$ como un indicador que siempre apunta al primer marco
-    de la lista (el _marco actual_).
+    de la lista.
+
+    Ese primer marco es el **marco actual**.
 
   - El último marco siempre será el marco global.
 
@@ -927,35 +977,62 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   E -> "Marco A" -> "Marco B" -> "Marco global"
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Si sólo hay un marco en el entorno, ése será necesariamente el marco global,
+  el cual será también al mismo tiempo el marco actual:
+
+  !DOT(unico-marco-en-entorno.svg)()(width=25%)(width=25%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> "Marco global"
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 - Por ejemplo:
 
   - Cuando entramos a ejecutar un _script_, se crea su _marco global_.
 
+    !IMGP(unico-marco-en-entorno.svg)()(width=25%)
+
   - Si dentro de ese _script_ llamamos a una expresión lambda, se creará un
-    marco para esa ejecución concreta de la expresión lambda.
+    marco para esa ejecución concreta de la expresión lambda, por lo que en ese
+    caso habrá dos marcos en la memoria: el _global_ y el de esa llamada a la
+    expresión lambda.
 
-    En ese caso habrá dos marcos en la memoria: el _global_ y el de esa llamada
-    a la expresión lambda. Este último marco se eliminará de la memoria cuando
-    termine esa ejecución de la expresión lambda.
+    El marco de la expresión lambda será el marco actual, que será el
+    primer marco del entorno y apuntará a su vez al marco global.
 
-  - El marco global sólo se eliminará de la memoria cuando se finalice la
-    ejecución del _script_.
+    !DOT(marcos-de-expresion-lambda-y-global.svg)()(width=60%)(width=60%)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    graph [rankdir = LR]
+    node [fontname = "monospace"]
+    E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+    E -> "Marco de la expresión lambda" -> "Marco global"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  - El marco de la expresión lambda se eliminará de la memoria cuando termine
+    esa ejecución de la expresión lambda.
+
+  - A su vez, el marco global sólo se eliminará de la memoria cuando se
+    finalice la ejecución del _script_.
 
 ### Ámbitos, marcos y entornos
 
 - Hagamos un resumen rápido de todo lo visto hasta ahora.
 
-- El entorno contiene todas las ligaduras accesibles en un punto concreto de la
-  ejecución del programa interpretado.
+- El entorno contiene todas las ligaduras visibles en un punto concreto de la
+  ejecución del programa interpretado, siempre que sean ligaduras cuya
+  visibilidad dependa de un ámbito y estén, por tanto, almacenadas en un marco
+  (o sea, no es el caso de los atributos de objetos).
 
 - Un marco contiene un conjunto de ligaduras (representa un _espacio de
   nombres_), y un entorno es una secuencia de marcos.
 
-- Los marcos se van creando y destruyendo a medida que se van activando ciertas
-  partes del programa (_scripts_, funciones o métodos) durante la ejecución del
-  mismo.
+- Los marcos se van creando y destruyendo a medida que se van ejecutando y
+  terminando de ejecutar ciertas partes del programa (_scripts_, funciones o
+  métodos).
 
 - Una expresión lambda representa una función.
 
@@ -970,7 +1047,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 - Es decir: los parámetros (y las ligaduras entre los parámetros y los
   argumentos) tienen **un ámbito local** al cuerpo de la expresión lambda y
-  sólo existen y son visibles dentro de él.
+  sólo son visibles dentro de él.
 
 - Además, esas ligaduras tienen un **almacenamiento local** al **marco** que se
   crea al llamar a la expresión lambda.
@@ -1006,10 +1083,12 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   medida que se van ejecutando y terminando de ejecutar ciertas partes del
   programa: _scripts_, funciones y métodos.
 
-  Dicho de otra forma: los marcos se crean cuando se va entrando y saliendo de
-  ciertos ámbitos.
+  Dicho de otra forma: los marcos se crean cuando se va entrando de ciertos
+  ámbitos y se destruyen cuando se sale de ellos.
  
 ---
+
+<!-- Esta diapositiva está repetida en una sección anterior -->
 
 - Por ejemplo, en el siguiente código:
 
@@ -1043,21 +1122,22 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - El **primer marco** en la cadena del entorno siempre será el último marco que
   se ha creado y que todavía no se ha destruido.
 
-  Ese marco es el **marco actual**.
+  Ese marco es el **marco actual**, y se corresponde con el ámbito actual, es
+  decir, con el ámbito más interno de la instrucción actual.
 
 - Por otra parte, el **último marco** del entorno siempre es el _marco global_.
 
 ---
 
-- Por ejemplo, si en cierto momento de la ejecución de un programa tenemos el
-  siguiente entorno (donde !PYTHON(suma) es una expresión lambda):
+- Por ejemplo, si en cierto momento de la ejecución del programa anterior
+  tenemos el siguiente entorno:
 
   !DOT(lambda-suma-entorno.svg)()(width=60%)(width=50%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
   node [fontname = "monospace"]
-  Manolo [shape = ellipse]
+  Manolo [shape = ellipse, label = "'Manolo'"]
   3 [shape = circle]
   5 [shape = circle]
   subgraph cluster0 {
@@ -1084,30 +1164,35 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   Podemos afirmar que:
 
-  - El marco de la expresión lambda apunta al marco global en el entorno.
+  - El marco de la función !PYTHON(suma) apunta al marco global en el entorno.
 
-  - El ámbito de la expresión lambda está contenido en el ámbito global.
+  - El ámbito de la expresión lambda a la que está ligado !PYTHON(suma) está
+    contenido en el ámbito global.
 
   - El marco actual es el marco de la expresión lambda.
 
   - Por tanto, el programa se encuentra actualmente ejecutando el cuerpo de la
     expresión lambda.
 
-  - De hecho, está evaluando la llamada !PYTHON(suma(3, 5)).
+  - De hecho, está ejecutando la llamada !PYTHON(suma(3, 5)).
 
 ## Evaluación de expresiones con entornos
 
 - Al evaluar una expresión, el intérprete **buscará en el entorno el valor al
   que está ligado cada identificador** que aparezca en la expresión.
 
-- Para saber cuánto vale cada identificador, el intérprete buscará **en el
-  primer marco del entorno** (el _marco actual_) una ligadura para ese
-  identificador, y si no la encuentra, **irá subiendo por la secuencia de
-  marcos** hasta encontrarla.
+- Para ello, el intérprete buscará **en el primer marco del entorno** (el
+  _marco actual_) una ligadura para ese identificador y, si no la encuentra,
+  **irá pasando por toda la secuencia de marcos** hasta encontrarla.
 
-  **Si no aparece en ningún marco**, querrá decir que el identificador no está
-  ligado (porque aún no se ha creado la ligadura), o que su ligadura está fuera
-  del entorno (en otro ámbito inaccesible desde el ámbito actual).
+  **Si no aparece en ningún marco**, querrá decir que:
+
+  - o bien el identificador **no está ligado** (porque aún no se ha creado la
+    ligadura),
+
+  - o bien su ligadura **está fuera del entorno** y por tanto no es visible
+    actualmente (al encontrarse en otro ámbito inaccesible desde el ámbito
+    actual).
 
   En cualquiera de estos casos, **generará un error** de tipo
   !PYTHON{NameError} («_nombre no definido_»).
@@ -1131,7 +1216,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ::: column
 
-!DOT(lambda-entorno-linea1.svg)(Entorno en la línea 1)(width=60%)(width=25%)
+!DOT(lambda-entorno-linea1.svg)(Entorno justo tras ejecutar la línea 1)(width=60%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 4 [shape = circle]
@@ -1150,7 +1235,7 @@ E -> x [lhead = cluster0]
 
 ::: column
 
-!DOT(lambda-entorno-linea2.svg)(Entorno en la línea 2)(width=60%)(width=25%)
+!DOT(lambda-entorno-linea2.svg)(Entorno justo tras ejecutar la línea 2)(width=60%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 1 [shape = circle]
@@ -1231,7 +1316,7 @@ E -> z [lhead = cluster0]
 
 ::: column
 
-!DOT(lambda-entorno-linea4.svg)(Entorno en la línea 4)(width=60%)(width=35%)
+!DOT(lambda-entorno-linea4.svg)(Entorno justo tras ejecutar la línea 4)(width=60%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -1259,7 +1344,7 @@ E -> z [lhead = cluster0]
 
 ::: column
 
-!DOT(lambda-entorno-linea5.svg)(Entorno en la línea 5)(width=60%)(width=35%)
+!DOT(lambda-entorno-linea5.svg)(Entorno justo tras ejecutar la línea 5)(width=60%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -1293,8 +1378,8 @@ E -> z [lhead = cluster0]
 ## Evaluación de expresiones lambda con entornos
 
 - Para que una expresión lambda funcione, sus variables libres deben
-  estar ligadas a algún valor en el entorno **en el momento de _evaluar_ la
-  aplicación de la expresión lambda sobre unos argumentos**.
+  estar ligadas a algún valor en el entorno **en el momento de _evaluar la
+  aplicación_ de la expresión lambda sobre unos argumentos**.
 
 - Por ejemplo:
 
@@ -1353,7 +1438,7 @@ E -> z [lhead = cluster0]
 
 ::: column
 
-!DOT(cuatro-ambitos-entorno-linea1.svg)(Entorno en la línea 1)(width=60%)(width=25%)
+!DOT(cuatro-ambitos-entorno-linea1.svg)(Entorno justo tras ejecutar la línea 1)(width=60%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 2 [shape = circle]
@@ -1372,7 +1457,7 @@ E -> w [lhead = cluster0]
 
 ::: column
 
-!DOT(cuatro-ambitos-entorno-linea2.svg)(Entorno en la línea 2)(width=60%)(width=25%)
+!DOT(cuatro-ambitos-entorno-linea2.svg)(Entorno justo tras ejecutar la línea 2)(width=60%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 2 [shape = circle]
@@ -1526,7 +1611,7 @@ E -> xl [lhead = cluster1]
 
 ---
 
-!DOT(cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg)(Entorno en la línea 4 en el cuerpo de la tercera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=30%)
+!DOT(cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg)(Entorno justo tras ejecutar la línea 4)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1557,7 +1642,7 @@ E -> f [lhead = cluster0]
   el compilador o el intérprete determinan qué ligadura se corresponde con una
   aparición concreta de un determinado identificador.
 
-- ¿Qué ocurre cuando una expresión lambda contiene como parámetros
+- ¿Qué ocurre cuando una expresión lambda contiene como parámetros algunos
   identificadores que ya están ligados en el entorno, en un espacio de nombres
   asociado a un ámbito más global?
 
@@ -1611,16 +1696,15 @@ E -> f [lhead = cluster0]
 
   - Fuera del cuerpo de la expresión lambda, !PYTHON(x) vale !PYTHON(4).
 
-- Para determinar cuánto vale cada aparición de la `x` en el código (es decir,
-  para resolver la aparición de cada `x`), el intérprete de Python consulta el
-  **entorno** siempre que se encuentra el identificador `x` en el código y
-  tiene que evaluarlo.
+- Para determinar cuánto vale cada aparición de la `x` en ese código (es decir,
+  para _resolver_ la aparición de cada `x`), el intérprete de Python consulta
+  el **entorno**.
 
 ---
 
-- Cada una de las apariciones de la `x` en este ejemplo se corresponde con una
-  ligadura distinta que tiene un ámbito distinto y se almacena en un espacio de
-  nombres distinto.
+- La `x` que está en la línea 1 y las `x` que están en la línea 2 son
+  apariciones distintas que se corresponden con ligaduras distintas que tienen
+  ámbitos distintos y se almacenan en espacios de nombres distintos.
 
 - Por tanto, la misma `x` podrá tener un valor u otro dependiendo de cuál es el
   espacio de nombres actual en el momento de evaluar la `x`.
@@ -1632,7 +1716,7 @@ E -> f [lhead = cluster0]
     su ligadura está **sombreada**) por el del ámbito más interno.
 
   - El identificador que aparece en el ámbito más interno **hace sombra** al
-    identificador sombreado (y su ligadura también se dice que **hace sombra**
+    identificador sombreado (y también se dice que su ligadura **hace sombra**
     a la ligadura sombreada) que aparece en el ámbito más externo.
 
 ---
@@ -1646,10 +1730,11 @@ E -> f [lhead = cluster0]
   libre, porque la !PYTHON(x) dentro del cuerpo siempre se referirá a la
   !PYTHON(x) local (el parámetro de la expresión lambda).
 
-- Esto ocurre así porque la primera ligadura del identificador !PYTHON(x) que
-  se encuentra el intérprete al recorrer la secuencia de marcos del entorno
-  cuando busca un valor para !PYTHON(x), es la que está en el marco de la
-  expresión lambda, que es el marco actual cuando se está ejecutando su cuerpo.
+- Esto ocurre así porque, al buscar un valor para !PYTHON(x), la primera
+  ligadura que se encuentra el intérprete para el identificador !PYTHON(x) al
+  recorrer la secuencia de marcos del entorno, es precisamente la que está en
+  el marco de la expresión lambda, que es el marco actual cuando se está
+  ejecutando su cuerpo.
 
 !DOT(lambda-entorno-con-sombra.svg)(Entorno en el cuerpo de la expresión lambda, con ligadura sombreada)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1679,16 +1764,16 @@ E -> xl [lhead = cluster1]
 
 ---
 
-- Si necesitáramos acceder, desde el cuerpo de la expresión lambda, al valor de
-  la !PYTHON(x) que está fuera de la expresión lambda, lo que podemos hacer es
-  **cambiar el nombre** al parámetro !PYTHON(x). Por ejemplo:
+- Si desde dentro de la expresión lambda necesitáramos acceder al valor de la
+  `x` que está fuera de ese expresión lambda, lo que podríamos hacer es
+  **cambiarle el nombre** al parámetro !PYTHON(x). Por ejemplo:
 
   ```python
   x = 4
   total = (lambda w: w * x)(3)  # Su valor es 12
   ```
 
-  Así, tendremos en la expresión lambda una variable ligada (el parámetro
+  Así, en la expresión lambda tendríamos una variable ligada (el parámetro
   !PYTHON(w)) y una variable libre (el identificador !PYTHON(x) ligado en el
   ámbito global) al que ahora sí podemos acceder al no estar sombreada y
   encontrarse dentro del entorno.
@@ -1721,8 +1806,8 @@ E -> w [lhead = cluster1]
 
 ### Renombrado de parámetros
 
-- Los parámetros se pueden *renombrar* (siempre que se haga de forma adecuada)
-  sin que se altere el significado de la expresión lambda.
+- Los parámetros se pueden *renombrar* sin que se altere el significado de la
+  expresión lambda, siempre que ese renombrado se haga de forma adecuada.
 
 - A esta operación se la denomina **α-conversión**.
 
