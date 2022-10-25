@@ -61,11 +61,11 @@ nocite: |
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(n \geq 0)
-  !SIGNAT(\texttt{permutas(!VAR(n\,): int) -> int})
+  !SIGNAT(\texttt{permutas(!VAR(n):\,int)\;->\;int})
   !POST
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     \texttt{permutas(!VAR(n))} = \text{el número de permutaciones que}
-  & \text{podemos formar con } n \text{ elementos}
+  & \text{podemos formar con !VAR(n) elementos}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -195,7 +195,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
 - El factorial de un número natural $n$ se representa por $n!$ y se define como
   el producto de todos los números desde 1 hasta $n$:
-  $$n! = n\cdot(n-1)\cdot(n-2)\cdot\ldots\cdot1$$
+  $$n! = n\cdot(n-1)\cdot(n-2)\cdot\cdots\cdot1$$
 
   Por ejemplo:
   $$6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720$$
@@ -231,7 +231,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(n \geq 0)
-  !SIGNAT(\texttt{factorial(!VAR(n\,): int) -> int})
+  !SIGNAT(\texttt{factorial(!VAR(n):\,int)\;->\;int})
   !POST(\texttt{factorial(!VAR(n))} = n!)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -248,11 +248,11 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
 - El diseño de funciones recursivas se basa en:
 
-  - Pensamiento optimista
+  #. Pensamiento optimista
 
-  - Descomposición (reducción) del problema
+  #. Descomposición (reducción) del problema
 
-  - Identificación de problemas no reducibles (mínimos)
+  #. Identificación de problemas no reducibles (mínimos)
 
 #### Pensamiento optimista
 
@@ -571,8 +571,8 @@ Iterativo lineal          Linealmente \
   !ESPEC
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PRE(n \geq 0)
-  !SIGNAT(\texttt{fib(!VAR(n\,): int) -> int})
-  !POST(\texttt{fib(!VAR(n))} = \text{el } n\text{-ésimo término de la sucesión de Fibonacci})
+  !SIGNAT(\texttt{fib(!VAR(n):\,int)\;->\;int})
+  !POST(\texttt{fib(!VAR(n))} = \text{el !VAR(n)-ésimo término de la sucesión de Fibonacci})
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Y su implementación en Python podría ser:
@@ -1219,7 +1219,7 @@ n2 -> dummy [lhead = cluster0, ltail = cluster3]
   (1, 2, 3, 4, 5, 6)
   ```
 
-- Eso significa que, si !PYTHON(t) es una tupla no vacía, se cumple que
+- Eso significa que, si !PYTHON(t) es una tupla no vacía, se cumple que !SALTO
   !PYTHON(t == (t[0],) + t[1:]).
 
   Esta propiedad es similar (aunque no exactamente igual) a la que se cumple en
@@ -1234,7 +1234,7 @@ n2 -> dummy [lhead = cluster0, ltail = cluster3]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `range(`[_start_`: int,`] _stop_`: int` [`,` _step_`: int`]`) -> range`
+  $\texttt{range(!VAR([)!VAR(start):\,int,!VAR(])\;!VAR(stop):\,int\;!VAR([),\;!VAR(step):\,int!VAR(]))\;->\;range}$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Cuando se omite _start_, se entiende que es !PYTHON(0).
@@ -1603,7 +1603,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `map(`_func_`, ` _iterable_`)`
+  $\texttt{map(!VAR(func),\;!VAR(iterable))\;->\;Iterator}$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde:
@@ -1669,7 +1669,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~
-  `filter(`_function_`, ` _iterable_`)`
+  $\texttt{filter(!VAR(function),\;!VAR(iterable))\;->\;Iterator}$
   ~~~~~~~~~~~~~~~~~~~~~
 
   donde _function_ debe ser una función de un solo argumento que devuelva un
@@ -1731,7 +1731,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~
-  `reduce(`_function_`, ` _sequence_ [`, ` _initial_ ]`)`
+  $\texttt{reduce(!VAR(function),\;!VAR(sequence)\;!VAR([),\;!VAR(initial)!VAR(]))\;->\;Any}$
   ~~~~~~~~~~~~~~~~~~~~~
 
   donde:
