@@ -1369,6 +1369,9 @@ x -> 7
   volver a ligar a otro valor distinto** durante la ejecución del programa
   (efecto que se conoce como _rebinding_).
 
+- En la práctica, eso significa que el nombre representa un **dato
+  _constante_**.
+
 ---
 
 - Que las ligaduras sean irrompibles son un requisito necesario para alcanzar
@@ -1623,16 +1626,17 @@ maximo -> lambda
   en forma de _módulo_ que se importa automáticamente en cada sesión
   interactiva o cada vez que se arranca un programa Python.
 
-- Además de importarse el propio módulo, también se importan directamente las
-  definiciones que contiene, por lo que se pueden usar directamente.
-
-- Por tanto, es como si Python ejecutara las siguientes sentencias nada más
-  entrar en el intérprete:
+- Pero sabemos que también podemos usar directamente las definiciones que
+  contiene, por lo que el efecto es como si Python ejecutara las siguientes
+  dos sentencias nada más entrar en el intérprete:
 
   ```python
   import __builtins__
   from __builtins__ import *
   ```
+
+- Esto no es exactamente así en realidad, pero por ahora haremos como si así
+  fuera, por simplicidad.
 
 ## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
 

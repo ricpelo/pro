@@ -2552,17 +2552,18 @@ E -> w [lhead = cluster1]
 
 - Eso es una **abstracción**.
 
-- **Crear casos generales a partir de patrones que se repiten** en casos
-  particulares es una de las principales razones por las que creamos
-  abstracciones.
+- En resumen, creamos abstracciones:
 
-- Otras veces creamos abstracciones cuando queremos **reducir la complejidad**,
-  dándole un nombre a un mecanismo complejo para poder referirnos a todo el
-  conjunto a través de su nombre sin tener que recordar continuamente qué
-  piezas contiene el mecanismo.
+  - Cuando creamos **casos generales a partir de patrones que se repiten** en
+    varios casos particulares.
 
-- Y otras veces simplemente cuando queremos que nuestro programa pueda
-  **expresar un concepto abstracto**, como el de «elevar al cubo».
+  - Cuando queremos **reducir la complejidad**, dándole un nombre a un
+    mecanismo complejo para poder referirnos a todo el conjunto a través de su
+    nombre sin tener que recordar continuamente qué piezas contiene el
+    mecanismo o cómo funciona éste por dentro.
+
+  - Cuando queremos que nuestro programa pueda **expresar un concepto
+    abstracto**, como el de «elevar al cubo».
 
 ---
 
