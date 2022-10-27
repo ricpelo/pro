@@ -75,14 +75,14 @@ nocite: |
   plantear una implementación parecida a la siguiente:
 
   ```python
-  permutas = lambda n: 0 if n == 0 else 1 if n == 1 else 2 if n == 2 else ...
+  permutas = lambda n: 1 if n == 0 else 1 if n == 1 else 2 if n == 2 else ...
   ```
 
   que se puede escribir mejor usando la barra invertida (`\`) para poder
   separar una instrucción en varias líneas:
 
   ```python
-  permutas = lambda n: 0 if n == 0 else \
+  permutas = lambda n: 1 if n == 0 else \
                        1 if n == 1 else \
                        2 if n == 2 else \
                        6 if n == 3 else \
@@ -252,7 +252,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
   #. Descomposición (reducción) del problema
 
-  #. Identificación de problemas no reducibles (mínimos)
+  #. Identificación de ejemplares no reducibles (mínimos)
 
 #### Pensamiento optimista
 
@@ -300,7 +300,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
     me bastaría con multiplicarlo por $n$ para obtener el factorial de $n$**.
     ~~~~~~~~~~~~~~~~~~~~
 
-#### Identificación de problemas no reducibles
+#### Identificación de ejemplares no reducibles
 
 - Debemos identificar los ejemplares más pequeños (los que no se pueden reducir
   más) para los cuales hay una solución explícita y directa que no necesita
