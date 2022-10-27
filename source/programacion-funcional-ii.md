@@ -248,76 +248,142 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
 - El diseño de funciones recursivas se basa en:
 
-  #. Pensamiento optimista
+  #. Identificación de casos base
 
   #. Descomposición (reducción) del problema
 
-  #. Identificación de ejemplares no reducibles (mínimos)
+  #. Pensamiento optimista
+
+#### Identificación de casos base
+
+- Debemos identificar los ejemplares para los cuales hay una solución directa
+  que no necesita recursividad.
+
+- Esos ejemplares representarán los _casos base_ de la función recursiva, y por
+  eso los denominamos _ejemplares básicos_.
+
+- Por ejemplo:
+
+  - Supongamos que queremos diseñar una función (llamada $fact$, por ejemplo)
+    que calcule el factorial de un número.
+
+    Es decir: $fact(n)$ debe devolver el factorial de $n$.
+
+  - Sabemos que $0! = 1$, por lo que nuestra función podría devolver
+    directamente $1$ cuando se le pida calcular el factorial de $0$.
+
+  - Por tanto, el caso base del factorial es el cálculo del factorial de 0:
+    $$fact(0) = 1$$
+
+#### Descomposición (reducción) del problema
+
+- Reducimos el problema de forma que así tendremos un ejemplar _más pequeño_
+  del problema.
+
+- Un ejemplar más pequeño es aquel que está **más cerca del caso base**.
+
+- De esta forma, cada ejemplar se irá acercando más y más al caso base hasta
+  que finalmente se alcanzará dicho caso base y eso detendrá la recursión.
+
+- Es importante comprobar que eso se cumple, es decir, que la reducción que le
+  realizamos al problema produce ejemplares que están más cerca del caso base,
+  porque de lo contrario se produciría una _recursión infinita_.
+
+---
+
+- En el ejemplo del factorial:
+
+  - El caso base es $fact(0)$, es decir, el caso en el que queremos calcular el
+    factorial de 0, que ya vimos que es directamente 1 (sin necesidad de
+    llamadas recursivas).
+
+  - Si queremos resolver el problema de calcular, por ejemplo, el factorial de
+    5, podríamos intentar reducir el problema a calcular el factorial de 4, que
+    es un número que está más cerca del caso base (que es 0).
+
+  - A su vez, para calcular el factorial de 4, reduciríamos el problema a
+    calcular el factorial de 3, y así sucesivamente.
+
+  - De esta forma, podemos reducir el problema de calcular el factorial de $n$
+    a calcular el factorial de $(n - 1)$, que es un número que está más cerca
+    del 0. Así, cada vez estaremos más cerca del caso base y, al final, siempre
+    lo acabaremos alcanzando.
 
 #### Pensamiento optimista
 
-- Consiste en suponer que la función deseada ya existe y es capaz de resolver
-  ejemplares más pequeños del problema (este paso se denomina **hipótesis
-  inductiva**).
+- Consiste en suponer que la función deseada ya existe y que, aunque no sabe
+  resolver el ejemplar original del problema, sí que es capaz de resolver
+  ejemplares _más pequeños_ de ese problema (este paso se denomina **hipótesis
+  inductiva** o **hipótesis de inducción**).
 
-- Se trata de encontrar el patrón común de forma que resolver el problema
-  principal implique el mismo patrón en un problema más pequeño.
+- Suponiendo que se cumple la _hipótesis inductiva_, y aprovechando que ya
+  contamos con un método para _reducir el ejemplar a uno más pequeño_, ahora
+  tratamos de encontrar un _patrón común_ de forma que resolver el ejemplar
+  original implique usar el mismo patrón en un ejemplar más pequeño.
 
-- Ejemplo:
+- Es decir:
 
-  - Queremos diseñar una función que calcule el factorial de un número.
+  - Al reducir el problema, obtenemos un ejemplar más pequeño del mismo
+    problema y, por tanto, podremos usar la función para poder resolver ese
+    ejemplar más pequeño (que sí sabe resolverlo, por hipótesis inductiva).
 
-  - Para ello, supongamos que ya contamos con una función que calcula el
-    factorial de un número más pequeño. Tenemos que creer y confiar en que es
-    así, aunque ahora mismo no sea verdad.
+  - A continuación, usamos dicha solución _parcial_ para tratar de obtener la
+    solución para el ejemplar original del problema.
 
-    Es decir: si queremos calcular el factorial de $n$, suponemos que tenemos
-    ya una función *fact* que no sabe calcular el factorial de $n$, pero sí el
-    de $(n - 1)$. *Ésta es nuestra hipótesis inductiva*.
+---
 
-#### Descomposición del problema
+- En el ejemplo del factorial:
 
-- Reducimos el problema de forma que así tendremos un ejemplar más pequeño del
-  mismo problema y, por tanto, podremos usar la función *fact* anterior para
-  poder resolver ese ejemplar más pequeño.
+  - Supongamos que queremos calcular, por ejemplo, el factorial de 6.
 
-- A continuación, usamos dicha solución *parcial* para obtener la solución al
-  problema original.
+  - Aún no sabemos calcular el factorial de 6, pero suponemos (por _hipótesis
+    inductiva_) que sí sabemos calcular el factorial de 5.
 
-- Ejemplo:
+    En ese caso, ¿cómo puedo aprovechar que sé resolver el factorial de 5 para
+    lograr calcular el factorial de 6?
 
-  - Sabemos que $n! = n\cdot(n - 1)!$
+  - Analizando el problema, observo que se cumple esta propiedad:
+    $$6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}=6\cdot 5!$$
 
-  - Sabemos que la función $fact$ sabe calcular el factorial de $(n - 1)$ (por
-    pensamiento optimista).
-
-  - Por tanto, lo único que tenemos que hacer para obtener el factorial de $n$
-    es multiplicar $n$ por el resultado de $fact(n - 1)$.
+    Por tanto, he deducido un método para resolver el problema de calcular el
+    factorial de 6 a partir del factorial de 5: _para calcular el
+    factorial de 6 basta con calcular primero el factorial de 5 y luego
+    multiplicar el resultado por 6_.
 
     !CAJA
     ~~~~~~~~~~~~~~~~~~~~
-    Dicho de otra forma: **_si yo supiera_ calcular el factorial de $(n - 1)$,
-    me bastaría con multiplicarlo por $n$ para obtener el factorial de $n$**.
+    Dicho de otro modo: _si yo supiera_ calcular el factorial de 5, me bastaría
+    con multiplicarlo por 6 para obtener el factorial de 6.
     ~~~~~~~~~~~~~~~~~~~~
 
-#### Identificación de ejemplares no reducibles
+---
 
-- Debemos identificar los ejemplares más pequeños (los que no se pueden reducir
-  más) para los cuales hay una solución explícita y directa que no necesita
-  recursividad: los *casos base*.
+- Generalizando para cualquier número, no sólo para el 6:
 
-- Es importante comprobar que la reducción que le hemos realizado al problema
-  en el paso anterior produce ejemplares que están más cerca del caso base.
+  - Si queremos diseñar una función $fact(n)$ que calcule el factorial de $n$,
+    supondremos que esa función ya existe pero que aún no sabe calcular el
+    factorial de $n$, aunque **sí sabe calcular el factorial de
+    $\pmb{(n - 1)}$**.
 
-- Ejemplo:
+    Tenemos que creer en que es así y actuar como si fuera así, aunque ahora
+    mismo no sea verdad. _Ésta es nuestra **hipótesis inductiva**_.
 
-  - En nuestro caso, sabemos que $0! = 1$, por lo que nuestra función podría
-    devolver directamente $1$ cuando se le pida calcular el factorial de $0$.
+  - Por otra parte, sabemos que:
+    $$n! = n\cdot\overbrace{(n-1)\cdot(n-2)\cdot(n-3)\cdot2\cdot1}^{(n-1)!}=n\cdot(n-1)!$$
 
-  - Además, en la reducción obtenida en el paso anterior, pasamos de calcular
-    el factorial de $n$ a calcular el factorial de uno menos, con lo cual, cada
-    vez estaremos más cerca del caso base, que es el factorial de 0. Al final
-    siempre acabaremos alcanzando el caso base.
+    Por tanto, si sabemos calcular el factorial de $(n - 1)$ llamando a $fact(n
+    - 1)$, para calcular $fact(n)$ sólo necesito multiplicar $n$ por el
+    resultado de $fact(n - 1)$.
+
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~
+    Resumiendo: **_si yo supiera_ calcular el factorial de $\pmb{(n - 1)}$, me
+    bastaría con multiplicarlo por $\pmb{n}$ para obtener el factorial de
+    $\pmb{n}$**.
+    ~~~~~~~~~~~~~~~~~~~~
+
+  - Así obtengo el caso recursivo de la función _fact_, que sería:
+    $$fact(n) = n\cdot fact(n-1)$$
 
 ---
 

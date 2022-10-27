@@ -536,99 +536,173 @@ Diseño de funciones recursivas</h3>
 <ul>
 <li><p>El diseño de funciones recursivas se basa en:</p>
 <ol>
-<li><p>Pensamiento optimista</p></li>
+<li><p>Identificación de casos base</p></li>
 <li><p>Descomposición (reducción) del problema</p></li>
-<li><p>Identificación de ejemplares no reducibles (mínimos)</p></li>
+<li><p>Pensamiento optimista</p></li>
 </ol></li>
 </ul>
 </section>
-<section id="pensamiento-optimista" class="title-slide slide level4"
-data-number="1.3.4.1">
+<section id="identificación-de-casos-base"
+class="title-slide slide level4" data-number="1.3.4.1">
 <h4 data-number="1.3.4.1"><span
-class="header-section-number">1.3.4.1</span> Pensamiento optimista</h4>
+class="header-section-number">1.3.4.1</span> Identificación de casos
+base</h4>
 <ul>
-<li><p>Consiste en suponer que la función deseada ya existe y es capaz
-de resolver ejemplares más pequeños del problema (este paso se denomina
-<strong>hipótesis inductiva</strong>).</p></li>
-<li><p>Se trata de encontrar el patrón común de forma que resolver el
-problema principal implique el mismo patrón en un problema más
-pequeño.</p></li>
-<li><p>Ejemplo:</p>
+<li><p>Debemos identificar los ejemplares para los cuales hay una
+solución directa que no necesita recursividad.</p></li>
+<li><p>Esos ejemplares representarán los <em>casos base</em> de la
+función recursiva, y por eso los denominamos <em>ejemplares
+básicos</em>.</p></li>
+<li><p>Por ejemplo:</p>
 <ul>
-<li><p>Queremos diseñar una función que calcule el factorial de un
-número.</p></li>
-<li><p>Para ello, supongamos que ya contamos con una función que calcula
-el factorial de un número más pequeño. Tenemos que creer y confiar en
-que es así, aunque ahora mismo no sea verdad.</p>
-<p>Es decir: si queremos calcular el factorial de <span
-class="math inline">n</span>, suponemos que tenemos ya una función
-<em>fact</em> que no sabe calcular el factorial de <span
-class="math inline">n</span>, pero sí el de <span class="math inline">(n
-- 1)</span>. <em>Ésta es nuestra hipótesis inductiva</em>.</p></li>
-</ul></li>
-</ul>
-</section>
-
-<section id="descomposición-del-problema"
-class="title-slide slide level4" data-number="1.3.4.2">
-<h4 data-number="1.3.4.2"><span
-class="header-section-number">1.3.4.2</span> Descomposición del
-problema</h4>
-<ul>
-<li><p>Reducimos el problema de forma que así tendremos un ejemplar más
-pequeño del mismo problema y, por tanto, podremos usar la función
-<em>fact</em> anterior para poder resolver ese ejemplar más
-pequeño.</p></li>
-<li><p>A continuación, usamos dicha solución <em>parcial</em> para
-obtener la solución al problema original.</p></li>
-<li><p>Ejemplo:</p>
-<ul>
-<li><p>Sabemos que <span class="math inline">n! = n\cdot(n -
-1)!</span></p></li>
-<li><p>Sabemos que la función <span class="math inline">fact</span> sabe
-calcular el factorial de <span class="math inline">(n - 1)</span> (por
-pensamiento optimista).</p></li>
-<li><p>Por tanto, lo único que tenemos que hacer para obtener el
-factorial de <span class="math inline">n</span> es multiplicar <span
-class="math inline">n</span> por el resultado de <span
-class="math inline">fact(n - 1)</span>.</p>
-<div class="caja">
-<p>Dicho de otra forma: <strong><em>si yo supiera</em> calcular el
-factorial de <span class="math inline">(n - 1)</span>, me bastaría con
-multiplicarlo por <span class="math inline">n</span> para obtener el
-factorial de <span class="math inline">n</span></strong>.</p>
-</div></li>
-</ul></li>
-</ul>
-</section>
-
-<section id="identificación-de-ejemplares-no-reducibles"
-class="title-slide slide level4" data-number="1.3.4.3">
-<h4 data-number="1.3.4.3"><span
-class="header-section-number">1.3.4.3</span> Identificación de
-ejemplares no reducibles</h4>
-<ul>
-<li><p>Debemos identificar los ejemplares más pequeños (los que no se
-pueden reducir más) para los cuales hay una solución explícita y directa
-que no necesita recursividad: los <em>casos base</em>.</p></li>
-<li><p>Es importante comprobar que la reducción que le hemos realizado
-al problema en el paso anterior produce ejemplares que están más cerca
-del caso base.</p></li>
-<li><p>Ejemplo:</p>
-<ul>
-<li><p>En nuestro caso, sabemos que <span class="math inline">0! =
-1</span>, por lo que nuestra función podría devolver directamente <span
+<li><p>Supongamos que queremos diseñar una función (llamada <span
+class="math inline">fact</span>, por ejemplo) que calcule el factorial
+de un número.</p>
+<p>Es decir: <span class="math inline">fact(n)</span> debe devolver el
+factorial de <span class="math inline">n</span>.</p></li>
+<li><p>Sabemos que <span class="math inline">0! = 1</span>, por lo que
+nuestra función podría devolver directamente <span
 class="math inline">1</span> cuando se le pida calcular el factorial de
 <span class="math inline">0</span>.</p></li>
-<li><p>Además, en la reducción obtenida en el paso anterior, pasamos de
-calcular el factorial de <span class="math inline">n</span> a calcular
-el factorial de uno menos, con lo cual, cada vez estaremos más cerca del
-caso base, que es el factorial de 0. Al final siempre acabaremos
-alcanzando el caso base.</p></li>
+<li><p>Por tanto, el caso base del factorial es el cálculo del factorial
+de 0: <span class="math display">fact(0) = 1</span></p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="descomposición-reducción-del-problema"
+class="title-slide slide level4" data-number="1.3.4.2">
+<h4 data-number="1.3.4.2"><span
+class="header-section-number">1.3.4.2</span> Descomposición (reducción)
+del problema</h4>
+<ul>
+<li><p>Reducimos el problema de forma que así tendremos un ejemplar
+<em>más pequeño</em> del problema.</p></li>
+<li><p>Un ejemplar más pequeño es aquel que está <strong>más cerca del
+caso base</strong>.</p></li>
+<li><p>De esta forma, cada ejemplar se irá acercando más y más al caso
+base hasta que finalmente se alcanzará dicho caso base y eso detendrá la
+recursión.</p></li>
+<li><p>Es importante comprobar que eso se cumple, es decir, que la
+reducción que le realizamos al problema produce ejemplares que están más
+cerca del caso base, porque de lo contrario se produciría una
+<em>recursión infinita</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.4.2.1">
+
+<ul>
+<li><p>En el ejemplo del factorial:</p>
+<ul>
+<li><p>El caso base es <span class="math inline">fact(0)</span>, es
+decir, el caso en el que queremos calcular el factorial de 0, que ya
+vimos que es directamente 1 (sin necesidad de llamadas
+recursivas).</p></li>
+<li><p>Si queremos resolver el problema de calcular, por ejemplo, el
+factorial de 5, podríamos intentar reducir el problema a calcular el
+factorial de 4, que es un número que está más cerca del caso base (que
+es 0).</p></li>
+<li><p>A su vez, para calcular el factorial de 4, reduciríamos el
+problema a calcular el factorial de 3, y así sucesivamente.</p></li>
+<li><p>De esta forma, podemos reducir el problema de calcular el
+factorial de <span class="math inline">n</span> a calcular el factorial
+de <span class="math inline">(n - 1)</span>, que es un número que está
+más cerca del 0. Así, cada vez estaremos más cerca del caso base y, al
+final, siempre lo acabaremos alcanzando.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="pensamiento-optimista" class="title-slide slide level4"
+data-number="1.3.4.3">
+<h4 data-number="1.3.4.3"><span
+class="header-section-number">1.3.4.3</span> Pensamiento optimista</h4>
+<ul>
+<li><p>Consiste en suponer que la función deseada ya existe y que,
+aunque no sabe resolver el ejemplar original del problema, sí que es
+capaz de resolver ejemplares <em>más pequeños</em> de ese problema (este
+paso se denomina <strong>hipótesis inductiva</strong> o
+<strong>hipótesis de inducción</strong>).</p></li>
+<li><p>Suponiendo que se cumple la <em>hipótesis inductiva</em>, y
+aprovechando que ya contamos con un método para <em>reducir el ejemplar
+a uno más pequeño</em>, ahora tratamos de encontrar un <em>patrón
+común</em> de forma que resolver el ejemplar original implique usar el
+mismo patrón en un ejemplar más pequeño.</p></li>
+<li><p>Es decir:</p>
+<ul>
+<li><p>Al reducir el problema, obtenemos un ejemplar más pequeño del
+mismo problema y, por tanto, podremos usar la función para poder
+resolver ese ejemplar más pequeño (que sí sabe resolverlo, por hipótesis
+inductiva).</p></li>
+<li><p>A continuación, usamos dicha solución <em>parcial</em> para
+tratar de obtener la solución para el ejemplar original del
+problema.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.4.3.1">
+
+<ul>
+<li><p>En el ejemplo del factorial:</p>
+<ul>
+<li><p>Supongamos que queremos calcular, por ejemplo, el factorial de
+6.</p></li>
+<li><p>Aún no sabemos calcular el factorial de 6, pero suponemos (por
+<em>hipótesis inductiva</em>) que sí sabemos calcular el factorial de
+5.</p>
+<p>En ese caso, ¿cómo puedo aprovechar que sé resolver el factorial de 5
+para lograr calcular el factorial de 6?</p></li>
+<li><p>Analizando el problema, observo que se cumple esta propiedad:
+<span class="math display">6! =
+6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}=6\cdot 5!</span></p>
+<p>Por tanto, he deducido un método para resolver el problema de
+calcular el factorial de 6 a partir del factorial de 5: <em>para
+calcular el factorial de 6 basta con calcular primero el factorial de 5
+y luego multiplicar el resultado por 6</em>.</p>
+<div class="caja">
+<p>Dicho de otro modo: <em>si yo supiera</em> calcular el factorial de
+5, me bastaría con multiplicarlo por 6 para obtener el factorial de
+6.</p>
+</div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.4.3.2">
+
+<ul>
+<li><p>Generalizando para cualquier número, no sólo para el 6:</p>
+<ul>
+<li><p>Si queremos diseñar una función <span
+class="math inline">fact(n)</span> que calcule el factorial de <span
+class="math inline">n</span>, supondremos que esa función ya existe pero
+que aún no sabe calcular el factorial de <span
+class="math inline">n</span>, aunque <strong>sí sabe calcular el
+factorial de <span class="math inline">\pmb{(n -
+1)}</span></strong>.</p>
+<p>Tenemos que creer en que es así y actuar como si fuera así, aunque
+ahora mismo no sea verdad. <em>Ésta es nuestra <strong>hipótesis
+inductiva</strong></em>.</p></li>
+<li><p>Por otra parte, sabemos que: <span class="math display">n! =
+n\cdot\overbrace{(n-1)\cdot(n-2)\cdot(n-3)\cdot2\cdot1}^{(n-1)!}=n\cdot(n-1)!</span></p>
+<p>Por tanto, si sabemos calcular el factorial de <span
+class="math inline">(n - 1)</span> llamando a <span
+class="math inline">fact(n - 1)</span>, para calcular <span
+class="math inline">fact(n)</span> sólo necesito multiplicar <span
+class="math inline">n</span> por el resultado de <span
+class="math inline">fact(n - 1)</span>.</p>
+<div class="caja">
+<p>Resumiendo: <strong><em>si yo supiera</em> calcular el factorial de
+<span class="math inline">\pmb{(n - 1)}</span>, me bastaría con
+multiplicarlo por <span class="math inline">\pmb{n}</span> para obtener
+el factorial de <span class="math inline">\pmb{n}</span></strong>.</p>
+</div></li>
+<li><p>Así obtengo el caso recursivo de la función <em>fact</em>, que
+sería: <span class="math display">fact(n) = n\cdot
+fact(n-1)</span></p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.4.3.3">
 
 <ul>
 <li>Combinando todos los pasos, obtenemos la solución general:</li>
