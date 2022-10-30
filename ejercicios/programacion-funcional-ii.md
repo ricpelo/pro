@@ -316,8 +316,7 @@ author:
     #.
        ```python
        par_positivo = lambda n: True if n == 0 else \
-                                False if par_positivo(n - 1) else \
-                                True
+                                not par_positivo(n - 1)
        ```
 
 #. 
@@ -335,8 +334,7 @@ author:
    #.
       ```python
       par = lambda n: True if n == 0 else \
-                      False if par(abs(n) - 1) else \
-                      True
+                      not par(abs(n) - 1)
       ```
 
    #.
