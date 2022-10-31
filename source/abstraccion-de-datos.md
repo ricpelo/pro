@@ -1233,7 +1233,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   **operaciones** (constructoras y selectoras) con las que se manipulan y por
   las **propiedades** que cumplen dichas operaciones, de manera que **podemos
   cambiar los detalles de implementación** bajo una barrera de abstracción
-  siempre y cuando no cambiemos su comportamiento.
+  siempre que no cambiemos su comportamiento observable.
 
 - Por tanto, bajo esa barrera de abstracción podemos usar cualquier
   implementación siempre y cuando logren que las operaciones que definen dicha
@@ -1415,8 +1415,8 @@ E -> i [lhead = cluster1]
 
 ---
 
-- El **entorno de definición** de una función está formado por **los marcos
-  que hay en el entorno cuando se define la función**.
+- El **entorno de definición** (o **_contexto_**) de una función está formado
+  por **los marcos que hay en el entorno cuando se define la función**.
 
 - Por ejemplo, el entorno de definición de `get` contiene, en este orden, el
   marco de `pareja` (ya que `get` es local a `pareja`) y el marco global.

@@ -513,7 +513,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Ámbito (léxico):**
 
-  Porción del código fuente de un programa.
+  Porción del código fuente de un programa. Los límites de ese ámbito sólo
+  vienen determinados por la sintaxis del lenguaje, ya que ciertas
+  construcciones sintácticas definen su propio ámbito.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   !CAJA
@@ -521,9 +523,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   **Ámbito de creación de una ligadura:**
 
   El ámbito actual de la instrucción que define la ligadura; es decir: el
-  ámbito más interno donde se define la ligadura. Los límites de ese ámbito
-  sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
-  construcciones sintácticas definen su propio ámbito.
+  ámbito más interno donde se define la ligadura.
 
   Este ámbito determina dónde está el límite de visibilidad de la ligadura
   (_dónde_ se puede ver la ligadura dentro del programa).
@@ -1027,7 +1027,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   visibilidad dependa de un ámbito y estén, por tanto, almacenadas en un marco
   (o sea, no es el caso de los atributos de objetos).
 
-- Un marco contiene un conjunto de ligaduras (representa un _espacio de
+- Un marco contiene un conjunto de ligaduras (ya que es un _espacio de
   nombres_), y un entorno es una secuencia de marcos.
 
 - Los marcos se van creando y destruyendo a medida que se van ejecutando y
@@ -1055,12 +1055,12 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Ese **marco** y ese **ámbito** van ligados:
 
   - Cuando **se _empieza_** a ejecutar el cuerpo de la expresión lambda, **se
-    _entra_** en el ámbito y **se _crea_** el marco en la memoria.
+    _entra_** en el ámbito y, por tanto, **se _crea_** el marco en la memoria.
 
   - Cuando **se _termina_** de ejecutar el cuerpo de la expresión lambda, **se
-    _sale_** del ámbito y **se _elimina_** el marco de la memoria.
+    _sale_** del ámbito y, por tanto, **se _elimina_** el marco de la memoria.
 
-- Todo marco lleva asociado un ámbito.
+- **Todo _marco_ lleva asociado un _ámbito_**.
 
 ---
 
@@ -1083,8 +1083,11 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   medida que se van ejecutando y terminando de ejecutar ciertas partes del
   programa: _scripts_, funciones y métodos.
 
-  Dicho de otra forma: los marcos se crean cuando se va entrando de ciertos
-  ámbitos y se destruyen cuando se sale de ellos.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Dicho de otra forma: **un marco se crea** cuando se **entra** en un cierto
+  **ámbito** y **se destruye** cuando se **sale** de ese **ámbito**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 ---
 

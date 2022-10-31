@@ -820,14 +820,14 @@ crea hasta el final de su ámbito de creación.</p></li>
 <li><p>En resumen:</p>
 <div class="caja">
 <p><strong>Ámbito (léxico):</strong></p>
-<p>Porción del código fuente de un programa.</p>
+<p>Porción del código fuente de un programa. Los límites de ese ámbito
+sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
+construcciones sintácticas definen su propio ámbito.</p>
 </div>
 <div class="caja">
 <p><strong>Ámbito de creación de una ligadura:</strong></p>
 <p>El ámbito actual de la instrucción que define la ligadura; es decir:
-el ámbito más interno donde se define la ligadura. Los límites de ese
-ámbito sólo vienen determinados por la sintaxis del lenguaje, ya que
-ciertas construcciones sintácticas definen su propio ámbito.</p>
+el ámbito más interno donde se define la ligadura.</p>
 <p>Este ámbito determina dónde está el límite de visibilidad de la
 ligadura (<em>dónde</em> se puede ver la ligadura dentro del
 programa).</p>
@@ -1361,7 +1361,7 @@ concreto de la ejecución del programa interpretado, siempre que sean
 ligaduras cuya visibilidad dependa de un ámbito y estén, por tanto,
 almacenadas en un marco (o sea, no es el caso de los atributos de
 objetos).</p></li>
-<li><p>Un marco contiene un conjunto de ligaduras (representa un
+<li><p>Un marco contiene un conjunto de ligaduras (ya que es un
 <em>espacio de nombres</em>), y un entorno es una secuencia de
 marcos.</p></li>
 <li><p>Los marcos se van creando y destruyendo a medida que se van
@@ -1391,12 +1391,15 @@ ligados:</p>
 <ul>
 <li><p>Cuando <strong>se <em>empieza</em></strong> a ejecutar el cuerpo
 de la expresión lambda, <strong>se <em>entra</em></strong> en el ámbito
-y <strong>se <em>crea</em></strong> el marco en la memoria.</p></li>
+y, por tanto, <strong>se <em>crea</em></strong> el marco en la
+memoria.</p></li>
 <li><p>Cuando <strong>se <em>termina</em></strong> de ejecutar el cuerpo
-de la expresión lambda, <strong>se <em>sale</em></strong> del ámbito y
-<strong>se <em>elimina</em></strong> el marco de la memoria.</p></li>
+de la expresión lambda, <strong>se <em>sale</em></strong> del ámbito y,
+por tanto, <strong>se <em>elimina</em></strong> el marco de la
+memoria.</p></li>
 </ul></li>
-<li><p>Todo marco lleva asociado un ámbito.</p></li>
+<li><p><strong>Todo <em>marco</em> lleva asociado un
+<em>ámbito</em></strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.1.0.2">
@@ -1419,8 +1422,12 @@ programa, sin tener que ejecutarlo.</p></li>
 algo que se crea y se destruye a medida que se van ejecutando y
 terminando de ejecutar ciertas partes del programa: <em>scripts</em>,
 funciones y métodos.</p>
-<p>Dicho de otra forma: los marcos se crean cuando se va entrando de
-ciertos ámbitos y se destruyen cuando se sale de ellos.</p></li>
+<div class="caja">
+<p>Dicho de otra forma: <strong>un marco se crea</strong> cuando se
+<strong>entra</strong> en un cierto <strong>ámbito</strong> y <strong>se
+destruye</strong> cuando se <strong>sale</strong> de ese
+<strong>ámbito</strong>.</p>
+</div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.1.0.3">

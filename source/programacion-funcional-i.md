@@ -1571,10 +1571,10 @@ maximo -> lambda
 ## Espacios de nombres
 
 - Ciertas estructuras o construcciones sintácticas del programa definen lo que
-  se denominan **espacios de nombres**.
+  se denomina **espacios de nombres**.
 
 - Un **espacio de nombres** (del inglés, _namespace_) es una correspondencia
-  entre nombres y valores, es decir, es un **conjunto de ligaduras**.
+  entre nombres y valores; es decir, es un **conjunto de ligaduras**.
 
 - Su función es, por tanto, **almacenar ligaduras y permitir varias ligaduras
   con el mismo nombre** en distintas partes del programa.
@@ -1599,7 +1599,10 @@ maximo -> lambda
 - Por tanto, podemos tener **espacios de nombres _estáticos_** y **espacios de
   nombres _dinámicos_**.
 
-- En Java, las clases y los paquetes son _espacios de nombres estáticos_.
+- En Java, las clases y los paquetes son _espacios de nombres estáticos_, que
+  el compilador gestiona a través de su _tabla de símbolos_.
+
+---
 
 - Por otra parte, durante la ejecución de un programa se pueden ir creando
   ciertas estructuras en memoria que representan _espacios de nombres
@@ -2089,9 +2092,9 @@ z -> 3
 
    - _Python > Linting: Pylint Enabled_: Activado
 
-   - _Python › Linting: Pylint Args_:
+   - _Python > Linting: Pylint Args_:
 
-     `--disable=invalid-name,redefined-outer-name,missing-docstring`
+     `--disable=invalid-name,redefined-outer-name,missing-docstring,unnecessary-lambda-assignment`
 
 ---
 
