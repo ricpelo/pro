@@ -425,11 +425,11 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
-   !SIGNAT(\texttt{es\_primo(!VAR(x_1):\,float,\;!VAR(y_1):\,float,\;!VAR(x_2):\,float,\;!VAR(y_2):\,float)\;->\;float})
+   !SIGNAT(\texttt{distancia(!VAR(x_1):\,float,\;!VAR(y_1):\,float,\;!VAR(x_2):\,float,\;!VAR(y_2):\,float)\;->\;float})
    !POST
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
-     \texttt{es\_primo(!VAR(x_1),\;!VAR(y_1),\;!VAR(x_2),\;!VAR(y_2))} = \text{la distancia euclídea de}
-   & \hspace{4.87cm} \text{los puntos } (x_1,y_1) \text{ y } (x_2,y_2)
+     \texttt{distancia(!VAR(x_1),\;!VAR(y_1),\;!VAR(x_2),\;!VAR(y_2))} = \text{la distancia euclídea de}
+   & \hspace{5.065cm} \text{los puntos } (x_1,y_1) \text{ y } (x_2,y_2)
    ~~~~~~~~~~~~~~~~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
