@@ -1452,15 +1452,18 @@ True
 
 ## Concepto
 
-- Sabemos que, en programación funcional, las funciones son un dato más, como
-  cualquier otro (es decir: tienen un tipo, se pueden ligar a identificadores,
-  etcétera).
+- Sabemos que, en programación funcional, **las _funciones_ también son
+  _valores_**.
 
-- Pero eso significa que también se pueden pasar como argumentos a otras
-  funciones o se pueden devolver como resultado de otras funciones.
+  Por tanto, como pasa con cualquier otro valor, las funciones también tienen
+  un tipo, se pueden ligar a identificadores, etcétera.
+
+- Pero si las funciones son valores, eso significa que también se pueden pasar
+  como argumentos a otras funciones o se pueden devolver como resultado de
+  otras funciones.
 
 - Una **función de orden superior** es una función que recibe funciones como
-  argumento o devuelve funciones como resultado.
+  argumentos o devuelve funciones como resultado.
 
 ---
 
