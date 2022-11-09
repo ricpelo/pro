@@ -101,7 +101,7 @@ nocite: |
   - Los programas están formados por sentencias que, al ejecutarse, van
     cambiando el estado del programa.
 
-  - El valor de una expresión depende del estado de en el que se encuentre el
+  - El valor de una expresión depende del estado en el que se encuentre el
     programa en el momento de evaluar dicha expresión (no hay _transparencia
     referencial_).
 
@@ -156,21 +156,22 @@ nocite: |
 - Todos los valores se almacenan en una zona de la memoria conocida como el
   **montículo**.
 
-- Cada vez que aparece un nuevo dato en el programa, el intérprete lo crea
-  dentro del montículo a partir de una determinada dirección de la memoria y
-  ocupando el espacio de memoria que se necesite en función del tamaño que
-  tenga el dato.
+- Cada vez que aparece un nuevo dato en el programa, el intérprete crea el
+  valor del dato dentro del montículo, a partir de una determinada dirección de
+  la memoria y ocupando el espacio de memoria que se necesite en función del
+  tamaño que tenga el valor.
 
-- Se denomina **identidad del dato** a un número entero que va asociado siempre
-  al dato, que es único y constante durante toda la vida del dato, y que sirve
-  para identificar, localizar y acceder al dato dentro del montículo.
+- Se denomina **identidad del valor** a un número entero que va asociado
+  siempre al valor, que es único y constante durante toda la existencia del
+  valor, y que sirve para identificar, localizar y acceder al valor dentro del
+  montículo.
 
-- Generalmente, la identidad de un dato coincide con la **dirección de
-  comienzo** de la zona que ocupa el dato dentro del montículo, aunque ese es
+- Generalmente, la identidad de un valor coincide con la **dirección de
+  comienzo** de la zona que ocupa ese valor dentro del montículo, aunque ese es
   un detalle de funcionamiento interno del intérprete.
 
-- Si dos datos existen a la vez, no pueden tener la misma identidad; en caso
-  contrario, sí que pueden.
+- Si dos valores coexisten a la vez, no pueden tener la misma identidad; en
+  caso contrario, sí que podrían.
 
 <!--
 
@@ -182,53 +183,82 @@ nocite: |
 
 ### `id`
 
-- La identidad de un dato se puede consultar usando la función !PYTHON(id):
+- La identidad de un valor se puede consultar usando la función !PYTHON(id):
+
+  :::: columns
+
+  ::: {.column width=45%}
 
   ```python
   >>> id('hola')
   140294723570672
   >>> id('hola')
   140294723570672
-  >>> id(5)
-  9784992
   ```
 
-- La identidad del dato (es decir, el número entero que devuelve la función
-  !PYTHON(id) aplicado al dato) no cambia durante la ejecución de un programa
-  ni durante una sesión con el intérprete interactivo.
+  :::
 
-- Pero en dos ejecuciones distintas del mismo programa, o en dos sesiones
-  distintas con el intérprete interactivo, su valor sí puede cambiar (y lo
-  normal es que cambie).
+  ::: {.column width=5%}
 
-- En realidad, la identidad del dato, como tal, no tiene ningún significado
-  especial en sí mismo. Da igual qué número sea. Lo importante es que sea único
-  y constante para cada dato.
+  :::
+
+  ::: {.column width=45%}
+
+  ```python
+  >>> id('adiós')
+  140587522259616
+  >>> id(5)
+  140666458866032
+  ```
+
+  :::
+
+  ::::
+
+- La identidad de un valor nunca cambia durante la ejecución del programa (o
+  durante la misma sesión con el intérprete interactivo).
+
+  En cambio, la identidad de un valor sí que puede cambiar (y lo normal es que
+  cambie) entre dos ejecuciones distintas del mismo programa, o entre dos
+  sesiones distintas con el intérprete interactivo.
+
+- Por otra parte, es posible que el valor cambie su estado interno, pero eso no
+  tiene por qué cambiar su identidad, ya que el valor podría seguir almacenado
+  en la misma zona de la memoria, pero con otro contenido interno (como veremos
+  posteriormente).
 
 ## Variables y referencias
 
 - Una **variable** es un lugar en la **memoria** donde se puede **almacenar la
-  identidad** de un dato almacenado en el montículo.
+  identidad** de un valor.
 
-- En tal caso, decimos que la variable **es una referencia al dato**, o que
-  **contiene una referencia al dato**, o que **hace referencia al dato** o que
-  **apunta al dato**.
+- En tal caso, decimos que:
 
-- Por abuso del lenguaje, también se suele decir que la variable **almacena o
-  contiene el dato**, aunque eso no es estrictamente cierto.
+  - La **identidad** del valor **_es_ una referencia** al valor (o **_hace_
+    referencia** al valor, o **_apunta_** al valor).
 
-- El valor de una variable (o mejor dicho, la referencia que contiene) **puede
-  cambiar** durante la ejecución del programa, haciendo que la variable pueda
-  *apuntar* a distintos valores durante la ejecución del programa.
+  - La **variable** **_contiene_ una referencia** al valor.
+
+    A veces se confunde _identidad_ con _variable_, y en ese caso se suele
+    decir (aunque no está muy bien dicho) que **la variable** **_es_ una
+    referencia** al valor, o que **_hace_ referencia** al valor, o que
+    **_apunta_** al valor.
+
+- Por abuso del lenguaje, también se suele decir que la variable **_almacena_ o
+  _contiene_ el valor**, aunque ya sabemos que eso no es realmente así.
 
 ---
 
-- A partir de ahora, un identificador no se liga directamente con un valor,
-  sino que tendremos:
+- El contenido de una variable (es decir, la _referencia_ que contiene) **puede
+  cambiar** durante la ejecución del programa, haciendo que la variable pueda
+  *apuntar* a distintos valores durante la ejecución del programa.
+
+- A partir de ahora, un identificador no se va a ligar directamente con un
+  valor, sino que tendremos:
 
   - Una **ligadura** entre un identificador y una **variable**.
 
-  - La variable **hace referencia** al valor.
+  - La variable **contiene una referencia** al valor.
 
 !DOT(identificador-variable-valor.svg)()(width=70%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -243,16 +273,16 @@ identificador -> variable -> valor
   _orientados a objetos_** (como Python o Java), que son los lenguajes
   imperativos más usados a día de hoy.
 
-- Otros lenguajes imperativos más «clásicos» se comportan, en general, de una
-  forma diferente.
+- Otros lenguajes imperativos más «clásicos» (como C o Pascal) se comportan, en
+  general, de una forma diferente.
 
-- En esos lenguajes (como C o Pascal), los valores se almacenan directamente
-  dentro de las variables, es decir, las variables son contenedores que
-  almacenan valores.
+- En esos lenguajes, los valores se almacenan directamente dentro de las
+  variables, es decir, que las variables son contenedores que almacenan
+  valores, no referencias a los valores.
 
 - Por tanto, el compilador tiene que reservar espacio suficiente en la memoria
-  para cada variable del programa de manera que dicha variable pueda contener
-  un dato de un determinado tamaño y que ese dato «quepa» dentro de la
+  para cada variable del programa, de manera que dicha variable pueda contener
+  un valor de un determinado tamaño y que ese valor «quepa» dentro de la
   variable.
 
 ---
@@ -279,9 +309,10 @@ identificador -> variable -> valor
   en un momento dado.
 
   Por tanto, el estado es la asociación que se establece entre una variable y
-  un valor (es decir, la referencia que contiene).
+  un valor (es decir, la referencia que contiene la variable y que apunta al
+  valor).
 
-!DOT(identificador-ligadura-variable-estado-valor.svg)()(width=60%)
+!DOT(identificador-ligadura-variable-estado-valor.svg)()(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 identificador [shape = plaintext, fillcolor = transparent, fontname = "monospace"]
 valor [shape = circle, width = 0.8, fixedsize = true]
