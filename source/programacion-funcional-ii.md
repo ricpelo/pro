@@ -777,9 +777,12 @@ fib1_5 -> u5
   llamarse a sí misma y antes de terminar de ejecutarse:
 
   ```python
+  # Versión con recursividad final:
   fact_iter = lambda cont, acc: acc if cont == 0 else \
                                 fact_iter(cont - 1, acc * cont)
   fact = lambda n: fact_iter(n, 1)
+
+  # Versión con recursividad no final:
   factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
   ```
 
@@ -787,12 +790,18 @@ fib1_5 -> u5
 
 - Es decir:
 
-  - !PYTHON(fact_iter(cont, acc)) simplemente llama a
-    !PYTHON(fact_iter(cont - 1, acc * cont)) y luego devuelve directamente el
-    valor que le entrega ésta llamada, sin hacer ninguna otra operación
-    posterior antes de terminar.
+  - !PYTHON(fact_iter(cont, acc)) simplemente llama a:
 
-  - En cambio, !PYTHON(factorial(n)) hace !PYTHON(n * factorial(n - 1)), o sea,
+    !PYTHON(fact_iter(cont - 1, acc * cont))
+
+    y luego devuelve directamente el valor que le entrega ésta llamada, sin
+    hacer ninguna otra operación posterior antes de terminar.
+
+  - En cambio, !PYTHON(factorial(n)) hace:
+
+    !PYTHON(n * factorial(n - 1))
+
+    o sea,
     se llama a sí misma pero el resultado de la llamada recursiva tiene que
     multiplicarlo luego por !PYTHON(n) antes de devolver el resultado final.
 
@@ -1122,7 +1131,7 @@ n2 -> dummy [lhead = cluster0, ltail = cluster3]
 
   ```python
   fact_iter = lambda cont, acc: acc if cont == 0 else \
-                              fact_iter(cont - 1, acc * cont)
+                                fact_iter(cont - 1, acc * cont)
   fact = lambda n: fact_iter(n, 1)
 
   fact(5)
@@ -1757,15 +1766,10 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 ## `reduce`
 
 - !PYTHON(reduce) es una **función de orden superior** que aplica, de forma
-  acumulativa, una función a todos los elementos de una tupla (o cualquier cosa
-  *iterable*).
+  _acumulativa_, una función a todos los elementos de una tupla (en general, a
+  cualquier objeto *iterable*).
 
-- Las operaciones se hacen agrupándose **por la izquierda**.
-
-- Captura un **patrón muy frecuente** de recursión sobre secuencias de
-  elementos.
-
----
+- Captura un **patrón muy frecuente** de recursión sobre secuencias.
 
 - Por ejemplo, para calcular la suma de todos los elementos de una tupla,
   haríamos:
@@ -1784,13 +1788,13 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   24
   ```
 
-- Como podemos observar, la estrategia de cálculo es esencialmente la misma
-  (sólo se diferencian en la operación a realizar (`+` o `*`) y en el valor
-  inicial o *elemento neutro* (!PYTHON(0) o !PYTHON(1)).
+- Como podemos observar, la estrategia de cálculo es esencialmente la misma;
+  sólo se diferencian en la _operación_ a realizar (`+` o `*`) y en el _valor
+  inicial_ o *elemento neutro* (!PYTHON(0) o !PYTHON(1)).
 
 ---
 
-- Si abstraemos ese patrón común podemos crear una función de orden superior
+- Si abstraemos ese patrón común, podemos crear una función de orden superior
   que capture la idea de **reducir todos los elementos de una tupla (o
   cualquier iterable) a un único valor**.
 
@@ -1807,7 +1811,8 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   - _function_ debe ser una función que reciba dos argumentos.
 
-  - _sequence_ debe ser cualquier objeto iterable.
+  - _sequence_ debe ser cualquier objeto iterable (normalmente, una secuencia
+    como una cadena, una tupla o un rango).
 
   - _initial_, si se indica, se usará como primer elemento sobre el que
     realizar el cálculo y servirá como valor por defecto cuando la secuencia
@@ -1815,24 +1820,169 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 ---
 
-- Para usarla, tenemos que *importarla* previamente del *módulo*
-  !PYTHON(functools).
+- Para usarla, primero tenemos que _importarla_ del _módulo_
+  !PYTHON(functools):
 
-  - No es la primera vez que importamos un módulo. Ya lo hicimos con el módulo
-    !PYTHON(math).
+  ```python
+  from functools import reduce
+  ```
 
-  - En su momento estudiaremos con detalle qué son los módulos. Por ahora nos
-    basta con lo que ya sabemos: que contienen definiciones que podemos
-    incorporar a nuestros *scripts*.
+- No es la primera vez que importamos un módulo. Ya lo hicimos con el módulo
+  !PYTHON(math).
 
-- Por ejemplo, para calcular la suma y el producto de !PYTHON((1, 2, 3, 4)):
+- En su momento estudiaremos con detalle qué son los módulos. Por ahora nos
+  basta con lo que ya sabemos: que contienen definiciones que podemos
+  incorporar a nuestros _scripts_.
+
+---
+
+- Por ejemplo, para calcular la suma y el producto de !PYTHON((1, 2, 3, 4)),
+  podemos definir las funciones `suma_de_numeros` y `producto_de_numeros` a
+  partir de `reduce`:
 
   ```python
   from functools import reduce
   tupla = (1, 2, 3, 4)
   suma_de_numeros = lambda tupla: reduce(lambda x, y: x + y, tupla, 0)
-  producto_de_numeros =lambda tupla: reduce(lambda x, y: x * y, tupla, 1)
+  producto_de_numeros = lambda tupla: reduce(lambda x, y: x * y, tupla, 1)
   ```
+
+- También podemos importar y usar las funciones `add` y `mul` del módulo
+  `operator`, las cuales actúan, respectivamente, como el operador `+` y `*`:
+
+  ```python
+  from functools import reduce
+  from operator import add, mul
+  tupla = (1, 2, 3, 4)
+  suma_de_numeros = lambda tupla: reduce(add, tupla, 0)
+  producto_de_numeros = lambda tupla: reduce(mul, tupla, 1)
+  ```
+
+  De esta forma, usamos `add` y `mul` en lugar de las expresiones lambda
+  !PYTHON((lambda x, y: x + y)) y !PYTHON((lambda x, y: x * y)),
+  respectivamente.
+
+---
+
+- En general, si $iterable$ representa un objeto iterable que contiene los
+  elementos $e_1, e_2, \ldots, e_n$ (en este orden), entonces tenemos que:
+  $$\texttt{reduce(!VAR(f),\;!VAR(iterable),\;!VAR(ini))} = f(\ldots{}f(f(f(ini, e_1), e_2), e_3), \ldots, e_n)$$
+
+- Por ejemplo, la siguiente llamada a `reduce`:
+
+  ```python
+  reduce(add, (1, 2, 3, 4), 0)
+  ```
+
+  realiza y devuelve el resultado del siguiente cálculo:
+
+  ```python
+  add(add(add(add(0, 1), 2), 3), 4)
+  ```
+
+  lo que, en la práctica, equivale a:
+
+  ```python
+  ((((0 + 1) + 2) + 3) + 4)
+  ```
+
+---
+
+- Si $iterable$ representa un **iterable vacío**, entonces:
+
+  $$\texttt{reduce(!VAR(f),\;!VAR(iterable),\;!VAR(ini))} = ini$$
+
+- Por ejemplo:
+
+  ```python
+  reduce(add, (), 0)
+  ```
+
+  devuelve directamente !PYTHON(0).
+
+---
+
+- Si **no se indica un valor inicial**, tenemos que:
+  $$\texttt{reduce(!VAR(f),\;!VAR((e_1, e_2, \ldots, e_n)))} = f(\ldots{}f(f(e_1, e_2), e_3), \ldots, e_n)$$
+
+  Es decir: se usará el primer elemento del iterable como valor inicial.
+
+- Por ejemplo, la siguiente llamada a `reduce`:
+
+  ```python
+  reduce(add, (1, 2, 3, 4))
+  ```
+
+  realiza y devuelve el resultado del siguiente cálculo:
+
+  ```python
+  add(add(add(1, 2), 3), 4)
+  ```
+
+  lo que, en la práctica, equivale a:
+
+  ```python
+  (((1 + 2) + 3) + 4)
+  ```
+
+- Pero si el iterable es **vacío**, dará un error:
+
+  ```python
+  >>> reduce(add, ())
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: reduce() of empty iterable with no initial value
+  ```
+
+---
+
+- Con lo que acabamos de ver, se demuestra que la implementación de la función
+  `reduce` en Python va reduciendo **de izquierda a derecha** y que, por tanto,
+  las operaciones se hacen agrupándose **por la izquierda**.
+
+- Esto es algo que debemos tener muy en cuenta a la hora de diseñar la función
+  que se le pasa a `reduce`.
+
+- Se denomina **iteración** a cada paso que da la función `reduce`, es decir,
+  cada vez que `reduce` visita un nuevo elemento del iterable (la tupla, cadena
+  o lo que sea) y aplica la función para calcular el resultado parcial.
+
+- Esa función, como ya dijimos antes, debe tener dos parámetros, pero de forma
+  que, en cada iteración:
+
+  #. Su primer parámetro va a contener siempre el valor parcial acumulado hasta
+  ahora (por tanto, es un _acumulador_).
+
+  #. Su segundo parámetro va a contener el valor del elemento que en este
+     momento está visitando `reduce`.
+
+---
+
+- Por tanto, es frecuente que el primer parámetro de esa función se llame `acc`
+  o algo similar, para expresar el hecho de que ahí se va recibiendo el valor
+  acumulado hasta el momento.
+
+- Por ejemplo, en la siguiente llamada:
+
+  ```python
+  reduce(lambda acc, e: acc + e, (1, 2, 3, 4), 0)
+  ```
+
+  - `acc` va a contener la suma parcial acumulada hasta ahora.
+
+  - `e` va a contener el elemento que en este momento se está visitando.
+
+  Así, durante la ejecución del `reduce`, ésta provocará las siguientes
+  llamadas a la expresión lambda:
+
+  ```python
+  (lambda acc, e: acc + e)(0, 1)   # acc = 0, e = 1
+  (lambda acc, e: acc + e)(1, 2)   # acc = 1, e = 2
+  (lambda acc, e: acc + e)(3, 3)   # acc = 3, e = 3
+  (lambda acc, e: acc + e)(6, 4)   # acc = 6, e = 4
+  ```
+
+---
 
 - ¿Cómo podríamos definir la función !PYTHON(reduce) si recibiera una tupla y
   no cualquier iterable?
