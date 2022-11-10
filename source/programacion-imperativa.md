@@ -156,7 +156,7 @@ nocite: |
 - Todos los valores se almacenan en una zona de la memoria conocida como el
   **montículo**.
 
-- Cada vez que aparece un nuevo dato en el programa, el intérprete crea el
+- Cada vez que aparece un nuevo dato en el programa, el intérprete guarda el
   valor del dato dentro del montículo, a partir de una determinada dirección de
   la memoria y ocupando el espacio de memoria que se necesite en función del
   tamaño que tenga el valor.
@@ -180,6 +180,43 @@ nocite: |
   no crea uno nuevo, para así ahorrar memoria.
 
 -->
+
+---
+
+- No está de más recordar que los programas no pueden manipular valores
+  directamente (ya que los valores son entidades abstractas), sino que sólo
+  pueden manipular _representaciones_ de ese valor.
+
+- Por ejemplo, un programa no puede manipular el número **cinco**, ya que los
+  números sólo existen de forma ideal en el mundo abstracto.
+
+- Sin embargo, el programa puede manipular expresiones como !PYTHON(2 + 3) o
+  !PYTHON(5), que representan (o _denotan_) a ese valor **cinco**.
+
+- Por otra parte, !PYTHON(5) es la _expresión canónica_ del valor **cinco**.
+
+- Esa expresión canónica representa al valor dentro del programa, ya que es,
+  además, la _forma normal_ de todas las expresiones que denotan el mismo
+  valor.
+
+---
+
+- Pero aunque ya sabemos que lo que se manipula y se almacena en la
+  memoria no es el valor en sí, sino su expresión canónica, nosotros, para
+  simplificar, siempre vamos a hablar de manipular y almacenar
+  _valores_, aunque no sea del todo correcto.
+
+- A su vez, los valores (o, mejor dicho, sus expresiones canónicas) se
+  almacenan en la memoria del ordenador usando una _codificación_ apropiada al
+  tipo de cada valor.
+
+- Por ejemplo, un número entero como el !PYTHON(5) se puede almacenar usando
+  una codificación binaria en complemento a dos, mientras que una cadena como
+  !PYTHON('hola') se podría almacenar como una secuencia de caracteres Unicode.
+
+- Por tanto, cuando se almacena un valor en la memoria (o, mejor dicho, cuando
+  se almacena su expresión canónica), ocupará un espacio que dependerá del
+  valor que sea y del tipo que tenga.
 
 ### `id`
 
