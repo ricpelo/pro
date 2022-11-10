@@ -10,7 +10,6 @@ author:
 ---
 
 #. Dada la siguiente función matemática:
-
    $$f(n)=\begin{cases}
    0 & \textrm{si }n=0\\
    1+2\cdot f(n-1) & \textrm{si }n>0
@@ -19,7 +18,6 @@ author:
    calcular el valor de $f(3)$.
 
 #. La función `potencia` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(b \geq 0)
@@ -32,7 +30,6 @@ author:
    #. Implementar la función de forma recursiva.
 
 #. La función `repite` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(n \geq 0)
@@ -45,7 +42,6 @@ author:
 #. La suma lenta es un algoritmo para sumar dos números para el que
    sólo necesitamos saber cuáles son el anterior y el siguiente de un
    número dado. El algoritmo se basa en la siguiente recurrencia:
-
    $$suma\_lenta(a,b)=\begin{cases}
    b & \textrm{si }a=0\\
    suma\_lenta(ant(a),sig(b)) & \textrm{si }a>0
@@ -140,7 +136,6 @@ author:
        función `par`?
 
 #. La función `elem` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
@@ -154,7 +149,6 @@ author:
    Escribir una función recursiva que satisfaga dicha especificación.
 
 #. La función `cuantos` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
@@ -170,7 +164,6 @@ author:
    #. iterativo.
 
 #. La función `quita` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
@@ -186,7 +179,6 @@ author:
    #. iterativo.
 
 #. La función `sustituye` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(\texttt{True})
@@ -206,24 +198,140 @@ author:
    #. iterativo.
 
 #. La función `ultimo` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(t \neq \texttt{()})
-   !SIGNAT(\texttt{ultimo(!VAR(t):\,tuple)})
+   !SIGNAT(\texttt{ultimo(!VAR(t):\,tuple)\;->\;Any})
    !POST(\texttt{ultimo(!VAR(t))} = \text{el último elemento de \emph{t}})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Escribir una función recursiva que satisfaga dicha especificación.
 
 #. La función `enesimo` tiene la siguiente especificación:
-
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(t \neq \texttt{()} \land 0 \leq n < \texttt{len(!VAR(t))})
-   !SIGNAT(\texttt{enesimo(!VAR(n):\,int,\;!VAR(t):\,tuple)})
+   !SIGNAT(\texttt{enesimo(!VAR(n):\,int,\;!VAR(t):\,tuple)\;->\;Any})
    !POST(\texttt{enesimo(!VAR(n),\;!VAR(t))} = \text{el \emph{n}-ésimo elemento de \emph{t}})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `invertir` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{True})
+   !SIGNAT(\texttt{invertir(!VAR(t):\,tuple)\;->\;tuple})
+   !POST(\texttt{invertir(!VAR(t))} = \text{una tupla con los elementos de !VAR(t) en orden contrario})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo: !PYTHON(invertir((1, 2, 3, 4)) == (4, 3, 2, 1)).
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `palindromo` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{True})
+   !SIGNAT(\texttt{palindromo(!VAR(t):\,tuple)\;->\;bool})
+   !POST
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+   \texttt{palindromo(!VAR(t))} = \begin{cases}\texttt{True} & \text{si !VAR(t) es un palíndromo}\\&\text{(se lee igual en un sentido que en otro)}\\\texttt{False} & \text{en caso contrario}\end{cases}
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo: !PYTHON(palindromo((1, 2, 3, 4, 3, 2, 1)) == True).
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `rota` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(n \geq 0)
+   !SIGNAT(\texttt{rota(!VAR(n):\,int,\;!VAR(t):\,tuple)\;->\;tuple})
+   !POST
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   \texttt{rota(!VAR(n),\;!VAR(t))} = \text{la tupla obtenida poniendo los !VAR(n) primeros}
+   & \text{elementos de !VAR(t) al final}
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo:
+
+   ```python
+   rota(1, (3, 2, 5, 7)) == (2, 5, 7, 3)
+   rota(2, (3, 2, 5, 7)) == (5, 7, 3, 2)
+   rota(3, (3, 2, 5, 7)) == (7, 3, 2, 5)
+   ```
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `rota1` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(\texttt{True})
+   !SIGNAT(\texttt{rota1(!VAR(t):\,tuple)\;->\;tuple})
+   !POST
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   \texttt{rota1(!VAR(t))} = \text{la tupla obtenida poniendo el primer}
+   & \text{elemento de !VAR(t) al final}
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo: !PYTHON(rota1((3, 2, 5, 7)) == (2, 5, 7, 3)).
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `menor` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(t \neq \texttt{()})
+   !SIGNAT(\texttt{menor(!VAR(t):\,tuple[!VAR(\alpha)])\;->\;!VAR(\alpha)})
+   !POST(\texttt{menor(!VAR(t))} = \text{el menor elemento de !VAR(t)})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo: !PYTHON(menor((3, 2, 5, 7)) == 2).
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `mayor` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(t \neq \texttt{()})
+   !SIGNAT(\texttt{mayor(!VAR(t):\,tuple[!VAR(\alpha)])\;->\;!VAR(\alpha)})
+   !POST(\texttt{mayor(!VAR(t))} = \text{el mayor elemento de !VAR(t)})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo: !PYTHON(mayor((3, 2, 5, 7)) == 7).
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `menor_mayor` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(t \neq \texttt{()})
+   !SIGNAT(\texttt{menor\_mayor(!VAR(t):\,tuple[!VAR(\alpha)])\;->\;tuple[!VAR(\alpha)]})
+   !POST
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   \texttt{menor\_mayor(!VAR(t))} = \text{una tupla con dos elementos}
+   & \text{que contiene el menor y el mayor elemento de !VAR(t),}
+   & \text{en ese orden}
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo: !PYTHON(menor_mayor((3, 2, 5, 7)) == (2, 7)).
+
+   Escribir una función recursiva que satisfaga dicha especificación.
+
+#. La función `finales` tiene la siguiente especificación:
+   !ESPEC
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   !PRE(n \geq 0)
+   !SIGNAT(\texttt{finales(!VAR(n):\,int,\;!VAR(t):\,tuple)\;->\;tuple})
+   !POST(\texttt{finales(!VAR(n),\;!VAR(t))} = \text{la tupla que contiene los !VAR(n) elementos finales de !VAR(t)})
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Por ejemplo: !PYTHON(finales(2, (1, 2, 3, 4)) == (3, 4)).
 
    Escribir una función recursiva que satisfaga dicha especificación.
 
