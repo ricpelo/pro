@@ -22,8 +22,8 @@ nocite: |
   programa.
 
 - El **fundamento teórico** de la programación imperativa son las **máquinas de
-  Turing** y de **Von Neumann**, que son modelos abstractos de cómo funciona un
-  ordenador.
+  Turing** y la arquitectura de **Von Neumann**, que son modelos abstractos de
+  cómo funciona un ordenador.
 
 - El **modelo de ejecución** de un programa imperativo es el de una **máquina
   de estados**, es decir, un dispositivo abstracto que va pasando por
@@ -151,9 +151,9 @@ nocite: |
 
 # Asignación destructiva
 
-## Identidad
+## Valores e identidades
 
-- Todos los valores se almacenan en una zona de la memoria conocida como el
+- Todos los **valores** se almacenan en una zona de la memoria conocida como el
   **montículo**.
 
 - Cada vez que aparece un nuevo dato en el programa, el intérprete guarda el
@@ -163,23 +163,63 @@ nocite: |
 
 - Se denomina **identidad del valor** a un número entero que va asociado
   siempre al valor, que es único y constante durante toda la existencia del
-  valor, y que sirve para identificar, localizar y acceder al valor dentro del
-  montículo.
+  valor.
 
-- Generalmente, la identidad de un valor coincide con la **dirección de
-  comienzo** de la zona que ocupa ese valor dentro del montículo, aunque ese es
-  un detalle de funcionamiento interno del intérprete.
+- Dos valores distintos deben tener identidades distintas.
 
-- Si dos valores coexisten a la vez, no pueden tener la misma identidad; en
-  caso contrario, sí que podrían.
+---
 
-<!--
+- La identidad de un valor se puede consultar en Python usando la función
+  !PYTHON(id):
 
-- Si en el montículo ya existe un dato exactamente igual al que se tiene que
-  crear, en la mayoría de los casos el intérprete aprovecha el que ya existe y
-  no crea uno nuevo, para así ahorrar memoria.
+  ```python
+  >>> id('hola')
+  140294723570672
+  >>> id('adiós')
+  140587522259616
+  >>> id(5)
+  140666458866032
+  ```
 
--->
+- La identidad de un valor nunca cambia durante la ejecución del programa (o
+  durante la misma sesión con el intérprete interactivo).
+
+  En cambio, sí que puede cambiar (y lo normal es que cambie) entre dos
+  ejecuciones distintas del mismo programa, o entre dos sesiones distintas con
+  el intérprete interactivo.
+
+---
+
+- Si hacemos:
+
+  ```python
+  >>> id('pepe')
+  139905258241392
+  >>> id('pepe')
+  139905255890928
+  ```
+
+  puede parecer que la identidad del valor !PYTHON('pepe') ha cambiado, ya que
+  hemos consultado dos veces la identidad del mismo valor usando la función
+  !PYTHON(id) y en cada caso nos ha devuelto resultados diferentes.
+
+- Sin embargo, lo que ocurre es que los dos !PYTHON('pepe') son dos valores
+  diferentes que se han creado en momentos diferentes y que ocupan zonas
+  diferentes en la memoria, por lo que tienen identidades diferentes aunque
+  sean valores _iguales_.
+
+- En cambio, si hacemos:
+
+  ```python
+  >>> x = 'pepe'
+  >>> id(x)
+  139754569626160
+  >>> id(x)
+  139754569626160
+  ```
+
+  se obtiene el mismo resultado, ya que sólo hay un único valor !PYTHON('pepe')
+  en la memoria y, por tanto, la identidad es la misma en cada caso.
 
 ---
 
@@ -218,77 +258,57 @@ nocite: |
   se almacena su expresión canónica), ocupará un espacio que dependerá del
   valor que sea y del tipo que tenga.
 
-### `id`
+## Referencias
 
-- La identidad de un valor se puede consultar usando la función !PYTHON(id):
+- Dado un determinado valor, se denomina **referencia al valor** a un
+  localizador que permite identificar, localizar y acceder a ese valor dentro
+  del montículo.
 
-  :::: columns
+- En tal caso, se dice también que «**la referencia _apunta_ al valor**».
 
-  ::: {.column width=45%}
+- Por tanto, para poder manipular un valor, necesitamos disponer de la
+  referencia a dicho valor.
 
-  ```python
-  >>> id('hola')
-  140294723570672
-  >>> id('hola')
-  140294723570672
-  ```
+- En la mayoría de los lenguajes de programación, esa referencia coincide con
+  la **dirección de comienzo** de la zona que ocupa ese valor dentro del
+  montículo, aunque ese es un detalle de funcionamiento interno del intérprete
+  que no es necesario conocer.
 
-  :::
+  Por ese misma razón, en la mayoría de los lenguajes, las referencias son
+  únicas y constantes para cada valor, al igual que ocurre con las identidades.
 
-  ::: {.column width=5%}
+- De hecho, en esos lenguajes coinciden el concepto de _identidad_ y el de
+  _referencia_, ya que, en la práctica, no hay mucha diferencia entre ambos.
 
-  :::
-
-  ::: {.column width=45%}
-
-  ```python
-  >>> id('adiós')
-  140587522259616
-  >>> id(5)
-  140666458866032
-  ```
-
-  :::
-
-  ::::
-
-- La identidad de un valor nunca cambia durante la ejecución del programa (o
-  durante la misma sesión con el intérprete interactivo).
-
-  En cambio, la identidad de un valor sí que puede cambiar (y lo normal es que
-  cambie) entre dos ejecuciones distintas del mismo programa, o entre dos
-  sesiones distintas con el intérprete interactivo.
-
-- Por otra parte, es posible que el valor cambie su estado interno, pero eso no
-  tiene por qué cambiar su identidad, ya que el valor podría seguir almacenado
-  en la misma zona de la memoria, pero con otro contenido interno (como veremos
-  posteriormente).
-
-## Variables y referencias
+## Variables
 
 - Una **variable** es un lugar en la **memoria** donde se puede **almacenar la
-  identidad** de un valor.
+  referencia** a un valor.
 
-- En tal caso, decimos que:
+- En tal caso, se puede decir que:
 
-  - La **identidad** del valor **_es_ una referencia** al valor (o **_hace_
-    referencia** al valor, o **_apunta_** al valor).
+  - «La variable contiene (o almacena) una referencia al valor».
+  - «La variable hace referencia al valor».
+  - «La variable apunta al valor».
 
-  - La **variable** **_contiene_ una referencia** al valor.
+- Otras formas menos correctas (pero que se utilizan con frecuencia por abuso
+  del lenguaje) serían:
 
-    A veces se confunde _identidad_ con _variable_, y en ese caso se suele
-    decir (aunque no está muy bien dicho) que **la variable** **_es_ una
-    referencia** al valor, o que **_hace_ referencia** al valor, o que
-    **_apunta_** al valor.
+  - «La variable contiene (o almacena) el valor».
+  - «La variable vale el valor».
+  - «La variable es una referencia al valor».
 
-- Por abuso del lenguaje, también se suele decir que la variable **_almacena_ o
-  _contiene_ el valor**, aunque ya sabemos que eso no es realmente así.
+- Aunque la referencia sea única para cada valor, podemos tener varias
+  referencias apuntando a la vez al mismo valor, una por cada variable que
+  contenga la referencia al valor. Por esto se puede hablar de «_una_
+  referencia al valor» y no sólo de «_la_ referencia al valor».
 
 ---
 
 - El contenido de una variable (es decir, la _referencia_ que contiene) **puede
   cambiar** durante la ejecución del programa, haciendo que la variable pueda
-  *apuntar* a distintos valores durante la ejecución del programa.
+  «_apuntar_» (o «_hacer referencia_») a distintos valores durante la ejecución
+  del programa.
 
 - A partir de ahora, un identificador no se va a ligar directamente con un
   valor, sino que tendremos:
@@ -311,7 +331,7 @@ identificador -> variable -> valor
   imperativos más usados a día de hoy.
 
 - Otros lenguajes imperativos más «clásicos» (como C o Pascal) se comportan, en
-  general, de una forma diferente.
+  general, de forma diferente.
 
 - En esos lenguajes, los valores se almacenan directamente dentro de las
   variables, es decir, que las variables son contenedores que almacenan
@@ -369,7 +389,7 @@ variable -> valor [label = "estado"]
 
 - A partir de ahora, un marco contendrá:
 
-  - Las **ligaduras entre identificadores y variables**, y
+  - Las **ligaduras entre identificadores y variables**.
 
   - El **estado de cada variable**, es decir, la referencia que contiene cada
     variable en un momento dado.
@@ -420,7 +440,7 @@ y:f1 -> 5
 - Igualmente, a veces tampoco dibujaremos el marco si se sobreentiende cuál es
   (o si no tiene importancia en ese momento).
 
-- A veces, y llegado el caso, también dibujaremos el valor directamente
+- Incluso, a veces, llegado el caso, también dibujaremos el valor directamente
   almacenado en la variable que le apunta, para simplificar (aunque sabemos que
   eso no es lo que ocurre en Python).
 
@@ -434,37 +454,83 @@ y:f1 -> 5
   significado:
 
   ```python
-  x = 4      # se lee: «asigna el valor 4 a la variable x»
+  x = 4
   ```
 
-  El efecto que produce es el de almacenar, en la variable ligada al
-  identificador !PYTHON(x), la _identidad_ del valor !PYTHON(4) almacenado en
+  Esa instrucción ahora se lee así:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  «_Asigna el valor !PYTHON(4) a la variable !PYTHON(x)_»
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  y el efecto que produce es el de almacenar, en la variable ligada al
+  identificador !PYTHON(x), la _referencia_ del valor !PYTHON(4) almacenado en
   el montículo.
 
-- A partir de este momento, !PYTHON(x) pasa a ser una referencia al valor
-  !PYTHON(4).
-
-  Normalmente se dice (mal dicho) que «_la variable !PYTHON(x) pasa a valer
-  !PYTHON(4)_».
+- A partir de este momento, se dice (aunque no esté muy bien dicho) que «_la
+  variable !PYTHON(x) **vale** !PYTHON(4)_».
 
 ---
+
+- Como se ve, por economía del lenguaje se dice:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  «_Asigna el valor !PYTHON(4) a la variable !PYTHON(x)_»
+  ~~~~~~~~~~~~~~~~~~~~~~~
+
+  o también (menos frecuente pero algo más correcto):
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  «_Almacena el valor !PYTHON(4) en la variable ligada al identificador
+  !PYTHON(x)_»
+  ~~~~~~~~~~~~~~~~~~~~~~~
+
+  en lugar de la forma más correcta, pero menos frecuente:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  «_Almacena una referencia al valor !PYTHON(4) en la variable ligada al
+  identificador !PYTHON(x)_».
+  ~~~~~~~~~~~~~~~~~~~~~~~
+
+- Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado,
+  porque llegado el momento es posible tener:
+
+  - Varios identificadores distintos ligados a la misma variable (ocurre en
+    algunos lenguajes como PHP, aunque no en Python ni Java).
+
+  - Un mismo identificador ligado a distintas variables en diferentes puntos
+    del programa.
+
+  - Varias variables apuntando al mismo valor.
+
+---
+
+- Podemos ejecutar varias sentencias de asignación sobre una misma variable en
+  diferentes puntos del programa, lo que permite que una variable pueda cambiar
+  su valor durante la ejecución del programa.
 
 - Se dice que la asignación es **destructiva** porque, al cambiarle el valor a
   una variable, **el nuevo valor sustituye a su valor anterior** en esa
   variable.
 
-- Por ejemplo, si ahora hacemos:
+- Por ejemplo, si tras haber ejecutado la anterior asignación !PYTHON(x = 4),
+  ahora hacemos:
 
   ```python
   x = 9
   ```
 
-  El valor de la variable a la que está ligada el identificador !PYTHON(x) pasa
-  ahora a ser !PYTHON(9), sustituyendo el valor !PYTHON(4) anterior.
+  el valor de la variable !PYTHON(x) pasa ahora a ser !PYTHON(9), sustituyendo
+  el valor !PYTHON(4) anterior.
 
-- Por tanto, eso significa que la variable ligada al identificador `x` puede
-  hacer referencia a distintos valores dependiendo del momento en el que se
-  compruebe su valor.
+---
+
+- Por tanto, eso significa que la variable `x` puede hacer referencia a
+  distintos valores dependiendo del momento en el que se compruebe su valor.
 
 - De hecho, la asignación anterior crea un instante que divide el flujo
   temporal de ejecución en dos momentos:
@@ -472,42 +538,6 @@ y:f1 -> 5
   - **Antes** de ejecutar la asignación, `x` vale !PYTHON(4).
 
   - **Después** de ejecutar la asignación, `x` vale !PYTHON(9).
-
----
-
-- Por abuso del lenguaje, se suele decir:
-
-  !CENTRAR
-  ~~~~~~~~~~~~~~~~~~~~~~~
-  *«se asigna el valor !PYTHON(9) a la variable !PYTHON(x)»*
-  ~~~~~~~~~~~~~~~~~~~~~~~
-
-  o:
-
-  !CENTRAR
-  ~~~~~~~~~~~~~~~~~~~~~~~
-  *«se asigna el valor !PYTHON(9) a la variable ligada al identificador
-  !PYTHON(x)»*
-  ~~~~~~~~~~~~~~~~~~~~~~~
-
-  en lugar de la forma correcta:
-
-  !CENTRAR
-  ~~~~~~~~~~~~~~~~~~~~~~~
-  *«se asigna una referencia al valor !PYTHON(9) en la variable ligada al
-  identificador !PYTHON(x)»*.
-  ~~~~~~~~~~~~~~~~~~~~~~~
-
-- Aunque esto simplifica las cosas a la hora de hablar, hay que tener cuidado,
-  porque llegado el momento es posible tener:
-
-  - Varios identificadores distintos ligados a la misma variable (ocurre en
-    algunos lenguajes, aunque no en Python ni Java).
-
-  - Un mismo identificador ligado a distintas variables en diferentes puntos
-    del programa.
-
-  - Varias variables apuntando al mismo valor.
 
 ---
 
@@ -540,20 +570,22 @@ y:f1 -> 5
      En determinadas situaciones, no crea un nuevo valor si ya había otro
      exactamente igual en el montículo, pero éste no es el caso.
 
-  2. El intérprete identifica a qué variable está ligado el identificador
-     !PYTHON(x) consultando el entorno (si no existía dicha variable, la
-     crea en ese momento y la liga a !PYTHON(x) en el marco actual).
+  2. El intérprete resuelve el identificador `x` (que aquí consiste en
+     determinar a qué variable está ligado el identificador !PYTHON(x))
+     consultando el entorno.
 
-  3. Almacena en la variable una referencia al valor (es decir, la identidad
-     del valor).
+     Si no existía dicha variable, la crea en ese momento y la liga a
+     !PYTHON(x) en el marco actual.
 
-## !PYTHON(del)
+  3. Almacena en la variable una referencia al valor.
+
+## La sentencia !PYTHON(del)
 
 - En Python existe la sentencia contraria a la asignación, es decir, **una
   sentencia que _elimina variables_**.
 
 - Para ello, se usa la palabra clave !PYTHON(del) seguido de una expresión que
-  identifique a la variable (que normalmente será un identificador):
+  identifique a la variable (que normalmente será un simple identificador):
 
   ```python
   >>> x = 25
@@ -576,7 +608,7 @@ y:f1 -> 5
 ## Evaluación de expresiones con variables
 
 - Al evaluar expresiones, las variables actúan de modo similar a las ligaduras
-  de la programación funcional, pero ahora los valores de las variables pueden
+  de la programación funcional pero, ahora, los valores de las variables pueden
   cambiar a lo largo del tiempo, por lo que deberemos *seguirle la pista* a los
   cambios que sufran dichas variables.
 
@@ -595,62 +627,38 @@ y:f1 -> 5
   32
   ```
 
-## Constantes
-
-- En programación funcional no existen las variables y un identificador sólo
-  puede ligarse a un valor (un identificador ligado no puede re-ligarse a otro
-  valor distinto).
-
-  - En la práctica, eso significa que un identificador ligado actúa como un
-    valor constante que no puede cambiar durante la ejecución del programa.
-
-  - El valor de esa constante es el valor al que está ligado el identificador.
-
-- Pero en programación imperativa, los identificadores se ligan a variables,
-  que son las que realmente apuntan a los valores.
-
-- Una **constante** en programación imperativa sería el equivalente a una
-  variable cuyo valor no puede cambiar durante la ejecución del programa.
-
 ---
 
-- Muchos lenguajes de programación permiten definir constantes, pero **Python
-  no es uno de ellos**.
+- Los parámetros de las funciones (es decir, de las expresiones lambda) también
+  son ahora variables en el paradigma imperativo.
 
-- En Python, una constante **es una variable más**, pero **es responsabilidad
-  del programador** no cambiar su valor durante todo el programa.
-
-- Python no hace ninguna comprobación ni muestra mensajes de error si se cambia
-  el valor de una constante.
-
-- En Python, por **convenio**, los identificadores ligados a una variable con
-  valor constante se escriben con todas las letras en **mayúscula**:
+- Por tanto, si tenemos el siguiente código:
 
   ```python
-  PI = 3.1415926
+  cuadrado = lambda x: x **2
+  total = cuadrado(4)
   ```
 
-  El nombre en mayúsculas nos recuerda que !PYTHON(PI) es una constante, aunque
-  nada nos impide cambiar su valor (cosa que debemos evitar):
+  el parámetro `x` es ahora un identificador que se ligará a una variable, la
+  cual almacenará una referencia a su argumento correspondiente durante las
+  llamadas a la función.
 
-  ```python
-  PI = 99
-  ```
-
-- Sólo es un convenio entre programadores, que no tiene por qué cumplirse
-  siempre.
+  Por tanto, en la llamada !PYTHON(cuadrado(4)), se guardará en el marco de la
+  expresión lambda una ligadura entre el identificador `x` y una variable que
+  se creará y se almacenará en el mismo marco, y esa variable contendrá una
+  referencia al argumento !PYTHON(4).
 
 ## Tipado estático vs. dinámico
 
 - Cuando una variable tiene asignado un valor, al ser usada en una expresión
   actúa como si fuera ese valor.
 
-- Como cada valor tiene un tipo de dato asociado, también podemos hablar del
-  **tipo de una variable**.
+- Como cada valor tiene un tipo asociado, también podemos hablar del **tipo de
+  una variable**.
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  El **tipo de una variable** es el tipo del dato al que hace referencia la
+  El **tipo de una variable** es el tipo del valor al que hace referencia la
   variable.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -689,6 +697,20 @@ y:f1 -> 5
   Por tanto, es la propia función la que, durante una llamada a la misma, se
   encarga de comprobar en tiempo de ejecución si los argumentos de entrada que
   le han pasado en la llamada son del tipo correcto.
+
+- Por ejemplo, en la siguiente función:
+
+  ```python
+  f = lambda x, y: x + y
+  ```
+
+  no están determinados de antemano los tipos de los parámetros ni el tipo de
+  retorno, por lo que dicha función podría admitir argumentos de cualquier tipo
+  siempre que soporten el operador `+`.
+
+---
+
+- Definición:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -975,6 +997,51 @@ Operador         Ejemplo             Equivalente a
 - En consecuencia, lo que ocurre es que _se desempaquetan_ las dos tuplas y se
   asigna cada elemento de la tupla derecha a la variable correspondiente de la
   tupla izquierda.
+
+## Constantes
+
+- En programación funcional no existen las variables y un identificador sólo
+  puede ligarse a un valor (un identificador ligado no puede re-ligarse a otro
+  valor distinto).
+
+  - En la práctica, eso significa que un identificador ligado actúa como un
+    valor constante que no puede cambiar durante la ejecución del programa.
+
+  - El valor de esa constante es el valor al que está ligado el identificador.
+
+- Pero en programación imperativa, los identificadores se ligan a variables,
+  que son las que realmente apuntan a los valores.
+
+- Una **constante** en programación imperativa sería el equivalente a una
+  variable cuyo valor no puede cambiar durante la ejecución del programa.
+
+---
+
+- Muchos lenguajes de programación permiten definir constantes, pero **Python
+  no es uno de ellos**.
+
+- En Python, una constante **es una variable más**, pero **es responsabilidad
+  del programador** no cambiar su valor durante todo el programa.
+
+- Python no hace ninguna comprobación ni muestra mensajes de error si se cambia
+  el valor de una constante.
+
+- En Python, por **convenio**, los identificadores ligados a una variable con
+  valor constante se escriben con todas las letras en **mayúscula**:
+
+  ```python
+  PI = 3.1415926
+  ```
+
+  El nombre en mayúsculas nos recuerda que !PYTHON(PI) es una constante, aunque
+  nada nos impide cambiar su valor (cosa que debemos evitar):
+
+  ```python
+  PI = 99
+  ```
+
+- Sólo es un convenio entre programadores, que no tiene por qué cumplirse
+  siempre.
 
 # Mutabilidad
 
