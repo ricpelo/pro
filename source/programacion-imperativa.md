@@ -151,75 +151,53 @@ nocite: |
 
 # Asignación destructiva
 
-## Valores e identidades
+## Valores y referencias
 
 - Todos los **valores** se almacenan en una zona de la memoria conocida como el
   **montículo**.
 
-- Cada vez que aparece un nuevo dato en el programa, el intérprete guarda el
-  valor del dato dentro del montículo, a partir de una determinada dirección de
-  la memoria y ocupando el espacio de memoria que se necesite en función del
-  tamaño que tenga el valor.
+- El valor se guardará en el montículo a partir de una determinada dirección de
+  memoria y ocupando el espacio que se necesite en función del tamaño que tenga
+  el valor.
 
-- Se denomina **identidad del valor** a un número entero que va asociado
-  siempre al valor, que es único y constante durante toda la existencia del
-  valor.
+- Dado un determinado valor, se denomina **referencia al valor** a un
+  localizador que permite identificar, localizar y acceder a ese valor dentro
+  del montículo.
 
-- Dos valores distintos deben tener identidades distintas.
+- Cada vez que aparece un valor nuevo dentro del programa, el intérprete lo
+  guarda dentro del montículo y crea una referencia al mismo.
 
----
-
-- La identidad de un valor se puede consultar en Python usando la función
-  !PYTHON(id):
-
-  ```python
-  >>> id('hola')
-  140294723570672
-  >>> id('adiós')
-  140587522259616
-  >>> id(5)
-  140666458866032
-  ```
-
-- La identidad de un valor nunca cambia durante la ejecución del programa (o
-  durante la misma sesión con el intérprete interactivo).
-
-  En cambio, sí que puede cambiar (y lo normal es que cambie) entre dos
-  ejecuciones distintas del mismo programa, o entre dos sesiones distintas con
-  el intérprete interactivo.
+- En tal caso, se dice también que «**la referencia _apunta_ al valor**».
 
 ---
 
-- Si hacemos:
+- A partir de ese momento, el valor se manipulará siempre a través de esa
+  referencia, la cual sirve como localizador y como forma de acceder a ese
+  valor en la memoria.
 
-  ```python
-  >>> id('pepe')
-  139905258241392
-  >>> id('pepe')
-  139905255890928
-  ```
+- Por tanto, para poder manipular un valor, necesitamos disponer de la
+  referencia a dicho valor.
 
-  puede parecer que la identidad del valor !PYTHON('pepe') ha cambiado, ya que
-  hemos consultado dos veces la identidad del mismo valor usando la función
-  !PYTHON(id) y en cada caso nos ha devuelto resultados diferentes.
+- Por ejemplo, la expresión !PYTHON(500) representa al valor `500` que está
+  almacenado en el montículo pero, en realidad, al evaluar la expresión, el
+  intérprete no devuelve ese valor, sino una referencia al valor, a través de
+  la cual podremos acceder al valor.
 
-- Sin embargo, lo que ocurre es que los dos !PYTHON('pepe') son dos valores
-  diferentes que se han creado en momentos diferentes y que ocupan zonas
-  diferentes en la memoria, por lo que tienen identidades diferentes aunque
-  sean valores _iguales_.
+---
 
-- En cambio, si hacemos:
+- En la mayoría de los lenguajes de programación, esa referencia coincide con
+  la **dirección de comienzo** de la zona que ocupa ese valor dentro del
+  montículo, aunque ese es un detalle de funcionamiento interno del intérprete
+  que no es necesario conocer.
 
-  ```python
-  >>> x = 'pepe'
-  >>> id(x)
-  139754569626160
-  >>> id(x)
-  139754569626160
-  ```
+  Por ese misma razón, en la mayoría de los lenguajes, las referencias son
+  únicas y constantes para cada valor:
 
-  se obtiene el mismo resultado, ya que sólo hay un único valor !PYTHON('pepe')
-  en la memoria y, por tanto, la identidad es la misma en cada caso.
+  - Que sean únicas quiere decir que dos valores distintos tendrán referencias
+    distintas.
+
+  - Que sean constantes quiere decir que la referencia a un valor nunca cambia
+    durante la vida del mismo.
 
 ---
 
@@ -257,28 +235,6 @@ nocite: |
 - Por tanto, cuando se almacena un valor en la memoria (o, mejor dicho, cuando
   se almacena su expresión canónica), ocupará un espacio que dependerá del
   valor que sea y del tipo que tenga.
-
-## Referencias
-
-- Dado un determinado valor, se denomina **referencia al valor** a un
-  localizador que permite identificar, localizar y acceder a ese valor dentro
-  del montículo.
-
-- En tal caso, se dice también que «**la referencia _apunta_ al valor**».
-
-- Por tanto, para poder manipular un valor, necesitamos disponer de la
-  referencia a dicho valor.
-
-- En la mayoría de los lenguajes de programación, esa referencia coincide con
-  la **dirección de comienzo** de la zona que ocupa ese valor dentro del
-  montículo, aunque ese es un detalle de funcionamiento interno del intérprete
-  que no es necesario conocer.
-
-  Por ese misma razón, en la mayoría de los lenguajes, las referencias son
-  únicas y constantes para cada valor, al igual que ocurre con las identidades.
-
-- De hecho, en esos lenguajes coinciden el concepto de _identidad_ y el de
-  _referencia_, ya que, en la práctica, no hay mucha diferencia entre ambos.
 
 ## Variables
 
@@ -604,6 +560,96 @@ y:f1 -> 5
 - Tras eliminar la variable, se elimina también, en ese mismo marco, el
   identificador `x` y la ligadura que existía entre este y la variable, puesto
   que ya no tiene sentido que sigan existiendo al no existir la variable.
+
+## Alias de variables y valores idénticos
+
+- Cuando una variable que tiene un valor se asigna a otra, ambas variables
+  pasan a **_compartir_ el mismo valor**, produciéndose un fenómeno conocido
+  como **alias de variables**.
+
+  ```python
+  x = (66, 77, 88, 99)
+  y = x  # x se asigna a y; ahora y tiene el mismo valor que x
+  ```
+
+- Esto se debe a que las variables almacenan **referencias** a los valores, no
+  los valores en sí mismos (éstos se almacenan en el montículo).
+
+:::: columns
+
+::: column
+
+!DOT(alias0.svg)()(width=60%)(width=40%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fixedsize = shape, fontname = "monospace"]
+x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+y [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
+66 [shape = circle, width = 0.6]
+77 [shape = circle, width = 0.6]
+88 [shape = circle, width = 0.6]
+99 [shape = circle, width = 0.6]
+lista:f0 -> 66
+lista:f1 -> 77
+lista:f2 -> 88
+lista:f3 -> 99
+x:f1 -> lista
+y:f1 -> lista
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: column
+
+- Las dos variables almacenan la misma referencia (o, dicho de otra forma, son
+  dos referencias al mismo valor).
+
+- En tal caso, decimos que `x` e `y` son datos **idénticos** (no sólo
+  _iguales_), ya que apuntan al mismo valor en el montículo.
+
+:::
+
+::::
+
+## Recolección de basura
+
+- Un valor se vuelve **inaccesible** cuando no hay ninguna referencia que
+  apunte a él.
+
+- Eso ocurre cuando no queda ninguna variable que contenga una referencia a ese
+  valor.
+
+- En tal caso, el intérprete lo marca como *candidato para ser eliminado*.
+
+- Cada cierto tiempo, el intérprete activa el **recolector de basura**, que es
+  un componente que se encarga de liberar de la memoria a los valores que están
+  marcados como candidatos para ser eliminados.
+
+- Por tanto, el programador Python no tiene que preocuparse de gestionar
+  manualmente la memoria ocupada por los valores que componen su programa.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  tupla1 = (1, 2, 3)  # crea la tupla y guarda una referencia a ella en tupla1
+  tupla2 = tupla1     # almacena en tupla2 la referencia que hay en tupla1
+  ```
+
+  A partir de ahora, ambas variables apuntan al mismo valor y, por tanto,
+  decimos que el valor tiene dos referencias, o que hay dos referencias
+  apuntándole.
+
+
+  ```python
+  del tupla1          # elimina una referencia pero el valor aún tiene otra
+  del tupla2          # elimina la otra referencia y ahora el valor es inaccesible
+  ```
+
+  Como ya no hay ninguna referencia apuntándole, se marca como _candidato a ser
+  eliminado_ y, por tanto, la próxima vez que se active el recolector de
+  basura, se eliminará la tupla del montículo.
 
 ## Evaluación de expresiones con variables
 
@@ -1312,7 +1358,7 @@ Operación                                 Resultado
 ----------------------------------------- --------------------------------------------------------------------------------
 $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$x\ $ !PYTHON(not in) $\ s$               !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
+$x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
 $s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
                                         
@@ -1716,7 +1762,7 @@ Ejemplo                    Valor de !PYTHON(x) después
 
 !PYTHON(x += [4, 5])       !PYTHON([8, 10, 7, 9, 4, 5])
 
-!PYTHON(x *= 2)            !PYTHON([8, 10, 7, 9, 8, 10, 7, 9])
+!PYTHON(x *= 2)            !PYTHON([8, 10, 7, 9, 8, 10, 7, 9]) <!-- *= -->
 
 !PYTHON(x.insert(3, 66))   !PYTHON([8, 10, 7, 66, 9])
 
@@ -1758,11 +1804,11 @@ Ejemplo                    Valor de !PYTHON(x) después
 
 - Lo mismo se puede decir de `s *= n` con respecto a `s = s * n`.
 
-## Alias de variables
+## Alias de variables y valores mutables
 
-- Cuando una variable que tiene un valor se asigna a otra, ambas variables
-  pasan a tener **el mismo valor (lo _comparten_)**, produciéndose un fenómeno
-  conocido como **alias de variables**.
+- Ya vimos que cuando una variable que tiene un valor se asigna a otra, ambas
+  variables pasan a **_compartir_ el mismo valor**, produciéndose el fenómeno
+  conocido como **alias de variables**:
 
   ```python
   x = [66, 77, 88, 99]
@@ -2005,13 +2051,20 @@ y:f1 -> pepe
 
 ::::::
 
-- El intérprete aprovecharía la cadena ya creada y no crearía una nueva, para
-  ahorrar memoria.
+- El intérprete aprovecharía la cadena ya creada (buscándola primero en el
+  montículo) y no crearía una nueva, para ahorrar memoria.
+
+- Por tanto, ambas variables contendrían la misma referencia a la misma cadena
+  (o dicho, como también suele decirse, las dos variables serían dos
+  referencias a la misma cadena).
 
 ---
 
 - También se comparten valores si se usa el mismo dato varias veces, aunque sea
   un dato mutable.
+
+- De nuevo, esto se debe a que en todo caso estamos accediendo al dato mutable
+  a través de la misma referencia.
 
 - Por ejemplo, si hacemos:
 
@@ -2091,61 +2144,148 @@ y:f1 -> lista2
 
 ::::
 
-### Recolección de basura
+## Identidad
 
-- Un valor se vuelve **inaccesible** cuando no hay ninguna referencia que
-  apunte a él.
+- Se denomina **identidad del valor** a un número entero que va asociado
+  siempre a ese valor, el cual es único y constante durante toda la existencia
+  del valor.
 
-- Eso ocurre cuando no queda ninguna variable que contenga una referencia a ese
-  dato.
+- Ese número _identifica_ al valor de entre todos los valores almacenados en el
+  montículo, y lo distingue de entre todos los demás valores, ya sean iguales o
+  distintos a él.
 
-- En tal caso, el intérprete lo marca como *candidato para ser eliminado*.
+- Dos valores distintos deben tener identidades distintas. 
 
-- Cada cierto tiempo, el intérprete activa el **recolector de basura**, que es
-  un componente que se encarga de liberar de la memoria a los valores que están
-  marcados como candidatos para ser eliminados.
+- En cambio, dos valores iguales pueden o no tener la misma identidad.
 
-- Por tanto, el programador Python no tiene que preocuparse de gestionar
-  manualmente la memoria ocupada por los datos que componen su programa.
+- En caso de que dos valores tengan la misma identidad, querrá decir que esos
+  dos valores son **idénticos**, es decir, que son realmente **el mismo
+  valor** almacenado en una única zona del montículo y al que se está
+  accediendo a través de la **misma referencia**.
+
+  Dicho de otra forma: NO serían dos valores almacenados en dos zonas distintas
+  del montículo y accesibles a través de dos referencias distintas.
 
 ---
 
-- Por ejemplo:
+- La identidad de un valor nunca cambia durante la ejecución del programa o
+  durante la misma sesión con el intérprete interactivo, incluso aunque el
+  dato sea mutable y cambie su contenido.
+
+  En cambio, la identidad del valor sí que puede cambiar (y lo normal es que
+  cambie) entre dos ejecuciones distintas del mismo programa, o entre dos
+  sesiones distintas con el intérprete interactivo.
+
+- En Python, la identidad de un valor se consulta usando la función
+  !PYTHON(id):
+
+  :::: columns
+
+  ::: {.column width=45%}
 
   ```python
-  lista1 = [1, 2, 3]  # crea la lista y guarda una referencia a ella en lista1
-  lista2 = lista1     # almacena en lista2 la referencia que hay en lista1
+  >>> id('hola')
+  140294723570672
+  >>> id('adiós')
+  140587522259616
   ```
 
-  A partir de ahora, ambas variables apuntan al mismo dato y, por tanto,
-  decimos que el dato tiene dos referencias, o que hay dos referencias
-  apuntándole.
+  :::
 
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=45%}
 
   ```python
-  del lista1          # elimina una referencia pero el dato aún tiene otra
-  del lista2          # elimina la otra referencia y ahora el dato es inaccesible
+  >>> id(5)
+  140666458866032
+  >>> id(400)
+  140635543277200
   ```
 
-  Como ya no hay ninguna referencia apuntándole, se marca como _candidato a ser
-  eliminado_ y, por tanto, la próxima vez que se active el recolector de
-  basura, se eliminará la lista del montículo.
+  :::
 
-### !PYTHON(is)
+  ::::
 
-- Para saber si dos variables comparten **el mismo dato**, se puede usar la
-  función !PYTHON(id).
+---
 
-- Sabemos que la función !PYTHON(id) aplicada a un dato devuelve la
-  **identidad** del dato, es decir, el **identificador único** que se utiliza
-  para localizar al dato dentro del montículo.
+- Si hacemos:
 
-- En consecuencia, si dos variables tienen el mismo !PYTHON(id), significa que
-  ambas apuntan al mismo dato en la memoria y, por tanto, son **referencias al
-  mismo dato**.
+  ```python
+  >>> id('prueba')
+  139905258241392
+  >>> id('prueba')
+  139905255890928
+  ```
 
-- Si dos datos tienen el mismo !PYTHON(id), decimos que son **idénticos**,
-  porque en realidad son _el mismo dato_.
+  puede parecer que la identidad del valor !PYTHON('prueba') ha cambiado, ya
+  que hemos consultado dos veces su identidad usando la función !PYTHON(id) y
+  en cada caso nos ha devuelto resultados diferentes.
+
+- Sin embargo, lo que ocurre es que esos dos !PYTHON('prueba') **no son _el
+  mismo valor_**, sino dos _valores iguales_ que se han creado en momentos
+  diferentes y que ocupan zonas diferentes en la memoria, por lo que tienen
+  _identidades diferentes_ (aunque sus valores sean iguales).
+
+- En cambio, si hacemos:
+
+  ```python
+  >>> x = 'prueba'
+  >>> id(x)
+  139754569626160
+  >>> id(x)
+  139754569626160
+  ```
+
+  se obtiene el mismo resultado, ya que sólo hay un único valor
+  !PYTHON('prueba') en la memoria y, por tanto, la identidad es la misma en
+  ambos casos.
+
+---
+
+- Los conceptos de _identidad_ y de _referencia_ están relacionados.
+
+- Para comprobar si dos valores son **idénticos** (es decir, si son realmente
+  **_el mismo valor_**) podríamos hacer una de estas dos comprobaciones:
+
+  - Comprobar si tienen la misma identidad.
+
+  - Comprobar si se usan las mismas referencias para acceder a ellos (es decir,
+    si apuntan al mismo lugar en el montículo).
+
+- Así que, para saber si dos datos son **idénticos** (es decir, si ambos
+  contienen **el mismo valor**, no simplemente **dos valores _iguales_**),
+  podríamos intentar comparar sus referencias y ver su coinciden.
+
+- Pero el lenguaje Python no nos permite comparar directamente dos referencias,
+  ya que, cuando hacemos:
+
+  ```python
+  x == y
+  ```
+
+  en realidad estamos preguntando si son iguales sus _valores_, no sus
+  _referencias_.
+
+---
+
+- Por tanto, para saber si dos datos son idénticos, debemos usar otro
+  mecanismo que no sea el de comparar referencias.
+
+- Una forma de saber si dos valores son **el mismo valor** (es decir, si son
+  **_idénticos_**), es usar la función !PYTHON(id).
+
+- Sabemos que la función !PYTHON(id) aplicada a un valor devuelve la
+  **identidad** del valor, que es un número único para cada valor.
+
+- Por esa razón, si dos variables tienen el mismo !PYTHON(id), significa que
+  ambas apuntan al mismo valor en la memoria y que, por tanto, son
+  **referencias al mismo valor**.
+
+- En general, si dos datos tienen el mismo !PYTHON(id), decimos que son
+  **idénticos**, porque en realidad son _el mismo dato_.
 
 :::: columns
 
@@ -2178,7 +2318,7 @@ True
 
 ::::
 
----
+### !PYTHON(is)
 
 - Otra forma más directa de comprobar si dos datos son realmente el mismo dato
   en memoria (es decir, si son **idénticos**) es usar el operador !PYTHON(is),
