@@ -331,12 +331,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ## Ámbitos léxicos
 
-- Un **ámbito léxico** es una porción del código fuente de un programa.
+- Un **ámbito léxico** (también llamado **ámbito estático**) es una porción del
+  código fuente de un programa.
 
-- Decimos que **ciertas construcciones sintácticas definen ámbitos léxicos**.
+- Decimos que **ciertas construcciones sintácticas determinan ámbitos
+  léxicos**.
 
-- Cuando una construcción define un ámbito léxico, **la sintaxis del lenguaje
-  determina dónde empieza y acaba** ese ámbito léxico en el código fuente.
+- Cuando una construcción determina un ámbito léxico, **la sintaxis del
+  lenguaje establece dónde empieza y acaba** ese ámbito léxico en el código
+  fuente.
 
 - Por tanto, siempre se puede determinar sin ambigüedad si **una instrucción
   está dentro de un determinado ámbito léxico**, tan sólo leyendo el código
@@ -346,8 +349,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Por ejemplo: en el lenguaje de programación Java, los bloques son estructuras
-  sintácticas delimitadas por llaves `{` y `}` que contienen instrucciones.
+- Por ejemplo: en el lenguaje de programación Java, los _bloques_ son
+  estructuras sintácticas delimitadas por llaves `{` y `}` que contienen
+  instrucciones.
 
 - Los bloques de Java definen ámbitos léxicos; por tanto, si una instrucción
   está dentro de un bloque (es decir, si está situada entre las llaves `{` y
@@ -383,11 +387,11 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- El concepto de _ámbito_ es un concepto nada trivial y, a medida que vayamos
+- El concepto de _ámbito_ no es nada trivial y, a medida que vayamos
   incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
   tener en cuenta más condicionantes.
 
-- Por ahora sólo hemos tenido un ámbito llamado **ámbito global**:
+- Hasta ahora sólo hemos tenido un ámbito, llamado **ámbito global**:
 
   - Si se está ejecutando un _script_ en el intérprete por lotes (con
     `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
@@ -395,13 +399,17 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
     _ámbito global_ abarca toda nuestra sesión con el intérprete, desde que
-    arrancamos la sesión hasta que finalicemos la misma.
+    arrancamos la sesión hasta que finalizamos la misma.
 
-- En el momento en que se empieza a ejecutar un _script_ o se arranca una
-  sesión con el intérprete interactivo, se entra en el _ámbito global_.
+- Por tanto:
 
-- Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_ o
-  se cierra el intérprete interactivo.
+  - En el momento en que se empieza a ejecutar un _script_ o se arranca una
+    sesión con el intérprete interactivo, se entra en el _ámbito global_.
+
+  - Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_
+    o se cierra el intérprete interactivo.
+
+<!--
 
 ---
 
@@ -417,60 +425,83 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
 
-## Ámbito de creación de una ligadura
+-->
 
-- Para nosotros, los ámbitos interesantes son los llamados _ámbitos de creación
-  de una ligadura_.
+## Ámbito de una definición y de una ligadura
 
-- El **ámbito de creación de una ligadura** es el ámbito actual de la
-  instrucción que crea la ligadura.
+- El **ámbito de una definición** es el ámbito actual de esa definición (es
+  decir, el ámbito más interno donde aparece esa definición).
 
-  Dicho de otra forma: es el ámbito más interno donde se crea la ligadura.
+- Por extensión, llamamos **ámbito de una ligadura** al ámbito de la definición
+  que crea la ligadura (es decir, el ámbito más interno donde aparece la
+  definición que creará la ligadura en tiempo de ejecución).
 
-- Se dice que **la ligadura es _local_ al ámbito donde se crea la ligadura**.
+- Es lo mismo hablar del «ámbito de una definición» que del «ámbito de la
+  ligadura que crea la definición», ya que son la misma cosa.
 
-- Si ese ámbito es el ámbito _global_, decimos que la ligadura es _global_.
+- Decimos que la _definición_ (y la _ligadura_ correspondiente que creará esa
+  definición) es **local** a su ámbito.
+
+- Si ese ámbito es el ámbito _global_, decimos que la _definición_ (y la
+  _ligadura_ correspondiente que creará esa definición) es **global**.
+
+---
+
+- Por ejemplo, en el siguiente _script_ se ejecutan cuatro definiciones.
+
+- El ámbito actual de cada una de las instrucciones es el ámbito _global_, que
+  es el único ámbito que existe en el _script_:
+
+  !IMGP(ambito-global.png)()(width=40%)(width=40%)
+
+- En consecuencia:
+
+  - Las cuatro definiciones tienen **ámbito global** (y son, por tanto,
+    **definiciones globales**).
+
+  - Cuando se ejecuten, esas definiciones crearán **ligaduras globales**.
 
 ---
 
 - Como estamos usando un lenguaje de programación que trabaja con _ámbitos
-  léxicos_, **el ámbito de creación de una ligadura siempre estará definido por
-  una construcción sintáctica**.
+  léxicos_, **el ámbito de una definición siempre vendrá determinado por una
+  _construcción sintáctica_** del lenguaje.
 
 - Por tanto:
 
   - Sus _límites_ vienen marcados únicamente por la _sintaxis_ de la
-    construcción sintáctica que define el ámbito y dentro de la cual se está
-    creando la ligadura.
+    construcción que determina el ámbito de esa definición.
 
-  - El ámbito de creación de una ligadura se puede determinar simplemente
-    leyendo el código fuente del programa, sin tener que ejecutarlo (es decir,
-    que se puede determinar de forma _estática_).
+  - El ámbito de la definición se puede determinar simplemente leyendo el
+    código fuente del programa, observando dónde empieza y dónde acaba esa
+    construcción, sin tener que ejecutarlo.
+
+    Es decir, que se puede determinar de forma _estática_.
 
 ### Visibilidad
 
-- El ámbito de creación de una ligadura es una «región» cuyas fronteras limitan
-  la porción del código fuente en la que es visible esa ligadura.
+- El ámbito de una ligadura es una «región» cuyas fronteras limitan la porción
+  del código fuente en la que es visible esa ligadura.
 
 - En la mayoría de los lenguajes (incluyendo Python y Java), las ligaduras
   empiezan a existir justo donde se crea la ligadura, es decir, en el punto
-  donde se ejecuta la instrucción que _define_ la ligadura.
+  donde se ejecuta la instrucción que define la ligadura.
 
   Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto.
 
 - Por otra parte, una ligadura deja de existir (y, por tanto, deja de ser
-  visible) allí donde termina su ámbito de creación.
+  visible) allí donde termina su ámbito.
 
-- Eso significa que **no es posible acceder a esa ligadura fuera de su ámbito
-  de creación**: sólo es visible dentro de él.
+- Eso significa que **no es posible acceder a esa ligadura fuera de su
+  ámbito**: sólo es visible dentro de él.
 
 <!--
 
 - Eso significa que la **visibilidad** de una ligadura y el **acceso** a una
   ligadura son conceptos distintos:
 
-  - La **visibilidad** de una ligadura la define su ámbito de creación, y es,
-    por tanto, un concepto **_estático_**.
+  - La **visibilidad** de una ligadura la define su ámbito, y es, por tanto, un
+    concepto **_estático_**.
 
   - La posibilidad de **acceder** a una ligadura depende de si esa ligadura ya
     se ha creado previamente al intentar acceder a ella durante la ejecución
@@ -481,7 +512,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- En el siguiente ejemplo vemos cómo se crean varias ligaduras:
+- En el siguiente ejemplo vemos cómo se crean varias ligaduras al ejecutarse
+  ciertas definiciones:
 
   ```{.python .number-lines}
   x = 25
@@ -490,20 +522,18 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   nombre = 'Manolo'
   ```
 
-- Todas esas ligaduras se definen en el ámbito global, por lo que el **ámbito
-  de creación** de todas ellas es el **ámbito global** (y, por tanto, decimos
-  que cada una de esas ligaduras es una **ligadura _global_** o **de _ámbito
-  global_**).
+- Todas esas definiciones son globales y, por tanto, las ligaduras que crean al
+  ejecutarse son ligaduras globales o de ámbito global.
 
 - Una ligadura empieza a existir justo donde se crea, y termina de existir al
-  final de su ámbito de creación.
+  final de su ámbito.
 
 - Por tanto, la ligadura `y` → `99` empieza a existir en la línea 2 y termina
-  al final del _script_, que es donde termina su ámbito de creación (en este
-  caso, el _ámbito global_).
+  al final del _script_, que es donde termina su ámbito (que, en este ejemplo.
+  es el ámbito global).
 
 - Eso quiere decir que esa ligadura sólo es visible desde que se crea hasta el
-  final de su ámbito de creación.
+  final de su ámbito.
 
 ---
 
@@ -515,38 +545,41 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   Porción del código fuente de un programa. Los límites de ese ámbito sólo
   vienen determinados por la sintaxis del lenguaje, ya que ciertas
-  construcciones sintácticas definen su propio ámbito.
+  construcciones sintácticas determinan su propio ámbito.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Ámbito de creación de una ligadura:**
+  **Ámbito de una definición:**
 
-  El ámbito actual de la instrucción que define la ligadura; es decir: el
-  ámbito más interno donde se define la ligadura.
-
-  Este ámbito determina dónde está el límite de visibilidad de la ligadura
-  (_dónde_ se puede ver la ligadura dentro del programa).
+  El ámbito actual de la definición; es decir: el ámbito más interno donde
+  aparece la definición.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Como a nosotros nos interesan principalmente los _ámbitos de creación_, a
-  partir de ahora supondremos que, cuando hablamos de «_ámbito_», nos referimos
-  al _ambito de creación de una ligadura_, si no se dice lo contrario.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Ámbito de una ligadura:**
+
+  El ámbito de la instrucción que crea la ligadura.
+
+  Este ámbito determina dónde está el límite de _visibilidad_ de la ligadura
+  (_dónde se puede ver_ la ligadura dentro del programa).
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Un caso especial ocurre con los atributos de los _objetos_ de Python.
+- Un caso especial ocurre con los **atributos** de los _objetos_ de Python.
 
 - Recordemos que, por ejemplo, cuando importamos un módulo usando la sentencia
   !PYTHON(import), podemos acceder al objeto que representa ese módulo usando
   su nombre, lo que nos permite acceder a sus atributos y crear otros nuevos.
 
 - Esos atributos y sus ligaduras correspondientes (tanto las ya existentes como
-  las nuevas que podamos crear) sólo son visibles cuando accedemos a ellas
-  usando el operador punto (`.`) a través del objeto donde se ha definido, que
-  es quien determina el contexto válido en el que esos atributos son visibles.
+  las nuevas que podamos crear) sólo son visibles cuando accedemos a ellos
+  usando el operador punto (`.`) a través del objeto que lo contiene, que es
+  el que determina el contexto válido en el que esos atributos son visibles.
 
-- Por tanto, no son visibles fuera del objeto:
+- Por tanto, los atributos no son visibles fuera del objeto:
 
   ```python
   >>> import math
@@ -560,9 +593,10 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- Igualmente, si creamos un nuevo atributo dentro del objeto, esa ligadura sólo
-  existirá en el propio objeto y, por tanto, sólo será visible cuando accedamos
-  al atributo a través del objeto donde se ha definido.
+- Igualmente, si creamos un nuevo atributo dentro del objeto, la ligadura entre
+  el atributo y su valor sólo existirá en el propio objeto y, por tanto, sólo
+  será visible cuando accedamos al atributo a través del objeto donde se ha
+  creado.
 
   ```python
   >>> import math
@@ -575,12 +609,20 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   NameError: name 'x' is not defined
   ```
 
-- En resumen: al resolver el nombre de un atributo de un objeto, la visibilidad
-  de su ligadura no vendrá definida por un determinado ámbito, sino por el
-  _contexto_ en el que se quiere acceder al atributo.
+---
 
-  Sólo podremos acceder al atributo si usamos el contexto adecuado, que en este
-  caso es el objeto que contiene ese atributo.
+- Por tanto:
+
+  - El **contexto** usado a la hora de resolver el nombre de un atributo de un
+    objeto no viene determinado por un _ámbito_, sino por el _objeto_ que
+    contiene a ese atributo.
+
+  - Sólo podremos acceder al atributo si usamos el contexto adecuado, que en
+    este caso es el objeto que contiene a ese atributo.
+
+  - Por tanto, la **visibilidad** de su ligadura correspondiente no vendrá
+    determinada por un ámbito, sino por el objeto que contiene al atributo (y
+    que, por consiguiente, también contiene a su ligadura).
 
 ### Almacenamiento
 
@@ -589,49 +631,24 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Si una instrucción crea una ligadura, se denomina **espacio de nombres
   actual** al espacio de nombres donde se almacena dicha ligadura.
 
-- El espacio de nombres actual, es decir, el espacio de nombres que el
-  compilador o el intérprete selecciona para almacenar una ligadura, depende
-  del _contexto_ en el que se crea la ligadura.
+- El espacio de nombres actual (es decir, el espacio de nombres que el
+  compilador o el intérprete selecciona para almacenar una ligadura), depende
+  del _contexto_ usado para resolver el identificador que se liga en la
+  ligadura.
 
 - Tenemos dos posibilidades:
 
-  1. El espacio de nombres seleccionado depende del ámbito donde se crea la
+  #. Si el identificador es un _atributo_ de un objeto, entonces el contexto
+     viene determinado por el propio _objeto_, y no por un ámbito.
+
+  #. En caso contrario, el contexto viene determinado por el _ámbito_ de la
      ligadura.
-
-     Es el caso de las definiciones que hemos visto hasta ahora.
-
-  2. El espacio de nombres seleccionado NO depende del ámbito donde se crea la
-     ligadura.
-
-     Es el caso de los atributos de los objetos, por ejemplo.
 
 ---
 
-1. Si el espacio de nombres seleccionado depende del ámbito donde se crea la
-   ligadura, tenemos que:
-
-   a. Si el ámbito donde se crea la ligadura lleva asociado un espacio de
-      nombres, ese espacio de nombres almacenará las ligaduras que se crean
-      dentro de ese ámbito.
-
-   b. Si no, entonces la ligadura se almacenará en el espacio de nombres del
-      ámbito de creación más interno que contenga al actual y que sí lleve
-      asociado un espacio de nombres.
-
-   Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
-   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
-   éste (en orden, de más interno a más externo), hasta encontrar el primer
-   ámbito que lleve asociado un espacio de nombres.
-
-   En todo caso, en Python, cuando el lugar donde se almacena la ligadura
-   depende del ámbito donde se crea la ligadura, el espacio de nombres
-   seleccionado será siempre un marco.
-
----
-
-2. Si el espacio de nombres seleccionado NO depende del ámbito donde se crea la
-   ligadura, entonces es porque la instrucción ya está indicando directamente
-   el espacio de nombres apropiado.
+1. Si el espacio de nombres seleccionado NO depende del ámbito donde se crea la
+   ligadura, es porque la instrucción ya está indicando directamente el espacio
+   de nombres apropiado.
 
    - Esto es lo que ocurre cuando se crea una ligadura dentro de un objeto en
      Python usando el operador punto (`.`), ya que los objetos son espacios de
@@ -655,23 +672,45 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
+2. Si el espacio de nombres seleccionado depende del ámbito donde se crea la
+   ligadura, tenemos que:
+
+   a. Si el ámbito donde se crea la ligadura lleva asociado un espacio de
+      nombres, ese espacio de nombres almacenará las ligaduras que se crean
+      dentro de ese ámbito.
+
+   b. Si no, entonces la ligadura se almacenará en el espacio de nombres del
+      ámbito más interno que contenga al actual y que sí lleve asociado un
+      espacio de nombres.
+
+   Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
+   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
+   éste (en orden, de más interno a más externo), hasta encontrar el primer
+   ámbito que lleve asociado un espacio de nombres.
+
+   En todo caso, en Python, cuando el lugar donde se almacena la ligadura
+   depende del ámbito donde se crea la ligadura, el espacio de nombres
+   seleccionado será siempre un marco.
+
+---
+
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **En resumen:**
 
 - El **ámbito** de una ligadura determina la **visibilidad** de la ligadura:
-  dónde es _visible_ esa ligadura.
+  dónde es _visible_ esa ligadura (dónde se puede usar).
 
 - El **espacio de nombres** determina el **almacenamiento** de la ligadura:
   dónde se _almacena_ esa ligadura.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Cuando las ligaduras se definen en el ámbito global, se dice que tienen
-  **ámbito global**.
+- Cuando el ámbito de una ligadura es el ámbito global, se dice que tiene
+  **visibilidad global**.
 
-- Cuando las ligaduras se almacenan en el espacio de nombres global, se dice
-  que tienen **almacenamiento global**.
+- Cuando la ligadura se almacena en el espacio de nombres global, se dice que
+  tiene **almacenamiento global**.
 
 - Ampliaremos ahora el concepto de _ámbito_ para incluir los aspectos nuevos
   que incorporan las expresiones lambda.
@@ -679,8 +718,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 ## Ámbito de un identificador
 
 - A veces, por economía del lenguaje, se suele hablar del «**_ámbito de un
-  identificador_**», en lugar de hablar del «_ámbito de creación de la ligadura
-  que liga ese identificador con un valor_».
+  identificador_**», en lugar de hablar del «_ámbito de la ligadura que liga
+  ese identificador con un valor_».
 
 - Por ejemplo, en el siguiente _script_:
 
@@ -690,15 +729,16 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
   tenemos que:
 
-  - En el ámbito global, se crea una ligadura que liga al identificador
+  - En el ámbito global, hay una definición que liga al identificador
     !PYTHON(x) con el valor !PYTHON(25).
 
-  - Por tanto, se dice que **el _ámbito de creación de esa ligadura_ es el
-    ámbito global**.
+  - Por tanto, se dice que **el _ámbito de esa ligadura_ es el ámbito global**.
 
   - Pero también se suele decir que «_el identificador !PYTHON(x) es global_»
-    (o, simplemente, que «_!PYTHON(x) es global_»), **asociando al ámbito** no
-    la ligadura, sino **el identificador en sí**.
+    o, simplemente, que «_!PYTHON(x) es global_».
+
+- O sea, se **asocia al ámbito** no la ligadura, sino **el identificador en
+  sí**.
 
 ---
 
@@ -725,7 +765,13 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ## Ámbito de un parámetro
 
-- **El cuerpo de la expresión lambda define un ámbito.**
+- **El cuerpo de la expresión lambda determina un ámbito.**
+
+- Por ejemplo, supongamos la siguiente llamada a una expresión lambda:
+
+  ```python
+  (lambda x, y: x + y)(2, 3)
+  ```
 
 - **Al llamar a la expresión lambda** (es decir, al aplicar la expresión lambda
   a unos argumentos), se empieza a ejecutar su cuerpo y, por tanto, **se entra
@@ -734,27 +780,91 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - En ese momento, **se crea un nuevo marco** en la memoria, que representa esa
   ejecución concreta de dicha expresión lambda.
 
-- Lo primero que ocurre entonces es que **cada parámetro de la expresión lambda
-  se liga a uno de esos argumentos** en el orden en que aparecen en la llamada
-  a la expresión lambda (primer parámetro con primer argumento, segundo con
-  segundo, etcétera).
+- Lo que ocurre justo a continuación es que **cada parámetro de la expresión
+  lambda se liga a uno de los argumentos** en el orden en que aparecen en la
+  llamada a la expresión lambda (primer parámetro con primer argumento, segundo
+  con segundo, etcétera).
 
-- Esas ligaduras **se almacenan en el marco de la expresión lambda** nada más
-  entrar en el cuerpo de la expresión lambda.
+---
 
-- Ese marco se eliminará de la memoria cuando se termine de ejecutar la
+- En el ejemplo anterior, es como si el intérprete ejecutara las siguientes
+  definiciones dentro del ámbito de la expresión lambda:
+
+  ```python
+  x = 2
+  y = 3
+  ```
+
+- Las ligaduras que crean esas definiciones **se almacenan en el marco de la
+  expresión lambda**.
+
+- Ese marco se eliminará de la memoria al salir del ámbito de la expresión
+  lambda, es decir, cuando se termine de ejecutar el cuerpo de la expresión
+  lambda.
+
+  Por tanto, las ligaduras se destruyen de la memoria al eliminarse el marco
+  que las almacena.
+
+---
+
+- La próxima vez que se llame a la expresión lambda, se volverán a ligar sus
+  parámetros con los argumentos que haya en esa llamada.
+
+- Por ejemplo, supongamos que tenemos esta situación:
+
+  ```python
+  suma = lambda x, y: x + y
+  a = suma(4, 3)
+  b = suma(8, 9)
+  ```
+
+- En la primera llamada, se entrará en el ámbito determinado por el cuerpo la
+  expresión lambda, se creará el marco que representa a esa llamada, y se
+  ejecutarán las siguientes definiciones dentro del ámbito:
+
+  ```python
+  x = 4
+  y = 3
+  ```
+
+  lo que creará las correspondientes ligaduras y las almacenará en el marco de
+  esa llamada.
+
+  Despues, evaluará el cuerpo de la expresión lambda y devolverá el resultado,
+  saliendo del cuerpo de la expresión lambda y, por tanto, del ámbito que
+  determina dicho cuerpo, lo que hará que se destruya el marco y, en
+  consecuencia, las ligaduras que contiene.
+
+---
+
+- En la siguiente llamada ocurrirá lo mismo pero, esta vez, las definiciones
+  que se ejecutarán serán las siguientes:
+
+  ```python
+  x = 8
+  y = 9
+  ```
+
+  lo que creará otras ligaduras, que serán destruidas luego cuando se destruya
+  el marco que las contiene, al finalizar la ejecución del cuerpo de la
   expresión lambda.
+
+- Es importante hacer notar que **en ningún momento se está haciendo un
+  _rebinding_ de los parámetros**, ya que cada vez que se llama de nuevo a la
+  expresión lambda, se está creando una ligadura nueva sobre un identificador
+  que no estaba ligado.
 
 ---
 
 - En consecuencia, podemos decir que:
 
-  - El **ámbito de creación de la ligadura** entre un parámetro y su argumento
-    es el **cuerpo** de la expresión lambda, así que la **visibilidad** del
-    parámetro (o de la ligadura) es ese cuerpo.
+  - El **ámbito de la ligadura** entre un parámetro y su argumento es el
+    **cuerpo** de la expresión lambda, así que la **visibilidad** del parámetro
+    (y de la ligadura) es ese cuerpo.
 
-  - Esa ligadura se crea justo al entrar en ese ámbito, así que se puede
-    **acceder** a ella en cualquier parte del cuerpo de la expresión lambda.
+  - Esa ligadura se crea justo después de entrar en ese ámbito, así que se
+    puede **acceder** a ella en cualquier parte del cuerpo de la expresión
+    lambda.
 
   - El **espacio de nombres** que almacena las ligaduras entre parámetros y
     argumentos es el **marco** que se crea al llamar a la expresión lambda.
@@ -763,11 +873,12 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   de su expresión lambda».
 
 - También se dice que el parámetro tiene un **ámbito _local_** y un
-  **almacenamiento _local_** al cuerpo de la expresión lambda; por tanto, y
-  resumiendo: que es **local** a dicha expresión lambda.
+  **almacenamiento _local_** al cuerpo de la expresión lambda.
 
-- En consecuencia, **sólo podemos acceder al valor de un parámetro dentro del
-  cuerpo de su expresión lambda**.
+  Resumiendo: el parámetro es **local** a dicha expresión lambda.
+
+- Por tanto, **sólo podemos acceder al valor de un parámetro dentro del cuerpo
+  de su expresión lambda**.
 
 ---
 
@@ -779,7 +890,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   suma = lambda x, y: x + y
   ```
 
-  el cuerpo de la expresión lambda ligada a !PYTHON(suma) define un nuevo
+  el cuerpo de la expresión lambda ligada a !PYTHON(suma) determina su propio
   ámbito.
 
 - Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
@@ -811,6 +922,15 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   **almacenamiento _local_** a la expresión lambda.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Los ámbitos léxicos permiten ligaduras locales a ciertas construcciones
+  sintácticas, lo cual nos permite programar definiendo partes suficientemente
+  independientes entre sí (que es la base de la _programación modular_).
+
+- Por ejemplo, nos permite crear funciones sin preocuparnos de si los nombres
+  de los parámetros ya han sido utilizados en otras partes del programa.
 
 ## Ámbito de una variable ligada
 
@@ -926,6 +1046,7 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 ---
 
 - Durante la ejecución del programa, se van creando y destruyendo marcos a
+  medida que se van entrando y saliendo de ciertos ámbitos; en concreto, a
   medida que se van ejecutando _scripts_, funciones o métodos.
 
 - Asimismo, en esos marcos se van almacenando ligaduras.
@@ -1041,9 +1162,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- El cuerpo de una expresión lambda define su propio ámbito, de forma que, las
-  ligaduras que ligan a los parámetros con los argumentos, se definen dentro de
-  ese ámbito y son, por tanto, _locales_ a ese ámbito.
+- El cuerpo de una expresión lambda determina su propio ámbito, de forma que,
+  las ligaduras que ligan a los parámetros con los argumentos, se definen
+  dentro de ese ámbito y son, por tanto, _locales_ a ese ámbito.
 
 - Es decir: los parámetros (y las ligaduras entre los parámetros y los
   argumentos) tienen **un ámbito local** al cuerpo de la expresión lambda y
@@ -1666,8 +1787,8 @@ E -> f [lhead = cluster0]
   2:
 
   - La !PYTHON(x) de la línea 1 es un identificador ligado a un valor en el
-    ámbito global (el ámbito de creación de esa ligadura es el ámbito global).
-    Esa ligadura, se almacena en el marco global, y por eso decimos que esa
+    ámbito global (el ámbito de esa ligadura es el ámbito global). Esa
+    ligadura, se almacena en el marco global, y por eso decimos que esa
     !PYTHON(x) (la que aparece en la línea 1) es _global_.
 
     Por tanto, la aparición de la `x` en la línea 1 representa a la `x` cuya
@@ -1676,9 +1797,9 @@ E -> f [lhead = cluster0]
 
   - Las !PYTHON(x) de la línea 2 representan el parámetro y la variable ligada
     (que ya sabemos que son la misma cosa) de la expresión lambda. Ese
-    parámetro está ligado al argumento de la llamada, el ámbito de creación de
-    esa ligadura es el cuerpo de la expresión lambda y esa ligadura se almacena
-    en el marco de la llamada a la expresión lambda.
+    parámetro está ligado al argumento de la llamada, el ámbito de esa ligadura
+    es el cuerpo de la expresión lambda y esa ligadura se almacena en el marco
+    de la llamada a la expresión lambda.
 
     En consecuencia, las apariciones de la `x` en la línea 2 representan a la
     `x` _local_ a la expresión lambda, cuya ligadura se encuentra almacenada en
@@ -1880,8 +2001,6 @@ E -> w [lhead = cluster1]
     a. Los entornos, marcos y ligaduras en cada línea de código.
 
     a. Los ámbitos de cada ligadura.
-
-    a. Los ámbitos de creación de cada ligadura.
 
     a. Los ámbitos de cada aparición de cada identificador.
 

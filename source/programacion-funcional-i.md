@@ -1613,11 +1613,21 @@ maximo -> lambda
   - Los **marcos** que se crean al ejecutar _scripts_ de Python y al invocar
     funciones (o métodos) definidas por el programador en Python y Java.
 
-  - Los **módulos** de Python.
+  - Los **objetos** de Python.
 
-  - Los **objetos** y las **clases** de Python.
+  - Las **clases** de Python (que también son objetos).
 
-- En resumen: **en Python, todos los espacios de nombres son _dinámicos_**.
+  - Los **módulos** de Python (qué también son objetos).
+
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Los marcos y los objetos son los únicos espacios de nombres que existen en
+  Python.
+
+- Por tanto, todos los espacios de nombres en Python son dinámicos.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 

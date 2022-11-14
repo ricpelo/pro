@@ -1220,8 +1220,8 @@ True
 
 ---
 
-- Las listas por comprensión, al igual que las expresiones generadoras, **crean
-  su propio _ámbito_**.
+- Las listas por comprensión, al igual que las expresiones generadoras,
+  **determinan su propio _ámbito_**.
 
 - Ese ámbito abarca toda la lista por comprensión, de principio a fin.
 
@@ -1512,7 +1512,7 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 ---
 
 - Los conjuntos por comprensión, al igual que las expresiones generadoras y las
-  listas por comprensión, **crean su propio _ámbito_**.
+  listas por comprensión, **determinan su propio _ámbito_**.
 
 - Ese ámbito abarca todo el conjunto por comprensión, de principio a fin.
 

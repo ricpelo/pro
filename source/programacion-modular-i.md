@@ -595,8 +595,8 @@ F -> G
 - Dentro de un módulo, el nombre del módulo (como cadena) se encuentra
   almacenado en la variable global !PYTHON(__name__).
 
-- Cada módulo define su propio **ámbito local**, que es usado como el **ámbito
-  global** de todas las instrucciones que componen el módulo.
+- Cada módulo determina su propio **ámbito local**, que es usado como el
+  **ámbito global** de todas las instrucciones que componen el módulo.
 
 - Además, los módulos son **espacios de nombres**.
 

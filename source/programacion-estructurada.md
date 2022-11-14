@@ -1372,9 +1372,9 @@ while not salida:
 
 - A su vez, los procedimientos pueden devolver un resultado, de ser necesario.
 
-- Los procedimientos, además, tienen su propio ámbito local y (dependiendo del
-  lenguaje de programación usado) también podrían acceder a otros ámbitos no
-  locales dentro del entorno, como el ámbito global.
+- Los procedimientos, además, determinan su propio ámbito local y (dependiendo
+  del lenguaje de programación usado) también podrían acceder a otros ámbitos
+  no locales dentro del entorno, como el ámbito global.
 
 ## Procedimientos y refinamiento sucesivo
 
@@ -2509,14 +2509,9 @@ E -> suma [lhead = cluster0]
   `fact_iter` y su valor (la función), pero esa ligadura sólo empieza a existir
   cuando se ejecuta la sentencia !PYTHON(def), y no antes.
 
-- Es importante recordar la diferencia entre el _ámbito de una ligadura_ y el
-  _ámbito de creación de la ligadura_:
-
-  - El **ámbito de creación de la ligadura** entre `fact_iter` y su valor es el
-    cuerpo de la función `fact`.
-
-  - El **ámbito de la ligadura** empieza en la línea 3 y acaba al final del
-    ámbito de `fact` (no existe antes de la línea 3).
+- Es importante recordar que, aunque el ámbito de la ligadura entre `fact_iter`
+  y su valor es el cuerpo de la función `fact`, realmente la ligadura empieza a
+  existir en la línea 3 (no antes).
 
 ---
 

@@ -25,10 +25,10 @@ nocite: |
 !NT(modif_acceso_miembro) ::= !T(public) | !T(private) | !T(protected)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- La definición de una clase es una construcción sintática que define su propio
-  ámbito y que está formada por un bloque de **declaraciones de miembros**,
-  cuada una de las cuales puede declarar una **variable** (también llamada
-  **campo**) o un **método**.
+- La definición de una clase es una construcción sintática que determina su
+  propio ámbito y que está formada por un bloque de **declaraciones de
+  miembros**, cuada una de las cuales puede declarar una **variable** (también
+  llamada **campo**) o un **método**.
 
 - A su vez, cada miembro puede ser **de instancia** o puede ser **estático**.
 

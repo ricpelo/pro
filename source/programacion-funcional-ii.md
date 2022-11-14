@@ -2067,8 +2067,8 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 ---
 
-- Las expresiones generadoras, al igual que las expresiones lambda, **crean su
-  propio _ámbito_**.
+- Las expresiones generadoras, al igual que las expresiones lambda,
+  **determinan su propio _ámbito_**.
 
 - Ese ámbito abarca toda la expresión generadora, de principio a fin.
 
