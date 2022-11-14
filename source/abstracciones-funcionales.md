@@ -433,17 +433,18 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   decir, el ámbito más interno donde aparece esa definición).
 
 - Por extensión, llamamos **ámbito de una ligadura** al ámbito de la definición
-  que crea la ligadura (es decir, el ámbito más interno donde aparece la
-  definición que creará la ligadura en tiempo de ejecución).
+  que, al ejecutarse, creará la ligadura (es decir, el ámbito más interno donde
+  aparece la definición que, al ejecutarse, creará la ligadura en tiempo de
+  ejecución).
 
 - Es lo mismo hablar del «ámbito de una definición» que del «ámbito de la
-  ligadura que crea la definición», ya que son la misma cosa.
+  ligadura que se creará al ejecutar la definición», ya que son la misma cosa.
 
-- Decimos que la _definición_ (y la _ligadura_ correspondiente que creará esa
-  definición) es **local** a su ámbito.
+- Decimos que la _definición_ (y la _ligadura_ correspondiente que se creará al
+  ejecutar esa definición) es **local** a su ámbito.
 
 - Si ese ámbito es el ámbito _global_, decimos que la _definición_ (y la
-  _ligadura_ correspondiente que creará esa definición) es **global**.
+  _ligadura_ que se creará al ejecutar esa definición) es **global**.
 
 ---
 
@@ -480,20 +481,72 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ### Visibilidad
 
-- El ámbito de una ligadura es una «región» cuyas fronteras limitan la porción
-  del código fuente en la que es visible esa ligadura.
+- La visibilidad de una ligadura representa la porción de código donde es
+  visible esa ligadura.
 
-- En la mayoría de los lenguajes (incluyendo Python y Java), las ligaduras
-  empiezan a existir justo donde se crea la ligadura, es decir, en el punto
-  donde se ejecuta la instrucción que define la ligadura.
+- La visibilidad de una ligadura depende del **contexto de creación** de la
+  ligadura, es decir, del contexto en el que se crea la ligadura.
 
-  Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto.
+- Ese _contexto de creación_ puede ser:
 
-- Por otra parte, una ligadura deja de existir (y, por tanto, deja de ser
-  visible) allí donde termina su ámbito.
+  #. Un objeto.
 
-- Eso significa que **no es posible acceder a esa ligadura fuera de su
-  ámbito**: sólo es visible dentro de él.
+  #. Un ámbito.
+
+  dependiendo de si el identificador que se va a ligar es un atributo o no, es
+  decir, dependiendo del _contexto_ usado para resolver el identificador que se
+  liga en la ligadura.
+
+---
+
+#. Si el identificador ligado es un **atributo de un objeto**, el _contexto de
+   creación_ será el **objeto** que contiene al atributo, por lo que la
+   ligadura sólo será visible dentro del objeto.
+
+   En tal caso, decimos que la visibilidad de la ligadura (y del
+   correspondiente atributo ligado) es local al objeto que contiene el
+   atributo.
+
+   Eso significa que debemos indicar el objeto que contiene a la ligadura para
+   poder acceder a ella, para lo cual también debemos tener acceso al propio
+   objeto que la contiene.
+
+#. En caso contrario, el _contexto de creación_ será el **ámbito** de la
+   ligadura, el cual representa una «región» cuyas fronteras limitan la porción
+   del código fuente en la que es visible esa ligadura.
+
+   En tal caso, decimos que la **visibilidad** de la ligadura es **local a su
+   ámbito**.
+
+   Eso significa que **no es posible acceder a esa ligadura fuera de su
+   ámbito**; sólo es visible dentro de él.
+
+   Si el ámbito es el global, decimos que la ligadura tiene **visibilidad
+   global**.
+
+### Tiempo de vida
+
+- El **tiempo de vida** de una ligadura representa el periodo durante el cual
+  _existe_ esa ligadura, es decir, el periodo comprendido desde su creación y
+  almacenamiento en la memoria hasta su posterior destrucción.
+
+- En la mayoría de los lenguajes (incluyendo Python y Java), una ligadura
+  **empieza a existir** justo donde se crea, es decir, en el punto donde se
+  ejecuta la instrucción que define la ligadura.
+
+  Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto, ya
+  que no existe hasta entonces.
+
+- Por otra parte, el momento en que una ligadura **deja de existir** depende de
+  su _contexto de creación_:
+
+  - Si el contexto de creación es un objeto, es porque la ligadura está ligando
+    un atributo de ese objeto. En tal caso, la ligadura dejará de existir
+    cuando se elimine el objeto de la memoria, o bien, cuando se elimine el
+    atributo ligado.
+
+  - Si el contexto de creación es un ámbito, la ligadura dejará de existir allí
+    donde termina su ámbito.
 
 <!--
 
@@ -512,8 +565,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-- En el siguiente ejemplo vemos cómo se crean varias ligaduras al ejecutarse
-  ciertas definiciones:
+- En el siguiente ejemplo vemos cómo hay varias definiciones que, al
+  ejecutarse, crearán ligaduras cuyo contexto es un ámbito, no un objeto (ya
+  que no se están creando atributos dentro de ningún objeto):
 
   ```{.python .number-lines}
   x = 25
@@ -525,59 +579,39 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 - Todas esas definiciones son globales y, por tanto, las ligaduras que crean al
   ejecutarse son ligaduras globales o de ámbito global.
 
-- Una ligadura empieza a existir justo donde se crea, y termina de existir al
-  final de su ámbito.
+- Como el contexto de definición es un ámbito, la visibilidad y el tiempo de
+  vida de las ligaduras vendrán determinadas por sus ámbitos.
 
-- Por tanto, la ligadura `y` → `99` empieza a existir en la línea 2 y termina
-  al final del _script_, que es donde termina su ámbito (que, en este ejemplo.
-  es el ámbito global).
-
-- Eso quiere decir que esa ligadura sólo es visible desde que se crea hasta el
-  final de su ámbito.
+- En consecuencia, la visibilidad de todas esas ligaduras será el ámbito
+  global, ya que son ligaduras globales. Por tanto, decimos que su
+  **visibilidad** es **global**.
 
 ---
 
-- En resumen:
+- Por otra parte, como el contexto de creación de esas ligaduras viene
+  determinado por un ámbito, las ligaduras empezarán a existir justo donde se
+  crean, y terminarán de existir al final de su ámbito.
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Ámbito (léxico):**
+- Por ejemplo, la ligadura `y` → `99` empezará a existir en la línea 2 y
+  terminará al final del _script_, que es donde termina su ámbito (que, en este
+  ejemplo, es el ámbito global).
 
-  Porción del código fuente de un programa. Los límites de ese ámbito sólo
-  vienen determinados por la sintaxis del lenguaje, ya que ciertas
-  construcciones sintácticas determinan su propio ámbito.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Ámbito de una definición:**
-
-  El ámbito actual de la definición; es decir: el ámbito más interno donde
-  aparece la definición.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Ámbito de una ligadura:**
-
-  El ámbito de la instrucción que crea la ligadura.
-
-  Este ámbito determina dónde está el límite de _visibilidad_ de la ligadura
-  (_dónde se puede ver_ la ligadura dentro del programa).
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- En consecuencia, el **tiempo de vida** de la ligadura será el periodo
+  comprendido desde su creación (en la línea 2) hasta el final de su ámbito.
 
 ---
 
-- Un caso especial ocurre con los **atributos** de los _objetos_ de Python.
+- Cuando la ligadura se crea sobre un **atributo** de un _objeto_ de Python,
+  entonces ese objeto representa el _contexto de creación_ de la ligadura.
 
 - Recordemos que, por ejemplo, cuando importamos un módulo usando la sentencia
   !PYTHON(import), podemos acceder al objeto que representa ese módulo usando
   su nombre, lo que nos permite acceder a sus atributos y crear otros nuevos.
 
-- Esos atributos y sus ligaduras correspondientes (tanto las ya existentes como
-  las nuevas que podamos crear) sólo son visibles cuando accedemos a ellos
-  usando el operador punto (`.`) a través del objeto que lo contiene, que es
-  el que determina el contexto válido en el que esos atributos son visibles.
+- Esos atributos y sus ligaduras correspondientes sólo son visibles cuando
+  accedemos a ellos usando el operador punto (`.`) a través del objeto que lo
+  contiene, que es el que determina el contexto en el que esos atributos son
+  visibles.
 
 - Por tanto, los atributos no son visibles fuera del objeto:
 
@@ -692,28 +726,80 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
    depende del ámbito donde se crea la ligadura, el espacio de nombres
    seleccionado será siempre un marco.
 
+   Cuando la ligadura se almacena en el marco global, se dice que tiene
+   **almacenamiento global**.
+
+#### Resumen
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Ámbito (léxico):**
+
+Porción del código fuente de un programa. Los límites de ese ámbito sólo
+vienen determinados por la sintaxis del lenguaje, ya que ciertas
+construcciones sintácticas determinan su propio ámbito.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Ámbito de una definición:**
+
+El ámbito actual de la definición; es decir: el ámbito más interno donde
+aparece la definición.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Ámbito de una ligadura:**
+
+El ámbito de la instrucción que crea la ligadura.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
 !CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Visibilidad de una ligadura:**
+
+Determina dónde es visible una ligadura dentro del programa.
+
+Esa visibilidad depende del _contexto de creación_ de la ligadura:
+
+- Si es un ámbito, la visibilidad será el ámbito de la ligadura.
+
+- Si es un objeto, la visibilidad será el objeto que contiene la ligadura.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Tiempo de vida de una ligadura:**
+
+El periodo durante el cual _existe_ esa ligadura, es decir, el periodo
+comprendido desde su creación y almacenamiento en la memoria hasta su
+posterior destrucción.
+
+Su tiempo de vida empieza siempre en el momento en que se crea la ligadura, y
+su final depende del _contexto de creación_ de la ligadura:
+
+- Si es un ámbito, el tiempo de vida acabará al final de su ámbito.
+
+- Si es un objeto, el tiempo de vida acabará cuando se destruya el objeto que
+  lo contiene (o cuando se elimine el atributo ligado).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**En resumen:**
+**Almacenamiento de una ligadura:**
 
-- El **ámbito** de una ligadura determina la **visibilidad** de la ligadura:
-  dónde es _visible_ esa ligadura (dónde se puede usar).
+- Determina el **espacio de nombres** donde se almacenará la ligadura.
 
-- El **espacio de nombres** determina el **almacenamiento** de la ligadura:
-  dónde se _almacena_ esa ligadura.
+- En Python, puede ser un objeto o un marco.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Cuando el ámbito de una ligadura es el ámbito global, se dice que tiene
-  **visibilidad global**.
-
-- Cuando la ligadura se almacena en el espacio de nombres global, se dice que
-  tiene **almacenamiento global**.
-
-- Ampliaremos ahora el concepto de _ámbito_ para incluir los aspectos nuevos
-  que incorporan las expresiones lambda.
 
 ## Ámbito de un identificador
 
@@ -1995,17 +2081,14 @@ E -> w [lhead = cluster1]
     indicar:
 
     a. Los identificadores.
-
     a. Los ámbitos.
-
     a. Los entornos, marcos y ligaduras en cada línea de código.
-
     a. Los ámbitos de cada ligadura.
-
+    a. La visibilidad de cada ligadura.
+    a. El tiempo de vida de cada ligadura.
+    a. El almacenamiento de cada ligadura.
     a. Los ámbitos de cada aparición de cada identificador.
-
     a. Las ligaduras sombreadas y los identificadores sombreados.
-
     a. Los identificadores y ligaduras que hacen sombra.
 
 ## Resolución de atributos de objetos
