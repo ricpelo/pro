@@ -1416,16 +1416,18 @@ s | P | y | t | h | o | n |
 ::::
 
 - Los índices positivos (del !PYTHON(0) en adelante) empiezan a contar desde el
-  comienzo de la secuencia.
+  comienzo de la secuencia (o sea, desde el primer elemento, el que está
+  situado más a la izquierda).
 
 - Los índices negativos (del !PYTHON(-1) hacia atrás) empieza a contar desde el
-  final de la secuencia.
+  final de la secuencia (o sea, desde el último elemento, el que está situado
+  más a la derecha).
 
 ---
 
 - El **_slicing_** (*hacer rodajas*) es una operación que consiste en obtener
-  una subsecuencia a partir de una secuencia, indicando los _índices_ de los
-  elementos _inicial_ y _final_ de la misma, así como un posible _paso_:
+  una **subsecuencia** a partir de una secuencia, indicando los _índices_ de
+  los elementos _inicial_ y _final_ de la misma, así como un posible _paso_:
 
 :::: columns
 
@@ -1475,7 +1477,7 @@ s | P | y | t | h | o | n |
 
 - El elemento _final_ nunca se alcanza.
 
-- Si $paso < 0$, la rodaja se hará al revés (de derecha a
+- Si el _paso_ es negativo, la rodaja se hará al revés (de derecha a
   izquierda).
 
 ---
@@ -1485,19 +1487,19 @@ s | P | y | t | h | o | n |
 
 - Si se omite $k$, se entiende que es !PYTHON(1).
 
-- Si se omite $i$, se entiende que queremos la rodaja desde el primer o el
-  último elemento de la secuencia, dependiendo de si $k$ es positivo o
-  negativo.
+- Si se omite $i$, se entiende que queremos la rodaja desde el elemento más la
+  izquierda de la secuencia (si $k$ es positivo) o más a la derecha (si $k$ es
+  negativo).
 
-- Si se omite $j$, se entiende que queremos la rodaja hasta el último o el
-  primero elemento de la secuencia, dependiendo de si $k$ es positivo o
-  negativo.
+- Si se omite $j$, se entiende que queremos la rodaja hasta el elemento más a
+  la derecha de la secuencia (si $k$ es positivo) o más a la izquierda (si $k$
+  es negativo).
 
-- Si $i < j$, $k$ debería ser positivo (de lo contrario, devolvería la
-  secuencia vacía).
+- Si el índice $i$ está más a la izquierda que el índice $j$, $k$ debería ser
+  positivo (de lo contrario, devolvería la secuencia vacía).
 
-- Si $i > j$, $k$ debería ser negativo (de lo contrario, devolvería la
-  secuencia vacía).
+- Si el índice $i$ está más a la derecha que el índice $j$, $k$ debería ser
+  negativo (de lo contrario, devolvería la secuencia vacía).
 
 - Si $i = j$, devuelve la secuencia vacía.
 
@@ -1505,17 +1507,18 @@ s | P | y | t | h | o | n |
 
 - Casos particulares notables:
 
-  - !PYTHON(s[:)$n$`]` es la rodaja desde el primer elemento hasta la posición
-    $\underline{n}$.
+  - !PYTHON(s[:)$n$`]` es la rodaja desde el primer elemento de !PYTHON(s)
+    hasta la posición $\underline{n}$.
   
-  - !PYTHON(s[)$n$`:]` es la rodaja desde el elemento $\underline{n}$ hasta el
-    final.
+  - !PYTHON(s[)$n$`:]` es la rodaja desde la posición $\underline{n}$ hasta el
+    final de !PYTHON(s).
 
     Siempre se cumple que !PYTHON(s) `==` !PYTHON(s[:)$n$`]` `+`
     !PYTHON(s[)$n$`:]`.
 
-  - !PYTHON(s[)$n$!PYTHON(::-1]) es la rodaja invertida desde el elemento
-    $\underline{n}$ hasta el principio, con los elementos al revés.
+  - !PYTHON(s[)$n$!PYTHON(::-1]) es la rodaja invertida desde la posición
+    $\underline{n}$ hasta el primer elemento de !PYTHON(s), con los elementos
+    al revés.
 
   - !PYTHON(s[:]) devuelve una _copia_ de !PYTHON(s).
 
@@ -1523,10 +1526,10 @@ s | P | y | t | h | o | n |
 
 !EJERCICIO
 
-@. Dada la siguiente lista:
+@. Dada la siguiente tupla:
 
     ```python
-    a = [0, 11, 22, 33, 44, 55, 66, 77, 88, 99]
+    a = (0, 11, 22, 33, 44, 55, 66, 77, 88, 99)
     ```
 
     ¿Qué valor devuelven las siguientes expresiones?
@@ -1941,8 +1944,8 @@ y:f1 -> lista2
 - Cuando los valores son inmutables, no importa si se comparten o no, ya que no
   se pueden modificar.
 
-- De hecho, el intérprete a veces crea valores nuevos y a veces comparte los ya
-  existentes.
+- De hecho, el intérprete a veces crea valores inmutables nuevos y otras veces
+  comparte los valores inmutables ya existentes.
 
 - Por ejemplo, el intérprete de Python crea internamente todos los números
   enteros comprendidos entre $-5$ y $256$, por lo que todas las variables de
@@ -2336,13 +2339,32 @@ True
   en memoria** y, por tanto, son **idénticos**) y !PYTHON(False) en caso
   contrario.
 
-- Lo normal es usarlo con variables y, en tal caso, devuelve !PYTHON(True) si los
-  datos que almacenan las variables son realmente el mismo dato.
-
-- No tiene sentido usarlo con literales (y el intérprete lo advierte).
-
 - En la práctica, equivale a hacer
   !PYTHON(id)`(`!NT(valor1)`)` `==` !PYTHON(id)`(`!NT(valor2)`)`.
+
+---
+
+- Lo normal es usar el !PYTHON(is) con variables y, en tal caso, devuelve
+  !PYTHON(True) si los datos que almacenan las variables son realmente el mismo
+  dato.
+
+- No es correcto usarlo con literales inmutables (y el intérprete lo avisa con
+  un !PYTHON(SyntaxWarning)), ya que, en tal caso, devuelve siempre
+  !PYTHON(True).
+
+  En cambio, con literales mutables (como !PYTHON([])) devuelve siempre
+  !PYTHON(False).
+
+- También existe el operador !PYTHON(is not), que es el contrario al
+  !PYTHON(is) y cuya sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(is_not) ::= !NT(valor1) !T(is) !T(not) !NT(valor2)
+  ~~~~~~~~~~~~~~~~~~~~~~~
+
+  El operador !PYTHON(is not) es un operador relacional que, aplicado a dos
+  valores, devolverá !PYTHON(True) si los valores **no** son idénticos.
 
 ---
 
@@ -2351,6 +2373,8 @@ True
 >>> y = 500
 >>> x is y
 False
+>>> x is not y
+True
 >>> y = x
 >>> x is y
 True
@@ -2361,6 +2385,8 @@ True
 >>> y = 'hola'
 >>> x is y
 True
+>>> x is not y
+False
 ```
 
 # Cambios de estado ocultos
@@ -2419,7 +2445,7 @@ True
 
   - Realizar una operación de entrada/salida.
 
-## Transparencia referencial
+---
 
 - En un lenguaje imperativo **se pierde la transparencia referencial**, ya que
   ahora el valor de una función puede depender no sólo de los valores de sus

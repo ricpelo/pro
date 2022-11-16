@@ -1861,18 +1861,21 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a h
 <ul>
 <li><p>Los índices positivos (del <code
 class="sourceCode python"><span class="dv">0</span></code> en adelante)
-empiezan a contar desde el comienzo de la secuencia.</p></li>
+empiezan a contar desde el comienzo de la secuencia (o sea, desde el
+primer elemento, el que está situado más a la izquierda).</p></li>
 <li><p>Los índices negativos (del <code
 class="sourceCode python"><span class="op">-</span><span class="dv">1</span></code>
-hacia atrás) empieza a contar desde el final de la secuencia.</p></li>
+hacia atrás) empieza a contar desde el final de la secuencia (o sea,
+desde el último elemento, el que está situado más a la
+derecha).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.1.1.3">
 
 <ul>
 <li>El <strong><em>slicing</em></strong> (<em>hacer rodajas</em>) es una
-operación que consiste en obtener una subsecuencia a partir de una
-secuencia, indicando los <em>índices</em> de los elementos
+operación que consiste en obtener una <strong>subsecuencia</strong> a
+partir de una secuencia, indicando los <em>índices</em> de los elementos
 <em>inicial</em> y <em>final</em> de la misma, así como un posible
 <em>paso</em>:</li>
 </ul>
@@ -1912,8 +1915,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a h
 <li><p>Es más fácil trabajar con las rodajas si suponemos que los
 índices se encuentran <em>entre</em> los elementos.</p></li>
 <li><p>El elemento <em>final</em> nunca se alcanza.</p></li>
-<li><p>Si <span class="math inline">paso &lt; 0</span>, la rodaja se
-hará al revés (de derecha a izquierda).</p></li>
+<li><p>Si el <em>paso</em> es negativo, la rodaja se hará al revés (de
+derecha a izquierda).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.1.1.4">
@@ -1930,17 +1933,19 @@ omitir.</p></li>
 es <code
 class="sourceCode python"><span class="dv">1</span></code>.</p></li>
 <li><p>Si se omite <span class="math inline">i</span>, se entiende que
-queremos la rodaja desde el primer o el último elemento de la secuencia,
-dependiendo de si <span class="math inline">k</span> es positivo o
-negativo.</p></li>
+queremos la rodaja desde el elemento más la izquierda de la secuencia
+(si <span class="math inline">k</span> es positivo) o más a la derecha
+(si <span class="math inline">k</span> es negativo).</p></li>
 <li><p>Si se omite <span class="math inline">j</span>, se entiende que
-queremos la rodaja hasta el último o el primero elemento de la
-secuencia, dependiendo de si <span class="math inline">k</span> es
-positivo o negativo.</p></li>
-<li><p>Si <span class="math inline">i &lt; j</span>, <span
+queremos la rodaja hasta el elemento más a la derecha de la secuencia
+(si <span class="math inline">k</span> es positivo) o más a la izquierda
+(si <span class="math inline">k</span> es negativo).</p></li>
+<li><p>Si el índice <span class="math inline">i</span> está más a la
+izquierda que el índice <span class="math inline">j</span>, <span
 class="math inline">k</span> debería ser positivo (de lo contrario,
 devolvería la secuencia vacía).</p></li>
-<li><p>Si <span class="math inline">i &gt; j</span>, <span
+<li><p>Si el índice <span class="math inline">i</span> está más a la
+derecha que el índice <span class="math inline">j</span>, <span
 class="math inline">k</span> debería ser negativo (de lo contrario,
 devolvería la secuencia vacía).</p></li>
 <li><p>Si <span class="math inline">i = j</span>, devuelve la secuencia
@@ -1954,12 +1959,12 @@ vacía.</p></li>
 <ul>
 <li><p><code class="sourceCode python">s[:</code><span
 class="math inline">n</span><code>]</code> es la rodaja desde el primer
-elemento hasta la posición <span
-class="math inline">\underline{n}</span>.</p></li>
+elemento de <code class="sourceCode python">s</code> hasta la posición
+<span class="math inline">\underline{n}</span>.</p></li>
 <li><p><code class="sourceCode python">s[</code><span
-class="math inline">n</span><code>:]</code> es la rodaja desde el
-elemento <span class="math inline">\underline{n}</span> hasta el
-final.</p>
+class="math inline">n</span><code>:]</code> es la rodaja desde la
+posición <span class="math inline">\underline{n}</span> hasta el final
+de <code class="sourceCode python">s</code>.</p>
 <p>Siempre se cumple que <code class="sourceCode python">s</code>
 <code>==</code> <code class="sourceCode python">s[:</code><span
 class="math inline">n</span><code>]</code> <code>+</code> <code
@@ -1968,9 +1973,10 @@ class="math inline">n</span><code>:]</code>.</p></li>
 <li><p><code class="sourceCode python">s[</code><span
 class="math inline">n</span><code
 class="sourceCode python">::<span class="op">-</span><span class="dv">1</span>]</code>
-es la rodaja invertida desde el elemento <span
-class="math inline">\underline{n}</span> hasta el principio, con los
-elementos al revés.</p></li>
+es la rodaja invertida desde la posición <span
+class="math inline">\underline{n}</span> hasta el primer elemento de
+<code class="sourceCode python">s</code>, con los elementos al
+revés.</p></li>
 <li><p><code class="sourceCode python">s[:]</code> devuelve una
 <em>copia</em> de <code class="sourceCode python">s</code>.</p></li>
 <li><p><code
@@ -1983,9 +1989,9 @@ class="sourceCode python">s</code>.</p></li>
 <section id="ejercicio" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejercicio</h5>
 <ol class="example" type="1">
-<li><p>Dada la siguiente lista:</p>
+<li><p>Dada la siguiente tupla:</p>
 <div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>]</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>)</span></code></pre></div>
 <p>¿Qué valor devuelven las siguientes expresiones?</p>
 <ol type="a">
 <li><code
@@ -2536,8 +2542,8 @@ style="width:60.0%" /></p>
 <ul>
 <li><p>Cuando los valores son inmutables, no importa si se comparten o
 no, ya que no se pueden modificar.</p></li>
-<li><p>De hecho, el intérprete a veces crea valores nuevos y a veces
-comparte los ya existentes.</p></li>
+<li><p>De hecho, el intérprete a veces crea valores inmutables nuevos y
+otras veces comparte los valores inmutables ya existentes.</p></li>
 <li><p>Por ejemplo, el intérprete de Python crea internamente todos los
 números enteros comprendidos entre <span class="math inline">-5</span> y
 <span class="math inline">256</span>, por lo que todas las variables de
@@ -2826,11 +2832,6 @@ style="color:teal">⟨<em>valor2</em>⟩</span> tienen la misma
 memoria</strong> y, por tanto, son <strong>idénticos</strong>) y <code
 class="sourceCode python"><span class="va">False</span></code> en caso
 contrario.</p></li>
-<li><p>Lo normal es usarlo con variables y, en tal caso, devuelve <code
-class="sourceCode python"><span class="va">True</span></code> si los
-datos que almacenan las variables son realmente el mismo dato.</p></li>
-<li><p>No tiene sentido usarlo con literales (y el intérprete lo
-advierte).</p></li>
 <li><p>En la práctica, equivale a hacer <code
 class="sourceCode python"><span class="bu">id</span></code><code>(</code><span
 style="color:teal">⟨<em>valor1</em>⟩</span><code>)</code>
@@ -2841,21 +2842,58 @@ style="color:teal">⟨<em>valor2</em>⟩</span><code>)</code>.</p></li>
 </section>
 <section class="slide level5" data-number="3.4.1.0.1">
 
+<ul>
+<li><p>Lo normal es usar el <code
+class="sourceCode python"><span class="kw">is</span></code> con
+variables y, en tal caso, devuelve <code
+class="sourceCode python"><span class="va">True</span></code> si los
+datos que almacenan las variables son realmente el mismo dato.</p></li>
+<li><p>No es correcto usarlo con literales inmutables (y el intérprete
+lo avisa con un <code
+class="sourceCode python"><span class="pp">SyntaxWarning</span></code>),
+ya que, en tal caso, devuelve siempre <code
+class="sourceCode python"><span class="va">True</span></code>.</p>
+<p>En cambio, con literales mutables (como <code
+class="sourceCode python">[]</code>) devuelve siempre <code
+class="sourceCode python"><span class="va">False</span></code>.</p></li>
+<li><p>También existe el operador <code
+class="sourceCode python"><span class="kw">is</span> <span class="kw">not</span></code>,
+que es el contrario al <code
+class="sourceCode python"><span class="kw">is</span></code> y cuya
+sintaxis es:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>is_not</em>⟩</span> ::= <span
+style="color:teal">⟨<em>valor1</em>⟩</span>
+<strong><code>is</code></strong> <strong><code>not</code></strong> <span
+style="color:teal">⟨<em>valor2</em>⟩</span></div>
+<p>El operador <code
+class="sourceCode python"><span class="kw">is</span> <span class="kw">not</span></code>
+es un operador relacional que, aplicado a dos valores, devolverá <code
+class="sourceCode python"><span class="va">True</span></code> si los
+valores <strong>no</strong> son idénticos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.1.0.2">
+
 <div class="sourceCode" id="cb63"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">500</span> <span class="kw">is</span> <span class="dv">500</span></span>
-<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>stdin<span class="op">&gt;</span>:<span class="dv">1</span>: <span class="pp">SyntaxWarning</span>: <span class="st">&quot;is&quot;</span> <span class="cf">with</span> a literal. Did you mean <span class="st">&quot;==&quot;</span>?</span>
-<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
-<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> <span class="kw">not</span> y</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">500</span> <span class="kw">is</span> <span class="dv">500</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>stdin<span class="op">&gt;</span>:<span class="dv">1</span>: <span class="pp">SyntaxWarning</span>: <span class="st">&quot;is&quot;</span> <span class="cf">with</span> a literal. Did you mean <span class="st">&quot;==&quot;</span>?</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> <span class="kw">not</span> y</span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div>
 </section>
 
 </section>
@@ -2932,11 +2970,8 @@ por efectos laterales provocados por otras partes del programa.</p>
 </ul></li>
 </ul>
 </section>
+<section class="slide level5" data-number="4.3.0.0.1">
 
-<section id="transparencia-referencial" class="title-slide slide level2"
-data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span>
-Transparencia referencial</h2>
 <ul>
 <li><p>En un lenguaje imperativo <strong>se pierde la transparencia
 referencial</strong>, ya que ahora el valor de una función puede
@@ -2957,7 +2992,7 @@ ya que puede alterar el comportamiento de otras partes del programa de
 formas a menudo impredecibles o poco evidentes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.1">
+<section class="slide level5" data-number="4.3.0.0.2">
 
 <ul>
 <li><p>Cuando el efecto lateral lo produce la propia función también
@@ -2983,7 +3018,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a h
 <span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>]</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.2">
+<section class="slide level5" data-number="4.3.0.0.3">
 
 <ul>
 <li><p>Los efectos laterales hacen que sea muy difícil razonar sobre el
@@ -3009,8 +3044,8 @@ resultado.</p></li>
 </section>
 
 <section id="entrada-y-salida-por-consola"
-class="title-slide slide level2" data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span>
+class="title-slide slide level2" data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span>
 Entrada y salida por consola</h2>
 <ul>
 <li><p>Nuestro programa puede comunicarse con el exterior realizando
@@ -3032,8 +3067,8 @@ tanto, no depender sólo de sus argumentos.</p></li>
 </ul>
 </section>
 <section id="print" class="title-slide slide level3"
-data-number="4.5.1">
-<h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span>
+data-number="4.4.1">
+<h3 data-number="4.4.1"><span class="header-section-number">4.4.1</span>
 <code
 class="sourceCode python"><span class="bu">print</span></code></h3>
 <ul>
@@ -3065,9 +3100,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a h
 </ul>
 </section>
 <section id="paso-de-argumentos-por-palabras-clave"
-class="title-slide slide level4" data-number="4.5.1.1">
-<h4 data-number="4.5.1.1"><span
-class="header-section-number">4.5.1.1</span> Paso de argumentos por
+class="title-slide slide level4" data-number="4.4.1.1">
+<h4 data-number="4.4.1.1"><span
+class="header-section-number">4.4.1.1</span> Paso de argumentos por
 palabras clave</h4>
 <ul>
 <li><p>Normalmente, los argumentos se pasan a los parámetros
@@ -3089,7 +3124,7 @@ indicar el separador o el terminador de la lista de expresiones a
 imprimir.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.1.1.1">
+<section class="slide level5" data-number="4.4.1.1.1">
 
 <ul>
 <li><p>Si se combinan ambas técnicas en una misma llamada, los
@@ -3104,9 +3139,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a h
 </section>
 
 <section id="el-valor-none" class="title-slide slide level4"
-data-number="4.5.1.2">
-<h4 data-number="4.5.1.2"><span
-class="header-section-number">4.5.1.2</span> El valor <code
+data-number="4.4.1.2">
+<h4 data-number="4.4.1.2"><span
+class="header-section-number">4.4.1.2</span> El valor <code
 class="sourceCode python"><span class="va">None</span></code></h4>
 <ul>
 <li><p>Es importante resaltar que la función <code
@@ -3145,8 +3180,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a h
 
 
 <section id="input" class="title-slide slide level3"
-data-number="4.5.2">
-<h3 data-number="4.5.2"><span class="header-section-number">4.5.2</span>
+data-number="4.4.2">
+<h3 data-number="4.4.2"><span class="header-section-number">4.4.2</span>
 <code
 class="sourceCode python"><span class="bu">input</span></code></h3>
 <ul>
@@ -3171,7 +3206,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a h
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>Hola, Ramón</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.2.0.1">
+<section class="slide level5" data-number="4.4.2.0.1">
 
 <ul>
 <li><p>En primer lugar, provoca el <em>efecto lateral</em> de alterar el
@@ -3189,8 +3224,8 @@ la llama.</p></li>
 
 
 <section id="ejecución-de-scripts-por-lotes"
-class="title-slide slide level2" data-number="4.6">
-<h2 data-number="4.6"><span class="header-section-number">4.6</span>
+class="title-slide slide level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span>
 Ejecución de <em>scripts</em>  por lotes</h2>
 <ul>
 <li><p>A partir de ahora, ya podemos escribir programas que se
@@ -3213,7 +3248,7 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb70-1"><a
 nombre del archivo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.0.0.1">
+<section class="slide level5" data-number="4.5.0.0.1">
 
 <ul>
 <li><p>Nosotros, los programadores, durante el desarrollo del programa
@@ -3240,8 +3275,8 @@ desde el sistema operativo.</p></li>
 </ul>
 </section>
 <section id="argumentos-de-la-línea-de-órdenes"
-class="title-slide slide level3" data-number="4.6.1">
-<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span>
+class="title-slide slide level3" data-number="4.5.1">
+<h3 data-number="4.5.1"><span class="header-section-number">4.5.1</span>
 Argumentos de la línea de órdenes</h3>
 <ul>
 <li><p>El usuario del programa puede pasarle argumentos directamente
@@ -3265,7 +3300,7 @@ etcétera) contendrán los argumentos pasados al <em>script</em>, en el
 orden en el que aparecen en la línea de órdenes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.1.0.1">
+<section class="slide level5" data-number="4.5.1.0.1">
 
 <ul>
 <li><p>Por ejemplo, un programa puede saludar al usuario dirigiéndose a
@@ -3296,7 +3331,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a h
 <span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="pp">IndexError</span>: <span class="bu">list</span> index out of <span class="bu">range</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.1.0.2">
+<section class="slide level5" data-number="4.5.1.0.2">
 
 <ul>
 <li><p>El siguiente programa suma dos números indicados por el usuario
@@ -3318,8 +3353,8 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb75-1"><a
 
 
 <section id="entrada-y-salida-por-archivos"
-class="title-slide slide level2" data-number="4.7">
-<h2 data-number="4.7"><span class="header-section-number">4.7</span>
+class="title-slide slide level2" data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span>
 Entrada y salida por archivos</h2>
 <ul>
 <li><p>En Python (así como en otros lenguajes de programación), los
@@ -3344,7 +3379,7 @@ class="sourceCode python">sys.stderr</code> que representa la
 <strong><em>salida estándar de errores</em></strong> del S. O.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.1">
+<section class="slide level5" data-number="4.6.0.0.1">
 
 <ul>
 <li><p>Para leer y/o escribir datos en un archivo (es decir, en un
@@ -3365,8 +3400,8 @@ siguiente operación de lectura o escritura con el archivo.</p></li>
 la posición actual dentro de esa secuencia.</p></li>
 </ul>
 </section>
-<section id="open" class="title-slide slide level3" data-number="4.7.1">
-<h3 data-number="4.7.1"><span class="header-section-number">4.7.1</span>
+<section id="open" class="title-slide slide level3" data-number="4.6.1">
+<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span>
 <code class="sourceCode python"><span class="bu">open</span></code></h3>
 <ul>
 <li><p>La función <code
@@ -3505,7 +3540,7 @@ archivo no existe, lo crea y lo abre para lectura/escritura.</td>
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="4.7.1.0.1">
+<section class="slide level5" data-number="4.6.1.0.1">
 
 <ul>
 <li><p>Si no se pone <code>'b'</code> (modo binario), se entiende que es
@@ -3520,7 +3555,7 @@ sin borrarlo.</p></li>
 falla si ya existe.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.1.0.2">
+<section class="slide level5" data-number="4.6.1.0.2">
 
 <ul>
 <li><p>Normalmente, los archivos se abren en <strong>modo
@@ -3543,7 +3578,7 @@ que no contengan texto (datos binarios <em>crudos</em>).</p></li>
 class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.1.0.3">
+<section class="slide level5" data-number="4.6.1.0.3">
 
 <ul>
 <li><p>El tipo de dato que devuelve <code
@@ -3570,8 +3605,8 @@ contiene los elementos básicos para manipular <strong>flujos</strong>
 </ul>
 </section>
 
-<section id="read" class="title-slide slide level3" data-number="4.7.2">
-<h3 data-number="4.7.2"><span class="header-section-number">4.7.2</span>
+<section id="read" class="title-slide slide level3" data-number="4.6.2">
+<h3 data-number="4.6.2"><span class="header-section-number">4.6.2</span>
 <code class="sourceCode python">read</code></h3>
 <ul>
 <li><p>Para leer de un archivo, se puede usar el método <code
@@ -3602,7 +3637,7 @@ punto.</p></li>
 class="sourceCode python"><span class="st">&#39;&#39;</span></code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.2.0.1">
+<section class="slide level5" data-number="4.6.2.0.1">
 
 <ul>
 <li><p>El parámetro <em>tamaño</em> es opcional:</p>
@@ -3615,7 +3650,7 @@ indicado.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.2.0.2">
+<section class="slide level5" data-number="4.6.2.0.2">
 
 <ul>
 <li><p>Ejemplos de lectura de todo el archivo:</p>
@@ -3642,8 +3677,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a h
 </section>
 
 <section id="readline" class="title-slide slide level3"
-data-number="4.7.3">
-<h3 data-number="4.7.3"><span class="header-section-number">4.7.3</span>
+data-number="4.6.3">
+<h3 data-number="4.6.3"><span class="header-section-number">4.6.3</span>
 <code class="sourceCode python">readline</code></h3>
 <ul>
 <li><p>El método <code class="sourceCode python">readline</code> también
@@ -3675,7 +3710,7 @@ significa que es una línea en blanco (una línea que sólo contiene un
 salto de línea).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.3.0.1">
+<section class="slide level5" data-number="4.6.3.0.1">
 
 <ul>
 <li><p>El método empieza a leer desde la posición actual del puntero
@@ -3718,8 +3753,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a h
 </section>
 
 <section id="readlines" class="title-slide slide level3"
-data-number="4.7.4">
-<h3 data-number="4.7.4"><span class="header-section-number">4.7.4</span>
+data-number="4.6.4">
+<h3 data-number="4.6.4"><span class="header-section-number">4.6.4</span>
 <code class="sourceCode python">readlines</code></h3>
 <ul>
 <li><p>El método <code class="sourceCode python">readlines</code> (en
@@ -3747,7 +3782,7 @@ interno del archivo y cambia la posición del mismo.</p></li>
 última línea del archivo y éste no acaba en salto de línea.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.4.0.1">
+<section class="slide level5" data-number="4.6.4.0.1">
 
 <ul>
 <li><p>Si devuelve una lista vacía (<code
@@ -3790,8 +3825,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a h
 </section>
 
 <section id="write" class="title-slide slide level3"
-data-number="4.7.5">
-<h3 data-number="4.7.5"><span class="header-section-number">4.7.5</span>
+data-number="4.6.5">
+<h3 data-number="4.6.5"><span class="header-section-number">4.6.5</span>
 <code class="sourceCode python">write</code></h3>
 <ul>
 <li><p>El método <code class="sourceCode python">write</code> sirve para
@@ -3818,7 +3853,7 @@ abrió en <strong>modo binario</strong>.</p></li>
 dependiendo de si se abrió en modo texto o en modo binario.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.5.0.1">
+<section class="slide level5" data-number="4.6.5.0.1">
 
 <ul>
 <li><p>También se puede usar <code
@@ -3848,7 +3883,7 @@ en el flujo <code class="sourceCode python">sys.stdout</code> mientras
 no se diga lo contrario.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.5.0.2">
+<section class="slide level5" data-number="4.6.5.0.2">
 
 <ul>
 <li><p>Si el archivo se ha abierto en un modo <code>'a'</code> o
@@ -3878,7 +3913,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a h
 <span id="cb83-18"><a href="#cb83-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.5.0.3">
+<section class="slide level5" data-number="4.6.5.0.3">
 
 <ul>
 <li><p>Si el archivo se ha abierto en un modo <code>'w'</code>,
@@ -3910,7 +3945,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a h
 <span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.5.0.4">
+<section class="slide level5" data-number="4.6.5.0.4">
 
 <ul>
 <li><p>También se puede usar <code
@@ -3938,8 +3973,8 @@ no se diga lo contrario.</p></li>
 </section>
 
 <section id="writelines" class="title-slide slide level3"
-data-number="4.7.6">
-<h3 data-number="4.7.6"><span class="header-section-number">4.7.6</span>
+data-number="4.6.6">
+<h3 data-number="4.6.6"><span class="header-section-number">4.6.6</span>
 <code class="sourceCode python">writelines</code></h3>
 <ul>
 <li><p>El método <code class="sourceCode python">writelines</code>
@@ -3991,8 +4026,8 @@ tendremos que introducirlo nosotros mismos.</li>
 </section>
 
 <section id="seek-y-tell" class="title-slide slide level3"
-data-number="4.7.7">
-<h3 data-number="4.7.7"><span class="header-section-number">4.7.7</span>
+data-number="4.6.7">
+<h3 data-number="4.6.7"><span class="header-section-number">4.6.7</span>
 <code class="sourceCode python">seek</code> y <code
 class="sourceCode python">tell</code></h3>
 <ul>
@@ -4051,7 +4086,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a h
 <span id="cb88-20"><a href="#cb88-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Se ha cambiado la primera línea</span></span>
 <span id="cb88-21"><a href="#cb88-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
 </section>
-<section class="slide level5" data-number="4.7.7.0.1">
+<section class="slide level5" data-number="4.6.7.0.1">
 
 <div class="sourceCode" id="cb89"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)    <span class="co"># Abre en modo lectura/escritura</span></span>
@@ -4074,8 +4109,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a h
 </section>
 
 <section id="close" class="title-slide slide level3"
-data-number="4.7.8">
-<h3 data-number="4.7.8"><span class="header-section-number">4.7.8</span>
+data-number="4.6.8">
+<h3 data-number="4.6.8"><span class="header-section-number">4.6.8</span>
 <code class="sourceCode python">close</code></h3>
 <ul>
 <li><p>El método <code class="sourceCode python">close</code> cierra un
@@ -4100,7 +4135,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a h
 <span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: I<span class="op">/</span>O operation on closed <span class="bu">file</span>.</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.8.0.1">
+<section class="slide level5" data-number="4.6.8.0.1">
 
 <ul>
 <li><p>Podemos comprobar si un archivo ya se ha cerrado consultando su
