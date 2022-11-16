@@ -1134,7 +1134,7 @@ Operador         Ejemplo             Equivalente a
   (!PYTHON(list)), los conjuntos (!PYTHON(set)) y los diccionarios
   (!PYTHON(dict)).
 
-### Inmutables
+### Valores inmutables
 
 - Un valor de un tipo inmutable no puede cambiar su estado interno durante la
   ejecución del programa.
@@ -1328,7 +1328,7 @@ z:f1 -> t4
 
 ::::
 
----
+#### Secuencias
 
 - Las **cadenas**, las **tuplas** y los **rangos** son _datos inmutables_, así
   que no podemos modificarlos.
@@ -1544,7 +1544,7 @@ s | P | y | t | h | o | n |
     k. !PYTHON(a[5:-1:1])
     l. !PYTHON(a[-1:5:-1])
 
-### Mutables
+### Valores mutables: listas
 
 - Los valores de tipos **mutables**, en cambio, pueden cambiar su estado
   interno durante la ejecución del programa sin cambiar su identidad.

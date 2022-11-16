@@ -292,7 +292,7 @@ def deposito(fondos):
 ---
 
 - La **definición de una clase** es una estructura sintáctica que crea un
-  **espacio de nombres** y define su propio **ámbito**.
+  **espacio de nombres** y determina su propio **ámbito**.
 
 - Esa definición está formada por un **bloque de sentencias** que se ejecutarán
   dentro de ese ámbito en el momento en que el intérprete ejecute la
