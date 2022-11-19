@@ -1913,6 +1913,10 @@ z -> 3
 - El proceso de localizar (si es que existe) la ligadura adecuada que liga a un
   identificador con su valor, se denomina **resolución del identificador**.
 
+- En general, al proceso de determinar con qué valores están ligados los
+  identificadores de un programa se le denomina **resolución de
+  identificadores** o **resolución de nombres**.
+
 ---
 
 - Los espacios de nombres donde se buscan las ligaduras para ese identificador
@@ -1949,13 +1953,19 @@ z -> 3
     concepto llamado **entorno** en tiempo de ejecución para localizar la
     ligadura.
 
+    En tal caso, hablamos de **resolución de nombres _dinámica_**.
+
   - Si es un **lenguaje compilado** (como Java): el compilador determina, en
     tiempo de compilación, si una ligadura es accesible haciendo uso del
     concepto de **ámbito** y, en caso afirmativo, deduce en qué espacio de
     nombres está la ligadura.
 
-    Los conceptos de _ámbito_ y de _entorno_ los estudiaremos en breve más
-    adelante.
+    En tal caso, hablamos de **resolución de nombres _estática_**.
+
+- En general, la resolución de identificadores puede ser una tarea complicada
+  ya que puede involucrar muchos conceptos como espacios de nombres, ámbitos,
+  entornos, reglas de visibilidad, sombreado, sobrecargas... muchos de los
+  cuales aún no hemos estudiado.
 
 ## *Scripts*
 
