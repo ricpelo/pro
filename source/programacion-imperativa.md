@@ -2410,8 +2410,7 @@ False
 
 - Por contraste, una función se considera **impura**:
 
-  - si su valor de retorno o su comportamiento dependen de algo más que de sus
-    argumentos, o
+  - si su valor de retorno depende de algo más que de sus argumentos, o
 
   - si provoca cambios de estado observables en el exterior de la función.
 
@@ -2424,10 +2423,10 @@ False
 
 ## Efectos laterales
 
-- Un **efecto lateral** es cualquier cambio de estado llevado a cabo por una
-  parte del programa (normalmente, una función) que puede observarse desde
-  otras partes del mismo, las cuales podrían verse afectadas por él de una
-  manera poco evidente o impredecible.
+- Un **efecto lateral** (_side effect_) es cualquier cambio de estado provocado
+  por una parte del programa (por ejemplo, una función) que puede observarse
+  desde otras partes del mismo, las cuales podrían verse afectadas por ese
+  efecto de una manera poco evidente o impredecible.
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2472,7 +2471,7 @@ False
 - Cuando el efecto lateral lo produce la propia función también estamos
   perdiendo transparencia referencial, pues en tal caso no podemos sustituir
   libremente la llamada a la función por su valor de retorno, ya que ahora **la
-  función hace _algo más_ que calcular dicho valor**, y ese _algo_ es
+  función hace _algo más_ que calcular dicho valor**, y ese _algo_ es un efecto
   observable fuera de la función.
 
 - Por ejemplo, una función que imprime por la pantalla o escribe en un archivo
@@ -2508,8 +2507,8 @@ False
 - Ahora bien: muchas veces, la función que se desea escribir tiene efectos
   laterales porque esos son, precisamente, los efectos deseados.
 
-  - Por ejemplo, una función que actualice los salarios de los empleados en una
-    base de datos, a partir del salario base y los complementos.
+  Por ejemplo, una función que actualice los salarios de los empleados en una
+  base de datos, a partir del salario base y los complementos.
 
 - En ese caso, es importante **documentar** adecuadamente la función para que,
   quien desee usarla, sepa perfectamente qué efectos produce más allá de
@@ -2518,7 +2517,7 @@ False
 ## Entrada y salida por consola
 
 - Nuestro programa puede comunicarse con el exterior realizando **operaciones
-  de entrada/salida**.
+  de entrada/salida (E/S)**.
 
 - Interpretamos la palabra *exterior* en un sentido amplio; por ejemplo:
 
@@ -2527,18 +2526,24 @@ False
   - Un archivo del disco duro
   - Otro ordenador de la red
 
-- La entrada/salida por consola se refiere a las operaciones de lectura de
+- La E/S por consola se refiere a las operaciones de lectura de
   datos por el teclado y escritura por la pantalla.
 
-- Las operaciones de entrada/salida se consideran **efectos laterales** porque
-  producen cambios en el exterior o pueden hacer que el resultado de una
-  función dependa de los datos leídos y, por tanto, no depender sólo de sus
-  argumentos.
+- Las operaciones de E/S se consideran **efectos laterales** porque:
+
+  - pueden producir cambios en el exterior, o
+
+  - pueden hacer que el resultado de una
+  función dependa de los datos leídos del exterior y, por tanto, ya no sólo
+  dependería de sus argumentos.
 
 ### !PYTHON(print)
 
 - La función !PYTHON(print) imprime (*escribe*) por la salida (normalmente la
   pantalla) el valor de una o varias expresiones.
+
+- Produce un efecto lateral porque cambia el exterior del programa, afectando
+  al estado de un dispositivo de salida.
 
 - Su signatura es:
 
@@ -2574,8 +2579,8 @@ False
 
 - En Python también existe el **paso de argumentos por palabra clave**, donde
   cada argumento se asigna a su parámetro indicando en la llamada el nombre del
-  parámetro y el valor de su argumento correspondiente separados por un
-  !PYTHON(=), como si fuera una asignación.
+  parámetro y el valor de su argumento correspondiente separados por un `=`,
+  como si fuera una asignación.
 
 - Esta técnica se usa en la función !PYTHON(print) para indicar el separador o
   el terminador de la lista de expresiones a imprimir.
@@ -2600,24 +2605,52 @@ False
   de las expresiones, sino que las **imprime** (provoca el efecto lateral de
   cambiar la pantalla haciendo que aparezcan nuevos caracteres).
 
+- Por tanto, no es lo mismo hacer:
+
+  ```python
+  >>> 'Hola mundo'
+  'Hola mundo'
+  ```
+
+  que hacer:
+
+  ```python
+  >>> print('Hola mundo')
+  Hola mundo
+  ```
+
 - La función !PYTHON(print) como tal no devuelve ningún valor, pero como en
-  Python todas las funciones devuelven *algún* valor, en realidad lo que ocurre
-  es que **devuelve un valor !PYTHON(None)**.
+  Python todas las funciones deben devolver *algún* valor, en realidad lo que
+  ocurre es que !PYTHON(print) **devuelve un valor !PYTHON(None)**.
 
 - !PYTHON(None) es un valor especial que significa «**ningún valor**» y se
   utiliza principalmente para casos en los que no tiene sentido que una función
   devuelva un valor determinado, como es el caso de !PYTHON(print).
 
+---
+
 - Pertenece a un tipo de datos especial llamado !PYTHON(NoneType) cuyo único
   valor posible es !PYTHON(None), y para comprobar si un valor es !PYTHON(None)
-  se usa !NT(valor) !PYTHON(is None).
-  
+  se usa !NT(valor)\  !PYTHON(is None).
+ 
+  Sólo existe un único valor !PYTHON(None) en el montículo, que se crea justo
+  al arrancar el intérprete.
+
 - Podemos comprobar que, efectivamente, !PYTHON(print) devuelve !PYTHON(None):
 
   ```python
   >>> print('hola', 'pepe', 23) is None
   hola pepe 23  # ésto es lo que imprime print
   True          # ésto es el resultado de comprobar si el valor de print es None
+  ```
+
+- Otra forma, usando variables:
+
+  ```python
+  >>> x = print('hola', 'pepe', 23)
+  hola pepe 23  # ésto es lo que imprime print
+  >>> x is None
+  True          # ésto es el resultado de comprobar si el valor de x es None
   ```
 
 ### !PYTHON(input)
@@ -2716,6 +2749,26 @@ False
 - En cualquiera de los dos casos, Visual Studio Code abre un terminal integrado
   y ejecuta ahí dentro el comando `python programa.py` como si lo hubiéramos
   escrito nosotros desde el sistema operativo.
+
+!EJERCICIO
+
+@. Explicar las diferencias entre estas tres formas de ejecutar el intérprete.
+   Indicar en qué casos es conveniente usar cada una:
+
+    a. 
+       ```console
+       $ python
+       ```
+
+    b. 
+       ```
+       $ python script.py
+       ```
+
+    c. 
+       ```
+       $ python -i script.py
+       ```
 
 ### Argumentos de la línea de órdenes
 
