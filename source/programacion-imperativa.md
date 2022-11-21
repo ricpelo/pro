@@ -3564,51 +3564,55 @@ False
 ---
 
 - Python no incluye la instrucción *GOTO* pero se puede simular usando el
-  módulo `with_goto` del paquete llamado `goto-statement`:
+  módulo experimental `with_goto` del paquete llamado `python-goto`:
 
   ```console
   $ sudo apt install python3-pip
-  $ python3 -m pip install goto-statement
+  $ pip install git+https://github.com/tushar-deepsource/python-goto.git
   ```
-
-!SALTO
 
 :::: columns
 
-::: {.column width=37%}
+::: {.column width=39%}
 
 - Sintaxis:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(goto) ::= !T(goto) !NT(etiqueta)
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(goto) ::= !T(goto) !NT(etiqueta)
 !NT(label) ::= !T(label) !NT(etiqueta)
 !NT(etiqueta) ::= !T(.)!NT(identificador)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
-::: {.column width=63%}
+::: {.column width=61%}
 
 - Un ejemplo de uso:
 
-```python
-from goto import with_goto
+  ```python
+  from goto import with_goto
 
-CODIGO = """
-print('Esto se hace')
-goto .fin
-print('Esto se salta')
-label .fin
-print('Aquí se acaba')
-"""
+  CODIGO = """
+  print('Esto se hace')
+  goto .fin
+  print('Esto se salta')
+  label .fin
+  print('Aquí se acaba')
+  """
 
-exec(with_goto(compile(CODIGO, '', 'exec')))
-```
+  exec(with_goto(compile(CODIGO, '', 'exec')))
+  ```
 
 :::
 
 ::::
+
+- Si _Pylint_ o _Pylance_ se quejan de la última línea, escribirla así:
+
+  ```python
+  exec(with_goto(compile(CODIGO, '', 'exec'))) # type: ignore pylint: disable=exec-used
+  ```
 
 ## Condicionales
 
@@ -3689,6 +3693,30 @@ $i \longleftarrow i + 1$
   """
 
   exec(with_goto(compile(CODIGO, '', 'exec')))
+  ```
+
+---
+
+- También existe el paquete experimental `goto-plus`, que funciona de forma
+  similar pero usando números de línea en lugar de etiquetas.
+
+- Instalación:
+
+  ```console
+  $ pip install goto-plus
+  ```
+
+- Ejemplo:
+
+  ```{.python .number-lines}
+  from goto_plus import goto, gotoconfig
+
+  gotoconfig(__file__)
+
+  j = 0
+  j += 1
+  print(j)
+  if j < 10: goto(6)
   ```
 
 !BIBLIOGRAFIA

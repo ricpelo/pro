@@ -2,7 +2,7 @@
 title:
 - |
   Ejercicios de\
-  Programación imperativa y estructurada
+  Programación estructurada
 author:
 - |
   Ricardo Pérez López\
@@ -13,30 +13,6 @@ include-before:
     \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
   \fi
 ---
-
-#. Encontrar el valor de la variable `valor` después de la ejecución de las
-   siguientes sentencias:
-
-   #.
-      ```python
-      valor = 4.0 * 5
-      ```
-
-   #.
-      ```python
-      x = 3.0
-      y = 2.0
-      valor = x ** y - y
-      ```
-
-   #.
-      ```python
-      valor = 5
-      x = 3
-      valor = valor * x
-      ```
-
-#. ¿Cuál es la diferencia entre `[1, 2, 3]` y `[[1, 2, 3]]`?
 
 #. Explicar la diferencia entre el operador ternario:
 

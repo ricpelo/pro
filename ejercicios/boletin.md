@@ -25,48 +25,16 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
 
 ---
 
-#. Escribe un programa que salude al usuario con el mensaje «Hola. Encantado de
-   conocerle.».
-
-#. Escribe un programa que pida un número al usuario y a continuación lo
-   muestre.
-
-#. Escribe un programa que pida al usuario su edad y muestre la que tendrá el
-   año que viene.
-
-#. Escribe un programa que pida el año actual y el de nacimiento del usuario.
-   Debe calcular su edad, suponiendo que en el año en curso el usuario ya ha
-   cumplido años.
-
-#. Escribe un programa que calcule la media aritmética de dos notas enteras.
-   Hay que teneren cuenta que la media puede contener decimales.
-
-#. Escribe un programa que calcule la longitud y el área de una circunferencia.
-   Para ello, el usuario debe introducir el radio (que puede contener
-   decimales).
-
-   Recordemos: \begin{align*} longitud & = 2\pi \cdot radio \\ \acute{a}rea & =
-   \pi \cdot radio^2 \end{align*}
-
-#. Pide dos números al usuario: _a_ y _b_. Deberá mostrar !PYTHON(True) si
-   ambos números son iguales y !PYTHON(False) en caso contrario.
-
-#. Escribe un programa que solicite al usuario su edad y le indique si es mayor
-   de edad (mediante un literal booleano !PYTHON(True) o !PYTHON(False)).
-
-#. Escribe un programa que solicite al usuario un número y le indique si es par
-   (mediante un literal booleano !PYTHON(True) o !PYTHON(False)).
-
 #. Escribir un programa que nos indique si podemos salir a la calle. Existen
    aspectos que influirán en esta decisión: si está lloviendo y si hemos
    terminado nuestras tareas. Solo podremos salir a la calle si no está
    lloviendo y hemos finalizado nuestras tareas. Existe una opción en la que,
    indistintamente de lo anterior, podremos salir a la calle: el hecho de que
    tengamos que ir a la biblioteca (para realizar algún trabajo, entregar un
-   libro, etc.). Solicitar al usuario (mediante un booleano) si llueve, si ha
-   finalizado las tareas y si necesita ir a la biblioteca. El programa deberá
-   mostrar mediante un booleano (!PYTHON(True) o !PYTHON(False)) si es posible
-   que se le otorgue permiso para ir a la calle.
+   libro, etc.). Preguntar al usuario si llueve, si ha finalizado las tareas y
+   si necesita ir a la biblioteca. El programa deberá mostrar (mediante un
+   mensaje `Sí` o `No`) si es posible que se le otorgue permiso para ir a la
+   calle.
 
 #. Un frutero necesita calcular los beneficios anuales que obtiene de la venta
    de manzanas y peras. Por este motivo, es necesario diseñar un programa que
@@ -94,7 +62,8 @@ La mayoría de los problemas siguientes se pueden realizar de dos formas:
    cantidad hay que sumarle para que el resultado sea múltiplo de 7. Un
    ejemplo:
 
-   - A 2 hay que sumarle 5 para que el resultado ($2 + 5 = 7$) sea múltiplo de 7.
+   - A 2 hay que sumarle 5 para que el resultado ($2 + 5 = 7$) sea múltiplo de
+     7.
    - A 13 hay que sumarle 1 para que el resultado ($13 + 1 = 14$) sea múltiplo
      de 7.
 
