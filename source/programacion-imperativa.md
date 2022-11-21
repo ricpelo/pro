@@ -2850,7 +2850,7 @@ False
 
 - Esos flujos pueden representar archivos reales almacenados en algún soporte,
   o pueden ser archivos _virtuales_ que se pueden _redireccionar_ usando
-  funcionalidades del sistema operativo.
+  funcionalidades del sistema operativo (S.O.).
 
 - Por ejemplo, la consola (es decir, el teclado y la pantalla) del S. O. está
   conectada a dos flujos llamados **_entrada estándar_** y **_salida
@@ -2924,7 +2924,7 @@ False
  `'w+'`   Abre para lectura/escritura de texto. Vacía y sobreescribe el archivo si ya        Al principio.                      
           existe. Si no existe, lo crea y lo abre para lectura/escritura.                                                       
                                                                                                                                 
- `'a'`    Abre para añadir de texto. Si el archivo no existe, lo crea y lo abre sólo         Al final si el archivo ya existe.  
+ `'a'`    Abre para añadir texto. Si el archivo no existe, lo crea y lo abre sólo            Al final si el archivo ya existe.  
           para escritura.                                                                                                       
                                                                                                                                 
  `'a+'`   Abre para lectura/añadir en modo texto. Si el archivo no existe, lo crea y lo      Al final si el archivo ya existe.  
@@ -2955,17 +2955,24 @@ False
 
 ---
 
-- Si no se pone `'b'` (modo binario), se entiende que es `'t'` (modo texto).
+- Resumen básico:
 
-- El modo predeterminado es `'r'` (abrir para lectura en modo texto, sinónimo
-  de `'rt'`).
+  - Si no se pone `'b'` (modo binario), se entiende que es `'t'` (modo texto).
 
-- Los modos `'w+'` y `'w+b'` abren el archivo y lo vacía (borra su contenido)
-  si ya existía previamente.
+  - El modo predeterminado es `'r'` (abrir para lectura en modo texto, sinónimo
+    de `'rt'`).
 
-- Los modos `'r+'` y `'r+b'` abren el archivo sin borrarlo.
+  - Los modos `'a'`, `'ab'`, `'a+'` y `'a+b'` abren el archivo si ya existía
+    previamente, o lo crean nuevo si no existía.
 
-- El modo `'x'` abre el archivo en modo exclusivo, y falla si ya existe.
+  - Los modos `'w'`, `'wb'`, `'w+'` y `'w+b'` abren el archivo y lo vacía
+    (borra su contenido) si ya existía previamente, o lo crean nuevo si no
+    existía.
+
+  - Los modos `'r+'` y `'r+b'` abren el archivo sin borrarlo.
+
+  - El modo `'x'` abre el archivo en modo exclusivo, produciendo un error si el
+    archivo ya existía.
 
 ---
 
@@ -3008,6 +3015,54 @@ False
 
   - !PYTHON(io) es el módulo que contiene los elementos básicos para manipular
     **flujos** (del inglés, _streams_).
+
+### !PYTHON(close)
+
+- El método !PYTHON(close) cierra un archivo previamente abierto por
+  !PYTHON(open), finalizando la sesión de trabajo con el mismo.
+
+- Su signatura es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.close())
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Siempre hay que cerrar un archivo previamente abierto para:
+
+  - asegurarse de que los cambios realizados se vuelcan al archivo a través del
+    sistema operativo, y
+
+  - liberar inmediatamente los recursos del sistema que pudiera estar
+    consumiendo.
+
+- Una vez que se ha cerrado el archivo ya no se podrá seguir usando:
+
+  ```python
+  >>> f.close()
+  >>> f.read()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  ValueError: I/O operation on closed file.
+  ```
+
+---
+
+- Podemos comprobar si un archivo ya se ha cerrado consultando su atributo
+  !PYTHON(closed):
+
+  ```python
+  >>> f = open('archivo.txt', 'r')
+  >>> f.closed
+  False
+  >>> f.close()
+  >>> f.closed
+  True
+  ```
+
+- Observa que **no es un método** (no lleva paréntesis), **sino un _atributo_**
+  que contiene un valor lógico que el propio objeto modifica al cambiar su
+  estado de abierto a cerrado o viceversa.
 
 ### !PYTHON(read)
 
@@ -3145,7 +3200,7 @@ False
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.readlines)`(`[_tamaño_`:` !PYTHON(int)]`)` `->` !PYTHON(List[str|bytes])
+  !NT(archivo)!PYTHON(.readlines)`(`[_tamaño_`:` !PYTHON(int)]`)` `->` !PYTHON(list[str|bytes])
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - !PYTHON(readlines) devuelve una lista de cadenas de caracteres o de bytes
@@ -3280,10 +3335,12 @@ False
 
 - Si el archivo se ha abierto en un modo `'w'`, `'w+'` o `'r+'`, el puntero
   empezará estando al **principio del archivo** y la escritura se realizará en
-  la posición del puntero, pero **si leemos algo del archivo antes de escribir
-  en él, la escritura se hará _al final_** del archivo (como si lo hubiésemos
-  abierto con un modo `'a+'`) a menos que primero movamos el puntero
-  explícitamente mediante !PYTHON(seek):
+  la posición del puntero.
+
+- Pero **si leemos algo del archivo antes de escribir en él, la escritura se
+  hará _al final_** del archivo (como si lo hubiésemos abierto con un modo
+  `'a+'`) a menos que primero movamos el puntero explícitamente mediante
+  !PYTHON(seek):
 
   ```python
   >>> f = open('entrada.txt', 'r')   # Abrimos el archivo para ver su contenido
@@ -3306,33 +3363,6 @@ False
    'prueba\n']
   ```
 
----
-
-- También se puede usar !PYTHON(print) para escribir en un archivo.
-
-- En la práctica, no hay mucha diferencia entre usar !PYTHON(print) y usar
-  !PYTHON(write).
-
-- Hacer:
-
-  ```python
-  >>> f = open('archivo.txt', 'r+')
-  >>> f.write('Hola Manolo\n')
-  ```
-
-  equivale a hacer:
-
-  ```python
-  >>> f = open('archivo.txt', 'r+')
-  >>> print('Hola', 'Manolo', file=f)
-  ```
-
-- Hay que tener en cuenta los separadores y los saltos de línea que introduce
-  !PYTHON(print).
-
-- !PYTHON(print) escribe en el flujo !PYTHON(sys.stdout) mientras no se diga
-  lo contrario.
-
 ### !PYTHON(writelines)
 
 - El método !PYTHON(writelines) escribe una lista de líneas en un archivo, por
@@ -3345,7 +3375,7 @@ False
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.writelines)`(`_lineas_`:` !PYTHON(List[str|bytes])`)` `->` !PYTHON(None)
+  !NT(archivo)!PYTHON(.writelines)`(`_lineas_`:` !PYTHON(list[str|bytes])`)` `->` !PYTHON(None)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El parámetro _lineas_ es el contenido a escribir en el archivo, y debe ser
@@ -3405,7 +3435,7 @@ False
 !EJEMPLOS
 
 ```python
->>> f = open('archivo.txt', 'r+')    # Abre en modo lectura/escritura
+>>> f = open('entrada.txt', 'r+')    # Abre en modo lectura/escritura
 >>> f.tell()                         # El puntero está al principio
 0
 >>> f.readline()                     # Lee una línea de texto
@@ -3431,7 +3461,7 @@ False
 ---
 
 ```python
->>> f = open('archivo.txt', 'a+')    # Abre en modo lectura/escritura
+>>> f = open('entrada.txt', 'a+')    # Abre en modo lectura/escritura
 >>> f.tell()                         # El puntero está al final
 69
 >>> f.readline()                     # Allí no hay nada
@@ -3440,60 +3470,26 @@ False
 0
 >>> f.tell()                         # El puntero se ha movido
 0
->>> f.readline()                     # Por tanto, se lee la misma línea
+>>> f.readline()                     # Por tanto, se lee la primera línea
 'Esta es la primera línea.\n'
+>>> f.tell()                         # El puntero se ha movido
+27
 >>> f.seek(0)                        # Vuelve a colocarlo al principio
 0
->>> f.write('prueba\n')              # Siempre se escribe al final
+>>> f.write('Prueba\n')              # Siempre se escribe al final
 7
 >>> f.tell()                         # El puntero está al final
 76
+>>> f.readlines()                    # Allí no hay nada
+[]
+>>> f.seek(0)                        # Movemos el puntero al principio
+0
+>>> f.readlines()                    # Leemos todas las líneas
+['Esta es la primera línea.\n',
+ 'Esta es la segunda.\n',
+ 'Y esta es la tercera.\n',
+ 'Prueba\n']                         # Se ha escrito al final
 ```
-
-### !PYTHON(close)
-
-- El método !PYTHON(close) cierra un archivo previamente abierto por
-  !PYTHON(open), finalizando la sesión de trabajo con el mismo.
-
-- Su signatura es:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(archivo)!PYTHON(.close())
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Siempre hay que cerrar un archivo previamente abierto, para así asegurarse de
-  que los cambios realizados se vuelquen al archivo a través del sistema
-  operativo y liberar inmediatamente los recursos del sistema que pudiera estar
-  consumiendo.
-
-- Una vez que se ha cerrado el archivo ya no se podrá seguir usando:
-
-  ```python
-  >>> f.close()
-  >>> f.read()
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  ValueError: I/O operation on closed file.
-  ```
-
----
-
-- Podemos comprobar si un archivo ya se ha cerrado consultando su atributo
-  !PYTHON(closed):
-
-  ```python
-  >>> f = open('archivo.txt', 'r')
-  >>> f.closed
-  False
-  >>> f.close()
-  >>> f.closed
-  True
-  ```
-
-- Observa que no es un método (no lleva paréntesis), sino un atributo que
-  contiene directamente un valor lógico que el propio objeto modifica al
-  cambiar su estado de abierto a cerrado o viceversa.
 
 # Saltos
 
