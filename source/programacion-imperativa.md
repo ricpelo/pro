@@ -2514,28 +2514,132 @@ False
   quien desee usarla, sepa perfectamente qué efectos produce más allá de
   devolver un resultado.
 
-## Entrada y salida por consola
+## Entrada y salida
 
 - Nuestro programa puede comunicarse con el exterior realizando **operaciones
   de entrada/salida (E/S)**.
-
-- Interpretamos la palabra *exterior* en un sentido amplio; por ejemplo:
-
-  - El teclado
-  - La pantalla
-  - Un archivo del disco duro
-  - Otro ordenador de la red
-
-- La E/S por consola se refiere a las operaciones de lectura de
-  datos por el teclado y escritura por la pantalla.
 
 - Las operaciones de E/S se consideran **efectos laterales** porque:
 
   - pueden producir cambios en el exterior, o
 
-  - pueden hacer que el resultado de una
-  función dependa de los datos leídos del exterior y, por tanto, ya no sólo
-  dependería de sus argumentos.
+  - pueden hacer que el resultado de una función dependa de los datos leídos
+    del exterior y, por tanto, ya no sólo dependería de sus argumentos.
+
+- Interpretamos la palabra _exterior_ en un sentido amplio; por ejemplo:
+
+  - El teclado.
+
+  - La pantalla.
+
+  - Un archivo del disco duro.
+
+  - Otro ordenador de la red.
+
+---
+
+- Una función (que es un _subprograma_) puede comunicarse con su exterior
+  mediante el paso de argumentos y la devolución de su valor de retorno, sin
+  efectos laterales.
+
+  El exterior de una función es el resto del programa del que forma parte.
+
+- Análogamente, un programa puede comunicarse con su exterior mediante
+  operaciones de lectura en la entrada y operaciones de escritura en la salida,
+  que sí son efectos laterales.
+
+  !DOT(exterior-programa.svg)(Comunicación con el exterior)(width=60%)(width=55%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ExteriorE [label = "Entrada del exterior\n(Consola, archivos,\nlínea de órdenes, GUI...)", shape = plaintext, fillcolor = transparent];
+  ExteriorS [label = "Salida al exterior\n(Consola, archivos, GUI...)", shape = plaintext, fillcolor = transparent];
+  Argumentos [shape = plaintext, fillcolor = transparent];
+  Resultado [label = "Valor de retorno", shape = plaintext, fillcolor = transparent];
+
+  Argumentos -> Función -> Resultado
+
+  ExteriorE -> Programa -> ExteriorS
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Gracias a las operaciones de E/S, nuestro programa puede interactuar con el
+  usuario, solicitarle datos y proporcionarle resultados.
+
+---
+
+- En Python (así como en otros lenguajes de programación), la E/S de
+  información desde y hacia el exterior se realiza por medio de **flujos** (del
+  inglés, _streams_), que son _secuencias_ de bytes o de caracteres:
+
+  !DOT(flujos.svg)(Ejemplo de un programa que saluda)(width=80%)(width=80%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fontname = "monospace"]
+  E [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{\\n|e|p|e|P}"]
+  S [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{\\n|e|p|e|P| |a|l|o|H}"]
+  E -> Programa -> S
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Esos flujos actúan como «colas» de elementos que:
+
+  - En la entrada, están a la espera de ser consumidos por el programa.
+
+  - En la salida, se van encolando a medida que el programa los va generando y
+    volcando al exterior.
+
+---
+
+- Dependiendo de las características del flujo de entrada, hay dos
+  posibilidades:
+
+  a. El programa sólo podrá acceder al primer elemento de la cola.
+
+  a. El programa podrá moverse libremente por el flujo este y acceder a
+     cualquier elemento del mismo, sin importar la posición en la que esté el
+     elemento dentro del flujo.
+
+- Asimismo, dependiendo de las características del flujo de salida, también hay
+  dos posibilidades:
+
+  a. El programa sólo podrá escribir al final de la cola.
+
+  a. El programa podrá escribir elementos libremente en cualquier posición
+     dentro del flujo.
+
+- Finalmente, algunos flujos pueden actuar como flujo de entrada y de salida al
+  mismo tiempo y, en tal caso, el programa podría leer y escribir datos sobre
+  el mismo flujo.
+
+### Entrada y salida por consola
+
+- Por _consola_ entendemos de forma genérica la pantalla y el teclado del
+  ordenador.
+
+- Por tanto, la E/S por consola se refiere a las operaciones de lectura de
+  datos por el teclado y escritura a la pantalla.
+
+- Mientras no se diga lo contrario, el S.O. conecta la consola a dos flujos
+  llamados **_entrada estándar_** y **_salida estándar_**, de forma que el
+  teclado está conectado a la entrada estándar y la pantalla a la salida
+  estándar.
+
+- Esos flujos se pueden _redireccionar_ a otros archivos o dispositivos
+  usando las redirecciones de la _shell_: `<`, `>` o `|`:
+
+  ```console
+  $ python programa.py < entrada.txt
+  $ python programa.py > salida.txt
+  ```
+
+---
+
+- En Python, esos dos flujos se pueden manipular mediante los objetos
+  !PYTHON(sys.stdin) y !PYTHON(sys.stdout), respectivamente.
+
+- También existe el flujo !PYTHON(sys.stderr) que representa la **_salida
+  estándar de errores_** del S. O.
+
+- El intérprete ya abre automáticamente los flujos !PYTHON(sys.stdin),
+  !PYTHON(sys.stdout) y !PYTHON(sys.stderr) nada más arrancar y los conecta a
+  la entrada estándar, la salida estándar y la salida estándar de errores,
+  respectivamente.
 
 ### !PYTHON(print)
 
@@ -2755,20 +2859,11 @@ False
 @. Explicar las diferencias entre estas tres formas de ejecutar el intérprete.
    Indicar en qué casos es conveniente usar cada una:
 
-    a. 
-       ```console
-       $ python
-       ```
+    a. `$ python`{.console}
 
-    b. 
-       ```
-       $ python script.py
-       ```
+    b. `$ python script.py`{.console}
 
-    c. 
-       ```
-       $ python -i script.py
-       ```
+    c. `$ python -i script.py`{.console}
 
 ### Argumentos de la línea de órdenes
 
@@ -2845,30 +2940,13 @@ False
 
 ## Entrada y salida por archivos
 
-- En Python (así como en otros lenguajes de programación), los archivos se
-  representa mediante **flujos** (del inglés, _streams_) de bytes o caracteres.
+- Como ya sabemos, toda la comunicación con el exterior se lleva a cabo a
+  través de **flujos**, que son secuencias de bytes o caracteres.
 
-- Esos flujos pueden representar archivos reales almacenados en algún soporte,
-  o pueden ser archivos _virtuales_ que se pueden _redireccionar_ usando
-  funcionalidades del sistema operativo (S.O.).
+- Por tanto, cuando queramos leer y/o escribir datos en un archivo, lo haremos
+  también a través de un flujo de bytes o de caracteres.
 
-- Por ejemplo, la consola (es decir, el teclado y la pantalla) del S. O. está
-  conectada a dos flujos llamados **_entrada estándar_** y **_salida
-  estándar_**.
-
-- Esos flujos se pueden se pueden redireccionar a otros archivos o dispositivos
-  usando las redirecciones de la _shell_: `<`, `>` o `|`.
-
-- En Python, esos flujos se pueden manipular mediante los objetos
-  !PYTHON(sys.stdin) y !PYTHON(sys.stdout), respectivamente.
-
-- También existe el flujo !PYTHON(sys.stderr) que representa la **_salida
-  estándar de errores_** del S. O.
-
----
-
-- Para leer y/o escribir datos en un archivo (es decir, en un _flujo_), los
-  pasos a seguir son, en este orden:
+- Para ello, deberemos seguir los siguientes pasos, en este orden:
 
   #. Abrir el archivo en el modo adecuado con !PYTHON(open).
 
@@ -2878,16 +2956,17 @@ False
 
 - Mientras el archivo está abierto, disponemos de un **puntero** que _apunta_ a
   la posición actual de lectura o escritura, es decir, a la posición donde se
-  llevará a cabo la siguiente operación de lectura o escritura con el archivo.
+  hará la siguiente operación de lectura o escritura con el archivo.
 
-- No olvidemos que un archivo es un **flujo** (una _secuencia_) de caracteres o
-  bytes, por lo que ese puntero indica la posición actual dentro de esa
-  secuencia.
+- Ese puntero indica la posición actual dentro del flujo de caracteres o bytes
+  a través del cual accedemos al archivo.
 
 ### !PYTHON(open)
 
 - La función !PYTHON(open) abre un archivo y devuelve un objeto que lo
-  representa. Su signatura es:
+  representa.
+
+- Su signatura es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3013,8 +3092,8 @@ False
 
     - En modo **lectura/escritura**, devuelve un !PYTHON(io.BufferedRandom).
 
-  - !PYTHON(io) es el módulo que contiene los elementos básicos para manipular
-    **flujos** (del inglés, _streams_).
+- !PYTHON(io) es el módulo que contiene los elementos básicos para manipular
+  flujos.
 
 ### !PYTHON(close)
 
@@ -3067,7 +3146,9 @@ False
 ### !PYTHON(read)
 
 - Para leer de un archivo, se puede usar el método !PYTHON(read) sobre el
-  objeto que devuelve la función !PYTHON(open). Su signatura es:
+  objeto que devuelve la función !PYTHON(open).
+
+- Su signatura es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3078,8 +3159,10 @@ False
   modo texto, o un objeto de tipo !PYTHON(bytes) si se abrió en modo binario.
 
 - El archivo contiene un **puntero interno** que indica hasta dónde se ha leído
-  en el mismo. Cada vez que se llama al método !PYTHON(read), se mueve ese
-  puntero para que en posteriores llamadas se continúe leyendo desde ese punto.
+  en el mismo.
+
+- Cada vez que se llama al método !PYTHON(read), se mueve ese puntero para que
+  en posteriores llamadas se continúe leyendo desde ese punto.
 
 - Si se alcanza el final del archivo, se devuelve la cadena vacía
   (!PYTHON('')).
