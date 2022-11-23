@@ -3405,7 +3405,7 @@ False
   >>> f = open('entrada.txt', 'a+')  # Lo volvemos a abrir en lectura/añadir
   >>> f.read(4)                      # El puntero está situado al final, y...
   ''                                 # ... si leemos algo, allí no hay nada
-  >>> f.write('prueba\n')            # Escribimos siete caracteres al final
+  >>> f.write('Prueba\n')            # Escribimos siete caracteres al final
   7
   >>> f.close()                      # Cerramos el archivo para guardar los cambios
   >>> f = open('entrada.txt', 'r')   # Volvemos a abrir el archivo
@@ -3413,7 +3413,7 @@ False
   ['Esta es la primera línea.\n',    # ... del archivo, y no en la posición 4...
    'Esta es la segunda.\n',          # ... como cabría haber esperado
    'Y esta es la tercera.\n',
-   'prueba\n']
+   'Prueba\n']
   ```
 
 ---
@@ -3437,7 +3437,7 @@ False
   >>> f = open('entrada.txt', 'r+')  # Lo volvemos a abrir en lectura/escritura
   >>> f.read(4)                      # Leemos cuatro caracteres (desde el principio)
   'Esta'
-  >>> f.write('prueba\n')            # Escribimos siete caracteres
+  >>> f.write('Prueba\n')            # Escribimos siete caracteres
   7
   >>> f.close()                      # Cerramos el archivo para guardar los cambios
   >>> f = open('entrada.txt', 'r')   # Volvemos a abrir el archivo
@@ -3445,7 +3445,7 @@ False
   ['Esta es la primera línea.\n',    # ... del archivo, y no en la posición 4...
    'Esta es la segunda.\n',          # ... como cabría haber esperado
    'Y esta es la tercera.\n',
-   'prueba\n']
+   'Prueba\n']
   ```
 
 ### !PYTHON(writelines)
@@ -3546,7 +3546,7 @@ False
 ---
 
 ```python
->>> f = open('entrada.txt', 'a+')    # Abre en modo lectura/escritura
+>>> f = open('entrada.txt', 'a+')    # Abre en modo lectura/añadir
 >>> f.tell()                         # El puntero está al final
 69
 >>> f.readline()                     # Allí no hay nada
