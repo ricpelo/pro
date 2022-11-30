@@ -901,28 +901,28 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 <li><p>La estructura alternativa está formada por una sucesión de
 cláusulas que asocian una condición con una sentencia.</p></li>
 <li><p>Las cláusulas van marcadas con <code
-class="sourceCode python"><span class="cf">if</span>:</code>, <code
-class="sourceCode python"><span class="cf">elif</span>:</code> o <code
-class="sourceCode python"><span class="cf">else</span>:</code>.</p></li>
+class="sourceCode python"><span class="cf">if</span></code>, <code
+class="sourceCode python"><span class="cf">elif</span></code> o <code
+class="sourceCode python"><span class="cf">else</span></code>.</p></li>
 <li><p>Las condiciones se van comprobando de arriba abajo, en el orden
 en que aparecen, de forma que primero se comprueba la condición del
-<code class="sourceCode python"><span class="cf">if</span>:</code> y
+<code class="sourceCode python"><span class="cf">if</span></code> y
 después las diferentes <code
-class="sourceCode python"><span class="cf">elif</span>:</code>, si las
+class="sourceCode python"><span class="cf">elif</span></code>, si las
 hay.</p></li>
 <li><p>En el momento en que se cumple una de las condiciones, se ejecuta
 su sentencia correspondiente y se sale de la estructura alternativa (no
 se sigue comprobando más).</p></li>
 <li><p>Si no se cumple ninguna condición y hay una cláusula <code
-class="sourceCode python"><span class="cf">else</span>:</code>, se
+class="sourceCode python"><span class="cf">else</span></code>, se
 ejecutará la sentencia de ésta.</p></li>
 <li><p>Si no se cumple ninguna condición y no hay cláusula <code
-class="sourceCode python"><span class="cf">else</span>:</code>, no se
+class="sourceCode python"><span class="cf">else</span></code>, no se
 ejecuta ninguna sentencia.</p></li>
 <li><p>Puede haber cláusulas <code
-class="sourceCode python"><span class="cf">elif</span>:</code> y no
-haber <code
-class="sourceCode python"><span class="cf">else</span>:</code>.</p></li>
+class="sourceCode python"><span class="cf">elif</span></code> y no haber
+<code
+class="sourceCode python"><span class="cf">else</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.2">
@@ -1527,18 +1527,6 @@ las instrucciones finales del programa.</p></li>
 programación.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
-
-<div class="centered">
-<figure>
-<img data-src="images/refinamiento.png" class="plain"
-style="width:60.0%"
-alt="Diseño descendente por refinamiento sucesivo" />
-<figcaption aria-hidden="true">Diseño descendente por refinamiento
-sucesivo</figcaption>
-</figure>
-</div>
-</section>
 
 <section id="recursos-abstractos" class="title-slide slide level2"
 data-number="3.2">
@@ -1615,23 +1603,43 @@ tendríamos:</p>
 <section class="slide level5" data-number="3.3.0.0.1">
 
 <ul>
-<li><p>Una primera versión (burda) del programa podría ser:</p>
-<div class="line-block"><strong>inicio</strong><br />
-  <strong>leer <span class="math inline">n</span></strong><br />
-  <strong>construir la tabla de <span class="math inline">n \times
+<li>Una primera versión (muy burda y poco refinada) del algoritmo
+escrito en pseudocódigo, que sería el paso previo al programa escrito en
+un lenguaje de programación, podría ser:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:47%;">
+
+<div class="line-block"><strong>Algoritmo:</strong> Tabla de multiplicar
+de <span class="math inline">n \times n</span><br />
+<strong>Entrada:</strong> El tamaño <span class="math inline">n</span>
+(por la entrada estándar)<br />
+<strong>Salida:</strong> La tabla de multiplicar de <span
+class="math inline">n \times n</span> (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <strong>leer <span class="math inline">n</span></strong><br />
+      <strong>construir la tabla de <span class="math inline">n \times
 n</span></strong><br />
 <strong>fin</strong></div>
-<p>donde el programa se plantea como una secuencia de dos sentencias:
+</div><div class="column" style="width:3%;">
+
+</div><div class="column" style="width:47%;">
+<ul>
+<li>El programa se plantea como una secuencia de dos sentencias:
 preguntar el tamaño de la tabla deseada y construir la tabla propiamente
-dicha.</p></li>
+dicha.</li>
+</ul>
+</div>
+</div>
+<ul>
 <li><p>La sentencia «<strong>leer <span
 class="math inline">n</span></strong>» ya está suficientemente refinada
-(se puede traducir a un lenguaje de programación) pero la segunda no
-(por tanto, es un recurso abstracto).</p></li>
+(se puede traducir a un lenguaje de programación) pero la segunda no;
+por tanto, es un recurso abstracto.</p></li>
 <li><p>Podríamos traducir ya la sentencia «<strong>leer <span
 class="math inline">n</span></strong>» al lenguaje de programación, o
 podríamos esperar a tener todas las sentencias refinadas y traducirlas
-todas a la vez. En este caso, lo haremos de la primera forma.</p></li>
+todas a la vez. En este caso, lo haremos de la segunda forma.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.2">
@@ -1644,16 +1652,21 @@ de <span class="math inline">n</span>.</p></li>
 <li><p>Por tanto, el siguiente paso es refinar la sentencia abstracta
 «<strong>construir la tabla de <span class="math inline">n \times
 n</span></strong>», creando un nuevo nivel de refinamiento:</p>
-<div class="line-block"><strong>inicio</strong><br />
-  <strong>leer <span class="math inline">n</span></strong><br />
-  <em>{ construir la tabla de <span class="math inline">n \times
-n</span>: }</em><br />
-  <span class="math inline">i \longleftarrow 1</span><br />
-  <strong>mientras</strong> <span class="math inline">i \leq n</span>
-<strong>hacer</strong><br />
-        <strong>escribir la fila de <span
+<div class="line-block"><strong>Algoritmo:</strong> Tabla de multiplicar
+de <span class="math inline">n \times n</span><br />
+<strong>Entrada:</strong> El tamaño <span class="math inline">n</span>
+(por la entrada estándar)<br />
+<strong>Salida:</strong> La tabla de multiplicar de <span
+class="math inline">n \times n</span> (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <strong>leer <span class="math inline">n</span></strong><br />
+      <span class="math inline">i \longleftarrow 1</span><br />
+      <strong>mientras</strong> <span class="math inline">i \leq
+n</span> <strong>hacer</strong><br />
+              <strong>escribir la fila de <span
 class="math inline">i</span></strong><br />
-        <span class="math inline">i \longleftarrow i + 1</span><br />
+              <span class="math inline">i \longleftarrow i +
+1</span><br />
 <strong>fin</strong></div>
 <p>donde ahora aparece la sentencia «<strong>escribir la fila de <span
 class="math inline">i</span></strong>», que escribe cada una de las
@@ -1664,33 +1677,38 @@ directamente al lenguaje de programación.</p></li>
 <section class="slide level5" data-number="3.3.0.0.3">
 
 <ul>
-<li><p>En este (último) nivel refinamos la sentencia que nos falta,
-quedando:</p>
-<div class="line-block"><strong>inicio</strong><br />
-  <strong>leer <span class="math inline">n</span></strong><br />
-  <em>{ construir la tabla de <span class="math inline">n \times
-n</span>: }</em><br />
-  <span class="math inline">i \longleftarrow 1</span><br />
-  <strong>mientras</strong> <span class="math inline">i \leq n</span>
-<strong>hacer</strong><br />
-        <em>{ escribir la fila de <span class="math inline">i</span>:
-}</em><br />
-        <span class="math inline">j \longleftarrow 1</span><br />
-        <strong>mientras</strong> <span class="math inline">j \leq
+<li><p>En este nivel refinamos la sentencia que nos falta, quedando:</p>
+<div class="line-block"><strong>Algoritmo:</strong> Tabla de multiplicar
+de <span class="math inline">n \times n</span><br />
+<strong>Entrada:</strong> El tamaño <span class="math inline">n</span>
+(por la entrada estándar)<br />
+<strong>Salida:</strong> La tabla de multiplicar de <span
+class="math inline">n \times n</span> (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <strong>leer <span class="math inline">n</span></strong><br />
+      <span class="math inline">i \longleftarrow 1</span><br />
+      <strong>mientras</strong> <span class="math inline">i \leq
 n</span> <strong>hacer</strong><br />
-              <strong>escribir</strong> <span class="math inline">i
-\times j</span><br />
-              <span class="math inline">j \longleftarrow j +
+              <span class="math inline">j \longleftarrow 1</span><br />
+              <strong>mientras</strong> <span class="math inline">j \leq
+n</span> <strong>hacer</strong><br />
+                      <strong>escribir</strong> <span
+class="math inline">i \times j</span> sin salto de línea<br />
+                      <span class="math inline">j \longleftarrow j +
 1</span><br />
-        <strong>escribir</strong> un salto de línea<br />
-        <span class="math inline">i \longleftarrow i + 1</span><br />
+              <strong>escribir</strong> un salto de línea<br />
+              <span class="math inline">i \longleftarrow i +
+1</span><br />
 <strong>fin</strong></div></li>
+<li><p>Este es el último nivel de refinamiento, porque todas las
+instrucciones ya se pueden traducir directamente a un lenguaje de
+programación.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.4">
 
 <ul>
-<li><p>Ese programa es directamente traducible a Python:</p>
+<li><p>Por ejemplo, en Python se escribiría así:</p>
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
@@ -1740,6 +1758,10 @@ de funcionamiento.</p></li>
 <li><p>A este tipo de «<em>bloques con nombre</em>» se les denomina
 <strong>subrutinas</strong>, <strong>subprogramas</strong> o
 <strong>procedimientos</strong>.</p></li>
+<li><p>Es el equivalente imperativo al concepto de <em>función</em> en
+programación funcional, solo que en lugar de estar formado por una
+expresión, está formado por una sentencia o bloque de
+sentencias.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.1">
@@ -1772,9 +1794,9 @@ class="title-slide slide level2" data-number="4.2">
 <h2 data-number="4.2"><span class="header-section-number">4.2</span> El
 paradigma de programación procedimental</h2>
 <ul>
-<li><p>La <strong>programación procedimental</strong> es un paradigma de
-programación imperativa basada en los conceptos de
-<strong>procedimiento</strong> y <strong>llamada a
+<li><p>La <strong>programación procedimental</strong> (<em>procedural
+programming</em>) es un paradigma de programación imperativa basada en
+los conceptos de <strong>procedimiento</strong> y <strong>llamada a
 procedimientos</strong>.</p></li>
 <li><p>En este paradigma, un programa imperativo está compuesto
 principalmente por procedimientos (bloques de sentencias con nombre) que
@@ -1785,7 +1807,7 @@ reciben sus datos de entrada, caso de necesitarlos.</p></li>
 necesario.</p></li>
 <li><p>Los procedimientos, además, determinan su propio ámbito local y
 (dependiendo del lenguaje de programación usado) también podrían acceder
-a otros ámbitos no locales dentro del entorno, como el ámbito
+a otros ámbitos no locales que contengan al suyo, como el ámbito
 global.</p></li>
 </ul>
 </section>
@@ -1802,8 +1824,8 @@ descendente.</p></li>
 <li><p>Recordemos que una estructura de control es una sentencia
 compuesta y, como tal, podemos estudiarla como si fuera una sola
 sentencia (con su entrada y su salida), sin tener que conocer el detalle
-de cómo funciona por dentro, es decir, qué sentencias más simples
-contiene.</p></li>
+de cómo funciona por dentro, es decir, sin tener que conocer qué
+sentencias más simples contiene.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.1">
@@ -1827,29 +1849,99 @@ estructuras como una sola sentencia.</li>
 
 <ul>
 <li><p>De igual forma, una llamada a un procedimiento es una sentencia
-simple pero que actúa como una sentencia compuesta, formada por varias
+simple que actúa como una sentencia compuesta, formada por varias
 instrucciones (el <em>cuerpo</em> del procedimiento) que actúan como una
 sola.</p></li>
 <li><p>En ese caso, <strong>el procedimiento actúa como un recurso
 abstracto en un determinado nivel</strong> (en ese nivel, se invoca al
-procedimiento aunque aún no exista) y luego se implementa en un nivel de
-mayor refinamiento.</p></li>
+procedimiento aunque aún no exista) que luego se implementa en un nivel
+de mayor refinamiento.</p></li>
 <li><p>El uso de procedimientos para escribir programas siguiendo un
-diseño descendente nos lleva a un código descompuesto en partes en lugar
-de tener un único código enorme con todo el texto del programa escrito
-directamente al mismo nivel.</p></li>
+diseño descendente nos lleva a un <strong>código descompuesto en partes
+separadas</strong> en lugar de tener un único código enorme con todo el
+texto del programa escrito directamente al mismo nivel.</p></li>
 <li><p>Esta forma de refinamiento y de diseño descendente está ya más
 relacionado con el concepto de <strong>programación modular</strong>,
-que estudiaremos luego.</p></li>
+que estudiaremos posteriormente.</p></li>
 <li><p>En un ordinograma, una llamada a un procedimiento se representa
 como un rectángulo con doble trazo superior.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.3">
 
+<div class="centered">
+<figure>
+<img data-src="images/refinamiento.png" class="plain"
+style="width:60.0%"
+alt="Diseño descendente por refinamiento sucesivo usando procedimientos" />
+<figcaption aria-hidden="true">Diseño descendente por refinamiento
+sucesivo usando procedimientos</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="4.3.0.0.4">
+
 <ul>
-<li><p>El código escrito mediante su descomposición en procedimientos
-tiene dos grandes ventajas:</p>
+<li><p>El ejemplo anterior descompuesto en procedimientos sería:</p>
+<div class="line-block"><strong>Algoritmo:</strong> Tabla de multiplicar
+de <span class="math inline">n \times n</span><br />
+<strong>Entrada:</strong> El tamaño <span class="math inline">n</span>
+(por la entrada estándar)<br />
+<strong>Salida:</strong> La tabla de multiplicar de <span
+class="math inline">n \times n</span> (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <strong>leer <span class="math inline">n</span></strong><br />
+      construir_tabla(<span class="math inline">n</span>)<br />
+<strong>fin</strong></div></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:49%;">
+
+<div class="line-block"><strong>Procedimiento:</strong>
+construir_tabla(<span class="math inline">m</span>)<br />
+<strong>Entrada:</strong> El tamaño <span
+class="math inline">m</span><br />
+<strong>Salida:</strong> La tabla de multiplicar de <span
+class="math inline">m \times m</span> (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <span class="math inline">i \longleftarrow 1</span><br />
+      <strong>mientras</strong> <span class="math inline">i \leq
+m</span> <strong>hacer</strong><br />
+              escribir_fila(<span class="math inline">i</span>, <span
+class="math inline">m</span>)<br />
+              <span class="math inline">i \longleftarrow i +
+1</span><br />
+<strong>fin</strong></div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:49%;">
+
+<div class="line-block"><strong>Procedimiento:</strong>
+escribir_fila(<span class="math inline">f</span>, <span
+class="math inline">t</span>)<br />
+<strong>Entrada:</strong> El número (<span class="math inline">f</span>)
+de la fila a escribir y el tamaño (<span class="math inline">t</span>)
+de la tabla<br />
+<strong>Salida:</strong> La fila <span class="math inline">f</span> de
+la tabla de multiplicar (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <span class="math inline">i \longleftarrow 1</span><br />
+      <strong>mientras</strong> <span class="math inline">i \leq
+t</span> <strong>hacer</strong><br />
+              <strong>escribir</strong> <span class="math inline">f
+\times i</span> sin salto de línea<br />
+              <span class="math inline">i \longleftarrow i +
+1</span><br />
+      <strong>escribir</strong> un salto de línea<br />
+<strong>fin</strong></div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="4.3.0.0.5">
+
+<ul>
+<li><p>El código escrito mediante descomposición en procedimientos tiene
+dos grandes ventajas:</p>
 <ul>
 <li><p>Es más fácil de entender un código basado en abstracciones
 independientes y separadas que se llaman entre sí, antes que un código
@@ -1857,12 +1949,12 @@ donde todo está en el mismo nivel de refinamiento formando un texto
 monolítico de principio a fin.</p></li>
 <li><p>Es probable que los procedimientos así obtenidos puedan
 <em>reutilizarse</em> en otros programas con poca o ninguna variación,
-siempre y cuando sean lo suficientemente independientes del resto del
-programa que los utiliza.</p></li>
+siempre y cuando sean lo suficientemente genéricos e independientes del
+resto del programa que los utiliza.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.3.0.0.4">
+<section class="slide level5" data-number="4.3.0.0.6">
 
 <ul>
 <li><p>Estas ventajas nos están ya haciendo entender que puede resultar
@@ -1903,34 +1995,26 @@ class="title-slide slide level3" data-number="4.4.1">
 <h3 data-number="4.4.1"><span class="header-section-number">4.4.1</span>
 Definición de funciones imperativas</h3>
 <ul>
-<li><p>En programación imperativa también podemos definir
-funciones.</p></li>
-<li><p>Al igual que ocurre en programación funcional, una función en
-programación imperativa es una construcción sintáctica que acepta
-argumentos y produce un resultado.</p></li>
+<li><p>Al igual que ocurre en programación funcional, una función
+imperativa es una construcción sintáctica que acepta argumentos y
+produce un resultado.</p></li>
 <li><p>Pero a diferencia de lo que ocurre en programación funcional, una
-función en programación imperativa contiene
-<strong>sentencias</strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.4.1.0.1">
-
-<ul>
-<li><p>Las funciones en programación imperativa conforman los bloques
-básicos que nos permiten <strong>descomponer un programa en
-partes</strong> que se combinan entre sí, lo que resulta el complemento
-perfecto para la programación estructurada.</p></li>
+función imperativa contiene <strong>sentencias</strong>.</p></li>
+<li><p>Las funciones imperativas en Python conforman los bloques básicos
+que nos permiten <strong>descomponer un programa en partes</strong> que
+se combinan entre sí, lo que resulta el complemento perfecto para la
+programación estructurada.</p></li>
 <li><p>Todavía podemos construir funciones mediante expresiones lambda,
 pero las funciones imperativas tienen ventajas:</p>
 <ul>
 <li><p>Podemos escribir <strong>sentencias</strong> dentro de las
 funciones imperativas.</p></li>
 <li><p>Podemos escribir funciones que no devuelvan ningún resultado
-porque su cometido es provocar algún efecto lateral.</p></li>
+porque su cometido sea provocar algún efecto lateral.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.1.0.2">
+<section class="slide level5" data-number="4.4.1.0.1">
 
 <ul>
 <li><p>La <strong>definición</strong> de una función imperativa tiene la
@@ -1959,7 +2043,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.1.0.3">
+<section class="slide level5" data-number="4.4.1.0.2">
 
 <ul>
 <li><p>La definición de una función imperativa es una <strong>sentencia
@@ -1980,7 +2064,7 @@ indentada</strong> que el cuerpo, o bien el final del
 <em>script</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.1.0.4">
+<section class="slide level5" data-number="4.4.1.0.3">
 
 <ul>
 <li><p>La definición de una función es una sentencia ejecutable que,
@@ -1995,23 +2079,24 @@ función, al igual que ocurría con las expresiones lambda.</p></li>
 el ámbito global) y, por tanto, su ligadura y su variable <strong>se
 almacenarán en el marco del ámbito donde se ha definido la
 función</strong> (normalmente, el marco global).</p></li>
-<li><p>Asimismo, <strong>el cuerpo de una función imperativa define un
-ámbito</strong>, al igual que ocurría con las expresiones
+<li><p>Asimismo, <strong>el cuerpo de una función imperativa determina
+un ámbito</strong>, al igual que ocurría con las expresiones
 lambda.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.1.0.5">
+<section class="slide level5" data-number="4.4.1.0.4">
 
 <div class="centered">
 <figure>
 <img data-src="images/ambitos-funciones-imperativas.svg" class="plain"
-style="width:80.0%" alt="El cuerpo de una función define un ámbito" />
-<figcaption aria-hidden="true">El cuerpo de una función define un
+style="width:80.0%"
+alt="El cuerpo de una función determina un ámbito" />
+<figcaption aria-hidden="true">El cuerpo de una función determina un
 ámbito</figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="4.4.1.0.6">
+<section class="slide level5" data-number="4.4.1.0.5">
 
 <ul>
 <li><p>Nuestra gramática se vuelve a ampliar para incluir las
@@ -2067,8 +2152,8 @@ sentencias que forman el cuerpo de la función y se empieza a ejecutar
 <section class="slide level5" data-number="4.5.0.0.1">
 
 <ul>
-<li><p>Cuando se terminan de ejecutar las sentencias que forman el
-cuerpo de la función:</p>
+<li><p>Cuando se termina de ejecutar el cuerpo de la función (o, dicho
+de otra forma, cuando se <em>sale</em> de la función):</p>
 <ol type="1">
 <li><p>Se genera su valor de retorno (en breve veremos cómo).</p></li>
 <li><p>Se saca su marco de la pila.</p></li>

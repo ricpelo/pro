@@ -613,23 +613,23 @@ el archivo fuente) pertenecen a la misma estructura.
 - La estructura alternativa está formada por una sucesión de cláusulas que
   asocian una condición con una sentencia.
 
-- Las cláusulas van marcadas con !PYTHON(if:), !PYTHON(elif:) o !PYTHON(else:).
+- Las cláusulas van marcadas con !PYTHON(if), !PYTHON(elif) o !PYTHON(else).
 
 - Las condiciones se van comprobando de arriba abajo, en el orden en que
-  aparecen, de forma que primero se comprueba la condición del !PYTHON(if:) y
-  después las diferentes !PYTHON(elif:), si las hay.
+  aparecen, de forma que primero se comprueba la condición del !PYTHON(if) y
+  después las diferentes !PYTHON(elif), si las hay.
 
 - En el momento en que se cumple una de las condiciones, se ejecuta su
   sentencia correspondiente y se sale de la estructura alternativa (no se sigue
   comprobando más).
 
-- Si no se cumple ninguna condición y hay una cláusula !PYTHON(else:), se
+- Si no se cumple ninguna condición y hay una cláusula !PYTHON(else), se
   ejecutará la sentencia de ésta.
 
-- Si no se cumple ninguna condición y no hay cláusula !PYTHON(else:), no se
+- Si no se cumple ninguna condición y no hay cláusula !PYTHON(else), no se
   ejecuta ninguna sentencia.
 
-- Puede haber cláusulas !PYTHON(elif:) y no haber !PYTHON(else:).
+- Puede haber cláusulas !PYTHON(elif) y no haber !PYTHON(else).
 
 ---
 
@@ -1152,10 +1152,6 @@ while not salida:
 - El último nivel permite la codificación directa en un lenguaje de
   programación.
 
----
-
-!IMGP(refinamiento.png)(Diseño descendente por refinamiento sucesivo)(width=60%)(width=45%)
-
 ## Recursos abstractos
 
 - Descomponer un programa en términos de recursos abstractos consiste en
@@ -1222,26 +1218,47 @@ while not salida:
 
 ---
 
-- Una primera versión (burda) del programa podría ser:
+- Una primera versión (muy burda y poco refinada) del algoritmo escrito en
+  pseudocódigo, que sería el paso previo al programa escrito en un lenguaje de
+  programación, podría ser:
+
+:::: columns
+
+::: {.column width=47%}
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **inicio**
-  **leer $n$**
-  **construir la tabla de $n \times n$**
+  **Algoritmo:** Tabla de multiplicar de $n \times n$
+**Entrada:** El tamaño $n$ (por la entrada estándar)
+**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+**inicio**
+      **leer $n$**
+      **construir la tabla de $n \times n$**
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  donde el programa se plantea como una secuencia de dos sentencias: preguntar
-  el tamaño de la tabla deseada y construir la tabla propiamente dicha.
+:::
+
+::: {.column width=3%}
+
+:::
+
+::: {.column width=47%}
+
+- El programa se plantea como una secuencia de dos sentencias: preguntar el
+  tamaño de la tabla deseada y construir la tabla propiamente dicha.
+
+:::
+
+::::
 
 - La sentencia «**leer $n$**» ya está suficientemente refinada (se puede
-  traducir a un lenguaje de programación) pero la segunda no (por tanto, es un
-  recurso abstracto).
+  traducir a un lenguaje de programación) pero la segunda no; por tanto, es un
+  recurso abstracto.
 
 - Podríamos traducir ya la sentencia «**leer $n$**» al lenguaje de
   programación, o podríamos esperar a tener todas las sentencias refinadas y
-  traducirlas todas a la vez. En este caso, lo haremos de la primera forma.
+  traducirlas todas a la vez. En este caso, lo haremos de la segunda forma.
 
 ---
 
@@ -1254,13 +1271,15 @@ while not salida:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **inicio**
-  **leer $n$**
-  _{ construir la tabla de $n \times n$: }_
-  $i \longleftarrow 1$
-  **mientras** $i \leq n$ **hacer**
-        **escribir la fila de $i$**
-        $i \longleftarrow i + 1$
+  **Algoritmo:** Tabla de multiplicar de $n \times n$
+**Entrada:** El tamaño $n$ (por la entrada estándar)
+**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+**inicio**
+      **leer $n$**
+      $i \longleftarrow 1$
+      **mientras** $i \leq n$ **hacer**
+              **escribir la fila de $i$**
+              $i \longleftarrow i + 1$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1270,28 +1289,32 @@ while not salida:
 
 ---
 
-- En este (último) nivel refinamos la sentencia que nos falta, quedando:
+- En este nivel refinamos la sentencia que nos falta, quedando:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **inicio**
-  **leer $n$**
-  _{ construir la tabla de $n \times n$: }_
-  $i \longleftarrow 1$
-  **mientras** $i \leq n$ **hacer**
-        _{ escribir la fila de $i$: }_
-        $j \longleftarrow 1$
-        **mientras** $j \leq n$ **hacer**
-              **escribir** $i \times j$
-              $j \longleftarrow j + 1$
-        **escribir** un salto de línea
-        $i \longleftarrow i + 1$
+  **Algoritmo:** Tabla de multiplicar de $n \times n$
+**Entrada:** El tamaño $n$ (por la entrada estándar)
+**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+**inicio**
+      **leer $n$**
+      $i \longleftarrow 1$
+      **mientras** $i \leq n$ **hacer**
+              $j \longleftarrow 1$
+              **mientras** $j \leq n$ **hacer**
+                      **escribir** $i \times j$ sin salto de línea
+                      $j \longleftarrow j + 1$
+              **escribir** un salto de línea
+              $i \longleftarrow i + 1$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Este es el último nivel de refinamiento, porque todas las instrucciones ya se
+  pueden traducir directamente a un lenguaje de programación.
+
 ---
 
-- Ese programa es directamente traducible a Python:
+- Por ejemplo, en Python se escribiría así:
 
   ```python
   n = int(input('Introduce el número: '))
@@ -1337,6 +1360,10 @@ while not salida:
 - A este tipo de «_bloques con nombre_» se les denomina **subrutinas**,
   **subprogramas** o **procedimientos**.
 
+- Es el equivalente imperativo al concepto de _función_ en programación
+  funcional, solo que en lugar de estar formado por una expresión, está formado
+  por una sentencia o bloque de sentencias.
+
 ---
 
 - Los procedimientos nos ayudan a:
@@ -1361,8 +1388,9 @@ while not salida:
 
 ## El paradigma de programación procedimental
 
-- La **programación procedimental** es un paradigma de programación imperativa
-  basada en los conceptos de **procedimiento** y **llamada a procedimientos**.
+- La **programación procedimental** (_procedural programming_) es un paradigma
+  de programación imperativa basada en los conceptos de **procedimiento** y
+  **llamada a procedimientos**.
 
 - En este paradigma, un programa imperativo está compuesto principalmente por
   procedimientos (bloques de sentencias con nombre) que se llaman entre sí.
@@ -1374,7 +1402,7 @@ while not salida:
 
 - Los procedimientos, además, determinan su propio ámbito local y (dependiendo
   del lenguaje de programación usado) también podrían acceder a otros ámbitos
-  no locales dentro del entorno, como el ámbito global.
+  no locales que contengan al suyo, como el ámbito global.
 
 ## Procedimientos y refinamiento sucesivo
 
@@ -1385,7 +1413,7 @@ while not salida:
 - Recordemos que una estructura de control es una sentencia compuesta y, como
   tal, podemos estudiarla como si fuera una sola sentencia (con su entrada y su
   salida), sin tener que conocer el detalle de cómo funciona por dentro, es
-  decir, qué sentencias más simples contiene.
+  decir, sin tener que conocer qué sentencias más simples contiene.
 
 ---
 
@@ -1409,29 +1437,92 @@ while not salida:
 
 ---
 
-- De igual forma, una llamada a un procedimiento es una sentencia simple pero
-  que actúa como una sentencia compuesta, formada por varias instrucciones (el
+- De igual forma, una llamada a un procedimiento es una sentencia simple que
+  actúa como una sentencia compuesta, formada por varias instrucciones (el
   _cuerpo_ del procedimiento) que actúan como una sola.
 
 - En ese caso, **el procedimiento actúa como un recurso abstracto en un
   determinado nivel** (en ese nivel, se invoca al procedimiento aunque aún no
-  exista) y luego se implementa en un nivel de mayor refinamiento.
+  exista) que luego se implementa en un nivel de mayor refinamiento.
 
 - El uso de procedimientos para escribir programas siguiendo un diseño
-  descendente nos lleva a un código descompuesto en partes en lugar de tener un
-  único código enorme con todo el texto del programa escrito directamente al
-  mismo nivel.
+  descendente nos lleva a un **código descompuesto en partes separadas** en
+  lugar de tener un único código enorme con todo el texto del programa escrito
+  directamente al mismo nivel.
 
 - Esta forma de refinamiento y de diseño descendente está ya más relacionado
-  con el concepto de **programación modular**, que estudiaremos luego.
+  con el concepto de **programación modular**, que estudiaremos posteriormente.
 
 - En un ordinograma, una llamada a un procedimiento se representa como un
   rectángulo con doble trazo superior.
 
 ---
 
-- El código escrito mediante su descomposición en procedimientos tiene dos
-  grandes ventajas:
+!IMGP(refinamiento.png)(Diseño descendente por refinamiento sucesivo usando procedimientos)(width=60%)(width=45%)
+
+---
+
+- El ejemplo anterior descompuesto en procedimientos sería:
+
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Algoritmo:** Tabla de multiplicar de $n \times n$
+**Entrada:** El tamaño $n$ (por la entrada estándar)
+**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+**inicio**
+      **leer $n$**
+      construir_tabla($n$)
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::: columns
+
+::: {.column width=49%}
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Procedimiento:** construir_tabla($m$)
+**Entrada:** El tamaño $m$
+**Salida:** La tabla de multiplicar de $m \times m$ (por la salida estándar)
+**inicio**
+      $i \longleftarrow 1$
+      **mientras** $i \leq m$ **hacer**
+              escribir_fila($i$, $m$)
+              $i \longleftarrow i + 1$
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: {.column width=2%}
+
+:::
+
+::: {.column width=49%}
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Procedimiento:** escribir_fila($f$, $t$)
+**Entrada:** El número ($f$) de la fila a escribir y el tamaño ($t$) de la tabla
+**Salida:** La fila $f$ de la tabla de multiplicar (por la salida estándar)
+**inicio**
+      $i \longleftarrow 1$
+      **mientras** $i \leq t$ **hacer**
+              **escribir** $f \times i$ sin salto de línea
+              $i \longleftarrow i + 1$
+      **escribir** un salto de línea
+**fin**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::::
+
+---
+
+- El código escrito mediante descomposición en procedimientos tiene dos grandes
+  ventajas:
 
   - Es más fácil de entender un código basado en abstracciones independientes y
     separadas que se llaman entre sí, antes que un código donde todo está en el
@@ -1440,7 +1531,8 @@ while not salida:
 
   - Es probable que los procedimientos así obtenidos puedan _reutilizarse_ en
     otros programas con poca o ninguna variación, siempre y cuando sean lo
-    suficientemente independientes del resto del programa que los utiliza.
+    suficientemente genéricos e independientes del resto del programa que los
+    utiliza.
 
 ---
 
@@ -1473,20 +1565,15 @@ while not salida:
 
 ### Definición de funciones imperativas
 
-- En programación imperativa también podemos definir funciones.
+- Al igual que ocurre en programación funcional, una función imperativa es una
+  construcción sintáctica que acepta argumentos y produce un resultado.
 
-- Al igual que ocurre en programación funcional, una función en programación
-  imperativa es una construcción sintáctica que acepta argumentos y produce un
-  resultado.
+- Pero a diferencia de lo que ocurre en programación funcional, una función
+  imperativa contiene **sentencias**.
 
-- Pero a diferencia de lo que ocurre en programación funcional, una función en
-  programación imperativa contiene **sentencias**.
-
----
-
-- Las funciones en programación imperativa conforman los bloques básicos que
-  nos permiten **descomponer un programa en partes** que se combinan entre sí,
-  lo que resulta el complemento perfecto para la programación estructurada.
+- Las funciones imperativas en Python conforman los bloques básicos que nos
+  permiten **descomponer un programa en partes** que se combinan entre sí, lo
+  que resulta el complemento perfecto para la programación estructurada.
 
 - Todavía podemos construir funciones mediante expresiones lambda, pero las
   funciones imperativas tienen ventajas:
@@ -1494,7 +1581,7 @@ while not salida:
   - Podemos escribir **sentencias** dentro de las funciones imperativas.
 
   - Podemos escribir funciones que no devuelvan ningún resultado porque su
-    cometido es provocar algún efecto lateral.
+    cometido sea provocar algún efecto lateral.
 
 ---
 
@@ -1558,12 +1645,12 @@ while not salida:
   global) y, por tanto, su ligadura y su variable **se almacenarán en el marco
   del ámbito donde se ha definido la función** (normalmente, el marco global).
 
-- Asimismo, **el cuerpo de una función imperativa define un ámbito**, al igual
-  que ocurría con las expresiones lambda.
+- Asimismo, **el cuerpo de una función imperativa determina un ámbito**, al
+  igual que ocurría con las expresiones lambda.
 
 ---
 
-!IMGP(ambitos-funciones-imperativas.!EXT)(El cuerpo de una función define un ámbito)(width=80%)(width=50%)
+!IMGP(ambitos-funciones-imperativas.!EXT)(El cuerpo de una función determina un ámbito)(width=80%)(width=50%)
 
 ---
 
@@ -1605,8 +1692,8 @@ while not salida:
 
 ---
 
-- Cuando se terminan de ejecutar las sentencias que forman el cuerpo de la
-  función:
+- Cuando se termina de ejecutar el cuerpo de la función (o, dicho de otra
+  forma, cuando se _sale_ de la función):
 
   1. Se genera su valor de retorno (en breve veremos cómo).
 
