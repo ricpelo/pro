@@ -680,9 +680,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-1. Si el espacio de nombres seleccionado NO depende del ámbito donde se crea la
-   ligadura, es porque la instrucción ya está indicando directamente el espacio
-   de nombres apropiado.
+1. Si el contexto viene determinado por un _objeto_, y no por un ámbito,
+   entonces el espacio de nombres será el propio objeto.
 
    - Esto es lo que ocurre cuando se crea una ligadura dentro de un objeto en
      Python usando el operador punto (`.`), ya que los objetos son espacios de
@@ -706,8 +705,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
 
 ---
 
-2. Si el espacio de nombres seleccionado depende del ámbito donde se crea la
-   ligadura, tenemos que:
+2. Si el contexto viene determinado por el _ámbito_ donde se crea la ligadura,
+   tenemos que:
 
    a. Si el ámbito donde se crea la ligadura lleva asociado un espacio de
       nombres, ese espacio de nombres almacenará las ligaduras que se crean
@@ -1248,9 +1247,9 @@ su final depende del _contexto de creación_ de la ligadura:
 
 ---
 
-- El cuerpo de una expresión lambda determina su propio ámbito, de forma que,
-  las ligaduras que ligan a los parámetros con los argumentos, se definen
-  dentro de ese ámbito y son, por tanto, _locales_ a ese ámbito.
+- El cuerpo de una expresión lambda determina su propio ámbito, de forma que
+  las ligaduras que ligan a los parámetros con los argumentos se definen dentro
+  de ese ámbito y son, por tanto, _locales_ a ese ámbito.
 
 - Es decir: los parámetros (y las ligaduras entre los parámetros y los
   argumentos) tienen **un ámbito local** al cuerpo de la expresión lambda y
@@ -1267,7 +1266,8 @@ su final depende del _contexto de creación_ de la ligadura:
   - Cuando **se _termina_** de ejecutar el cuerpo de la expresión lambda, **se
     _sale_** del ámbito y, por tanto, **se _elimina_** el marco de la memoria.
 
-- **Todo _marco_ lleva asociado un _ámbito_**.
+- **Todo _marco_ lleva asociado un _ámbito_** (lo contrario no siempre es
+  cierto).
 
 ---
 
@@ -1292,8 +1292,8 @@ su final depende del _contexto de creación_ de la ligadura:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Dicho de otra forma: **un marco se crea** cuando se **entra** en un cierto
-  **ámbito** y **se destruye** cuando se **sale** de ese **ámbito**.
+  **Un marco se crea** cuando se **entra** en el **ámbito** de un _script_,
+  función o método, y **se destruye** cuando se **sale** de ese **ámbito**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 ---

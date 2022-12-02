@@ -2194,7 +2194,7 @@ E -> suma [lhead = cluster0]
 - Desde dentro de una función es posible usar variables globales, ya que se
   encuentran en el **entorno** de la función.
 
-- Se puede **acceder** al valor de una variable global directamente:
+- Se puede **consultar** el valor de una variable global directamente:
 
   ```python
   x = 4          # esta variable es global
@@ -2207,8 +2207,8 @@ E -> suma [lhead = cluster0]
 
 ---
 
-- Pero para poder **modificar** una variable global es necesario que la función
-  la declare previamente como *global*.
+- Pero para poder **cambiar** una variable global es necesario que la función
+  la declare previamente como _global_.
 
 - De no hacerlo así, el intérprete supondría que el programador quiere crear
   una variable local que tiene el mismo nombre que la global:
@@ -2223,7 +2223,7 @@ E -> suma [lhead = cluster0]
   print(x)       # imprime 4
   ```
 
-- Como en Python no existen las *declaraciones* de variables, el intérprete
+- Como en Python no existen las _declaraciones_ de variables, el intérprete
   tiene que **_averiguar_ por sí mismo qué ámbito tiene una variable**.
 
 - Lo hace con una regla muy sencilla:
@@ -2236,8 +2236,8 @@ E -> suma [lhead = cluster0]
 
 ---
 
-- El siguiente código genera un error «*UnboundLocalError: local variable 'x'
-  referenced before assignment*». ¿Por qué?
+- El siguiente código genera un error «_UnboundLocalError: local variable 'x'
+  referenced before assignment_». ¿Por qué?
 
   ```python
   x = 4
@@ -2253,8 +2253,8 @@ E -> suma [lhead = cluster0]
   considera que !PYTHON(x) es local a la función.
 
 - Pero en la expresión !PYTHON(x + 4), la variable !PYTHON(x) aún no tiene
-  ningún valor asignado, por lo que genera un error «*variable local `x`
-  referenciada antes de ser asignada*».
+  ningún valor asignado, por lo que genera un error «_variable local `x`
+  referenciada antes de ser asignada_».
 
 #### !PYTHON(global)
 
@@ -2272,7 +2272,7 @@ E -> suma [lhead = cluster0]
   print(x)  # imprime 5
   ```
 
-- La sentencia !PYTHON(global x) es una **declaración** que informa al
+- La sentencia «!PYTHON(global x)» es una **declaración** que informa al
   intérprete de que la variable `x` debe buscarla únicamente en el marco
   global y que, por tanto, debe saltarse los demás marcos que haya en el
   entorno.
@@ -2429,10 +2429,10 @@ E -> suma [lhead = cluster0]
 
 ---
 
-- Si una función necesita **acceder al valor de una variable global**, también
-  **pierde la transparencia referencial**, ya que la convierte en **impura**
-  porque su valor de retorno puede depender de algo más que de sus argumentos
-  (en este caso, del valor de la variable global).
+- Si una función necesita **consultar el valor de una variable global**,
+  también **pierde la transparencia referencial**, ya que la convierte en
+  **impura** porque su valor de retorno puede depender de algo más que de sus
+  argumentos (en este caso, del valor de la variable global).
 
 - En consecuencia, la función podría producir **resultados distintos en
   momentos diferentes** ante los mismos argumentos:
@@ -2536,23 +2536,30 @@ E -> suma [lhead = cluster0]
 
 ## Funciones locales a funciones
 
-- En Python es posible definir **funciones locales** a una función.
+- En Python también podemos definir funciones dentro de funciones:
 
-- Las funciones locales también se denominan **funciones internas** o
-  **funciones anidadas**.
+  ```python
+  def f(...):
+     def g(...):
+        ...
+  ```
 
-- Una función local se define **dentro** de otra función y, por tanto, sólo
-  existe dentro de la función en la que se ha definido.
+- Cuando definimos una función `g` dentro de otra función `f`, decimos que:
 
-- Su **ámbito de definición** es el cuerpo de la función donde se ha definido,
-  es decir, la función que la contiene.
+  - `g` es un **función local** o **interna** de `f`.
+  - `f` es la **función externa** de `g`.
 
-- Pero al igual que pasa con las variables locales, la función sólo se pueden
-  usar (llamar) después de haberse definido, es decir, después de haberse
-  ejecutado el !PYTHON(def) de la función interna.
+- También se dice que:
 
-- Evita la superpoblación de funciones en el ámbito más externo cuando sólo
-  tiene sentido su uso en un ámbito más interno.
+  - `g` es una **función anidada** dentro de `f`.
+  - `f` **contiene** a `g`.
+
+- Como `g` se define **dentro** de `f`, sólo es visible dentro de `f`, ya que
+  el **ámbito** de `g` es el cuerpo de `f`.
+
+- El uso de funciones locales evita la superpoblación de funciones en un
+  espacio de nombres cuando esa función sólo tiene sentido usarla en un ámbito
+  más local.
 
 ---
 
@@ -2578,13 +2585,20 @@ E -> suma [lhead = cluster0]
 - Por tanto, no se puede usar fuera de `fact`, ya que sólo existe en el ámbito
   de la función `fact` (es decir, en el cuerpo de la función `fact`).
 
+- Como `fact_iter` sólo existe para ser usada como función auxiliar de `fact`,
+  tiene sentido definirla como una función local de `fact`.
+
+- De esta forma, no contaminaremos el espacio de nombres global con el nombre
+  `fact_iter`, que es el nombre de una función que sólo debe ser usada y
+  conocida por `fact`, y que queda oculta dentro de `fact`.
+
 ---
 
-- Tampoco se puede usar `fact_iter` dentro de `fact` *antes* de definirla:
+- Tampoco se puede usar `fact_iter` dentro de `fact` _antes_ de definirla:
 
   ```{.python .number-lines}
   def fact(n):
-      print(fact_iter(n, 1))  # error: se usa antes de definirse
+      print(fact_iter(n, 1))  # UnboundLocalError: se usa antes de definirse
       def fact_iter(n, acc):  # aquí es donde empieza su definición
           if n == 0:
               return acc
@@ -2592,33 +2606,38 @@ E -> suma [lhead = cluster0]
               return fact_iter(n - 1, acc * n)
   ```
 
-- Esto ocurre porque la sentencia !PYTHON(def) crea una ligadura entre
-  `fact_iter` y su valor (la función), pero esa ligadura sólo empieza a existir
-  cuando se ejecuta la sentencia !PYTHON(def), y no antes.
+- Esto ocurre porque la sentencia !PYTHON(def) de la línea 3 crea una ligadura
+  entre `fact_iter` y una variable que apunta a la función que se está
+  definiendo, pero esa ligadura y esa variable sólo empiezan a existir cuando
+  se ejecuta la sentencia !PYTHON(def) en la línea 3, y no antes.
 
-- Es importante recordar que, aunque el ámbito de la ligadura entre `fact_iter`
-  y su valor es el cuerpo de la función `fact`, realmente la ligadura empieza a
-  existir en la línea 3 (no antes).
+- Por tanto, en la línea 2 aún no existe la función `fact_iter` y, por tanto,
+  no se puede usar ahí, dando un error !PYTHON(UnboundLocalError).
+
+  Esto puede verse como una extensión a la regla que vimos anteriormente sobre
+  cuándo considerar a una variable como local, cambiando «_asignación_» por
+  «_definición_» y «_variable_» por «_función_».
 
 ---
 
-- Como cualquier otra función, las funciones locales también definen un nuevo
-  ámbito.
+- Como ocurre con cualquier otra función, las funciones locales también
+  determinan un ámbito.
 
-- Ese nuevo ámbito está anidado dentro del ámbito de la función en la que se
-  define.
+- Ese ámbito, como siempre ocurre, estará anidado dentro del ámbito en el que
+  se define la función.
 
-  En el ejemplo anterior, el ámbito de `fact_iter` está contenido en el ámbito
-  de `fact`.
+- En este caso, el ámbito de `fact_iter` está anidado dentro del ámbito de
+  `fact`.
 
-- Como cualquier otro ámbito, ese nuevo ámbito crea un nuevo marco en el
+- Asimismo, como ocurre con cualquier otra función, cuando la ejecución del
+  programa entre en el ámbito de `fact_iter` se creará un nuevo marco en el
   entorno.
 
-- Y ese nuevo marco apunta al marco del ámbito que lo contiene, es decir, el
-  marco de la función que contiene a la local.
+- Y, como siempre, ese nuevo marco apuntará al marco del ámbito que lo
+  contiene, es decir, el marco de la función que contiene a la función local.
 
-  En el ejemplo anterior, el marco de `fact_iter` apunta al marco de `fact`, el
-  cual a su vez apunta al marco global.
+  En este caso, el marco de `fact_iter` apuntará al marco de `fact`, el cual a
+  su vez apuntará al marco global.
 
 ### !PYTHON(nonlocal)
 
@@ -2626,9 +2645,10 @@ E -> suma [lhead = cluster0]
   función que la contiene, ya que se encuentran dentro de su ámbito (aunque en
   otro marco).
   
-- En cambio, cuando una función local quiere **modificar** el valor de una
-  variable local a la función que la contiene, debe declararla previamente como
-  **no local** con la sentencia !PYTHON(nonlocal).
+- En cambio, cuando una función local quiere **cambiar** mediante una
+  asignación el valor de una variable local a la función que la contiene,
+  deberá declararla previamente como **no local** con la sentencia
+  !PYTHON(nonlocal).
 
 - De lo contrario, al intentar cambiar el valor de la variable, el intérprete
   crearía una nueva variable local a la función actual, que haría sombra a la
@@ -2637,7 +2657,7 @@ E -> suma [lhead = cluster0]
 - Es algo similar a lo que ocurre con la sentencia !PYTHON(global) y las
   variables globales, pero en ámbitos intermedios.
 
-- La sentencia !PYTHON(nonlocal n) es una **declaración** que informa al
+- La sentencia «!PYTHON(nonlocal n)» es una **declaración** que informa al
   intérprete de que la variable `n` debe buscarla en el entorno saltándose el
   marco de la función actual y el marco global.
 
@@ -2658,13 +2678,13 @@ E -> suma [lhead = cluster0]
   print(fact(5))
   ```
 
-- La función local `fact_iter` puede acceder a la variable `n`, ya que es una
-  variable local a la función `fact` y, por tanto, está en el entorno de
+- La función `fact_iter` puede consultar el valor de la variable `n`, ya que es
+  una variable local a la función `fact` y, por tanto, está en el entorno de
   `fact_iter` (para eso no hace falta declararla como **no local**).
 
-- Como, además, `n` está declarada **no local** en `fact_iter` (con
-  la instrucción !PYTHON(nonlocal n) de la línea 3), la función `fact_iter`
-  también puede modificar esa variable y no hace falta recibirla como argumento.
+- Como, además, `n` está declarada **no local** en `fact_iter` (en la línea 3),
+  la función `fact_iter` también puede modificar esa variable y no hace falta
+  que la reciba como argumento.
 
 - Esa instrucción le indica al intérprete que, a la hora de buscar `n` en el
   entorno de `fact_iter`, debe saltarse el marco de `fact_iter` y el marco

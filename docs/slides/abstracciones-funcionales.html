@@ -1004,9 +1004,8 @@ no por un ámbito.</p></li>
 <section class="slide level5" data-number="2.2.3.0.1">
 
 <ol type="1">
-<li><p>Si el espacio de nombres seleccionado NO depende del ámbito donde
-se crea la ligadura, es porque la instrucción ya está indicando
-directamente el espacio de nombres apropiado.</p>
+<li><p>Si el contexto viene determinado por un <em>objeto</em>, y no por
+un ámbito, entonces el espacio de nombres será el propio objeto.</p>
 <ul>
 <li><p>Esto es lo que ocurre cuando se crea una ligadura dentro de un
 objeto en Python usando el operador punto (<code>.</code>), ya que los
@@ -1029,7 +1028,7 @@ class="sourceCode python">math.x <span class="op">=</span> <span class="dv">75</
 <section class="slide level5" data-number="2.2.3.0.2">
 
 <ol start="2" type="1">
-<li><p>Si el espacio de nombres seleccionado depende del ámbito donde se
+<li><p>Si el contexto viene determinado por el <em>ámbito</em> donde se
 crea la ligadura, tenemos que:</p>
 <ol type="a">
 <li><p>Si el ámbito donde se crea la ligadura lleva asociado un espacio
@@ -1579,8 +1578,8 @@ esos argumentos.</p></li>
 
 <ul>
 <li><p>El cuerpo de una expresión lambda determina su propio ámbito, de
-forma que, las ligaduras que ligan a los parámetros con los argumentos,
-se definen dentro de ese ámbito y son, por tanto, <em>locales</em> a ese
+forma que las ligaduras que ligan a los parámetros con los argumentos se
+definen dentro de ese ámbito y son, por tanto, <em>locales</em> a ese
 ámbito.</p></li>
 <li><p>Es decir: los parámetros (y las ligaduras entre los parámetros y
 los argumentos) tienen <strong>un ámbito local</strong> al cuerpo de la
@@ -1601,7 +1600,7 @@ por tanto, <strong>se <em>elimina</em></strong> el marco de la
 memoria.</p></li>
 </ul></li>
 <li><p><strong>Todo <em>marco</em> lleva asociado un
-<em>ámbito</em></strong>.</p></li>
+<em>ámbito</em></strong> (lo contrario no siempre es cierto).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.1.0.2">
@@ -1625,9 +1624,9 @@ algo que se crea y se destruye a medida que se van ejecutando y
 terminando de ejecutar ciertas partes del programa: <em>scripts</em>,
 funciones y métodos.</p>
 <div class="caja">
-<p>Dicho de otra forma: <strong>un marco se crea</strong> cuando se
-<strong>entra</strong> en un cierto <strong>ámbito</strong> y <strong>se
-destruye</strong> cuando se <strong>sale</strong> de ese
+<p><strong>Un marco se crea</strong> cuando se <strong>entra</strong> en
+el <strong>ámbito</strong> de un <em>script</em>, función o método, y
+<strong>se destruye</strong> cuando se <strong>sale</strong> de ese
 <strong>ámbito</strong>.</p>
 </div></li>
 </ul>

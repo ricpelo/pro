@@ -2599,8 +2599,8 @@ Variables globales</h3>
 <li><p>Desde dentro de una función es posible usar variables globales,
 ya que se encuentran en el <strong>entorno</strong> de la
 función.</p></li>
-<li><p>Se puede <strong>acceder</strong> al valor de una variable global
-directamente:</p>
+<li><p>Se puede <strong>consultar</strong> el valor de una variable
+global directamente:</p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>          <span class="co"># esta variable es global</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2613,7 +2613,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a h
 <section class="slide level5" data-number="4.8.2.0.1">
 
 <ul>
-<li><p>Pero para poder <strong>modificar</strong> una variable global es
+<li><p>Pero para poder <strong>cambiar</strong> una variable global es
 necesario que la función la declare previamente como
 <em>global</em>.</p></li>
 <li><p>De no hacerlo así, el intérprete supondría que el programador
@@ -2680,9 +2680,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 <span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>prueba()</span>
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)  <span class="co"># imprime 5</span></span></code></pre></div></li>
-<li><p>La sentencia <code
-class="sourceCode python"><span class="kw">global</span> x</code> es una
-<strong>declaración</strong> que informa al intérprete de que la
+<li><p>La sentencia «<code
+class="sourceCode python"><span class="kw">global</span> x</code>» es
+una <strong>declaración</strong> que informa al intérprete de que la
 variable <code>x</code> debe buscarla únicamente en el marco global y
 que, por tanto, debe saltarse los demás marcos que haya en el
 entorno.</p></li>
@@ -2842,8 +2842,8 @@ referencial</em></strong>, y no la cumple porque provoca un
 <section class="slide level5" data-number="4.8.2.2.4">
 
 <ul>
-<li><p>Si una función necesita <strong>acceder al valor de una variable
-global</strong>, también <strong>pierde la transparencia
+<li><p>Si una función necesita <strong>consultar el valor de una
+variable global</strong>, también <strong>pierde la transparencia
 referencial</strong>, ya que la convierte en <strong>impura</strong>
 porque su valor de retorno puede depender de algo más que de sus
 argumentos (en este caso, del valor de la variable global).</p></li>
@@ -2952,47 +2952,64 @@ class="title-slide slide level2" data-number="4.9">
 <h2 data-number="4.9"><span class="header-section-number">4.9</span>
 Funciones locales a funciones</h2>
 <ul>
-<li><p>En Python es posible definir <strong>funciones locales</strong> a
-una función.</p></li>
-<li><p>Las funciones locales también se denominan <strong>funciones
-internas</strong> o <strong>funciones anidadas</strong>.</p></li>
-<li><p>Una función local se define <strong>dentro</strong> de otra
-función y, por tanto, sólo existe dentro de la función en la que se ha
-definido.</p></li>
-<li><p>Su <strong>ámbito de definición</strong> es el cuerpo de la
-función donde se ha definido, es decir, la función que la
-contiene.</p></li>
-<li><p>Pero al igual que pasa con las variables locales, la función sólo
-se pueden usar (llamar) después de haberse definido, es decir, después
-de haberse ejecutado el <code
-class="sourceCode python"><span class="kw">def</span></code> de la
-función interna.</p></li>
-<li><p>Evita la superpoblación de funciones en el ámbito más externo
-cuando sólo tiene sentido su uso en un ámbito más interno.</p></li>
+<li><p>En Python también podemos definir funciones dentro de
+funciones:</p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(...):</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> g(...):</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>      ...</span></code></pre></div></li>
+<li><p>Cuando definimos una función <code>g</code> dentro de otra
+función <code>f</code>, decimos que:</p>
+<ul>
+<li><code>g</code> es un <strong>función local</strong> o
+<strong>interna</strong> de <code>f</code>.</li>
+<li><code>f</code> es la <strong>función externa</strong> de
+<code>g</code>.</li>
+</ul></li>
+<li><p>También se dice que:</p>
+<ul>
+<li><code>g</code> es una <strong>función anidada</strong> dentro de
+<code>f</code>.</li>
+<li><code>f</code> <strong>contiene</strong> a <code>g</code>.</li>
+</ul></li>
+<li><p>Como <code>g</code> se define <strong>dentro</strong> de
+<code>f</code>, sólo es visible dentro de <code>f</code>, ya que el
+<strong>ámbito</strong> de <code>g</code> es el cuerpo de
+<code>f</code>.</p></li>
+<li><p>El uso de funciones locales evita la superpoblación de funciones
+en un espacio de nombres cuando esa función sólo tiene sentido usarla en
+un ámbito más local.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.9.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb58"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
 <li><p>La función <code class="sourceCode python">fact_iter</code> es
 local a la función <code>fact</code>.</p></li>
 <li><p>Por tanto, no se puede usar fuera de <code>fact</code>, ya que
 sólo existe en el ámbito de la función <code>fact</code> (es decir, en
 el cuerpo de la función <code>fact</code>).</p></li>
+<li><p>Como <code>fact_iter</code> sólo existe para ser usada como
+función auxiliar de <code>fact</code>, tiene sentido definirla como una
+función local de <code>fact</code>.</p></li>
+<li><p>De esta forma, no contaminaremos el espacio de nombres global con
+el nombre <code>fact_iter</code>, que es el nombre de una función que
+sólo debe ser usada y conocida por <code>fact</code>, y que queda oculta
+dentro de <code>fact</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.9.0.0.2">
@@ -3000,42 +3017,48 @@ el cuerpo de la función <code>fact</code>).</p></li>
 <ul>
 <li><p>Tampoco se puede usar <code>fact_iter</code> dentro de
 <code>fact</code> <em>antes</em> de definirla:</p>
-<div class="sourceCode" id="cb59"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb59-2"><a href="#cb59-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># error: se usa antes de definirse</span></span>
-<span id="cb59-3"><a href="#cb59-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
-<span id="cb59-4"><a href="#cb59-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb59-5"><a href="#cb59-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb59-6"><a href="#cb59-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb59-7"><a href="#cb59-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb60-2"><a href="#cb60-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># UnboundLocalError: se usa antes de definirse</span></span>
+<span id="cb60-3"><a href="#cb60-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
+<span id="cb60-4"><a href="#cb60-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb60-5"><a href="#cb60-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb60-6"><a href="#cb60-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb60-7"><a href="#cb60-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
 <li><p>Esto ocurre porque la sentencia <code
-class="sourceCode python"><span class="kw">def</span></code> crea una
-ligadura entre <code>fact_iter</code> y su valor (la función), pero esa
-ligadura sólo empieza a existir cuando se ejecuta la sentencia <code
-class="sourceCode python"><span class="kw">def</span></code>, y no
-antes.</p></li>
-<li><p>Es importante recordar que, aunque el ámbito de la ligadura entre
-<code>fact_iter</code> y su valor es el cuerpo de la función
-<code>fact</code>, realmente la ligadura empieza a existir en la línea 3
-(no antes).</p></li>
+class="sourceCode python"><span class="kw">def</span></code> de la línea
+3 crea una ligadura entre <code>fact_iter</code> y una variable que
+apunta a la función que se está definiendo, pero esa ligadura y esa
+variable sólo empiezan a existir cuando se ejecuta la sentencia <code
+class="sourceCode python"><span class="kw">def</span></code> en la línea
+3, y no antes.</p></li>
+<li><p>Por tanto, en la línea 2 aún no existe la función
+<code>fact_iter</code> y, por tanto, no se puede usar ahí, dando un
+error <code
+class="sourceCode python"><span class="pp">UnboundLocalError</span></code>.</p>
+<p>Esto puede verse como una extensión a la regla que vimos
+anteriormente sobre cuándo considerar a una variable como local,
+cambiando «<em>asignación</em>» por «<em>definición</em>» y
+«<em>variable</em>» por «<em>función</em>».</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.9.0.0.3">
 
 <ul>
-<li><p>Como cualquier otra función, las funciones locales también
-definen un nuevo ámbito.</p></li>
-<li><p>Ese nuevo ámbito está anidado dentro del ámbito de la función en
-la que se define.</p>
-<p>En el ejemplo anterior, el ámbito de <code>fact_iter</code> está
-contenido en el ámbito de <code>fact</code>.</p></li>
-<li><p>Como cualquier otro ámbito, ese nuevo ámbito crea un nuevo marco
-en el entorno.</p></li>
-<li><p>Y ese nuevo marco apunta al marco del ámbito que lo contiene, es
-decir, el marco de la función que contiene a la local.</p>
-<p>En el ejemplo anterior, el marco de <code>fact_iter</code> apunta al
-marco de <code>fact</code>, el cual a su vez apunta al marco
-global.</p></li>
+<li><p>Como ocurre con cualquier otra función, las funciones locales
+también determinan un ámbito.</p></li>
+<li><p>Ese ámbito, como siempre ocurre, estará anidado dentro del ámbito
+en el que se define la función.</p></li>
+<li><p>En este caso, el ámbito de <code>fact_iter</code> está anidado
+dentro del ámbito de <code>fact</code>.</p></li>
+<li><p>Asimismo, como ocurre con cualquier otra función, cuando la
+ejecución del programa entre en el ámbito de <code>fact_iter</code> se
+creará un nuevo marco en el entorno.</p></li>
+<li><p>Y, como siempre, ese nuevo marco apuntará al marco del ámbito que
+lo contiene, es decir, el marco de la función que contiene a la función
+local.</p>
+<p>En este caso, el marco de <code>fact_iter</code> apuntará al marco de
+<code>fact</code>, el cual a su vez apuntará al marco global.</p></li>
 </ul>
 </section>
 <section id="nonlocal" class="title-slide slide level3"
@@ -3048,9 +3071,9 @@ class="sourceCode python"><span class="kw">nonlocal</span></code></h3>
 variables locales a la función que la contiene, ya que se encuentran
 dentro de su ámbito (aunque en otro marco).</p></li>
 <li><p>En cambio, cuando una función local quiere
-<strong>modificar</strong> el valor de una variable local a la función
-que la contiene, debe declararla previamente como <strong>no
-local</strong> con la sentencia <code
+<strong>cambiar</strong> mediante una asignación el valor de una
+variable local a la función que la contiene, deberá declararla
+previamente como <strong>no local</strong> con la sentencia <code
 class="sourceCode python"><span class="kw">nonlocal</span></code>.</p></li>
 <li><p>De lo contrario, al intentar cambiar el valor de la variable, el
 intérprete crearía una nueva variable local a la función actual, que
@@ -3059,8 +3082,8 @@ función.</p></li>
 <li><p>Es algo similar a lo que ocurre con la sentencia <code
 class="sourceCode python"><span class="kw">global</span></code> y las
 variables globales, pero en ámbitos intermedios.</p></li>
-<li><p>La sentencia <code
-class="sourceCode python"><span class="kw">nonlocal</span> n</code> es
+<li><p>La sentencia «<code
+class="sourceCode python"><span class="kw">nonlocal</span> n</code>» es
 una <strong>declaración</strong> que informa al intérprete de que la
 variable <code>n</code> debe buscarla en el entorno saltándose el marco
 de la función actual y el marco global.</p></li>
@@ -3068,30 +3091,29 @@ de la función actual y el marco global.</p></li>
 </section>
 <section class="slide level5" data-number="4.9.1.0.1">
 
-<div class="sourceCode" id="cb60"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb60-2"><a href="#cb60-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
-<span id="cb60-3"><a href="#cb60-3"></a>        <span class="kw">nonlocal</span> n</span>
-<span id="cb60-4"><a href="#cb60-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb60-5"><a href="#cb60-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb60-6"><a href="#cb60-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb60-7"><a href="#cb60-7"></a>            acc <span class="op">*=</span> n</span>
-<span id="cb60-8"><a href="#cb60-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
-<span id="cb60-9"><a href="#cb60-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
-<span id="cb60-10"><a href="#cb60-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
-<span id="cb60-11"><a href="#cb60-11"></a></span>
-<span id="cb60-12"><a href="#cb60-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb61-2"><a href="#cb61-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
+<span id="cb61-3"><a href="#cb61-3"></a>        <span class="kw">nonlocal</span> n</span>
+<span id="cb61-4"><a href="#cb61-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb61-5"><a href="#cb61-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb61-6"><a href="#cb61-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb61-7"><a href="#cb61-7"></a>            acc <span class="op">*=</span> n</span>
+<span id="cb61-8"><a href="#cb61-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb61-9"><a href="#cb61-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
+<span id="cb61-10"><a href="#cb61-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
+<span id="cb61-11"><a href="#cb61-11"></a></span>
+<span id="cb61-12"><a href="#cb61-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
 <ul>
-<li><p>La función local <code>fact_iter</code> puede acceder a la
+<li><p>La función <code>fact_iter</code> puede consultar el valor de la
 variable <code>n</code>, ya que es una variable local a la función
 <code>fact</code> y, por tanto, está en el entorno de
 <code>fact_iter</code> (para eso no hace falta declararla como
 <strong>no local</strong>).</p></li>
 <li><p>Como, además, <code>n</code> está declarada <strong>no
-local</strong> en <code>fact_iter</code> (con la instrucción <code
-class="sourceCode python"><span class="kw">nonlocal</span> n</code> de
-la línea 3), la función <code>fact_iter</code> también puede modificar
-esa variable y no hace falta recibirla como argumento.</p></li>
+local</strong> en <code>fact_iter</code> (en la línea 3), la función
+<code>fact_iter</code> también puede modificar esa variable y no hace
+falta que la reciba como argumento.</p></li>
 <li><p>Esa instrucción le indica al intérprete que, a la hora de buscar
 <code>n</code> en el entorno de <code>fact_iter</code>, debe saltarse el
 marco de <code>fact_iter</code> y el marco global y, por tanto, debe
@@ -3242,9 +3264,9 @@ dígito hexadecimal:</p>
 <li><p>Para hallar en qué fecha cae el Domingo de Pascua de un
 <code>anyo</code> cualquiera, basta con hallar las cantidades
 <code>a</code> y <code>b</code> siguientes:</p>
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> (<span class="dv">19</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">19</span>) <span class="op">+</span> <span class="dv">24</span>) <span class="op">%</span> <span class="dv">30</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">4</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> a <span class="op">+</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> (<span class="dv">19</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">19</span>) <span class="op">+</span> <span class="dv">24</span>) <span class="op">%</span> <span class="dv">30</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> (<span class="dv">2</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">4</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> (anyo <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="dv">6</span> <span class="op">*</span> a <span class="op">+</span> <span class="dv">5</span>) <span class="op">%</span> <span class="dv">7</span></span></code></pre></div>
 <p>y entonces, ese Domingo es el <em>22 de marzo + <code>a</code> +
 <code>b</code> días</em>, que podrı́a caer en abril. Escriba un programa
 que realice estos cálculos, produciendo una entrada y salida
