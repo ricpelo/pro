@@ -295,9 +295,9 @@ son dos conceptos relacionados:</p>
 <ul>
 <li><p><em>Componer</em> consiste en combinar elementos entre sí para
 formar otros más complejos.</p></li>
-<li><p><em>Abstrer</em> consiste en coger un elemento (simple o
-complejo), darle un nombre y ocultar sus detalles internos dentro de una
-caja negra.</p></li>
+<li><p><em>Abstraer</em> consiste en coger un elemento (normalmente
+complejo), darle un nombre y ocultar sus detalles internos (es decir,
+los elementos que lo componen) dentro de una caja negra.</p></li>
 </ul></li>
 <li><p>Lo interesante es que la combinación y la abstracción son dos
 mecanismos <em>recursivos</em>:</p>
@@ -337,8 +337,8 @@ estructurados</strong>).</p></li>
 <strong>datos abstractos</strong> y, en consecuencia, a los
 <strong>tipos abstractos de datos</strong>.</p></li>
 </ul></li>
-<li><p>En esta unidad hablaremos de los primeros, y dejaremos los
-segundos para una unidad posterior.</p></li>
+<li><p>En esta unidad hablaremos de la composición de datos y dejaremos
+la abstracción de datos para una unidad posterior.</p></li>
 </ul>
 </section>
 
@@ -379,6 +379,8 @@ Clasificación</h2>
 <li><p>Los <strong>datos estructurados</strong> se pueden clasificar
 en:</p>
 <ul>
+<li><p>Según su <em>secuencialidad</em>:</p>
+<ul>
 <li><p><strong>Secuenciales:</strong> los elementos se pueden acceder
 directamente según la posición que ocupan dentro de la
 secuencia.</p></li>
@@ -386,10 +388,14 @@ secuencia.</p></li>
 acceder directamente según la posición que ocupan, normalmente porque
 esos los elementos no se encuentran en una posición concreta dentro de
 la secuencia.</p></li>
+</ul></li>
+<li><p>Según su <em>mutabilidad</em>:</p>
+<ul>
 <li><p><strong>Inmutables:</strong> el dato estructurado no puede
 cambiar nunca su estado interno a lo largo de su vida.</p></li>
 <li><p><strong>Mutables:</strong> el dato estructurado puede cambiar su
 estado interno a lo largo de su vida sin cambiar su identidad.</p></li>
+</ul></li>
 </ul></li>
 </ul>
 </section>
@@ -429,18 +435,18 @@ data-number="1.4">
 <li><p>Un dato es <em>hashable</em> si cumple las siguientes dos
 condiciones:</p>
 <ol>
-<li><p>Tiene asociado un valor numérico llamado
-<strong><em>hash</em></strong> que nunca cambia durante su vida.</p>
+<li><p>Tiene asociado un número llamado <strong><em>hash</em></strong>
+que nunca cambia durante toda su vida.</p>
 <p>Si un dato es <em>hashable</em>, se podrá obtener su <em>hash</em>
-llamando a la función <code
+aplicando la función <code
 class="sourceCode python"><span class="bu">hash</span></code> sobre el
-valor. En caso contrario, la llamada generará un error <code
+dato. En caso contrario, la llamada generará un error <code
 class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 <li><p>Puede compararse con otros datos usando el operador
 <code>==</code>.</p></li>
 </ol></li>
 <li><p>Si dos datos <em>hashables</em> son iguales, entonces deben tener
-el mismo valor de <em>hash</em>:</p>
+el mismo <em>hash</em>:</p>
 <div class="caja centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces debe cumplirse que <code
@@ -454,6 +460,11 @@ class="math inline">y</span><code>)</code>.</p>
 <section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
+<li><p>El concepto de <em>hashable</em> es importante en Python ya que
+existen tipos de datos estructurados que sólo admiten elementos
+<em>hashables</em>.</p></li>
+<li><p>Por ejemplo, los elementos de un conjunto y las claves de un
+diccionario deben ser <em>hashables</em>.</p></li>
 <li><p>La mayoría de los datos inmutables predefinidos en Python son
 <em>hashables</em>.</p></li>
 <li><p>Los <strong>contenedores inmutables</strong> (como las tuplas o
@@ -462,25 +473,19 @@ class="sourceCode python"><span class="bu">frozenset</span></code>s)
 sólo son <em>hashables</em> si sus elementos también lo son.</p></li>
 <li><p>Los <strong>contenedores mutables</strong> (como las listas o los
 diccionarios) <strong>NO</strong> son <em>hashables</em>.</p></li>
-<li><p>El concepto de <em>hashable</em> es importante en Python ya que
-existen tipos de datos estructurados que sólo admiten elementos
-<em>hashables</em>.</p></li>
-<li><p>Por ejemplo, los elementos de un conjunto y las claves de un
-diccionario deben ser <em>hashables</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.2">
 
 <ul>
-<li><p>El valor <em>hash</em> de un dato se calcula internamente a
-partir del contenido del dato usando una fórmula que no nos debe
-preocupar por ahora.</p></li>
-<li><p>Ese valor se utiliza para acceder directamente al dato dentro de
-una colección, y por eso es un valor que no puede cambiar
-nunca.</p></li>
-<li><p>Esa es la razón por la que los contenedores mutables no son
+<li><p>El <em>hash</em> de un dato se calcula a partir de estado interno
+de éste (usando una fórmula que no nos debe preocupar por ahora).</p>
+<p>Como el estado interno de una colección viene determinado
+principalmente por los elementos que contiene, el <em>hash</em> de una
+colección dependerá también de su contenido.</p>
+<p>Y por esta razón, los contenedores mutables no son
 <em>hashables</em>: al ser mutables, su contenido cambia y, por tanto,
-su valor <em>hash</em> también.</p></li>
+su <em>hash</em> también cambiaría.</p></li>
 <li><p>Ejemplos:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="st">&#39;hola&#39;</span>)</span>
@@ -493,6 +498,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;list&#39;</span></span></code></pre></div></li>
+<li><p>El <em>hash</em> de un dato se utiliza internamente para acceder
+de forma directa al dato dentro de una colección, y por eso no puede
+cambiar nunca.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.3">
@@ -509,18 +517,17 @@ dato:</p>
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;"><code>id</code></th>
-<th style="text-align: center;"><code>hash</code></th>
+<th style="text-align: center;">Función <code>id</code></th>
+<th style="text-align: center;">Función <code>hash</code></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><ul>
-<li>El <code>id</code> devuelve la identidad de un dato.</li>
+<li>Devuelve la identidad de un dato.</li>
 </ul></td>
 <td style="text-align: center;"><ul>
-<li>El <code>hash</code> devuelve el <em>hash</em> de un dato, si es
-<em>hashable</em>.</li>
+<li>Devuelve el <em>hash</em> de un dato, si es <em>hashable</em>.</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -542,12 +549,12 @@ serlo.</li>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><ul>
-<li>Su valor es independiente de la información concreta que contenga el
-dato.</li>
+<li>Su valor no depende del estado interno del dato y, por tanto,
+tampoco de su contenido.</li>
 </ul></td>
 <td style="text-align: center;"><ul>
-<li>Su valor se obtiene a partir de la información que contiene el dato,
-usando una fórmula matemática.</li>
+<li>Su valor se obtiene a partir del estado interno del dato (y, por
+tanto, de su contenido), usando una fórmula matemática.</li>
 </ul></td>
 </tr>
 <tr class="odd">
@@ -555,7 +562,8 @@ usando una fórmula matemática.</li>
 <li>Por tanto, no cambia si se modifica el dato.</li>
 </ul></td>
 <td style="text-align: center;"><ul>
-<li>Por tanto, un dato mutable no puede ser <em>hashable</em>.</li>
+<li>Por tanto, un dato mutable no puede ser <em>hashable</em>, ya que su
+<em>hash</em> cambiaría al cambiar su contenido o estado interno.</li>
 </ul></td>
 </tr>
 </tbody>
@@ -571,12 +579,13 @@ fórmula.</p></li>
 en un simple número entero.</p></li>
 <li><p>Gracias a ello, el intérprete puede utilizar técnicas que
 permiten localizar directamente a un dato dentro de una colección, de
-forma casi inmediata y sin importar el tamaño de la colección.</p></li>
-<li><p>De lo contrario, el intérprete tendría que buscar secuencialmente
-el dato dentro de la colección desde el principio hasta el final, lo que
-resultaría mucho más lento y consumiría un tiempo proporcional al tamaño
-de la colección (cuanto más grande sea la colección, más
-tardará).</p></li>
+forma casi inmediata y sin importar el tamaño de la colección (pero
+recordemos que para ello es necesario que el <em>hash</em> del dato
+nunca cambie).</p></li>
+<li><p>De no usar estas técnicas, el intérprete tendría que buscar el
+dato secuencialmente dentro de la colección, desde el principio hasta el
+final, lo que sería mucho más lento y consumiría un tiempo que sería
+mayor cuanto más grande fuese la colección.</p></li>
 </ul>
 <div class="caja centered">
 <p>En definitiva, los <em>hash</em> <strong>permiten el acceso directo a

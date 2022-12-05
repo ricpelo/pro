@@ -35,8 +35,9 @@ nocite: |
   - _Componer_ consiste en combinar elementos entre sí para formar otros más
     complejos.
 
-  - _Abstrer_ consiste en coger un elemento (simple o complejo), darle un
-    nombre y ocultar sus detalles internos dentro de una caja negra.
+  - _Abstraer_ consiste en coger un elemento (normalmente complejo), darle un
+    nombre y ocultar sus detalles internos (es decir, los elementos que lo
+    componen) dentro de una caja negra.
 
 - Lo interesante es que la combinación y la abstracción son dos mecanismos
   _recursivos_:
@@ -69,8 +70,8 @@ nocite: |
   - La **abstracción de datos** da lugar a los **datos abstractos** y, en
     consecuencia, a los **tipos abstractos de datos**.
 
-- En esta unidad hablaremos de los primeros, y dejaremos los segundos para una
-  unidad posterior.
+- En esta unidad hablaremos de la composición de datos y dejaremos la
+  abstracción de datos para una unidad posterior.
 
 ## Conceptos básicos
 
@@ -98,18 +99,22 @@ nocite: |
 
 - Los **datos estructurados** se pueden clasificar en:
 
-  - **Secuenciales:** los elementos se pueden acceder directamente según la
-    posición que ocupan dentro de la secuencia.
+  - Según su _secuencialidad_:
 
-  - **No secuenciales:** los elementos no se pueden acceder directamente según
-    la posición que ocupan, normalmente porque esos los elementos no se
-    encuentran en una posición concreta dentro de la secuencia.
+    - **Secuenciales:** los elementos se pueden acceder directamente según la
+      posición que ocupan dentro de la secuencia.
 
-  - **Inmutables:** el dato estructurado no puede cambiar nunca su estado
-    interno a lo largo de su vida.
+    - **No secuenciales:** los elementos no se pueden acceder directamente
+      según la posición que ocupan, normalmente porque esos los elementos no se
+      encuentran en una posición concreta dentro de la secuencia.
 
-  - **Mutables:** el dato estructurado puede cambiar su estado interno a lo
-    largo de su vida sin cambiar su identidad.
+  - Según su _mutabilidad_:
+
+    - **Inmutables:** el dato estructurado no puede cambiar nunca su estado
+      interno a lo largo de su vida.
+
+    - **Mutables:** el dato estructurado puede cambiar su estado interno a lo
+      largo de su vida sin cambiar su identidad.
 
 ---
 
@@ -142,17 +147,16 @@ $$\text{Tipos estructurados} \begin{cases}
 
 - Un dato es *hashable* si cumple las siguientes dos condiciones:
 
-  #. Tiene asociado un valor numérico llamado **_hash_** que nunca cambia
-     durante su vida.
+  #. Tiene asociado un número llamado **_hash_** que nunca cambia durante toda
+     su vida.
 
-     Si un dato es *hashable*, se podrá obtener su *hash* llamando a la función
-     !PYTHON(hash) sobre el valor. En caso contrario, la llamada generará un
+     Si un dato es *hashable*, se podrá obtener su *hash* aplicando la función
+     !PYTHON(hash) sobre el dato. En caso contrario, la llamada generará un
      error !PYTHON(TypeError).
 
   #. Puede compararse con otros datos usando el operador `==`.
 
-- Si dos datos *hashables* son iguales, entonces deben tener el mismo valor
-  de *hash*:
+- Si dos datos *hashables* son iguales, entonces deben tener el mismo *hash*:
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -162,6 +166,12 @@ $$\text{Tipos estructurados} \begin{cases}
 
 ---
 
+- El concepto de *hashable* es importante en Python ya que existen tipos de
+  datos estructurados que sólo admiten elementos *hashables*.
+
+- Por ejemplo, los elementos de un conjunto y las claves de un diccionario
+  deben ser *hashables*.
+
 - La mayoría de los datos inmutables predefinidos en Python son *hashables*.
 
 - Los **contenedores inmutables** (como las tuplas o los !PYTHON(frozenset)s)
@@ -170,22 +180,17 @@ $$\text{Tipos estructurados} \begin{cases}
 - Los **contenedores mutables** (como las listas o los diccionarios) **NO** son
   *hashables*.
 
-- El concepto de *hashable* es importante en Python ya que existen tipos de
-  datos estructurados que sólo admiten elementos *hashables*.
-
-- Por ejemplo, los elementos de un conjunto y las claves de un diccionario
-  deben ser *hashables*.
-
 ---
 
-- El valor _hash_ de un dato se calcula internamente a partir del contenido del
-  dato usando una fórmula que no nos debe preocupar por ahora.
+- El _hash_ de un dato se calcula a partir de estado interno de éste (usando
+  una fórmula que no nos debe preocupar por ahora).
 
-- Ese valor se utiliza para acceder directamente al dato dentro de una
-  colección, y por eso es un valor que no puede cambiar nunca.
+  Como el estado interno de una colección viene determinado principalmente por
+  los elementos que contiene, el _hash_ de una colección dependerá también de
+  su contenido.
 
-- Esa es la razón por la que los contenedores mutables no son _hashables_: al
-  ser mutables, su contenido cambia y, por tanto, su valor _hash_ también.
+  Y por esta razón, los contenedores mutables no son _hashables_: al ser
+  mutables, su contenido cambia y, por tanto, su _hash_ también cambiaría.
 
 - Ejemplos:
 
@@ -202,23 +207,27 @@ $$\text{Tipos estructurados} \begin{cases}
   TypeError: unhashable type: 'list'
   ```
 
+- El _hash_ de un dato se utiliza internamente para acceder de forma directa al
+  dato dentro de una colección, y por eso no puede cambiar nunca.
+
 ---
 
 No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| `id`                                                                  | `hash`                                                                     |
+| Función `id`                                                          | Función `hash`                                                             |
 +:=====================================================================:+:==========================================================================:+
-| - El `id` devuelve la identidad de un dato.                           | - El `hash` devuelve el _hash_ de un dato, si es _hashable_.               |
+| - Devuelve la identidad de un dato.                                   | - Devuelve el _hash_ de un dato, si es _hashable_.                         |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
 | - Todos los datos tienen identidad.                                   | - No todos los datos son _hashables_.                                      |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
 | - Puede haber datos iguales pero no idénticos.                        | - Si dos datos son iguales, sus _hash_ también deben serlo.                |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| - Su valor es independiente de la información                         | - Su valor se obtiene a partir de la información que contiene el           |
-|   concreta que contenga el dato.                                      |   dato, usando una fórmula matemática.                                     |
+| - Su valor no depende del estado interno del dato y,                  | - Su valor se obtiene a partir del estado interno del dato (y, por tanto,  |
+|   por tanto, tampoco de su contenido.                                 |   de su contenido), usando una fórmula matemática.                         |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| - Por tanto, no cambia si se modifica el dato.                        | - Por tanto, un dato mutable no puede ser _hashable_.                      |
+| - Por tanto, no cambia si se modifica el dato.                        | - Por tanto, un dato mutable no puede ser _hashable_, ya que su _hash_     |
+|                                                                       |   cambiaría al cambiar su contenido o estado interno.                      |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
 
 ---
@@ -231,12 +240,13 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 - Gracias a ello, el intérprete puede utilizar técnicas que permiten localizar
   directamente a un dato dentro de una colección, de forma casi inmediata y sin
-  importar el tamaño de la colección.
+  importar el tamaño de la colección (pero recordemos que para ello es
+  necesario que el _hash_ del dato nunca cambie).
 
-- De lo contrario, el intérprete tendría que buscar secuencialmente el dato
-  dentro de la colección desde el principio hasta el final, lo que resultaría
-  mucho más lento y consumiría un tiempo proporcional al tamaño de la
-  colección (cuanto más grande sea la colección, más tardará).
+- De no usar estas técnicas, el intérprete tendría que buscar el dato
+  secuencialmente dentro de la colección, desde el principio hasta el final, lo
+  que sería mucho más lento y consumiría un tiempo que sería mayor cuanto más
+  grande fuese la colección.
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
