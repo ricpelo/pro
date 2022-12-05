@@ -435,15 +435,21 @@ data-number="1.4">
 <li><p>Un dato es <em>hashable</em> si cumple las siguientes dos
 condiciones:</p>
 <ol>
-<li><p>Tiene asociado un número llamado <strong><em>hash</em></strong>
-que nunca cambia durante toda su vida.</p>
-<p>Si un dato es <em>hashable</em>, se podrá obtener su <em>hash</em>
-aplicando la función <code
-class="sourceCode python"><span class="bu">hash</span></code> sobre el
-dato. En caso contrario, la llamada generará un error <code
-class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 <li><p>Puede compararse con otros datos usando el operador
 <code>==</code>.</p></li>
+<li><p>Tiene asociado un número entero llamado
+<strong><em>hash</em></strong> que nunca cambia durante toda la vida del
+dato.</p>
+<p>Para obtener el <em>hash</em> de un dato, se usa la función <code
+class="sourceCode python"><span class="bu">hash</span></code>:</p>
+<ul>
+<li><p>Si un dato <span class="math inline">d</span> es
+<em>hashable</em>, <code>hash(</code><span
+class="math inline">d</span><code>)</code> devolverá el <em>hash</em> de
+<span class="math inline">d</span>.</p></li>
+<li><p>En caso contrario, lanzará una excepción de tipo <code
+class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
+</ul></li>
 </ol></li>
 <li><p>Si dos datos <em>hashables</em> son iguales, entonces deben tener
 el mismo <em>hash</em>:</p>
@@ -454,14 +460,32 @@ class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> <code>==</code> <code
 class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p>
-</div></li>
+</div>
+<p>Lo contrario no tiene por qué cumplirse.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
+<li><p>Ejemplos:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">6290906884732116299</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="dv">5</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dv">529344067295497451</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;list&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.2">
+
+<ul>
 <li><p>El concepto de <em>hashable</em> es importante en Python ya que
-existen tipos de datos estructurados que sólo admiten elementos
+existen tipos de datos estructurados que sólo pueden contener elementos
 <em>hashables</em>.</p></li>
 <li><p>Por ejemplo, los elementos de un conjunto y las claves de un
 diccionario deben ser <em>hashables</em>.</p></li>
@@ -475,35 +499,24 @@ sólo son <em>hashables</em> si sus elementos también lo son.</p></li>
 diccionarios) <strong>NO</strong> son <em>hashables</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.2">
+<section class="slide level5" data-number="1.4.0.0.3">
 
 <ul>
-<li><p>El <em>hash</em> de un dato se calcula a partir de estado interno
-de éste (usando una fórmula que no nos debe preocupar por ahora).</p>
+<li><p>El <em>hash</em> de un dato depende del estado interno del dato,
+ya que se calcula a partir de dicho estado interno usando una fórmula
+matemática que no nos debe preocupar por ahora.</p>
 <p>Como el estado interno de una colección viene determinado
 principalmente por los elementos que contiene, el <em>hash</em> de una
 colección dependerá también de su contenido.</p>
 <p>Y por esta razón, los contenedores mutables no son
 <em>hashables</em>: al ser mutables, su contenido cambia y, por tanto,
 su <em>hash</em> también cambiaría.</p></li>
-<li><p>Ejemplos:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="st">&#39;hola&#39;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1466824599200729805</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="dv">5</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dv">529344067295497451</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;list&#39;</span></span></code></pre></div></li>
 <li><p>El <em>hash</em> de un dato se utiliza internamente para acceder
 de forma directa al dato dentro de una colección, y por eso no puede
 cambiar nunca.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.3">
+<section class="slide level5" data-number="1.4.0.0.4">
 
 <p>No se debe confundir el <code
 class="sourceCode python"><span class="bu">id</span></code> de un dato
@@ -569,7 +582,7 @@ tanto, de su contenido), usando una fórmula matemática.</li>
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="1.4.0.0.4">
+<section class="slide level5" data-number="1.4.0.0.5">
 
 <ul>
 <li><p>El <em>hash</em> de un dato es un número que representa al dato y
@@ -587,12 +600,12 @@ dato secuencialmente dentro de la colección, desde el principio hasta el
 final, lo que sería mucho más lento y consumiría un tiempo que sería
 mayor cuanto más grande fuese la colección.</p></li>
 </ul>
-<div class="caja centered">
-<p>En definitiva, los <em>hash</em> <strong>permiten el acceso directo a
-un dato</strong> dentro de una colección.</p>
+<div class="caja">
+<p>Los <em>hash</em> <strong>permiten el acceso <em>directo</em> a un
+dato</strong> dentro de una colección.</p>
 </div>
 </section>
-<section class="slide level5" data-number="1.4.0.0.5">
+<section class="slide level5" data-number="1.4.0.0.6">
 
 <ul>
 <li><p>Muy en resumen, la técnica consiste en dividir el espacio en
@@ -625,7 +638,7 @@ data-number="1.5">
 Iterables</h2>
 <ul>
 <li><p>Un <strong>iterable</strong> es un dato compuesto que se puede
-recorrer o visitar elemento a elemento, es decir, que se puede
+<strong>recorrer elemento a elemento</strong>, es decir, que se puede
 <em>iterar</em> por sus elementos uno a uno.</p></li>
 <li><p>Como iterables tenemos:</p>
 <ul>
@@ -641,8 +654,10 @@ sobre iterables en general, en lugar de hacerlo sobre un tipo
 concreto.</p></li>
 <li><p>La forma básica de recorrer un dato iterable es usando un
 <strong>iterador</strong>.</p>
-<p>De hecho, un <em>iterable</em> es cualquier dato que lleva asociado,
-al menos, un <em>iterador</em>.</p></li>
+<div class="caja">
+<p>De hecho, un <em>iterable</em> <strong>se define</strong> como
+cualquier dato que lleva asociado, al menos, un <em>iterador</em>.</p>
+</div></li>
 </ul>
 </section>
 
@@ -651,9 +666,10 @@ data-number="1.6">
 <h2 data-number="1.6"><span class="header-section-number">1.6</span>
 Iteradores</h2>
 <ul>
-<li><p>Un <strong>iterador</strong> representa un flujo de datos
-<em>perezoso</em> (no se entregan todos de una vez, sino de uno en
-uno).</p></li>
+<li><p>Un <strong>iterador</strong> es un objeto que sabe cómo recorrer
+un iterable.</p></li>
+<li><p>Al recorrer el iterable, crea un flujo de datos <em>perezoso</em>
+que va entregando los elementos del iterable uno a uno.</p></li>
 <li><p>Cuando se llama repetidamente a la función <code
 class="sourceCode python"><span class="bu">next</span></code> aplicada a
 un iterador, se van obteniendo los sucesivos elementos del
@@ -668,7 +684,9 @@ levantando esa excepción.</p></li>
 <li><p>Se puede obtener un iterador a partir de cualquier dato iterable
 aplicando la función <code
 class="sourceCode python"><span class="bu">iter</span></code> al
-iterable.</p></li>
+iterable.</p>
+<p>Recordemos que todo iterable debe tener asociado un
+iterador.</p></li>
 <li><p>Si se le pasa un dato no iterable, levanta una excepción <code
 class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 </ul>
@@ -700,8 +718,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 <li><p>También se suele decir que <strong>los iteradores son iterables
 perezosos de un solo uso</strong>:</p>
 <ul>
-<li><p>Son <strong>perezosos</strong> porque calculan sus elementos a
-medida que los vas recorriendo.</p></li>
+<li><p>Son <strong>perezosos</strong> porque van generando sus elementos
+a medida que los va entregando.</p></li>
 <li><p>Son <strong>de un solo uso</strong> porque, una vez que se ha
 consumido un elemento, ya no vuelve a aparecer.</p></li>
 </ul></li>
@@ -716,8 +734,8 @@ elementos.</p></li>
 <li><p>Funciones como <code
 class="sourceCode python"><span class="bu">map</span></code> y <code
 class="sourceCode python"><span class="bu">filter</span></code>
-devuelven iteradores porque, al ser perezosos, son más eficiente en
-memoria que devolver toda una lista o tupla.</p>
+devuelven iteradores porque, al ser perezosos, son más eficientes en
+memoria que si devolvieran toda una lista o tupla.</p>
 <p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos
 del resultado de un <code
 class="sourceCode python"><span class="bu">map</span></code>?</p></li>
@@ -801,20 +819,26 @@ style="color:teal">⟨<em>iterable</em>⟩</span><strong><code>:</code></strong>
       <span style="color:teal">⟨<em>sentencia</em>⟩</span></div>
 <p>que no es más que azúcar sintáctico para el siguiente código
 equivalente:</p>
-<div class="line-block">iterador = iter(<span
-style="color:teal">⟨<em>iterable</em>⟩</span>)<br />
-fin = <strong><code>False</code></strong><br />
-<strong><code>while</code></strong> <strong><code>not</code></strong>
-fin:<br />
-      <strong><code>try</code></strong>:<br />
-            <span
-style="color:teal">⟨<em>variable</em>⟩</span>(<strong><code>,</code></strong>
-<span style="color:teal">⟨<em>variable</em>⟩</span>)* =
-next(iterador)<br />
-      <strong><code>except</code></strong> StopIteration:<br />
-            fin = <strong><code>True</code></strong><br />
-      <strong><code>else</code></strong>:<br />
-            <span
+<div class="line-block"><code
+class="sourceCode python">iterador <span class="op">=</span> <span class="bu">iter</span>(</code><span
+style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code><br />
+<code
+class="sourceCode python">fin <span class="op">=</span> <span class="va">False</span></code><br />
+<code
+class="sourceCode python"><span class="cf">while</span> <span class="kw">not</span> fin:</code><br />
+        <code
+class="sourceCode python"><span class="cf">try</span>:</code><br />
+                <span
+style="color:teal">⟨<em>variable</em>⟩</span>(<code>,</code> <span
+style="color:teal">⟨<em>variable</em>⟩</span>)*  <code
+class="sourceCode python"><span class="op">=</span> <span class="bu">next</span>(iterador)</code><br />
+        <code
+class="sourceCode python"><span class="cf">except</span> <span class="pp">StopIteration</span>:</code><br />
+                <code
+class="sourceCode python">fin <span class="op">=</span> <span class="va">True</span></code><br />
+        <code
+class="sourceCode python"><span class="cf">else</span>:</code><br />
+                <span
 style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 </ul>
 </section>
@@ -1597,9 +1621,8 @@ determinado número de veces.</p></li>
 <li><p>Los rangos se crean con la función <code
 class="sourceCode python"><span class="bu">range</span></code>:</p>
 <div class="caja">
-<p><code>range(</code>[<em>start</em><code>: int,</code>]
-<em>stop</em><code>: int</code> [<code>,</code>
-<em>step</em><code>: int</code>]<code>) -&gt; range</code></p>
+<p><span
+class="math inline">\texttt{range(\([\)\(start\):\,int,\(]\)\;\(stop\):\,int\;\([\),\;\(step\):\,int\(]\))\;-&gt;\;range}</span></p>
 </div></li>
 <li><p>Cuando se omite <em>start</em>, se entiende que es <code
 class="sourceCode python"><span class="dv">0</span></code>.</p></li>

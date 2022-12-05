@@ -1617,7 +1617,7 @@ maximo -> lambda
 
   - Las **clases** de Python (que también son objetos).
 
-  - Los **módulos** de Python (qué también son objetos).
+  - Los **módulos** de Python (que también son objetos).
 
 
 !CAJA

@@ -147,14 +147,16 @@ $$\text{Tipos estructurados} \begin{cases}
 
 - Un dato es *hashable* si cumple las siguientes dos condiciones:
 
-  #. Tiene asociado un número llamado **_hash_** que nunca cambia durante toda
-     su vida.
-
-     Si un dato es *hashable*, se podrá obtener su *hash* aplicando la función
-     !PYTHON(hash) sobre el dato. En caso contrario, la llamada generará un
-     error !PYTHON(TypeError).
-
   #. Puede compararse con otros datos usando el operador `==`.
+
+  #. Tiene asociado un número entero llamado **_hash_** que nunca cambia
+     durante toda la vida del dato.
+
+     Para obtener el _hash_ de un dato, se usa la función !PYTHON(hash):
+
+     - Si un dato $d$ es _hashable_, `hash(`$d$`)` devolverá el _hash_ de $d$.
+
+     - En caso contrario, lanzará una excepción de tipo !PYTHON(TypeError).
 
 - Si dos datos *hashables* son iguales, entonces deben tener el mismo *hash*:
 
@@ -164,10 +166,29 @@ $$\text{Tipos estructurados} \begin{cases}
   !PYTHON(hash)`(`$y$`)`.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  Lo contrario no tiene por qué cumplirse.
+
+---
+
+- Ejemplos:
+
+  ```python
+  >>> hash('hola')
+  6290906884732116299
+  >>> hash(5)
+  5
+  >>> hash((1, 2, 3))
+  529344067295497451
+  >>> hash([1, 2, 3])
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: unhashable type: 'list'
+  ```
+
 ---
 
 - El concepto de *hashable* es importante en Python ya que existen tipos de
-  datos estructurados que sólo admiten elementos *hashables*.
+  datos estructurados que sólo pueden contener elementos *hashables*.
 
 - Por ejemplo, los elementos de un conjunto y las claves de un diccionario
   deben ser *hashables*.
@@ -182,8 +203,9 @@ $$\text{Tipos estructurados} \begin{cases}
 
 ---
 
-- El _hash_ de un dato se calcula a partir de estado interno de éste (usando
-  una fórmula que no nos debe preocupar por ahora).
+- El _hash_ de un dato depende del estado interno del dato, ya que se calcula a
+  partir de dicho estado interno usando una fórmula matemática que no nos debe
+  preocupar por ahora.
 
   Como el estado interno de una colección viene determinado principalmente por
   los elementos que contiene, el _hash_ de una colección dependerá también de
@@ -191,21 +213,6 @@ $$\text{Tipos estructurados} \begin{cases}
 
   Y por esta razón, los contenedores mutables no son _hashables_: al ser
   mutables, su contenido cambia y, por tanto, su _hash_ también cambiaría.
-
-- Ejemplos:
-
-  ```python
-  >>> hash('hola')
-  1466824599200729805
-  >>> hash(5)
-  5
-  >>> hash((1, 2, 3))
-  529344067295497451
-  >>> hash([1, 2, 3])
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  TypeError: unhashable type: 'list'
-  ```
 
 - El _hash_ de un dato se utiliza internamente para acceder de forma directa al
   dato dentro de una colección, y por eso no puede cambiar nunca.
@@ -248,10 +255,9 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   que sería mucho más lento y consumiría un tiempo que sería mayor cuanto más
   grande fuese la colección.
 
-!CAJACENTRADA
+!CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-En definitiva, los _hash_ **permiten el acceso directo a un dato** dentro de
-una colección.
+Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -279,8 +285,8 @@ una colección.
 
 ## Iterables
 
-- Un **iterable** es un dato compuesto que se puede recorrer o visitar elemento
-  a elemento, es decir, que se puede *iterar* por sus elementos uno a uno.
+- Un **iterable** es un dato compuesto que se puede **recorrer elemento a
+  elemento**, es decir, que se puede _iterar_ por sus elementos uno a uno.
 
 - Como iterables tenemos:
 
@@ -296,13 +302,19 @@ una colección.
 
 - La forma básica de recorrer un dato iterable es usando un **iterador**.
 
-  De hecho, un _iterable_ es cualquier dato que lleva asociado, al menos, un
-  _iterador_.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  De hecho, un _iterable_ **se define** como cualquier dato que lleva asociado,
+  al menos, un _iterador_.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Iteradores
 
-- Un **iterador** representa un flujo de datos *perezoso* (no se entregan todos
-  de una vez, sino de uno en uno).
+
+- Un **iterador** es un objeto que sabe cómo recorrer un iterable.
+
+- Al recorrer el iterable, crea un flujo de datos _perezoso_ que va entregando
+  los elementos del iterable uno a uno.
 
 - Cuando se llama repetidamente a la función !PYTHON(next) aplicada a un
   iterador, se van obteniendo los sucesivos elementos del flujo.
@@ -315,6 +327,8 @@ una colección.
 
 - Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
   función !PYTHON(iter) al iterable.
+
+  Recordemos que todo iterable debe tener asociado un iterador.
 
 - Si se le pasa un dato no iterable, levanta una excepción !PYTHON(TypeError).
 
@@ -344,8 +358,8 @@ una colección.
 - También se suele decir que **los iteradores son iterables perezosos de un
   solo uso**:
 
-  - Son **perezosos** porque calculan sus elementos a medida que los vas
-    recorriendo.
+  - Son **perezosos** porque van generando sus elementos a medida que los va
+    entregando.
 
   - Son **de un solo uso** porque, una vez que se ha consumido un elemento, ya
     no vuelve a aparecer.
@@ -356,8 +370,8 @@ una colección.
 ---
 
 - Funciones como !PYTHON(map) y !PYTHON(filter) devuelven iteradores porque, al
-  ser perezosos, son más eficiente en memoria que devolver toda una lista o
-  tupla.
+  ser perezosos, son más eficientes en memoria que si devolvieran toda una
+  lista o tupla.
 
   Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del
   resultado de un !PYTHON(map)?
@@ -435,15 +449,15 @@ una colección.
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  iterador = iter(!NT(iterable))
-fin = !T{False}
-!T{while} !T{not} fin:
-      !T{try}:
-            !NT{variable}(!T{,} !NT{variable})\* = next(iterador)
-      !T{except} StopIteration:
-            fin = !T{True}
-      !T{else}:
-            !NT(sentencia)
+  `iterador = iter(`{.python}!NT(iterable)`)`
+`fin = False`{.python}
+`while not fin:`{.python}
+        `try:`{.python}
+                !NT{variable}(`,` !NT{variable})\*\  `= next(iterador)`{.python}
+        `except StopIteration:`{.python}
+                `fin = True`{.python}
+        `else:`{.python}
+                !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -999,7 +1013,7 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `range(`[_start_`: int,`] _stop_`: int` [`,` _step_`: int`]`) -> range`
+  $\texttt{range(!VAR([)!VAR(start):\,int,!VAR(])\;!VAR(stop):\,int\;!VAR([),\;!VAR(step):\,int!VAR(]))\;->\;range}$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Cuando se omite _start_, se entiende que es !PYTHON(0).
