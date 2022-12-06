@@ -77,14 +77,16 @@ nocite: |
 
 - Un **dato estructurado** (también llamado **dato compuesto**, **colección** o
   **contenedor**) es un dato formado, a su vez, por otros datos llamados
-  **componentes** o **elementos**.
+  **componentes** o **elementos**, los cuales representan su **contenido**.
+
+- Por contra, un dato no estructurado se denomina **dato elemental**.
 
 - Un **tipo de dato estructurado**, también llamado **tipo compuesto**, es
   aquel cuyos valores son datos estructurados.
 
 - Normalmente, se puede **acceder** de manera individual a los elementos que
-  componen un dato estructurado y, a veces, también se pueden **modificar** de
-  manera individual.
+  componen un dato estructurado y, a veces, también se pueden **modificar**
+  esos elementos de manera individual.
 
 - El término **estructura de datos** se suele usar como sinónimo de **tipo de
   dato estructurado**, aunque nosotros haremos una distinción:
@@ -92,29 +94,51 @@ nocite: |
   - Usaremos **tipo de dato estructurado** cuando usemos un dato sin conocer
     sus detalles internos de implementación.
 
-  - Usaremos **estructura de datos** cuando nos interesen esos detalles
-    internos.
+  - Usaremos **estructura de datos** cuando nos interesen esos detalles.
 
 ## Clasificación
 
-- Los **datos estructurados** se pueden clasificar en:
+- Los **datos estructurados** se pueden clasificar atendiendo a su
+  _secuencialidad_ y a su _mutabilidad_.
 
-  - Según su _secuencialidad_:
+- Según su **secuencialidad**:
 
-    - **Secuenciales:** los elementos se pueden acceder directamente según la
-      posición que ocupan dentro de la secuencia.
+  - **Secuenciales:** Son aquellos en los que se puede acceder directamente y
+    de forma eficiente a cada uno de sus elementos indicando la posición que
+    ocupan dentro de la secuencia.
 
-    - **No secuenciales:** los elementos no se pueden acceder directamente
-      según la posición que ocupan, normalmente porque esos los elementos no se
-      encuentran en una posición concreta dentro de la secuencia.
+    Por tanto, son colecciones _ordenadas_, ya que sus elementos están
+    ordenados dentro de la secuencia según la posición en la que se encuentran
+    situados dentro de la misma.
 
-  - Según su _mutabilidad_:
+  - **No secuenciales:** Son aquellos en los que **NO** se puede acceder
+    directamente y de forma eficiente a cada uno de sus elementos indicando la
+    posición que ocupan dentro de la colección.
 
-    - **Inmutables:** el dato estructurado no puede cambiar nunca su estado
-      interno a lo largo de su vida.
+    En general, las estructuras no secuenciales son colecciones _desordenadas_,
+    en las que no se puede afirmar que sus elementos se encuentran en una
+    posición determinada dentro de la colección.
 
-    - **Mutables:** el dato estructurado puede cambiar su estado interno a lo
-      largo de su vida sin cambiar su identidad.
+---
+
+- Según su **mutabilidad**:
+
+  - **Inmutables:** el dato estructurado no puede cambiar nunca su estado
+    interno a lo largo de su vida.
+
+  - **Mutables:** el dato estructurado puede cambiar su estado interno a lo
+    largo de su vida sin cambiar su identidad.
+
+- El **contenido** de un dato estructurado forma parte del **estado interno**
+  de ese dato estructurado, por lo que cambiar el contenido de un dato
+  estructurado supone cambiar también su estado interno.
+
+- Por ejemplo, si en la lista !PYTHON([7, 8, 9]) sustituimos su segundo
+  elemento (el !PYTHON(8)) por un !PYTHON(5) para obtener la lista !PYTHON([7,
+  5, 9]), estamos cambiando el contenido de la lista y, por consiguiente, su
+  estado interno.
+
+  Su identidad no ha cambiado, pero su estado interno sí.
 
 ---
 
@@ -158,7 +182,7 @@ $$\text{Tipos estructurados} \begin{cases}
 
      - En caso contrario, lanzará una excepción de tipo !PYTHON(TypeError).
 
-- Si dos datos *hashables* son iguales, entonces deben tener el mismo *hash*:
+- Si dos datos *hashables* son iguales, entonces deben tener el mismo _hash_:
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -166,13 +190,15 @@ $$\text{Tipos estructurados} \begin{cases}
   !PYTHON(hash)`(`$y$`)`.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Lo contrario no tiene por qué cumplirse.
+  En cambio, si dos datos son distintos, sus _hash_ no tienen por qué serlo.
 
 ---
 
 - Ejemplos:
 
   ```python
+  >>> hash('hola')
+  6290906884732116299
   >>> hash('hola')
   6290906884732116299
   >>> hash(5)
@@ -195,27 +221,82 @@ $$\text{Tipos estructurados} \begin{cases}
 
 - La mayoría de los datos inmutables predefinidos en Python son *hashables*.
 
-- Los **contenedores inmutables** (como las tuplas o los !PYTHON(frozenset)s)
+- Las **colecciones inmutables** (como las tuplas o los !PYTHON(frozenset)s)
   sólo son *hashables* si sus elementos también lo son.
 
-- Los **contenedores mutables** (como las listas o los diccionarios) **NO** son
+- Las **coleccion mutables** (como las listas o los diccionarios) **NO** son
   *hashables*.
 
 ---
 
-- El _hash_ de un dato depende del estado interno del dato, ya que se calcula a
-  partir de dicho estado interno usando una fórmula matemática que no nos debe
+- **El _hash_ de un dato depende del estado interno del dato**, ya que se
+  calcula a partir de dicho estado interno usando un algoritmo que no nos debe
   preocupar por ahora.
 
   Como el estado interno de una colección viene determinado principalmente por
-  los elementos que contiene, el _hash_ de una colección dependerá también de
-  su contenido.
+  los elementos que contiene, el _hash_ de una colección dependerá también del
+  contenido de la colección.
 
-  Y por esta razón, los contenedores mutables no son _hashables_: al ser
-  mutables, su contenido cambia y, por tanto, su _hash_ también cambiaría.
+  Y por esta razón, las colecciones mutables no son _hashables_: si una
+  colección es mutable, su contenido puede cambiar y, por tanto, su _hash_
+  también cambiaría, pero esto está prohibido.
 
-- El _hash_ de un dato se utiliza internamente para acceder de forma directa al
-  dato dentro de una colección, y por eso no puede cambiar nunca.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El _hash_ de un dato **se calcula** en función del **estado interno** del dato
+y, en caso de ser una colección, también en función de su **contenido**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- El _hash_ de un dato es un número que **representa al dato y a todo su
+  contenido**.
+
+- En cierto modo, ese número **_resume_ el estado del dato** en un simple
+  número entero.
+
+---
+
+- El _hash_ de un dato se utiliza internamente para acceder al dato dentro de
+  una colección de forma directa y eficiente.
+
+- Para ello, el intérprete utiliza ciertas técnicas que permiten localizar
+  directamente a un dato dentro de una colección, de forma casi inmediata y sin
+  importar el tamaño de la colección (pero recordemos que para ello es
+  necesario que el _hash_ del dato nunca cambie).
+
+- De no usar estas técnicas, el intérprete tendría que buscar el dato
+  secuencialmente dentro de la colección, recorriéndola desde el principio
+  hasta el final, lo que sería mucho más lento y consumiría un tiempo que sería
+  mayor cuanto más grande fuese la colección.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Muy en resumen, las técnicas se basan en dividir el espacio de memoria que
+  ocupa la colección en una serie de _contenedores_ llamados **_buckets_**.
+
+- Cada _bucket_ va numerado por un posible valor de _hash_, de forma que el
+  _bucket_ número $n$ contendrá todos los elementos cuyo _hash_ valga $n$.
+
+- Por tanto, el algoritmo que usa el intérprete para encontrar un elemento
+  _hashable_ dentro de una colección es:
+
+  #. Calcular el _hash_ del elemento a localizar.
+
+  #. Irse directamente al _bucket_ numerado con ese valor de _hash_ (esta es
+     una operación inmediata, con coste $O(1)$).
+
+  #. Localizar dentro del _bucket_ el elemento que se está buscando usando el
+     `==`, lo cual consumirá un tiempo que, en general, no será mucho, ya que
+     los elementos están repartidos entre todos los _buckets_ y, por tanto,
+     normalmente no habrá muchos elementos en cada _bucket_.
+
+- Al final, se consigue encontrar al elemento (si está) de forma muy rápida,
+  con un coste que es casi constante, independientemente de la cantidad de
+  elementos que haya en la colección.
 
 ---
 
@@ -237,56 +318,13 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 |                                                                       |   cambiaría al cambiar su contenido o estado interno.                      |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
 
----
-
-- El _hash_ de un dato es un número que representa al dato y a todo su
-  contenido de una manera bien definida según una fórmula.
-
-- En cierto modo, ese número _resume_ el contenido del dato en un simple número
-  entero.
-
-- Gracias a ello, el intérprete puede utilizar técnicas que permiten localizar
-  directamente a un dato dentro de una colección, de forma casi inmediata y sin
-  importar el tamaño de la colección (pero recordemos que para ello es
-  necesario que el _hash_ del dato nunca cambie).
-
-- De no usar estas técnicas, el intérprete tendría que buscar el dato
-  secuencialmente dentro de la colección, desde el principio hasta el final, lo
-  que sería mucho más lento y consumiría un tiempo que sería mayor cuanto más
-  grande fuese la colección.
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Muy en resumen, la técnica consiste en dividir el espacio en memoria que
-  ocupa la colección en una serie de _contenedores_ llamados **_buckets_**.
-
-- Cada _bucket_ va numerado por un posible valor de _hash_, de forma que el
-  _bucket_ número $n$ contendrá todos los elementos cuyo _hash_ valga $n$.
-
-- Por tanto, el algoritmo que usa el intérprete para encontrar un elemento
-  _hashable_ dentro de una colección es:
-
-  #. Calcular el _hash_ del elemento a localizar.
-
-  #. Irse directamente al _bucket_ numerado con ese valor de _hash_ (esta es
-     una operación casi inmediata, con coste $O(1)$).
-
-  #. Localizar dentro del _bucket_ aquel elemento que sea igual al que se está
-     buscando, usando el `==`.
-
-- Al final, se consigue encontrar al elemento (si existe) de forma muy rápida,
-  con un coste que es aproximadamente constante, independientemente de la
-  cantidad de elementos que haya en la colección.
-
 ## Iterables
 
-- Un **iterable** es un dato compuesto que se puede **recorrer elemento a
-  elemento**, es decir, que se puede _iterar_ por sus elementos uno a uno.
+- Un **iterable** es un dato compuesto que es capaz de devolver todos sus
+  elementos de uno en uno, bien de forma directa o bien de forma secuencial.
+
+- Gracias a esto, se dice que un iterable nos permite _iterar_ sobre todos sus
+  elementos.
 
 - Como iterables tenemos:
 
@@ -298,39 +336,35 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
   comparten la misma propiedad.
 
 - Muchas funciones, como !PYTHON(map) y !PYTHON(filter), actúan sobre iterables
-  en general, en lugar de hacerlo sobre un tipo concreto.
+  en general, en lugar de hacerlo sobre un tipo concreto (lista, tupla, etc.).
 
-- La forma básica de recorrer un dato iterable es usando un **iterador**.
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  De hecho, un _iterable_ **se define** como cualquier dato que lleva asociado,
-  al menos, un _iterador_.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Técnicamente, un _iterable_ **se define** como aquel dato al que le podemos
+  asociar, al menos, un **_iterador_**.
 
 ## Iteradores
 
+- La forma básica de recorrer un dato iterable es usando un **iterador**.
 
-- Un **iterador** es un objeto que sabe cómo recorrer un iterable.
+- Un **iterador** es un objeto que sabe cómo **recorrer** un iterable elemento
+  a elemento, de uno en uno, hasta visitar todos sus elementos.
 
-- Al recorrer el iterable, crea un flujo de datos _perezoso_ que va entregando
-  los elementos del iterable uno a uno.
+- Al recorrer el iterable, el iterador va creando un flujo de datos _perezoso_
+  que va entregando los elementos del iterable de uno en uno.
 
-- Cuando se llama repetidamente a la función !PYTHON(next) aplicada a un
-  iterador, se van obteniendo los sucesivos elementos del flujo.
+- Los sucesivos elementos del flujo de datos se van obteniendo al llamar
+  repetidamente a la función !PYTHON(next) aplicada al iterador.
 
-- Cuando ya no hay más elementos disponibles, se levanta una excepción de tipo
-  !PYTHON(StopIteration).
-
-  Eso indica que el iterador se ha agotado, por lo que si se sigue llamando a
-  la función !PYTHON(next) se seguirá levantando esa excepción.
+- Cuando ya no hay más elementos disponibles, la función !PYTHON(next) lanza
+  una excepción de tipo !PYTHON(StopIteration), lo que indica que el iterador
+  **se ha agotado** (se han consumido todos sus elementos), por lo que si se
+  sigue llamando a la función !PYTHON(next) se seguirá lanzando esa excepción.
 
 - Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
-  función !PYTHON(iter) al iterable.
+  función !PYTHON(iter) al iterable (recordemos que todo iterable debe tener
+  asociado un iterador.)
 
-  Recordemos que todo iterable debe tener asociado un iterador.
-
-- Si se le pasa un dato no iterable, levanta una excepción !PYTHON(TypeError).
+- Si se le pasa un dato no iterable, !PYTHON(iter) lanza una excepción
+  !PYTHON(TypeError).
 
 ---
 
@@ -351,21 +385,42 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   StopIteration
+  >>> it = iter(4)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: 'int' object is not iterable
+
   ```
 
 ---
 
-- También se suele decir que **los iteradores son iterables perezosos de un
-  solo uso**:
+- Los iteradores son **iterables perezosos de un solo uso**:
 
   - Son **perezosos** porque van generando sus elementos a medida que los va
-    entregando.
+    entregando, en lugar de generarlos todos a la vez primero.
 
-  - Son **de un solo uso** porque, una vez que se ha consumido un elemento, ya
-    no vuelve a aparecer.
+  - Son **de un solo uso** porque cada elemento sólo se entrega una vez.
 
-- Se dice que un iterador está **agotado** si se ha consumido completamente, es
-  decir, si se han consumido todos sus elementos.
+- Además, los iteradores son **iterables que actúan como sus propios
+  iteradores**:
+
+  - Por tanto, cuando llamamos a !PYTHON(iter) pasándole un iterador, se
+    devuelve el mismo iterador:
+
+    ```python
+    >>> lista = [1, 2, 3, 4]
+    >>> it = iter(lista)
+    >>> it
+    <list_iterator object at 0x7f3c49aa9080>
+    >>> it2 = iter(it)
+    >>> it2
+    <list_iterator object at 0x7f3c49aa9080>
+    >>> it == it2
+    True
+    ```
+
+  - En consecuencia, podemos usar un iterador en cualquier sitio donde se
+    espere un iterable.
 
 ---
 
@@ -411,26 +466,6 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
   9
   ```
 
----
-
-- Los iteradores también son iterables que actúan como sus propios iteradores.
-
-- Por tanto, cuando llamamos a !PYTHON(iter) pasándole un iterador, se devuelve
-  el mismo iterador:
-
-  ```python
-  >>> lista = [1, 2, 3, 4]
-  >>> it = iter(lista)
-  >>> it
-  <list_iterator object at 0x7f3c49aa9080>
-  >>> it2 = iter(it)
-  >>> it2
-  <list_iterator object at 0x7f3c49aa9080>
-  ```
-
-- Por tanto, también podemos usar un iterador en cualquier sitio donde se
-  espere un iterable.
-
 ### El bucle !PYTHON(for)
 
 - Probablemente, la mejor forma de recorrer los elementos que devuelve un
@@ -442,21 +477,20 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(for) !NT{variable}(!T{,} !NT{variable})\* !T(in) !NT(iterable)!T(:)
-      !NT(sentencia)
+        !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   que no es más que azúcar sintáctico para el siguiente código equivalente:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `iterador = iter(`{.python}!NT(iterable)`)`
-`fin = False`{.python}
-`while not fin:`{.python}
-        `try:`{.python}
-                !NT{variable}(`,` !NT{variable})\*\  `= next(iterador)`{.python}
-        `except StopIteration:`{.python}
-                `fin = True`{.python}
-        `else:`{.python}
+  !PYTHON{iterador = iter(}!NT(iterable)!PYTHON{)}
+!PYTHON(while True:)
+        !PYTHON(try:)
+                !NT{variable}(`,` !NT{variable})\*\  !PYTHON(= next(iterador))
+        !PYTHON(except StopIteration:)
+                !PYTHON(break)
+        !PYTHON(else:)
                 !NT(sentencia)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -506,20 +540,21 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
 
 ---
 
-- Al recorrer la lista, la variable va almacenando en cada paso el valor del
-  elemento que en ese momento se está visitando.
+- Al recorrer el iterable, la variable va almacenando en cada iteración del
+  bucle el valor del elemento que en ese momento se está visitando.
 
-- Si necesitáramos recuperar también el índice del elemento, podemos usar la
-  función !PYTHON(enumerate).
+- Si estamos recorriendo una secuencia y necesitamos recuperar tanto el valor
+  como el **índice** de cada elemento, podemos usar la función
+  !PYTHON(enumerate).
 
 - Esta función devuelve un iterador que va generando tuplas que contienen,
-  además del elemento, un valor numérico que representa un contador.
+  además del elemento, el valor correspondiente de un contador numérico.
 
 - Las tuplas que devuelve el iterador llevan el contador en la primera posición
-  y el elemento de la lista en la segunda posición.
+  y el elemento de la secuencia en la segunda posición.
 
-- Ese contador, por defecto, empieza desde !PYTHON(0) y se va incrementando de
-  uno en uno, por lo que coincide con el índice del elemento en la lista:
+- Por defecto, el contador empieza desde !PYTHON(0) y se va incrementando de
+  uno en uno, por lo que coincide con el índice del elemento en la secuencia:
 
   ```python
   >>> for i, e in enumerate(['a', 'b', 'c']):
@@ -551,53 +586,58 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
 ### El módulo !PYTHON(itertools)
 
 - El módulo !PYTHON(itertools) contiene una variedad de iteradores de uso
-  frecuente así como funciones que combinan varios iteradores.
+  frecuente, así como funciones que combinan varios iteradores.
+
+- Algunos de esos iteradores son muy especiales porque pueden devolver flujos
+  infinitos o valores que se repiten continuamente, lo cual contradice en
+  cierta manera lo que dijimos cuando definimos los iteradores como «_iterables
+  de un solo uso_».
 
 - !PYTHON{itertools.count}`(`[!NT(inicio)[`,` !NT(paso)]]`)` devuelve un flujo
   infinito de valores separados uniformemente. Se puede indicar opcionalmente
   un valor de comienzo (que por defecto es !PYTHON(0)) y el intervalo entre
   números (que por defecto es !PYTHON(1)):
 
-  - !PYTHON(itertools.count()) $\Rightarrow$ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...
+  !PYTHON(itertools.count()) $\Rightarrow$ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...
 
-  - !PYTHON(itertools.count(10)) $\Rightarrow$ 10, 11, 12, 13, 14, 15, 16, 17,
-    18, 19, ...
+  !PYTHON(itertools.count(10)) $\Rightarrow$ 10, 11, 12, 13, 14, 15, 16, 17,
+  18, 19, ...
 
-  - !PYTHON(itertools.count(10, 5)) $\Rightarrow$ 10, 15, 20, 25, 30, 35, 40,
-    45, ...
+  !PYTHON(itertools.count(10, 5)) $\Rightarrow$ 10, 15, 20, 25, 30, 35, 40, 45,
+  ...
 
 ---
 
 - !PYTHON(itertools.cycle)`(`!NT(iterador)`)` devuelve un nuevo iterador que va
   generando sus elementos del primero al último, repitiéndolos indefinidamente:
 
-  - !PYTHON(itertools.cycle([1, 2, 3, 4])) $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3,
-    4, ...
+  !PYTHON(itertools.cycle([1, 2, 3, 4])) $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3, 4,
+  ...
 
 - !PYTHON(itertools.repeat)`(`!NT(elem)[`,` !NT(n)]`)` devuelve !NT(n) veces el
   elemento !NT(elem), o lo devuelve indefinidamente si no se indica !NT(n):
 
-  - !PYTHON(itertools.repeat('abc')) $\Rightarrow$ abc, abc, abc, abc, abc,
-    abc, abc, ...
+  !PYTHON(itertools.repeat('abc')) $\Rightarrow$ abc, abc, abc, abc, abc, abc,
+  abc, ...
 
-  - !PYTHON(itertools.repeat('abc', 5)) $\Rightarrow$ abc, abc, abc, abc, abc
+  !PYTHON(itertools.repeat('abc', 5)) $\Rightarrow$ abc, abc, abc, abc, abc
 
 # Secuencias
 
 ## Concepto de secuencia
 
-- Una **secuencia** $\underline{s}$ es un dato estructurado que cumple lo
-  siguiente:
+- Una **secuencia** $\underline{s}$ es un dato estructurado _iterable_ que
+  cumple lo siguiente:
 
-  - Se le puede calcular su longitud (la cantidad de elementos que contiene)
-    mediante la función !PYTHON(len).
+  #. Se le puede calcular su longitud (la cantidad de elementos que contiene)
+     mediante la función !PYTHON(len).
 
-  - Cada elemento que contiene lleva asociado un número entero llamado
-    **índice**, comprendido entre !PYTHON(0) y !PYTHON(len)`(`$s$`)`
-    !PYTHON(- 1).
+  #. Cada elemento que contiene lleva asociado un número entero llamado
+     **índice**, comprendido entre !PYTHON(0) y !PYTHON(len)`(`$s$`)`
+     !PYTHON(- 1).
 
-  - Permite el acceso eficiente a cada uno de sus elementos mediante indexación
-    $s$`[`$i$`]`, siendo $i$ el índice del elemento.
+  #. Permite el acceso eficiente a cada uno de sus elementos mediante
+     indexación $s$`[`$i$`]`, siendo $i$ el índice del elemento.
 
 - Las secuencias se dividen en:
 
