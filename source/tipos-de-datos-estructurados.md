@@ -79,7 +79,8 @@ nocite: |
   **contenedor**) es un dato formado, a su vez, por otros datos llamados
   **componentes** o **elementos**, los cuales representan su **contenido**.
 
-- Por contra, un dato no estructurado se denomina **dato elemental**.
+- Por contra, los datos no estructurados se denominan **datos elementales**,
+  **escalares** o **atómicos**.
 
 - Un **tipo de dato estructurado**, también llamado **tipo compuesto**, es
   aquel cuyos valores son datos estructurados.
@@ -142,28 +143,31 @@ nocite: |
 
 ---
 
-$$\text{Tipos estructurados} \begin{cases}
-    \text{Secuencias} \begin{cases}
-        \text{Inmutables} \begin{cases}
-            \text{Cadenas (\texttt{str})} \\
-            \text{Tuplas (\texttt{tuple})} \\
-            \text{Rangos (\texttt{range})}
+$$\text{Tipos} \begin{cases}
+\text{Escalares} \\ \\
+    \text{Estructurados} \begin{cases}
+        \text{Secuencias} \begin{cases}
+            \text{Inmutables} \begin{cases}
+                \text{Cadenas (\texttt{str})} \\
+                \text{Tuplas (\texttt{tuple})} \\
+                \text{Rangos (\texttt{range})}
+            \end{cases} \\
+            \\
+            \text{Mutables} \begin{cases}
+                \text{Listas (\texttt{list})}
+            \end{cases}
         \end{cases} \\
         \\
-        \text{Mutables} \begin{cases}
-            \text{Listas (\texttt{list})}
+        \text{No secuencias} \begin{cases}
+            \text{Inmutables} \begin{cases}
+                \text{Conjuntos (\texttt{frozenset})}
+            \end{cases} \\
+            \\
+            \text{Mutables} \begin{cases}
+                \text{Conjuntos (\texttt{set})} \\
+                \text{Diccionarios (\texttt{dict})}
+            \end {cases}
         \end{cases}
-    \end{cases} \\
-    \\
-    \text{No secuencias} \begin{cases}
-        \text{Inmutables} \begin{cases}
-            \text{Conjuntos (\texttt{frozenset})}
-        \end{cases} \\
-        \\
-        \text{Mutables} \begin{cases}
-            \text{Conjuntos (\texttt{set})} \\
-            \text{Diccionarios (\texttt{dict})}
-        \end {cases}
     \end{cases}
 \end{cases}$$
 
@@ -320,36 +324,52 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ## Iterables
 
-- Un **iterable** es un dato compuesto que es capaz de devolver todos sus
-  elementos de uno en uno, bien de forma directa o bien de forma secuencial.
+- Se dice que un dato compuesto es **iterable** cuando se puede acceder a todos
+  sus elementos de uno en uno, operación que se denomina **recorrer** el
+  iterable.
 
-- Gracias a esto, se dice que un iterable nos permite _iterar_ sobre todos sus
-  elementos.
+- Gracias a esto, se dice que un iterable nos permite _visitar_ sus elementos
+  o, también, _iterar_ sobre sus elementos.
 
 - Como iterables tenemos:
 
-  - Todas las secuencias: listas, cadenas, tuplas y rangos
+  - Todas las secuencias: listas, cadenas, tuplas y rangos.
 
-  - Estructuras no secuenciales: diccionarios y conjuntos
+  - Estructuras no secuenciales: diccionarios y conjuntos.
 
-- No representa un tipo concreto, sino más bien una *familia* de tipos que
-  comparten la misma propiedad.
+- Los iterables no representan un tipo concreto, sino más bien una _familia_ de
+  tipos que comparten la misma propiedad.
 
 - Muchas funciones, como !PYTHON(map) y !PYTHON(filter), actúan sobre iterables
-  en general, en lugar de hacerlo sobre un tipo concreto (lista, tupla, etc.).
+  en general, en lugar de hacerlo sobre un tipo concreto (lista, tupla, ...).
 
-- Técnicamente, un _iterable_ **se define** como aquel dato al que le podemos
-  asociar, al menos, un **_iterador_**.
+---
+
+- Por ejemplo, las listas son iterables ya que nos permite acceder a todos sus
+  elementos de uno en uno y, por tanto, podemos recorrerla.
+
+- Para _visitar_ sus elementos podemos usar la _indexación_, y para _recorrer_
+  toda la lista podemos usar un _bucle_:
+
+  ```python
+  def recorrer_lista(l):
+      i = 0
+      while i < len(l):
+          print(l[i])
+          i += 1
+  ```
 
 ## Iteradores
 
 - La forma básica de recorrer un dato iterable es usando un **iterador**.
 
-- Un **iterador** es un objeto que sabe cómo **recorrer** un iterable elemento
-  a elemento, de uno en uno, hasta visitar todos sus elementos.
+  De hecho, técnicamente, un _iterable_ **se define** como aquel dato al que le
+  podemos asociar, al menos, un **_iterador_**.
 
-- Al recorrer el iterable, el iterador va creando un flujo de datos _perezoso_
-  que va entregando los elementos del iterable de uno en uno.
+- Un **iterador** es un objeto que sabe cómo **recorrer** un iterable.
+
+- Para ello, el iterador crea un flujo de datos _perezoso_ que va entregando
+  los elementos del iterable de uno en uno.
 
 - Los sucesivos elementos del flujo de datos se van obteniendo al llamar
   repetidamente a la función !PYTHON(next) aplicada al iterador.
@@ -359,19 +379,17 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   **se ha agotado** (se han consumido todos sus elementos), por lo que si se
   sigue llamando a la función !PYTHON(next) se seguirá lanzando esa excepción.
 
-- Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
-  función !PYTHON(iter) al iterable (recordemos que todo iterable debe tener
-  asociado un iterador.)
-
-- Si se le pasa un dato no iterable, !PYTHON(iter) lanza una excepción
-  !PYTHON(TypeError).
-
 ---
 
-- Ejemplo:
+- Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
+  función !PYTHON(iter) al iterable.
+
+  (Recordemos que todo iterable debe tener asociado un iterador.)
+
+- Ejemplo de uso de !PYTHON(iter) y !PYTHON(next):
 
   ```python
-  >>> lista = [1, 2, 3, 4]
+  >>> lista = [1, 2, 3]
   >>> it = iter(lista)
   >>> next(it)
   1
@@ -380,16 +398,19 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   >>> next(it)
   3
   >>> next(it)
-  4
-  >>> next(it)
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   StopIteration
-  >>> it = iter(4)
+  ```
+
+- Si se le pasa un dato no iterable, !PYTHON(iter) lanza una excepción
+  !PYTHON(TypeError):
+
+  ```python
+  >>> it = iter(9)
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   TypeError: 'int' object is not iterable
-
   ```
 
 ---
