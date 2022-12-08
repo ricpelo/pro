@@ -923,7 +923,130 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
 ---
 
-- Algunos ejemplos de cadenas formateadas:
+- Ejemplos de cadenas formateadas:
+
+  ```python
+  >>> nombre = 'Pepe'
+  >>> f'El nombre es: {nombre}'              # Se sustituye la variable por su valor
+  'El nombre es: Pepe'
+  >>> apellidos = 'Pérez'
+  >>> f'El nombre es: {nombre} {apellidos}'  # Igual
+  'El nombre es: Pepe Pérez'
+  >>> f'El nombre es: {nombre + apellidos}'  # Se puede usar cualquier expresión
+  'El nombre es: Pepe Pérez'
+  >>> f'Formato con anchura: {nombre:10}'    # Las cadenas se alinean a la izquierda
+  'Formato con anchura: Pepe      '
+  >>> f'Formato con anchura: {nombre:<10}'   # Igual que lo anterior
+  'Formato con anchura: Pepe      '
+  >>> f'Formato con anchura: {nombre:>10}'   # Alinea a la derecha
+  'Formato con anchura:       Pepe'
+  >>> f'Formato con anchura: {nombre:^10}'   # Alinea al centro
+  'Formato con anchura:    Pepe   '
+  ```
+
+---
+
+- Ejemplos de cadenas formateadas con números positivos:
+
+  ```python
+  >>> x, y = 400, 300
+  >>> f'La suma de {x} y {y} es {x + y}' # Se puede usar cualquier expresión
+  'La suma de 400 y 300 es 700'
+  >>> f'Formato con anchura: {x:10}'     # Los números se alinean a la derecha
+  'Formato con anchura:        400'
+  >>> f'Formato con anchura: {x:>10}'    # Igual que lo anterior
+  'Formato con anchura:        400'
+  >>> f'Formato con anchura: {x:2}'      # Ancho demasiado pequeño, se ignora
+  'Formato con anchura: 400'
+  >>> f'Formato con anchura: {x:<10}'    # Alinea a la izquierda
+  'Formato con anchura: 400       '
+  >>> f'Formato con anchura: {x:>10}'    # Alinea a la derecha
+  'Formato con anchura:        400'
+  >>> f'Formato con anchura: {x:^10}'    # Alinea al centro
+  'Formato con anchura:    400    '
+  >>> f'Formato con anchura: {x:=10}'    # En positivos no hay diferencia con >
+  'Formato con anchura:        400'
+  >>> f'Formato con anchura: {x:@<10}'   # Alinea a la izquierda, rellena con @
+  'Formato con anchura: 400@@@@@@@'
+  >>> f'Formato con anchura: {x:@>10}'   # Alinea a la derecha, rellena con @
+  'Formato con anchura: @@@@@@@400'
+  >>> f'Formato con anchura: {x:@^10}'   # Alinea al centro, rellena con @
+  'Formato con anchura: @@@400@@@@'
+  >>> f'Formato con anchura: {x:@=10}'   # En positivos no hay diferencia con >
+  'Formato con anchura: @@@@@@@400'
+  ```
+
+---
+
+- Ejemplos de cadenas formateadas con números negativos:
+
+  ```python
+  >>> z = -400
+  >>> f'Formato con anchura: {z:10}'   # A la derecha, signo junto al nº
+  'Formato con anchura:       -400'
+  >>> f'Formato con anchura: {z:<10}'  # A la izquierda, signo junto al nº
+  'Formato con anchura: -400      '
+  >>> f'Formato con anchura: {z:>10}'  # A la derecha, signo junto al nº
+  'Formato con anchura:       -400'
+  >>> f'Formato con anchura: {z:^10}'  # Al centro, signo junto al nº
+  'Formato con anchura:    -400   '
+  >>> f'Formato con anchura: {z:=10}'  # A la derecha, signo junto al relleno
+  'Formato con anchura: -      400'
+  >>> f'Formato con anchura: {z:010}'  # A la derecha, signo junto al relleno
+  'Formato con anchura: -000000400'
+  >>> f'Formato con anchura: {z:0<10}' # A la izquierda, signo junto al nº
+  'Formato con anchura: -400000000'
+  >>> f'Formato con anchura: {z:0>10}' # A la derecha, signo junto al nº
+  'Formato con anchura: 000000-400'
+  >>> f'Formato con anchura: {z:0^10}' # Al centro, signo junto al nº
+  'Formato con anchura: 000-400000'
+  >>> f'Formato con anchura: {z:0=10}' # A la derecha, signo junto al relleno
+  'Formato con anchura: -000000400'
+  >>> f'Formato con anchura: {z:@<10}' # A la izquierda, signo junto al nº
+  'Formato con anchura: -400@@@@@@'
+  >>> f'Formato con anchura: {z:@>10}' # A la derecha, signo junto al nº
+  'Formato con anchura: @@@@@@-400'
+  >>> f'Formato con anchura: {z:@^10}' # Al centro, signo junto al nº
+  'Formato con anchura: @@@-400@@@'
+  >>> f'Formato con anchura: {z:@=10}' # A la derecha, signo junto al relleno
+  'Formato con anchura: -@@@@@@400'
+  ```
+
+---
+
+- Ejemplos de cadenas formateadas con números en coma flotante:
+
+  ```python
+  >>> from math import pi
+  >>> f'El valor de pi es {pi:6.3}'     # Ancho 6, precisión 3
+  'El valor de pi es   3.14'
+  >>> f'El valor de pi es {pi:10.3}'    # Ancho 10, precisión 3
+  'El valor de pi es       3.14'
+  >>> f'El valor de pi es {pi:<10.3}'   # A la izquierda
+  'El valor de pi es 3.14      '
+  >>> f'El valor de pi es {pi:>10.3}'   # A la derecha
+  'El valor de pi es       3.14'
+  >>> f'El valor de pi es {pi:^10.3}'   # Al centro
+  'El valor de pi es    3.14   '
+  >>> f'El valor de pi es {pi:=10.3}'   # A la derecha
+  'El valor de pi es       3.14'
+  >>> f'El valor de pi es {pi:10.3f}'   # 3 dígitos en la parte fraccionaria
+  'El valor de pi es      3.142'
+  >>> f'El valor de pi es {pi:<10.3f}'  # A la izquierda
+  'El valor de pi es 3.142     '
+  >>> f'El valor de pi es {pi:>10.3f}'  # A la derecha
+  'El valor de pi es      3.142'
+  >>> f'El valor de pi es {pi:^10.3f}'  # Al centro
+  'El valor de pi es   3.142   '
+  >>> f'El valor de pi es {pi:=10.3f}'  # A la derecha
+  'El valor de pi es      3.142'
+  >>> f'El valor de pi es {-pi:=10.3f}' # Los negativos, igual que los enteros
+  'El valor de pi es -    3.142'
+  ```
+
+---
+
+- Más ejemplos:
 
   ```python
   >>> nombre = "Fred"
@@ -1573,12 +1696,23 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
     frozenset({2, 3, 4})
     ```
 
-- También podría usarse con la función !PYTHON(set), pero sería innecesario y
-  no tendría sentido, ya que devolvería el mismo conjunto:
+---
+
+- También podría usarse con la función !PYTHON(set), pero entonces estaríamos
+  creando un nuevo conjunto igual que el anterior, aunque no idéntico (es
+  decir, sería una _copia_ del original):
 
   ```python
-  >>> set({4, 3, 2, 2, 4})  # equivale a poner simplemente {4, 3, 2, 2, 4}
+  >>> s = {4, 3, 2, 2, 4}
+  >>> s
   {2, 3, 4}
+  >>> t = set(s)
+  >>> t
+  {2, 3, 4}
+  >>> s == t
+  True
+  >>> s is t
+  False
   ```
 
 #### Conjuntos por comprensión
