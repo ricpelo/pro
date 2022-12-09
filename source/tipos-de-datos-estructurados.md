@@ -1443,33 +1443,33 @@ True
 
 - Como son variables ligadas, cumplen estas dos propiedades:
 
-  - Se pueden renombrar (siempre de forma consistente) sin que la lista por
-    comprensión cambie su significado.
+  #. Se pueden renombrar (siempre de forma consistente) sin que la lista por
+     comprensión cambie su significado.
 
-    Por ejemplo, las dos listas por comprensión siguientes son equivalentes,
-    puesto que producen el mismo resultado:
+     Por ejemplo, las dos listas por comprensión siguientes son equivalentes,
+     puesto que producen el mismo resultado:
 
-    ```python
-    [x for x in (1, 2, 3)]
-    ```
+     ```python
+     [x for x in (1, 2, 3)]
+     ```
 
-    ```python
-    [y for y in (1, 2, 3)]
-    ```
+     ```python
+     [y for y in (1, 2, 3)]
+     ```
 
-  - No se pueden usar fuera de la lista por comprensión, ya que estarían fuera
-    de su ámbito y no serían visibles.
+  #. No se pueden usar fuera de la lista por comprensión, ya que estarían fuera
+     de su ámbito y no serían visibles.
 
-    Por ejemplo, lo siguiente daría un error de nombre:
-
-    ```python
-    >>> e = [x for x in (1, 2, 3)]
-    >>> x       # Intento acceder a la 'x' de la lista por comprensión
-    Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-    NameError: name 'x' is not defined
-    ```
-
+     Por ejemplo, lo siguiente daría un error de nombre:
+  
+     ```python
+     >>> e = [x for x in (1, 2, 3)]
+     >>> x       # Intento acceder a la 'x' de la lista por comprensión
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     NameError: name 'x' is not defined
+     ```
+ 
 ### Operaciones mutadoras
 
 - En la siguiente tabla, $\underline{s}$ es una instancia de un tipo de
@@ -1605,9 +1605,9 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 - Cuando decimos que **un conjunto no está ordenado**, queremos decir que los
   elementos que contiene no se encuentran situados en una posición concreta.
 
-  - Es lo contrario de lo que ocurre con las sencuencias, donde cada elemento
-    se encuentra en una posición indicada por su *índice* y podemos acceder a
-    él usando la indexación.
+  Es lo contrario de lo que ocurre con las sencuencias, donde cada elemento se
+  encuentra en una posición indicada por su *índice* y podemos acceder a él
+  usando la indexación.
 
 - Además, en un conjunto **no puede haber elementos repetidos** (un elemento
   concreto sólo puede estar *una vez* dentro de un conjunto, es decir, o está
@@ -1631,8 +1631,8 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 - El tipo !PYTHON(set) es **mutable**, es decir, que su contenido puede cambiar
   usando métodos como !PYTHON(add) y !PYTHON(remove).
 
-  - Como es mutable, **no es _hashable_** y, por tanto, no puede usarse como
-    clave de un diccionario o como elemento de otro conjunto.
+  Como es mutable, **no es _hashable_** y, por tanto, no puede usarse como
+  clave de un diccionario o como elemento de otro conjunto.
 
 - El tipo !PYTHON(frozenset) es **inmutable** y *hashable*. Por tanto, su
   contenido no se puede cambiar una vez creado y puede usarse como clave de un
@@ -1641,7 +1641,7 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 ---
 
 - Los dos tipos de conjuntos se crean con las funciones
-  !PYTHON(set)`(`[!NT(iterable)]`)` y !PYTHON(frozenset)`(`[!NT(iterable)]`)`.
+  !PYTHON(set)`(`[!NT(iterable)]`)` y !PYTHON(frozenset)`(`[!NT(iterable)]`)`:
 
   - Si se llaman *sin argumentos*, devuelven un conjunto **vacío**:
   
@@ -1728,8 +1728,6 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 
 - El resultado es directamente un valor de tipo !PYTHON(set), no un iterador.
 
----
-
 - Los conjuntos por comprensión, al igual que las expresiones generadoras y las
   listas por comprensión, **determinan su propio _ámbito_**.
 
@@ -1745,32 +1743,32 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 
 - Como son variables ligadas, cumplen estas dos propiedades:
 
-  - Se pueden renombrar (siempre de forma consistente) sin que el conjunto por
-    comprensión cambie su significado.
+  #. Se pueden renombrar (siempre de forma consistente) sin que el conjunto por
+     comprensión cambie su significado.
 
-    Por ejemplo, los dos conjuntos por comprensión siguientes son equivalentes,
-    puesto que producen el mismo resultado:
+     Por ejemplo, los dos conjuntos por comprensión siguientes son equivalentes,
+     puesto que producen el mismo resultado:
 
-    ```python
-    {x for x in (1, 2, 3)}
-    ```
+     ```python
+     {x for x in (1, 2, 3)}
+     ```
 
-    ```python
-    {y for y in (1, 2, 3)}
-    ```
+     ```python
+     {y for y in (1, 2, 3)}
+     ```
 
-  - No se pueden usar fuera del conjunto por comprensión, ya que estarían fuera
-    de su ámbito y no serían visibles.
+  #. No se pueden usar fuera del conjunto por comprensión, ya que estarían
+     fuera de su ámbito y no serían visibles.
 
-    Por ejemplo, lo siguiente daría un error de nombre:
+     Por ejemplo, lo siguiente daría un error de nombre:
 
-    ```python
-    >>> e = {x for x in (1, 2, 3)}
-    >>> x       # Intento acceder a la 'x' del conjunto por comprensión
-    Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-    NameError: name 'x' is not defined
-    ```
+     ```python
+     >>> e = {x for x in (1, 2, 3)}
+     >>> x       # Intento acceder a la 'x' del conjunto por comprensión
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     NameError: name 'x' is not defined
+     ```
 
 ### Operaciones
 
@@ -1949,16 +1947,30 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
 ---
 
-- Las claves de un diccionario deben ser datos *hashables*.
+- Las **claves** de un diccionario deben ser datos **_hashables_**.
 
 - Por tanto, no se pueden usar como clave una lista, un diccionario, un
-  conjunto !PYTHON(set) o cualquier otro tipo mutable.
+  conjunto !PYTHON(set) o cualquier otro dato mutable.
 
 - Los tipos numéricos que se usen como claves obedecen las reglas normales de
   comparación numérica.
 
-  - Por tanto, si dos números son considerados iguales (como !PYTHON(1) y
-    !PYTHON(1.0)) entonces se consideran la misma clave en el diccionario.
+  Por tanto, si dos números son considerados iguales (como !PYTHON(1) y
+  !PYTHON(1.0)) entonces se consideran la misma clave dentro del diccionario.
+
+- Desde la versión 3.7 de Python, los elementos dentro de un diccionario se
+  almacenan en **el orden en el que se van _insertando_ dentro del
+  diccionario**, aunque ese orden sólo tiene importancia cuando se recorre el
+  diccionario con un iterador.
+
+- Dos diccionarios se consideran **iguales** si ambos contienen los mismos
+  elementos, es decir, si tienen las mismas parejas !NT(clave)!T(:)!NT(valor),
+  sin importar el orden en el que aparezcan los elementos en el diccionario:
+
+  ```python
+  >>> {'a': 1, 'b': 2} == {'b': 2, 'a': 1}
+  True
+  ```
 
 ---
 
@@ -2032,12 +2044,22 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 - Como cualquier otro dato iterable, los diccionarios se pueden recorrer usando
   iteradores.
 
+- El orden en el que se recorren los elementos del diccionario es el orden en
+  el que están almacenados los elementos dentro del diccionario, que como ya
+  sabemos coincide con el orden en el que se han ido insertando los elementos
+  en el diccionario.
+
 - Los iteradores creados sobre un diccionario, en realidad, recorren sus
   **claves**:
 
+:::: columns
+
+::: column
+
+- Con un iterador:
+
   ```python
-  >>> d
-  {'a': 1, 'b': 2}
+  >>> d = {'a': 1, 'b': 2}
   >>> it = iter(d)
   >>> next(it)
   'a'
@@ -2045,9 +2067,14 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   'b'
   ```
 
-- Lo mismo ocurre con un bucle !PYTHON(for):
+:::
+
+::: column
+
+- Con un bucle !PYTHON(for):
 
   ```python
+  >>> d = {'a': 1, 'b': 2}
   >>> for k in d:
   ...     print(k)
   ...
@@ -2055,10 +2082,14 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   b
   ```
 
+:::
+
+::::
+
 ---
 
-- Si necesitamos acceder también a los valores de un diccionario mientras lo
-  recorremos con un bucle !PYTHON(for), tenemos dos opciones:
+- Si, además de acceder a las **claves**, necesitamos también acceder a los
+  **valores** del diccionario mientras lo recorremos, podemos:
 
   - Acceder al valor a partir de la clave usando **indexación**:
 
@@ -2072,7 +2103,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
   - Usar el método !PYTHON(items) sobre el diccionario (el cual devuelve un
     objeto que, al iterar sobre él, genera una secuencia de tuplas
-    !T{(}!NT(clave)!T(,) !NT(valor)!T{)}), combinándolo con el **desempaquetado
+    !T{(}!NT(clave)!T(,) !NT(valor)!T{)}), y combinarlo con el **desempaquetado
     de tuplas**:
 
     ```python
@@ -2147,6 +2178,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   b
   ```
 
+<!--
+
 ---
 
 - ¿En qué orden se almacenan los elementos de un diccionario? Y, lo más
@@ -2169,6 +2202,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   siempre sus elementos **en el orden en el que se han ido insertando** dentro
   del diccionario.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-->
 
 ## Documentos XML
 
