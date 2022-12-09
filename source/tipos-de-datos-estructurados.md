@@ -1876,6 +1876,56 @@ $s$!PYTHON(.pop())               Elimina y devuelve un valor cualquiera de $\und
 $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 -----------------------------------------------------------------------------------------------------------------------------
 
+### Recorrido de conjuntos
+
+- Como cualquier otro dato iterable, los conjuntos se pueden recorrer usando
+  **iteradores**.
+
+- El **orden** en el que se recorren los elementos del conjunto **no está
+  determinado de antemano**, es decir, que el iterador puede entregar los
+  elementos del conjunto **en cualquier orden**:
+
+:::: columns
+
+::: column
+
+- Con un iterador:
+
+  ```python
+  >>> s = {3, 1, 2}
+  >>> it = iter(s)
+  >>> next(it)
+  1
+  >>> next(it)
+  2
+  >>> next(it)
+  3
+  ```
+
+:::
+
+::: column
+
+- Con un bucle !PYTHON(for):
+
+  ```python
+  >>> s = {3, 1, 2}
+  >>> for e in s:
+  ...     print(e)
+  ...
+  1
+  2
+  3
+  ```
+
+:::
+
+::::
+
+- Aunque, a la vista de este ejemplo, pudiera parecer que el conjunto siempre
+  se va a recorrer como si estuviese ordenado, **no hay que confiar nunca** en
+  que eso se vaya a cumplir siempre.
+
 ## Diccionarios (!PYTHON(dict))
 
 - Un **diccionario** es una colección que almacena *correspondencias* (o
