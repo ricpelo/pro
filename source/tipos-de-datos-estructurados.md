@@ -688,7 +688,7 @@ Operación                                 Resultado
 ----------------------------------------- --------------------------------------------------------------------------------
 $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$x\ $ !PYTHON(not in) $\ s$               !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
+$x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
 $s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
                                         
@@ -1928,34 +1928,36 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
 ## Diccionarios (!PYTHON(dict))
 
-- Un **diccionario** es una colección que almacena *correspondencias* (o
-  *asociaciones*) entre valores.
+- Un **diccionario** es una colección que almacena _correspondencias_ (o
+  _asociaciones_) entre valores.
 
 - Por tanto, **los elementos de un diccionario son parejas de valores llamados
   _clave_ y _valor_**, y lo que hace el diccionario es almacenar las
-  *claves* y el *valor* que le corresponde a cada clave.
-
-- Una restricción importante es que, en un diccionario dado, **cada clave sólo
-  puede asociarse con un único valor**.
-
-- Por tanto, **en un diccionario no puede haber claves repetidas**, es decir,
-  que no puede haber dos elementos distintos con la misma clave.
-
-- En la práctica, eso nos sirve para identificar cada elemento del diccionario
-  por su clave.
+  _claves_ y el _valor_ que le corresponde a cada clave.
 
 - Además, los elementos de un diccionario son datos mutables y, por tanto, los
   diccionarios también son **mutables**. 
+
+- En consecuencia, los diccionarios **NO** son _hashables_.
 
 ---
 
 - Los diccionarios se pueden crear:
 
-  - Con una pareja de llaves !PYTHON({}), que representan el **diccionario
-    vacío**.
+  - Con una pareja de llaves:
+
+    ```python
+    {}
+    ```
+
+    que representan el **diccionario vacío**.
 
   - Encerrando entre llaves una lista de parejas !NT(clave)!T(:)!NT(valor)
-    separadas por comas: !PYTHON({'juan': 4098, 'pepe': 4127})
+    separadas por comas:
+
+    ```python
+    {'juan': 4098, 'pepe': 4127}
+    ```
 
     Esa es precisamente la **forma normal** de un diccionario y, por tanto, la
     que se usa cuando se visualiza desde el intérprete o se imprime con
@@ -1963,21 +1965,51 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
   - Usando la función !PYTHON(dict).
 
+---
+
 - Por ejemplo:
 
   ```python
   >>> v1 = {}                                          # diccionario vacío
   >>> v2 = dict()                                      # también diccionario vacío
   >>> v1 == v2
-  True
+  True                                                 # son iguales
   >>> a = {'uno': 1, 'dos': 2, 'tres': 3}              # literal
   >>> b = dict(uno=1, dos=2, tres=3)                   # argumentos con nombre
   >>> c = dict([('dos', 2), ('uno', 1), ('tres', 3)])  # lista de tuplas
-  >>> d = dict({'tres': 3, 'uno': 1, 'dos': 2})        # innecesario
+  >>> d = dict({'tres': 3, 'uno': 1, 'dos': 2})        # crea una copia
   >>> e = dict(zip(['uno', 'dos', 'tres'], [1, 2, 3])) # con dos iterables
   >>> a == b and b == c and c == d and d == e          # todos son iguales
   True
   ```
+
+---
+
+- Las **claves** de un diccionario deben cumplir dos **restricciones**:
+
+  #. Deben ser **únicas** en ese diccionario.
+
+  #. Deben ser **_hashables_**.
+
+---
+
+- En un diccionario dado, **cada clave sólo puede asociarse con un único
+  valor**.
+
+- Por tanto, **en un diccionario no puede haber claves repetidas**, es decir,
+  que no puede haber dos elementos distintos con la misma clave.
+
+- Esto es así porque los elementos de un diccionario se identifican mediante su
+  clave.
+
+  Así que, para acceder a un elemento dentro de un diccionario, debemos indicar
+  la clave del elemento.
+
+- Los tipos numéricos que se usen como claves obedecen las reglas normales de
+  comparación numérica.
+
+- Por tanto, si dos números son considerados iguales (como !PYTHON(1) y
+  !PYTHON(1.0)) entonces se consideran la misma clave dentro del diccionario.
 
 ---
 
@@ -1992,26 +2024,46 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
   Como se ve, la clave !PYTHON('perro') está repetida y, por tanto, sólo se
   almacena uno de los dos elementos con clave repetida, que siempre es el
-  último que aparece en el diccionario. En este caso, se almacena el elemento
-  !PYTHON('perro': 'doggy') y se ignora el !PYTHON('perro': 'dog').
+  último que se va a insertar en el diccionario.
+
+  En este caso, se almacena el elemento !PYTHON('perro': 'doggy') y se ignora
+  el !PYTHON('perro': 'dog').
 
 ---
 
-- Las **claves** de un diccionario deben ser datos **_hashables_**.
+- Por otra parte, las **claves** de un diccionario deben ser datos
+  **_hashables_**.
 
-- Por tanto, no se pueden usar como clave una lista, un diccionario, un
-  conjunto !PYTHON(set) o cualquier otro dato mutable.
+- Por tanto, no se pueden usar como clave una lista, un conjunto !PYTHON(set),
+  otro diccionario o cualquier otro dato mutable.
 
-- Los tipos numéricos que se usen como claves obedecen las reglas normales de
-  comparación numérica.
+- Si se intenta crear un diccionario con una clave no _hashable_, se produce un
+  error !PYTHON(TypeError):
 
-  Por tanto, si dos números son considerados iguales (como !PYTHON(1) y
-  !PYTHON(1.0)) entonces se consideran la misma clave dentro del diccionario.
+  ```python
+  >>> {[1, 2]: 'a', [3, 4]: 'b'}         # Las listas no son hashables
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: unhashable type: 'list'
+  >>> {{1, 2}: 'a', {3, 4}: 'b'}         # Los conjuntos set tampoco
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: unhashable type: 'set'
+  ```
+
+- En cambio, sí se puede usar un !PYTHON(frozenset), al ser _hashable_:
+
+  ```python
+  >>> {frozenset({1, 2}): 'a', frozenset({3, 4}): 'b'}
+  {frozenset({1, 2}): 'a', frozenset({3, 4}): 'b'}
+  ```
+
+---
 
 - Desde la versión 3.7 de Python, los elementos dentro de un diccionario se
   almacenan en **el orden en el que se van _insertando_ dentro del
-  diccionario**, aunque ese orden sólo tiene importancia cuando se recorre el
-  diccionario con un iterador.
+  diccionario**, aunque ese orden sólo tiene importancia en determinadas
+  situaciones concretas.
 
 - Dos diccionarios se consideran **iguales** si ambos contienen los mismos
   elementos, es decir, si tienen las mismas parejas !NT(clave)!T(:)!NT(valor),
@@ -2049,44 +2101,55 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 - $\underline{d}$ y $\underline{o}$ son diccionarios, $\underline{c}$ es una
   clave válida y $\underline{v}$ es un valor cualquiera:
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------
-  Operación                             Resultado                                                                                         
-  ------------------------------------- -------------------------------------------------------------------------------------------------------
-  $d$`[`$c$`]` `=` $v$                  Asigna a $d$`[`$c$`]` el valor $\underline{v}$
-
-  !PYTHON(del) $\ d$`[`$c$`]`           Borra $d$`[`$c$`]` de $\underline{d}$ (lanza !PYTHON(KeyError) si $\underline{c}$ no está en
-                                        $\underline{d}$)
-
-  $c\ $ !PYTHON(in) $\ d$               !PYTHON(True) si $\underline{d}$ contiene una clave $\underline{c}$
-
-  $c\ $ !PYTHON(not in) $\ d$           !PYTHON(True) si $\underline{d}$ no contiene una clave $\underline{c}$
-
-  $d$!PYTHON(.clear())                  Elimina todos los elementos de $\underline{d}$
-
-  $d$!PYTHON(.copy())                   Devuelve una copia superficial de $\underline{d}$
-
-  $d$!PYTHON(.get)`(`$c$[`,` $def$]`)`  Devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en caso contrario,
-                                        devuelve $\underline{def}$ (que por defecto es !PYTHON(None))
-
-  $d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`  Elimina y devuelve el valor de $\underline{c}$ si $\underline{c}$ está en $\underline{d}$; en
-                                        caso contrario, devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y $\underline{c}$
-                                        no está en $\underline{d}$, produce un !PYTHON(KeyError))
-  ---------------------------------------------------------------------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------------------------------------------------------------------------
+  Operación                               Resultado                                                                                         
+  --------------------------------------- -------------------------------------------------------------------------------------------------------
+  $d$`[`$c$`]`                            Devuelve el valor asociado a $\underline{c}$ en $\underline{d}$ (lanza !PYTHON(KeyError) si
+                                          $\underline{c}$ no está en $\underline{d}$)
+                                         
+  $d$`[`$c$`]` `=` $v$                    Asocia a la clave $\underline{c}$ el valor $\underline{v}$ en $\underline{d}$ (crea el elemento
+                                          dentro de $\underline{d}$ si la clave $\underline{c}$ no estaba ya en $\underline{d}$)
+                                         
+  !PYTHON(del) $\ d$`[`$c$`]`             Borra de $\underline{d}$ el elemento cuya clave es $\underline{c}$ (lanza !PYTHON(KeyError) si
+                                          $\underline{c}$ no está en $\underline{d}$)
+                                         
+  !PYTHON(len)`(`$d$`)`                   Número de elementos de $\underline{d}$
+                                           
+  $c\ $ !PYTHON(in) $\ d$                 !PYTHON(True) si $\underline{d}$ contiene un elemento con clave $\underline{c}$
+                                         
+  $c\ $ !PYTHON(not)\  !PYTHON(in)        !PYTHON(True) si $\underline{d}$ no contiene un elemento con clave $\underline{c}$
+  $\ d$
+                                         
+  $d$!PYTHON(.clear())                    Elimina todos los elementos de $\underline{d}$
+                                         
+  $d$!PYTHON(.copy())                     Devuelve una copia superficial de $\underline{d}$
+  -----------------------------------------------------------------------------------------------------------------------------------------------
 
 ---
 
 ------------------------------------------------------------------------------------------------------------------------------------
 Operación                                          Resultado
 -------------------------------------------------- ---------------------------------------------------------------------------------
-$d$!PYTHON(.popitem())                             Elimina y devuelve una pareja ($clave$, $valor$) del diccionario
-                                                   siguiendo un orden LIFO (produce un !PYTHON(KeyError) si $\underline{d}$ está vacío)
+$d$!PYTHON(.get)`(`$c$[`,` $def$]`)`               Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
+                                                   no está, devuelve $\underline{def}$, que por defecto es !PYTHON(None)
+                                     
+$d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`               Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]` y
+                                                   elimina de $\underline{d}$ el elemento con clave $\underline{c}$; si no está,
+                                                   devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y la clave
+                                                   $\underline{c}$ no está en $\underline{d}$, lanza un !PYTHON(KeyError))
+
+$d$!PYTHON(.popitem())                             Selecciona un elemento de $\underline{d}$ siguiendo un orden LIFO, lo elimina de
+                                                   $\underline{d}$ y lo devuelve en forma de tupla `(`$clave$`, `$valor$`)` (lanza
+                                                   un !PYTHON(KeyError) si $\underline{d}$ está vacío)
                                                   
-$d$!PYTHON(.setdefault)`(`$c$[`,` $def$]`)`        Si $\underline{c}$ está en $\underline{d}$, devuelve su valor; si no, inserta
-                                                   $\underline{c}$ en $\underline{d}$ con el valor $\underline{def}$ y devuelve
-                                                   $\underline{def}$ (por defecto, $\underline{def}$ vale !PYTHON(None))
+$d$!PYTHON(.setdefault)`(`$c$[`,` $def$]`)`        Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
+                                                   no está, inserta en $\underline{d}$ un elemento con clave $\underline{c}$ y
+                                                   valor $\underline{def}$, y devuelve $\underline{def}$ (que por defecto es
+                                                   !PYTHON(None))
                                                   
 $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con las parejas ($clave$, $valor$) de $\underline{o}$,
-                                                   sobreescribiendo las claves ya existentes, y devuelve !PYTHON(None)
+                                                   sobreescribiendo las claves ya existentes en $\underline{d}$, y devuelve 
+                                                   !PYTHON(None)
 ------------------------------------------------------------------------------------------------------------------------------------
 
 ### Recorrido de diccionarios
@@ -2095,9 +2158,9 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   iteradores.
 
 - El orden en el que se recorren los elementos del diccionario es el orden en
-  el que están almacenados los elementos dentro del diccionario, que como ya
-  sabemos coincide con el orden en el que se han ido insertando los elementos
-  en el diccionario.
+  el que están almacenados los elementos dentro del diccionario que, como ya
+  sabemos, desde la versión 3.7 de Python coincide con el orden en el que se
+  han ido insertando los elementos en el diccionario.
 
 - Los iteradores creados sobre un diccionario, en realidad, recorren sus
   **claves**:
