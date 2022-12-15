@@ -1187,6 +1187,23 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
 - Además, las tuplas son *hashables* si sus elementos también lo son.
 
+---
+
+- En memoria, las tuplas se almacenan mediante una estructura de datos donde
+  sus elementos se identifican mediante un índice, que es un número entero que
+  indica la posición que ocupa el elemento dentro de la tupla.
+
+- Por ejemplo, la siguiente tupla:
+
+  ```python
+  t = (1, 2, 3)
+  ```
+
+  se almacenaría de la siguiente forma según lo representa la herramienta
+  Pythontutor:
+
+  !IMGP(tupla_en_pythontutor.png)(Tupla almacenada en memoria)(width=50%)(width=50%)
+
 ### Rangos
 
 - Los **rangos** (!PYTHON(range)) representan secuencias inmutables y
@@ -1383,11 +1400,37 @@ True
   [1, 2, 3]
   ```
 
+---
+
+- En memoria, las listas se almacenan mediante una estructura de datos donde
+  sus elementos se identifican mediante un índice, que es un número entero que
+  indica la posición que ocupa el elemento dentro de la lista.
+
+- Por ejemplo, la siguiente lista:
+
+  ```python
+  lst = [1, 2, 3]
+  ```
+
+  se almacenaría de la siguiente forma según lo representa la herramienta
+  Pythontutor:
+
+  !IMGP(lista_en_pythontutor.png)(Lista almacenada en memoria)(width=50%)(width=50%)
+
 #### Listas por comprensión
 
 - También se pueden crear **listas por comprensión** usando la misma sintaxis
   de las **expresiones generadoras** pero encerrando la expresión entre
-  corchetes en lugar de entre paréntesis:
+  corchetes en lugar de entre paréntesis.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(lista_comp) ::= !T{[}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T{]}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo:
 
   ```python
   >>> [x ** 2 for x in [1, 2, 3]]
@@ -1626,7 +1669,8 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 
 ---
 
-- Existen dos tipos predefinidos de conjuntos: !PYTHON(set) y !PYTHON(frozenset).
+- Existen dos tipos predefinidos de conjuntos: !PYTHON(set) y
+  !PYTHON(frozenset).
 
 - El tipo !PYTHON(set) es **mutable**, es decir, que su contenido puede cambiar
   usando métodos como !PYTHON(add) y !PYTHON(remove).
@@ -1715,11 +1759,36 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
   False
   ```
 
-#### Conjuntos por comprensión
+---
+
+- En memoria, los conjuntos se almacenan mediante una estructura de datos donde
+  sus elementos no se identifican mediante ningún índice o clave especial.
+
+- Por ejemplo, el siguiente conjunto:
+
+  ```python
+  d = {1, 2, 3}
+  ```
+
+  se almacenaría de la siguiente forma según lo representa la herramienta
+  Pythontutor:
+
+  !IMGP(conjunto_en_pythontutor.png)(Conjunto almacenado en memoria)(width=50%)(width=50%)
+
+### Conjuntos por comprensión
 
 - También se pueden crear **conjuntos por comprensión** usando la misma
   sintaxis de las **expresiones generadoras** y las **listas por comprensión**,
-  pero esta vez encerrando la expresión entre llaves:
+  pero esta vez encerrando la expresión entre llaves.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(conj_comp) ::= !T[{]!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T[}]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo:
 
   ```python
   >>> {x ** 2 for x in [1, 2, 3]}
@@ -1727,6 +1796,8 @@ $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
   ```
 
 - El resultado es directamente un valor de tipo !PYTHON(set), no un iterador.
+
+---
 
 - Los conjuntos por comprensión, al igual que las expresiones generadoras y las
   listas por comprensión, **determinan su propio _ámbito_**.
@@ -1985,13 +2056,29 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
 ---
 
+- En memoria, los diccionarios se almacenan como **tablas** de dos columnas, la
+  clave y el valor.
+
+- Por ejemplo, el siguiente diccionario:
+
+  ```python
+  d = {'a': 1, 'b': 2, 'c': 3}
+  ```
+
+  se almacenaría de la siguiente forma según lo representa la herramienta
+  Pythontutor:
+
+  !IMGP(diccionario_en_pythontutor.png)(Diccionario almacenado en memoria)(width=50%)(width=50%)
+
+---
+
 - Las **claves** de un diccionario deben cumplir dos **restricciones**:
 
   #. Deben ser **únicas** en ese diccionario.
 
   #. Deben ser **_hashables_**.
 
----
+#### Claves únicas
 
 - En un diccionario dado, **cada clave sólo puede asociarse con un único
   valor**.
@@ -2029,7 +2116,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   En este caso, se almacena el elemento !PYTHON('perro': 'doggy') y se ignora
   el !PYTHON('perro': 'dog').
 
----
+#### Claves *hashables*
 
 - Por otra parte, las **claves** de un diccionario deben ser datos
   **_hashables_**.
@@ -2095,6 +2182,80 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   File "<stdin>", line 1, in <module>
   KeyError: 'caballo'
   ```
+
+### Diccionarios por comprensión
+
+- También se pueden crear **diccionarios por comprensión** usando una sintaxis
+  análoga a la de los **conjuntos por comprensión** (encerrando la expresión
+  entre llaves), pero de forma que los elementos estén formados por parejas de
+  clave y valor separados por `:`.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(dicc_comp) ::= !T[{]!NT[clave]!T[:]!NT[valor] (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T[}]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde !NT(clave) debe ser una expresión que devuelva valores _hashables_, y
+  !NT(valor) puede ser una expresión cualquiera.
+
+- Por ejemplo:
+
+  ```python
+  >>> {x: x ** 2 for x in [1, 2, 3]}
+  {1: 1, 2: 4, 3: 9}
+  ```
+
+  devuelve el diccionario que asocia a cada número 1, 2 y 3 con su
+  correspondiente cuadrado.
+
+- El resultado es directamente un valor de tipo !PYTHON(dict), no un iterador.
+
+---
+
+- Los diccionarios por comprensión, al igual que los conjuntos por comprensión,
+  las expresiones generadoras y las listas por comprensión, **determinan su
+  propio _ámbito_**.
+
+- Ese ámbito abarca todo el diccionario por comprensión, de principio a fin.
+
+- Los identificadores que aparecen en la cláusula !PYTHON(for) se consideran
+  _variables ligadas_ en el diccionario por comprensión.
+
+- Esos identificadores se van ligando, uno a uno, a cada elemento de la
+  secuencia indicada en la cláusula !PYTHON(in).
+
+---
+
+- Como son variables ligadas, cumplen estas dos propiedades:
+
+  #. Se pueden renombrar (siempre de forma consistente) sin que el diccionario
+  por comprensión cambie su significado.
+
+     Por ejemplo, los dos diccionarios por comprensión siguientes son
+     equivalentes, puesto que producen el mismo resultado:
+
+     ```python
+     {x: x ** 2 for x in (1, 2, 3)}
+     ```
+
+     ```python
+     {y: y ** 2 for y in (1, 2, 3)}
+     ```
+
+  #. No se pueden usar fuera del diccionario por comprensión, ya que estarían
+     fuera de su ámbito y no serían visibles.
+
+     Por ejemplo, lo siguiente daría un error de nombre:
+
+     ```python
+     >>> e = {x: x ** 2 for x in (1, 2, 3)}
+     >>> x       # Intento acceder a la 'x' del diccinario por comprensión
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     NameError: name 'x' is not defined
+     ```
 
 ### Operaciones
 
@@ -2317,6 +2478,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -->
+
+
 
 ## Documentos XML
 
