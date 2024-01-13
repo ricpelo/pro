@@ -249,7 +249,7 @@ nocite: |
 
 ---
 
-- Los módulos **exportan** su interfaz al resto de los módulos.
+- Los módulos **_exportan_ su interfaz** al resto de los módulos.
 
 - Los módulos usuarios deben **importar** un módulo para poder usarlo. Al
   hacerlo, tienen acceso a los elementos exportados por el módulo a través de
@@ -268,13 +268,13 @@ nocite: |
 ---
 
 - Los **usuarios** de un módulo están interesados en usar dicho módulo como una
-  **entidad abstracta**, sin necesidad de conocer los *detalles internos* del
+  **entidad abstracta**, sin necesidad de conocer los _detalles internos_ del
   mismo, sino conociendo sólo lo necesario para poder consumir los servicios
-  que proporciona (su _interfaz_).
+  que proporciona (es decir, su _interfaz_).
 
 - Esos usuarios consumirán los servicios del módulo a través de su interfaz, la
-  cual oculta a los usuarios los detalles internos de funcionamiento que no son
-  necesarios para usar el módulo.
+  cual oculta a los usuarios los detalles internos de funcionamiento que no es
+  necesario conocer para usar el módulo.
 
 - Esos detalles internos forman la _implementación_ del módulo y sólo son
   interesantes para (y sólo deben ser conocidos por) el **creador** del módulo.
@@ -504,19 +504,43 @@ $$\text{Implementación del módulo}\begin{cases}
 \text{Posibles constantes privadas}
 \end{cases}$$
 
+<!--
+---
+
+- O, visto de otra forma, incluyendo la _interfaz_ como parte de la
+  _especificación_ del módulo:
+
+$$\text{Especificación del módulo}\begin{cases}
+\text{Interfaz del módulo}\begin{cases}
+\text{Nombre del módulo}\\
+\text{Signatura de las funciones públicas}\\
+\text{Posibles constantes públicas}
+\end{cases}\\
+\text{Especificación de las funciones de la interfaz}\\
+\text{Documentación adicional}
+\end{cases}$$
+
+$$\text{Implementación del módulo}\begin{cases}
+\text{Implementación de las funciones públicas}\\
+\text{Posibles variables locales}\\
+\text{Posibles funciones privadas} \\
+\text{Posibles constantes privadas}
+\end{cases}$$
+-->
+
 ## Diagramas de estructura
 
 - Los diferentes módulos que forman un programa y la relación que hay entre
-  ellos se puede representar gráficamente mediante un *diagrama de
-  descomposición modular* o **diagrama de estructura**.
+  ellos se puede representar gráficamente mediante un _diagrama de
+  descomposición modular_ o **diagrama de estructura**.
 
 - En el diagrama de estructura, cada módulo se representa mediante un
   rectángulo y las relaciones entre cada par de módulos se dibujan como una
   línea con punta de flecha entre los dos módulos.
 
-- Una flecha dirigida del módulo *A* al módulo *B* representa que el módulo *A*
-  *utiliza* (o *llama* o *consume*) al módulo *B*, o también se puede decir que
-  el módulo *A* *depende* del módulo *B*.
+- Una flecha dirigida del módulo _A_ al módulo _B_ representa que el módulo _A_
+  _utiliza_ (o _llama_ o _consume_) al módulo _B_, o también se puede decir que
+  el módulo _A_ _depende_ del módulo _B_.
 
 !DOT(modulos-dependientes.svg)(*A* depende de *B*)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1057,8 +1081,8 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Para saber qué definiciones contiene un módulo, se puede usar la funcion
-  !PYTHON(dir):
+- Para saber qué definiciones (públicas o privadas) contiene un módulo, se
+  puede usar la funcion !PYTHON(dir):
 
   ```python
   >>> import math
@@ -1172,8 +1196,8 @@ E -> mcd [lhead = cluster1]
 
 ## Introducción
 
-- No existe una única forma de descomponer un programa en módulos (entiendo
-  aquí por *módulo* cualquier parte del programa en sentido amplio, incluyendo
+- No existe una única forma de descomponer un programa en módulos (entendiendo
+  aquí por _módulo_ cualquier parte del programa en sentido amplio, incluyendo
   una simple función).
 
 - Las diferentes formas de dividir el sistema en módulos traen consigo
@@ -1203,8 +1227,8 @@ E -> mcd [lhead = cluster1]
 - El coste de desarrollar un módulo individual disminuye conforme aumenta el
   número de módulos.
 
-- Dado el mismo conjunto de requisitos funcionales, cuantos más módulos hay,
-  más pequeños son.
+- Por otra parte, dado el mismo conjunto de requisitos funcionales, cuantos más
+  módulos hay, más pequeños son.
 
 - Sin embargo, cuantos más módulos hay, más cuesta integrarlos.
  
@@ -1246,6 +1270,9 @@ E -> mcd [lhead = cluster1]
 
 - Ese proceso nos permite comprender la esencia de un subsistema sin tener que
   conocer detalles innecesarios del mismo.
+
+- Es decir, se puede estudiar y usar el subsistema sabiendo _qué_ hace sin
+  tener que saber _cómo_ lo hace.
 
 - La utilización de la abstracción también permite trabajar con conceptos y
   términos que son familiares en el entorno del problema sin tener que
@@ -1381,27 +1408,27 @@ tiene «aversión» por exponer sus interioridades a los demás.
 
 - La **abstracción** y la **ocultación de información** se complementan:
 
+  - La **abstracción** puede usarse como una **técnica de diseño** que **nos da
+    un método para descomponer el programa en módulos**. Es decir: nos ayuda a
+    decidir **qué módulos debe tener el programa**.
+
+    Pero **también nos dice qué debe ocultar y qué debe exponer** cada módulo,
+    porque afirma que la _interfaz_ debe estar formada, precisamente, por lo
+    elementos que responden al «_qué_» hace el módulo, y la _implementación_
+    por los que responden al «_cómo_» lo hace.
+
   - La **ocultación de información** es un **principio de diseño** que se basa
     en que los módulos deben ocultar a los demás módulos sus decisiones de
     diseño y exponer sólo la información estrictamente necesaria para que los
     demás puedan usarlos.
 
     Por tanto, nos ayuda a identificar **qué detalles debe ocultar el módulo y
-    qué información debe exponer a los demás**. O dicho de otra forma: qué
-    elementos forman parte de su _interfaz_ (lo que expone) y cuáles forman
-    parte de su _implementación_ (lo que oculta).
+    qué información debe exponer a los demás**. Es decir: qué detalles internos
+    deben conocerse de un módulo para poder usarlo.
 
-  - La **abstracción** puede usarse como una **técnica de diseño** que **nos da
-    un método para descomponer el programa en módulos**.
-
-    Por tanto, nos ayuda a decidir **qué módulos hay** y **en qué módulo va
-    cada elemento del programa**. Es decir: qué elementos deben formar parte de
-    un módulo y cuáles deben formar parte de otro módulo.
-
-    Pero **también nos dice qué debe ocultar y qué debe exponer** el módulo,
-    porque afirma que la _interfaz_ debe estar formada, precisamente, por lo
-    elementos que responden al «_qué_» hace el módulo, y la _implementación_
-    por los que responden al «_cómo_» lo hace.
+    También nos ayuda a ver **en qué módulo va cada elemento del programa**. Es
+    decir: qué elementos deben formar parte de un módulo y cuáles deben formar
+    parte de otros módulos.
 
 ---
 
@@ -1411,19 +1438,21 @@ tiene «aversión» por exponer sus interioridades a los demás.
     sabiendo únicamente *qué* hace sin tener que saber *cómo* lo hace.
 
   - ... le interesa la **ocultación de información** porque cuanta menos
-    información necesite conocer para usar el módulo, más fácil y cómodo le
-    resultará usarlo.
+    información necesite conocer para usar el módulo, menos expuesto estará a
+    verse afectado por posibles cambios futuros en el funcionamiento interno
+    del mismo.
 
 - Al **creador** de un módulo...
 
-  - ... le interesa la **abstracción** porque le ayuda a
-    determinar qué módulos deben formar parte del programa y qué información
-    debe ocultar su módulo al exterior.
+  - ... le interesa la **abstracción** porque le ayuda a determinar qué módulos
+    deben formar parte del programa.
 
-  - ... le interesa la **ocultación de información** porque cuantos más
-    detalles necesiten conocer los usuarios para poder usar su módulo, menos
-    libertad tendrá él para cambiar esos detalles en el futuro (cuando lo
-    necesite o lo desee) sin afectar a los usuarios de su módulo.
+  - ... le interesa la **ocultación de información** porque le ayuda a
+    determinar qué elementos deben formar parte de su módulo y qué información
+    debe ocultar su módulo al exterior. Además, cuantos menos detalles
+    necesiten conocer los usuarios para poder usar su módulo, más libertad
+    tendrá él para cambiar esos detalles en el futuro (cuando lo necesite o lo
+    desee) sin afectar a los usuarios de su módulo.
 
 ## Independencia funcional
 

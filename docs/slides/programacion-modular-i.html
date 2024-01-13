@@ -16,12 +16,21 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,11 +92,13 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
-    .hanging div.csl-entry {
+    .hanging-indent div.csl-entry {
       margin-left:2em;
       text-indent:-2em;
     }
@@ -101,8 +112,7 @@
     }
     div.csl-indent {
       margin-left: 2em;
-    }
-  </style>
+    }  </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
@@ -543,8 +553,8 @@ mismo se le denomina la <strong>interfaz</strong> del módulo.</p></li>
 <section class="slide level5" data-number="2.1.0.0.1">
 
 <ul>
-<li><p>Los módulos <strong>exportan</strong> su interfaz al resto de los
-módulos.</p></li>
+<li><p>Los módulos <strong><em>exportan</em> su interfaz</strong> al
+resto de los módulos.</p></li>
 <li><p>Los módulos usuarios deben <strong>importar</strong> un módulo
 para poder usarlo. Al hacerlo, tienen acceso a los elementos exportados
 por el módulo a través de su interfaz, lo que le permite al <em>módulo
@@ -569,10 +579,10 @@ existencia de dos tipos de módulos:</p>
 usar dicho módulo como una <strong>entidad abstracta</strong>, sin
 necesidad de conocer los <em>detalles internos</em> del mismo, sino
 conociendo sólo lo necesario para poder consumir los servicios que
-proporciona (su <em>interfaz</em>).</p></li>
+proporciona (es decir, su <em>interfaz</em>).</p></li>
 <li><p>Esos usuarios consumirán los servicios del módulo a través de su
 interfaz, la cual oculta a los usuarios los detalles internos de
-funcionamiento que no son necesarios para usar el módulo.</p></li>
+funcionamiento que no es necesario conocer para usar el módulo.</p></li>
 <li><p>Esos detalles internos forman la <em>implementación</em> del
 módulo y sólo son interesantes para (y sólo deben ser conocidos por) el
 <strong>creador</strong> del módulo.</p></li>
@@ -831,6 +841,29 @@ módulo}\begin{cases}
 \text{Posibles funciones privadas} \\
 \text{Posibles constantes privadas}
 \end{cases}</span></p>
+<!--
+---
+
+- O, visto de otra forma, incluyendo la _interfaz_ como parte de la
+  _especificación_ del módulo:
+
+$$\text{Especificación del módulo}\begin{cases}
+\text{Interfaz del módulo}\begin{cases}
+\text{Nombre del módulo}\\
+\text{Signatura de las funciones públicas}\\
+\text{Posibles constantes públicas}
+\end{cases}\\
+\text{Especificación de las funciones de la interfaz}\\
+\text{Documentación adicional}
+\end{cases}$$
+
+$$\text{Implementación del módulo}\begin{cases}
+\text{Implementación de las funciones públicas}\\
+\text{Posibles variables locales}\\
+\text{Posibles funciones privadas} \\
+\text{Posibles constantes privadas}
+\end{cases}$$
+-->
 </section>
 
 
@@ -1249,8 +1282,8 @@ dentro del módulo importador, lo que incluso puede provocar que se
 <section class="slide level5" data-number="3.2.0.0.12">
 
 <ul>
-<li><p>Para saber qué definiciones contiene un módulo, se puede usar la
-funcion <code
+<li><p>Para saber qué definiciones (públicas o privadas) contiene un
+módulo, se puede usar la funcion <code
 class="sourceCode python"><span class="bu">dir</span></code>:</p>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
@@ -1382,7 +1415,7 @@ data-number="4.1">
 Introducción</h2>
 <ul>
 <li><p>No existe una única forma de descomponer un programa en módulos
-(entiendo aquí por <em>módulo</em> cualquier parte del programa en
+(entendiendo aquí por <em>módulo</em> cualquier parte del programa en
 sentido amplio, incluyendo una simple función).</p></li>
 <li><p>Las diferentes formas de dividir el sistema en módulos traen
 consigo diferentes requisitos de comunicación y coordinación entre las
@@ -1412,8 +1445,8 @@ esfuerzo hasta llegar a cero.</p></li>
 entran en juego.</p></li>
 <li><p>El coste de desarrollar un módulo individual disminuye conforme
 aumenta el número de módulos.</p></li>
-<li><p>Dado el mismo conjunto de requisitos funcionales, cuantos más
-módulos hay, más pequeños son.</p></li>
+<li><p>Por otra parte, dado el mismo conjunto de requisitos funcionales,
+cuantos más módulos hay, más pequeños son.</p></li>
 <li><p>Sin embargo, cuantos más módulos hay, más cuesta
 integrarlos.</p></li>
 <li><p>El tamaño de cada módulo debe ser el adecuado: si es demasiado
@@ -1468,6 +1501,8 @@ en lo esencial e ignorando momentáneamente los detalles que no son
 importantes en este nivel.</p></li>
 <li><p>Ese proceso nos permite comprender la esencia de un subsistema
 sin tener que conocer detalles innecesarios del mismo.</p></li>
+<li><p>Es decir, se puede estudiar y usar el subsistema sabiendo
+<em>qué</em> hace sin tener que saber <em>cómo</em> lo hace.</p></li>
 <li><p>La utilización de la abstracción también permite trabajar con
 conceptos y términos que son familiares en el entorno del problema sin
 tener que transformarlos en una estructura no familiar.</p></li>
@@ -1635,28 +1670,27 @@ interioridades a los demás.</p>
 <li><p>La <strong>abstracción</strong> y la <strong>ocultación de
 información</strong> se complementan:</p>
 <ul>
+<li><p>La <strong>abstracción</strong> puede usarse como una
+<strong>técnica de diseño</strong> que <strong>nos da un método para
+descomponer el programa en módulos</strong>. Es decir: nos ayuda a
+decidir <strong>qué módulos debe tener el programa</strong>.</p>
+<p>Pero <strong>también nos dice qué debe ocultar y qué debe
+exponer</strong> cada módulo, porque afirma que la <em>interfaz</em>
+debe estar formada, precisamente, por lo elementos que responden al
+«<em>qué</em>» hace el módulo, y la <em>implementación</em> por los que
+responden al «<em>cómo</em>» lo hace.</p></li>
 <li><p>La <strong>ocultación de información</strong> es un
 <strong>principio de diseño</strong> que se basa en que los módulos
 deben ocultar a los demás módulos sus decisiones de diseño y exponer
 sólo la información estrictamente necesaria para que los demás puedan
 usarlos.</p>
 <p>Por tanto, nos ayuda a identificar <strong>qué detalles debe ocultar
-el módulo y qué información debe exponer a los demás</strong>. O dicho
-de otra forma: qué elementos forman parte de su <em>interfaz</em> (lo
-que expone) y cuáles forman parte de su <em>implementación</em> (lo que
-oculta).</p></li>
-<li><p>La <strong>abstracción</strong> puede usarse como una
-<strong>técnica de diseño</strong> que <strong>nos da un método para
-descomponer el programa en módulos</strong>.</p>
-<p>Por tanto, nos ayuda a decidir <strong>qué módulos hay</strong> y
-<strong>en qué módulo va cada elemento del programa</strong>. Es decir:
-qué elementos deben formar parte de un módulo y cuáles deben formar
-parte de otro módulo.</p>
-<p>Pero <strong>también nos dice qué debe ocultar y qué debe
-exponer</strong> el módulo, porque afirma que la <em>interfaz</em> debe
-estar formada, precisamente, por lo elementos que responden al
-«<em>qué</em>» hace el módulo, y la <em>implementación</em> por los que
-responden al «<em>cómo</em>» lo hace.</p></li>
+el módulo y qué información debe exponer a los demás</strong>. Es decir:
+qué detalles internos deben conocerse de un módulo para poder
+usarlo.</p>
+<p>También nos ayuda a ver <strong>en qué módulo va cada elemento del
+programa</strong>. Es decir: qué elementos deben formar parte de un
+módulo y cuáles deben formar parte de otros módulos.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1670,18 +1704,20 @@ usar el módulo sabiendo únicamente <em>qué</em> hace sin tener que saber
 <em>cómo</em> lo hace.</p></li>
 <li><p>… le interesa la <strong>ocultación de información</strong>
 porque cuanta menos información necesite conocer para usar el módulo,
-más fácil y cómodo le resultará usarlo.</p></li>
+menos expuesto estará a verse afectado por posibles cambios futuros en
+el funcionamiento interno del mismo.</p></li>
 </ul></li>
 <li><p>Al <strong>creador</strong> de un módulo…</p>
 <ul>
 <li><p>… le interesa la <strong>abstracción</strong> porque le ayuda a
-determinar qué módulos deben formar parte del programa y qué información
-debe ocultar su módulo al exterior.</p></li>
+determinar qué módulos deben formar parte del programa.</p></li>
 <li><p>… le interesa la <strong>ocultación de información</strong>
-porque cuantos más detalles necesiten conocer los usuarios para poder
-usar su módulo, menos libertad tendrá él para cambiar esos detalles en
-el futuro (cuando lo necesite o lo desee) sin afectar a los usuarios de
-su módulo.</p></li>
+porque le ayuda a determinar qué elementos deben formar parte de su
+módulo y qué información debe ocultar su módulo al exterior. Además,
+cuantos menos detalles necesiten conocer los usuarios para poder usar su
+módulo, más libertad tendrá él para cambiar esos detalles en el futuro
+(cuando lo necesite o lo desee) sin afectar a los usuarios de su
+módulo.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1988,15 +2024,15 @@ fueran las piezas del engranaje de una máquina.</p></li>
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="doc-bibliography">
+data-entry-spacing="0" role="list">
 <div id="ref-pressman_ingenierisoftware_2004" class="csl-entry"
-role="doc-biblioentry">
+role="listitem">
 Pressman, Roger S, Darrel Ince, Rafael Ojeda Martín, and Luis Joyanes
 Aguilar. 2004. <em>Ingeniería Del Software: Un Enfoque Práctico</em>.
 Madrid: McGraw-Hill.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
-role="doc-biblioentry">
+role="listitem">
 Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
 <span>Python</span>.”</span> <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
