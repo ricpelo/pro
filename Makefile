@@ -249,10 +249,7 @@ $(PRAC_BUILDDIR_PDF)/%-practicas.pdf: $(PRAC_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGH
 # Objetivos auxiliares
 
 $(PP):
-	# La última versión está en https://cdsoft.fr/pp/pp-linux-x86_64.txz
-	# pero en Ubuntu 18.04 LTS hay que usar la 2.7.3, que es la última que funciona:
-	# wget -q -O - https://cdsoft.fr/pp/archives/pp-linux-x86_64-2.7.3.txz | tar x -J pp
-	wget -q -O - http://cdelord.fr/pp/pp.tgz | tar xfz pp
+	wget -q -O - https://github.com/CDSoft/pp/releases/download/2.14.1/pp-linux-x86_64-2.14.1.txz | tar x -J pp
 	sudo apt install default-jre graphviz librsvg2-bin python3-pyprind
 
 $(PANDOC):
