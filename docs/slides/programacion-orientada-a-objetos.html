@@ -16,12 +16,21 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,11 +92,13 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
-    .hanging div.csl-entry {
+    .hanging-indent div.csl-entry {
       margin-left:2em;
       text-indent:-2em;
     }
@@ -101,8 +112,7 @@
     }
     div.csl-indent {
       margin-left: 2em;
-    }
-  </style>
+    }  </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
@@ -2882,8 +2892,8 @@ literales:</p>
 <div class="sourceCode" id="cb76"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> Persona(<span class="st">&#39;28373482X&#39;</span>, <span class="st">&#39;Javier Rodríguez&#39;</span>)</span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p</span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>Persona(<span class="dv">28373482</span>X, Javier Rodríguez)</span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Persona(<span class="dv">28373482</span>X, Javier Rodríguez)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>Persona(28373482X, Javier Rodríguez)</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Persona(28373482X, Javier Rodríguez)</span>
 <span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="pp">SyntaxError</span>: invalid syntax</span></code></pre></div></li>
 </ul>
 </section>
@@ -3044,7 +3054,7 @@ class="sourceCode python"><span class="bu">str</span></code> para
 imprimir el objeto de una forma legible:</p>
 <div class="sourceCode" id="cb87"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(d)</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2020</span><span class="op">-</span><span class="dv">04</span><span class="op">-</span><span class="dv">30</span></span></code></pre></div></li>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2020</span><span class="op">-</span>04<span class="op">-</span><span class="dv">30</span></span></code></pre></div></li>
 <li><p>Recordemos que <code
 class="sourceCode python"><span class="bu">print</span></code> imprime
 una cadena por la salida (sin comillas) y devuelve <code
@@ -3437,77 +3447,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a h
 <li><p>La pregunta es: ¿qué ganamos con todo esto?</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.2.2.2">
-
-<p><strong>¡CUIDADO!</strong></p>
-<ul>
-<li><p>Supogamos que tenemos el siguiente código que implementa
-colas:</p>
-<div class="sourceCode" id="cb93"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Cola:</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Invariante: self.__cantidad == len(self.__items).&quot;&quot;&quot;</span></span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__cantidad <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items <span class="op">=</span> []</span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> meter(<span class="va">self</span>, el):</span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items.append(el)</span>
-<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__cantidad <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sacar(<span class="va">self</span>):</span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.__cantidad <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Cola vacía&quot;</span>)</span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">del</span> <span class="va">self</span>.__items[<span class="dv">0</span>]</span>
-<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__cantidad <span class="op">-=</span> <span class="dv">1</span></span>
-<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_items(<span class="va">self</span>):</span>
-<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__items</span></code></pre></div></li>
-<li><p>Se supone que la variable de instancia <code>__items</code> es
-privada y, por tanto, sólo se puede acceder a ella desde el interior de
-la clase.</p></li>
-<li><p>El método <code>get_items</code> es un <em>getter</em> para la
-variable de instancia <code>__items</code>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="5.1.2.2.3">
-
-<ul>
-<li><p>En teoría, los únicos métodos con los que podemos modificar el
-contenido de la variable de instancia <code>__items</code> son
-<code>meter</code> y <code>sacar</code>.</p></li>
-<li><p>Sin embargo, podemos hacer así:</p>
-<div class="sourceCode" id="cb94"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Cola()</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>c.meter(<span class="dv">1</span>)</span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>c.meter(<span class="dv">2</span>)</span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> c.get_items() <span class="co"># Obtenemos la lista contenida en __items</span></span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> l[<span class="dv">0</span>]          <span class="co"># Eliminamos un elemento de la lista desde fuera de la cola</span></span></code></pre></div></li>
-<li><p>Esto se debe a que <code>get_items</code> devuelve una referencia
-a la lista contenida dentro de la instancia de <code>Cola</code>, con lo
-cual podemos modificar la lista desde el exterior sin necesidad de usar
-los <em>setters</em>.</p></li>
-<li><p>Por tanto, podemos romper los invariantes de la clase, ya que
-ahora se cumple que <code>c.__cantidad</code> vale 2 y <code
-class="sourceCode python"><span class="bu">len</span></code><code>(c.__items)</code>
-vale <code class="sourceCode python"><span class="dv">1</span></code>
-(no coinciden).</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="5.1.2.2.4">
-
-<ul>
-<li><p>Para solucionar el problema, tenemos dos opciones:</p>
-<ul>
-<li><p>Quitar el método <code>get_items</code> si es posible.</p></li>
-<li><p>Si es estrictamente necesario que exista, cambiarlo para que no
-devuelva una referencia a la lista, sino una <strong>copia</strong> de
-la lista:</p></li>
-</ul>
-<div class="sourceCode" id="cb95"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_items(<span class="va">self</span>):</span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.__items[:]</span></code></pre></div></li>
-</ul>
-</section>
 
 <section id="invariantes-de-clase" class="title-slide slide level4"
 data-number="5.1.2.3">
@@ -3543,29 +3482,29 @@ una clase se denominan <strong>invariantes de la clase</strong>.</p>
 <ul>
 <li><p>Por ejemplo: si queremos almacenar los datos de una persona y
 queremos garantizar que la edad no sea negativa, podemos hacer:</p>
-<div class="sourceCode" id="cb96"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Invariante: todas las personas deben tener edad no negativa.&quot;&quot;&quot;</span></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_edad(edad)</span>
-<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
-<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
-<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
-<span id="cb96-14"><a href="#cb96-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">0</span>:</span>
-<span id="cb96-15"><a href="#cb96-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
-<span id="cb96-16"><a href="#cb96-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span>
-<span id="cb96-17"><a href="#cb96-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-18"><a href="#cb96-18" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Persona(<span class="st">&quot;Manuel&quot;</span>, <span class="dv">30</span>)   <span class="co"># Es correcto</span></span>
-<span id="cb96-19"><a href="#cb96-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(p.set_nombre())       <span class="co"># Imprime &#39;Manuel&#39;</span></span>
-<span id="cb96-20"><a href="#cb96-20" aria-hidden="true" tabindex="-1"></a>p.set_edad(<span class="dv">25</span>)              <span class="co"># Cambia la edad a 25</span></span>
-<span id="cb96-21"><a href="#cb96-21" aria-hidden="true" tabindex="-1"></a>p.set_edad(<span class="op">-</span><span class="dv">14</span>)             <span class="co"># Provoca un error</span></span>
-<span id="cb96-22"><a href="#cb96-22" aria-hidden="true" tabindex="-1"></a>p.__edad <span class="op">=</span> <span class="op">-</span><span class="dv">14</span>              <span class="co"># Funcionaría si __edad no fuese privada</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb93"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Invariante: todas las personas deben tener edad no negativa.&quot;&quot;&quot;</span></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_edad(edad)</span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
+<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
+<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span>
+<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Persona(<span class="st">&quot;Manuel&quot;</span>, <span class="dv">30</span>)   <span class="co"># Es correcto</span></span>
+<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(p.set_nombre())       <span class="co"># Imprime &#39;Manuel&#39;</span></span>
+<span id="cb93-20"><a href="#cb93-20" aria-hidden="true" tabindex="-1"></a>p.set_edad(<span class="dv">25</span>)              <span class="co"># Cambia la edad a 25</span></span>
+<span id="cb93-21"><a href="#cb93-21" aria-hidden="true" tabindex="-1"></a>p.set_edad(<span class="op">-</span><span class="dv">14</span>)             <span class="co"># Provoca un error</span></span>
+<span id="cb93-22"><a href="#cb93-22" aria-hidden="true" tabindex="-1"></a>p.__edad <span class="op">=</span> <span class="op">-</span><span class="dv">14</span>              <span class="co"># Funcionaría si __edad no fuese privada</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.2.3.2">
@@ -3734,24 +3673,24 @@ class="sourceCode python"><span class="cf">assert</span></code>.</p></li>
 <ul>
 <li><p>El código anterior quedaría así usando <code
 class="sourceCode python"><span class="cf">assert</span></code>:</p>
-<div class="sourceCode" id="cb97"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="st">Invariante: todas las personas deben tener edad no negativa.</span></span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
-<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
-<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
-<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_edad(edad)</span>
-<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
-<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
-<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
-<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> edad <span class="op">&gt;=</span> <span class="dv">0</span>      <span class="co"># La edad tiene que ser &gt;= 0</span></span>
-<span id="cb97-17"><a href="#cb97-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span></code></pre></div></li>
+<div class="sourceCode" id="cb94"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="st">Invariante: todas las personas deben tener edad no negativa.</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre, edad):</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nombre(nombre)</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_edad(edad)</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>):</span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_edad(<span class="va">self</span>, edad):</span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> edad <span class="op">&gt;=</span> <span class="dv">0</span>      <span class="co"># La edad tiene que ser &gt;= 0</span></span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad</span></code></pre></div></li>
 <li><p>El intérprete comprobará el aserto cuando el flujo de control
 llegue a la sentencia <code
 class="sourceCode python"><span class="cf">assert</span></code> y, en
@@ -3770,21 +3709,21 @@ ejecute el código.</p></li>
 intérprete de Python desde la línea de comandos del sistema
 operativo:</p></li>
 </ul>
-<div class="sourceCode" id="cb98"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prueba.py</span></span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Antes&quot;</span>)</span>
-<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="dv">1</span> <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Después&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb99"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python prueba.py</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>Antes</span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  File &quot;prueba.py&quot;, line 2, in <span class="co">&lt;module&gt;</span></span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>    assert False</span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>AssertionError</span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python -O prueba.py</span>
-<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>Antes</span>
-<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>Después</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prueba.py</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Antes&quot;</span>)</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="dv">1</span> <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Después&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python prueba.py</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>Antes</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  File &quot;prueba.py&quot;, line 2, in <span class="co">&lt;module&gt;</span></span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>    assert False</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>AssertionError</span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python -O prueba.py</span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>Antes</span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>Después</span></code></pre></div>
 <ul>
 <li>Con la opción <code>-O</code> (de «<strong>O</strong>ptimizado»)
 podemos elegir entre mayor rendimiento o mayor seguridad al ejecutar
@@ -3801,23 +3740,23 @@ error adecuado si la condición no se cumple.</p></li>
 <li><p>Por ejemplo, si intentamos retirar fondos de un depósito pero no
 hay saldo suficiente, eso se debería comprobar siempre:</p></li>
 </ul>
-<div class="sourceCode" id="cb100"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
-<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:                    <span class="co"># Si no hay fondos:</span></span>
-<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Fondos insuficientes&quot;</span>)  <span class="co"># Error</span></span>
-<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
-<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
-<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
-<span id="cb100-13"><a href="#cb100-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
-<span id="cb100-14"><a href="#cb100-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-15"><a href="#cb100-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb100-16"><a href="#cb100-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:                    <span class="co"># Si no hay fondos:</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Fondos insuficientes&quot;</span>)  <span class="co"># Error</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
 </section>
 <section class="slide level5" data-number="5.1.2.5.4">
 
@@ -3859,6 +3798,77 @@ y sentencias <code
 class="sourceCode python"><span class="cf">assert</span></code> en
 puntos adecuados del código fuente de la clase.</p></li>
 </ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.5.6">
+
+<p><strong>¡CUIDADO!</strong></p>
+<ul>
+<li><p>Supogamos que tenemos el siguiente código que implementa
+colas:</p>
+<div class="sourceCode" id="cb98"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Cola:</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Invariante: self.__cantidad == len(self.__items).&quot;&quot;&quot;</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__cantidad <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items <span class="op">=</span> []</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> meter(<span class="va">self</span>, el):</span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items.append(el)</span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__cantidad <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sacar(<span class="va">self</span>):</span>
+<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.__cantidad <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;Cola vacía&quot;</span>)</span>
+<span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">del</span> <span class="va">self</span>.__items[<span class="dv">0</span>]</span>
+<span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__cantidad <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_items(<span class="va">self</span>):</span>
+<span id="cb98-18"><a href="#cb98-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__items</span></code></pre></div></li>
+<li><p>Se supone que la variable de instancia <code>__items</code> es
+privada y, por tanto, sólo se puede acceder a ella desde el interior de
+la clase.</p></li>
+<li><p>El método <code>get_items</code> es un <em>getter</em> para la
+variable de instancia <code>__items</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.5.7">
+
+<ul>
+<li><p>En teoría, los únicos métodos con los que podemos modificar el
+contenido de la variable de instancia <code>__items</code> son
+<code>meter</code> y <code>sacar</code>.</p></li>
+<li><p>Sin embargo, podemos hacer así:</p>
+<div class="sourceCode" id="cb99"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Cola()</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>c.meter(<span class="dv">1</span>)</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>c.meter(<span class="dv">2</span>)</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> c.get_items() <span class="co"># Obtenemos la lista contenida en __items</span></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> l[<span class="dv">0</span>]          <span class="co"># Eliminamos un elemento de la lista desde fuera de la cola</span></span></code></pre></div></li>
+<li><p>Esto se debe a que <code>get_items</code> devuelve una referencia
+a la lista contenida dentro de la instancia de <code>Cola</code>, con lo
+cual podemos modificar la lista desde el exterior sin necesidad de usar
+los <em>setters</em>.</p></li>
+<li><p>Por tanto, podemos romper los invariantes de la clase, ya que
+ahora se cumple que <code>c.__cantidad</code> vale 2 y <code
+class="sourceCode python"><span class="bu">len</span></code><code>(c.__items)</code>
+vale <code class="sourceCode python"><span class="dv">1</span></code>
+(no coinciden).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.2.5.8">
+
+<ul>
+<li><p>Para solucionar el problema, tenemos dos opciones:</p>
+<ul>
+<li><p>Quitar el método <code>get_items</code> si es posible.</p></li>
+<li><p>Si es estrictamente necesario que exista, cambiarlo para que no
+devuelva una referencia a la lista, sino una <strong>copia</strong> de
+la lista:</p></li>
+</ul>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_items(<span class="va">self</span>):</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.__items[:]</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -4503,20 +4513,18 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb114-1"><a 
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="doc-bibliography">
-<div id="ref-abelson_structure_1996" class="csl-entry"
-role="doc-biblioentry">
+data-entry-spacing="0" role="list">
+<div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
 Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
 <em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
 Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
 </div>
-<div id="ref-denero_composing_nodate" class="csl-entry"
-role="doc-biblioentry">
+<div id="ref-denero_composing_nodate" class="csl-entry" role="listitem">
 DeNero, John. n.d. <span>“Composing <span>Programs</span>.”</span> <a
 href="http://www.composingprograms.com">http://www.composingprograms.com</a>.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
-role="doc-biblioentry">
+role="listitem">
 Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
 <span>Python</span>.”</span> <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.

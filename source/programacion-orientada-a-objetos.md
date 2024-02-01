@@ -3026,75 +3026,6 @@ $$\text{Visibilidad} \begin{cases}
 
 - La pregunta es: ¿qué ganamos con todo esto?
 
----
-
-**¡CUIDADO!**
-
-- Supogamos que tenemos el siguiente código que implementa colas:
-
-  ```python
-  class Cola:
-      """Invariante: self.__cantidad == len(self.__items)."""
-      def __init__(self):
-          self.__cantidad = 0
-          self.__items = []
-
-      def meter(self, el):
-          self.__items.append(el)
-          self.__cantidad += 1
-
-      def sacar(self):
-          if self.__cantidad == 0:
-              raise ValueError("Cola vacía")
-          del self.__items[0]
-          self.__cantidad -= 1
-
-      def get_items(self):
-          return self.__items
-  ```
-
-- Se supone que la variable de instancia `__items` es privada y, por tanto,
-  sólo se puede acceder a ella desde el interior de la clase.
-
-- El método `get_items` es un _getter_ para la variable de instancia `__items`.
-
----
-
-- En teoría, los únicos métodos con los que podemos modificar el contenido de
-  la variable de instancia `__items` son `meter` y `sacar`.
-
-- Sin embargo, podemos hacer así:
-
-  ```python
-  c = Cola()
-  c.meter(1)
-  c.meter(2)
-  l = c.get_items() # Obtenemos la lista contenida en __items
-  del l[0]          # Eliminamos un elemento de la lista desde fuera de la cola
-  ```
-
-- Esto se debe a que `get_items` devuelve una referencia a la lista contenida
-  dentro de la instancia de `Cola`, con lo cual podemos modificar la lista
-  desde el exterior sin necesidad de usar los _setters_.
-
-- Por tanto, podemos romper los invariantes de la clase, ya que ahora se cumple
-  que `c.__cantidad` vale 2 y !PYTHON(len)`(c.__items)` vale !PYTHON{1} (no
-  coinciden).
-
----
-
-- Para solucionar el problema, tenemos dos opciones:
-
-  - Quitar el método `get_items` si es posible.
-
-  - Si es estrictamente necesario que exista, cambiarlo para que no devuelva
-    una referencia a la lista, sino una **copia** de la lista:
-
-  ```python
-  def get_items(self):
-      return self.__items[:]
-  ```
-
 #### Invariantes de clase
 
 - Si necesitamos acceder y/o cambiar el valor de una variable de instancia
@@ -3413,6 +3344,75 @@ class Deposito:
   - Para **implementar invariantes de clase, precondiciones o postcondiciones
     de métodos** se pueden usar excepciones, asertos y sentencias
     !PYTHON(assert) en puntos adecuados del código fuente de la clase.
+
+---
+
+**¡CUIDADO!**
+
+- Supogamos que tenemos el siguiente código que implementa colas:
+
+  ```python
+  class Cola:
+      """Invariante: self.__cantidad == len(self.__items)."""
+      def __init__(self):
+          self.__cantidad = 0
+          self.__items = []
+
+      def meter(self, el):
+          self.__items.append(el)
+          self.__cantidad += 1
+
+      def sacar(self):
+          if self.__cantidad == 0:
+              raise ValueError("Cola vacía")
+          del self.__items[0]
+          self.__cantidad -= 1
+
+      def get_items(self):
+          return self.__items
+  ```
+
+- Se supone que la variable de instancia `__items` es privada y, por tanto,
+  sólo se puede acceder a ella desde el interior de la clase.
+
+- El método `get_items` es un _getter_ para la variable de instancia `__items`.
+
+---
+
+- En teoría, los únicos métodos con los que podemos modificar el contenido de
+  la variable de instancia `__items` son `meter` y `sacar`.
+
+- Sin embargo, podemos hacer así:
+
+  ```python
+  c = Cola()
+  c.meter(1)
+  c.meter(2)
+  l = c.get_items() # Obtenemos la lista contenida en __items
+  del l[0]          # Eliminamos un elemento de la lista desde fuera de la cola
+  ```
+
+- Esto se debe a que `get_items` devuelve una referencia a la lista contenida
+  dentro de la instancia de `Cola`, con lo cual podemos modificar la lista
+  desde el exterior sin necesidad de usar los _setters_.
+
+- Por tanto, podemos romper los invariantes de la clase, ya que ahora se cumple
+  que `c.__cantidad` vale 2 y !PYTHON(len)`(c.__items)` vale !PYTHON{1} (no
+  coinciden).
+
+---
+
+- Para solucionar el problema, tenemos dos opciones:
+
+  - Quitar el método `get_items` si es posible.
+
+  - Si es estrictamente necesario que exista, cambiarlo para que no devuelva
+    una referencia a la lista, sino una **copia** de la lista:
+
+  ```python
+  def get_items(self):
+      return self.__items[:]
+  ```
 
 #### Un ejemplo completo
 
