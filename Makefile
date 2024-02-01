@@ -1,4 +1,4 @@
-.PHONY: all html pdf prog ejercicios clean limpiar serve touch markdown sobrantes $(ITHACA)
+.PHONY: all html pdf apuntes prog ejercicios practicas clean limpiar serve touch markdown sobrantes $(ITHACA)
 
 CURSO=2023/2024
 
@@ -65,7 +65,7 @@ CITATIONS_BIB=$(SRCDIR)/citations.bib
 
 # Listas de archivos
 
-SOURCES      := $(shell find $(SRCDIR) -type f -name *.md)
+SOURCES      := $(shell find $(SRCDIR) -type f -name "*.md")
 OBJECTS_HTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR_HTML)/%,$(SOURCES:.md=.html))
 OBJECTS_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_PDF)/%,$(SOURCES:.md=.pdf))
 APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apuntes.pdf))
