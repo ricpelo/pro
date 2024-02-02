@@ -16,12 +16,21 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,11 +92,13 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
-    .hanging div.csl-entry {
+    .hanging-indent div.csl-entry {
       margin-left:2em;
       text-indent:-2em;
     }
@@ -101,8 +112,7 @@
     }
     div.csl-indent {
       margin-left: 2em;
-    }
-  </style>
+    }  </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
@@ -872,8 +882,8 @@ escriben con dígitos y con punto decimal separando ambas partes (ej:
 <code class="sourceCode python"><span class="fl">4.87</span></code>).
 Los números en notación exponencial (<code
 class="sourceCode python"><span class="fl">2e3</span></code>) también
-son reales (<span class="math inline">2e3 =
-2.0\times10^3</span>).</p></li>
+son reales (<span class="math inline">2e3
+= 2.0\times10^3</span>).</p></li>
 </ul></li>
 <li><p>Las <strong>operaciones</strong> que se pueden realizar con los
 números son los que cabría esperar (aritméticas, trigonométricas,
@@ -1429,26 +1439,30 @@ data-number="3.4">
 <h2 data-number="3.4"><span class="header-section-number">3.4</span>
 Axiomas</h2>
 <ol type="1">
-<li><p>Ley asociativa: <span class="math inline">\begin{cases}  \forall
-a,b,c \in \mathbb{B}: (a \lor b) \lor c = a \lor (b \lor c) \\  \forall
-a,b,c \in \mathbb{B}: (a \land b) \land c = a \land (b \land
-c)  \end{cases}</span></p></li>
-<li><p>Ley conmutativa: <span class="math inline">\begin{cases}  \forall
-a,b \in \mathbb{B}: a \lor b = b \lor a \\  \forall a,b \in \mathbb{B}:
-a \land b = b \land a  \end{cases}</span></p></li>
-<li><p>Ley distributiva: <span
-class="math inline">\begin{cases}  \forall a,b,c \in \mathbb{B}: a \lor
-(b \land c) = (a \lor b) \land (a \lor c) \\  \forall a,b,c \in
-\mathbb{B}: a \land (b \lor c) = (a \land b) \lor (a \land
-c)  \end{cases}</span></p></li>
-<li><p>Elemento neutro: <span class="math inline">\begin{cases}  \forall
-a \in \mathbb{B}: a \lor F = a \\  \forall a \in \mathbb{B}: a \land V =
-a  \end{cases}</span></p></li>
-<li><p>Elemento complementario: <span
-class="math inline">\begin{cases}  \forall a \in \mathbb{B}; \exists
-\lnot a \in \mathbb{B}: a \lor \lnot a = V \\  \forall a \in \mathbb{B};
-\exists \lnot a \in \mathbb{B}: a \land \lnot a =
-F  \end{cases}</span></p></li>
+<li><p>Ley asociativa: <span class="math inline">\begin{cases}
+\forall a,b,c \in \mathbb{B}: (a \lor b) \lor c = a \lor (b \lor c) \\
+\forall a,b,c \in \mathbb{B}: (a \land b) \land c = a \land (b \land c)
+\end{cases}</span></p></li>
+<li><p>Ley conmutativa: <span class="math inline">\begin{cases}
+\forall a,b \in \mathbb{B}: a \lor b = b \lor a \\
+\forall a,b \in \mathbb{B}: a \land b = b \land a
+\end{cases}</span></p></li>
+<li><p>Ley distributiva: <span class="math inline">\begin{cases}
+\forall a,b,c \in \mathbb{B}: a \lor (b \land c) = (a \lor b) \land (a
+\lor c) \\
+\forall a,b,c \in \mathbb{B}: a \land (b \lor c) = (a \land b) \lor (a
+\land c)
+\end{cases}</span></p></li>
+<li><p>Elemento neutro: <span class="math inline">\begin{cases}
+\forall a \in \mathbb{B}: a \lor F = a \\
+\forall a \in \mathbb{B}: a \land V = a
+\end{cases}</span></p></li>
+<li><p>Elemento complementario: <span class="math inline">\begin{cases}
+\forall a \in \mathbb{B}; \exists \lnot a \in \mathbb{B}: a \lor \lnot a
+= V \\
+\forall a \in \mathbb{B}; \exists \lnot a \in \mathbb{B}: a \land \lnot
+a = F
+\end{cases}</span></p></li>
 </ol>
 <p>Si <span class="math inline">(\mathbb{B},\lnot,\lor,\land)</span>
 cumple lo anterior, entonces es un álgebra de Boole.</p>
@@ -1494,31 +1508,34 @@ data-number="3.5">
 <h2 data-number="3.5"><span class="header-section-number">3.5</span>
 Teoremas fundamentales</h2>
 <ol start="6" type="1">
-<li><p>Ley de idempotencia: <span
-class="math inline">\begin{cases}  \forall a \in \mathbb{B}: a \lor a =
-a \\  \forall a \in \mathbb{B}: a \land a =
-a  \end{cases}</span></p></li>
+<li><p>Ley de idempotencia: <span class="math inline">\begin{cases}
+\forall a \in \mathbb{B}: a \lor a = a \\
+\forall a \in \mathbb{B}: a \land a = a
+\end{cases}</span></p></li>
 <li><p>Ley del elemento absorbente: <span
-class="math inline">\begin{cases}  \forall a \in \mathbb{B}: a \lor V =
-V \\  \forall a \in \mathbb{B}: a \land F =
-F  \end{cases}</span></p></li>
-<li><p>Ley de identidad: <span
-class="math inline">\begin{cases}  \forall a \in \mathbb{B}: a \lor F =
-a \\  \forall a \in \mathbb{B}: a \land V =
-a  \end{cases}</span></p></li>
-<li><p>Ley de absorción: <span
-class="math inline">\begin{cases}  \forall a \in \mathbb{B}: a \lor (a
-\land b) = a \\  \forall a \in \mathbb{B}: a \land (a \lor b) =
-a  \end{cases}</span></p></li>
+class="math inline">\begin{cases}
+\forall a \in \mathbb{B}: a \lor V = V \\
+\forall a \in \mathbb{B}: a \land F = F
+\end{cases}</span></p></li>
+<li><p>Ley de identidad: <span class="math inline">\begin{cases}
+\forall a \in \mathbb{B}: a \lor F = a \\
+\forall a \in \mathbb{B}: a \land V = a
+\end{cases}</span></p></li>
+<li><p>Ley de absorción: <span class="math inline">\begin{cases}
+\forall a \in \mathbb{B}: a \lor (a \land b) = a \\
+\forall a \in \mathbb{B}: a \land (a \lor b) = a
+\end{cases}</span></p></li>
 <li><p>Ley de involución: <span class="math inline">\forall a \in
 \mathbb{B}: \lnot \lnot a = a</span></p></li>
-<li><p>Ley del complemento: <span
-class="math inline">\begin{cases}  \lnot V = F \\  \lnot F =
-V  \end{cases}</span></p></li>
-<li><p>Leyes de De Morgan: <span
-class="math inline">\begin{cases}  \forall a,b \in \mathbb{B}: \lnot ({a
-\lor b}) = \lnot a \land \lnot b \\  \forall a,b \in \mathbb{B}: \lnot
-({a \land b}) = \lnot a \lor \lnot b  \end{cases}</span></p></li>
+<li><p>Ley del complemento: <span class="math inline">\begin{cases}
+\lnot V = F \\
+\lnot F = V
+\end{cases}</span></p></li>
+<li><p>Leyes de De Morgan: <span class="math inline">\begin{cases}
+\forall a,b \in \mathbb{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b
+\\
+\forall a,b \in \mathbb{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
+\end{cases}</span></p></li>
 </ol>
 </section>
 <section id="traducción-a-python-1" class="title-slide slide level4"
@@ -2790,20 +2807,17 @@ expresión ni ligarse a ningún identificador, simplementa la ignorará
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="doc-bibliography">
-<div id="ref-abelson_structure_1996" class="csl-entry"
-role="doc-biblioentry">
+data-entry-spacing="0" role="list">
+<div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
 Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
 <em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
 Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
 </div>
-<div id="ref-blanco_calculo_2009" class="csl-entry"
-role="doc-biblioentry">
+<div id="ref-blanco_calculo_2009" class="csl-entry" role="listitem">
 Blanco, Javier, Silvina Smith, and Damián Barsotti. 2009. <em>Cálculo de
 Programas</em>. Córdoba, Argentina: Universidad Nacional de Córdoba.
 </div>
-<div id="ref-van-roy_concepts_2004" class="csl-entry"
-role="doc-biblioentry">
+<div id="ref-van-roy_concepts_2004" class="csl-entry" role="listitem">
 Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and
 Models of Computer Programming</em>. Cambridge, Mass: MIT Press.
 </div>

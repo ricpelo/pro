@@ -16,12 +16,21 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,11 +92,13 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
-    .hanging div.csl-entry {
+    .hanging-indent div.csl-entry {
       margin-left:2em;
       text-indent:-2em;
     }
@@ -101,8 +112,7 @@
     }
     div.csl-indent {
       margin-left: 2em;
-    }
-  </style>
+    }  </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
@@ -1322,8 +1332,7 @@ class="sourceCode python"><span class="dv">2</span></code>.</p></li>
 class="sourceCode python"><span class="dv">2</span></code> es la forma
 más reducida de representar el valor <strong>dos</strong>.</p></li>
 <li><p>Pero no es el único literal que denota dicho valor.</p></li>
-<li><p>El literal <code
-class="sourceCode python"><span class="dv">02</span></code> no es
+<li><p>El literal <code class="sourceCode python">02</code> no es
 correcto según las reglas léxicas del lenguaje, pero sí que podemos usar
 la expresión <code
 class="sourceCode python"><span class="bn">0b10</span></code>, que es un
@@ -2495,15 +2504,20 @@ anterior, podría ser de cualquiera de estas dos formas:</p>
 </div><div class="column" style="width:43%;">
 <ol type="1">
 <li><span class="math inline">\begin{cases}\begin{array}{l}
-\underline{abs(-12)} + max(13, 28) \\[6pt] = 12 + \underline{max(13,
-28)} \\[6pt] = \underline{12 + 28} \\[6pt] = 40
+\underline{abs(-12)} + max(13, 28) \\[6pt]
+= 12 + \underline{max(13, 28)} \\[6pt]
+= \underline{12 + 28} \\[6pt]
+= 40
 \end{array}\end{cases}</span></li>
 </ol>
 </div><div class="column" style="width:43%;">
 <ol start="2" type="1">
-<li><span class="math inline">\begin{cases}\begin{array}{l} abs(-12) +
-\underline{max(13, 28)} \\[6pt] = \underline{abs(-12)} + 28 \\[6pt] =
-\underline{12 + 28} \\[6pt] = 40 \end{array}\end{cases}</span></li>
+<li><span class="math inline">\begin{cases}\begin{array}{l}
+abs(-12) + \underline{max(13, 28)} \\[6pt]
+= \underline{abs(-12)} + 28 \\[6pt]
+= \underline{12 + 28} \\[6pt]
+= 40
+\end{array}\end{cases}</span></li>
 </ol>
 </div>
 </div>
@@ -2667,8 +2681,8 @@ método (si los hay).</p></li>
 <li><p>«Se <strong>llama</strong> (o <strong>invoca</strong>) al método
 <span class="math inline">\underline{m}</span> sobre el objeto <span
 class="math inline">\underline{o}</span> con los argumentos <span
-class="math inline">\underline{a_1}, \underline{a_2}, \ldots,
-\underline{a_n}</span>».</p></li>
+class="math inline">\underline{a_1}, \underline{a_2},
+\ldots, \underline{a_n}</span>».</p></li>
 <li><p>«Se <strong>ejecuta</strong> el método <span
 class="math inline">\underline{m}</span> sobre el objeto <span
 class="math inline">\underline{o}</span> con los argumentos <span
@@ -3892,26 +3906,23 @@ target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="doc-bibliography">
-<div id="ref-abelson_structure_1996" class="csl-entry"
-role="doc-biblioentry">
+data-entry-spacing="0" role="list">
+<div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
 Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
 <em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
 Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
 </div>
-<div id="ref-blanco_calculo_2009" class="csl-entry"
-role="doc-biblioentry">
+<div id="ref-blanco_calculo_2009" class="csl-entry" role="listitem">
 Blanco, Javier, Silvina Smith, and Damián Barsotti. 2009. <em>Cálculo de
 Programas</em>. Córdoba, Argentina: Universidad Nacional de Córdoba.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
-role="doc-biblioentry">
+role="listitem">
 Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
 <span>Python</span>.”</span> <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
-<div id="ref-van-roy_concepts_2004" class="csl-entry"
-role="doc-biblioentry">
+<div id="ref-van-roy_concepts_2004" class="csl-entry" role="listitem">
 Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and
 Models of Computer Programming</em>. Cambridge, Mass: MIT Press.
 </div>

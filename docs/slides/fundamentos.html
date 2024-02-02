@@ -16,10 +16,18 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -577,11 +585,12 @@ B</span>. Se escribe: <span class="math display">A \times B</span></p>
 B = \{ \langle a, b\rangle \mid
 a \in A, b \in B \}</span></p></li>
 <li><p>Igualmente, se define el producto cartesiano de <span
-class="math inline">E_1 \times E_2 \times \cdots \times E_n</span> como
-el conjunto formado por las <span class="math inline">n</span>-tuplas
-<span class="math inline">\langle e_1, e_2, \ldots, e_n\rangle</span>
-tales que: <span class="math display">e_1 \in E_1, e_2 \in E_2, \ldots,
-e_n \in
+class="math inline">E_1 \times E_2 \times \cdots
+\times E_n</span> como el conjunto formado por las <span
+class="math inline">n</span>-tuplas <span class="math inline">\langle
+e_1, e_2,
+\ldots, e_n\rangle</span> tales que: <span class="math display">e_1 \in
+E_1, e_2 \in E_2, \ldots, e_n \in
 E_n</span></p></li>
 <li><p>El producto cartesiano de <span class="math inline">A</span> por
 sí mismo, <span class="math inline">A \times A</span>, se puede escribir
@@ -608,9 +617,9 @@ Relaciones</h2>
 <li><p>Una <strong>relación</strong> <span class="math inline">R</span>
 definida sobre los conjuntos <span class="math inline">E_1, E_2, \ldots,
 E_n</span> es un subconjunto del producto cartesiano <span
-class="math inline">E_1 \times E_2 \times \cdots \times E_n</span>:
-<span class="math display">R \subseteq E_1 \times E_2 \times \cdots
-\times E_n</span></p></li>
+class="math inline">E_1 \times E_2 \times \cdots \times
+E_n</span>: <span class="math display">R \subseteq E_1 \times E_2 \times
+\cdots \times E_n</span></p></li>
 <li><p>Por tanto, una relación es un conjunto de tuplas formadas con los
 elementos de los conjuntos sobre los que se define la relación.</p></li>
 <li><p>Las relaciones, en definitiva, lo que hacen es <em>asociar</em>
@@ -653,7 +662,8 @@ class="math inline">E</span> consigo mismo) se dice que es
 <strong>reflexiva</strong>, o que tiene la propiedad reflexiva, si para
 todo elemento <span class="math inline">a</span> de <span
 class="math inline">E</span> se cumple que <span
-class="math inline">\langle a, a\rangle \in E</span>.</li>
+class="math inline">\langle
+a, a\rangle \in E</span>.</li>
 </ul>
 </section>
 
@@ -768,8 +778,8 @@ elemento de <span class="math inline">B</span> es imagen de algún
 elemento de <span class="math inline">A</span>.</p></li>
 <li><p>Se dice que <span class="math inline">f</span> es
 <strong>inyectiva</strong> si para todo <span class="math inline">a, b
-\in A</span>, <span class="math inline">f(a) = f(b) \implies a =
-b</span>.</p>
+\in A</span>, <span class="math inline">f(a) = f(b)
+\implies a = b</span>.</p>
 <p>O, lo que es lo mismo, <span class="math inline">a \mathrel{\char`≠}
 b \implies f(a) \mathrel{\char`≠} f(b)</span>.</p></li>
 <li><p>Se dice que <span class="math inline">f</span> es
