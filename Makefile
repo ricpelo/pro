@@ -53,6 +53,7 @@ HEADER_INCLUDES=$(AUX)/header-includes.html
 HEADER_INCLUDES_EJERCICIOS=$(AUX)/header-includes-ejercicios.tex
 INCLUDE_BEFORE_EJERCICIOS=$(AUX)/include-before-ejercicios.tex
 INCLUDE_BEFORE_HTML=$(AUX)/include-before.html
+INCLUDE_AFTER_HTML=$(AUX)/include-after.html
 INCLUDE_BEFORE_TEX=$(AUX)/include-before.tex
 HIGHLIGHT_STYLE=$(AUX)/solarized.theme
 PHP_XML=$(AUX)/php.xml
@@ -127,7 +128,7 @@ $(UDRACE_CSV): $(ESQUEMA_OPML) $(OPML)
 $(INDEX_LEO): $(ESQUEMA_OPML) $(OPML)
 	$(OPML) -u$(ESQUEMA_OPML) -eleo -s$(SRCDIR) > $(INDEX_LEO)
 
-$(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE_HTML)
+$(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPLATE) $(HIGHLIGHT_STYLE) $(PHP_XML) $(CONSOLE_XML) $(PYTHON_XML) $(COMMENTS_XML) $(SPDX_COMMENTS_XML) $(HEADER_INCLUDES) $(INCLUDE_BEFORE_HTML) $(INCLUDE_AFTER_HTML)
 	@echo "Generando $@..."
 	@$(PP) -DHTML -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t revealjs \
@@ -138,6 +139,7 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 	    --template=$(REVEAL_TEMPLATE) \
 		-H $(HEADER_INCLUDES) \
 		-B $(INCLUDE_BEFORE_HTML) \
+		-A $(INCLUDE_AFTER_HTML) \
 		--toc --toc-depth=1 -N \
 		--slide-level=5 \
 		--highlight-style=$(HIGHLIGHT_STYLE) \
