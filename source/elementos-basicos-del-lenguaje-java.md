@@ -194,11 +194,13 @@ $6 ==> 2
 
 ---
 
+!EJEMPLOS
+
+:::: columns
+
+::: {.column width=40%}
+
 - Ejemplos de literales de tipo !JAVA(int):
-
-  :::: columns
-
-  ::: {.column width=40%}
 
   !JAVA(0)
 
@@ -206,29 +208,21 @@ $6 ==> 2
 
   !JAVA(0372)
 
-  :::
-
-  ::: {.column width=20%}
-
-  :::
-
-  ::: {.column width=40%}
-
   !JAVA(0xDada_Cafe)
 
   !JAVA(1996)
 
   !JAVA(0x00_FF__00_FF)
 
-  :::
+:::
 
-  ::::
+::: {.column width=20%}
+
+:::
+
+::: {.column width=40%}
 
 - Ejemplos de literales de tipo !JAVA(long):
-
-  :::: columns
-
-  ::: {.column width=40%}
 
   !JAVA(0l)
 
@@ -236,21 +230,13 @@ $6 ==> 2
 
   !JAVA(0x100000000L)
 
-  :::
-
-  ::: {.column width=20%}
-
-  :::
-
-  ::: {.column width=40%}
-
   !JAVA(2_147_483_648L)
 
   !JAVA(0xC0B0L)
 
-  :::
+:::
 
-  ::::
+::::
 
 ---
 
@@ -436,41 +422,35 @@ $6 ==> 6
 
 ---
 
+!EJEMPLOS
+
+:::: columns
+
+::: {.column width=40%}
+
 - Ejemplos de literales de tipo !JAVA(float):
 
-  :::: columns
+  !JAVA(1e1f)
 
-  ::: {.column width=40%}
+  !JAVA(2.f)
 
-    !JAVA(1e1f)
+  !JAVA(.3f)
 
-    !JAVA(2.f)
+  !JAVA(0f)
 
-    !JAVA(.3f)
+  !JAVA(3.14f)
 
-  :::
+  !JAVA(6.022137e+23f)
 
-  ::: {.column width=20%}
+:::
 
-  :::
+::: {.column width=20%}
 
-  ::: {.column width=40%}
+:::
 
-    !JAVA(0f)
-
-    !JAVA(3.14f)
-
-    !JAVA(6.022137e+23f)
-
-  :::
-
-  ::::
+::: {.column width=40%}
 
 - Ejemplos de literales de tipo !JAVA(double):
-
-  :::: columns
-
-  ::: {.column width=40%}
 
   !JAVA(1e1)
 
@@ -480,23 +460,15 @@ $6 ==> 6
 
   !JAVA(0.0)
 
-  :::
-
-  ::: {.column width=20%}
-
-  :::
-
-  ::: {.column width=40%}
-
   !JAVA(3.14)
 
   !JAVA(1e-9d)
 
   !JAVA(1e137)
 
-  :::
+:::
 
-  ::::
+::::
 
 ---
 
