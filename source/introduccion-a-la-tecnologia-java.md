@@ -55,6 +55,9 @@ J2SE 1.4     6-feb-2002
 J2SE 5.0     30-sep-2004
 Java SE 6    11-dic-2006
 Java SE 7    28-jul-2011
+Java SE 8    18-mar-2014
+Java SE 9    21-sep-2017
+Java SE 10   20-mar-2018
 
 :::
 
@@ -66,9 +69,6 @@ Java SE 7    28-jul-2011
 
 Versión	     Publicación
 -----------  -----------------
-Java SE 8    18-mar-2014
-Java SE 9    21-sep-2017
-Java SE 10   20-mar-2018
 Java SE 11   25-sep-2018
 Java SE 12   19-mar-2019
 Java SE 13   17-sep-2019
@@ -76,6 +76,10 @@ Java SE 14   17-mar-2020
 Java SE 15   15-sep-2020
 Java SE 16   18-mar-2021
 Java SE 17   14-sep-2021
+Java SE 18   22-mar-2022
+Java SE 19   20-sep-2022
+Java SE 20   21-mar-2023
+Java SE 21   19-sep-2023
 
 :::
 
@@ -253,10 +257,10 @@ F -> "Compilador Java" -> O
   ofrece sus servicios en forma de **clases** y otros elementos relacionados
   (como _interfaces_).
 
-- La documentación del API de la versión 14 de la plataforma _Java Standard
+- La documentación del API de la versión 17 de la plataforma _Java Standard
   Edition_ (Java SE) se encuentra bajo la siguiente dirección:
 
-[https://docs.oracle.com/en/java/javase/14/docs/api/index.html](https://docs.oracle.com/en/java/javase/14/docs/api/index.html){target="\_blank"}
+[https://docs.oracle.com/en/java/javase/17/docs/api/index.html](https://docs.oracle.com/en/java/javase/17/docs/api/index.html){target="\_blank"}
 
 - Allí podemos comprobar que el API de Java SE está dividido en _módulos_, que
   a su vez se dividen en _paquetes_, que a su vez se dividen en _clases_ e
@@ -322,13 +326,13 @@ F -> "Compilador Java" -> O
 
 #### Instalación
 
-- **Instalación en Ubuntu:**
+- **Instalación en Debian GNU/Linux o Ubuntu:**
 
   Ejecutar los siguientes comandos desde un terminal del sistema operativo:
 
    ```console
    $ sudo apt update
-   $ sudo apt install openjdk-14-jdk
+   $ sudo apt install openjdk-17-jdk
    ```
 
 - **Instalación en Windows:**
