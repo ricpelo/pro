@@ -1266,99 +1266,99 @@ class Deposito:
   objeto `a` de la clase `A`, se tienen los siguientes entornos antes y durante
   la invocación del método:
 
-:::: columns
+  :::: columns
 
-::: {.column width=35%}
+  ::: {.column width=35%}
 
-```python
-class A:
-    def uno(self):
-        print('Soy uno')
+  ```python
+  class A:
+      def uno(self):
+          print('Soy uno')
 
-a = A()
-a.uno()
-```
+  a = A()
+  a.uno()
+  ```
 
-:::
+  :::
 
-::: {.column width=65%}
+  ::: {.column width=65%}
 
-!DOT(entorno-antes-uno.svg)(Entorno antes de la invocación de `uno`)(width=100%)(width=70%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-graph [rankdir = LR]
-node [fontname = "monospace"]
-l1 [shape = circle, label = "λ"]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = white
-    a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
-    A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
-}
-A:f1:e -> uno:s [lhead = cluster2, minlen = 2]
-subgraph cluster1 {
-    label = "Objeto"
-    bgcolor = white
-    style = rounded
-    __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
-}
-subgraph cluster2 {
-    label = <Clase <b>A</b>>
-    bgcolor = white
-    style = rounded
-    uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
-}
-uno:f1 -> l1
-__class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
-a:f1 -> __class__ [lhead = cluster1, minlen = 2]
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> a [lhead = cluster0]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(entorno-antes-uno.svg)(Entorno antes de la invocación de `uno`)(width=80%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  compound = true
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  l1 [shape = circle, label = "λ"]
+  subgraph cluster0 {
+      label = "Marco global"
+      bgcolor = white
+      a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
+      A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
+  }
+  A:f1:e -> uno:s [lhead = cluster2, minlen = 2]
+  subgraph cluster1 {
+      label = "Objeto"
+      bgcolor = white
+      style = rounded
+      __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+  }
+  subgraph cluster2 {
+      label = <Clase <b>A</b>>
+      bgcolor = white
+      style = rounded
+      uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
+  }
+  uno:f1 -> l1
+  __class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
+  a:f1 -> __class__ [lhead = cluster1, minlen = 2]
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> a [lhead = cluster0]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=100%)(width=70%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-graph [rankdir = LR]
-node [fontname = "monospace"]
-l1 [shape = circle, label = "λ"]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = white
-    a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
-    A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
-}
-A:f1:e -> uno:n [lhead = cluster2, minlen = 2]
-subgraph cluster1 {
-    label = <Marco de <b>uno</b>>
-    bgcolor = white
-    self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
-}
-self -> A:w [lhead = cluster0, ltail = cluster1, minlen = 2]
-subgraph cluster2 {
-    label = <Clase <b>A</b>>
-    bgcolor = white
-    style = rounded
-    uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
-}
-subgraph cluster3 {
-    label = "Objeto"
-    bgcolor = white
-    style = rounded
-    __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
-}
-uno:f1 -> l1
-self:f1:s -> __class__ [lhead = cluster3, minlen = 2]
-a:f1 -> __class__ [lhead = cluster3, minlen = 2]
-__class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
-E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> self [lhead = cluster1]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !SALTO
 
-:::
+  !DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=100%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  compound = true
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  l1 [shape = circle, label = "λ"]
+  subgraph cluster0 {
+      label = "Marco global"
+      bgcolor = white
+      a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
+      A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
+  }
+  A:f1:e -> uno:n [lhead = cluster2, minlen = 2]
+  subgraph cluster1 {
+      label = <Marco de <b>uno</b>>
+      bgcolor = white
+      self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
+  }
+  self -> A:w [lhead = cluster0, ltail = cluster1, minlen = 2]
+  subgraph cluster2 {
+      label = <Clase <b>A</b>>
+      bgcolor = white
+      style = rounded
+      uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
+  }
+  subgraph cluster3 {
+      label = "Objeto"
+      bgcolor = white
+      style = rounded
+      __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+  }
+  uno:f1 -> l1
+  self:f1:s -> __class__ [lhead = cluster3, minlen = 2]
+  a:f1 -> __class__ [lhead = cluster3, minlen = 2]
+  __class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
+  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+  E -> self [lhead = cluster1]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-::::
+  :::
 
-!SALTO
+  ::::
 
 - El entorno del método no incluye a la propia clase `A` ni al objeto sobre el
   que se invoca el método.
@@ -1745,9 +1745,9 @@ E -> self [lhead = cluster1]
   hecho de que haya un objeto (el depósito) con dos nombres distintos
   (`dep_Pedro` y `dep_Pablo`).
 
-  - Si estamos buscando todos los sitios de nuestro programa donde pueda
-    cambiarse el depósito de `dep_Pedro`, tendremos que recordar buscar también
-    los sitios donde se cambie a `dep_Pablo`.
+- Si estamos buscando todos los sitios de nuestro programa donde pueda
+  cambiarse el depósito de `dep_Pedro`, tendremos que recordar buscar también
+  los sitios donde se cambie a `dep_Pablo`.
 
 ---
 
@@ -1822,8 +1822,9 @@ E -> self [lhead = cluster1]
 
   !CAJA
   ~~~~~~~~~~~~~~~~~
-  La expresión **_o_ `is` _p_** devolverá `True` si tanto **_o_** como **_p_**
-  son referencias al mismo objeto.
+  La expresión $\underline{\textbf{\textit{o}}\ \texttt{is}\ \textbf{\textit{p}}}$
+  devolverá `True` si tanto **_o_** como **_p_** son referencias al mismo
+  objeto.
   ~~~~~~~~~~~~~~~~~
 
 :::: columns
@@ -1856,8 +1857,13 @@ E -> self [lhead = cluster1]
 
 ::::
 
-- Como ya estudiamos en su día, la expresión **_o_ `is` _p_** equivale a
-  **`id(`_o_`) == id(`_p_`)`**.
+- Como ya estudiamos en su día, la expresión $\underline{\textbf{\textit{o}}\ \texttt{is}\ \textbf{\textit{p}}}$
+  equivale a:
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~
+  `id(`_o_`) == id(`_p_`)`
+  ~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por tanto, lo que hace es comparar el resultado de la función `id`, que
   devuelve un identificador único (un número) para cada objeto.
@@ -1938,7 +1944,8 @@ E -> self [lhead = cluster1]
   no se diga lo contrario, dos objetos de clases _definidas por el programador_
   son iguales sólo si son idénticos**.
 
-- Es decir: por defecto, **_x_** `==` **_y_** sólo si **_x_** `is` **_y_**.
+- Es decir: por defecto, $\underline{\textbf{\textit{x}}\ \texttt{==}\ \textbf{\textit{y}}}$
+  sólo si $\underline{\textbf{\textit{x}}\ \texttt{is}\ \textbf{\textit{y}}}$.
 
 - Para cambiar ese comportamiento predeterminado, tendremos que definir qué
   significa que dos instancias de nuestra clase son iguales.
@@ -3045,11 +3052,13 @@ $$\text{Visibilidad} \begin{cases}
   - Pero además, los _setters_ nos garantizan que los valores que se almacenan
     en una variable de instancia cumplen con las **condiciones** necesarias.
 
-    !CAJA
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Las condiciones que deben cumplir en todo momento las instancias de una
-    clase se denominan **invariantes de la clase**.
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Las condiciones que deben cumplir en todo momento las instancias de una clase
+se denominan **invariantes de la clase**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -3432,12 +3441,12 @@ class Deposito:
     **var**
           $p$ : _pila_; $x$ : _elemento_
     **ecuaciones**
-          `cima`(`apilar`($p$, $x$)) $\doteq$ $x$
-          `desapilar`(`apilar`($p$, $x$)) $\doteq$ $p$
-          `vacia?`(`pvacia`) $\doteq$ $V$
-          `vacia?`(`apilar`($p$, $x$)) $\doteq$ $F$
-          `cima`(`pvacia`) $\doteq$ $error$
-          `desapilar`(`pvacia`) $\doteq$ $error$
+          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
+          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
+          `vacia?`(`pvacia`) $\equiv$ $V$
+          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
+          `cima`(`pvacia`) $\equiv$ **error**
+          `desapilar`(`pvacia`) $\equiv$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -3459,13 +3468,13 @@ class Deposito:
     **var**
           $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
     **ecuaciones**
-          $p_1$ `==` $p_2$ $\doteq$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
-          `vacía?`($p$) $\doteq$ $p$ `==` `pila`
+          $p_1$ `==` $p_2$ $\equiv$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
+          `vacía?`($p$) $\equiv$ $p$ `==` `pila`
           `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
           `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \} 
-          `cima`($p$) $\doteq$ «el último elemento apilado en $p$ y aún no desapilado»
-          `vacía?`($p$) $\Rightarrow$ `desapilar`($p$) $\doteq$ $error$
-          `vacía?`($p$) $\Rightarrow$ `cima`($p$) $\doteq$ $error$
+          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
+          `vacía?`($p$) $\Rightarrow$ `desapilar`($p$) $\equiv$ **error**
+          `vacía?`($p$) $\Rightarrow$ `cima`($p$) $\equiv$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -3928,11 +3937,11 @@ class Deposito:
 
 ---
 
+!EJEMPLO
+
 :::: columns
 
 ::: {.column width=65%}
-
-- Por ejemplo:
 
 ```python
 class Numero:
