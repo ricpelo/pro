@@ -376,78 +376,76 @@ Arquitectura de modelos de Swing</h1>
       });
     </script>
     <script type="text/javascript">
-        Reveal.initialize().then( () => {
-            var title = document.getElementsByClassName('title')[0];
-            title = title != null ? title.innerHTML : '';
-            var author = document.getElementsByClassName('author')[0];
-            author = author != null ? author.innerHTML : '';
-            var date = document.getElementsByClassName('date')[0];
-            date = date != null ? date.innerHTML : '';
-            document.getElementById('header-left').innerHTML = '<a href="#/title-slide">' + title + '</a>';
-            document.getElementById('footer-left').innerHTML = '<a href="https://pro.iesdonana.org">&copy; ' + author + ' (' + date + ')</a>';
+       var title = document.getElementsByClassName('title')[0];
+       title = title != null ? title.innerHTML : '';
+       var author = document.getElementsByClassName('author')[0];
+       author = author != null ? author.innerHTML : '';
+       var date = document.getElementsByClassName('date')[0];
+       date = date != null ? date.innerHTML : '';
+       document.getElementById('header-left').innerHTML = '<a href="#/title-slide">' + title + '</a>';
+       document.getElementById('footer-left').innerHTML = '<a href="https://pro.iesdonana.org">&copy; ' + author + ' (' + date + ')</a>';
 
-            function updateHeader(nd) {
-                var hr = document.getElementById('header-right');
-                while (hr.children.length > 0) {
-                    hr.removeChild(hr.lastChild);
-                }
-                buscar(nd, 3, hr);
-                buscar(nd, 2, hr);
-                buscar(nd, 1, hr);
-                hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
-                hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
-                var hl = document.getElementById('header-left');
-                hl.style.fontSize = hr.style.fontSize;
-            }
+       function updateHeader(nd) {
+           var hr = document.getElementById('header-right');
+           while (hr.children.length > 0) {
+               hr.removeChild(hr.lastChild);
+           }
+           buscar(nd, 3, hr);
+           buscar(nd, 2, hr);
+           buscar(nd, 1, hr);
+           hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+           hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+           var hl = document.getElementById('header-left');
+           hl.style.fontSize = hr.style.fontSize;
+       }
 
-            function buscar(nd, level, hr) {
-                if (!nd.classList.contains('level' + (level - 1))) {
-                    for (var n = nd; n != null; n = n.previousSibling) {
-                        if (n.nodeType == Node.TEXT_NODE) {
-                            continue;
-                        }
-                        var cl = n.classList;
-                        if (cl.contains('level' + level)) {
-                            var h = n.querySelector('h' + level);
-                        } else if (cl.contains('level' + (level - 1))) {
-                            break;
-                        } else {
-                            continue;
-                        }
-                        if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
-                            hr.innerHTML = '';
-                        } else {
-                            var el = document.createElement('a');
-                            var href = '#/' + n.id;
-                            el.href = href;
-                            el.innerHTML = h.innerHTML;
-                            var a = el.querySelector('a');
-                            if (a !== null) {
-                                a.href = href;
-                            }
-                            if (hr.innerHTML != '') {
-                                hr.innerHTML = ' &mdash; ' + hr.innerHTML;
-                            }
-                            hr.insertBefore(el, hr.firstChild);
-                        }
-                        break;
-                    }
-                }
-            }
+       function buscar(nd, level, hr) {
+           if (!nd.classList.contains('level' + (level - 1))) {
+               for (var n = nd; n != null; n = n.previousSibling) {
+                   if (n.nodeType == Node.TEXT_NODE) {
+                       continue;
+                   }
+                   var cl = n.classList;
+                   if (cl.contains('level' + level)) {
+                       var h = n.querySelector('h' + level);
+                   } else if (cl.contains('level' + (level - 1))) {
+                       break;
+                   } else {
+                       continue;
+                   }
+                   if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                       hr.innerHTML = '';
+                   } else {
+                       var el = document.createElement('a');
+                       var href = '#/' + n.id;
+                       el.href = href;
+                       el.innerHTML = h.innerHTML;
+                       var a = el.querySelector('a');
+                       if (a !== null) {
+                           a.href = href;
+                       }
+                       if (hr.innerHTML != '') {
+                           hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                       }
+                       hr.insertBefore(el, hr.firstChild);
+                   }
+                   break;
+               }
+           }
+       }
 
-            // On Reveal.js ready event, copy header/footer <div>
-            // into each `.slide-background` <div>
-            Reveal.on('ready', event => {
-                var header = document.getElementById('header');
-                document.querySelector('.reveal').appendChild(header);
-                updateHeader(Reveal.getCurrentSlide());
-            });
+       // On Reveal.js ready event, copy header/footer <div>
+       // into each `.slide-background` <div>
+       Reveal.on('ready', event => {
+           var header = document.getElementById('header');
+           document.querySelector('.reveal').appendChild(header);
+           updateHeader(Reveal.getCurrentSlide());
+       });
 
-            Reveal.on('slidechanged', event => {
-                // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-                updateHeader(event.currentSlide);
-            });
-        });
+       Reveal.on('slidechanged', event => {
+           // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+           updateHeader(event.currentSlide);
+       });
     </script>
     </body>
 </html>
