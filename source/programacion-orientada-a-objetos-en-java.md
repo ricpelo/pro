@@ -461,7 +461,7 @@ nocite: |
 - Los métodos definidos en la clase `String` se pueden consultar en la API de
   Java:
 
-[https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/String.html](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/String.html)
+[https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html)
 
 ### Conversión a `String`
 
