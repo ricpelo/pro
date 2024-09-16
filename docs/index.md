@@ -15,7 +15,7 @@ Módulo profesional de 1.º curso
 Aula P6<br>
 [IES Doñana](http://www.iesdonana.org){:target="_blank"}<br>
 Sanlúcar de Barrameda (Cádiz)<br>
-Curso 2023/2024
+Curso 2024/2025
 
 **Profesor**: Ricardo Pérez López<br>
 **Departamento**: Informática y Comunicaciones<br>

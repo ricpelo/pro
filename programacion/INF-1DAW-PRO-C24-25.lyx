@@ -179,6 +179,8 @@ End
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement class
+\float_alignment class
 \paperfontsize 11
 \spacing onehalf
 \use_hyperref true
@@ -523,7 +525,7 @@ Ricardo Pérez López
 \end_layout
 
 \begin_layout Date
-Curso 2023/2024
+Curso 2024/2025
 \end_layout
 
 \begin_layout Publishers
@@ -1916,7 +1918,20 @@ EX
 
 \end_inset
 
-) se calculará como una media ponderada de ambas partes 
+),
+ según se recoge en el algoritmo 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:calificacion-examen"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+,
+ se valorará de 0,0 a 10,0 y se calculará como una media ponderada de ambas partes 
 \begin_inset ERT
 status open
 
@@ -1939,27 +1954,15 @@ status open
 
 
 \backslash
-PR
-\backslash
-
+PR{}
 \end_layout
 
 \end_inset
 
 ,
- y para superar el examen en su conjunto será necesario obtener una calificación mínima en ambas partes,
- según se recoge en el algoritmo 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "alg:calificacion-examen"
-plural "false"
-caps "false"
-noprefix "false"
-nolink "false"
-
-\end_inset
-
-.
+ de forma que para superar el examen será necesario obtener una calificación mínima de 3,0 en la parte teórica y de 4,0 en la parte práctica;
+ en caso contrario,
+ la calificación del examen no podrá ser superior a 4,0.
 \end_layout
 
 \begin_layout Standard
@@ -1971,20 +1974,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Formula 
-\[
-\EX=\left\{ \begin{array}{lll}
-0,3\cdot\TE+0,7\cdot\PR &  & \textrm{si }\TE\geq3,0\textrm{ y }\PR\geq4,0\\
-\\\min(\TE,\,\PR) &  & \textrm{e. o. c.}
+\begin{align*}
+M & =0,3\cdot\TE+0,7\cdot\PR\\
+\\\EX & =\left\{ \begin{array}{lll}
+M &  & \textrm{si }\TE\geq3,0\textrm{ y }\PR\geq4,0\\
+\\\min(M;\,4,0) &  & \textrm{e. o. c.}
 \end{array}\right.
-\]
+\end{align*}
 
 \end_inset
 
@@ -2064,6 +2061,21 @@ setlist[description]{style=multiline,align=right,labelwidth=1.2cm}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $M$
+\end_inset
+
+
+\begin_inset space \enskip{}
+\end_inset
+
+
+\begin_inset Formula $=$
+\end_inset
+
+ Media ponderada entre teoría y práctica.
 \end_layout
 
 \begin_layout Description
@@ -2405,7 +2417,7 @@ Se calcula la calificación del criterio de evaluación de la siguiente forma,
 \begin_inset Formula 
 \[
 \CE{\ensuremath{i}}{\ensuremath{j}}=\left\{ \begin{array}{ll}
-\max\{M_{ij},\;4,5\} & \textrm{si }\max I_{ij}\geq4,5\\
+\max(M_{ij};\;4,5) & \textrm{si }\max I_{ij}\geq4,5\\
 M_{ij} & \textrm{e. o. c.}
 \end{array}\right.
 \]
@@ -2585,8 +2597,7 @@ De un resultado de aprendizaje
 \end_layout
 
 \begin_layout Standard
-La calificación de cada resultado de aprendizaje se valorará de 0,0 a 10,0 y se calculará como una media ponderada de los criterios de evaluación trabajados y evaluados que estén asociados a ese resultado de aprendizaje,
- siendo requisito imprescindible para alcanzar un resultado de aprendizaje el cumplir todos los criterios de evaluación trabajados y evaluados,
+La calificación de cada resultado de aprendizaje,
  según se recoge en el algoritmo 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2598,7 +2609,11 @@ nolink "false"
 
 \end_inset
 
-.
+,
+ se valorará de 0,0 a 10,0 y se calculará como una media ponderada de los criterios de evaluación trabajados y evaluados que estén asociados a ese resultado de aprendizaje,
+ siendo requisito imprescindible para alcanzar un resultado de aprendizaje el cumplir todos los criterios de evaluación trabajados y evaluados;
+ en caso contrario,
+ la calificación del resultado de aprendizaje no podrá ser superior a 4,0.
 \end_layout
 
 \begin_layout Standard
@@ -2610,17 +2625,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
 \begin_inset Formula 
-\[
-\RA{\ensuremath{i}}=\left\{ \begin{array}{lcl}
-\dfrac{{\displaystyle \sum\limits_{j\in C_{i}}}\CE{\ensuremath{i}}{\ensuremath{j}}\cdot p_{ij}}{{\displaystyle \sum\limits_{j\in C_{i}}}p_{ij}} &  & \textrm{si }\min\limits_{j\in C_{i}}\CE{\ensuremath{i}}{\ensuremath{j}}\geq4,5\\
-\\\min\limits_{j\in C_{i}}\CE{\ensuremath{i}}{\ensuremath{j}} &  & \textrm{e. o. c.}
+\begin{align*}
+M_{i} & =\dfrac{{\displaystyle \sum\limits_{j\in C_{i}}}\CE{\ensuremath{i}}{\ensuremath{j}}\cdot p_{ij}}{{\displaystyle \sum\limits_{j\in C_{i}}}p_{ij}}\\
+\\\RA{\ensuremath{i}} & =\left\{ \begin{array}{lcl}
+M_{i} &  & \textrm{si }\min\limits_{j\in C_{i}}\{\CE{\ensuremath{i}}{\ensuremath{j}}\}\geq4,5\\
+\\\min(M_{i};\,4,0) &  & \textrm{e. o. c.}
 \end{array}\right.
-\]
+\end{align*}
 
 \end_inset
 
@@ -2700,6 +2712,25 @@ setlist[description]{style=multiline,align=right,labelwidth=1.5cm}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $M_{i}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $=$
+\end_inset
+
+ Media ponderada de los criterios de evaluación asociados al resultado de aprendizaje 
+\begin_inset Formula $i$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Description
@@ -3122,14 +3153,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset VSpace defskip
-\end_inset
-
-
 \begin_inset Formula 
-\[
-F=\dfrac{{\displaystyle \sum\limits_{i\in R}}\textbf{\RA{\ensuremath{i}}}}{\lvert R\rvert}
-\]
+\begin{align*}
+M & =\dfrac{{\displaystyle \sum\limits_{i\in R}}\textbf{\RA{\ensuremath{i}}}}{\lvert R\rvert}\\
+\\F & =\left\{ \begin{array}{lcl}
+M &  & \textrm{si }\min\limits_{i\in R}\{\RA{\ensuremath{i}}\}\geq4,5\\
+\\\min(M;\,4,0) &  & \textrm{e. o. c.}
+\end{array}\right.
+\end{align*}
 
 \end_inset
 
@@ -3213,10 +3244,17 @@ setlist[description]{style=multiline,align=right,labelwidth=1.5cm}
 \end_layout
 
 \begin_layout Description
+\begin_inset Formula $M=$
+\end_inset
+
+ Media aritmética de las calificaciones de los resultados de aprendizaje.
+\end_layout
+
+\begin_layout Description
 \begin_inset Formula $F=$
 \end_inset
 
- Calificación final.
+ Calificación final del módulo.
 \end_layout
 
 \begin_layout Description
@@ -3742,7 +3780,7 @@ Moodle Centros
 status open
 
 \begin_layout Plain Layout
-https://educacionadistancia.juntadeandalucia.es/centros/cadiz
+https://educacionadistancia.juntadeandalucia.es/centros/cadiz/
 \end_layout
 
 \end_inset
@@ -4349,103 +4387,6 @@ El cuaderno del profesor estará compartido para que ambos profesores puedan acc
 \end_layout
 
 \end_deeper
-\begin_layout Section
-Medidas a adoptar en caso de incremento del nivel de alerta por COVID-19
-\end_layout
-
-\begin_layout Standard
-Como consecuencia de las medidas excepcionales aplicadas en función de las distintas resoluciones e instrucciones emitidas por la Consejería de Educación para dar respuesta a la crisis sanitaria ocasionada por la COVID-19,
- se aplicarán las medidas de flexibilización curricular y organizativas para el curso escolar 2021/2022 que se concretan en 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "instrucciones-13-07-2021"
-literal "false"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-En virtud de dichas instrucciones,
- si las circunstancias así lo permiten,
- en caso de incremento del nivel de alerta por COVID-19 que imposibilite la enseñanza 100% presencial,
- se procederá a trabajar,
- con carácter excepcional,
- en régimen de docencia sincrónica (presencial y telemática) o en régimen de docencia en modalidad semipresencial.
- 
-\end_layout
-
-\begin_layout Standard
-En caso de tener que suspender las clases presenciales por decretarse confinamiento en el marco de la pandemia del COVID-19,
- y mientras dure dicho confinamiento,
- se adoptarán las siguientes medidas:
-\end_layout
-
-\begin_layout Itemize
-Los trabajos,
- actividades y ejercicios del apartado 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-TR
-\backslash
-
-\end_layout
-
-\end_inset
-
- se seguirán entregando a través de Internet,
- usando la plataforma Moodle Centros.
-\end_layout
-
-\begin_deeper
-\begin_layout Standard
-El profesor podrá requerir del alumno las pruebas que estime oportunas para garantizar la autoría del trabajo,
- actividad o ejercicio,
- incluyendo (pero no limitándose a) una entrevista personal.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Las pruebas evaluativas del apartado 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-EX
-\backslash
-
-\end_layout
-
-\end_inset
-
- se realizarán de forma telemática en tiempo real mediante videoconferencia,
- o bien presencialmente cuando las circunstancias así lo permitan.
-\end_layout
-
-\begin_deeper
-\begin_layout Standard
-El profesor podrá requerir del alumno las pruebas que estime oportunas para garantizar la autoría de la prueba durante y después del desarrollo de la misma,
- incluyendo (pero no limitándose a) el uso de webcams,
- micrófono,
- compartición de su pantalla,
- entrevista personal,
- etcétera.
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-La comunicación con el alumnado y resto de la comunidad educativa se llevará a cabo mediante las vías oficiales de Moodle Centros e iPasen.
-\end_layout
-
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
