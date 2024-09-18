@@ -41,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -116,7 +116,7 @@
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -132,7 +132,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -175,7 +175,7 @@
 <section id="title-slide">
   <h1 class="title">Abstracción de datos</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2023/2024</p>
+  <p class="date">IES Doñana, curso 2024/2025</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -470,26 +470,26 @@ detalles internos de implementación.</p>
 <col style="width: 30%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">Elementos del lenguaje</th>
 <th style="text-align: left;">Instrucciones</th>
 <th style="text-align: left;">Datos</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Primitivas</td>
 <td style="text-align: left;">Definiciones y sentencias simples</td>
 <td style="text-align: left;">Literales y datos simples (enteros,
 reales, booleanos…)</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Mecanismos de combinación</td>
 <td style="text-align: left;">Expresiones y sentencias compuestas
 (estructuras de control)</td>
 <td style="text-align: left;">Datos compuestos (listas, tuplas…)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Mecanismos de abstracción</td>
 <td style="text-align: left;">Abstracciones funcionales (funciones)</td>
 <td style="text-align: left;">Abstracciones de datos (tipos
@@ -929,25 +929,25 @@ base):</p>
 <col style="width: 47%" />
 </colgroup>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;"><span class="math inline">l</span>
 <code>++</code> <code>[]</code></td>
 <td style="text-align: left;"># <em>por definición de <span
 class="math inline">l</span></em></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;"><span class="math inline">\equiv</span>
 <code>[]</code> <code>++</code> <code>[]</code></td>
 <td style="text-align: left;"># <em>por el primer axioma de
 <code>++</code></em></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;"><span class="math inline">\equiv</span>
 <code>[]</code></td>
 <td style="text-align: left;"># <em>por definición de <span
 class="math inline">l</span></em></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;"><span class="math inline">\equiv</span>
 <span class="math inline">l</span></td>
 <td style="text-align: left;"></td>
@@ -968,33 +968,33 @@ class="math inline">l_1</span>. En tal caso, tenemos:</p>
 <col style="width: 48%" />
 </colgroup>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;"><span class="math inline">l</span>
 <code>++</code> <code>[]</code></td>
 <td style="text-align: left;"># <em>por definición de <span
 class="math inline">l</span></em></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;"><span class="math inline">\equiv</span>
 (<span class="math inline">x</span> <code>:</code> <span
 class="math inline">l_1</span>) <code>++</code> <code>[]</code></td>
 <td style="text-align: left;"># <em>por el segundo axioma de
 <code>++</code></em></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;"><span class="math inline">\equiv</span>
 <span class="math inline">x</span> <code>:</code> (<span
 class="math inline">l_1</span> <code>++</code> <code>[]</code>)</td>
 <td style="text-align: left;"># <em>por hipótesis inductiva</em></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;"><span class="math inline">\equiv</span>
 <span class="math inline">x</span> <code>:</code> <span
 class="math inline">l_1</span></td>
 <td style="text-align: left;"># <em>por definición de <span
 class="math inline">l</span></em></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;"><span class="math inline">\equiv</span>
 <span class="math inline">l</span></td>
 <td style="text-align: left;"></td>
@@ -1583,25 +1583,25 @@ como se describe en esta tabla:</li>
 <col style="width: 31%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Las partes del programa que…</th>
 <th>Tratan a los racionales como…</th>
 <th>Usando sólo…</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Usan números racionales para realizar cálculos</td>
 <td>Valores de datos completos, un todo</td>
 <td><code>suma</code>, <code>mult</code>, <code>iguales</code>,
 <code>imprimir</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Crean racionales o implementan operaciones sobre racionales</td>
 <td>Numeradores y denominadores</td>
 <td><code>racional</code>, <code>numer</code>, <code>denom</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Implementan selectores y constructores de racionales</td>
 <td>Parejas de números representadas como listas de dos elementos</td>
 <td>Literales de tipo lista <code>[</code>_<code>]</code> e indexación

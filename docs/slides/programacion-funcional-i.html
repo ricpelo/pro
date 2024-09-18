@@ -41,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -116,7 +116,7 @@
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -132,7 +132,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -175,7 +175,7 @@
 <section id="title-slide">
   <h1 class="title">Programación funcional (I)</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2023/2024</p>
+  <p class="date">IES Doñana, curso 2024/2025</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -1099,23 +1099,23 @@ dos operandos <em>booleanos</em> y devuelven un valor
 matemática que tiene estructura de álgebra de Boole), se llaman:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;">Operación</th>
 <th style="text-align: center;">Operador</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">Disyunción</td>
 <td style="text-align: center;"><span
 class="math inline">\lor</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">Conjunción</td>
 <td style="text-align: center;"><span
 class="math inline">\land</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">Negación</td>
 <td style="text-align: center;"><span
 class="math inline">\neg</span></td>
@@ -1145,7 +1145,7 @@ también para verificar que se cumplen determinadas propiedades.</p></li>
 <div class="column" style="width:33%;">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><span class="math inline">A</span></th>
 <th style="text-align: center;"><span class="math inline">B</span></th>
 <th style="text-align: center;"><span
@@ -1153,22 +1153,22 @@ class="math inline">A\lor{}B</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
@@ -1178,7 +1178,7 @@ class="math inline">A\lor{}B</span></th>
 </div><div class="column" style="width:33%;">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><span class="math inline">A</span></th>
 <th style="text-align: center;"><span class="math inline">B</span></th>
 <th style="text-align: center;"><span
@@ -1186,22 +1186,22 @@ class="math inline">A\land{}B</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
@@ -1211,18 +1211,18 @@ class="math inline">A\land{}B</span></th>
 </div><div class="column" style="width:33%;">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><span class="math inline">A</span></th>
 <th style="text-align: center;"><span
 class="math inline">\neg{}A</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><span class="math inline">V</span></td>
 <td style="text-align: center;"><span class="math inline">F</span></td>
 </tr>
@@ -1239,7 +1239,7 @@ class="math inline">\neg{}A</span></th>
 <div class="column">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><code
 class="sourceCode python">A</code></th>
 <th style="text-align: center;"><code
@@ -1249,7 +1249,7 @@ class="sourceCode python">A <span class="kw">or</span> B</code></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
@@ -1257,7 +1257,7 @@ class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
@@ -1265,7 +1265,7 @@ class="sourceCode python"><span class="va">True</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 <td style="text-align: center;"><code
@@ -1273,7 +1273,7 @@ class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 <td style="text-align: center;"><code
@@ -1286,7 +1286,7 @@ class="sourceCode python"><span class="va">True</span></code></td>
 </div><div class="column">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><code
 class="sourceCode python">A</code></th>
 <th style="text-align: center;"><code
@@ -1296,7 +1296,7 @@ class="sourceCode python">A <span class="kw">and</span> B</code></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
@@ -1304,7 +1304,7 @@ class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
@@ -1312,7 +1312,7 @@ class="sourceCode python"><span class="va">True</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 <td style="text-align: center;"><code
@@ -1320,7 +1320,7 @@ class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 <td style="text-align: center;"><code
@@ -1335,7 +1335,7 @@ class="sourceCode python"><span class="va">True</span></code></td>
 <p><br></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><code
 class="sourceCode python">A</code></th>
 <th style="text-align: center;"><code
@@ -1343,13 +1343,13 @@ class="sourceCode python"><span class="kw">not</span> A</code></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">False</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="va">True</span></code></td>
 <td style="text-align: center;"><code
@@ -1523,34 +1523,34 @@ forma:</p>
 <col style="width: 29%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: left;">Valor u operación</th>
 <th style="text-align: left;">Notación</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Valor verdadero</td>
 <td style="text-align: left;"><span class="math inline">1</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Valor falso</td>
 <td style="text-align: left;"><span class="math inline">0</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Producto de <span
 class="math inline">A</span> y <span class="math inline">B</span></td>
 <td style="text-align: left;"><span class="math inline">A \cdot
 B</span><br />
 <span class="math inline">AB</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: left;">Suma de <span class="math inline">A</span>
 y <span class="math inline">B</span></td>
 <td style="text-align: left;"><span class="math inline">A +
 B</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: left;">Complemento de <span
 class="math inline">A</span></td>
 <td style="text-align: left;"><span
@@ -1633,7 +1633,7 @@ idénticas:</p>
 <col style="width: 19%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><span class="math inline">A</span></th>
 <th style="text-align: center;"><span class="math inline">B</span></th>
 <th style="text-align: center;"><span class="math inline">A +
@@ -1643,25 +1643,25 @@ B)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
