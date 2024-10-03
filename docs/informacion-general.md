@@ -2,7 +2,7 @@
 title: Información general
 ---
 
-- [Programación de la asignatura](assets/INF-1DAW-PRO-C24-25.pdf){:target="_blank"}
+- [Programación de la asignatura](XXXXXX.pdf){:target="_blank"}
 - **Normativa de aplicación**: [Orden de 16 de junio de
   2011](http://www.juntadeandalucia.es/boja/2011/149/23), por la que se
   desarrolla el currículo correspondiente al título de Técnico Superior en
