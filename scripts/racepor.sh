@@ -17,9 +17,9 @@ echo -E '\endfoot'
 while IFS="," read -r col1 col2 col3 col4
 do
     col3=$(echo $col3 | cut -d'"' -f2)
-    col3=$(echo "$col3 * 100" | bc)
-    col3=$(echo $col3 | cut -d. -f1)
-    col3="$col3,0\%"
+    col3=$(echo "scale = 1 ; $col3 * 100 / 1" | bc)
+    col3=$(echo $col3 | tr "." ",")
+    col3="$col3\%"
     if [ -n "$viejo" ]; then
         if [ "$viejo" != "$col1" ]; then
             echo -E ' \\ \hline'
