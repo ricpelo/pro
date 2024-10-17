@@ -18,14 +18,14 @@ author:
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    !PRE(n \geq 0)
    !SIGNAT(\texttt{repite(!VAR(s):\,str,\;!VAR(n):\,int)\;->\;\,str})
-   !POST(\texttt{repite(!VAR(s))}=\text{!VAR(s) repetido !VAR(n) veces})
+   !POST(\texttt{repite(!VAR(s),\;!VAR(n))}=\text{!VAR(s) repetido !VAR(n) veces})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    Dar un ejemplo de uso.
 
 #. Escribir una función que implemente la siguiente especificación:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   !PRE(\texttt{len(!VAR(c))} \geq 0)
+   !PRE(\texttt{len(!VAR(c))} = 0)
    !SIGNAT(\texttt{es\_vocal(!VAR(c):\,str)\;->\;\,bool})
    !POST(\texttt{es\_vocal(!VAR(c))}=\text{!VAR(c) es una vocal, acentuada o no})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
