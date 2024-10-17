@@ -70,9 +70,9 @@ SOURCES      := $(shell find $(SRCDIR) -type f -name "*.md")
 OBJECTS_HTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR_HTML)/%,$(SOURCES:.md=.html))
 OBJECTS_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_PDF)/%,$(SOURCES:.md=.pdf))
 APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apuntes.pdf))
-EJER_SOURCES := $(shell find $(EJER_SRCDIR) -type f -name *.md)
+EJER_SOURCES := $(shell find $(EJER_SRCDIR) -type f -name "*.md")
 EJER_OBJECTS_PDF := $(patsubst $(EJER_SRCDIR)/%,$(EJER_BUILDDIR_PDF)/%,$(EJER_SOURCES:.md=-ejercicios.pdf))
-PRAC_SOURCES := $(shell find $(PRAC_SRCDIR) -type f -name *.md)
+PRAC_SOURCES := $(shell find $(PRAC_SRCDIR) -type f -name "*.md")
 PRAC_OBJECTS_PDF := $(patsubst $(PRAC_SRCDIR)/%,$(PRAC_BUILDDIR_PDF)/%,$(PRAC_SOURCES:.md=-practicas.pdf))
 
 # Objetivos generales
