@@ -2,13 +2,9 @@
 title: Información general
 ---
 
-- [Programación de la asignatura](XXXXXX.pdf){:target="_blank"}
-- **Normativa de aplicación**: [Orden de 16 de junio de
-  2011](http://www.juntadeandalucia.es/boja/2011/149/23), por la que se
-  desarrolla el currículo correspondiente al título de Técnico Superior en
-  Desarrollo de Aplicaciones Web.
+- [Programación del módulo profesional](assets/INF-1DAW-PRO-C24-25.pdf){:target="_blank"}
+- **Normativa de aplicación**: Consultar la programación del módulo.
 - **Equivalencia en créditos ECTS**: 14.
 - **Código**: 0485.
 - **Duración total**: 256 horas / 32 semanas
 - **Carga lectiva semanal**: 8 horas
-- [Planificación y seguimiento](https://checkvist.com/checklists/844344){:target="_blank"}

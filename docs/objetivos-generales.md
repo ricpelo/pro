@@ -11,25 +11,25 @@ title: Objetivos generales
      especificaciones, para desarrollar componentes multimedia.
    - (q) Programar y realizar actividades para gestionar el mantenimiento de
      los recursos informáticos.
+   - (w) Evaluar situaciones de prevención de riesgos laborales y de protección
+     ambiental, proponiendo y aplicando medidas de prevención personales y
+     colectivas, de acuerdo a la normativa aplicable en los procesos del
+     trabajo, para garantizar entornos seguros. 
 
 2. La formación del módulo contribuye a alcanzar las **competencias
    profesionales, personales y sociales** de este título que se relacionan a
    continuación:
 
-   - (a) Configurar y explotar sistemas informáticos, adaptando la
-     configuración lógica del sistema según las necesidades de uso y los
-     criterios establecidos.
-   - (e) Desarrollar aplicaciones Web con acceso a bases de datos utilizando
+   - (e) Desarrollar aplicaciones web con acceso a bases de datos utilizando
      lenguajes, objetos de acceso y herramientas de mapeo adecuados a las
      especificaciones.
-   - (f) Integrar contenidos en la lógica de una aplicación Web, desarrollando
-     componentes de acceso a datos adecuados a las especificaciones.
-   - (i) Integrar componentes multimedia en el interface de una aplicación Web,
-     realizando el análisis de interactividad, accesibilidad y usabilidad de la
-     aplicación.
    - (j) Desarrollar e integrar componentes software en el entorno del servidor
-     Web, empleando herramientas y lenguajes específicos, para cumplir las
+     web, empleando herramientas y lenguajes específicos, para cumplir las
      especificaciones de la aplicación.
-   - (v) Realizar la gestión básica para la creación y funcionamiento de una
-     pequeña empresa y tener iniciativa en su actividad profesional con sentido
-     de la responsabilidad social.
+   - (t) Generar entornos seguros en el desarrollo de su trabajo y el de su
+     equipo, supervisando y aplicando los procedimientos de prevención de
+     riesgos laborales y ambientales de acuerdo con lo establecido por la
+     normativa y los objetivos de la empresa.
+   - (w) Ejercer sus derechos y cumplir con las obligaciones derivadas de su
+     actividad profesional, de acuerdo con lo establecido en la legislación
+     vigente, participando activamente en la vida económica, social y cultural.
