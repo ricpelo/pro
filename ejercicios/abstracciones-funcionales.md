@@ -25,7 +25,7 @@ author:
 #. Escribir una función que implemente la siguiente especificación:
    !ESPEC
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   !PRE(\texttt{len(!VAR(c))} = 0)
+   !PRE(\texttt{len(!VAR(c))} = 1)
    !SIGNAT(\texttt{es\_vocal(!VAR(c):\,str)\;->\;\,bool})
    !POST(\texttt{es\_vocal(!VAR(c))}=\text{!VAR(c) es una vocal, acentuada o no})
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
