@@ -2640,7 +2640,7 @@ status open
 \begin{align*}
 M_{i} & =\dfrac{{\displaystyle \sum\limits_{j\in C_{i}}}\CE{\ensuremath{i}}{\ensuremath{j}}\cdot p_{ij}}{{\displaystyle \sum\limits_{j\in C_{i}}}p_{ij}}\\
 \\\RA{\ensuremath{i}} & =\left\{ \begin{array}{lcl}
-M_{i} &  & \textrm{si }\min\limits_{j\in C_{i}}\{\CE{\ensuremath{i}}{\ensuremath{j}}\}\geq4,5\\
+M_{i} &  & \textrm{si }\min\limits_{c\in C_{i}}\{c\}\geq4,5\\
 \\\min(M_{i};\,4,0) &  & \textrm{e. o. c.}
 \end{array}\right.
 \end{align*}
@@ -2808,22 +2808,7 @@ CE{$i$}{$j$}
 \begin_inset Formula $C_{i}=$
 \end_inset
 
- Conjunto de los índices (letras 
-\family sans
-\series bold
-a
-\family default
-\series default
-,
- 
-\family sans
-\series bold
-b
-\family default
-\series default
-,
- \SpecialChar ldots
-) de los criterios de evaluación trabajados y evaluados,
+ Conjunto de las calificaciones de los criterios de evaluación trabajados y evaluados,
  asociados al resultado de aprendizaje 
 \begin_inset Formula $i$
 \end_inset
@@ -2897,19 +2882,8 @@ Calificaciones parciales
 
 \begin_layout Standard
 La calificación del módulo en cada evaluación parcial (primer,
- segundo y tercer trimestres por separado) se calculará como la media ponderada de las calificaciones de los criterios de evaluación trabajados y evaluados durante el trimestre correspondiente,
- en función de las ponderaciones relativas indicadas en el apartado 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Ponderación-de-los-criterios"
-plural "false"
-caps "false"
-noprefix "false"
-nolink "false"
-
-\end_inset
-
- y según se recoge en el algoritmo 
+ segundo y tercer trimestres por separado),
+ según se recoge en el algoritmo 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:Cálculo-calificación-parcial"
@@ -2920,7 +2894,11 @@ nolink "false"
 
 \end_inset
 
-.
+,
+ se valorará de 0,0 a 10,0 y se calculará como la media aritmética de las calificaciones de los criterios de evaluación trabajados y evaluados durante el trimestre correspondiente,
+ siendo requisito imprescindible para aprobar una evaluación parcial el cumplir todos los criterios de evaluación trabajados y evaluados;
+ en caso contrario,
+ la calificación de la evaluación parcial no podrá ser superior a 4,0.
 \end_layout
 
 \begin_layout Standard
@@ -2936,10 +2914,17 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Formula 
-\[
-P_{i}=\dfrac{{\displaystyle \sum\limits_{\CE{\ensuremath{x}}{\ensuremath{y}}\in C_{i}}\textbf{\CE{\ensuremath{x}}{\ensuremath{y}}}}\cdot p_{xy}}{{\displaystyle \sum\limits_{\CE{\ensuremath{x}}{\ensuremath{y}}\in C_{i}}}p_{xy}}
-\]
+\begin{align*}
+M_{i} & =\dfrac{{\displaystyle \sum\limits_{c\in C_{i}}}c}{\lvert C_{i}\rvert}\\
+\\P_{i} & =\left\{ \begin{array}{lcl}
+M_{i} &  & \textrm{si }\min\limits_{c\in C_{i}}\{c\}\geq4,5\\
+\\\min(M_{i};\,4,0) &  & \textrm{e. o. c.}
+\end{array}\right.
+\end{align*}
 
 \end_inset
 
@@ -3023,27 +3008,7 @@ setlist[description]{style=multiline,align=right,labelwidth=1.5cm}
 \end_layout
 
 \begin_layout Description
-\begin_inset Formula $P_{i}=$
-\end_inset
-
- Calificación parcial del trimestre 
-\begin_inset Formula $i\in\{1,2,3\}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Description
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-CE{$x$}{$y$}
-\end_layout
-
+\begin_inset Formula $M_{i}$
 \end_inset
 
 
@@ -3054,12 +3019,8 @@ CE{$x$}{$y$}
 \begin_inset Formula $=$
 \end_inset
 
- Calificación del criterio de evaluación 
-\begin_inset Formula $y$
-\end_inset
-
- asociado al resultado de aprendizaje 
-\begin_inset Formula $x$
+ Media aritmética de las calificaciones de los criterios de evaluación trabajados en el trimestre 
+\begin_inset Formula $i\in\{1,2,3\}$
 \end_inset
 
 .
@@ -3069,35 +3030,19 @@ CE{$x$}{$y$}
 \begin_inset Formula $C_{i}=$
 \end_inset
 
- Conjunto de los criterios de evaluación trabajados y evaluados en el trimestre 
-\begin_inset Formula $i$
+ Conjunto de las calificaciones de los criterios de evaluación trabajados y evaluados en el trimestre 
+\begin_inset Formula $i\in\{1,2,3\}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Description
-\begin_inset Formula $p_{xy}=$
+\begin_inset Formula $P_{i}=$
 \end_inset
 
- Ponderación del criterio de evaluación 
-\begin_inset Formula $y$
-\end_inset
-
- en el resultado de aprendizaje 
-\begin_inset Formula $x$
-\end_inset
-
-,
- según se determina en el apartado 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "subsec:Ponderación-de-los-criterios"
-plural "false"
-caps "false"
-noprefix "false"
-nolink "false"
-
+ Calificación parcial del trimestre 
+\begin_inset Formula $i\in\{1,2,3\}$
 \end_inset
 
 .
@@ -3125,7 +3070,16 @@ endgroup
 \end_layout
 
 \begin_layout Standard
-La calificación introducida en el sistema Séneca será la calificación parcial redondeada al entero más cercano,
+Se entenderá que el alumno ha 
+\series bold
+aprobado
+\series default
+ una 
+\series bold
+evaluación parcial
+\series default
+ si la calificación que ha obtenido en la misma es igual o superior a 4,5.
+ La calificación introducida en el sistema Séneca será la calificación parcial redondeada al entero más cercano,
  y no podrá ser inferior a 1,0.
 \end_layout
 
@@ -3166,9 +3120,9 @@ status open
 \begin_layout Plain Layout
 \begin_inset Formula 
 \begin{align*}
-M & =\dfrac{{\displaystyle \sum\limits_{i\in R}}\textbf{\RA{\ensuremath{i}}}}{\lvert R\rvert}\\
+M & =\dfrac{{\displaystyle \sum\limits_{r\in R}}r}{\lvert R\rvert}\\
 \\F & =\left\{ \begin{array}{lcl}
-M &  & \textrm{si }\min\limits_{i\in R}\{\RA{\ensuremath{i}}\}\geq4,5\\
+M &  & \textrm{si }\min\limits_{r\in R}\{r\}\geq4,5\\
 \\\min(M;\,4,0) &  & \textrm{e. o. c.}
 \end{array}\right.
 \end{align*}
@@ -3258,7 +3212,14 @@ setlist[description]{style=multiline,align=right,labelwidth=1.5cm}
 \begin_inset Formula $M=$
 \end_inset
 
- Media aritmética de las calificaciones de los resultados de aprendizaje.
+ Media aritmética de las calificaciones de los resultados de aprendizaje del módulo.
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $R=$
+\end_inset
+
+ Conjunto de las calificaciones de los resultados de aprendizaje del módulo.
 \end_layout
 
 \begin_layout Description
@@ -3266,44 +3227,6 @@ setlist[description]{style=multiline,align=right,labelwidth=1.5cm}
 \end_inset
 
  Calificación final del módulo.
-\end_layout
-
-\begin_layout Description
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-RA{$i$}
-\end_layout
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Formula $=$
-\end_inset
-
- Calificación del resultado de aprendizaje 
-\begin_inset Formula $i$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Description
-\begin_inset Formula $R=$
-\end_inset
-
- Conjunto de los índices (1,
- 2,
- \SpecialChar ldots
-) de los resultados de aprendizaje del módulo.
 \end_layout
 
 \begin_layout Plain Layout
