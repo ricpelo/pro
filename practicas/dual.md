@@ -9,84 +9,91 @@ author:
   IES Doñana
 ---
 
-@. **PRO1:** Escribe un programa que lea y escriba información almacenada en archivos de texto plano.
+@. **PRO1:** Escribe un programa que lea y escriba información almacenada en
+   archivos de texto plano.
 
-   https://pro.iesdonana.org/slides/programacion-imperativa.html#/entrada-y-salida
-   https://pro.iesdonana.org/slides/programacion-imperativa.html#/entrada-y-salida-por-archivos
+    Escribir en Python un programa que lea un archivo de texto llamado
+    `factura.txt` con un texto como el siguiente (no tiene por qué ser
+    exactamente igual, pero sí de la misma forma):
 
-@. **PRO2:** Escribe un programa que lea y escriba información almacenada en una base de datos relacional.
+    ```
+    Ud Denominación    Precio
+    -- --------------- ------
+     2 Tuercas           3.70
+     6 Tornillos         2.20
+    ```
 
-@. Consulta la **librería estándar de Python** en la documentación oficial para
-   hacerte una idea general de las posibilidades que ofrecen los módulos
-   predefinidos del lenguaje:
+    El archivo almacena las líneas de detalle de una factura. Cada línea
+    contiene un artículo, donde se detalla el número de unidades, la
+    denominación y el precio unitario, en ese orden. En cada línea, el máximo
+    de unidades es 99 y el precio unitario máximo es 99.99. Además, la
+    denominación tiene un máximo de 15 caracteres.
 
-   https://www.psycopg.org/
-   https://www.psycopg.org/docs/
+    La función deberá crear un archivo `resultado.txt` que contenga el mismo
+    contenido que el archivo original pero añadiendo el importe parcial por
+    cada línea y una línea más que indique el total de la factura, de la
+    siguiente forma:
 
-@. Importa el módulo `math` en un programa que necesite la función `math.gcd`
-   para calcular el **máximo común divisor** de dos números:
+     ```
+     Ud Denominación    Precio Importe
+     -- --------------- ------ -------
+      2 Tuercas           3.70    7.40
+      6 Tornillos         2.20   13.20
+     ---------------------------------
+     TOTAL:                      20.60
+     ```
 
-    #. Usando !PYTHON(import math)
+    Indicación: se pueden usar campos de sustitución en una f-string con los
+    siguientes formatos:
 
-    #. Usando !PYTHON(from math import gcd)
+    - `{`_cadena_`:`_ancho_**`f`**`}` para alinear una cadena a la izquierda.
+    - `{`_numero_`:`_ancho_`.`_decimales_**`f`**`}` para alinear un número a la derecha.
 
-    #. Usando !PYTHON(from math import *)
+    Por ejemplo:
 
-    ¿Cuál es la diferencia entre las tres opciones? ¿Cuál es más conveniente?
-    ¿Qué inconvenientes presenta la última opción?
+    ```python
+    >>> f'{"Hola":15}'
+    'Hola           '
+    >>> f'{6 * 2.20:9.2f}'
+    '    13.20'
+    ```
 
-@. Usa el módulo `random` para escribir programas que necesiten mostrar un
-   comportamiento aleatorio:
+    Más información:
 
-    #. La función `random.randint(`_a_`, `_b_`)` devuelve un número entero
-       aleatorio entre _a_ y _b_. Úsala para escribir un programa que juegue a
-       que el usuario tenga que adivinar un número entre 1 y 100.
+    \footnotesize
+    - [`https://pro.iesdonana.org/slides/programacion-imperativa.html#/entrada-y-salida`](https://pro.iesdonana.org/slides/programacion-imperativa.html#/entrada-y-salida)
+    - [`https://pro.iesdonana.org/slides/programacion-imperativa.html#/entrada-y-salida-por-archivos`](https://pro.iesdonana.org/slides/programacion-imperativa.html#/entrada-y-salida-por-archivos)
+    \normalsize
 
-    #. La función `random.shuffle(`_x_`)` ordena aleatoriamente la secuencia
-    _x_. Úsala para escribir un programa que pida al usuario cinco cadenas y
-    que luego las imprima en un orden aleatorio.
+<!-- -->
 
-@. Escribe un módulo llamado `fibonacci.py` que contenga las siguientes
-   funciones:
+@. **PRO2:** Escribe un programa que lea y escriba información almacenada en
+   una base de datos relacional.
 
-    - Una función `fib` que calcule el $n$-ésimo término de la sucesión de
-      Fibonacci de forma recursiva.
+    Escribir un programa que haga altas, bajas, consultas y modificaciones en
+    una base de datos de una biblioteca.
 
-    - Una función `fib_iter` que calcule lo mismo pero de forma iterativa
-      llamando a otra función `_fib_aux` (ojo, que empieza por `_`), que es la
-      que realmente lleva a cabo el proceso iterativo.
+    La base de datos debe contar con dos tablas:
 
-    #. Usar el módulo en otro llamado `principal.py` importándolo mediante:
+    - `lectores (numero, nombre, apellidos, telefono)`
+    - `libros (codigo, titulo, num_paginas, lector)`
 
-       ```python
-       from fibonacci import *
-       ```
+    Descripción:
 
-       ¿Cuáles son las funciones que se acaban importando de esta manera? ¿Por
-       qué?
+    - La columna `numero` es la clave primera de la tabla `lectores`.
+    - La columna `codigo` es la clave primaria de la tabla `libros`.
+    - La columna `lector` es una clave ajena que apunta a la columna `numero` de
+      la tabla `lectores`. Indica qué lector tiene prestado el libro, o `NULL`
+      si el libro no está prestado.
 
-    #. El módulo debe probarse a sí mismo al ejecutarse desde la línea de
-       órdenes del sistema operativo (\underline{y sólo entonces}):
+    El programa debe mostrar un menú principal desde el que el usuario podrá:
 
-       #. Si se ejecuta sin argumentos en la línea de órdenes, deberá comprobar
-          que `fib(8)` y `fib_iter(8)` se calculan correctamente, mostrando un
-          mensaje que indique si el cálculo ha sido correcto o no. Por ejemplo:
+    - Hacer altas, bajas, consultas y modificaciones de lectores.
+    - Hacer altas, bajas, consultas y modificaciones de libros.
+    - Poder prestar un libro a un lector.
+    - Poder gestionar la devolución de un libro.
 
-          ```console
-          $ python fibonacci.py
-          fib(8) vale 21 (correcto)
-          fib_iter(8) vale 37 (incorrecto)
-          ```
+    Más información:
 
-       #. Si se ejecuta con un argumento en la línea de órdenes, deberá usarse
-          como el argumento de la función `fib` y mostrar por pantalla el
-          resultado de la función. Por ejemplo:
-
-          ```console
-          $ python fibonacci.py 7
-          13
-          ```
-
-    #. ¿Cuál es la **interfaz** del módulo?
-
-    #. ¿Cuál es la **implementación** del módulo?
+    - [`https://www.psycopg.org`](https://www.psycopg.org/)
+    - [`https://www.psycopg.org/docs`](https://www.psycopg.org/docs/)
