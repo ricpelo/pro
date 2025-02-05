@@ -93,6 +93,13 @@ author:
     - Poder prestar un libro a un lector.
     - Poder gestionar la devolución de un libro.
 
+    La instalación de la librería Psycopg se puede hacer fácilmente en Debian o
+    Ubuntu tecleando la siguiente orden:
+
+    ```
+    sudo apt install python3-psycopg
+    ```
+
     Más información:
 
     - [`https://www.psycopg.org`](https://www.psycopg.org/)
