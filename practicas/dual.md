@@ -103,4 +103,4 @@ author:
     Más información:
 
     - [`https://www.psycopg.org`](https://www.psycopg.org/)
-    - [`https://www.psycopg.org/docs`](https://www.psycopg.org/docs/)
+    - [`https://www.psycopg.org/psycopg3/docs`](https://www.psycopg.org/psycopg3/docs/)
