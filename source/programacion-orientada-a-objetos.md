@@ -77,7 +77,7 @@ nocite: |
 La **programación orientada a objetos** es un paradigma de programación en el
 que los programas se ven como formados por entidades llamadas **objetos** que
 recuerdan su propio **estado interno** y que se comunican entre sí mediante el
-**paso de mensajes** que se intercambian con la finalidad de:
+**paso de mensajes** que se intercambian entre ellos con la finalidad de:
 
 - cambiar sus estados internos,
 
@@ -112,7 +112,7 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
 - El sistema de objetos de Python proporciona una sintaxis cómoda para promover
   el uso de estas técnicas de organización de programas.
   
-- Gran parte de esta sintaxis se comparte entre otros lenguajes de programación
+- Gran parte de esta sintaxis es compartida con otros lenguajes de programación
   orientados a objetos.
 
 - Ese sistema de objetos ofrece algo más que simple comodidad:
@@ -398,10 +398,10 @@ def deposito(fondos):
 - En general, no importa el orden en el que aparecen las definiciones dentro de
   la clase, salvo excepciones.
 
-- Recordemos que el cuerpo de una función (aquí las funciones se llaman
-  _métodos_) no se ejecuta cuando se define la función, sino cuando se la
-  llama. Por tanto, si un método usa a otro, no importará el orden en el que se
-  hayan definido.
+- Ya sabemos que el cuerpo de una función (y recordemos que, aquí, las
+  funciones se llaman _métodos_) no se ejecuta cuando se define la función,
+  sino cuando se la llama. Por tanto, si un método usa a otro, no importará el
+  orden en el que se hayan definido.
 
 - Por ejemplo, en el código anterior, los miembros se podrían haber definido en
   cualquier otro orden (`retirar` después de `saldo`, `ingresar` antes de
@@ -515,7 +515,7 @@ def deposito(fondos):
   
   - El entero !PYTHON(5) es un objeto, instancia de la clase !PYTHON(int).
 
-- Java es un lenguaje orientado a objetos **impuro**, ya que un programa Java
+- Java es un lenguaje orientado a objetos **híbrido**, ya que un programa Java
   manipula objetos pero también manipula otros datos llamados *primitivos*, que
   no son instancias de ninguna clase sino que pertenecen a un *tipo primitivo*
   del lenguaje.
