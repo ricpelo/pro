@@ -621,7 +621,7 @@ en atributos del objeto</strong>.</p></li>
 <div class="caja">
 <p><strong>La clase acaba siendo un objeto más, almacenado en el
 montículo</strong>, que se ligará al nombre de la clase en el espacio de
-nombres donde se haya definido ésta.</p>
+nombres donde se haya definido ésta (normalmente, el marco global).</p>
 </div></li>
 <li><p>Ese objeto «clase» permanecerá en memoria mientras exista, al
 menos, una referencia que apunte a él.</p></li>
@@ -633,11 +633,12 @@ menos, una referencia que apunte a él.</p></li>
 <li><p>Si ejecutamos la anterior definición en el <a
 href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Pythontutor</a>, observamos que se crea en memoria un
-objeto que, como todo objeto, contiene su propio espacio de nombres
-representado con una estructura similar al <strong>diccionario de
-despacho</strong> que creábamos antes a mano, el cual almacena los
+objeto que, como cualquier otro objeto, contiene su propio espacio de
+nombres representado con una estructura similar al <strong>diccionario
+de despacho</strong> que creábamos antes a mano, el cual almacena los
 miembros de la clase como atributos del objeto, asociando el nombre de
-cada operación con la función (el método) correspondiente.</p></li>
+cada operación con la función (mejor dicho, con el <em>método</em>)
+correspondiente.</p></li>
 <li><p>Ese objeto representa a la clase en la memoria durante la
 ejecución del programa, y se liga al nombre de la clase en el espacio de
 nombres actual (que normalmente será el marco global).</p></li>
@@ -743,8 +744,8 @@ objeto, sino un dato primitivo.</p></li>
 
 <div class="caja">
 <p><strong>Las clases, por tanto, son como <em>plantillas</em> para
-crear objetos</strong> que comparten el mismo comportamiento y
-(normalmente) la misma estructura interna.</p>
+crear objetos</strong> que comparten (normalmente) el mismo
+comportamiento y la misma estructura interna.</p>
 </div>
 <div class="caja">
 <p>Los <strong>objetos</strong> tienen tres
@@ -857,10 +858,9 @@ instancia almacena sus fondos, y todo son atributos.</li>
 <section class="slide level5" data-number="2.2.1.0.6">
 
 <ul>
-<li><p>Los objetos tienen existencia propia e independiente y
-permanecerán en la memoria siempre que haya al menos una referencia que
-apunte a él (en caso contrario, el recolector de basura lo
-eliminará).</p></li>
+<li><p>Un objeto tiene existencia propia e independiente y permanecerá
+en la memoria siempre que haya al menos una referencia que apunte a él
+(en caso contrario, el recolector de basura lo eliminará).</p></li>
 <li><p>De hecho, un objeto puede tener varias referencias
 apuntándole.</p></li>
 <li><p>Por ejemplo, si hacemos:</p>
@@ -960,7 +960,8 @@ Variables de instancia</h3>
 <li><p>En terminología orientada a objetos, el estado de un objeto se
 almacena en variables denominadas <strong>variables de
 instancia</strong>, <strong>campos</strong> o
-<strong>propiedades</strong> del objeto.</p></li>
+<strong>propiedades</strong> del objeto (si bien, en Python el concepto
+de <em>propiedad</em> tiene un significado específico).</p></li>
 <li><p>Esas variables de instancia se almacenan como
 <strong>atributos</strong> del objeto, dentro de éste, por lo que
 representan <em>variables locales</em> al objeto en su espacio de
@@ -982,7 +983,9 @@ style="width:40.0%" alt="Objeto dep y su atributo fondos" />
 acceder a un atributo del objeto a partir de una referencia suya usando
 la sintaxis:</li>
 </ul>
+<div class="centered">
 <p><em>objeto</em><code>.</code><em>atributo</em></p>
+</div>
 <ul>
 <li><p>Por ejemplo, para acceder al atributo <code>fondos</code> (que
 aquí es una variable de instancia) de un objeto <code>dep</code> de la
@@ -1004,13 +1007,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 
 <ul>
 <li><p>Por supuesto, dos objetos distintos pueden tener valores
-distintos en sus atributos (cada atributo pertenece a un objeto):</p>
+distintos en sus atributos, ya que cada atributo pertenece a un objeto
+determinado:</p>
 <div class="sourceCode" id="cb16"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1.fondos          <span class="co"># el atributo fondos del objeto dep1 vale 100</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.fondos          <span class="co"># el mismo atributo en el objeto dep2 vale 400</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.fondos          <span class="co"># el atributo fondos del objeto dep2 vale 400</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="dv">400</span></span></code></pre></div></li>
 </ul>
 <div class="centered">
@@ -1027,10 +1031,11 @@ objetos <code>dep1</code> y <code>dep2</code> en memoria</figcaption>
 
 <ul>
 <li><p>En Python es posible acceder directamente al estado interno de un
-objeto (o, lo que es lo mismo, al valor de sus atributos), cosa que, en
-principio, podría considerarse una <em>violación</em> del
-<strong>principio de ocultación de información</strong> y del concepto
-mismo de <strong>abstracción de datos</strong>.</p></li>
+objeto (o, lo que es lo mismo, al valor de sus atributos) desde el
+exterior del mismo, cosa que, en principio, podría considerarse una
+<em>violación</em> del <strong>principio de ocultación de
+información</strong> y del concepto mismo de <strong>abstracción de
+datos</strong>.</p></li>
 <li><p>Incluso es posible cambiar directamente el valor de un atributo
 desde fuera del objeto, o crear atributos nuevos dinámicamente, haciendo
 simplemente una asignación.</p></li>

@@ -434,7 +434,7 @@ def deposito(fondos):
   ~~~~~~~~~~~~~~~~~~~~~~~~~
   **La clase acaba siendo un objeto más, almacenado en el montículo**, que
   se ligará al nombre de la clase en el espacio de nombres donde se haya
-  definido ésta.
+  definido ésta (normalmente, el marco global).
   ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Ese objeto «clase» permanecerá en memoria mientras exista, al menos, una
@@ -444,11 +444,11 @@ def deposito(fondos):
 
 - Si ejecutamos la anterior definición en el
   [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"},
-  observamos que se crea en memoria un objeto que, como todo objeto, contiene
-  su propio espacio de nombres representado con una estructura similar al
-  **diccionario de despacho** que creábamos antes a mano, el cual almacena los
-  miembros de la clase como atributos del objeto, asociando el nombre de cada
-  operación con la función (el método) correspondiente.
+  observamos que se crea en memoria un objeto que, como cualquier otro objeto,
+  contiene su propio espacio de nombres representado con una estructura similar
+  al **diccionario de despacho** que creábamos antes a mano, el cual almacena
+  los miembros de la clase como atributos del objeto, asociando el nombre de
+  cada operación con la función (mejor dicho, con el _método_) correspondiente.
 
 - Ese objeto representa a la clase en la memoria durante la ejecución del
   programa, y se liga al nombre de la clase en el espacio de nombres actual
@@ -533,9 +533,11 @@ def deposito(fondos):
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Las clases, por tanto, son como _plantillas_ para crear objetos** que
-comparten el mismo comportamiento y (normalmente) la misma estructura interna.
+comparten (normalmente) el mismo comportamiento y la misma estructura interna.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+\begingroup
+\setlist[itemize,1]{labelindent=0pt, label=--}
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Los **objetos** tienen tres **características** básicas:
@@ -549,6 +551,7 @@ Los **objetos** tienen tres **características** básicas:
   de ciertos mensajes.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\endgroup
 
 ---
 
@@ -643,9 +646,9 @@ dep = Deposito(100)
 
 ---
 
-- Los objetos tienen existencia propia e independiente y permanecerán en la
-  memoria siempre que haya al menos una referencia que apunte a él (en caso
-  contrario, el recolector de basura lo eliminará).
+- Un objeto tiene existencia propia e independiente y permanecerá en la memoria
+  siempre que haya al menos una referencia que apunte a él (en caso contrario,
+  el recolector de basura lo eliminará).
 
 - De hecho, un objeto puede tener varias referencias apuntándole.
 
@@ -724,7 +727,8 @@ dep = Deposito(100)
 
 - En terminología orientada a objetos, el estado de un objeto se almacena en
   variables denominadas **variables de instancia**, **campos** o
-  **propiedades** del objeto.
+  **propiedades** del objeto (si bien, en Python el concepto de _propiedad_
+  tiene un significado específico).
 
 - Esas variables de instancia se almacenan como **atributos** del objeto,
   dentro de éste, por lo que representan *variables locales* al objeto en su
@@ -761,7 +765,10 @@ subgraph cluster2 {
 - Recordemos que debemos usar el operador punto (`.`) para acceder a un
   atributo del objeto a partir de una referencia suya usando la sintaxis:
 
+!CENTRAR
+~~~~~~~~~~~~~~~~~~~~~
 *objeto*`.`*atributo*
+~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, para acceder al atributo `fondos` (que aquí es una variable de
   instancia) de un objeto `dep` de la clase `Deposito`, se usaría la expresión
@@ -784,14 +791,14 @@ subgraph cluster2 {
 ---
 
 - Por supuesto, dos objetos distintos pueden tener valores distintos en sus
-  atributos (cada atributo pertenece a un objeto):
+  atributos, ya que cada atributo pertenece a un objeto determinado:
 
   ```python
   >>> dep1 = Deposito(100)
   >>> dep2 = Deposito(400)
   >>> dep1.fondos          # el atributo fondos del objeto dep1 vale 100
   100
-  >>> dep2.fondos          # el mismo atributo en el objeto dep2 vale 400
+  >>> dep2.fondos          # el atributo fondos del objeto dep2 vale 400
   400
   ```
 
@@ -800,9 +807,10 @@ subgraph cluster2 {
 ---
 
 - En Python es posible acceder directamente al estado interno de un objeto (o,
-  lo que es lo mismo, al valor de sus atributos), cosa que, en principio,
-  podría considerarse una _violación_ del **principio de ocultación de
-  información** y del concepto mismo de **abstracción de datos**.
+  lo que es lo mismo, al valor de sus atributos) desde el exterior del mismo,
+  cosa que, en principio, podría considerarse una _violación_ del **principio
+  de ocultación de información** y del concepto mismo de **abstracción de
+  datos**.
 
 - Incluso es posible cambiar directamente el valor de un atributo desde fuera
   del objeto, o crear atributos nuevos dinámicamente, haciendo simplemente una
