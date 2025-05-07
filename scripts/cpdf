@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 ###############################################################
 ### PROJECT:
@@ -6,7 +6,7 @@
 ### SCRIPT:
 ### cpdf
 ### VERSION:
-### v1.1.2
+### v1.3
 ### DESCRIPTION:
 ### A script to make compressing pdf files more easily by
 ### automating gs commands
@@ -22,19 +22,19 @@ import os, datetime, sys, glob, re, subprocess, pyprind, time
 if len(sys.argv) <= 1:
     print("\n" + '\033[1;37m' + "ERROR:" + '\033[0m' + "  This script only takes 3 specific arguments. Use the \"help\" argument to learn more.\n")
 elif str(sys.argv[1]) == "help":
-    print("\nThis is a script to compress a pdf file with the convention of: " + '\033[1;37m' + "cpdf [type: screen, ebook, printer, prepress, or default] [input file name] [output file name]" + '\033[0m' + ". To learn more about the different types, use the \"types\" flag (ie. cpdf types)\n")
+    print("\nThis is a script to compress a pdf file with the convention of:\n\n" + '\033[1;37m' + "cpdf [type: screen, ebook, printer, prepress, or default] [input file name] [output file name]" + '\033[0m' + "\n\nTo learn more about the different types, use the \"types\" flag (ie. cpdf types)\n")
     sys.exit()
 elif str(sys.argv[1]) == "types":
     print("\n")
     print('\033[1;37m' + "screen" + '\033[0m' + " - selects low-resolution output similar to the Acrobat Distiller \"Screen Optimized\" setting.")
     print('\033[1;37m' + "ebook" + '\033[0m' + " - selects medium-resolution output similar to the Acrobat Distiller \"eBook\" setting.")
-    print('\033[1;37m' + "printer" + '\033[0m' + " - selects output similar to the Acrobat Distiller \"Print Optimized\" setting.")
+    print('\033[1;37m' + "printer" + '\033[0m' + " - selects output similar to the Acrobat Distiller \"print(Optimized\" setting.")
     print('\033[1;37m' + "prepress" + '\033[0m' + " - selects output similar to Acrobat Distiller \"Prepress Optimized\" setting.")
     print('\033[1;37m' + "default" + '\033[0m' + " - selects output intended to be useful across a wide variety of uses, possibly at the expense of a larger output file.")
     print("\n")
     sys.exit()
 elif str(sys.argv[1]) == "version":
-    print('\033[1;37m' + "\ncPDF v1.1.2\n" + '\033[0m')
+    print('\033[1;37m' + "\ncPDF v1.3\n" + '\033[0m')
     sys.exit()
 elif len(sys.argv) != 4:
     print("\n" + '\033[91m' + "ERROR:" + '\033[0m' + " This script only takes 3 specific arguments. Use the \"help\" argument to learn more.\n")
@@ -54,15 +54,21 @@ else:
     cType = str(sys.argv[1]) # Compression Type
     inFile = str(sys.argv[2]) # Input File Name
     outFile = str(sys.argv[3]) # Output File Name
+    
+    # Check to make sure input file exists
+    exist = os.path.isfile(inFile)
+    if exist == False:
+        print("\n" + '\033[91m' + "ERROR:" + '\033[0m' + " " + inFile + " does not exist... Exiting...\n")
+        sys.exit()
 
     # Check to make sure that the input file name is safe
-    if re.search('[\\\\\|:;\`]', inFile):
-        print("\n" + '\033[91m' + "ERROR:" + '\033[0m' + " Input file contains invalid characters such as / \\ : ; \`.... Exiting...\n")
+    if re.search('[|;\`><{}#*]', inFile):
+        print("\n" + '\033[91m' + "ERROR:" + '\033[0m' + " Input file contains invalid characters such as | ; \` > < } { # *.... Exiting...\n")
         sys.exit()
 
     # Check to make sure that the output file name is safe
-    if re.search('[\\\\\|:;\`]', outFile):
-        print("\n" + '\033[91m' + "ERROR:" + '\033[0m' + " Output file contains invalid characters such as / \\ : ; \`.... Exiting...\n")
+    if re.search('[|;\`><{}#*]', outFile):
+        print("\n" + '\033[91m' + "ERROR:" + '\033[0m' + " Output file contains invalid characters such as | ; \` > < } { # *.... Exiting...\n")
         sys.exit()
 
     # Check to make sure the user really wants to overwrite the existing file with the new output file and that the output file does in fact end with .pdf
@@ -116,14 +122,24 @@ else:
     process = subprocess.Popen(cmmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     # Progress & Details
+    print("\n")
     initial_size = os.path.getsize(inFile)
-    n = int(initial_size * 2.5)
-    poll = process.poll()
-    bar = pyprind.ProgBar(n, track_time=False)
+    status = 0
+    n = int(initial_size*10)
+    # poll = process.poll()
+    bar = pyprind.ProgBar(n, title='Compressing...')
     for i in range(n):
-        bar.update()
+        if process.poll() == None:
+            bar.update()
+            status = status + 1
+        else:
+            bar.update(n-status)
+            print(process.poll())
+            break
+    print(bar)
     process.wait()
+    print("\nCompressed!\n")
     final_size = os.path.getsize(outFile)
-    inSize = "{0:.3f}MB".format(initial_size / 1000000)
-    outSize = "{0:.3f}MB".format(final_size / 1000000)
-    print(inSize + ' / ' + outSize)
+    inSize = str(initial_size / 1000000)
+    print(inFile + " is " + inSize + "MB in size.")
+    print(outFile + " is {0:.1f}MB after compression.\n".format(final_size / 1000000))
