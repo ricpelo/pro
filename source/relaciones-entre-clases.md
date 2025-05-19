@@ -2071,7 +2071,95 @@ class Rectangulo:
 
 ::::
 
-### Sobreescritura de `__eq__`
+## `super`
+
+- La función !PYTHON(super) nos permite acceder a los métodos heredados que se
+  han visto **sombreados** por métodos sobreescritos con su mismo nombre.
+
+- Al llamar a la función, ésta devuelve un _objeto intermediario_ («_proxy_»)
+  que **delega** las llamadas a métodos a una superclase de la clase actual.
+
+- En caso de estar usando herencia simple, la expresión !PYTHON(super())
+  devuelve directamente un objeto intermediario de la superclase directa de la
+  clase actual.
+
+- En el caso de estar usando herencia múltiple, !PYTHON(super()) devolverá un
+  objeto intermediario que será instancia de la clase que sigue a la clase
+  actual en el MRO.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  class Trabajador:
+      def descripcion(self):
+          return f"Soy {self.nombre}"
+
+      # ... resto de código
+
+  class Docente(Trabajador):
+      def descripcion(self):
+          return super().descripcion() + f" y mi especialidad es {self.especialidad}"
+
+      # ... resto de código
+  ```
+
+  ```python
+  >>> manolo = Trabajador("Manolo", 3500)
+  >>> manolo.descripcion()
+  'Soy Manolo'
+  >>> pepe = Docente("Pepe", 18500)
+  >>> pepe.set_especialidad("Informática")
+  >>> pepe.descripcion()
+  'Soy Pepe y mi especialidad es Informática'
+  ```
+
+## Sobreescritura de constructores
+
+- Los constructores (métodos !PYTHON(__init__)) se pueden sobreescribir como
+  cualquier otro método.
+
+- En tal caso, lo normal y lógico es que el constructor de la subclase llame al
+  constructor de la superclase para que ésta pueda inicializar los atributos
+  que le corresponden (es decir, los que la subclase hereda de la superclase).
+
+- Se trata de que cada clase se responsabilice de inicializar sus propios
+  atributos, para garantizar que se cumplen sus invariantes.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  class Trabajador:
+      def __init__(self, nombre, salario):
+          self.set_nombre(nombre)
+          self.set_salario(salario)
+
+      def set_nombre(self, nombre):
+          self.nombre = nombre
+
+      def set_salario(self, salario):
+          assert salario >= 0
+          self.salario = salario
+
+      # ... resto de código
+
+  class Docente(Trabajador):
+      def __init__(self, nombre, salario, especialidad):
+          # Llama al constructor de la superclase
+          # para que inicialice el nombre y el salario:
+          super().__init__(nombre, salario)
+          self.set_especialidad(especialidad)
+
+      def set_especialidad(self, especialidad):
+          self.especialidad = especialidad
+
+      # resto de código
+  ```
+
+## Sobreescritura de `__eq__`
 
 - De forma predeterminada, los objetos implementan el método !PYTHON(__eq__)
   usando !PYTHON(is) y devolviendo !PYTHON(NotImplemented) en caso de que la
@@ -2166,93 +2254,102 @@ class Rectangulo:
   Se invoca el __eq__ de B
   ```
 
-## `super`
+---
 
-- La función !PYTHON(super) nos permite acceder a los métodos heredados que se
-  han visto **sombreados** por métodos sobreescritos con su mismo nombre.
+- Anteriormente vimos que una forma de implementar nuestro método
+  !PYTHON(__eq__) sería algo similar a ésto:
 
-- Al llamar a la función, ésta devuelve un _objeto intermediario_ («_proxy_»)
-  que **delega** las llamadas a métodos a una superclase de la clase actual.
+  ```python
+  def __eq__(self, otro):
+      if type(self) != type(otro):
+          return NotImplemented   # no tiene sentido comparar objetos de distinto tipo
+      return self.items == otro.items  # son iguales si tienen los mismos elementos
+  ```
 
-- En caso de estar usando herencia simple, la expresión !PYTHON(super())
-  devuelve directamente un objeto intermediario de la superclase directa de la
-  clase actual.
+- Es decir: preguntamos primero si los tipos de los objetos a comparar
+  coinciden y, en caso contrario, decidimos que no se pueden comparar.
 
-- En el caso de estar usando herencia múltiple, !PYTHON(super()) devolverá un
-  objeto intermediario que será instancia de la clase que sigue a la clase
-  actual en el MRO.
+- Pero, ¿qué pasa cuando los objetos que estamos comparando pertenencen a
+  clases que son subclase una de la otra?
+
+- Veámoslo con un ejemplo.
 
 ---
 
-- Por ejemplo:
+- Supongamos que tenemos trabajadores y docentes, de forma que los docentes son
+  un tipo especial de trabajador, y queremos que, al comparar cualquier pareja
+  de trabajadores (sean del tipo que sean), Python nos diga que son iguales si
+  tienen el mismo DNI:
 
   ```python
   class Trabajador:
-      def descripcion(self):
-          return f"Soy {self.nombre}"
+      def __init__(self, dni):
+          self.__dni = dni
 
-      # ... resto de código
+      def get_dni(self):
+          return self.__dni
+
+      def __eq__(self, otro):
+          if type(self) != type(otro):
+              return NotImplemented
+          return self.get_dni() == otro.get_dni()
 
   class Docente(Trabajador):
-      def descripcion(self):
-          return super().descripcion() + f" y mi especialidad es {self.especialidad}"
+      def __init__(self, dni, especialidad):
+          super().__init__(dni)
+          self.__especialidad = especialidad
 
-      # ... resto de código
+      def get_especialidad(self):
+          return self.__especialidad
   ```
-
-  ```python
-  >>> manolo = Trabajador("Manolo", 3500)
-  >>> manolo.descripcion()
-  'Soy Manolo'
-  >>> pepe = Docente("Pepe", 18500)
-  >>> pepe.set_especialidad("Informática")
-  >>> pepe.descripcion()
-  'Soy Pepe y mi especialidad es Informática'
-  ```
-
-## Sobreescritura de constructores
-
-- Los constructores (métodos !PYTHON(__init__)) se pueden sobreescribir como
-  cualquier otro método.
-
-- En tal caso, lo normal y lógico es que el constructor de la subclase llame al
-  constructor de la superclase para que ésta pueda inicializar los atributos
-  que le corresponden (es decir, los que la subclase hereda de la superclase).
-
-- Se trata de que cada clase se responsabilice de inicializar sus propios
-  atributos, para garantizar que se cumplen sus invariantes.
 
 ---
 
-- Por ejemplo:
+- Si ahora hacemos:
 
   ```python
-  class Trabajador:
-      def __init__(self, nombre, salario):
-          self.set_nombre(nombre)
-          self.set_salario(salario)
-
-      def set_nombre(self, nombre):
-          self.nombre = nombre
-
-      def set_salario(self, salario):
-          assert salario >= 0
-          self.salario = salario
-
-      # ... resto de código
-
-  class Docente(Trabajador):
-      def __init__(self, nombre, salario, especialidad):
-          # Llama al constructor de la superclase
-          # para que inicialice el nombre y el salario:
-          super().__init__(nombre, salario)
-          self.set_especialidad(especialidad)
-
-      def set_especialidad(self, especialidad):
-          self.especialidad = especialidad
-
-      # resto de código
+  t = Trabajador('123')
+  d = Docente('123', 'Informático')
+  print(t == d)
   ```
+
+  nos imprimirá !PYTHON(False), porque los tipos de los objetos no coinciden.
+
+- Sin embargo, sí tiene sentido comparar un trabajador con un docente, ya que
+  los docentes son trabajadores.
+
+- De hecho, esa comparación debería devolver !PYTHON(True) ya que ambos objetos
+  tienen el mismo DNI.
+
+- Para solucionar este problema, deberemos cambiar el código del método
+  !PYTHON(__eq__) para que tenga en cuenta la posibilidad de que la clase de un
+  objeto sea subclase de la clase del otro, es decir, que ambos objetos sean
+  _polimórficamente del mismo tipo_.
+
+---
+
+- Para ello, cambiamos la implementación del método !PYTHON(__eq__) para que
+  use !PYTHON(isinstance) en lugar de !PYTHON(type) al comparar los tipos de
+  ambos objetos:
+
+  ```python
+  def __eq__(self, otro):
+      if isinstance(otro, type(self)):
+          return NotImplemented
+      return self.get_dni() == otro.get_dni()
+  ```
+
+- De este modo, si ahora hacemos:
+
+  ```python
+  t = Trabajador('123')
+  d = Docente('123', 'Informático')
+  print(t == d)
+  ```
+
+  sí nos imprimirá correctamente !PYTHON(True).
+
+# Abstracción
 
 ## Clases abstractas y métodos abstractos
 
