@@ -1872,7 +1872,7 @@ class Rectangulo:
 - Esos trabajadores responderán de una forma distinta cuando se invoque sobre
   ellos al método `despedir`.
 
-- Para ello, **redefinimos el método** `despedir` en la clase `Directivo`:
+- Para ello, **sobreescribimos el método** `despedir` en la clase `Directivo`:
 
   ```python
   class Directivo(Trabajador):
@@ -1959,7 +1959,7 @@ class Rectangulo:
   Despedido tú
   ```
 
-### Polimorfismo y métodos redefinidos
+### Despacho dinámico (_dynamic dispatch_!ifdef(HTML)(&nbsp;)())
 
 - Cuando se manda un mensaje a un objeto, el método que realmente se invoca
   dependerá del objeto que haya recibido el mensaje o, más concretamente, de la
@@ -1983,9 +1983,9 @@ class Rectangulo:
 
 ---
 
-- Por tanto, el polimorfismo, más que referirse a que **algo puede _tener
-  varias formas_**, se refiere a que **algo _se puede comportar de varias
-  formas_**.
+- Por tanto, el polimorfismo en orientación a objetos, más que referirse a que
+  **algo puede _tener varias formas_**, se refiere a que **algo _se puede
+  comportar de varias formas_**.
 
 - A su vez, cada comportamiento está codificado en un método.
 
@@ -1999,6 +1999,11 @@ class Rectangulo:
 
 - Así, en la expresión !PYTHON(t.despedir()), sabemos que se ejecutará el
   método `despedir` más apropiado según el tipo de trabajador que sea `t`.
+
+- En general, el método a invocar se determinará en tiempo de ejecución en
+  función del tipo de objeto que reciba el mensaje.
+
+- A este mecanismo se le denomina **despacho dinámico**.
 
 !EJEMPLO
 
@@ -2069,7 +2074,7 @@ class Rectangulo:
 ## `super`
 
 - La función !PYTHON(super) nos permite acceder a los métodos heredados que se
-  han visto **sombreados** por métodos redefinidos con su mismo nombre.
+  han visto **sombreados** por métodos sobreescritos con su mismo nombre.
 
 - Al llamar a la función, ésta devuelve un _objeto intermediario_ («_proxy_»)
   que **delega** las llamadas a métodos a una superclase de la clase actual.
