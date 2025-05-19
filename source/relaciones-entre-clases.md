@@ -2071,6 +2071,55 @@ class Rectangulo:
 
 ::::
 
+### Sobreescritura de `__eq__`
+
+- By default, object implements `__eq__` by using `is`, returning
+  `NotImplemented` in the case of a false comparison: `True if x is y else
+NotImplemented`.
+
+- It is generally understood, but not always the case, that `a == b` invokes `a.__eq__(b)`, or `type(a).__eq__(a, b)`.
+
+- Explicitly, the order of evaluation is:
+
+1. if `b`'s type is a strict subclass (not the same type) of `a`'s type and has an `__eq__`, call it and return the value if the comparison is implemented,
+2. else, if `a` has `__eq__`, call it and return it if the comparison is implemented,
+3. else, see if we didn't call `b`'s `__eq__` and it has it, then call and return it if the comparison is implemented,
+4. else, finally, do the comparison for identity, the same comparison as `is`.
+We know if a comparison isn't implemented if the method returns `NotImplemented`.
+
+---
+
+**Conclusion**
+
+1. In a comparison, we respect the subclass implementation of comparison first.
+
+2. Then we attempt the comparison with the first object's implementation, then with the second's if it wasn't called.
+
+3. Finally we use a test for identity for comparison for equality.
+
+---
+
+Let's test the first check's behavior for ourselves by letting B subclass A, which shows that the accepted answer is wrong on this count:
+
+```python
+class A:
+    value = 3
+    def __eq__(self, other):
+        print('A __eq__ called')
+        return self.value == other.value
+
+class B(A):
+    value = 4
+    def __eq__(self, other):
+        print('B __eq__ called')
+        return self.value == other.value
+
+a, b = A(), B()
+a == b
+``` 
+
+which only prints B __eq__ called before returning False.
+
 ## `super`
 
 - La función !PYTHON(super) nos permite acceder a los métodos heredados que se
