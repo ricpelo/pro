@@ -258,7 +258,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 ---
 
 - El concepto de **abstracción de datos** (o **tipo abstracto de datos**) fue
-  propuesto por John Guttag en 1974 y dice que:
+  introducido formalmente por primera vez por Barbara Liskov y Stephen Zilles
+  en 1974 (aunque los trabajos posteriores de John Guttag sobre
+  _especificaciones algebraicas_ son muy importantes) y dice que:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~
@@ -277,8 +279,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 ---
 
-- **Un tipo abstracto debe cumplir** las siguientes dos
-  **propiedades**:
+- **Un tipo abstracto debe cumplir** las siguientes dos **propiedades**:
 
   - **Privacidad de la representación**: los usuarios no conocen cómo se
     representan los valores del tipo abstracto en la memoria del ordenador.
