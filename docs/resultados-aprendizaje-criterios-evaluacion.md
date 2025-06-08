@@ -12,18 +12,18 @@ correspondientes criterios de evaluación, tal y como se definen en la
   *Criterios de evaluación:*
 
   - [CE1.a] Se han identificado los bloques que componen la estructura de un
-    oprgrama informático.
+    programa informático.
   - [CE1.b] Se han utilizado entornos integrados de desarrollo.
   - [CE1.c] Se han creado proyectos de desarrollo de aplicaciones.
   - [CE1.d] Se han identificado los distintos tipos de variables y la utilidad
-    pesecífica de cada uno.
+    específica de cada uno.
   - [CE1.e] Se ha modificado el código de un programa para crear y utilizar
-    rvaiables.
+    variables.
   - [CE1.f] Se han creado y utilizado constantes y literales.
   - [CE1.g] Se han clasificado, reconocido y utilizado en expresiones los
-    eopradores del lenguaje.
+    operadores del lenguaje.
   - [CE1.h] Se ha comprobado el funcionamiento de las conversiones de tipo
-    pexlícitas e implícitas.
+    explícitas e implícitas.
   - [CE1.i] Se han introducido comentarios en el código.
 
 - **[RA2] Escribe y prueba programas sencillos, reconociendo y aplicando los
