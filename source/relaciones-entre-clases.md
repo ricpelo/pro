@@ -2159,102 +2159,7 @@ class Rectangulo:
       # resto de código
   ```
 
-## Sobreescritura de `__eq__`
-
-- De forma predeterminada, los objetos implementan el método !PYTHON(__eq__)
-  usando !PYTHON(is) y devolviendo !PYTHON(NotImplemented) en caso de que la
-  comparación no se cumpla:
-
-  ```python
-  True if x is y else NotImplemented
-  ```
-
-- En general, cabría esperar que:
-
-  ```python
-  a == b
-  ```
-
-  invoque a:
-
-  ```python
-  a.__eq__(b)
-  ```
-
-  o bien, a:
-
-  ```python
-  type(a).__eq__(a, b)
-  ```
-
----
-
-- Sin embargo, **este no es siempre el caso**.
-
-- Concretamente, el orden de evaluación es el siguiente:
-
-  1. Si el tipo de `b` es una _subclase propia_ del tipo de `a`, y `b` tiene su
-     propio !PYTHON(__eq__), entonces invoca a éste y devuelve el valor que
-     corresponda si la comparación está implementada*.
-
-  2. En caso contrario, si `a` tiene su propio !PYTHON(__eq__), entonces invoca
-     a éste y devuelve el valor que corresponda si la comparación está
-     implementada*.
-
-  3. En caso contrario, si `b` tiene su propio !PYTHON(__eq__), entonces invoca
-     a éste y devuelve el valor que corresponda si la comparación está
-     implementada*.
-
-  4. En caso contrario, finalmente, lleva a cabo la comparación de sus
-     identidades usando !PYTHON(is).
-
-  \* _NOTA_: Una comparación está _implementada_ si el método no devuelve
-  !PYTHON(NotImplemented).
-
----
-
-- En resumen:
-
-  1. En una comparación, se respeta primero la implementación de la subclase.
-
-  2. Luego se intenta la comparación con la implementación del objeto
-     izquierdo, y luego con el del objeto derecho si aún no ha sido invocada.
-
-  3. Finalmente, se hace una comprobación de identidad.
-
----
-
-- Por ejemplo, partiendo del siguiente código:
-
-  ```python
-  class A:
-      valor = 3
-      def __eq__(self, otro):
-          print('Se invoca el __eq__ de A')
-          return self.valor == otro.valor
-
-  class B(A):
-      valor = 4
-      def __eq__(self, otro):
-          print('Se invoca el __eq__ de B')
-          return self.valor == otro.valor
-  ```
- 
-  si hacemos lo siguiente:
-
-  ```python
-  a, b = A(), B()
-  a == b
-  ```
-
-  obtendremos la siguiente salida antes de que la expresión devuelva
-  !PYTHON(False):
-
-  ```
-  Se invoca el __eq__ de B
-  ```
-
----
+## Igualdad polimórfica
 
 - Anteriormente vimos que una forma de implementar nuestro método
   !PYTHON(__eq__) sería algo similar a ésto:
@@ -2270,7 +2175,8 @@ class Rectangulo:
   coinciden y, en caso contrario, decidimos que no se pueden comparar.
 
 - Pero, ¿qué pasa cuando los objetos que estamos comparando pertenencen a
-  clases que son subclase una de la otra?
+  clases que son subclase una de la otra? Es decir, objetos que no son del
+  mismo tipo pero que _polimórficamente_ sí lo son.
 
 - Veámoslo con un ejemplo.
 
@@ -2348,6 +2254,160 @@ class Rectangulo:
   ```
 
   sí nos imprimirá correctamente !PYTHON(True).
+
+## Sobreescritura de `__eq__`
+
+- De forma predeterminada, los objetos implementan el método !PYTHON(__eq__)
+  usando !PYTHON(is) y devolviendo !PYTHON(NotImplemented) en caso de que la
+  comparación no se cumpla:
+
+  ```python
+  True if x is y else NotImplemented
+  ```
+
+- En general, cabría esperar que:
+
+  ```python
+  a == b
+  ```
+
+  invoque a:
+
+  ```python
+  a.__eq__(b)
+  ```
+
+  o bien, a:
+
+  ```python
+  type(a).__eq__(a, b)
+  ```
+
+- Sin embargo, **este no es siempre el caso**.
+
+---
+
+- Concretamente, el orden de evaluación es el siguiente:
+
+  1. Si el tipo de `b` es una _subclase propia_ del tipo de `a`, y `b` tiene su
+     propio !PYTHON(__eq__), entonces se invoca a éste haciendo
+     !PYTHON{b.__eq__(a)} (o sea, le da la vuelta a los argumentos) y se
+     devuelve el valor que corresponda si la comparación está implementada*.
+
+  2. En caso contrario, si `a` tiene su propio !PYTHON(__eq__), entonces se
+     invoca a éste haciendo !PYTHON(a.__eq__(b)) y se devuelve el valor que
+     corresponda si la comparación está implementada*.
+
+  3. En caso contrario, si `b` tiene su propio !PYTHON(__eq__), entonces se
+     invoca a éste haciendo !PYTHON{b.__eq__(a)} (o sea, dándole la vuelta a
+     sus argumentos) y se devuelve el valor que corresponda si la comparación
+     está implementada*.
+
+  4. En caso contrario, finalmente, se lleva a cabo la comparación de sus
+     identidades usando !PYTHON(is).
+
+  \* _NOTA_: Una comparación está _implementada_ si el método no devuelve
+  !PYTHON(NotImplemented).
+
+---
+
+- En resumen:
+
+  1. En una comparación, se respeta primero la implementación de la subclase.
+
+  2. Luego se intenta la comparación con la implementación del objeto
+     izquierdo, y luego con el del objeto derecho si aún no ha sido invocada.
+
+  3. Finalmente, se hace una comprobación de identidad.
+
+---
+
+- Por ejemplo, partiendo del siguiente código:
+
+  ```python
+  class A:
+      valor = 3
+      def __eq__(self, otro):
+          print('Se invoca el __eq__ de A')
+          print(f'self.valor = {self.valor}, otro.valor = {otro.valor}')
+          return self.valor == otro.valor
+
+  class B(A):
+      valor = 4
+      def __eq__(self, otro):
+          print('Se invoca el __eq__ de B')
+          print(f'self.valor = {self.valor}, otro.valor = {otro.valor}')
+          return self.valor == otro.valor
+  ```
+ 
+  si hacemos lo siguiente:
+
+  ```python
+  a, b = A(), B()
+  a == b
+  ```
+
+  obtendremos la siguiente salida antes de que la expresión devuelva
+  !PYTHON(False):
+
+  ```
+  Se invoca el __eq__ de B
+  self.valor = 4, otro.valor = 3
+  ```
+
+---
+
+- Obtenemos el mismo resultado si hacemos la comparación invirtiendo los
+  operandos. Por tanto, si hacemo ésto:
+
+  ```python
+  a, b = A(), B()
+  b == a
+  ```
+
+  obtendremos la siguiente salida:
+
+  ```
+  Se invoca el __eq__ de B
+  self.valor = 4, otro.valor = 3
+  ```
+
+  que es la misma que en el caso anterior.
+
+---
+
+- En cambio, si una de las dos clases no implementa la comparación, se usará el
+  !PYTHON(__eq__) de la otra. Por ejemplo, en este caso:
+
+  ```python
+  class A:
+      valor = 3
+
+      def __eq__(self, otro):
+          print('Se invoca el __eq__ de A')
+          print(f'self.valor = {self.valor}, otro.valor = {otro.valor}')
+          return self.valor == otro.valor
+
+  class B(A):
+      valor = 4
+
+      def __eq__(self, otro):
+          return NotImplemented
+
+
+  a, b = A(), B()
+  b == a
+  ```
+
+  devolvería:
+
+  ```
+  Se invoca el __eq__ de A
+  self.valor = 3, otro.valor = 4
+  ```
+
+  Y obtendríamos el resultado contrario si el !PYTHON(NotImplemented) lo
+  ponemos en la clase `A` en lugar de en la `B`.
 
 # Abstracción
 
