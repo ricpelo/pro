@@ -21,9 +21,9 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expresión_lambda) ::=  !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
-!NT(lista_parámetros) := !T{identificador} (!T(,) !T(identificador))\*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
+  !NT(lista_parámetros) := !T{identificador} (!T(,) !T(identificador))\*
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, la siguiente expresión lambda captura la idea general de
   «_suma_»:
@@ -198,12 +198,12 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(función) ::= !T(identificador)
-                   | !T{(}!NT(expresión_lambda)!T{)}
-!NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
-!NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})\*
-!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(función) ::= !T(identificador)
+                    | !T{(}!NT(expresión_lambda)!T{)}
+  !NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
+  !NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})\*
+  !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 <!--
 
@@ -1120,7 +1120,7 @@ su final depende del _contexto de creación_ de la ligadura:
   marcos, es decir, no de atributos de objetos) que son _visibles_ en un
   momento concreto de la ejecución de un programa interpretado**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
+
 - El intérprete usa el entorno para resolver los identificadores que se
   encuentran ligados mediante ligaduras cuya visibilidad depende de un ámbito y
   que estén, por tanto, almacenadas en un marco.
@@ -1295,7 +1295,7 @@ su final depende del _contexto de creación_ de la ligadura:
   **Un marco se crea** cuando se **entra** en el **ámbito** de un _script_,
   función o método, y **se destruye** cuando se **sale** de ese **ámbito**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
+
 ---
 
 <!-- Esta diapositiva está repetida en una sección anterior -->
@@ -2660,7 +2660,7 @@ E -> w [lhead = cluster1]
 - En otras palabras: la definición de una función debe ser capaz de **ocultar
   sus detalles internos de funcionamiento**, ya que para usar la función no
   debe ser necesario conocer esos detalles.
- 
+
 ---
 
 - «_Abstraer_» es centrarse en lo importante en un determinado momento e

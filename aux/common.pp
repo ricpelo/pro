@@ -330,7 +330,8 @@ print(x.replace('"', '\\"'))
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !python3
 ~~~~~~~~~~~~~~~
-x = r"""!1"""
+from inspect import cleandoc
+x = cleandoc(r"""!1""")
 # x = x.replace('\\', '\\\\')
 print(' | ' + x.replace("\n", "\n| "))
 ~~~~~~~~~~~~~~~
