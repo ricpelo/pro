@@ -85,7 +85,7 @@ nocite: |
 - En nuestro _modelo de sustitución_, la **evaluación de la aplicación de una
   expresión lambda** consiste en **sustituir**, en el cuerpo de la expresión
   lambda, **cada parámetro por su argumento correspondiente** (por orden) y
-  devolver la expresión resultante *parentizada* (entre paréntesis).
+  devolver la expresión resultante *parentizada* (o sea, entre paréntesis).
 
 - A esta operación se la denomina **aplicación funcional** o **β-reducción**.
 
@@ -171,7 +171,7 @@ nocite: |
 
   2. Evaluar los argumentos que aparecen en la llamada.
 
-  3. Aplicar la expresión lambda a sus argumentos.
+  3. Aplicar la expresión lambda a sus argumentos (β-reducción).
 
 - Esto implica la siguiente secuencia de reescrituras:
 
@@ -205,33 +205,6 @@ nocite: |
   !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-<!--
-
-- Lo mismo podemos hacer si definimos previamente la expresión lambda
-  ligándola a un identificador:
-
-  ```python
-  suma = lambda x, y: x + y
-  ```
-
-- Así, la aplicación de la expresión lambda resulta más fácil y clara de
-  escribir:
-
-  ```python
-  suma(4, 3)
-  ```
-
-- En ambos casos, el resultado es el mismo (`7`).
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Recuerda:**
-
-En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
--->
-
 !EJEMPLO
 
 - Dado el siguiente código:
@@ -263,13 +236,11 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   = 63
   ```
 
-## Variables ligadas y libres
+## Identificadores libres de una expresión lambda
 
-- Si un _identificador_ de los que aparecen en el _cuerpo_ de una expresión
-  lambda también aparece en la _lista de parámetros_ de esa expresión lambda, a
-  ese identificador le llamamos **variable ligada** de la expresión lambda.
-
-- En caso contrario, le llamamos **variable libre** de la expresión lambda.
+- Si un _identificador_ aparece en el _cuerpo_ de una expresión lambda pero no
+  aparece también en la _lista de parámetros_ de esa expresión lambda, decimos
+  que es un **identificador libre** en la expresión lambda.
 
 - En el ejemplo anterior:
 
@@ -277,9 +248,9 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   lambda x, y: x + y
   ```
 
-  los dos identificadores que aparecen en el cuerpo (!PYTHON(x) e !PYTHON(y))
-  son variables ligadas, ya que ambos aparecen también en la lista de
-  parámetros de la expresión lambda.
+  los dos identificadores que aparecen en el cuerpo (!PYTHON{x} e !PYTHON{y})
+  aparecen también en la lista de parámetros de la expresión lambda, por lo que
+  ninguno de esos identificadores son libres.
 
 - En cambio, en la expresión lambda:
 
@@ -287,45 +258,8 @@ En **Python**, las subexpresiones se evalúan **de izquierda a derecha**.
   lambda x, y: x + y + z
   ```
 
-  !PYTHON(x) e !PYTHON(y) son variables ligadas mientras que !PYTHON(z) es una
-  variable libre.
-
----
-
-- En realidad, **una _variable ligada_ y un _parámetro_ son la misma cosa**.
-
-- Tan sólo cambia su denominación dependiendo del lugar donde aparece su
-  identificador en la expresión lambda:
-
-  - Cuando aparece **antes** del «`:`», le llamamos «_parámetro_».
-
-  - Cuando aparece **después** del «`:`», le llamamos «_variable ligada_».
-
-- Por ejemplo: en la siguiente expresión lambda:
-
-  ```python
-  lambda x, y: x + y
-         ┬     ┬
-         │     └────── variable ligada
-         └── parámetro
-  ```
-
-  el identificador !PYTHON(x) aparece dos veces, pero en los dos casos
-  representa la misma cosa. Tan sólo se llama de distinta forma («_parámetro_»
-  o «_variable ligada_») dependiendo de dónde aparece.
-
----
-
-- El que se llame «_variable ligada_» no tiene nada que ver con las _ligaduras_
-  que hemos estudiado hasta ahora.
-
-- Son conceptos totalmente distintos:
-
-  - A las variables ligadas se las llama así porque están _ligadas a un
-    parámetro_.
-
-  - En cambio, una _ligadura_ es la asociación que se establece entre un
-    _identificador_ y un _valor_.
+  !PYTHON(z) es un identificador libre, ya que no aparece en la lista de
+  parámetros, donde sí aparecen !PYTHON(x) e !PYTHON(y).
 
 # Ámbitos
 
@@ -1017,26 +951,28 @@ su final depende del _contexto de creación_ de la ligadura:
 - Por ejemplo, nos permite crear funciones sin preocuparnos de si los nombres
   de los parámetros ya han sido utilizados en otras partes del programa.
 
-## Ámbito de una variable ligada
+<!--
+
+## Ámbito de un identificador ligado
 
 - Hemos visto que a los **parámetros** de una expresión lambda se les llama
-  **variables ligadas** cuando aparecen dentro del cuerpo de dicha expresión
-  lambda.
+  **identificadores ligados** cuando aparecen dentro del cuerpo de dicha
+  expresión lambda.
 
 - Por tanto, todo lo que se dijo sobre el ámbito de un parámetro se aplica
-  exactamente igual al ámbito de una variable ligada.
+  exactamente igual al ámbito de un identificador ligado.
 
 - Recordemos que el ámbito de un parámetro es el cuerpo de su expresión lambda,
   que es la porción de código donde podemos acceder al valor del argumento con
   el que está ligado.
 
-- Por tanto, **el _ámbito_ de una variable ligada es el _cuerpo_ de la
+- Por tanto, **el _ámbito_ de un identificador ligado es el _cuerpo_ de la
   expresión lambda** donde aparece, y es el único lugar dentro del cual
-  podremos acceder al valor de la variable ligada (que también será el valor
+  podremos acceder al valor del identificador ligado (que también será el valor
   del argumento con el que está ligada).
 
-- Por eso también se dice que la variable ligada tiene un **ámbito local** al
-  cuerpo de la expresión lambda o que es **local** a dicha expresión lambda.
+- Por eso también se dice que el identificador ligado tiene un **ámbito local**
+  al cuerpo de la expresión lambda o que es **local** a dicha expresión lambda.
 
 ---
 
@@ -1044,23 +980,23 @@ su final depende del _contexto de creación_ de la ligadura:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **En resumen:**
 
-- El **ámbito de una variable ligada** es el ámbito de la ligadura que se crea
-  entre ésta y su argumento correspondiente , y se corresponde con el
+- El **ámbito de un identificador ligado** es el ámbito de la ligadura que se
+  crea entre ésto y su argumento correspondiente, y se corresponde con el
   **cuerpo** de la expresión lambda donde aparece.
 
-- Por tanto, la variable ligada sólo existe dentro del cuerpo de la expresión
-  lambda y no podemos **acceder** a su valor fuera del mismo; por eso se dice
-  que tiene un **ámbito _local_** a la expresión lambda.
+- Por tanto, el identificador ligado sólo existe dentro del cuerpo de la
+  expresión lambda y no podemos **acceder** a su valor fuera del mismo; por eso
+  se dice que tiene un **ámbito _local_** a la expresión lambda.
 
-- Además, **la ligadura** entre la variable ligada y su argumento **se almacena
-  en el marco** de la llamada a la expresión lambda, y por eso se dice que
-  tiene un **almacenamiento _local_** a la expresión lambda.
+- Además, **la ligadura** entre el identificador ligado y su argumento **se
+  almacena en el marco** de la llamada a la expresión lambda, y por eso se dice
+  que tiene un **almacenamiento _local_** a la expresión lambda.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- O sea: con los **variables ligadas** ocurre exactamente lo mismo que con los
-  **parámetros**, ya que, de hecho, **un parámetro y una variable ligada son la
-  misma cosa**, como ya hemos visto.
+- O sea: con los **identificadores ligados** ocurre exactamente lo mismo que
+  con los **parámetros**, ya que, de hecho, **un parámetro y un identificador
+  ligado son la misma cosa**, como ya hemos visto.
 
 !EJEMPLO
 
@@ -1091,21 +1027,21 @@ su final depende del _contexto de creación_ de la ligadura:
   identificador !PYTHON(x), cuya ligadura no es visible fuera de la expresión
   lambda.
 
-## Ámbito de una variable libre
+-->
 
-- Por contraste, las variables, identificadores y ligaduras que no tienen
-  ámbito local se dice que tienen un **ámbito _no local_** o, a veces, un
-  **ámbito _más global_**.
+## Ámbito de un identificador libre
+
+- Los identificadores y ligaduras que no tienen ámbito local se dice que tienen
+  un **ámbito _no local_** o, a veces, un **ámbito _más global_**.
 
   Si, además, ese ámbito resulta ser el **ámbito global**, decimos directamente
-  que esa variable, identificador o ligadura es **global**.
+  que esos identificadores o ligaduras son **globales**.
 
-- Por ejemplo, las **variables libres** que aparecen en una expresión lambda no
-  son locales a dicha expresión (ya que no representan parámetros de la
-  expresión) y, por tanto, tienen un ámbito más global que el cuerpo de dicha
-  expresión lambda y se almacenarán en otro espacio de nombres distinto al
-  marco que se crea al llamar a la expresión lambda.
-
+- Por ejemplo, los **identificadores libres** que aparecen en una expresión
+  lambda no son locales a dicha expresión (ya que no representan parámetros de
+  la expresión) y, por tanto, tienen un ámbito más global que el cuerpo de
+  dicha expresión lambda y se almacenarán en otro espacio de nombres distinto
+  al marco que se crea al llamar a la expresión lambda.
 
 # Evaluación
 
@@ -1587,9 +1523,10 @@ E -> z [lhead = cluster0]
 
 ## Evaluación de expresiones lambda con entornos
 
-- Para que una expresión lambda funcione, sus variables libres deben
-  estar ligadas a algún valor en el entorno **en el momento de _evaluar la
-  aplicación_ de la expresión lambda sobre unos argumentos**.
+- Para que una expresión lambda funcione, todos los identificadores que
+  aparezcan en el cuerpo deben estar ligados a algún valor en el entorno **en
+  el momento de _evaluar la aplicación_ de la expresión lambda sobre unos
+  argumentos**.
 
 - Por ejemplo:
 
@@ -1620,10 +1557,10 @@ E -> z [lhead = cluster0]
   aplicación de la expresión lambda (en la línea 3), el identificador
   !PYTHON(z) está ligado a un valor en el entorno (en este caso, !PYTHON(9)).
 
-- Observar que no es necesario que las variables libres estén ligadas en el
-  entorno cuando *se crea* la expresión lambda, sino cuando **_se evalúa_ el
-  cuerpo de la expresión lambda**, o sea, cuando se llama a la expresión
-  lambda.
+- Observar que no es necesario que los identificadores que aparecen en el
+  cuerpo estén ligados en el entorno cuando *se crea* la expresión lambda, sino
+  cuando **_se evalúa_ el cuerpo de la expresión lambda**, o sea, cuando se
+  llama a la expresión lambda.
 
 !EJEMPLO
 
@@ -1881,11 +1818,10 @@ E -> f [lhead = cluster0]
     ligadura se encuentra almacenada en el marco global (es decir, la `x`
     global) y que está ligada al valor !PYTHON(4).
 
-  - Las !PYTHON(x) de la línea 2 representan el parámetro y la variable ligada
-    (que ya sabemos que son la misma cosa) de la expresión lambda. Ese
-    parámetro está ligado al argumento de la llamada, el ámbito de esa ligadura
-    es el cuerpo de la expresión lambda y esa ligadura se almacena en el marco
-    de la llamada a la expresión lambda.
+  - Las !PYTHON(x) de la línea 2 representan al parámetro de la expresión
+    lambda. Ese parámetro está ligado al argumento de la llamada, el ámbito de
+    esa ligadura es el cuerpo de la expresión lambda y esa ligadura se almacena
+    en el marco de la llamada a la expresión lambda.
 
     En consecuencia, las apariciones de la `x` en la línea 2 representan a la
     `x` _local_ a la expresión lambda, cuya ligadura se encuentra almacenada en
@@ -1936,9 +1872,9 @@ E -> f [lhead = cluster0]
   global.
 
 - Eso significa que no podemos acceder a ese identificador !PYTHON(x) global
-  desde dentro del cuerpo de la expresión lambda como si fuera una variable
-  libre, porque la !PYTHON(x) dentro del cuerpo siempre se referirá a la
-  !PYTHON(x) local (el parámetro de la expresión lambda).
+  desde dentro del cuerpo de la expresión lambda, porque la !PYTHON(x) dentro
+  del cuerpo siempre se referirá a la !PYTHON(x) local (el parámetro de la
+  expresión lambda).
 
 - Esto ocurre así porque, al buscar un valor para !PYTHON(x), la primera
   ligadura que se encuentra el intérprete para el identificador !PYTHON(x) al
@@ -1983,12 +1919,12 @@ E -> xl [lhead = cluster1]
   total = (lambda w: w * x)(3)  # Su valor es 12
   ```
 
-  Así, en la expresión lambda tendríamos una variable ligada (el parámetro
-  !PYTHON(w)) y una variable libre (el identificador !PYTHON(x) ligado en el
-  ámbito global) al que ahora sí podemos acceder al no estar sombreada y
-  encontrarse dentro del entorno.
+  Así, en la expresión lambda tendríamos el parámetro !PYTHON(w) y el
+  identificador libre !PYTHON(x), éste último ligado en el ámbito global, y a
+  cuyo valor ahora sí podemos acceder al no estar sombreado y encontrarse
+  dentro del entorno.
 
-!DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin variable sombreada)(width=60%)(width=55%)
+!DOT(lambda-entorno-sin-sombra.svg)(Entorno en el cuerpo de la expresión lambda, sin identificador sombreado)(width=60%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -2037,7 +1973,7 @@ E -> w [lhead = cluster1]
   ```
 
   lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
-  **captura de variables**.
+  **captura de identificadores**.
 
 ### Visualización en *Pythontutor*
 
@@ -2526,22 +2462,22 @@ E -> w [lhead = cluster1]
 
 ## Pureza
 
-- Si el cuerpo de una expresión lambda no contiene variables libres, el valor
-  que obtendremos al aplicarla a unos argumentos dependerá únicamente del valor
-  que tengan esos argumentos (no dependerá de nada más que sea «*exterior*» a
-  la expresión lambda).
+- Si una expresión lambda no contiene identificadores libres, el valor que
+  obtendremos al aplicarla a unos argumentos dependerá únicamente del valor que
+  tengan esos argumentos (no dependerá de nada más que sea «*exterior*» a la
+  expresión lambda).
 
-- En cambio, si el cuerpo de una expresión lambda sí contiene variables libres,
-  el valor que obtendremos al aplicarla a unos argumentos no sólo dependerá del
-  valor de esos argumentos, sino también de los valores a los que estén ligadas
-  las variables libres en el momento de evaluar la aplicación de la expresión
-  lambda.
+- En cambio, si el cuerpo de una expresión lambda contiene identificadores
+  libres, el valor que obtendremos al aplicarla a unos argumentos no sólo
+  dependerá del valor de los argumentos, sino también de los valores a los que
+  estén ligados esos identificadores libres en el momento de evaluar la
+  aplicación de la expresión lambda.
 
 - Es el caso del ejemplo anterior, donde tenemos una expresión lambda que
-  contiene una variable libre (!PYTHON(z)) y, por tanto, cuando la aplicamos a
-  los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que depende, no
-  sólo de los valores de !PYTHON(x) e !PYTHON(y), sino también del valor de
-  !PYTHON(z):
+  contiene un identificador libre (!PYTHON{z}) y, por tanto, cuando la
+  aplicamos a los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que
+  depende no sólo de los valores de !PYTHON(x) e !PYTHON(y) sino también del
+  valor de !PYTHON(z) en el entorno:
 
   ```python
   >>> prueba = lambda x, y: x + y + z
@@ -2562,8 +2498,7 @@ E -> w [lhead = cluster1]
   ```
 
   En este caso, hay un identificador (!PYTHON(suma)) que no aparece en la lista
-  de parámetros de la expresión lambda !PYTHON(suma3), por lo que es una
-  variable libre en el cuerpo de la expresión lambda de !PYTHON(suma3).
+  de parámetros de la expresión lambda ligada a !PYTHON(suma3).
 
   En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
   !PYTHON(suma) en el entorno actual.
@@ -2572,20 +2507,21 @@ E -> w [lhead = cluster1]
 
 - Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
   unos argumentos, el valor obtenido va a depender únicamente del valor de esos
-  argumentos, es decir, de sus parámetros o variables ligadas.
+  argumentos o, lo que es lo mismo, del valor de sus parámetros en la llamada.
 
 - Podemos decir que hay distintos **grados de pureza**:
 
-  - Una expresión lambda que contiene **sólo variables ligadas** es **más
-    pura** que otra que también contiene variables libres.
+  - Una expresión lambda en cuyo cuerpo no hay ningún identificador libre es
+    **más pura** que otra que contiene identificadores libres.
 
-  - Una expresión lambda cuyas **variables libres** representan **funciones**
-    que se usan en el cuerpo de la expresión lambda, es **más pura** que otra
-    cuyas variables libres representan cualquier otro tipo de valor.
+  - Una expresión lambda cuyos **identificadores libres** representan
+    **funciones** que se usan en el cuerpo de la expresión lambda, es **más
+    pura** que otra cuyos identificadores libres representan cualquier otro
+    tipo de valor.
 
   En el ejemplo anterior, tenemos que la expresión lambda de !PYTHON(suma3),
   sin ser *totalmente pura*, a efectos prácticos se la puede considerar
-  **pura**, ya que su única variable libre (!PYTHON(suma)) se usa como una
+  **pura**, ya que su único identificador libre (!PYTHON(suma)) se usa como una
   **función**.
 
 ---
@@ -2597,10 +2533,10 @@ E -> w [lhead = cluster1]
   # producto es una expresión lambda totalmente pura:
   producto = lambda x, y: x * y
   # cuadrado es casi pura; a efectos prácticos se la puede
-  # considerar pura ya que sus variables libres (en este
+  # considerar pura ya que sus identificadores libres (en este
   # caso, sólo una: producto) son funciones:
   cuadrado = lambda x: producto(x, x)
-  # suma es impura, porque su variable libre (z) no es una función:
+  # suma es impura, porque su identificador libre (z) no es una función:
   suma = lambda x, y: x + y + z
   ```
 
