@@ -1543,26 +1543,26 @@ $$
 
 ---
 
-- **La _signatura_ de una función es el _tipo_ de la función**, si consideramos
-  que las funciones también son valores que pertenecen a un tipo, como
-  cualquier otro valor.
-
-  Lo mismo se aplica a cualquier operación, no sólo a funciones.
-
-- El tipo de una función (su signatura) se puede representar de varias formas
-  según el lenguaje utilizado. Por ejemplo:
-
-  - En Matemáticas y en Teoría de tipos:
+- Las funciones, como cualquier otro valor, también tienen un tipo. Por
+  ejemplo, en Matemáticas y en Teoría de tipos, el tipo de una función se puede
+  representar así:
 
     $abs: \mathbb{Z} \longrightarrow \mathbb{Z}$
 
     $pow: \mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$
+
+- En Programación, el tipo de una función se puede deducir a partir de la
+  _signatura_ de la función, la cual se puede escribir de varias formas según
+  el lenguaje utilizado. Por ejemplo:
 
   - En Python:
 
     $\texttt{abs(!VAR(x):\,int)\;->\;int}$
 
     $\texttt{pow(!VAR(base):\,float,\;!VAR(exp):\,float)\;->\;float}$
+
+    Esta sintaxis, con la cual se representan los tipos de los elementos de un
+    programa en Python, se denomina **anotaciones de tipo** o _type hints_.
 
   - En Java:
 
@@ -1572,14 +1572,13 @@ $$
 
 ---
 
-- De aquí se puede deducir que:
+- De aquí se puede deducir que, en Programación:
 
-  - El **producto cartesiano de los tipos de los parámetros** de una función en
-    Programación se corresponde con el **conjunto origen** de una función
-    matemática.
+  - El **producto cartesiano de los tipos de los parámetros** de una función se
+    corresponde con el **conjunto origen** de una función matemática.
 
-  - El **tipo de retorno** de una función en Programación se corresponde con el
-    **conjunto imagen** de una función matemática.
+  - El **tipo de retorno** de una función se corresponde con el **conjunto
+    imagen** de una función matemática.
 
 ---
 
