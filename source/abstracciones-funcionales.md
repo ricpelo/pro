@@ -685,7 +685,9 @@ aparece la definición.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de una ligadura:**
 
-El ámbito de la instrucción que crea la ligadura.
+El ámbito de la instrucción que creará la ligadura en tiempo de ejecución. Por
+ejemplo, si la instrucción es una definición, se corresponde con el ámbito de
+la definición.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -698,9 +700,9 @@ Determina dónde es visible una ligadura dentro del programa.
 
 Esa visibilidad depende del _contexto de creación_ de la ligadura:
 
-- Si es un ámbito, la visibilidad será el ámbito de la ligadura.
+a. Si es un ámbito, la visibilidad será el ámbito de la ligadura.
 
-- Si es un objeto, la visibilidad será el objeto que contiene la ligadura.
+b. Si es un objeto, la visibilidad será el objeto que contiene la ligadura.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -710,16 +712,16 @@ Esa visibilidad depende del _contexto de creación_ de la ligadura:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Tiempo de vida de una ligadura:**
 
-El periodo durante el cual _existe_ esa ligadura, es decir, el periodo
-comprendido desde su creación y almacenamiento en la memoria hasta su
+El periodo de tiempo durante el cual _existe_ esa ligadura, es decir, el
+periodo comprendido desde su creación y almacenamiento en la memoria hasta su
 posterior destrucción.
 
 Su tiempo de vida empieza siempre en el momento en que se crea la ligadura, y
 su final depende del _contexto de creación_ de la ligadura:
 
-- Si es un ámbito, el tiempo de vida acabará al final de su ámbito.
+a. Si es un ámbito, el tiempo de vida acabará al final de su ámbito.
 
-- Si es un objeto, el tiempo de vida acabará cuando se destruya el objeto que
+b. Si es un objeto, el tiempo de vida acabará cuando se destruya el objeto que
   lo contiene (o cuando se elimine el atributo ligado).
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
