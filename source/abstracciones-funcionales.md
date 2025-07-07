@@ -371,8 +371,9 @@ nocite: |
   aparece la definición que, al ejecutarse, creará la ligadura en tiempo de
   ejecución).
 
-- Es lo mismo hablar del «ámbito de una definición» que del «ámbito de la
-  ligadura que se creará al ejecutar la definición», ya que son la misma cosa.
+- En la práctica, es lo mismo hablar del «ámbito de una definición» que del
+  «ámbito de la ligadura que se creará al ejecutar la definición», ya que son
+  la misma cosa.
 
 - Decimos que la _definición_ (y la _ligadura_ correspondiente que se creará al
   ejecutar esa definición) es **local** a su ámbito.
@@ -413,41 +414,96 @@ nocite: |
 
     Es decir, que se puede determinar de forma _estática_.
 
-### Visibilidad
+### Almacenamiento
 
-- La visibilidad de una ligadura representa la porción de código donde es
-  visible esa ligadura.
+- Sabemos que las ligaduras se almacenan en _espacios de nombres_.
 
-- La visibilidad de una ligadura depende del **contexto de creación** de la
-  ligadura, es decir, del contexto en el que se crea la ligadura.
+- Si una instrucción crea una ligadura, se denomina **espacio de nombres
+  actual** al espacio de nombres donde se almacena dicha ligadura.
 
-- Ese _contexto de creación_ puede ser:
+- En Python, hay dos lugares donde se pueden almacenar ligaduras y, por tanto,
+  hay dos posibles espacios de nombres: los objetos y los marcos.
 
-  #. Un objeto.
+- Así que tenemos dos posibilidades:
 
-  #. Un ámbito.
+  #. Si el identificador que se está ligando es un _atributo_ de un objeto,
+     entonces la ligadura se almacenará en el objeto.
 
-  dependiendo de si el identificador que se va a ligar es un atributo o no, es
-  decir, dependiendo del _contexto_ usado para resolver el identificador que se
-  liga en la ligadura.
+  #. En caso contrario, la ligadura se almacenará en un marco que depende del
+     _ámbito actual_.
+
+- Veamos cada caso con más detalle.
 
 ---
 
-#. Si el identificador ligado es un **atributo de un objeto**, el _contexto de
-   creación_ será el **objeto** que contiene al atributo, por lo que la
-   ligadura sólo será visible dentro del objeto.
+1. Cuando se crea una ligadura dentro de un objeto en Python usando el
+   operador punto (`.`), el espacio de nombres será el propio objeto, ya que
+   los objetos son espacios de nombres en Python. En tal caso, la ligadura
+   asocia un _atributo_ del objeto con un valor.
+
+   Por ejemplo, si en Python hacemos:
+
+   ```python
+   import math
+   math.x = 75
+   ```
+
+   estamos creando la ligadura `x` → `75` en el espacio de nombres que
+   representa el módulo `math`, el cual es un objeto en Python y, por tanto, es
+   quien almacena la ligadura.
+
+   Así que el espacio de nombres ha sido seleccionado a través del operador
+   punto (`.`) para resolver el atributo dentro del objeto, y no depende del
+   ámbito donde se encuentre la sentencia !PYTHON(math.x = 75).
+
+---
+
+2. Si la ligadura no se crea dentro de un objeto usando el operador punto
+   (`.`), entonces el espacio de nombres dependerá del ámbito:
+
+   a. Si el ámbito donde se crea la ligadura lleva asociado un espacio de
+      nombres, ese espacio de nombres almacenará las ligaduras que se crean
+      dentro de ese ámbito.
+
+   b. Si no, entonces la ligadura se almacenará en el espacio de nombres del
+      ámbito más interno que contenga al actual y que sí lleve asociado un
+      espacio de nombres.
+
+   Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
+   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
+   éste (en orden, del más interno al más externo), hasta encontrar el primer
+   ámbito que lleve asociado un espacio de nombres.
+
+   En cualquier caso, aquí el espacio de nombres seleccionado siempre será un
+   marco.
+
+   Cuando la ligadura se almacena en el marco global, se dice que tiene
+   **almacenamiento global**.
+
+### Visibilidad
+
+- La visibilidad de una ligadura indica cuándo y de qué manera es visible esa
+  ligadura.
+
+1. Si el identificador ligado es un **atributo de un objeto**, la ligadura sólo
+   será visible dentro del objeto.
 
    En tal caso, decimos que la visibilidad de la ligadura (y del
-   correspondiente atributo ligado) es local al objeto que contiene el
+   correspondiente atributo ligado) es **local al objeto** que contiene el
    atributo.
 
-   Eso significa que debemos indicar el objeto que contiene a la ligadura para
-   poder acceder a ella, para lo cual también debemos tener acceso al propio
-   objeto que la contiene.
+   Eso significa que debemos indicar (usando el operador punto (`.`)) el objeto
+   que contiene a la ligadura para poder acceder a ella, lo que significa que
+   también debemos tener acceso al propio objeto que la contiene.
 
-#. En caso contrario, el _contexto de creación_ será el **ámbito** de la
-   ligadura, el cual representa una «región» cuyas fronteras limitan la porción
-   del código fuente en la que es visible esa ligadura.
+---
+
+2. Si el identificador ligado **NO es un atributo de un objeto**, la ligadura
+   sólo será visible en el ámbito donde se definió la ligadura, el cual va
+   asociado al marco donde se almacena la ligadura.
+
+   Ese ámbito representa una «región» cuyas fronteras limitan la porción del
+   código fuente en la que es visible esa ligadura.
 
    En tal caso, decimos que la **visibilidad** de la ligadura es **local a su
    ámbito**.
@@ -460,9 +516,9 @@ nocite: |
 
 ### Tiempo de vida
 
-- El **tiempo de vida** de una ligadura representa el periodo durante el cual
-  _existe_ esa ligadura, es decir, el periodo comprendido desde su creación y
-  almacenamiento en la memoria hasta su posterior destrucción.
+- El **tiempo de vida** de una ligadura representa el periodo de tiempo durante
+  el cual _existe_ esa ligadura, es decir, el periodo comprendido desde su
+  creación y almacenamiento en la memoria hasta su posterior destrucción.
 
 - En la mayoría de los lenguajes (incluyendo Python y Java), una ligadura
   **empieza a existir** justo donde se crea, es decir, en el punto donde se
@@ -471,16 +527,16 @@ nocite: |
   Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto, ya
   que no existe hasta entonces.
 
-- Por otra parte, el momento en que una ligadura **deja de existir** depende de
-  su _contexto de creación_:
+- Por otra parte, el momento en que una ligadura **deja de existir** depende su
+  almacenamiento:
 
-  - Si el contexto de creación es un objeto, es porque la ligadura está ligando
-    un atributo de ese objeto. En tal caso, la ligadura dejará de existir
-    cuando se elimine el objeto de la memoria, o bien, cuando se elimine el
-    atributo ligado.
+  - Si se almacena en un objeto, es porque la ligadura está ligando un atributo
+    de ese objeto a un determinado valor. En tal caso, la ligadura dejará de
+    existir cuando se elimine el objeto de la memoria, o bien, cuando se
+    elimine el atributo ligado.
 
-  - Si el contexto de creación es un ámbito, la ligadura dejará de existir allí
-    donde termina su ámbito.
+  - En caso contrario, la ligadura dejará de existir allí donde termine su
+    ámbito.
 
 <!--
 
@@ -500,8 +556,8 @@ nocite: |
 ---
 
 - En el siguiente ejemplo vemos cómo hay varias definiciones que, al
-  ejecutarse, crearán ligaduras cuyo contexto es un ámbito, no un objeto (ya
-  que no se están creando atributos dentro de ningún objeto):
+  ejecutarse, crearán ligaduras en un determinado ámbito, pero no en un objeto
+  (ya que no se están creando atributos dentro de ningún objeto):
 
   ```{.python .number-lines}
   x = 25
@@ -511,10 +567,11 @@ nocite: |
   ```
 
 - Todas esas definiciones son globales y, por tanto, las ligaduras que crean al
-  ejecutarse son ligaduras globales o de ámbito global.
+  ejecutarse son ligaduras globales o de ámbito global, y se almacenan en el
+  marco global.
 
-- Como el contexto de definición es un ámbito, la visibilidad y el tiempo de
-  vida de las ligaduras vendrán determinadas por sus ámbitos.
+- Al no tratarse de atributos de objetos, la visibilidad y el tiempo de vida de
+  las ligaduras vendrán determinadas por sus ámbitos.
 
 - En consecuencia, la visibilidad de todas esas ligaduras será el ámbito
   global, ya que son ligaduras globales. Por tanto, decimos que su
@@ -522,9 +579,9 @@ nocite: |
 
 ---
 
-- Por otra parte, como el contexto de creación de esas ligaduras viene
-  determinado por un ámbito, las ligaduras empezarán a existir justo donde se
-  crean, y terminarán de existir al final de su ámbito.
+- Por otra parte, como esas ligaduras no se crean sobre atributos de objetos,
+  empezarán a existir justo donde se crean, y terminarán de existir al final de
+  su ámbito.
 
 - Por ejemplo, la ligadura `y` → `99` empezará a existir en la línea 2 y
   terminará al final del _script_, que es donde termina su ámbito (que, en este
@@ -536,7 +593,8 @@ nocite: |
 ---
 
 - Cuando la ligadura se crea sobre un **atributo** de un _objeto_ de Python,
-  entonces ese objeto representa el _contexto de creación_ de la ligadura.
+  entonces ese objeto almacenará la ligadura y será, por tanto, su espacio de
+  nombres.
 
 - Recordemos que, por ejemplo, cuando importamos un módulo usando la sentencia
   !PYTHON(import), podemos acceder al objeto que representa ese módulo usando
@@ -544,10 +602,10 @@ nocite: |
 
 - Esos atributos y sus ligaduras correspondientes sólo son visibles cuando
   accedemos a ellos usando el operador punto (`.`) a través del objeto que lo
-  contiene, que es el que determina el contexto en el que esos atributos son
-  visibles.
+  contiene.
 
-- Por tanto, los atributos no son visibles fuera del objeto:
+- Por tanto, los atributos no son visibles fuera del objeto, y debemos usar el
+  operador punto (`.`) para acceder a ellos:
 
   ```python
   >>> import math
@@ -579,88 +637,14 @@ nocite: |
 
 ---
 
-- Por tanto:
+- En resumen:
 
-  - El **contexto** usado a la hora de resolver el nombre de un atributo de un
-    objeto no viene determinado por un _ámbito_, sino por el _objeto_ que
-    contiene a ese atributo.
-
-  - Sólo podremos acceder al atributo si usamos el contexto adecuado, que en
-    este caso es el objeto que contiene a ese atributo.
+  - Para poder acceder a un atributo de un objeto debemos indicar éste y usar
+    el operador punto (`.`).
 
   - Por tanto, la **visibilidad** de su ligadura correspondiente no vendrá
     determinada por un ámbito, sino por el objeto que contiene al atributo (y
     que, por consiguiente, también contiene a su ligadura).
-
-### Almacenamiento
-
-- Las ligaduras se almacenan en _espacios de nombres_.
-
-- Si una instrucción crea una ligadura, se denomina **espacio de nombres
-  actual** al espacio de nombres donde se almacena dicha ligadura.
-
-- El espacio de nombres actual (es decir, el espacio de nombres que el
-  compilador o el intérprete selecciona para almacenar una ligadura), depende
-  del _contexto_ usado para resolver el identificador que se liga en la
-  ligadura.
-
-- Tenemos dos posibilidades:
-
-  #. Si el identificador es un _atributo_ de un objeto, entonces el contexto
-     viene determinado por el propio _objeto_, y no por un ámbito.
-
-  #. En caso contrario, el contexto viene determinado por el _ámbito_ de la
-     ligadura.
-
----
-
-1. Si el contexto viene determinado por un _objeto_, y no por un ámbito,
-   entonces el espacio de nombres será el propio objeto.
-
-   - Esto es lo que ocurre cuando se crea una ligadura dentro de un objeto en
-     Python usando el operador punto (`.`), ya que los objetos son espacios de
-     nombres en este lenguaje.
-
-   - Por ejemplo, si en Python hacemos:
-
-     ```python
-     import math
-     math.x = 75
-     ```
-
-     estamos creando la ligadura `x` → `75` en el espacio de nombres que
-     representa el módulo `math` (que es un objeto en Python y que, por tanto,
-     es quien almacena la ligadura), no en el espacio de nombres global ni en
-     ningún otro.
-
-     Por tanto, el espacio de nombres ha sido seleccionado a través del
-     operador punto (`.`), no en función del ámbito donde se ha ejecutado la
-     sentencia !PYTHON(math.x = 75).
-
----
-
-2. Si el contexto viene determinado por el _ámbito_ donde se crea la ligadura,
-   tenemos que:
-
-   a. Si el ámbito donde se crea la ligadura lleva asociado un espacio de
-      nombres, ese espacio de nombres almacenará las ligaduras que se crean
-      dentro de ese ámbito.
-
-   b. Si no, entonces la ligadura se almacenará en el espacio de nombres del
-      ámbito más interno que contenga al actual y que sí lleve asociado un
-      espacio de nombres.
-
-   Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
-   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
-   éste (en orden, de más interno a más externo), hasta encontrar el primer
-   ámbito que lleve asociado un espacio de nombres.
-
-   En todo caso, en Python, cuando el lugar donde se almacena la ligadura
-   depende del ámbito donde se crea la ligadura, el espacio de nombres
-   seleccionado será siempre un marco.
-
-   Cuando la ligadura se almacena en el marco global, se dice que tiene
-   **almacenamiento global**.
 
 #### Resumen
 
@@ -698,11 +682,13 @@ la definición.
 
 Determina dónde es visible una ligadura dentro del programa.
 
-Esa visibilidad depende del _contexto de creación_ de la ligadura:
+Esa visibilidad depende de si el identificador ligado es un atributo de un
+objeto o no:
 
-a. Si es un ámbito, la visibilidad será el ámbito de la ligadura.
+a. Si es un atributo de un objeto, la visibilidad será el objeto que contiene
+   la ligadura.
 
-b. Si es un objeto, la visibilidad será el objeto que contiene la ligadura.
+b. En caso contrario, la visibilidad será el ámbito de la ligadura.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -717,12 +703,14 @@ periodo comprendido desde su creación y almacenamiento en la memoria hasta su
 posterior destrucción.
 
 Su tiempo de vida empieza siempre en el momento en que se crea la ligadura, y
-su final depende del _contexto de creación_ de la ligadura:
+su final depende de si el identificador ligado es un atributo de un objeto o
+no:
 
-a. Si es un ámbito, el tiempo de vida acabará al final de su ámbito.
+a. Si es un atributo de un objeto, el tiempo de vida acabará cuando se destruya
+   el objeto que lo contiene (o cuando se elimine el atributo ligado).
 
-b. Si es un objeto, el tiempo de vida acabará cuando se destruya el objeto que
-  lo contiene (o cuando se elimine el atributo ligado).
+b. En caso contrario, el tiempo de vida acabará al final del ámbito de la
+   ligadura.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -732,7 +720,13 @@ b. Si es un objeto, el tiempo de vida acabará cuando se destruya el objeto que
 
 - Determina el **espacio de nombres** donde se almacenará la ligadura.
 
-- En Python, puede ser un objeto o un marco.
+- En Python:
+
+a. Si el identificador ligado es un atributo de un objeto, el espacio de
+   nombres será el objeto que lo contiene.
+
+b. En caso contrario, el espacio de nombres será el marco asociado al ámbito de
+   la ligadura.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
