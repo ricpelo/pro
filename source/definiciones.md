@@ -803,11 +803,57 @@ z -> 3
 
 - Cuando estudiemos la programación modular entenderemos por qué.
 
-# Anotaciones de tipo (_type hints_)
+# Anotaciones de tipo
 
-## Anotaciones de tipo (_type hints_)
+## Anotaciones de tipo en definiciones
 
-TODO
+- Las **anotaciones de tipo** (en inglés, _type hints_) en Python son una
+  característica **opcional** que permite indicar qué tipo de datos se espera
+  que tenga un identificador.
+
+- En otros lenguajes (sobre todo, de tipado estático) se denominan
+  _declaraciones de tipo_.
+
+- Sirven principalmente como documentación y para herramientas de análisis
+  estático (como mypy, Pyright o Pyre) que comprueban tipos antes de ejecutar
+  el código, pero no son comprobadas en tiempo de ejecución por Python.
+
+- Si incorporamos las anotaciones de tipo en las sentencias de definición, la
+  sintaxis de las mismas queda así:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(definición) ::= !T(identificador) [!T(:) !NT(tipo)] \ \ !T(=)\ \ !NT(expresión)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  siendo !NT(tipo) una expresión que represente un tipo del lenguaje.
+
+---
+
+- Por ejemplo:
+
+  ```python
+  edad: int = 50
+  nombre: str = "Ana"
+  precio: float = 19.95
+  activo: bool = True
+  ```
+
+- Hay que tener en cuenta que el intérprete no comprueba en ningún momento que
+  el tipo anotado a un identificador se corresponda realmente con el tipo del
+  valor ligado a dicho identificador.
+
+- Eso significa que lo siguiente, aunque incorrecto, se ejecutaría sin ningún
+  error por parte del intérprete:
+
+  ```python
+  edad: str = 50
+  ```
+
+- El uso de anotaciones de tipo, en cambio, mejora la legibilidad del código y
+  permite la comprobación con herramientas externas, las cuales sí podrían
+  detectar la línea anterior como incorrecta mediante un análisis estático (sin
+  ejecutar) del código.
 
 # Documentación interna
 

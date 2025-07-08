@@ -178,10 +178,8 @@ class="toc-section-number">5</span> Evaluación de expresiones con
 identificadores</a></li>
 <li><a href="#/scripts" id="/toc-scripts"><span
 class="toc-section-number">6</span> <em>Scripts</em></a></li>
-<li><a href="#/anotaciones-de-tipo-type-hints"
-id="/toc-anotaciones-de-tipo-type-hints"><span
-class="toc-section-number">7</span> Anotaciones de tipo (<em>type
-hints</em>)</a></li>
+<li><a href="#/anotaciones-de-tipo" id="/toc-anotaciones-de-tipo"><span
+class="toc-section-number">7</span> Anotaciones de tipo</a></li>
 <li><a href="#/documentación-interna"
 id="/toc-documentación-interna"><span
 class="toc-section-number">8</span> Documentación interna</a></li>
@@ -980,17 +978,61 @@ qué.</p></li>
 </section>
 </section>
 <section>
-<section id="anotaciones-de-tipo-type-hints"
-class="title-slide slide level1" data-number="7">
+<section id="anotaciones-de-tipo" class="title-slide slide level1"
+data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span>
-Anotaciones de tipo (<em>type hints</em>)</h1>
+Anotaciones de tipo</h1>
 
 </section>
-<section id="anotaciones-de-tipo-type-hints-1"
+<section id="anotaciones-de-tipo-en-definiciones"
 class="title-slide slide level2" data-number="7.1">
 <h2 data-number="7.1"><span class="header-section-number">7.1</span>
-Anotaciones de tipo (<em>type hints</em>)</h2>
-<p>TODO</p>
+Anotaciones de tipo en definiciones</h2>
+<ul>
+<li><p>Las <strong>anotaciones de tipo</strong> (en inglés, <em>type
+hints</em>) en Python son una característica <strong>opcional</strong>
+que permite indicar qué tipo de datos se espera que tenga un
+identificador.</p></li>
+<li><p>En otros lenguajes (sobre todo, de tipado estático) se denominan
+<em>declaraciones de tipo</em>.</p></li>
+<li><p>Sirven principalmente como documentación y para herramientas de
+análisis estático (como mypy, Pyright o Pyre) que comprueban tipos antes
+de ejecutar el código, pero no son comprobadas en tiempo de ejecución
+por Python.</p></li>
+<li><p>Si incorporamos las anotaciones de tipo en las sentencias de
+definición, la sintaxis de las mismas queda así:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>definición</em>⟩</span> ::=
+<strong><code>identificador</code></strong>
+[<strong><code>:</code></strong> <span
+style="color:teal">⟨<em>tipo</em>⟩</span>]
+  <strong><code>=</code></strong>  <span
+style="color:teal">⟨<em>expresión</em>⟩</span></div>
+<p>siendo <span style="color:teal">⟨<em>tipo</em>⟩</span> una expresión
+que represente un tipo del lenguaje.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="7.1.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>edad: <span class="bu">int</span> <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>nombre: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;Ana&quot;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>precio: <span class="bu">float</span> <span class="op">=</span> <span class="fl">19.95</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>activo: <span class="bu">bool</span> <span class="op">=</span> <span class="va">True</span></span></code></pre></div></li>
+<li><p>Hay que tener en cuenta que el intérprete no comprueba en ningún
+momento que el tipo anotado a un identificador se corresponda realmente
+con el tipo del valor ligado a dicho identificador.</p></li>
+<li><p>Eso significa que lo siguiente, aunque incorrecto, se ejecutaría
+sin ningún error por parte del intérprete:</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>edad: <span class="bu">str</span> <span class="op">=</span> <span class="dv">50</span></span></code></pre></div></li>
+<li><p>El uso de anotaciones de tipo, en cambio, mejora la legibilidad
+del código y permite la comprobación con herramientas externas, las
+cuales sí podrían detectar la línea anterior como incorrecta mediante un
+análisis estático (sin ejecutar) del código.</p></li>
+</ul>
 </section>
 </section>
 <section>
@@ -1007,22 +1049,22 @@ Identificadores significativos</h2>
 <ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
 <p>Es mejor usar:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ancho <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>alto <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>superficie <span class="op">=</span> ancho <span class="op">*</span> alto</span></code></pre></div>
 <p>que</p>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">640</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y</span></code></pre></div>
 <p>aunque ambos programas sean equivalentes en cuanto al efecto que
 producen y el resultado que generan.</p></li>
 <li><p>Si el identificador representa varias palabras, se puede usar el
 carácter de guión bajo (<code>_</code>) para separarlas y formar un
 único identificador:</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>altura_triangulo <span class="op">=</span> <span class="fl">34.2</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1039,11 +1081,11 @@ continuación de un espacio en blanco o una porción de código.</p></li>
 cadena.</p>
 <p>Un carácter <code>#</code> dentro de un literal cadena es sólo un
 carácter más.</p>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># este es el primer comentario</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>spam <span class="op">=</span> <span class="dv">1</span>  <span class="co"># y este es el segundo comentario</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>          <span class="co"># ... y este es el tercero</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="8.2.0.0.1">
@@ -1051,14 +1093,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a h
 <ul>
 <li><p>Cuando un comentario ocupa varias líneas, se puede usar el
 «truco» de poner una cadena con triples comillas:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="st">Esta es una cadena</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="st">que ocupa varias líneas</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="st">y que actúa como comentario.</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Python evaluará la cadena pero, al no usarse dentro de ninguna
 expresión ni ligarse a ningún identificador, simplementa la ignorará
 (como un comentario).</p></li>
