@@ -2169,35 +2169,4 @@ mas -> por
 
 - Cuando dos operaciones son iguales, podemos usar una u otra indistintamente.
 
-# Resumen
-
-## Resumen
-
-- Resumiendo, los conceptos fundamentales sobre los que se asienta la
-  programación funcional son:
-
-  - Casi todas las instrucciones son expresiones, no sentencias.
-  - Definiciones, las únicas sentencias de un programa funcional.
-  - Transparencia referencial.
-  - Ausencia de efectos laterales.
-  - Funciones puras.
-  - El valor de una expresión no depende de nada ajeno a la misma, sólo de las
-    subexpresiones que la forman.
-  - Ligaduras irrompibles.
-  - Inmutabilidad.
-  - Las funciones también son valores.
-  - Ejecutar un programa es evaluar una expresión.
-  - No importa el orden en el que se ejecuten las instrucciones.
-  - No importa el orden en el que se evalúen las subexpresiones de una
-    expresión.
-
----
-
-- Y otros dos conceptos fundamentales que aún no hemos estudiado pero que
-  veremos en breve:
-
-  - Abstracciones lambda.
-
-  - Funciones de orden superior.
-
 !BIBLIOGRAFIA
