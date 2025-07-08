@@ -489,11 +489,14 @@ T -> O [label = "Determina un conjunto de"]
     dígitos, símbolos, etc.), como nombres de personas, direcciones, o
     cualquier texto en general.
 
+  - **Tuplas (!PYTHON(tuple))**: secuencias de valores que pueden pertenecer a
+    distintos tipos.
+
   - **Lógicos (!PYTHON(bool))**: sólo contiene dos valores que representan dos
     posibilidades contrarias, como **verdadero** o **falso**, **sí** o **no**,
     **encendido** o **apagado**, etc.
 
-- Por tanto, cuando un dato es un número entero, en Python decimos que
+- Así, por ejemplo, cuando un dato es un número entero, en Python decimos que
   pertenece al tipo !PYTHON(int); cuando es una cadena, decimos que pertenece
   al tipo !PYTHON(str); etcétera.
 
@@ -968,8 +971,8 @@ $$
   E -> Operación -> S
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Esos datos de entrada se denominan **argumentos** u **operandos**, según el
-  tipo de operación.
+- Esos datos de entrada se denominan **argumentos** u **operandos**, según la
+  forma de la operación.
 
 - Asimismo, los datos de salida representan el **resultado** o **valor de
   retorno** de la operación.
@@ -1108,8 +1111,8 @@ $$
 ---
 
 - Por tanto, la operación «suma» de la que hablamos anteriormente, se puede
-  representar así usando el operador `+`: $$\_\texttt{+}\_: \mathbb{R} \times
-  \mathbb{R} \longrightarrow \mathbb{R}$$
+  representar matemáticamente de la siguiente forma usando el operador `+`:
+  $$\_\texttt{+}\_: \mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$$
 
 - Eso significa que el operador `+` acepta dos operandos (dos números reales) y
   devuelve un número real.
@@ -1541,6 +1544,10 @@ $$
   - Su tipo de retorno es !PYTHON(int), por lo que devuelve como resultado un
     número _entero_.
 
+- La sintaxis anterior usa el concepto de **anotaciones de tipos**, que son una
+  característica que permite indicar qué tipo de datos se espera que tengan los
+  parámetros y el valor de retorno de una función.
+
 ---
 
 - Las funciones, como cualquier otro valor, también tienen un tipo. Por
@@ -1652,8 +1659,8 @@ $$
 
 - Al igual que pasa con los operadores, es importante respetar la signatura de
   una función. Eso significa, entre otras cosas, que **sus argumentos deben
-  pertenecer al _tipo_ correcto** (el tipo indicado por su parámetro
-  correspondiente).
+  pertenecer al _tipo_ correcto** (el tipo indicado para su correspondiente
+  parámetro).
 
 - Por ejemplo, si aplicamos la función !PYTHON(abs) a un argumento de un tipo
   incorrecto (digamos, una cadena en lugar de un número), obtendremos un error
