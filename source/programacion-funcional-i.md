@@ -641,6 +641,49 @@ nocite: |
 
     - !PYTHON('Bienvenido, Señor O\'Halloran.')
 
+### Tuplas
+
+- Las **tuplas** (datos de tipo !PYTHON(tuple)) son una generalización de las
+  cadenas.
+
+- Una tupla es una **secuencia de elementos** que no tienen por qué ser
+  caracteres, sino que cada uno de ellos pueden ser **de cualquier tipo**
+  (números, cadenas, booleanos, ..., incluso otras tuplas).
+
+- Los literales de tipo tupla se representan enumerando sus elementos separados
+  por comas y encerrados entre paréntesis.
+
+- Por ejemplo:
+
+  ```python
+  tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
+  ```
+
+- Si sólo tiene un elemento, hay que poner una coma detrás:
+    
+  ```python
+  tupla = (35,)
+  ```
+
+---
+
+- Al igual que ocurre con las cadenas, tenemos las operaciones !PYTHON(t[0]) (primer elemento de la tupla), !PYTHON(t[1:]) (resto de la tupla) y `+` (**concatenación**).
+
+- Con la concatenación se pueden crear nuevas tuplas a partir de otras tuplas.
+
+- Por ejemplo:
+
+  ```python
+  >>> (1, 2, 3) + (4, 5, 6)
+  (1, 2, 3, 4, 5, 6)
+  ```
+
+- Eso significa que, si !PYTHON(t) es una tupla no vacía, se cumple que !SALTO
+  !PYTHON(t == (t[0],) + t[1:]).
+
+  Esta propiedad es similar (aunque no exactamente igual) a la que se cumple en
+  las cadenas no vacías.
+
 ### Funciones
 
 - En programación funcional, **las funciones también son datos**:
@@ -713,6 +756,294 @@ nocite: |
 - Por tanto, la expresión !PYTHON(int('24')) devuelve el entero !PYTHON(24)
   pero no cambia en modo alguno la cadena !PYTHON('24') que ha recibido como
   argumento.
+
+# Operaciones predefinidas
+
+## Operadores predefinidos
+
+### Operadores aritméticos
+
+--------------------------------------------------------------------------------------------
+ Operador  Descripción           Ejemplo           Resultado          Comentarios
+---------- ------------------ ------------------- ------------------- ----------------------
+   `+`     Suma                !PYTHON(3 + 4)      !PYTHON(7)
+                             
+   `-`     Resta               !PYTHON(3 - 4)      !PYTHON(-1)
+                             
+   `*`     Producto            !PYTHON(3 * 4)      !PYTHON(12)
+                             
+   `/`     División            !PYTHON(3 / 4)      !PYTHON(0.75)      Devuelve un
+                                                                      !PYTHON(float)
+                             
+   `%`     Módulo              !PYTHON(4 % 3) \    !PYTHON(1) \       Resto de la división
+                               !PYTHON(8 % 3)      !PYTHON(2)
+                             
+   `**`    Exponente           !PYTHON(3 ** 4)     !PYTHON(81)        Devuelve $3^4$
+                             
+   `//`    División entera     !PYTHON(4 // 3) \   !PYTHON(1) \       \hfill{} \
+           hacia abajo         !PYTHON(-4 // 3)    !PYTHON(-2)        ??
+--------------------------------------------------------------------------------------------
+
+### Operadores de cadenas
+
+-----------------------------------------------------------------------------------
+  Operador         Descripción           Ejemplo                Resultado 
+------------------ ------------------ ------------------------ --------------------
+   `+`             Concatenación       !PYTHON('ab' + 'cd')     !PYTHON('abcd')
+                                       !PYTHON('ab' 'cd')                      
+                                                             
+   `*`             Repetición          !PYTHON('ab' * 3) \      !PYTHON('ababab') \
+                                       !PYTHON(3 * 'ab')        !PYTHON('ababab')
+                                                             
+   !PYTHON([0])    Primer carácter     !PYTHON('hola'[0])       !PYTHON('h')
+                                                             
+   !PYTHON([1:])   Resto de cadena     !PYTHON('hola'[1:])      !PYTHON('ola')
+-----------------------------------------------------------------------------------
+
+## Funciones predefinidas
+
+--------------------------------------------------------------------------------------------------
+Función                       Descripción           Ejemplo                       Resultado
+----------------------------- --------------------- ---------------------------- -----------------
+`abs(`$n$`)`                  Valor absoluto        !PYTHON(abs(-23))             !PYTHON(23)
+                             
+`len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))          !PYTHON(4)
+                             
+`max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))         !PYTHON(5)
+                             
+`min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))         !PYTHON(2)
+                             
+`round(`$n$[`,` $p$]`)`       Redondeo              !PYTHON(round(23.493))  \     !PYTHON(23) \
+                                                    !PYTHON(round(23.493, 1))     !PYTHON(23.5)
+                             
+`type(`$v$`)`                 Tipo del valor        !PYTHON(type(23.5))           !PYTHON(<class) \
+                                                                                  !PYTHON('float'>)
+--------------------------------------------------------------------------------------------------
+
+### Funciones matemáticas y módulos
+
+- Python incluye una gran cantidad de funciones matemáticas agrupadas dentro
+  del módulo !PYTHON(math).
+
+- Los **módulos** en Python son conjuntos de funciones (y más cosas) que se
+  pueden **importar** dentro de nuestra sesión o programa.
+
+- Son la base de la **programación modular**, que ya estudiaremos.
+
+- Para *importar* una función de un módulo se puede usar la orden
+  !PYTHON(from). Por ejemplo, para importar la función !PYTHON(gcd) (que
+  calcula el máximo común divisor de dos números) del módulo !PYTHON(math) se
+  haría:
+
+  ```python
+  >>> from math import gcd  # importamos la función gcd que está en el módulo math
+  >>> gcd(16, 6)            # la función se usa como cualquier otra
+  2
+  ```
+
+- Una vez importada, la función ya se puede usar directamente como cualquier
+  otra.
+
+---
+
+- También se puede **importar directamente el módulo en sí** usando la orden
+  !PYTHON(import).
+
+  ```python
+  >>> import math      # importamos el módulo math
+  ```
+
+- Al importar el módulo, lo que se importan no son sus funciones, sino el
+  propio módulo, el cual es un **objeto** (de tipo !PYTHON(module)) al que se
+  accede a través de su nombre y cuyos **atributos** son (entre otras cosas)
+  las funciones que están definidas dentro del módulo.
+
+- Por eso, para poder llamar a una función del módulo usando esta técnica,
+  debemos indicar el nombre del módulo, seguido de un punto (`.`) y el nombre
+  de la función:
+
+  ```python
+  >>> import math      # importamos el módulo math
+  >>> math.gcd(16, 6)  # la función gcd sigue estando dentro del módulo
+  2
+  ```
+
+  ```python
+  math.gcd(16, 6)
+  ─┬── ─┬─
+   │    └────── función
+   └── módulo
+  ```
+
+---
+
+- Eso significa que podríamos ampliar nuestra gramática para permitir que el
+  nombre de una función en una llamada pudiera contener la parte del módulo:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(función) ::= [!NT(módulo)!T(.)]!T(identificador)
+!NT(módulo) ::= !T(identificador)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Pero técnicamente no es necesario, ya que las funciones contenidas en un
+  módulo se invocan como si fueran **métodos que se ejecutan sobre el _objeto
+  módulo_**, por lo que la sintaxis es la misma que para los métodos y está ya
+  recogida en nuestra gramática:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+!NT(objeto) ::= !NT(expresión)
+!NT(método) ::= !T(identificador)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Esto nos dice que hay una relación muy estrecha entre funciones y métodos (de
+  hecho, los métodos son funciones que se invocan de una forma especial).
+
+---
+
+- De hecho, cuando el objeto es un módulo, no hablamos de métodos sino de
+  funciones (los módulos no contienen métodos).
+
+- No es lo mismo !PYTHON(math), que !PYTHON(math.gcd), que
+  !PYTHON(math.gcd(16, 6)):
+
+  - !PYTHON(math) es un _módulo_ (un objeto de tipo `module`).
+
+  - !PYTHON(math.gcd) es una _función_ (no es un método porque `math` es un
+    módulo).
+
+  - !PYTHON(math.gcd(16, 6)) es una _llamada a función_.
+
+  ```python
+  >>> import math
+  >>> math
+  <module 'math' (built-in)>
+  >>> math.gcd
+  <built-in function gcd>
+  >>> math.gcd(16, 6)
+  2
+  ```
+
+- La lista completa de funciones que incluye el módulo !PYTHON(math) se puede
+  consultar en su documentación:
+
+  [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="\_blank"}
+
+---
+
+- El lenguaje Python es, principalmente, un lenguaje **orientado a objetos**.
+
+- De hecho, **todos los datos en Python son objetos** que tienen sus propios
+  atributos (métodos, entre otros) a los que se le puede acceder usando el
+  operador punto (`.`).
+
+- Por ello, en Python los términos «_dato_», «_valor_» y «_objeto_» son
+  sinónimos en la práctica.
+
+- Los números, las cadenas, los módulos, las funciones... todos son objetos.
+
+- Incluso los métodos son objetos, ya que, en realidad, son funciones
+  contenidas dentro de otros objetos, y las funciones son objetos.
+
+- Hasta los tipos (como !PYTHON(int) o !PYTHON(str)) son objetos que tienen sus
+  propios atributos.
+
+- Entraremos a estudiar más en detalle estas características cuando veamos la
+  **programación orientada a objetos**.
+
+#### El módulo `operator`
+
+- El módulo !PYTHON(operator) contiene, en forma de funciones, las operaciones
+  básicas que hasta ahora hemos utilizado en forma de operadores:
+
+  --------------------------------------------------------
+    Operador     Operación           Función en el \
+                                     módulo `operator`
+  ------------ ------------------- -----------------------
+     `+`         Suma                  !PYTHON(add)
+
+     `-`         Resta                 !PYTHON(sub)
+
+     `-`         Cambio de signo       !PYTHON(neg)
+
+     `*`         Multiplicación        !PYTHON(mul)
+
+     `/`         División              !PYTHON(truediv)
+
+     `%`         Módulo                !PYTHON(mod)
+
+     `**`        Exponente             !PYTHON(pow)
+
+     `//`        División entera       !PYTHON(floordiv)
+                 hacia abajo
+  --------------------------------------------------------
+
+---
+
+- Gracias al módulo !PYTHON(operator), podemos reescribir con funciones las
+  expresiones que utilizan operadores.
+
+- Por ejemplo, la expresión:
+
+  ```python
+  >>> 3 * (4 + 5) - 10
+  17
+  ```
+
+  se puede reescribir como:
+
+  ```python
+  >>> from operator import add, mul, sub
+  >>> sub(mul(3, add(4, 5)), 10)
+  17
+  ```
+
+- Pasar los operadores de una expresión a funciones es un ejercicio muy
+  interesante que ayuda a entender en qué orden se evalúan las subexpresiones y
+  por qué.
+
+- En Python, en una llamada a función, los argumentos se evalúan siempre antes
+  que la propia llamada (y de izquierda a derecha).
+
+---
+
+- La expresión !PYTHON(3 * (4 + 5) - 10) se evalúa así:
+
+  ```python
+  3 * (4 + 5) - 10          # se evalúa 3 (devuelve 3)
+  = 3 * (4 + 5) - 10        # se evalúa 4 (devuelve 4)
+  = 3 * (4 + 5) - 10        # se evalúa 5 (devuelve 5)
+  = 3 * (4 + 5) - 10        # se evalúa (4 + 5) (devuelve 9)
+  = 3 * 9 - 10              # se evalúa 3 * 9 (devuelve 27)
+  = 27 - 10                 # se evalúa 27 - 10 (devuelve 17)
+  = 17
+  ```
+
+- Y la expresión !PYTHON(sub(mul(3, add(4, 5)), 10)) se evalúa así:
+
+  ```python
+  sub(mul(3, add(4, 5)), 10)    # se evalúa sub (devuelve la función resta)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa mul (devuelve la función multiplicación)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa 3 (devuelve 3)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa add (devuelve la función suma)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa 4 (devuelve 4)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa 5 (devuelve 5)
+  = sub(mul(3, add(4, 5)), 10)  # se evalúa add(4, 5) (devuelve 9)
+  = sub(mul(3, 9), 10)          # se evalúa mul(3, 9) (devuelve 27)
+  = sub(27, 10)                 # se evalúa 10 (devuelve 10)
+  = sub(27, 10)                 # se evalúa sub(27, 10) (devuelve 17)
+  = 17
+  ```
+
+## Métodos predefinidos
+
+- Igualmente, en la documentación podemos encontrar una lista de métodos
+  interesantes que operan sobre cadenas:
+
+  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
 
 # Álgebra de Boole
 
@@ -1286,505 +1617,98 @@ de Boole.
 
 @. ¿Cuál es la asociatividad del operador ternario? Demostrarlo.
 
-# Definiciones
+# Otros conceptos sobre operaciones
 
-## Introducción
+## Árboles sintácticos y evaluación
 
-- Introduciremos ahora en nuestro lenguaje una nueva instrucción (técnicamente
-  es una **sentencia**) con la que vamos a poder hacer **definiciones**.
+- Durante la fase de análisis sintáctico, el compilador o el intérprete
+  traducen el programa fuente en una representación intermedia llamada **árbol
+  sintáctico**.
 
-- A esa sentencia la llamaremos **definición**, y expresa el hecho de que **un
-  _nombre_ representa un _valor_**.
+- Resulta conveniente comprender qué forma tiene ese árbol sintáctico para
+  entender adecuadamente cómo se evalúan las expresiones y, más concretamente,
+  en qué orden se van evaluando las subexpresiones.
 
-- Las definiciones tienen la siguiente sintaxis:
+- En un árbol sintáctico, las hojas representan valores, mientras que los nodos
+  intermedios representan operaciones.
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(definición) ::= !T(identificador)\ \ !T(=)\ \ !NT(expresión)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Si una expresión está correctamente escrita según la sintaxis del lenguaje,
+  sólo tendrá un único árbol sintáctico equivalente.
 
-- Por ejemplo:
-
-  ```python
-  x = 25
-  ```
-
-  A partir de ese momento, el identificador !PYTHON(x) representa el valor
-  !PYTHON(25) (por lo que la expresión !PYTHON(x) vale !PYTHON(25)).
-
-  Y si !PYTHON(x) vale !PYTHON(25), la expresión !PYTHON(2 + x * 3) vale
-  !PYTHON(77).
-
-## Identificadores y ligaduras (*binding*!ifdef(HTML)(&nbsp;)())
-
-- Los **identificadores** son los nombres o símbolos que representan a los
-  elementos del lenguaje.
-
-- Cuando hacemos una definición, lo que hacemos es asociar un identificador con
-  un valor.
-
-- Esa asociación se denomina **ligadura** (o **_binding_**).
-
-- Por esa razón, también se dice que **una definición crea una ligadura**.
-
-- También decimos que el identificador está **ligado** (**_bound_**).
-
-- Lo representaremos gráficamente así:
-
-  !DOT(ligadura.svg)()(width=30%)(width=20%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  node [fixedsize = shape, fontname = "monospace"]
-  25 [shape = circle]
-  x [shape = plaintext, fillcolor = transparent]
-  x -> 25
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- En Python (a diferencia de lo que ocurre en un **lenguaje funcional _puro_**)
-  las ligaduras empiezan a existir en el momento en que se ejecuta su
-  definición, no antes.
-
-### Ligaduras irrompibles
-
-- En un **lenguaje funcional _puro_**, un identificador ya ligado no se puede
-  ligar a otro valor. Por ejemplo, lo siguiente daría un error en un lenguaje
-  funcional puro:
-
-  ```python
-  x = 4  # ligamos el identificador x al valor 4
-  x = 7  # intentamos ligar x al valor 7, pero ya está ligado al valor 4
-  ```
-
-!DOT(rebinding.svg)()(width=20%)(width=15%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fixedsize = shape, fontname = "monospace"]
-4 [shape = circle]
-7 [shape = circle]
-x [shape = plaintext, fillcolor = transparent]
-x -> 4 [style = dashed, color = grey]
-x -> 7
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- En consecuencia, **las ligaduras** entre nombres y valores **no se pueden
-  romper**, de forma que un nombre, una vez ligado a un valor, **no se puede
-  volver a ligar a otro valor distinto** durante la ejecución del programa
-  (efecto que se conoce como _rebinding_).
-
-- En la práctica, eso significa que el nombre representa un **dato
-  _constante_**.
+  En caso contrario, es que la expresión no es sintácticamente correcta, o bien
+  que la gramática del lenguaje no está bien diseñada.
 
 ---
 
-- Que las ligaduras sean irrompibles son un requisito necesario para alcanzar
-  la **transparencia referencial**.
-
-- Si hago:
-
-  ```python
-  x = "Hola"
-  ```
-
-  en un lenguaje funcional puro, luego no puedo hacer:
-
-  ```python
-  x = "Hala"
-  ```
-
-  porque eso sería hacer un _rebinding_ y provocaría que, de nuevo, la
-  expresión !PYTHON(x) tuviera distintos valores según el momento, lo que va en
-  contra de la transparencia referencial.
-
-- Python no es un lenguaje funcional puro, por lo que sí se permite volver a
-  ligar el mismo identificador a otro valor distinto.
-
-  - Al hacer esto, se estaría perdiendo el valor anterior.
-
-  - Así que, por ahora, el _rebinding_ está prohibido para nosotros (**no lo
-    hagamos**).
-
----
-
-- Lo que sí se puede hacer es:
-
-  ```python
-  x = 25
-  y = x
-  ```
-
-- En este caso estamos ligando a !PYTHON(y) el mismo valor que tiene
-  !PYTHON(x), algo perfectamente válido en un lenguaje funcional.
-
-- Lo que hace el intérprete en este caso no es crear dos valores !PYTHON(25) en
-  memoria (sería un gasto inútil de memoria), sino que !PYTHON(x) e !PYTHON(y)
-  _comparten_ el único valor !PYTHON(25) que existe:
-
-  !DOT(ligadura-compartida.svg)()(width=20%)(width=20%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  node [fixedsize = shape, fontname = "monospace"]
-  25 [shape = circle]
-  x [shape = plaintext, fillcolor = transparent]
-  y [shape = plaintext, fillcolor = transparent]
-  x -> 25
-  y -> 25
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Por tanto:
-
-  ```python
-  >>> x = 25
-  >>> y = x
-  >>> y
-  25
-  ```
-
----
-
-- El **nombre** de una **función** es un identificador que está ligado a la
-  función correspondiente (que en programación funcional es un valor como
-  cualquier otro).
-
-- Por ejemplo, !PYTHON(max) es un identificador ligado a la función que
-  devuelve el máximo de dos números (que representaremos aquí como **λ**):
-
-  !DOT(ligadura-funcion-max.svg)()(width=25%)(width=22%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  node [fixedsize = shape, fontname = "monospace"]
-  lambda [shape = circle, label = "λ"]
-  max [shape = plaintext, fillcolor = transparent]
-  max -> lambda
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Así que ese valor se puede ligar a otro identificador y, de esta forma, ambos
-  identificadores compartirían el mismo valor (y, por tanto, representarían a
-  la misma función). Por ejemplo:
+- Por ejemplo, tenemos las siguientes expresiones y sus árboles sintácticos
+  equivalentes:
 
 :::: columns
 
 ::: column
 
 ```python
->>> maximo = max
->>> maximo(3, 4)
-4
+2
 ```
 
-:::
-
-::: column
-
-!DOT(ligadura-funcion-max-maximo.svg)()(width=55%)(width=23%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fontname = "monospace"]
-lambda [shape = circle, label = "λ"]
-max [shape = plaintext, fillcolor = transparent, width = 0.1]
-maximo [shape = plaintext, fillcolor = transparent]
-max -> lambda
-maximo -> lambda
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::::
-
-### Inmutabilidad
-
-- Para alcanzar la transparencia referencial, también es necesario que **los
-  objetos** de datos que manipula el programa (es decir, los valores) **no
-  tengan un estado interno** que pueda cambiar durante la ejecución del
-  programa.
-
-- Eso se consigue haciendo que los valores sean **inmutables**.
-
-- Por ejemplo, en Python las cadenas son inmutables porque, una vez creadas,
-  no se pueden cambiar los caracteres que la forman.
-
-  Si hago !PYTHON(x = "Hola"), luego no puedo cambiar el interior de esa cadena
-  (por ejemplo, cambiando la !PYTHON('o') por una !PYTHON('a')), porque
-  entonces la expresión !PYTHON(x) tendría distintos valores dependiendo del
-  momento en el que se evalúe, lo que va en contra de la transparencia
-  referencial.
-
----
-
-- Eso significa que en programación funcional tampoco estaría permitido hacer
-  cosas como esta:
-
-  ```python
-  import math
-  math.constante = 405
-  ```
-
-  ya que entonces estaríamos **creando una nueva ligadura dentro del objeto**
-  que representa al módulo `math`, lo que en la práctica supone que estamos
-  **cambiando el estado interno de ese objeto** y, por tanto, estaría **dejando
-  de ser inmutable**.
-
-- Recordemos que **los módulos son objetos** y, como tales, **son valores**
-  como cualquier otro.
-
-- En cambio, sí sería correcto hacer algo así:
-
-  ```python
-  import math
-  constante = 405
-  ```
-
-  ya que ahí no se está cambiando el estado interno de ningún valor.
-
-### Reglas léxicas
-
-- Cuando hacemos una definición debemos tener en cuenta ciertas cuestiones
-  relativas al identificador:
-
-  - ¿Cuál es la **longitud máxima** de un identificador?
-
-  - ¿Qué **caracteres** se pueden usar?
-
-  - ¿Se distinguen **mayúsculas** de **minúsculas**?
-
-  - ¿Coincide con una palabra clave o reservada?
-
-    - **Palabra clave**: palabra que forma parte de la sintaxis del lenguaje.
-
-    - **Palabra reservada**: palabra que no puede emplearse como identificador.
-
-- En Python, los identificadores pueden ser combinaciones de letras minúsculas
-  y mayúsculas (y distingue entre ellas), dígitos y subrayados (`_`), no pueden
-  empezar por un dígito, no pueden coincidir con una palabra reservada y pueden
-  tener cualquier longitud.
-
-### Tipo de un identificador
-
-- Cuando un identificador está ligado a un valor, a efectos prácticos el
-  identificador actúa como si fuera el valor.
-
-- Como cada valor tiene un tipo de dato asociado, también podemos hablar del
-  **tipo de un identificador**.
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  El **tipo de un identificador** es el tipo del dato con el que está ligado.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Si un identificador no está ligado, no tiene sentido preguntarse qué tipo
-  tiene.
-
-## Espacios de nombres
-
-- Ciertas estructuras o construcciones sintácticas del programa definen lo que
-  se denomina **espacios de nombres**.
-
-- Un **espacio de nombres** (del inglés, _namespace_) es una correspondencia
-  entre nombres y valores; es decir, es un **conjunto de ligaduras**.
-
-- Su función es, por tanto, **almacenar ligaduras y permitir varias ligaduras
-  con el mismo nombre** en distintas partes del programa.
-
-- En un espacio de nombres, **un identificador sólo puede tener como máximo una
-  ligadura**. En cambio, el mismo identificador puede estar ligado a diferentes
-  valores en diferentes espacios de nombres.
-
-- Por eso decimos que una ligadura es **local** al espacio de nombres donde se
-  almacena, o que tiene un **almacenamiento local** a ese espacio de nombres.
-
-- Los espacios de nombres pueden estar **_anidados_**, es decir, que puede
-  haber espacios de nombres dentro de otros espacios de nombres, ya que también
-  pueden estarlo las estructuras sintácticas que los definen.
-
----
-
-- Algunos espacios de nombres provienen de estructuras estáticas (o sea, que
-  vienen definidas en tiempo de compilación) y otras provienen de estructuras
-  dinámicas (definidas en tiempo de ejecución).
-
-- Por tanto, podemos tener **espacios de nombres _estáticos_** y **espacios de
-  nombres _dinámicos_**.
-
-- En Java, las clases y los paquetes son _espacios de nombres estáticos_, que
-  el compilador gestiona a través de su _tabla de símbolos_.
-
----
-
-- Por otra parte, durante la ejecución de un programa se pueden ir creando
-  ciertas estructuras en memoria que representan _espacios de nombres
-  dinámicos_.
-
-  Los ejemplos más comunes de estas estructuras son:
-
-  - Los **marcos** que se crean al ejecutar _scripts_ de Python y al invocar
-    funciones (o métodos) definidas por el programador en Python y Java.
-
-  - Los **objetos** de Python.
-
-  - Las **clases** de Python (que también son objetos).
-
-  - Los **módulos** de Python (que también son objetos).
-
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- Los marcos y los objetos son los únicos espacios de nombres que existen en
-  Python.
-
-- Por tanto, todos los espacios de nombres en Python son dinámicos.
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Un espacio de nombres muy importante en Python es el que incluye las
-  definiciones predefinidas del lenguaje (funciones !PYTHON(max) o
-  !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.)
-
-- Ese espacio de nombres se denomina !PYTHON(__builtins__) y viene implementado
-  en forma de _módulo_ que se importa automáticamente en cada sesión
-  interactiva o cada vez que se arranca un programa Python.
-
-- Pero sabemos que también podemos usar directamente las definiciones que
-  contiene, por lo que el efecto es como si Python ejecutara las siguientes
-  dos sentencias nada más entrar en el intérprete:
-
-  ```python
-  import __builtins__
-  from __builtins__ import *
-  ```
-
-- Esto no es exactamente así en realidad, pero por ahora haremos como si así
-  fuera, por simplicidad.
-
-## Marcos (*frames*!ifdef(HTML)(&nbsp;)())
-
-- Un **marco** (del inglés, _frame_) es una estructura que se crea en memoria
-  para **representar la ejecución o _activación_ de un _script_ de Python o una
-  función o método definido por el programador** en Python o Java.
-
-- Los marcos son **espacios de nombres** y, entre otras cosas, almacenan las
-  ligaduras que se definen dentro de ese _script_, función o método.
-
-- Los marcos son conceptos **_dinámicos_**:
-
-  - Se crean y se destruyen a medida que la ejecución del programa pasa por
-    ciertas partes del mismo.
-
-  - Van almacenando nuevas ligaduras conforme se van ejecutando nuevas
-    instrucciones que crean las ligaduras.
-
----
-
-- Por ahora, el único marco que existe en nuestros programas es el llamado
-  **_marco global_**, también llamado **espacio de nombres global**.
-
-- El marco global se crea en el momento en que **se empieza a ejecutar el
-  programa** y existe durante toda la ejecución del mismo (sólo se destruye al
-  finalizar la ejecución del programa).
-
-- Si se está trabajando en una sesión con el intérprete interactivo, el marco
-  global **se crea justo al empezar la sesión** y existe durante toda la sesión
-  (sólo se destruye al salir de la misma).
-
-  Por tanto, las definiciones que se ejecutan directamente en una sesión
-  interactiva con el intérprete, crean ligaduras que se almacenan en el marco
-  global.
-
----
-
-- Es importante aclarar que, en un programa escrito en un lenguaje funcional
-  puro, no importa el orden en el que aparezcan las definiciones, por lo que se
-  podría usar un nombre antes de que aparezca su definición en el código fuente
-  del programa.
-
-- Por ejemplo, en un lenguaje funcional puro como Haskell podríamos escribir lo
-  siguiente:
-
-  ```haskell
-  a = 2 + b
-  b = 5
-  ```
-
-  y funcionaría perfectamente, aunque en la primera línea de código estemos
-  usando un nombre que se define después en el código fuente, en la segunda
-  línea.
-
-- Eso es debido a que los lenguajes funcionales puros no dependen del orden de
-  ejecución de las instrucciones.
-
-- En cambio, Python no es un lenguaje funcional puro, así que el orden de
-  ejecución de las instrucciones sí que importa.
-
----
-
-- Por ejemplo, si iniciamos una sesión con el intérprete interactivo y justo a
-  continuación tecleamos lo siguiente:
-
-  ```{.python .number-lines}
-  >>> x
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  NameError: name 'x' is not defined
-  >>> x = 25
-  >>> x
-  25
-  ```
-
-  - Aquí estamos trabajando con el *marco global* (el único marco que existe
-    hasta ahora para nosotros).
-
-  - En la línea 1, el identificador !PYTHON(x) aún no está ligado, por lo que
-    su uso genera un error (el marco global no contiene hasta ahora ninguna
-    ligadura para !PYTHON(x)).
-
-  - En la línea 6, en cambio, el identificador puede usarse sin error ya que ha
-    sido ligado previamente en la línea 5 (el marco global ahora contiene una
-    ligadura para !PYTHON(x) con el valor 25).
-
----
-
-- Los marcos son espacios de nombres dinámicos, que se van creando y
-  destruyendo durante la ejecución del programa.
-
-- Igualmente, las ligaduras que contiene también se van creando y destruyendo a
-  medida que se van ejecutando las instrucciones que forman el programa.
-
-- Si tenemos la siguiente sesión interactiva:
-
-  ```{.python .number-lines}
-  >>> 2 + 3
-  5
-  >>> x = 4
-  >>> y = 3
-  >>> z = y
-  ```
-
-  Según hasta donde hayamos ejecutado, el marco global contendrá lo siguiente:
-
-:::: columns
-
-::: column
-
-!DOT(marco-lineas12.svg)(Marco global en las líneas 1--2)(width=25%)(width=25%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent, label = ""] 
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(arbol-dos.svg)()(width=10%)(width=5%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```python
+2 + 3
+```
+
+!DOT(arbol-dos-mas-tres.svg)()(width=22%)(width=10%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+mas[label = "+"]
+mas -> 2
+mas -> 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
 ::: column
 
-!DOT(marco-linea3.svg)(Marco global en la línea 3)(width=40%)(width=25%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-4 [shape = circle]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent] 
-}
-x -> 4
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```python
+2 + 3 * 5
+```
+
+!DOT(arbol-dos-mas-tres-por-cinco.svg)()(width=30%)(width=14%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+mas -> 2
+mas[label = "+"]
+por[label = "*"]
+por -> 3
+por -> 5
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```python
+2 * 3 + 5
+```
+
+!DOT(arbol-dos-por-tres-mas-cinco.svg)()(width=30%)(width=14%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+edge [dir = none]
+node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+rankdir = TB
+por -> 2
+por -> 3
+mas[label = "+"]
+por[label = "*"]
+mas -> 5
+mas -> por
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
@@ -1792,343 +1716,458 @@ x -> 4
 
 ---
 
-:::: columns
+- Si la expresión contiene llamadas a funciones, se haría:
 
-::: column
+  ```python
+  max(2, 3 + 5)
+  ```
 
-!DOT(marco-linea4.svg)(Marco global en la línea 4)(width=40%)(width=25%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-3 [shape = circle]
-4 [shape = circle]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
-    y [shape = plaintext, fillcolor = transparent]
-}
-x -> 4
-y -> 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(arbol-max-dos-tres-mas-cinco.svg)()(width=25%)(width=22%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  aplica[label = <<i>aplica</i>>, fixedsize = false, shape = ellipse, fontname = "Lato"]
+  max[fixedsize = false, shape = ellipse]
+  aplica -> max
+  aplica -> 2
+  aplica -> mas
+  mas -> 3
+  mas -> 5
+  mas[label = "+"]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:::
+  El nodo _aplica_ representa la llamada a la función representada por su
+  primer hijo, pasándole los argumentos representados por el resto de sus
+  hijos.
 
-::: column
-
-!DOT(marco-linea5.svg)(Marco global en la línea 5)(width=40%)(width=25%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-3 [shape = circle]
-4 [shape = circle]
-subgraph cluster0 {
-    label = "Marco global"
-    bgcolor = "white"
-    node [fixedsize = shape, fontname = "monospace"]
-    x [shape = plaintext, fillcolor = transparent]
-    y [shape = plaintext, fillcolor = transparent]
-    z [shape = plaintext, fillcolor = transparent]
-}
-x -> 4
-y -> 3
-z -> 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::::
+  Por tanto, tendrá tantos hijos como parámetros tenga la función, más uno (la
+  propia función).
 
 ---
 
-- Hemos visto que una ligadura es una asociación entre un identificador y un
-  valor.
+- Para evaluar una expresión representada por su árbol sintáctico, se va
+  recorriendo éste siguiendo un orden que dependerá del lenguaje de
+  programación uilizado.
 
-- También hemos visto que los espacios de nombres almacenan ligaduras, y que un
-  marco es un espacio de nombres.
+- En Python se sigue un esquema de recorrido llamado **primero en
+  profundidad**, donde se van visitando los nodos del árbol de izquierda a
+  derecha y de arriba abajo, buscando siempre el nodo que está más al fondo.
 
-- Por tanto, **los marcos almacenan ligaduras, pero _NO_ almacenan los
-  valores** a los que están asociados los identificadores de esas ligaduras.
+- La idea es que, antes de evaluar un nodo, debemos evaluar primero todos sus
+  nodos hijos, en orden, de izquierda a derecha.
 
-- Por eso hemos dibujado a los valores fuera de los marcos en los diagramas
-  anteriores.
+- De esta forma, para evaluar (reducir) un nodo, debemos reducir primero todos
+  sus nodos hijo antes de reducir el propio nodo.
 
-- Los valores se almacenan en una zona de la memoria del intérprete conocida
-  como el **montículo**.
+- Si el nodo no tiene hijos, entonces se podrá evaluar directamente.
 
-- En cambio, los marcos se almacenan en otra zona de la memoria conocida como
-  la **pila de control**, la cual estudiaremos mejor más adelante.
+- La evaluación consiste en ir sustituyendo unos subárboles por otros más
+  reducidos hasta acabar teniendo un árbol que represente la forma normal de la
+  expresión a evaluar.
+
+---
+
+- Por ejemplo, en la expresión !PYTHON(2 + 3 * 5), representada por este árbol:
+
+  !IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=15%)(width=15%)
+
+- El orden en el que vamos evaluando los nodos sería el siguiente:
+
+`2`, `3`, `5`, `*`, `+`
+
+---
+
+- La evaluación se realizaría de la siguiente forma, donde en azul destacamos
+  los nodos que ya están evaluados:
+
+- **Paso 1**: Se empieza visitando la raíz `+` pero, como tiene hijos, antes de
+  evaluarlo se pasa a visitar su primer hijo (`2`).
+
+  !IMGP(arbol-dos-mas-tres-por-cinco.svg)()(width=12%)(width=15%)
+
+- **Paso 2**: Como estamos en el nodo `2` y éste no tiene hijos, se puede
+  evaluar directamente, ya que es un nodo hoja y, por tanto, representa un
+  valor. La evaluación del nodo no cambia el nodo ni lo sustituye por ningún
+  otro.
+
+  !DOT(arbol-dos-mas-tres-por-cinco-dos-azul.svg)()(width=12%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  por[label = "*"]
+  por -> 3
+  por -> 5
+  mas -> por
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- **Paso 3**: Volvemos al padre del nodo `2`, que es el nodo raíz `+`, el cual
+  todavía no lo podemos evaluar porque aún le queda otro nodo hijo por evaluar
+  (el nodo `*`), así que bajamos hasta él. Éste, a su vez, tampoco se puede
+  evaluar porque tiene hijos que hay que evaluar antes, el primero de los
+  cuales es el nodo `3`, así que evaluamos `3`, que se evalúa directamente ya
+  que es un nodo hoja.
+
+  !DOT(arbol-dos-mas-tres-por-cinco-tres-azul.svg)()(width=12%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  tres[label = "3", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  por[label = "*"]
+  por -> tres
+  por -> 5
+  mas -> por
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- **Paso 4**: Volvemos al padre del nodo `3`, que es el nodo `*`, el cual
+  todavía no lo podemos evaluar porque aún le queda otro nodo hijo por evaluar
+  (el nodo `5`), así que bajamos hasta éste, el cual se evalúa directamente ya
+  que es un nodo hoja.
+
+  !DOT(arbol-dos-mas-tres-por-cinco-cinco-azul.svg)()(width=12%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  tres[label = "3", color = blue, fontcolor = blue]
+  cinco[label = "5", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  por[label = "*"]
+  por -> tres
+  por -> cinco
+  mas -> por
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Paso 5**: Volvemos al padre del nodo `5`, que es el nodo `*`, el cual ya se
+  puede evaluar porque ya se han evaluado todos sus hijos, así que se realiza
+  la operación !PYTHON(3 * 5), dando como resultado !PYTHON(15), por lo que el
+  subárbol que cuelga del nodo `*` se reduce y se sustituye por un único nodo
+  hoja `15`.
+
+  !DOT(arbol-dos-mas-quince-azul.svg)()(width=12%)(width=13%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.3, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  dos[label = "2", color = blue, fontcolor = blue]
+  quince[label = "15", color = blue, fontcolor = blue]
+  mas -> dos
+  mas[label = "+"]
+  mas -> quince
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- **Paso 6**: Volvemos al padre del que ahora es el nodo `15`, que es el nodo
+  `+`, el cual ya se puede evaluar porque ya se han evaluado todos sus hijos,
+  así que se realiza la operación !PYTHON(2 + 15), dando como resultado
+  !PYTHON(17), por lo que el subárbol que cuelga del nodo `+` se reduce y se
+  sustituye por un único nodo hoja `17`.
+
+  !DOT(arbol-diecisiete-azul.svg)()(width=8%)(width=5%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  edge [dir = none]
+  node [shape = circle, width = 0.4, fixedsize = shape, fillcolor = transparent, fontname = "monospace"]
+  rankdir = TB
+  diecisiete[label = "17", color = blue, fontcolor = blue]
+  diecisiete
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Como ya se ha reducido el nodo raíz, la evaluación de la expresión ha
+  terminado, dando como resultado un árbol que representa a la forma normal de
+  la expresión inicial.
+
+#### Importante
+
+- Recordar que este orden concreto de evaluación (_primero en profundidad_,
+  donde se evalúan primero todos los nodos hijos antes de evaluar al nodo
+  padre) es uno más de entre varios órdenes de evaluación que existen.
+
+- El orden de evaluación concreto que se use dependerá del lenguaje de
+  programación utilizado.
+
+- Incluso dentro de un mismo lenguaje, podemos encontrarnos con algunas
+  operaciones concretas que no siguen este orden de evaluación, aunque el resto
+  de las operaciones sí lo hagan.
+
+- Por ejemplo, los operadores lógicos o el operador ternario en Python se
+  evalúan siguiendo un orden diferente al indicado aquí, como ya veremos más
+  adelante.
+
+## Tipos polimórficos y operaciones polimórficas
+
+- Hasta ahora, hemos visto que la función !PYTHON(abs) de Python tiene la
+  siguiente signatura:
+
+  `abs(`$x$`:` `int)` `->` `int`
+
+- Pero sabemos que también puede actuar sobre números reales, por lo que
+  también podría tener la siguiente signatura:
+
+  `abs(`$x$`:` `float)` `->` `float`
+
+- En realidad, podríamos definir la función !PYTHON(abs) de Python con la
+  siguiente signatura:
+
+  `abs(`$x$`:` `Number)` `->` `Number`
+
+  donde !PYTHON(Number) es un tipo que representa a todos los tipos numéricos
+  en Python (como !PYTHON(int) o !PYTHON(float)).
+
+---
+
+- Eso quiere decir que el parámetro $\underline{x}$ de la función !PYTHON(abs)
+  admite un valor de cualquier tipo numérico, ya sea un entero o un real.
+
+- Por tanto, !PYTHON(Number) es **un tipo que representa a varios tipos a la
+  vez**.
+
+- Cuando eso ocurre, decimos que **ese tipo es _polimórfico_**.
+
+  Por eso podemos afirmar que **!PYTHON(Number) es un tipo polimórfico en
+  Python**.
+
+- De la misma forma (aunque se utiliza menos), podemos decir que un **valor
+  polimórfico** es un valor que pertenece a un tipo polimórfico.
+
+- Asimismo, una **operación polimórfica** es aquella en cuya signatura aparece
+  algún tipo polimórfico.
+
+  Por ejemplo, la función !PYTHON(abs) definida con un parámetro de tipo
+  !PYTHON(Number) sería polimórfica, ya que ese parámetro tendría un tipo
+  polimórfico.
+
+## Sobrecarga de operaciones
+
+- Un **mismo operador, nombre de función o nombre de método** puede representar
+  **varias operaciones diferentes**, dependiendo del tipo de los operandos o
+  argumentos sobre los que actúa.
+
+- Un ejemplo sencillo en Python es el operador `+`:
+
+  - Cuando actúa sobre números, representa la operación de suma:
+
+    ```python
+    >>> 2 + 3
+    5
+    ```
+
+  - Cuando actúa sobre cadenas, representa la *concatenación* de cadenas:
+
+    ```python
+    >>> "hola" + "pepe"
+    'holapepe'
+    ```
+
+- Cuando esto ocurre, decimos que el operador (o la función, o el método) está
+  **sobrecargado**.
+
+---
+
+- Es decir, es como si el operador `+` representara dos operaciones distintas
+  con dos signaturas distintas:
+
+  `+(`$a$`:` `Number,` ` `$b$`:` `Number)` `->` `Number`
+
+  `+(`$a$`:` `str,` ` `$b$`:` `str)` `->` `str`
+
+  de forma que, al usar el operador en una expresión del tipo:
+
+  !NT(expr)$_1$ `+` !NT(expr)$_2$ <!-- $_ -->
+
+  el intérprete llamará a una de las dos operaciones, dependiendo de los tipos
+  de !NT(expr)$_1$ y !NT(expr)$_2$. <!-- $_ -->
+
+- La sobrecarga no es polimorfismo, pero induce un cierto tipo de polimorfismo
+  que se denomina **polimorfismo _ad-hoc_**.
+
+- Esto es así porque tener varias operaciones diferentes con el mismo nombre
+  pero con distinta signatura, equivale a tener una sola operación polimórfica
+  donde algunos operandos pueden tomar un valor de varios tipos.
+
+  Por ejemplo, los tipos de $a$ y $b$ representarían a la vez a `Number` y
+  `str`.
+
+## Equivalencia entre formas de operaciones
+
+- Una operación puede tener *forma* de **operador**, de **función** o de
+  **método**.
+
+- También podemos encontrarnos operaciones con más de una forma.
+
+- Por ejemplo, ya vimos anteriormente la operación «*longitud*», que consiste en
+  determinar el número de caracteres que tiene una cadena. Esta operación se
+  puede hacer:
+
+  - Con la función !PYTHON(len), pasando la cadena como argumento:
+
+    ```python
+    >>> len("hola")
+    4
+    ```
+
+  - Con el método !PYTHON(__len__) ejecutado sobre la cadena:
+
+    ```python
+    >>> "hola".__len__()
+    4
+    ```
+
+---
+
+- De hecho, en Python hay operaciones que tienen **las tres formas**. Por
+  ejemplo, ya vimos anteriormente la operación *potencia*, que consiste en
+  elevar un número a la potencia de otro ($x^y$). Esta operación se puede
+  hacer:
+
+  - Con el operador `**`:
+
+    ```python
+    >>> 2 ** 4
+    16
+    ```
+
+  - Con la función !PYTHON(pow):
+
+    ```python
+    >>> pow(2, 4)
+    16
+    ```
+
+  - Con el método !PYTHON(__pow__):
+
+    ```python
+    >>> (2).__pow__(4)
+    16
+    ```
 
 <!--
 
 ---
 
-- En realidad, además del marco global, existe otro espacio de nombres muy
-  importante que incluye las definiciones predefinidas del lenguaje (funciones
-  !PYTHON(max) o !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.).
+- Otro ejemplo es la operación *contiene*, que consiste en comprobar si una
+  cadena contiene a otra (una *subcadena*). Esa operación también tiene tres
+  formas:
 
-- Ese espacio de nombres se denomina !PYTHON(__builtins__).
+  - El operador `in`:
 
-- Las definiciones contenidas en el espacio de nombres !PYTHON(__builtins__)
-  están disponibles directamente en la sesión de trabajo o en cualquier punto
-  del programa.
+    ```python
+    >>> "o" in "hola"
+    True
+    ```
+
+  - La función `str.__contains__`:
+
+    ```python
+    >>> str.__contains__("hola", "o")
+    True
+    ```
+
+  - El método `__contains__` ejecutado sobre la cadena (y pasando la
+    subcadena como argumento):
+
+    ```python
+    >>> "hola".__contains__("o")
+    True
+    ```
+
+    Observar que, en este caso, el objeto que recibe el mensaje (es decir,
+    el objeto al que se le pide que ejecute el método) es la cadena `"hola"`.
+    Es como si le preguntáramos a la cadena `"hola"` si contiene la subcadena
+    `"o"`.
+
+---
+
+- Y la suma de dos números enteros se puede expresar:
+
+  - Mediante el operador `+`:
+  
+    ```python
+    4 + 3
+    ```
+
+  - Mediante la función `int.__add__`:
+  
+    ```python
+    int.__add__(4, 3)
+    ```
+
+  - Mediante el método `__add__` ejecutado sobre uno de los enteros (y pasando
+    el otro número como *argumento* del método):
+
+    ```python
+    (4).__add__(3)
+    ```
 
 -->
 
-## Evaluación de expresiones con identificadores
+---
 
-- Podemos usar un identificador ligado dentro de una expresión, siempre que la
-  expresión resulte ser válida según las reglas del lenguaje.
+- La forma **más general** de representar una operación es la **función**, ya
+  que **cualquier operación se puede expresar en forma de función** (cosa que
+  no ocurre con los operadores y los métodos).
 
-- El identificador representa a su valor ligado y se evalúa a dicho valor en
-  cualquier expresión donde aparezca ese identificador:
+- Los operadores y los métodos son **formas sintácticas especiales** para
+  representar operaciones que se podrían representar igualmente mediante
+  funciones.
 
-  ```python
-  >>> x = 25
-  >>> 2 + x * 3
-  77
-  ```
+- Por eso, al hablar de operaciones, y mientras no se diga lo contrario,
+  podremos suponer que están representadas como funciones.
 
-- Intentar usar en una expresión un identificador no ligado provoca un error de
-  tipo !PYTHON{NameError} (*nombre no definido*):
+- Eso implica que los conceptos de *conjunto origen*, *conjunto imagen*,
+  *dominio*, *rango*, *aridad*, *argumento*, *resultado*, *composición* y
+  *asociación* (o *correspondencia*), que estudiamos cuando hablamos de las
+  funciones, también existen en los operadores y los métodos.
 
-  ```python
-  >>> y
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  NameError: name 'y' is not defined
-  ```
-
-### Resolución de identificadores
-
-- Durante la evaluación de una expresión, para cada uno de los diferentes
-  identificadores que aparecen en ella, habrá que comprobar si ese
-  identificador está ligado y a qué valor.
-
-  - Si no está ligado, es un error de _nombre no definido_.
-
-  - En caso contrario, tendrá que determinar a qué valor está ligado para poder
-    sustituir, en la expresión, cada aparición del identificador por su valor.
-
-- Para ello, habrá que buscar una ligadura con ese identificador en uno o
-  varios espacios de nombres.
-
-- El proceso de localizar (si es que existe) la ligadura adecuada que liga a un
-  identificador con su valor, se denomina **resolución del identificador**.
-
-- En general, al proceso de determinar con qué valores están ligados los
-  identificadores de un programa se le denomina **resolución de
-  identificadores** o **resolución de nombres**.
+- Es decir: todos esos son conceptos propios de cualquier operación, da igual
+  la forma que tenga esta.
 
 ---
 
-- Los espacios de nombres donde se buscan las ligaduras para ese identificador
-  dependerán del _contexto_ en el que se está intentando resolver dicho
-  identificador.
+- Muchos lenguajes de programación no permiten definir nuevos operadores, pero
+  sí permiten definir nuevas funciones (o métodos, dependiendo del paradigma
+  utilizado).
 
-- Por ejemplo, en el siguiente código:
+- En algunos lenguajes, los operadores son casos particulares de funciones (o
+  métodos) y se pueden definir como tales. Por tanto, en estos lenguajes se
+  pueden crear nuevos operadores definiendo nuevas funciones (o métodos).
 
-  ```python
-  >>> x = 4
-  >>> x
-  4
-  ```
+## Igualdad de operaciones
 
-  se busca una ligadura para `x` en el marco global.
+- Dos operaciones son **iguales** si devuelven resultados iguales para
+  argumentos iguales.
 
-- En cambio, si se intenta acceder a un atributo de un objeto:
+- Este principio recibe el nombre de **principio de extensionalidad**.
 
-  ```python
-  >>> import math
-  >>> math.pi
-  3.141592653589793
-  ```
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~
+  **Principio de extensionalidad:**
 
-  se busca una ligadura para `pi` en el espacio de nombres asociado al módulo
-  `math`.
+  $f = g$ si y sólo si $f(x) = g(x)$ para todo $x$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~
 
----
+- Por ejemplo: una función que calcule el doble de su argumento multiplicándolo
+  por 2, sería exactamente igual a otra función que calcule el doble de su
+  argumento sumándolo consigo mismo.
 
-- La resolución de identificadores es un proceso que usa mecanismos distintos
-  dependiendo de si el lenguaje es interpretado o compilado:
+  En ambos casos, las dos funciones devolverán siempre los mismos resultados
+  ante los mismos argumentos.
 
-  - Si es un **lenguaje interpretado** (como Python): el intérprete usa un
-    concepto llamado **entorno** en tiempo de ejecución para localizar la
-    ligadura.
-
-    En tal caso, hablamos de **resolución de nombres _dinámica_**.
-
-  - Si es un **lenguaje compilado** (como Java): el compilador determina, en
-    tiempo de compilación, si una ligadura es accesible haciendo uso del
-    concepto de **ámbito** y, en caso afirmativo, deduce en qué espacio de
-    nombres está la ligadura.
-
-    En tal caso, hablamos de **resolución de nombres _estática_**.
-
-- En general, la resolución de identificadores puede ser una tarea complicada
-  ya que puede involucrar muchos conceptos como espacios de nombres, ámbitos,
-  entornos, reglas de visibilidad, sombreado, sobrecargas... muchos de los
-  cuales aún no hemos estudiado.
-
-## *Scripts*
-
-- Cuando tenemos muchas definiciones o muy largas, resulta tedioso tener que
-  introducirlas una y otra vez cada vez que abrimos una nueva sesión con el
-  intérprete interactivo.
-
-- Lo más cómodo es teclearlas todas una sola vez dentro un archivo que luego
-  cargaremos desde dentro del intérprete.
-
-- Ese archivo se llama **_script_** y, por ahora, contendrá una lista de las
-  definiciones que nos interese usar en nuestras sesiones interactivas con el
-  intérprete.
-
-- Al cargar el _script_, se ejecutarán sus instrucciones una tras otra casi de
-  la misma forma que si las estuviéramos tecleando nosotros directamente en
-  nuestra sesión con el intérprete, en el mismo orden.
-
-- Llegado el momento, los _scripts_ contendrán el código fuente de nuestros
-  programas y los ejecutaremos desde el intérprete por lotes.
-
----
-
-- Los nombres de archivo de los *scripts* en Python llevan extensión `.py`.
-
-- Para cargar un *script* en nuestra sesión tenemos dos opciones:
-
-  #. Usar la orden !PYTHON(from) dentro de la sesión actual.
-
-     Por ejemplo, para cargar un *script* llamado `definiciones.py`, usaremos:
-
-     ```python
-     >>> from definiciones import *
-     ```
-
-     Observar que en el !PYTHON(from) se pone el nombre del script pero **sin
-     la extensión `.py`**.
-
-  #. Iniciar una nueva sesión con el intérprete interactivo indicándole que
-     cargue el _script_ mediante la opción `-i` en la línea de órdenes del
-     sistema operativo:
-
-     ```console
-     $ python -i definiciones.py
-     >>>
-     ```
-
-     En este caso **sí** se pone el nombre completo del script, **con la
-     extensión `.py`**.
-
----
-
-- A partir de ese momento, en el intérprete interactivo podremos usar las
-  definiciones que se hayan cargado desde del _script_.
-
-- Por ejemplo, si el _script_ `definiciones.py` tiene el siguiente contenido:
-
-  ```python
-  x = 25
-  j = 14
-  ```
-
-- Al cargar el _script_ (usando cualquiera de las dos opciones que hemos visto
-  anteriormente) se ejecutarán sus instrucciones (las dos definiciones) y, en
-  consecuencia, se crearán en el marco global las ligaduras
-  `x` → `25` y `j` → `14`:
-
-  ```python
-  >>> x                                   # antes de cargar el script, da error
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-  NameError: name 'x' is not defined
-  >>> from definiciones import *          # aquí cargamos el script, y ahora
-  >>> x                                   # la x sí está ligada a un valor
-  25
-  ```
-
----
-
-- Una limitación importante que hay que tener en cuenta es que **el _script_
-  sólo puede usar definiciones que se hayan creado en el mismo _script_**
-  (exceptuando las definiciones predefinidas del lenguaje).
-
-- Por ejemplo, si tenemos el siguiente _script_ llamado `prueba.py`:
-
-  ```python
-  j = w + 1
-  ```
-
-  donde se intenta ligar a `j` el valor ligado a `w` más uno, lo siguiente no
-  funcionará:
-
-  ```python
-  >>> w = 3
-  >>> from prueba import *
-  Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-    File "/home/ricardo/python/prueba.py", line 1, in <module>
-      j = w + 1
-  NameError: name 'w' is not defined
-  ```
-
-- Aunque `w` esté ligado a un valor al cargar el _script_, éste no podrá
-  acceder a esa ligadura y da error de «_nombre no definido_».
-
-- Cuando estudiemos la programación modular entenderemos por qué.
-
-## Instalación de Visual Studio Code
-
-- **Instalación en Ubuntu:**
-
-  **NO** instalar Visual Studio Code desde el _Centro de software de Ubuntu_.
-
-  En cambio, visitar
-  [https://code.visualstudio.com](https://code.visualstudio.com) para descargar
-  e instalar el paquete adecuado a la versión de Ubuntu que se está usando, que
-  suele ser la que ya sugiere la propia página web (normalmente es el paquete
-  `.deb` de 64 bits).
-
-- **Instalación en Windows:**
-
-  Visitar [https://code.visualstudio.com](https://code.visualstudio.com),
-  descargar e instalar la versión adecuada a la versión de Windows que se está
-  usando.
-
-### Configuración básica de Visual Studio Code
-
-1. Abrir la aplicación.
-
-2. Acceder al apartado de _Extensiones_ (`Ctrl+Mayús+X`) e instalar las
-   siguientes extensiones:
-
-   - Python
-
-   - Python Indent
-
-   - Pylance
-
-3. Configurar las siguientes opciones:
-
-   - _Python: Language Server_: `Pylance`
-
-   - _Python > Linting: Enabled_: Activado
-
-   - _Python > Linting: Pylint Enabled_: Activado
-
-   - _Python > Linting: Pylint Args_:
-
-     `--disable=invalid-name,redefined-outer-name,missing-docstring,unnecessary-lambda-assignment`
-
----
-
-4. Se recomiendan, además, configurar las siguientes opciones:
-
-   - _Editor: Render Final Newline_: Desactivado
-
-   - _Editor: Smooth Scrolling_: Activado
-
-   - _Files: Insert Final Newline_: Activado
-
-   - _Files: Trim Final Newlines_: Activado
-
-   - _Files: Trim Trailing Whitespace_: Activado
+- Cuando dos operaciones son iguales, podemos usar una u otra indistintamente.
 
 # Resumen
 
@@ -2160,74 +2199,5 @@ z -> 3
   - Abstracciones lambda.
 
   - Funciones de orden superior.
-
-# Documentación interna
-
-## Identificadores significativos
-
-- Se recomienda usar identificadores descriptivos.
-
-  Es mejor usar:
-
-  ```python
-  ancho = 640
-  alto = 400
-  superficie = ancho * alto
-  ```
-
-  que
-
-  ```python
-  x = 640
-  y = 400
-  z = x * y
-  ```
-
-  aunque ambos programas sean equivalentes en cuanto al efecto que producen y
-  el resultado que generan.
-
-- Si el identificador representa varias palabras, se puede usar el carácter de
-  guión bajo (`_`) para separarlas y formar un único identificador:
-
-  ```python
-  altura_triangulo = 34.2
-  ```
-
-## Comentarios
-
-- Los comentarios en Python empiezan con el carácter `#` y se extienden hasta
-  el final de la línea.
-
-- Los comentarios pueden aparecer al comienzo de la línea o a continuación de
-  un espacio en blanco o una porción de código.
-
-- Los comentarios no pueden ir dentro de un literal de tipo cadena.
-
-  Un carácter `#` dentro de un literal cadena es sólo un carácter más.
-
-  ```python
-  # este es el primer comentario
-  spam = 1  # y este es el segundo comentario
-            # ... y este es el tercero
-  texto = "# Esto no es un comentario porque va entre comillas."
-  ```
-
----
-
-- Cuando un comentario ocupa varias líneas, se puede usar el «truco» de poner
-  una cadena con triples comillas:
-
-  ```python
-  x = 1
-  """
-  Esta es una cadena
-  que ocupa varias líneas
-  y que actúa como comentario.
-  """
-  y = 2
-  ```
-
-- Python evaluará la cadena pero, al no usarse dentro de ninguna expresión ni
-  ligarse a ningún identificador, simplementa la ignorará (como un comentario).
 
 !BIBLIOGRAFIA
