@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Lenguajes de programación</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-left"></div>
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Lenguajes de programación</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2024/2025</p>
+</section>
+<section id="TOC">
+<nav role="doc-toc"> 
+<ul>
+<li><a href="#/definición" id="/toc-definición"><span
+class="toc-section-number">1</span> Definición</a></li>
+<li><a href="#/evolución-histórica" id="/toc-evolución-histórica"><span
+class="toc-section-number">2</span> Evolución histórica</a></li>
+<li><a href="#/clasificación" id="/toc-clasificación"><span
+class="toc-section-number">3</span> Clasificación</a></li>
+<li><a href="#/traductores-e-intérpretes"
+id="/toc-traductores-e-intérpretes"><span
+class="toc-section-number">4</span> Traductores e intérpretes</a></li>
+<li><a href="#/entornos-integrados-de-desarrollo"
+id="/toc-entornos-integrados-de-desarrollo"><span
+class="toc-section-number">5</span> Entornos integrados de
+desarrollo</a></li>
+</ul>
+</nav>
+</section>
+
+<section>
+<section id="definición" class="title-slide slide level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span>
+Definición</h1>
+
+</section>
+<section id="definición-1" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Definición</h2>
+<div class="caja">
+<p><strong>Lenguaje de programación:</strong></p>
+<p>Un lenguaje de programación es un <strong>lenguaje formal</strong>
+que proporciona una serie de instrucciones que permiten a un programador
+escribir programas destinados a controlar el comportamiento físico y
+lógico de un ordenador.</p>
+</div>
+<ul>
+<li><p>Un <strong>programa</strong> es la <strong>codificación de un
+algoritmo</strong> en un lenguaje de programación.</p></li>
+<li><p>Por tanto: cuando escribimos un algoritmo en un lenguaje de
+programación, obtenemos un programa.</p></li>
+<li><p>Estos lenguajes están determinados por un conjunto de símbolos
+(llamado <em>alfabeto</em>), reglas gramaticales (léxico/morfológicas y
+sintácticas) y reglas semánticas, que en conjunto definen las
+estructuras válidas en el lenguaje y su significado.</p></li>
+</ul>
+</section>
+<section id="sintaxis" class="title-slide slide level3"
+data-number="1.1.1">
+<h3 data-number="1.1.1"><span class="header-section-number">1.1.1</span>
+Sintaxis</h3>
+<ul>
+<li><p>A la forma visible de un lenguaje de programación se la conoce
+como <strong>sintaxis</strong>.</p></li>
+<li><p>La sintaxis de un lenguaje de programación describe las
+combinaciones posibles de los símbolos que forman un programa
+sintácticamente correcto.</p></li>
+<li><p>La sintaxis define dos elementos principales:</p>
+<ul>
+<li><p>Los <strong>componentes léxicos</strong>, es decir, los elementos
+mínimos que forman un programa (palabras clave, números,
+identificadores, caracteres de puntuación como paréntesis o comas,
+etc…).</p></li>
+<li><p>La <strong>estructura gramatical</strong>, es decir, cómo se
+pueden combinar los componentes léxicos para formar «frases» correctas
+según la sintaxis del lenguaje.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="notación-ebnf" class="title-slide slide level4"
+data-number="1.1.1.1">
+<h4 data-number="1.1.1.1"><span
+class="header-section-number">1.1.1.1</span> Notación EBNF</h4>
+<ul>
+<li><p>La sintaxis de los lenguajes de programación es definida
+generalmente utilizando:</p>
+<ul>
+<li><p><strong>Expresiones regulares</strong> (para los componentes
+léxicos)</p></li>
+<li><p><strong>Notación de Backus-Naur extendida</strong> (para la
+estructura gramatical)</p></li>
+</ul></li>
+<li><p>Cada una de esas notaciones son formalismos usados para describir
+estructuras sintácticas en gramáticas formales.</p></li>
+<li><p>Las expresiones regulares las estudiaremos a lo largo del curso,
+ya que resultan muy útiles para procesar cadenas.</p></li>
+<li><p>Conocer la notación de Backus-Naur resulta de gran interés porque
+la mayoría de los lenguajes de programación la utilizan para documentar
+su sintaxis.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.1.1.1">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Ejemplo:</li>
+</ul>
+<div class="line-block"><span
+style="color:teal">⟨<em>frases</em>⟩</span> ::= <span
+style="color:teal">⟨<em>frase</em>⟩</span>
+(<strong><code>y</code></strong> <span
+style="color:teal">⟨<em>frase</em>⟩</span>)*
+<strong><code>.</code></strong><br />
+<span style="color:teal">⟨<em>frase</em>⟩</span> ::= <span
+style="color:teal">⟨<em>sujeto</em>⟩</span> <span
+style="color:teal">⟨<em>predicado</em>⟩</span><br />
+<span style="color:teal">⟨<em>sujeto</em>⟩</span> ::= <span
+style="color:teal">⟨<em>articulo</em>⟩</span> <span
+style="color:teal">⟨<em>sustantivo</em>⟩</span> <span
+style="color:teal">⟨<em>adjetivo</em>⟩</span><span
+class="math inline">^+</span><br />
+<span style="color:teal">⟨<em>predicado</em>⟩</span> ::= <span
+style="color:teal">⟨<em>verbo</em>⟩</span> [<span
+style="color:teal">⟨<em>adverbio</em>⟩</span>]<br />
+<span style="color:teal">⟨<em>artículo</em>⟩</span> ::=
+<strong><code>el</code></strong> |
+<strong><code>la</code></strong><br />
+<span style="color:teal">⟨<em>sustantivo</em>⟩</span> ::=
+<strong><code>niño</code></strong> |
+<strong><code>vaca</code></strong><br />
+<span style="color:teal">⟨<em>adjetivo</em>⟩</span> ::=
+<strong><code>grande</code></strong> |
+<strong><code>azul</code></strong><br />
+<span style="color:teal">⟨<em>verbo</em>⟩</span> ::=
+<strong><code>come</code></strong> | <strong><code>salta</code></strong>
+| <strong><code>corre</code></strong><br />
+<span style="color:teal">⟨<em>adverbio</em>⟩</span> ::=
+<strong><code>mucho</code></strong> |
+<strong><code>poco</code></strong></div>
+<ul>
+<li>Cada regla sintáctica (llamada <strong>producción</strong>) está
+formada por dos partes separadas por <span style="color:teal">::=</span>
+, donde a la izquierda hay un símbolo no terminal y a la derecha puede
+haber una lista de símbolos terminales y no terminales.</li>
+</ul>
+</div><div class="column" style="width:3%;">
+
+</div><div class="column" style="width:47%;">
+<ul>
+<li>Los nombres entre ángulos (como <span
+style="color:teal">⟨<em>predicado</em>⟩</span>) se llaman
+<strong>símbolos no terminales</strong>.</li>
+<li>Los símbolos en negrita y azul (como
+<strong><code>la</code></strong>) se llaman <strong>símbolos
+terminales</strong>.</li>
+<li>La barra vertical <span style="color:teal">|</span> indica poder
+elegir entre dos <strong>opciones</strong>.</li>
+<li>El <span style="color:teal">*</span> indica 0, 1 ó más
+<strong>repeticiones</strong> de lo que acompaña.</li>
+<li>El <span style="color:teal"><span
+class="math inline">^+</span></span> indica 1 ó más
+<strong>repeticiones</strong> de lo que acompaña.</li>
+<li>Los corchetes <span style="color:teal">[</span> y <span
+style="color:teal">]</span> indican <strong>optatividad</strong>.</li>
+<li>Los paréntesis <span style="color:teal">(</span> y <span
+style="color:teal">)</span> <strong>agrupan</strong> varios elementos
+juntos.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="1.1.1.1.2">
+
+<ul>
+<li><p>Las gramáticas sirven para <em>reconocer</em> o <em>producir</em>
+frases correctas en un determinado lenguaje.</p></li>
+<li><p>Por ejemplo, podemos preguntarnos si la frase
+«<code>el niño grande come mucho.</code>» es sintácticamente correcta
+según la gramática anterior.</p></li>
+<li><p>Para ello, comprobamos si es posible <em>derivar</em> esa frase a
+partir de las producciones de la gramática, partiendo del
+<strong>símbolo inicial</strong>, que siempre es el primer símbolo no
+terminal que aparece en la gramática (en este caso, <span
+style="color:teal">⟨<em>frases</em>⟩</span>).</p></li>
+<li><p>Cada paso del procedimiento se llama <em>derivación</em>, y
+consiste en ir sustituyendo, de izquierda a derecha, los símbolos no
+terminales que vayamos encontrando por su correspondiente definición (lo
+que hay a la derecha del <span style="color:teal">::=</span> ).</p></li>
+<li><p>Iremos avanzando mientras encontremos símbolos terminales que
+coincidan con los de la frase.</p></li>
+<li><p>El procedimiento finalizará con éxito cuando se acabe la frase, o
+con fracaso si algún símbolo terminal no coincide con el
+esperado.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.1.1.3">
+
+<ul>
+<li><p>En este caso:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>frases</em>⟩</span><br />
+<span class="math inline">\Rightarrow</span> <span
+style="color:teal">⟨<em>frase</em>⟩</span>
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span> <span
+style="color:teal">⟨<em>sujeto</em>⟩</span> <span
+style="color:teal">⟨<em>predicado</em>⟩</span>
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span> <span
+style="color:teal">⟨<em>artículo</em>⟩</span> <span
+style="color:teal">⟨<em>sustantivo</em>⟩</span> <span
+style="color:teal">⟨<em>adjetivo</em>⟩</span><span
+class="math inline">^+</span> <span
+style="color:teal">⟨<em>predicado</em>⟩</span>
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span>
+<strong><code>el</code></strong> <span
+style="color:teal">⟨<em>sustantivo</em>⟩</span> <span
+style="color:teal">⟨<em>adjetivo</em>⟩</span><span
+class="math inline">^+</span> <span
+style="color:teal">⟨<em>predicado</em>⟩</span>
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span>
+<strong><code>el</code></strong> <strong><code>niño</code></strong>
+<span style="color:teal">⟨<em>adjetivo</em>⟩</span><span
+class="math inline">^+</span> <span
+style="color:teal">⟨<em>predicado</em>⟩</span>
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span>
+<strong><code>el</code></strong> <strong><code>niño</code></strong>
+<strong><code>grande</code></strong> <span
+style="color:teal">⟨<em>predicado</em>⟩</span>
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span>
+<strong><code>el</code></strong> <strong><code>niño</code></strong>
+<strong><code>grande</code></strong> <span
+style="color:teal">⟨<em>verbo</em>⟩</span> [<span
+style="color:teal">⟨<em>adverbio</em>⟩</span>]
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span>
+<strong><code>el</code></strong> <strong><code>niño</code></strong>
+<strong><code>grande</code></strong> <strong><code>come</code></strong>
+[<span style="color:teal">⟨<em>adverbio</em>⟩</span>]
+<strong><code>.</code></strong><br />
+<span class="math inline">\Rightarrow</span>
+<strong><code>el</code></strong> <strong><code>niño</code></strong>
+<strong><code>grande</code></strong> <strong><code>come</code></strong>
+<strong><code>mucho</code></strong>
+<strong><code>.</code></strong></div></li>
+<li><p>El procedimiento ha tenido éxito, por lo que podemos afirmar que
+la gramática ha <em>reconocido</em> la frase, o que la frase
+<em>satisface</em> la gramática o que <em>cumple</em> con la
+gramática.</p></li>
+<li><p>Eso se expresa diciendo que:</p></li>
+</ul>
+<p><span style="color:teal">⟨<em>frases</em>⟩</span> <span
+class="math inline">\stackrel{\ast}{\Rightarrow}</span>
+<strong><code>el</code></strong> <strong><code>niño</code></strong>
+<strong><code>grande</code></strong> <strong><code>come</code></strong>
+<strong><code>mucho</code></strong> <strong><code>.</code></strong></p>
+</section>
+<section class="slide level5" data-number="1.1.1.1.4">
+
+<ul>
+<li>Otra forma de representarlo es mediante un diagrama llamado
+<strong>árbol de análisis sintáctico</strong>.</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/arbol-analisis.svg" class="plain"
+style="width:70.0%"
+alt="Árbol de análisis sintáctico para «el niño grande come mucho.»" />
+<figcaption aria-hidden="true">Árbol de análisis sintáctico para
+«<code>el niño grande come mucho.</code>»</figcaption>
+</figure>
+</div>
+</section>
+<section id="ejercicios" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicios</h5>
+<ol class="example" type="1">
+<li><p>Comprobar si son sintácticamente correctas las siguientes frases
+según la gramática anterior:</p>
+<ol type="a">
+<li><code>la vaca corre.</code></li>
+<li><code>la vaca grande salta.</code></li>
+<li><code>la vaca grande azul salta.</code></li>
+<li><code>el niño come.</code></li>
+<li><code>niño come.</code></li>
+<li><code>la niño grande salta poco.</code></li>
+<li><code>la vaca azul come</code></li>
+<li><code>el niño grande salta poco y la vaca azul corre mucho.</code></li>
+</ol></li>
+</ol>
+</section>
+<section class="slide level5" data-number="1.1.1.1.5">
+
+<ol start="2" class="example" type="1">
+<li><p>¿Qué frases genera (o reconoce) la siguiente gramática? Poner
+ejemplos:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>expresión</em>⟩</span> ::= <span
+style="color:teal">⟨<em>átomo</em>⟩</span> | <span
+style="color:teal">⟨<em>lista</em>⟩</span><br />
+<span style="color:teal">⟨<em>átomo</em>⟩</span> ::= <span
+style="color:teal">⟨<em>número</em>⟩</span> | <span
+style="color:teal">⟨<em>símbolo</em>⟩</span><br />
+<span style="color:teal">⟨<em>lista</em>⟩</span> ::=
+<strong><code>(</code></strong> <span
+style="color:teal">⟨<em>expresión</em>⟩</span>*
+<strong><code>)</code></strong><br />
+<span style="color:teal">⟨<em>número</em>⟩</span> ::=
+[<strong><code>+</code></strong> | <strong><code>-</code></strong>]
+<span style="color:teal">⟨<em>dígito</em>⟩</span><span
+class="math inline">^+</span><br />
+<span style="color:teal">⟨<em>símbolo</em>⟩</span> ::= <span
+style="color:teal">⟨<em>letra</em>⟩</span><span
+class="math inline">^+</span><br />
+<span style="color:teal">⟨<em>dígito</em>⟩</span> ::=
+<strong><code>0</code></strong> | <strong><code>1</code></strong> |
+<strong><code>2</code></strong> | <strong><code>3</code></strong> |
+<strong><code>4</code></strong> | <strong><code>5</code></strong> |
+<strong><code>6</code></strong> | <strong><code>7</code></strong> |
+<strong><code>8</code></strong> | <strong><code>9</code></strong><br />
+<span style="color:teal">⟨<em>letra</em>⟩</span> ::=
+<strong><code>a</code></strong> | <strong><code>b</code></strong> | … |
+<strong><code>z</code></strong></div></li>
+</ol>
+</section>
+
+
+<section id="semántica-estática" class="title-slide slide level3"
+data-number="1.1.2">
+<h3 data-number="1.1.2"><span class="header-section-number">1.1.2</span>
+Semántica estática</h3>
+<ul>
+<li><p>La semántica estática define las <strong>restricciones</strong>
+sobre la estructura de los textos válidos que resulta imposible o muy
+difícil expresar mediante formalismos sintácticos estándar como los que
+acabamos de ver.</p></li>
+<li><p>Es decir: hay programas sintácticamente correctos que, sin
+embargo, no resultan ser programas válidos según las reglas de la
+semántica estática del lenguaje.</p></li>
+<li><p>La semántica estática de un lenguaje está fuertemente relacionada
+con su <strong>sistema de tipos</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.2.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<ul>
+<li><p>Comprobar que los tipos de los datos a operar son los
+correctos:</p>
+<p>Si intentamos hacer <code>4 + 'hola'</code>, sintácticamente puede
+ser correcto pero no tiene sentido sumar una cadena a un
+número.</p></li>
+<li><p>Comprobar que un nombre está ligado a un valor antes de usarlo en
+una expresión.</p>
+<p>Sintácticamente puede ser correcto hacer <code>4 + x</code>, pero si
+no se sabe qué es <code>x</code>, el programa no puede realizar la
+operación.</p></li>
+<li><p>Comprobar que el número y tipo de argumentos en la llamada a una
+función coincide con el número y tipo de parámetros de la función.</p>
+<p>Si se quiere calcular el coseno de 24 se puede hacer
+<code>cos(24)</code>, pero no tiene sentido hacer
+<code>cos(24, 35)</code> (se llama a la función con dos argumentos en
+vez de uno) o <code>cos('hola')</code> (se la llama con una cadena en
+lugar de un número).</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.2.0.2">
+
+<ul>
+<li><p>En el ejemplo que vimos de los niños y las vacas, hemos
+encontrado frases sintácticamente correctas según la gramática pero que
+no son completamente correctas o lógicas.</p></li>
+<li><p>Por ejemplo, la frase «<code>la niño grande salta poco.</code>»
+es sintácticamente correcta (podemos derivarla a partir del símbolo
+inicial de la gramática), pero sabemos que no es <em>completamente</em>
+correcta porque no hay concordancia de género entre el artículo
+<code>la</code> y el sustantivo <code>niño</code>.</p></li>
+<li><p>Ese error de concordancia es un error de semántica
+estática.</p></li>
+</ul>
+</section>
+
+<section id="semántica-dinámica" class="title-slide slide level3"
+data-number="1.1.3">
+<h3 data-number="1.1.3"><span class="header-section-number">1.1.3</span>
+Semántica dinámica</h3>
+<ul>
+<li><p>La semántica dinámica (o simplemente <strong>semántica</strong>)
+de un lenguaje de programación expresa el <strong>significado</strong>
+de cada construcción del lenguaje.</p></li>
+<li><p>Es un concepto muy complicado de formalizar y por ello se suele
+definir de manera informal en la documentación del lenguaje en función
+de los <strong>efectos</strong> que produce cada construcción del
+lenguaje dentro de un programa.</p></li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="evolución-histórica" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Evolución histórica</h1>
+
+</section>
+<section id="evolución-histórica-1" class="title-slide slide level2"
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+Evolución histórica</h2>
+<ul>
+<li><p><strong>1804: El telar de Jacquard (<em>Joseph Marie
+Jacquard</em>)</strong></p>
+<ul>
+<li>Tarjetas perforadas para controlar los diseños en los tejidos.</li>
+</ul></li>
+<li><p><strong>1837 – 1871: La máquina analítica (<em>Charles
+Babbage</em>)</strong></p>
+<ul>
+<li><p>En 1842, el matemático italiano Luigi Menabrea escribió una
+descripción de la máquina en frances.</p></li>
+<li><p>En 1843, <strong>Ada Lovelace</strong> la traduce al inglés e
+incorpora unas anotaciones propias en las que especifica con detalle un
+método para calcular los números de Bernoulli con esa máquina. Por ello,
+se la considera <strong>la primera programadora de la
+historia</strong>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.1">
+
+<ul>
+<li><p><strong>1890: Máquinas tabuladoras electromecánicas (<em>Herman
+Hollerith, Tabulating Machine Company</em>)</strong></p>
+<ul>
+<li>Hollerith está considerado <strong>el primer informático de la
+historia</strong>, por crear las primeras máquinas de procesamiento
+automático de la información.</li>
+<li>Con ellas se creó el censo de los EE.UU.</li>
+<li>Su empresa acabó llamándose <strong>IBM</strong>.</li>
+</ul></li>
+<li><p><strong>1936: El gran año de los modelos formales
+computacionales:</strong></p>
+<ul>
+<li><p><strong>Cálculo lambda (<em>Alonzo Church</em>)</strong></p>
+<ul>
+<li>Un modelo universal de computación basado en la abstracción y
+aplicación de funciones.</li>
+</ul></li>
+<li><p><strong>Máquinas de Turing (<em>Alan Turing</em>)</strong></p>
+<ul>
+<li>Un modelo universal de computación basado en máquinas abstractas que
+manipulan símbolos escritos en una cinta de acuerdo a una serie de
+reglas definidas.</li>
+</ul></li>
+<li><p><strong>Sorpresa</strong>: ambos modelos son
+<strong>equivalentes</strong>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.2">
+
+<ul>
+<li><p><strong>El trabajo de <em>Konrad Zuse</em>:</strong></p>
+<ul>
+<li><p><strong>1941: Ordenador Z3</strong></p>
+<ul>
+<li><p>El primer ordenador digital programable que realmente llegó a
+funcionar.</p></li>
+<li><p>Por ello, Zuse es considerado <strong>el inventor del ordenador
+moderno</strong>.</p></li>
+</ul></li>
+<li><p><strong>1945: Ordenador Z4</strong></p>
+<ul>
+<li><p>El primer ordenador digital comercial del mundo.</p></li>
+<li><p>Se vendió a varias universidades.</p></li>
+</ul></li>
+<li><p><strong>1948: Plankalkül</strong></p>
+<ul>
+<li><p>Considerado <strong>el primer lenguaje de
+programación</strong>.</p></li>
+<li><p>Diseñado, pero no implantado en su época.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.3">
+
+<ul>
+<li><p><strong>(<em>Hasta aquí</em>):</strong> Todo se programa en
+<strong>lenguaje máquina</strong></p></li>
+<li><p><strong>1949: Lenguaje ensamblador
+(<em>EDSAC</em>)</strong></p></li>
+<li><p><strong>Primeros Autocódigos:</strong></p>
+<ul>
+<li><p><strong>1952: Autocódigo de Glennie (<em>Alick Glennie,
+Universidad de Manchester</em>)</strong></p></li>
+<li><p><strong>1955: Autocódigo del Mark 1 (<em>Ralph Anthony Brooker,
+Universidad de Manchester</em>)</strong></p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.4">
+
+<ul>
+<li><p><strong>1957: Fortran (<em>John Backus, IBM</em>)</strong></p>
+<ul>
+<li>El primer lenguaje de alto nivel de propósito general de uso masivo
+en tener una implementación funcional.</li>
+</ul></li>
+<li><p><strong>1958: LISP (<em>John McCarthy, Instituto de Tecnología de
+Massachusetts</em>)</strong></p>
+<ul>
+<li><p>Basado en el cálculo lambda.</p></li>
+<li><p>Destinado al procesamiento simbólico y a la investigación en
+Inteligencia Artificial.</p></li>
+</ul></li>
+<li><p><strong>1958 – 1960: Familia de lenguajes ALGOL (<em>Backus,
+Naur, Wijngaarden, Bauer, Perlis, McCarthy y otros</em>):</strong></p>
+<ul>
+<li><p><strong>1958: ALGOL 58</strong></p>
+<ul>
+<li>Introdujo el concepto de bloque de código (sentencia
+compuesta).</li>
+</ul></li>
+<li><p><strong>1960: ALGOL 60</strong></p>
+<ul>
+<li><p>Influyó mucho en lenguajes posteriores.</p></li>
+<li><p>Introdujo las funciones anidadas y el ámbito léxico.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.5">
+
+<ul>
+<li><p><strong>1959: FLOW-MATIC (<em>Grace Hopper, Remington
+Rand</em>)</strong></p>
+<ul>
+<li><p>El primer lenguaje de alto nivel orientado a las aplicaciones de
+gestión.</p></li>
+<li><p>El primero en usar sentencias y palabras en inglés.</p></li>
+</ul></li>
+<li><p><strong>1960: COBOL (<em>Grace Hopper, Comisión CODASYL y
+Departamento de Defensa de los EE.UU.</em>)</strong></p>
+<ul>
+<li>Inspirado en FLOW-MATIC.</li>
+</ul></li>
+<li><p><strong>1962: Simula (<em>Ole-Johan Dahl y Kristen Nygaard,
+Norwegian Computer Center</em>)</strong></p>
+<ul>
+<li>Considerado el primer lenguaje <strong>orientado a
+objetos</strong>.</li>
+</ul></li>
+<li><p><strong>1970: Pascal (<em>Niklaus Wirth</em>)</strong></p>
+<ul>
+<li><p>Lenguaje imperativo, procedimental, estructurado, pequeño,
+eficiente, heredero del ALGOL 60.</p></li>
+<li><p>Muy usado en la enseñanza de la programación.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.6">
+
+<ul>
+<li><p><strong>1972: Prolog (<em>Alain Colmerauer, Universidad de
+Marsella</em>)</strong></p>
+<ul>
+<li>El primer lenguaje de <strong>programación lógica</strong>.</li>
+</ul></li>
+<li><p><strong>1972: C (<em>Dennis Ritchie, Laboratorios
+Bell</em>)</strong></p>
+<ul>
+<li><p>Lenguaje de <strong>nivel medio</strong> (de alto nivel pero con
+acceso directo a la máquina y al sistema operativo).</p></li>
+<li><p>Lenguaje <strong>de sistemas</strong></p></li>
+</ul></li>
+<li><p><strong>1975: Scheme (<em>Gerald Jay Sussman, Guy L. Steele, Jr.,
+MIT</em>)</strong></p>
+<ul>
+<li>Lenguaje funcional basado en LISP con ámbito léxico.</li>
+</ul></li>
+<li><p><strong>1978: ML (<em>Robin Milner, Universidad de
+Edimburgo</em>)</strong></p>
+<ul>
+<li><p>Lenguaje de <strong>programación funcional</strong> con sistema
+de tipos estático y polimórfico.</p></li>
+<li><p>En realidad es una familia de lenguajes, entre los que se
+encuentran Standard ML, OCaml o F#.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.7">
+
+<ul>
+<li><p><strong>1980: Smalltalk (<em>Alan Kay, Adele Goldberg, Xerox
+PARC</em>)</strong></p>
+<ul>
+<li>Lenguaje orientado a objetos puro, reflexivo, con tipado dinámico,
+con un entorno propio de desarrollo y ejecución.</li>
+</ul></li>
+<li><p><strong>1985: C++ (<em>Bjarne Stroustrup, Laboratorios
+Bell</em>)</strong></p>
+<ul>
+<li>Extensión orientada a objetos del lenguaje C.</li>
+</ul></li>
+<li><p><strong>1990: Haskell (<em>Simon Peyton Jones, Paul Hudak, Philip
+Wadler y otros</em>)</strong></p>
+<ul>
+<li>Lenguaje funcional puro con evaluación no estricta y sistema de
+tipos polimórfico y fuertemente tipado.</li>
+</ul></li>
+<li><p><strong>1991: Python (<em>Guido Van Rossum, CWI de
+Holanda</em>)</strong></p>
+<ul>
+<li>Lenguaje multiparadigma interpretado, dinámico y
+multiplataforma.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.8">
+
+<ul>
+<li><p><strong>1995: Un año especialmente destacable:</strong></p>
+<ul>
+<li><p><strong>Java (<em>James Gosling, Sun
+Microsystems</em>)</strong></p>
+<ul>
+<li><p>Lenguaje orientado a objetos, el más usado en la
+actualidad.</p></li>
+<li><p>Genera código para una máquina virtual presente en millones de
+dispositivos en todo el mundo.</p></li>
+</ul></li>
+<li><p><strong>JavaScript (<em>Brendan Eich, Netscape
+Communications</em>)</strong></p>
+<ul>
+<li><p>Lenguaje multiparadigma, basado en prototipos e
+interpretado.</p></li>
+<li><p>Usado como lenguaje cliente en los navegadores web.</p></li>
+</ul></li>
+<li><p><strong>PHP (<em>Rasmus Lerdorf</em>)</strong></p>
+<ul>
+<li><p>Lenguaje multiparadigma e interpretado.</p></li>
+<li><p>Usado principalmente como lenguaje de servidor en aplicaciones
+web.</p></li>
+</ul></li>
+<li><p><strong>Ruby (<em>Yukihiro Matsumoto</em>)</strong></p>
+<ul>
+<li>Lenguaje interpretado orientado a objetos puro.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.9">
+
+<ul>
+<li><p><strong>2000: C# (<em>Anders Hejlsberg,
+Microsoft</em>)</strong></p>
+<ul>
+<li>Lenguaje orientado a objetos para la plataforma .NET.</li>
+</ul></li>
+<li><p><strong>2003: Scala (<em>Martin Odersky, Escuela Politécnica
+Federal de Lausana, Suiza</em>)</strong></p>
+<ul>
+<li>Lenguaje multiparadigma (funcional y orientado a objetos) para la
+máquina virtual de Java.</li>
+</ul></li>
+<li><p>Swift, Kotlin, TypeScript, Julia, Go, Rust, Perl 6,
+Clojure…</p></li>
+</ul>
+</section>
+<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol start="3" class="example" type="1">
+<li>Busca en Internet información sobre un lenguaje de programación que
+no se haya comentado aquí y que se haya creado no antes del año 2000.
+Anota el paradigma (o paradigmas) que soporta y los lenguajes que
+influyeron en su diseño.</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="clasificación" class="title-slide slide level1"
+data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span>
+Clasificación</h1>
+
+</section>
+<section id="por-nivel" class="title-slide slide level2"
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Por
+nivel</h2>
+<ul>
+<li><p>Dependiendo del <strong>nivel</strong> del lenguaje de
+programación tenemos:</p>
+<ul>
+<li><p>Lenguajes de bajo nivel</p></li>
+<li><p>Lenguajes de alto nivel</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="lenguajes-de-bajo-nivel" class="title-slide slide level3"
+data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span>
+Lenguajes de bajo nivel</h3>
+<ul>
+<li><p>Características:</p>
+<ul>
+<li><p>Lenguajes basados en el paradigma imperativo.</p></li>
+<li><p>Más cercanos a la máquina.</p></li>
+<li><p>Con poca o nula capacidad de abstracción.</p></li>
+<li><p>Se trabaja directamente con elementos propios del
+<em>hardware</em> del ordenador.</p></li>
+<li><p>Atados a la arquitectura interna de la máquina para la que se
+programa.</p></li>
+<li><p>Programas difíciles de escribir, depurar, mantener y
+portar.</p></li>
+<li><p>Se consigue el máximo control del ordenador.</p></li>
+</ul></li>
+<li><p>Principales ejemplos:</p>
+<ul>
+<li><p>Código máquina</p></li>
+<li><p>Ensamblador</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="lenguajes-de-alto-nivel" class="title-slide slide level3"
+data-number="3.1.2">
+<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span>
+Lenguajes de alto nivel</h3>
+<ul>
+<li><p>Características:</p>
+<ul>
+<li><p>Lenguajes que pueden estar basados en cualquier paradigma, aunque
+la tendencia es que sean cada vez más <em>declarativos</em>.</p></li>
+<li><p>Más cercanos al ser humano.</p></li>
+<li><p>Mayor capacidad de abstracción.</p></li>
+<li><p>Independiente de la arquitectura y los detalles internos del
+ordenador o el sistema operativo.</p></li>
+<li><p>Programas más fáciles de escribir, depurar, mantener y
+portar.</p></li>
+<li><p>Menor control de los recursos de la máquina.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.2.0.1">
+
+<ul>
+<li><p>Ejemplos de lenguajes de alto nivel:</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Fortran</li>
+<li>LISP</li>
+<li>COBOL</li>
+<li>BASIC</li>
+<li>Pascal</li>
+<li>C</li>
+<li>Java</li>
+</ul>
+</div><div class="column">
+<ul>
+<li>Ruby</li>
+<li>C++</li>
+<li>Python</li>
+<li>JavaScript</li>
+<li>C#</li>
+<li>PHP</li>
+<li>Haskell</li>
+</ul>
+</div>
+</div></li>
+</ul>
+</section>
+<section id="ejercicio-1" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol start="4" class="example" type="1">
+<li>Ordena cronológicamente la lista anterior por el año de creación de
+cada lenguaje.</li>
+</ol>
+</section>
+
+
+<section id="por-generación" class="title-slide slide level2"
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Por
+generación</h2>
+<ol type="1">
+<li><p><strong>Primera generación</strong>: Se programa directamente en
+<em>código máquina</em>.</p></li>
+<li><p><strong>Segunda generación</strong>: Aparece el <em>lenguaje
+ensamblador</em> como un lenguaje simbólico que se traduce a lenguaje
+máquina usando un <em>programa ensamblador</em>.</p></li>
+<li><p><strong>Tercera generación</strong>: Aparecen los <em>lenguajes
+de alto nivel</em> con los que se puede programar con códigos
+independientes de la máquina. El código fuente se traduce a código
+máquina usando programas específicos llamados
+<strong>traductores</strong>.</p></li>
+<li><p><strong>Cuarta generación</strong>: Herramientas que combinan un
+lenguaje de programación de alto nivel con un <em>software</em> de
+generación de pantallas, listados, informes, etc. orientado al
+desarrollo rápido de aplicaciones. Ejemplos característicos son los
+lenguajes de <strong>programación visual</strong>.</p></li>
+<li><p><strong>Quinta generación</strong>: Es una denominación que se
+usó durante un tiempo para los lenguajes de programación de muy alto
+nivel (funcional y lógicos) destinados principalmente a resolver
+problemas de <strong>Inteligencia Artificial</strong>, pero como término
+ya ha caído en desuso.</p></li>
+</ol>
+</section>
+
+<section id="por-propósito" class="title-slide slide level2"
+data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Por
+propósito</h2>
+<ul>
+<li><p>Dependiendo del tipo de programa que podemos escribir con el
+lenguaje, tenemos:</p>
+<ul>
+<li><p><strong>Lenguajes de propósito general</strong>: Con ellos se
+pueden escribir programas muy diversos. No están atados a un tipo
+concreto de problema a resolver. Ejemplos:</p>
+<ul>
+<li>LISP, Pascal, C, Java, Ruby, C++, Python, C#, Haskell…</li>
+</ul></li>
+<li><p><strong>Lenguajes de propósito específico</strong>: Son lenguajes
+mucho más especializados y destinados principalmente a resolver un tipo
+determinado de problema. No sirven para escribir cualquier tipo de
+programa pero, dentro de su ámbito de actuación, suelen funcionar mejor
+que los lenguajes de propósito general. Ejemplos:</p>
+<ul>
+<li><p>Lenguajes de consulta a bases de datos (SQL)</p></li>
+<li><p>Lenguajes de descripción de hardware (VHDL)</p></li>
+<li><p>Lenguajes para desarrollo de aplicaciones de gestión
+(COBOL)</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="por-paradigma" class="title-slide slide level2"
+data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> Por
+paradigma</h2>
+<ul>
+<li><p>Dependiendo del paradigma de programación que soporta el
+lenguaje, podemos encontrar:</p>
+<ul>
+<li><p>Lenguajes imperativos</p></li>
+<li><p>Lenguajes funcionales</p></li>
+<li><p>Lenguajes orientados a objetos</p></li>
+<li><p>Lenguajes lógicos</p></li>
+<li><p>Lenguajes dirigidos por eventos</p></li>
+<li><p>Lenguajes multiparadigma</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="traductores-e-intérpretes" class="title-slide slide level1"
+data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span>
+Traductores e intérpretes</h1>
+
+</section>
+<section id="traductores" class="title-slide slide level2"
+data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span>
+Traductores</h2>
+<ul>
+<li><p>El único lenguaje que entiende la máquina directamente es el
+<strong>lenguaje máquina</strong> o <strong>código máquina</strong>, que
+es un lenguaje de <strong>bajo nivel</strong>.</p></li>
+<li><p>Para poder programar con un lenguaje de <strong>alto
+nivel</strong>, necesitamos usar herramientas <em>software</em> que
+traduzcan nuestro programa al lenguaje máquina que entiende el
+ordenador.</p></li>
+<li><p>Estas herramientas <em>software</em> son los
+<strong>traductores</strong>.</p>
+<div class="caja">
+<p><strong>Traductor:</strong></p>
+<p>Es un <em>software</em> que traduce un programa escrito en un
+lenguaje a otro lenguaje, conservando su significado.</p>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.1">
+
+<ul>
+<li><p>El traductor transforma el programa fuente (o <strong>código
+fuente</strong>) en el programa objeto (o <strong>código
+objeto</strong>).</p></li>
+<li><p>El código fuente está escrito en el <strong>lenguaje
+fuente</strong> (que generalmente será un lenguaje de alto
+nivel).</p></li>
+<li><p>El código objeto está escrito en el <strong>lenguaje
+objeto</strong> (que generalmente será código máquina).</p></li>
+<li><p>Durante el proceso de traducción, el traductor también informa al
+programador de posibles <strong>errores</strong> en el código
+fuente.</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/traduccion.svg" class="plain" style="width:80.0%"
+alt="El proceso de traducción" />
+<figcaption aria-hidden="true">El proceso de traducción</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="compiladores" class="title-slide slide level2"
+data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span>
+Compiladores</h2>
+<ul>
+<li><p>Definición:</p>
+<div class="caja">
+<p><strong>Compilador</strong>:</p>
+<p>Es un traductor que convierte un programa escrito en un lenguaje de
+<strong>más alto nivel</strong> a un lenguaje de <strong>más bajo
+nivel</strong>.</p>
+</div></li>
+<li><p>Generalmente, el lenguaje objeto suele ser <strong>código
+máquina</strong> y el resultado de la compilación es un <strong>objeto
+ejecutable</strong> directamente por la máquina.</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/compilacion.svg" class="plain"
+style="width:80.0%" /></p>
+</div>
+</section>
+<section id="ensambladores" class="title-slide slide level3"
+data-number="4.2.1">
+<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span>
+Ensambladores</h3>
+<ul>
+<li><p>Un caso particular de compilador es el
+<strong>ensamblador</strong>:</p>
+<div class="caja">
+<p><strong>Ensamblador</strong>:</p>
+<p>Es un compilador que traduce un programa escrito en <strong>lenguaje
+ensamblador</strong> a código máquina.</p>
+</div></li>
+<li><p>Muchas veces, los compiladores se construyen <em>en cadena</em>:
+en lugar de generar código máquina directamente, generan código
+ensamblador que sirve de entrada a un programa ensamblador que generará
+el código objeto final.</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/ensamblado.svg" class="plain"
+style="width:100.0%" /></p>
+</div>
+</section>
+
+
+<section id="intérpretes" class="title-slide slide level2"
+data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span>
+Intérpretes</h2>
+<ul>
+<li><p>Un <strong>intérprete</strong> es un caso muy especial de
+traductor.</p></li>
+<li><p>En lugar de generar código objeto, el intérprete <strong>lee el
+código fuente y lo ejecuta directamente</strong>, reconociendo y
+ejecutando sus instrucciones una por una hasta que se acaba el
+programa.</p></li>
+<li><p>El intérprete funciona, por tanto, como un
+<strong>emulador</strong> de una máquina que entendiera directamente el
+lenguaje de alto nivel en el que está escrito el programa fuente. Esa
+máquina no existe físicamente, y por eso decimos que es una <em>máquina
+abstracta</em>, para distinguirla de la real.</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/interpretes.svg" class="plain"
+style="width:60.0%" /></p>
+</div>
+<ul>
+<li>En rigor, como los intérpretes no generan código objeto, no
+podríamos considerarlos traductores, sino que más bien entran dentro de
+la categoría más general de <strong>procesadores de
+lenguajes</strong>.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.1">
+
+<ul>
+<li><p>Un intérprete está formado por un <strong>analizador</strong> y
+un <strong>emulador</strong>:</p>
+<ul>
+<li><p>El <strong>analizador</strong> traduce todo el código fuente a
+una representación interna llamada <strong>árbol sintáctico</strong>
+(que no hay que confundir con el <em>árbol de análisis
+sintáctico</em>).</p>
+<p>Ese árbol sintáctico no se vuelca directamente a la salida, sino que
+es consumida directamente por el <em>emulador</em>.</p></li>
+<li><p>El <strong>emulador</strong> se encarga de recorrer el árbol
+sintáctico y de ir ejecutando las instrucciones que éste representa,
+llevando a cabo las acciones que correspondan dependiendo de la
+instrucción que sea.</p>
+<p>Para ello, tiene que ir traduciendo sobre la marcha, instrucción por
+instrucción, las acciones a realizar sobre la máquina abstracta en
+acciones a realizar sobre la máquina real.</p></li>
+</ul></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/analizador-emulador.svg" class="plain"
+style="width:70.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="4.3.0.0.2">
+
+<ul>
+<li><p><strong>Programar</strong> con un intérprete es una tarea
+<strong>más rápida</strong> de realizar que con un compilador, ya que,
+para poder ejecutar el programa, no hace falta compilar ni generar el
+código objeto, por lo que se evita dar un paso que en muchos casos puede
+llegar a consumir mucho tiempo.</p></li>
+<li><p>Por la misma razón, a muchos programadores les resulta
+<strong>más cómodo</strong> y fluido programar usando un intérprete
+(aunque con los modernos <em>entornos de desarrollo</em> esto ya no
+supone tanta diferencia como antes).</p></li>
+<li><p>Sin embargo, si el programa fuente tiene <em>errores
+sintácticos</em> (o ciertos errores de <em>semántica estática</em>), el
+intérprete no informará de ellos hasta el momento en el que intente
+ejecutar la instrucción errónea.</p>
+<p>Es decir: <strong>esos errores se detectarán y se mostrarán en
+<em>tiempo de ejecución</em></strong>, no en <em>tiempo de
+compilación</em>.</p></li>
+<li><p>Por tanto, muchos errores que pueden ser detectados por un
+compilador sólo se podrán detectar cuando ya se esté ejecutando el
+programa, lo que hace que el coste (en tiempo y dinero) de corregir el
+error sea mucho mayor.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.3">
+
+<ul>
+<li><p>Además, los programas interpretados suelen ser <strong>varias
+veces más lentos</strong> que los compilados, ya que:</p>
+<ul>
+<li><p>hay que ir recorriendo continuamente el árbol sintáctico para
+encontrarse con las instrucciones que allí aparecen, lo que consume
+tiempo y memoria;</p></li>
+<li><p>hay que traducir las instrucciones de la máquina abstracta a
+instrucciones de la máquina real, cosa que no se hace de una vez y para
+siempre, sino que <strong>se va haciendo poco a poco a medida que se va
+encontrando con una nueva instrucción</strong> al recorrer el árbol
+sintáctico.</p></li>
+</ul></li>
+<li><p>En cambio, <strong>un compilador traduce todas las instrucciones
+de una vez y sólo una vez</strong>, de forma que, al ejecutarlas, ya
+están todas traducidas al lenguaje objeto, formando el código
+objeto.</p></li>
+<li><p>Hay lenguajes <em>compilados</em> y lenguajes
+<em>interpretados</em>, e incluso lenguajes que son ambas cosas (tienen
+compiladores e intérpretes).</p></li>
+</ul>
+</section>
+<section id="interactivos-repl" class="title-slide slide level3"
+data-number="4.3.1">
+<h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span>
+Interactivos (<em>REPL</em> )</h3>
+<ul>
+<li><p>A los intérpretes que hemos visto hasta ahora se les denomina
+<strong>intérpretes por lotes</strong>, ya que tratan al programa fuente
+como un lote de instrucciones conjuntas.</p></li>
+<li><p>A diferencia de los anteriores, los <strong>intérpretes
+interactivos</strong> son programas que solicitan al programador que
+introduzca por teclado, una a una, las instrucciones que se desean
+ejecutar, y el intérprete las va ejecutando a medida que el programador
+las va introduciendo.</p></li>
+<li><p>Su comportamiento se resume en el siguiente bucle:</p>
+<ol type="1">
+<li><p>Leer la siguiente instrucción por teclado
+(<em><strong>R</strong>ead</em>).</p></li>
+<li><p>Ejecutar o evaluar la instrucción
+(<em><strong>E</strong>val</em>).</p></li>
+<li><p>Imprimir por la pantalla el resultado
+(<em><strong>P</strong>rint</em>).</p></li>
+<li><p>Repetir el bucle (<em><strong>L</strong>oop</em>).</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.1.0.1">
+
+<ul>
+<li><p><strong>Los <em>compiladores</em> son ideales para:</strong></p>
+<ul>
+<li><p>Desarrollar aplicaciones que demanden altas prestaciones y que
+necesiten sacar el máximo rendimiento de la máquina.</p></li>
+<li><p>Acceder a los recursos de la máquina al más bajo nivel.</p></li>
+</ul></li>
+<li><p><strong>Los <em>intérpretes por lotes</em> son ideales
+para:</strong></p>
+<ul>
+<li><p>Desarrollo rápido de aplicaciones.</p></li>
+<li><p>Escribir programas que requieran <em>portabilidad</em>, es decir,
+que el programa se pueda ejecutar en varias plataformas
+diferentes.</p></li>
+<li><p>Escribir programas sencillos y rápidos que resuelvan tareas
+concretas.</p></li>
+</ul></li>
+<li><p><strong>Los <em>intérpretes interactivos</em> son ideales
+para:</strong></p>
+<ul>
+<li><p>Aprender conceptos de programación.</p></li>
+<li><p>Experimentar con el lenguaje.</p></li>
+<li><p>Probar rápidamente el efecto de una instrucción.</p></li>
+</ul></li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="entornos-integrados-de-desarrollo"
+class="title-slide slide level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span>
+Entornos integrados de desarrollo</h1>
+
+</section>
+<section id="definición-2" class="title-slide slide level2"
+data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span>
+Definición</h2>
+<ul>
+<li><p>Definición:</p>
+<div class="caja">
+<p>Un <strong>entorno integrado de desarrollo</strong> o
+<strong>IDE</strong> (del inglés, <em>Integrated Development
+Environment</em>), es una herramienta <em>software</em> que proporciona
+servicios que facilitan el desarrollo de software al programador.</p>
+</div></li>
+<li><p>Está formado por un <strong>editor de textos</strong> donde el
+programador puede codificar el programa en el lenguaje de programación
+correspondiente, alrededor del cual pueden orbitar una serie de
+herramientas satélite, como:</p>
+<ul>
+<li>Herramientas visuales para la creación de <em>interfaces gráficas de
+usuario</em></li>
+<li>Sistemas de control de versiones</li>
+<li>Visor de documentación</li>
+<li>Intérpretes interactivos</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.0.0.1">
+
+<ul>
+<li><p>Asimismo, el editor de textos del IDE suele incorporar
+facilidades que ayudan a escribir código con más comodidad:</p>
+<ul>
+<li><p>Resaltado de sintaxis</p></li>
+<li><p>Autocompletado de código</p></li>
+<li><p>Ayudas a la refactorización</p></li>
+</ul></li>
+<li><p>Los IDE suelen ir asociados a un lenguaje o grupo de lenguajes de
+programación concreto y, por lo tanto, son herramientas especializadas
+utilizadas para programar en el lenguaje o lenguajes para los que han
+sido diseñadas. Por ejemplo:</p>
+<ul>
+<li><p>PyCharm es un IDE para programar en el lenguaje Python.</p></li>
+<li><p>IntelliJ IDEA es un IDE para programar en el lenguaje
+Java.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="editores-de-textos" class="title-slide slide level2"
+data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span>
+Editores de textos</h2>
+<ul>
+<li><p>Un editor de textos, por contra, es una herramienta
+<em>software</em> que, en principio, sólo cuenta con la posibilidad de
+editar texto «plano» cuyo contenido puede ser de cualquier tipo (no
+necesariamente un código fuente).</p></li>
+<li><p>Al ser una herramienta general, no dispone de características
+específicas para escribir programas.</p></li>
+<li><p>Los principales editores de textos que podemos encontrar en el
+mercado son:</p>
+<ul>
+<li>Vim</li>
+<li>Emacs</li>
+<li>Atom</li>
+<li>Sublime Text</li>
+<li>Visual Studio Code</li>
+</ul></li>
+</ul>
+</section>
+<section id="editores-vs.-ide" class="title-slide slide level3"
+data-number="5.2.1">
+<h3 data-number="5.2.1"><span class="header-section-number">5.2.1</span>
+Editores vs. IDE</h3>
+<ul>
+<li><p>Los mejores editores de textos son <strong>extensibles</strong>,
+es decir, es posible ampliar su funcionalidad por medio de
+<em>extensiones</em>.</p></li>
+<li><p>Esto hace que podamos personalizar su aspecto y funcionalidad
+hasta crear con ellos un IDE completo y ajustado a nuestras
+necesidades.</p></li>
+<li><p>Gracias a ello, podemos usar el mismo editor de textos tanto para
+crear documentos de texto genéricos como para escribir programas. Por
+tanto, sólo tenemos que aprender el manejo de una única
+herramienta.</p></li>
+<li><p>No obstante, los IDE suelen incorporar modos de funcionamiento
+que <em>imitan</em> a los de los editores de textos más conocidos (como
+Vim o Emacs).</p></li>
+</ul>
+</section>
+
+<section id="thonny" class="title-slide slide level3"
+data-number="5.2.2">
+<h3 data-number="5.2.2"><span class="header-section-number">5.2.2</span>
+Thonny</h3>
+<ul>
+<li><p>Es el IDE que vamos a usar en clase.</p></li>
+<li><p>Es <em>software</em> libre, y por tanto podemos usarlo sin ningún
+tipo de restricción.</p></li>
+<li><p>Además, está pensado para el principiante y proporciona una serie
+de ayudas pedagógicas muy interesantes para el que está aprendiendo
+Programación.</p></li>
+<li><p>Una vez estemos familiarizados con su entorno, podremos pasar a
+otras herramientas más usadas en la industria y más flexibles como
+Visual Studio Code, Spyder o PyCharm.</p></li>
+</ul>
+</section>
+
+</section>
+<section id="bibliografía"
+class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-aguilar_fundamentos_2008" class="csl-entry"
+role="listitem">
+Aguilar, Luis Joyanes. 2008. <em>Fundamentos de Programación</em>.
+Aravaca: McGraw-Hill Interamericana de España.
+</div>
+<div id="ref-pareja_flores_desarrollo_1997" class="csl-entry"
+role="listitem">
+Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada,
+and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos y Técnicas
+de Programación En <span>Pascal</span></em>. Madrid: Ra-Ma.
+</div>
+<div id="ref-van-roy_concepts_2004" class="csl-entry" role="listitem">
+Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and
+Models of Computer Programming</em>. Cambridge, Mass: MIT Press.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="./reveal.js/plugin/notes/notes.js"></script>
+  <script src="./reveal.js/plugin/search/search.js"></script>
+  <script src="./reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="./reveal.js/plugin/reveal.js-menu/menu.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: true,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 1080,
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        menu: {
+          hideMissingTitles: true,
+        },
+
+        dependencies: [
+          { src: './reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } }
+        ],
+
+        // reveal.js plugins
+        plugins: [
+          RevealMenu,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="text/javascript">
+       var title = document.getElementsByClassName('title')[0];
+       title = title != null ? title.innerHTML : '';
+       var author = document.getElementsByClassName('author')[0];
+       author = author != null ? author.innerHTML : '';
+       var date = document.getElementsByClassName('date')[0];
+       date = date != null ? date.innerHTML : '';
+       document.getElementById('header-left').innerHTML = '<a href="#/title-slide">' + title + '</a>';
+       document.getElementById('footer-left').innerHTML = '<a href="https://pro.iesdonana.org">&copy; ' + author + ' (' + date + ')</a>';
+
+       function updateHeader(nd) {
+           var hr = document.getElementById('header-right');
+           while (hr.children.length > 0) {
+               hr.removeChild(hr.lastChild);
+           }
+           buscar(nd, 3, hr);
+           buscar(nd, 2, hr);
+           buscar(nd, 1, hr);
+           hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+           hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+           var hl = document.getElementById('header-left');
+           hl.style.fontSize = hr.style.fontSize;
+       }
+
+       function buscar(nd, level, hr) {
+           if (!nd.classList.contains('level' + (level - 1))) {
+               for (var n = nd; n != null; n = n.previousSibling) {
+                   if (n.nodeType == Node.TEXT_NODE) {
+                       continue;
+                   }
+                   var cl = n.classList;
+                   if (cl.contains('level' + level)) {
+                       var h = n.querySelector('h' + level);
+                   } else if (cl.contains('level' + (level - 1))) {
+                       break;
+                   } else {
+                       continue;
+                   }
+                   if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                       hr.innerHTML = '';
+                   } else {
+                       var el = document.createElement('a');
+                       var href = '#/' + n.id;
+                       el.href = href;
+                       el.innerHTML = h.innerHTML;
+                       var a = el.querySelector('a');
+                       if (a !== null) {
+                           a.href = href;
+                       }
+                       if (hr.innerHTML != '') {
+                           hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                       }
+                       hr.insertBefore(el, hr.firstChild);
+                   }
+                   break;
+               }
+           }
+       }
+
+       // On Reveal.js ready event, copy header/footer <div>
+       // into each `.slide-background` <div>
+       Reveal.on('ready', event => {
+           var header = document.getElementById('header');
+           document.querySelector('.reveal').appendChild(header);
+           updateHeader(Reveal.getCurrentSlide());
+       });
+
+       Reveal.on('slidechanged', event => {
+           // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+           updateHeader(event.currentSlide);
+       });
+    </script>
+    </body>
+</html>

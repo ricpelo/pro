@@ -31,6 +31,7 @@ MACROS DE USO GENERAL
 !define(SALTOLARGO)(!ifndef(LATEX)(<br>\vspace{2em}))
 !define(SALTOBEAMER)(!ifdef(BEAMER)(\vspace{1em}))
 !define(SALTOLARGOBEAMER)(!ifdef(BEAMER)(\vspace{2em}))
+!define(SPC)(!python3(print(!1 * r'\ ', end='')))
 
 !comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
