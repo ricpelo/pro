@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Programación procedimental</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #268bd2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #d33682; } /* BaseN */
+    code span.bu { color: #4070a0; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #dc322f; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #6c71c4; } /* DataType */
+    code span.dv { color: #d33682; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #d33682; } /* Float */
+    code span.fu { color: #4070a0; } /* Function */
+    code span.im { font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #a57800; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #2aa198; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #6c71c4; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-left"></div>
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Programación procedimental</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2024/2025</p>
+</section>
+<section id="TOC">
+<nav role="doc-toc"> 
+<ul>
+<li><a href="#/conceptos-básicos" id="/toc-conceptos-básicos"><span
+class="toc-section-number">1</span> Conceptos básicos</a></li>
+<li><a href="#/funciones-imperativas"
+id="/toc-funciones-imperativas"><span
+class="toc-section-number">2</span> Funciones imperativas</a></li>
+<li><a href="#/funciones-locales-a-funciones"
+id="/toc-funciones-locales-a-funciones"><span
+class="toc-section-number">3</span> Funciones locales a
+funciones</a></li>
+</ul>
+</nav>
+</section>
+
+<section>
+<section id="conceptos-básicos" class="title-slide slide level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span>
+Conceptos básicos</h1>
+
+</section>
+<section id="procedimientos" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Procedimientos</h2>
+<ul>
+<li><p>A un bloque de sentencias que realiza una tarea específica se le
+puede dar un <strong>nombre</strong>.</p></li>
+<li><p>De esta forma se crearía una única <strong>unidad de código
+empaquetado que actuaría bajo ese nombre como una caja negra</strong>,
+de manera que, para poder usarla, bastaría con <strong><em>llamarla</em>
+invocando su nombre</strong> sin tener que conocer sus detalles internos
+de funcionamiento.</p></li>
+<li><p>A este tipo de «<em>bloques con nombre</em>» se les denomina
+<strong>subrutinas</strong>, <strong>subprogramas</strong> o
+<strong>procedimientos</strong>.</p></li>
+<li><p>Es el equivalente imperativo al concepto de <em>función</em> en
+programación funcional, solo que en lugar de estar formado por una
+expresión, está formado por una sentencia o bloque de
+sentencias.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>Los procedimientos nos ayudan a:</p>
+<ul>
+<li><p>Descomponer el problema principal en subproblemas más pequeños
+que se pueden resolver por separado de una forma más o menos
+independiente del resto.</p></li>
+<li><p>Ocultar la complejidad de partes concretas de un programa bajo
+capas de abstracción con diferentes niveles de detalle.</p></li>
+<li><p>Desarrollar el programa mediante sucesivos refinamientos de cada
+nivel de abstracción.</p></li>
+</ul></li>
+<li><p>En definitiva, los procedimientos son
+<strong>abstracciones</strong>.</p></li>
+<li><p>La <strong><em>llamada</em></strong> o
+<strong><em>invocación</em></strong> a un procedimiento es una sentencia
+simple pero que provoca la ejecución de un bloque de
+sentencias.</p></li>
+<li><p>Por tanto, podría considerarse que <strong>un procedimiento es
+una sentencia compuesta que actúa como una sentencia
+simple</strong>.</p></li>
+</ul>
+</section>
+
+<section id="el-paradigma-de-programación-procedimental"
+class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span> El
+paradigma de programación procedimental</h2>
+<ul>
+<li><p>La <strong>programación procedimental</strong> (<em>procedural
+programming</em>) es un paradigma de programación imperativa basada en
+los conceptos de <strong>procedimiento</strong> y <strong>llamada a
+procedimientos</strong>.</p></li>
+<li><p>En este paradigma, un programa imperativo está compuesto
+principalmente por procedimientos (bloques de sentencias con nombre) que
+se llaman entre sí.</p></li>
+<li><p>Los procedimientos pueden tener parámetros a través de los cuales
+reciben sus datos de entrada, caso de necesitarlos.</p></li>
+<li><p>A su vez, los procedimientos pueden devolver un resultado, de ser
+necesario.</p></li>
+<li><p>Los procedimientos, además, determinan su propio ámbito local y
+(dependiendo del lenguaje de programación usado) también podrían acceder
+a otros ámbitos no locales que contengan al suyo, como el ámbito
+global.</p></li>
+</ul>
+</section>
+
+<section id="procedimientos-y-refinamiento-sucesivo"
+class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span>
+Procedimientos y refinamiento sucesivo</h2>
+<ul>
+<li><p>Durante el proceso de refinamiento sucesivo que acabamos de
+estudiar, se pueden ir creando procedimientos que representen
+<strong>diferentes niveles de detalle</strong> en el diseño
+descendente.</p></li>
+<li><p>Recordemos que una estructura de control es una sentencia
+compuesta y, como tal, podemos estudiarla como si fuera una sola
+sentencia (con su entrada y su salida), sin tener que conocer el detalle
+de cómo funciona por dentro, es decir, sin tener que conocer qué
+sentencias más simples contiene.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.1">
+
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="centered">
+<p><img data-src="images/claro.svg" class="plain"
+style="width:100.0%" /></p>
+</div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>Las cajas con trazo discontinuo, que representan los límites de cada
+estructura, nos hacen entender que podemos ver cada una de esas
+estructuras como una sola sentencia.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="1.3.0.0.2">
+
+<ul>
+<li><p>De igual forma, una llamada a un procedimiento es una sentencia
+simple que actúa como una sentencia compuesta, formada por varias
+instrucciones (el <em>cuerpo</em> del procedimiento) que actúan como una
+sola.</p></li>
+<li><p>En ese caso, <strong>el procedimiento actúa como un recurso
+abstracto en un determinado nivel</strong> (en ese nivel, se invoca al
+procedimiento aunque aún no exista) que luego se implementa en un nivel
+de mayor refinamiento.</p></li>
+<li><p>El uso de procedimientos para escribir programas siguiendo un
+diseño descendente nos lleva a un <strong>código descompuesto en partes
+separadas</strong> en lugar de tener un único código enorme con todo el
+texto del programa escrito directamente al mismo nivel.</p></li>
+<li><p>Esta forma de refinamiento y de diseño descendente está ya más
+relacionado con el concepto de <strong>programación modular</strong>,
+que estudiaremos posteriormente.</p></li>
+<li><p>En un ordinograma, una llamada a un procedimiento se representa
+como un rectángulo con doble trazo superior.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.3">
+
+<div class="centered">
+<figure>
+<img data-src="images/refinamiento.png" class="plain"
+style="width:60.0%"
+alt="Diseño descendente por refinamiento sucesivo usando procedimientos" />
+<figcaption aria-hidden="true">Diseño descendente por refinamiento
+sucesivo usando procedimientos</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="1.3.0.0.4">
+
+<ul>
+<li><p>El ejemplo anterior descompuesto en procedimientos sería:</p>
+<div class="line-block"><strong>Algoritmo:</strong> Tabla de multiplicar
+de <span class="math inline">n \times n</span><br />
+<strong>Entrada:</strong> El tamaño <span class="math inline">n</span>
+(por la entrada estándar)<br />
+<strong>Salida:</strong> La tabla de multiplicar de <span
+class="math inline">n \times n</span> (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <strong>leer <span class="math inline">n</span></strong><br />
+      construir_tabla(<span class="math inline">n</span>)<br />
+<strong>fin</strong></div></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:49%;">
+
+<div class="line-block"><strong>Procedimiento:</strong>
+construir_tabla(<span class="math inline">m</span>)<br />
+<strong>Entrada:</strong> El tamaño <span
+class="math inline">m</span><br />
+<strong>Salida:</strong> La tabla de multiplicar de <span
+class="math inline">m \times m</span> (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <span class="math inline">i \longleftarrow 1</span><br />
+      <strong>mientras</strong> <span class="math inline">i \leq
+m</span> <strong>hacer</strong><br />
+              escribir_fila(<span class="math inline">i</span>, <span
+class="math inline">m</span>)<br />
+              <span class="math inline">i \longleftarrow i +
+1</span><br />
+<strong>fin</strong></div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:49%;">
+
+<div class="line-block"><strong>Procedimiento:</strong>
+escribir_fila(<span class="math inline">f</span>, <span
+class="math inline">t</span>)<br />
+<strong>Entrada:</strong> El número (<span class="math inline">f</span>)
+de la fila a escribir y el tamaño (<span class="math inline">t</span>)
+de la tabla<br />
+<strong>Salida:</strong> La fila <span class="math inline">f</span> de
+la tabla de multiplicar (por la salida estándar)<br />
+<strong>inicio</strong><br />
+      <span class="math inline">i \longleftarrow 1</span><br />
+      <strong>mientras</strong> <span class="math inline">i \leq
+t</span> <strong>hacer</strong><br />
+              <strong>escribir</strong> <span class="math inline">f
+\times i</span> sin salto de línea<br />
+              <span class="math inline">i \longleftarrow i +
+1</span><br />
+      <strong>escribir</strong> un salto de línea<br />
+<strong>fin</strong></div>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="1.3.0.0.5">
+
+<ul>
+<li><p>El código escrito mediante descomposición en procedimientos tiene
+dos grandes ventajas:</p>
+<ul>
+<li><p>Es más fácil de entender un código basado en abstracciones
+independientes y separadas que se llaman entre sí, antes que un código
+donde todo está en el mismo nivel de refinamiento formando un texto
+monolítico de principio a fin.</p></li>
+<li><p>Es probable que los procedimientos así obtenidos puedan
+<em>reutilizarse</em> en otros programas con poca o ninguna variación,
+siempre y cuando sean lo suficientemente genéricos e independientes del
+resto del programa que los utiliza.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.6">
+
+<ul>
+<li><p>Estas ventajas nos están ya haciendo entender que puede resultar
+interesante diseñar un programa descomponiéndolo en partes separadas,
+asunto que veremos con más detalle al estudiar la <em>programación
+modular</em>.</p></li>
+<li><p>Pero no debemos confundir la programación procedimental con la
+programación modular, que son términos relacionados pero
+diferentes.</p></li>
+<li><p>Asimismo, la mayoría de los lenguajes estructurados permiten la
+creación de procedimientos, lo que a veces lleva a la confusión de creer
+que la programación estructurada y la procedimental son el mismo
+paradigma.</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="funciones-imperativas" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Funciones imperativas</h1>
+
+</section>
+<section id="introducción" class="title-slide slide level2"
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+Introducción</h2>
+<ul>
+<li><p>Cada lenguaje de programación procedimental establece sus propios
+mecanismos de creación de procedimientos.</p></li>
+<li><p>En Python, los procedimientos son las denominadas
+<strong>funciones imperativas</strong>.</p></li>
+<li><p>En los lenguajes orientados a objetos, los procedimientos serían
+los <strong>métodos</strong>, que son funciones imperativas que se
+ejecutan sobre objetos.</p></li>
+<li><p>Estudiaremos ahora cómo crear y usar funciones imperativas en
+Python.</p></li>
+<li><p>Al ser Python un lenguaje orientado a objetos además de
+procedimental, en su momento veremos también cómo crear métodos haciendo
+uso de funciones imperativas.</p></li>
+</ul>
+</section>
+
+<section id="definición-de-funciones-imperativas"
+class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+Definición de funciones imperativas</h2>
+<ul>
+<li><p>Al igual que ocurre en programación funcional, una función
+imperativa es una construcción sintáctica que acepta argumentos y
+produce un resultado.</p></li>
+<li><p>Pero a diferencia de lo que ocurre en programación funcional, una
+función imperativa contiene <strong>sentencias</strong>.</p></li>
+<li><p>Las funciones imperativas en Python conforman los bloques básicos
+que nos permiten <strong>descomponer un programa en partes</strong> que
+se combinan entre sí, lo que resulta el complemento perfecto para la
+programación estructurada.</p></li>
+<li><p>Todavía podemos construir funciones mediante expresiones lambda,
+pero las funciones imperativas tienen ventajas:</p>
+<ul>
+<li><p>Podemos escribir <strong>sentencias</strong> dentro de las
+funciones imperativas.</p></li>
+<li><p>Podemos escribir funciones que no devuelvan ningún resultado
+porque su cometido sea provocar algún efecto lateral.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.1">
+
+<ul>
+<li><p>La <strong>definición</strong> de una función imperativa tiene la
+siguiente sintaxis:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>definición_función</em>⟩</span> ::=<br />
+<strong><code>def</code></strong> <span
+style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>(</code></strong>[<span
+style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>)</code><code>:</code></strong><br />
+      <span style="color:teal">⟨<em>cuerpo</em>⟩</span></div></li>
+<li><p>donde:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>lista_parámetros</em>⟩</span> ::=
+<strong><code>identificador</code></strong>
+[<strong><code>,</code></strong>
+<strong><code>identificador</code></strong>]*<br />
+<span style="color:teal">⟨<em>cuerpo</em>⟩</span> ::= <span
+style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(persona):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despide():</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.2">
+
+<ul>
+<li><p>La definición de una función imperativa es una <strong>sentencia
+compuesta</strong>, es decir, una <strong>estructura</strong> (como las
+estructuras de control <code
+class="sourceCode python"><span class="cf">if</span></code>, <code
+class="sourceCode python"><span class="cf">while</span></code>,
+etcétera).</p></li>
+<li><p>Por tanto, puede aparecer en cualquier lugar del programa donde
+pueda haber una sentencia.</p></li>
+<li><p>Como en cualquier otra estructura, las sentencias que contiene
+(las que van en el <strong>cuerpo</strong> de la función) van
+<strong>indentadas</strong> (o <em>sangradas</em>) dentro de la
+definición de la función.</p></li>
+<li><p>Por tanto (de nuevo, como en cualquier otra estructura), el final
+de la función se deduce al encontrarse una sentencia <strong>menos
+indentada</strong> que el cuerpo, o bien el final del
+<em>script</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.3">
+
+<ul>
+<li><p>La definición de una función es una sentencia ejecutable que,
+como cualquier otra definición, <strong>crea una ligadura</strong> entre
+un identificador (el nombre de la función) y <strong>una variable que
+almacenará una referencia a la función</strong> dentro del
+montículo.</p></li>
+<li><p>La definición de una función <strong>no ejecuta el cuerpo de la
+función</strong>. El cuerpo se ejecutará únicamente cuando se llame a la
+función, al igual que ocurría con las expresiones lambda.</p></li>
+<li><p>Esa definición se ejecuta en un determinado ámbito (normalmente,
+el ámbito global) y, por tanto, su ligadura y su variable <strong>se
+almacenarán en el marco del ámbito donde se ha definido la
+función</strong> (normalmente, el marco global).</p></li>
+<li><p>Asimismo, <strong>el cuerpo de una función imperativa determina
+un ámbito</strong>, al igual que ocurría con las expresiones
+lambda.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.4">
+
+<div class="centered">
+<figure>
+<img data-src="images/ambitos-funciones-imperativas.svg" class="plain"
+style="width:80.0%"
+alt="El cuerpo de una función determina un ámbito" />
+<figcaption aria-hidden="true">El cuerpo de una función determina un
+ámbito</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.2.0.0.5">
+
+<ul>
+<li><p>Nuestra gramática se vuelve a ampliar para incluir las
+definiciones de funciones imperativas como un caso más de sentencia
+compuesta:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>sentencia</em>⟩</span> ::= <span
+style="color:teal">⟨<em>sentencia_simple</em>⟩</span> | <span
+style="color:teal">⟨<em>estructura</em>⟩</span><br />
+<span style="color:teal">⟨<em>estructura</em>⟩</span> ::= <span
+style="color:teal">⟨<em>secuencia</em>⟩</span><br />
+                             | <span
+style="color:teal">⟨<em>selección</em>⟩</span><br />
+                             | <span
+style="color:teal">⟨<em>iteración</em>⟩</span><br />
+                             | <span
+style="color:teal">⟨<em>gestión_excepciones</em>⟩</span><br />
+                             | <span
+style="color:teal">⟨<em>definición_función</em>⟩</span><br />
+<span style="color:teal">⟨<em>definición_función</em>⟩</span> ::=<br />
+<strong><code>def</code></strong> <span
+style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>(</code></strong>[<span
+style="color:teal">⟨<em>lista_parámetros</em>⟩</span>]<strong><code>)</code><code>:</code></strong><br />
+      <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
+</ul>
+</section>
+
+<section id="llamadas-a-funciones-imperativas"
+class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+Llamadas a funciones imperativas</h2>
+<ul>
+<li><p>Cuando se llama a una función imperativa, ocurre lo siguiente (en
+este orden):</p>
+<ol type="1">
+<li><p>Como siempre que se llama a una función, se crea un nuevo marco
+en el entorno (que contiene las ligaduras y variables locales a su
+ámbito, incluyendo sus parámetros) y se almacena en la pila de
+control.</p></li>
+<li><p>Se pasan los argumentos de la llamada a los parámetros de la
+función, de forma que los parámetros toman los valores de los argumentos
+correspondientes.</p>
+<p>Recordemos que en Python se sigue el orden aplicativo (o evaluación
+estricta): primero se evalúan los argumentos y después se pasan a los
+parámetros correspondientes.</p></li>
+<li><p>El flujo de control del programa se transfiere al bloque de
+sentencias que forman el cuerpo de la función y se empieza a ejecutar
+éste.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.1">
+
+<ul>
+<li><p>Cuando se termina de ejecutar el cuerpo de la función (o, dicho
+de otra forma, cuando se <em>sale</em> de la función):</p>
+<ol type="1">
+<li><p>Se genera su valor de retorno (en breve veremos cómo).</p></li>
+<li><p>Se saca su marco de la pila.</p></li>
+<li><p>Se devuelve el control de la ejecución a la sentencia que llamó a
+la función.</p></li>
+<li><p>Se sustituye, en dicha sentencia, la llamada a la función por su
+valor de retorno.</p></li>
+<li><p>Se continúa la ejecución del programa desde ese punto.</p></li>
+</ol></li>
+<li><p>En consecuencia, podemos considerar que la llamada a una función
+es una sentencia simple que, en realidad, actúa como una sentencia
+compuesta, una estructura secuencial (o bloque), que es el cuerpo de la
+función.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.2">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(persona):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despide():</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Pepe&#39;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;El gusto es mío&#39;</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Juan&#39;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>despide()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Sayonara, baby&#39;</span>)</span></code></pre></div></li>
+<li><p>Produce la siguiente salida:</p>
+<pre><code>Hola Pepe
+Encantado de saludarte
+El gusto es mío
+Hola Juan
+Encantado de saludarte
+Hasta luego, Lucas
+Sayonara, baby</code></pre></li>
+</ul>
+<p><a
+href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
+</section>
+<section class="slide level5" data-number="2.3.0.0.3">
+
+<p>Una función puede llamar a otra.</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Por ejemplo, este programa:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(persona):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    quiensoy()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> despide():</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hasta luego, Lucas&#39;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quiensoy():</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Me llamo Ricardo&#39;</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Pepe&#39;</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;El gusto es mío&#39;</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>saluda(<span class="st">&#39;Juan&#39;</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>despide()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Sayonara, baby&#39;</span>)</span></code></pre></div></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><p>Produce la siguiente salida:</p>
+<pre><code>Hola Pepe
+Me llamo Ricardo
+Encantado de saludarte
+El gusto es mío
+Hola Juan
+Me llamo Ricardo
+Encantado de saludarte
+Hasta luego, Lucas
+Sayonara, baby</code></pre></li>
+</ul>
+</div>
+</div>
+<p><a
+href="http://pythontutor.com/visualize.html#code=def%20saluda%28persona%29%3A%0A%20%20%20%20print%28&#39;Hola&#39;,%20persona%29%0A%20%20%20%20quiensoy%28%29%0A%20%20%20%20print%28&#39;Encantado%20de%20saludarte&#39;%29%0A%0Adef%20despide%28%29%3A%0A%20%20%20%20print%28&#39;Hasta%20luego,%20Lucas&#39;%29%0A%0Adef%20quiensoy%28%29%3A%0A%20%20%20%20print%28&#39;Me%20llamo%20Ricardo&#39;%29%0A%0Asaluda%28&#39;Pepe&#39;%29%0Aprint%28&#39;El%20gusto%20es%20m%C3%ADo&#39;%29%0Asaluda%28&#39;Juan&#39;%29%0Adespide%28%29%0Aprint%28&#39;Sayonara,%20baby&#39;%29&amp;cumulative=false&amp;curInstr=0&amp;heapPrimitives=true&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+target="_blank">Ver ejecución paso a paso en Pythontutor</a></p>
+</section>
+<section class="slide level5" data-number="2.3.0.0.4">
+
+<ul>
+<li><p>La función debe estar definida antes de poder llamarla.</p></li>
+<li><p>Eso significa que el intérprete de Python debe ejecutar el <code
+class="sourceCode python"><span class="kw">def</span></code> de una
+función antes de que el programa pueda llamar a esa función.</p></li>
+<li><p>Por ejemplo, el siguiente programa lanzaría el error
+«<em>NameError: name ‘hola’ is not defined</em>» en la línea 1:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>hola()</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">def</span> hola():</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>)</span></code></pre></div></li>
+<li><p>En cambio, este funcionaría perfectamente:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a>hola()</span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="paso-de-argumentos" class="title-slide slide level2"
+data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span>
+Paso de argumentos</h2>
+<ul>
+<li><p>En el marco de la función llamada se almacenan, entre otras
+cosas, los parámetros de la función.</p></li>
+<li><p>Al entrar en la función, los parámetros contendrán los valores de
+los argumentos que se hayan pasado a la función al llamar a la
+misma.</p></li>
+<li><p>Existen distintos mecanismos de paso de argumentos, dependiendo
+del lenguaje de programación utilizado.</p></li>
+<li><p>Los más conocidos son los llamados <strong>paso de argumentos
+<em>por valor</em></strong> y <strong>paso de argumentos <em>por
+referencia</em></strong>.</p></li>
+<li><p>En Python existe un único mecanismo de paso de argumentos llamado
+<strong>paso de argumentos <em>por asignación</em></strong>, que en la
+práctica resulta bastante sencillo:</p>
+<p>Lo que hace el intérprete es <strong><em>asignar</em> el argumento al
+parámetro</strong>, como si hiciera internamente <span
+style="color:teal">⟨<em>parámetro</em>⟩</span> <code>=</code> <span
+style="color:teal">⟨<em>argumento</em>⟩</span>, por lo que se aplica
+todo lo relacionado con los <em>alias</em> de variables, mutabilidad,
+etc.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> saluda(persona):</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, persona)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="bu">print</span>(<span class="st">&#39;Encantado de saludarte&#39;</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a>saluda(<span class="st">&#39;Manolo&#39;</span>)  <span class="co"># Saluda a Manolo</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>x <span class="op">=</span> <span class="st">&#39;Juan&#39;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>saluda(x)         <span class="co"># Saluda a Juan</span></span></code></pre></div></li>
+<li><p>En la línea 5 se llama a <code>saluda</code> asignándole al
+parámetro <code class="sourceCode python">persona</code> el valor <code
+class="sourceCode python"><span class="st">&#39;Manolo&#39;</span></code>.</p></li>
+<li><p>En la línea 7 se llama a <code>saluda</code> asignándole al
+parámetro <code class="sourceCode python">persona</code> el valor de
+<code class="sourceCode python">x</code>, como si se hiciera <code
+class="sourceCode python">persona</code> <code>=</code> <code
+class="sourceCode python">x</code>, lo que sabemos que crea un
+<em>alias</em>.</p>
+<p>En este caso, la creación del alias no nos afectaría, ya que el valor
+pasado como argumento es una cadena y, por tanto, inmutable.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.2">
+
+<ul>
+<li><p>En caso de pasar un argumento mutable:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cambia(l):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(l)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    l.append(<span class="dv">99</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>cambia(lista)     <span class="co"># Imprime [1, 2, 3]</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lista)      <span class="co"># Imprime [1, 2, 3, 99]</span></span></code></pre></div></li>
+<li><p>La función es capaz de <strong>cambiar el estado interno de la
+lista que se ha pasado como argumento</strong> porque:</p>
+<ul>
+<li><p>Al llamar a la función, el argumento <code
+class="sourceCode python">lista</code> se pasa a la función
+<strong>asignándola</strong> al parámetro <code
+class="sourceCode python">l</code> como si hubiera hecho <code
+class="sourceCode python">l</code> <code>=</code> <code
+class="sourceCode python">lista</code>.</p></li>
+<li><p>Eso hace que ambas variables sean <em>alias</em> una de la otra
+(se refieren al mismo objeto lista).</p></li>
+<li><p>Por tanto, la función está modificando el valor de la variable
+<code class="sourceCode python">lista</code> que se ha pasado como
+argumento.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="la-sentencia-return" class="title-slide slide level2"
+data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> La
+sentencia <code
+class="sourceCode python"><span class="cf">return</span></code></h2>
+<ul>
+<li><p>Para devolver el resultado de la función al código que la llamó,
+hay que usar una sentencia <code
+class="sourceCode python"><span class="cf">return</span></code>.</p></li>
+<li><p>Cuando el intérprete encuentra una sentencia <code
+class="sourceCode python"><span class="cf">return</span></code> dentro
+de una función, ocurre lo siguiente (en este orden):</p>
+<ol>
+<li><p>Se genera el valor de retorno de la función, que será el valor de
+la expresión que aparece en la sentencia <code
+class="sourceCode python"><span class="cf">return</span></code>.</p></li>
+<li><p>Se finaliza la ejecución de la función, sacando su marco de la
+pila.</p></li>
+<li><p>Se devuelve el control a la sentencia que llamó a la
+función.</p></li>
+<li><p>En esa sentencia, se sustituye la llamada a la función por su
+valor de retorno (el calculado en el paso 1 anterior).</p></li>
+<li><p>Se continúa la ejecución del programa desde ese punto.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a>a <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el primer número: &#39;</span>))</span>
+<span id="cb10-5"><a href="#cb10-5"></a>b <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el segundo número: &#39;</span>))</span>
+<span id="cb10-6"><a href="#cb10-6"></a>resultado <span class="op">=</span> suma(a, b)</span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="bu">print</span>(<span class="st">&#39;El resultado es:&#39;</span>, resultado)</span></code></pre></div></li>
+<li><p>La función se define en las líneas 1–2. El intérprete lee la
+definición de la función pero no ejecuta las sentencias de su cuerpo en
+ese momento (lo hará cuando se <em>llame</em> a la función).</p></li>
+<li><p>En la línea 6 se llama a la función <code
+class="sourceCode python">suma</code> pasándole como argumentos los
+valores de <code class="sourceCode python">a</code> y <code
+class="sourceCode python">b</code>, asignándolos a <code
+class="sourceCode python">x</code> e <code
+class="sourceCode python">y</code>, respectivamente.</p></li>
+<li><p>Dentro de la función, en la sentencia <code
+class="sourceCode python"><span class="cf">return</span></code> se
+calcula la suma <code class="sourceCode python">x</code> <code>+</code>
+<code class="sourceCode python">y</code> y se finaliza la ejecución de
+la función, devolviendo el control al punto en el que se la llamó (la
+línea 6) y haciendo que su valor de retorno sea el valor calculado en la
+suma anterior (el valor de la expresión que acompaña al <code
+class="sourceCode python"><span class="cf">return</span></code>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.0.0.2">
+
+<ul>
+<li><p>El valor de retorno de la función sustituye a la llamada a la
+función en la expresión en la que aparece dicha llamada, al igual que
+ocurre con las expresiones lambda.</p></li>
+<li><p>Por tanto, una vez finalizada la ejecución de la función, la
+línea 6 se reescribe sustituyendo la llamada a la función por su
+valor.</p></li>
+<li><p>Si, por ejemplo, suponemos que el usuario ha introducido los
+valores <code class="sourceCode python"><span class="dv">5</span></code>
+y <code class="sourceCode python"><span class="dv">7</span></code> en
+las variables <code class="sourceCode python">a</code> y <code
+class="sourceCode python">b</code>, respectivamente, tras finalizar la
+ejecución de la función tendríamos que la línea 6 quedaría:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> <span class="dv">12</span></span></code></pre></div>
+<p>y la ejecución del programa continuaría ejecutando la sentencia tal y
+como está ahora.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.5.0.0.3">
+
+<ul>
+<li><p>También es posible usar la sentencia <code
+class="sourceCode python"><span class="cf">return</span></code> sin
+devolver ningún valor.</p></li>
+<li><p>En ese caso, su utilidad es la de finalizar la ejecución de la
+función en algún punto intermedio de su código.</p></li>
+<li><p>Pero en Python todas las funciones devuelven algún
+valor.</p></li>
+<li><p>Lo que ocurre en este caso es que la función devuelve el valor
+<code
+class="sourceCode python"><span class="va">None</span></code>.</p></li>
+<li><p>Por tanto, la sentencia <code
+class="sourceCode python"><span class="cf">return</span></code> sin
+valor de retorno equivale a hacer <code
+class="sourceCode python"><span class="cf">return</span> <span class="va">None</span></code>.</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;</span>)  <span class="co"># aquí no llega</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>hola()</span></code></pre></div>
+<p>imprime:</p>
+<pre><code>Hola</code></pre>
+</div><div class="column">
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">&#39;Adiós&#39;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> hola()  <span class="co"># devuelve None</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code></pre></div>
+<p>imprime:</p>
+<pre><code>Hola
+None</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="2.5.0.0.4">
+
+<ul>
+<li><p>Cuando se alcanza el final del cuerpo de una función sin haberse
+ejecutado antes ninguna sentencia <code
+class="sourceCode python"><span class="cf">return</span></code>, es como
+si la última sentencia del cuerpo de la función fuese un <code
+class="sourceCode python"><span class="cf">return</span></code> sin
+valor de retorno.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span></code></pre></div>
+<p>equivale a:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hola():</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code></pre></div></li>
+<li><p>Esa última sentencia <code
+class="sourceCode python"><span class="cf">return</span></code> nunca es
+necesario ponerla, ya que la ejecución de una función termina
+automáticamente (y retorna al punto donde se la llamó) cuando ya no
+quedan más sentencias que ejecutar en su cuerpo.</p></li>
+</ul>
+</section>
+
+<section id="ámbito-de-variables" class="title-slide slide level2"
+data-number="2.6">
+<h2 data-number="2.6"><span class="header-section-number">2.6</span>
+Ámbito de variables</h2>
+<ul>
+<li><p>La función <code class="sourceCode python">suma</code> se podría
+haber escrito así:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div>
+<p>y el efecto final habría sido el mismo.</p></li>
+<li><p>La variable <code class="sourceCode python">res</code> que
+aparece en el cuerpo de la función es una <strong>variable
+local</strong> y sólo existe dentro de la función. Por tanto, esto sería
+incorrecto:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="cf">return</span> res</span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="bu">print</span>(res)  <span class="co"># da error</span></span></code></pre></div>
+<p>Fuera de la función, la variable <code
+class="sourceCode python">res</code> no está definida en el entorno (que
+está formado sólo por el marco global) y por eso da error en la línea
+6.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.0.0.1">
+
+<ul>
+<li><p>Eso significa que se crea un nuevo marco en el entorno que
+contendrá, al menos, los parámetros, las variables locales y las
+ligaduras locales a la función.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb20-2"><a href="#cb20-2"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    <span class="cf">return</span> res</span>
+<span id="cb20-4"><a href="#cb20-4"></a></span>
+<span id="cb20-5"><a href="#cb20-5"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="bu">print</span>(resultado)</span></code></pre></div></li>
+<li><p>Ese marco es, por tanto, el <strong>espacio de nombres</strong>
+donde se almacenará todo lo que sea local a la función.</p></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="centered">
+<figure>
+<img data-src="images/funcion-entorno-dentro.svg" class="plain"
+style="width:80.0%" alt="Entorno dentro de la función suma" />
+<figcaption aria-hidden="true">Entorno dentro de la función
+<code>suma</code></figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="centered">
+<figure>
+<img data-src="images/funcion-entorno-fuera.svg" class="plain"
+style="width:80.0%" alt="Entorno en la línea 6" />
+<figcaption aria-hidden="true">Entorno en la línea 6</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="variables-locales" class="title-slide slide level3"
+data-number="2.6.1">
+<h3 data-number="2.6.1"><span class="header-section-number">2.6.1</span>
+Variables locales</h3>
+<ul>
+<li><p>Al igual que pasa con las expresiones lambda, las definiciones de
+funciones generan un nuevo ámbito.</p></li>
+<li><p>Tanto los <strong>parámetros</strong> como las
+<strong>variables</strong> y las <strong>ligaduras</strong> que se crean
+en el cuerpo de la función son <strong>locales</strong> a ella, y por
+tanto sólo existen dentro de ella.</p>
+<p>Su <strong>ámbito</strong> es <strong>el cuerpo de la
+función</strong> a la que pertenecen.</p></li>
+<li><p>Los <strong>parámetros</strong> se pueden usar libremente en
+cualquier parte del cuerpo de la función porque ya se les ha asignado un
+valor.</p></li>
+<li><p>En cambio, se produce un error <code
+class="sourceCode python"><span class="pp">UnboundLocalError</span></code>
+si se intenta usar una <strong>variable local</strong> antes de
+asignarle un valor:</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> hola():</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(x)  <span class="co"># x es una variable local pero aún no tiene valor asignado</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>...     x <span class="op">=</span> <span class="dv">1</span>     <span class="co"># aquí es donde empieza a tener un valor</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> hola()</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="pp">UnboundLocalError</span>: local variable <span class="st">&#39;x&#39;</span> referenced before assignment</span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="variables-globales" class="title-slide slide level3"
+data-number="2.6.2">
+<h3 data-number="2.6.2"><span class="header-section-number">2.6.2</span>
+Variables globales</h3>
+<ul>
+<li><p>Desde dentro de una función es posible usar variables globales,
+ya que se encuentran en el <strong>entorno</strong> de la
+función.</p></li>
+<li><p>Se puede <strong>consultar</strong> el valor de una variable
+global directamente:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>          <span class="co"># esta variable es global</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)   <span class="co"># accede a la variable &#39;x&#39; global, que vale 4</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>prueba()       <span class="co"># imprime 4</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.0.1">
+
+<ul>
+<li><p>Pero para poder <strong>cambiar</strong> una variable global es
+necesario que la función la declare previamente como
+<em>global</em>.</p></li>
+<li><p>De no hacerlo así, el intérprete supondría que el programador
+quiere crear una variable local que tiene el mismo nombre que la
+global:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span>          <span class="co"># esta variable es global</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span>      <span class="co"># crea una variable local</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>prueba()</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)       <span class="co"># imprime 4</span></span></code></pre></div></li>
+<li><p>Como en Python no existen las <em>declaraciones</em> de
+variables, el intérprete tiene que <strong><em>averiguar</em> por sí
+mismo qué ámbito tiene una variable</strong>.</p></li>
+<li><p>Lo hace con una regla muy sencilla:</p>
+<div class="caja">
+<p>Si hay una <strong>asignación</strong> a una variable en cualquier
+lugar <strong>dentro</strong> de una función, esa variable se considera
+<strong>local</strong> a la función.</p>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.0.2">
+
+<ul>
+<li><p>El siguiente código genera un error «<em>UnboundLocalError: local
+variable ‘x’ referenced before assignment</em>». ¿Por qué?</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">4</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>prueba()</span></code></pre></div></li>
+<li><p>Como la función <code class="sourceCode python">prueba</code>
+asigna un valor a <code class="sourceCode python">x</code>, Python
+considera que <code class="sourceCode python">x</code> es local a la
+función.</p></li>
+<li><p>Pero en la expresión <code
+class="sourceCode python">x <span class="op">+</span> <span class="dv">4</span></code>,
+la variable <code class="sourceCode python">x</code> aún no tiene ningún
+valor asignado, por lo que genera un error «<em>variable local
+<code>x</code> referenciada antes de ser asignada</em>».</p></li>
+</ul>
+</section>
+<section id="global" class="title-slide slide level4"
+data-number="2.6.2.1">
+<h4 data-number="2.6.2.1"><span
+class="header-section-number">2.6.2.1</span> <code
+class="sourceCode python"><span class="kw">global</span></code></h4>
+<ul>
+<li><p>Para informar al intérprete que una determinada variable es
+global, se usa la sentencia <code
+class="sourceCode python"><span class="kw">global</span></code>:</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> x  <span class="co"># informa que la variable &#39;x&#39; es global</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">5</span>     <span class="co"># cambia el valor de la variable global &#39;x&#39;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>prueba()</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)  <span class="co"># imprime 5</span></span></code></pre></div></li>
+<li><p>La sentencia «<code
+class="sourceCode python"><span class="kw">global</span> x</code>» es
+una <strong>declaración</strong> que informa al intérprete de que la
+variable <code>x</code> debe buscarla únicamente en el marco global y
+que, por tanto, debe saltarse los demás marcos que haya en el
+entorno.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.1.1">
+
+<ul>
+<li><p>Si la variable global no existe en el momento de realizar la
+asignación, se crea. Por tanto, una función puede crear nuevas variables
+globales usando <code
+class="sourceCode python"><span class="kw">global</span></code>:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prueba():</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> y  <span class="co"># informa que la variable &#39;y&#39; (que aún no existe) es global</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="dv">9</span>     <span class="co"># se crea una nueva variable global &#39;y&#39; que antes no existía</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>prueba()</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y)  <span class="co"># imprime 9</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.1.2">
+
+<ul>
+<li><p>Las reglas básicas de uso de la sentencia <code
+class="sourceCode python"><span class="kw">global</span></code> en
+Python son:</p>
+<ul>
+<li><p>Cuando se crea una variable <strong>dentro</strong> de una
+función (asignándole un valor), por omisión es
+<strong>local</strong>.</p></li>
+<li><p>Cuando se crea una variable <strong>fuera</strong> de una
+función, por omisión es <strong>global</strong> (no hace falta usar la
+sentencia <code
+class="sourceCode python"><span class="kw">global</span></code>).</p></li>
+<li><p>Se usa la sentencia <code
+class="sourceCode python"><span class="kw">global</span></code> para
+cambiar el valor de una variable global <em>dentro</em> de una función
+(si la variable global no existía previamente, se crea durante la
+asignación).</p></li>
+<li><p>El uso de la sentencia <code
+class="sourceCode python"><span class="kw">global</span></code>
+<em>fuera</em> de una función no tiene ningún efecto.</p></li>
+<li><p>La sentencia <code
+class="sourceCode python"><span class="kw">global</span></code> debe
+aparecer <em>antes</em> de que se use la variable global
+correspondiente.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="efectos-laterales" class="title-slide slide level4"
+data-number="2.6.2.2">
+<h4 data-number="2.6.2.2"><span
+class="header-section-number">2.6.2.2</span> Efectos laterales</h4>
+<ul>
+<li><p>Cambiar el estado de una variable global es uno de los ejemplos
+más claros y conocidos de los llamados <strong>efectos
+laterales</strong>.</p></li>
+<li><p>Recordemos que <strong>una función tiene (o provoca) efectos
+laterales cuando provoca cambios de estado observables desde el exterior
+de la función</strong>, más allá de calcular y devolver su valor de
+retorno.</p></li>
+<li><p>Por ejemplo:</p>
+<ul>
+<li><p>Cuando cambia el valor de una variable global.</p></li>
+<li><p>Cuando cambia un argumento mutable.</p></li>
+<li><p>Cuando realiza una operación de entrada/salida.</p></li>
+<li><p>Cuando llama a otras funciones que provocan efectos
+laterales.</p></li>
+</ul></li>
+<li><p>Los efectos laterales hacen que el comportamiento de un programa
+sea más difícil de predecir.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.2.1">
+
+<ul>
+<li><p>La pureza o impureza de una función tienen mucho que ver con los
+efectos laterales.</p></li>
+<li><p>Una función es <strong>pura</strong> si, desde el punto de vista
+de un observador externo, el único efecto que produce es calcular su
+valor de retorno, el cual sólo depende del valor de sus
+argumentos.</p></li>
+<li><p>Por tanto, una función es <strong>impura</strong> si cumple al
+menos una de las siguientes condiciones:</p>
+<ul>
+<li><p><strong>Provoca efectos laterales</strong>, porque está haciendo
+algo más que calcular su valor de retorno.</p></li>
+<li><p>Su valor de retorno depende de algo más que de sus argumentos
+(p. ej., de una variable global).</p></li>
+</ul></li>
+<li><p>En una expresión, no podemos sustituir libremente una llamada a
+una función impura por su valor de retorno.</p></li>
+<li><p>Por tanto, decimos que una función impura no cumple la
+<strong>transparencia referencial</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.2.2">
+
+<ul>
+<li><p>El siguiente es un ejemplo de <strong>función impura</strong>, ya
+que, además de calcular su valor de retorno, provoca el <strong>efecto
+lateral</strong> de ejecutar una <strong>operación de
+entrada/salida</strong> (la función <code
+class="sourceCode python"><span class="bu">print</span></code>):</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;La suma vale&#39;</span>, res)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div></li>
+<li><p>Cualquiera que desee usar la función <code
+class="sourceCode python">suma</code>, pero no sepa cómo está construida
+internamente, podría pensar que lo único que hace es calcular la suma de
+dos números, pero resulta que <strong>también imprime un mensaje en la
+salida</strong>, por lo que el resultado que se obtiene al ejecutar el
+siguiente programa no es el que cabría esperar:</p></li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Programa:</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resultado)</span></code></pre></div></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><p>Resultado:</p>
+<pre><code>La suma vale 7
+La suma vale 13
+20</code></pre></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level5" data-number="2.6.2.2.3">
+
+<ul>
+<li><p>No podemos sustituir libremente en una expresión las llamadas a
+la función <code class="sourceCode python">suma</code> por sus valores
+de retorno correspondientes.</p></li>
+<li><p>Es decir, no es lo mismo hacer:</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">+</span> suma(<span class="dv">8</span>, <span class="dv">5</span>)</span></code></pre></div>
+<p>que hacer:</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="op">=</span> <span class="dv">7</span> <span class="op">+</span> <span class="dv">13</span></span></code></pre></div>
+<p>porque en el primer caso se imprimen cosas por pantalla y en el
+segundo no.</p></li>
+<li><p>Por tanto, la función <code class="sourceCode python">suma</code>
+es <strong>impura</strong> porque <strong>no cumple la <em>transparencia
+referencial</em></strong>, y no la cumple porque provoca un
+<strong>efecto lateral</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.2.4">
+
+<ul>
+<li><p>Si una función necesita <strong>consultar el valor de una
+variable global</strong>, también <strong>pierde la transparencia
+referencial</strong>, ya que la convierte en <strong>impura</strong>
+porque su valor de retorno puede depender de algo más que de sus
+argumentos (en este caso, del valor de la variable global).</p></li>
+<li><p>En consecuencia, la función podría producir <strong>resultados
+distintos en momentos diferentes</strong> ante los mismos
+argumentos:</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global (z)</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 12</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 9</span></span></code></pre></div></li>
+<li><p>En este caso, la función es <strong>impura</strong> porque,
+aunque no provoca efectos laterales, sí puede verse afectada por los
+efectos laterales que provocan otras partes del programa cuando
+modifican el valor de la variable global <code
+class="sourceCode python">z</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.2.5">
+
+<ul>
+<li><p>Igualmente, el <strong>uso de la sentencia <code
+class="sourceCode python"><span class="kw">global</span></code></strong>
+supone otra forma más de <strong>perder transparencia
+referencial</strong> porque, gracias a ella, una función puede cambiar
+el valor de una variable global, lo que la convertiría en
+<strong>impura</strong> ya que provoca un <strong>efecto
+lateral</strong> (la modificación de la variable global).</p></li>
+<li><p>En consecuencia, esa misma función podría producir
+<strong>resultados distintos en momentos diferentes</strong> ante los
+mismos argumentos:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> z</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> x <span class="op">+</span> y <span class="op">+</span> z  <span class="co"># impureza: depende del valor de una variable global</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">+=</span> <span class="dv">1</span>           <span class="co"># efecto lateral: cambia una variable global</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># imprime 7</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))  <span class="co"># la misma llamada a función ahora imprime 8</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.2.6">
+
+<ul>
+<li><p>O también podría afectar a otras funciones que dependan del valor
+de la variable global.</p></li>
+<li><p>En ese caso, <strong>ambas funciones serían impuras: la que
+provoca el efecto lateral y la que se ve afectada por
+ella</strong>.</p></li>
+<li><p>Por ejemplo, las siguientes dos funciones son
+<strong>impuras</strong>, cada una por un motivo:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cambia(x):</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">global</span> z</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    z <span class="op">+=</span> x              <span class="co"># efecto lateral: cambia una variable global</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma(x, y):</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> y <span class="op">+</span> z    <span class="co"># impureza: depende del valor de una variable global</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))       <span class="co"># imprime 7</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>cambia(<span class="dv">2</span>)               <span class="co"># provoca un efecto lateral</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(suma(<span class="dv">4</span>, <span class="dv">3</span>))       <span class="co"># ahora imprime 9</span></span></code></pre></div>
+<p><code>cambia</code> provoca un efecto lateral y <code>suma</code>
+depende de una variable global.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.6.2.2.7">
+
+<ul>
+<li><p>Aunque los efectos laterales resultan indeseables en general, a
+veces es precisamente el efecto que deseamos.</p></li>
+<li><p>Por ejemplo, podemos diseñar una función que modifique los
+elementos de una lista en lugar de devolver una lista nueva:</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cambia(lista, indice, valor):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    lista[indice] <span class="op">=</span> valor         <span class="co"># modifica el argumento recibido</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>cambia(l, <span class="dv">2</span>, <span class="dv">99</span>)                  <span class="co"># cambia l</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(l)                          <span class="co"># imprime [1, 2, 99, 4]</span></span></code></pre></div></li>
+<li><p>Si la función no pudiera cambiar el interior de la lista que
+recibe como argumento, tendría que crear una lista nueva, lo que
+resultaría menos eficiente en tiempo y espacio:</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cambia(lista, indice, valor):</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    nueva <span class="op">=</span> lista[:]              <span class="co"># hace una copia de la lista</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    nueva[indice] <span class="op">=</span> valor         <span class="co"># modifica la copia</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nueva                  <span class="co"># devuelve la copia</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cambia(l, <span class="dv">2</span>, <span class="dv">99</span>))           <span class="co"># imprime [1, 2, 99, 4]</span></span></code></pre></div></li>
+</ul>
+</section>
+
+
+</section>
+<section>
+<section id="funciones-locales-a-funciones"
+class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span>
+Funciones locales a funciones</h1>
+
+</section>
+<section id="definición" class="title-slide slide level2"
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+Definición</h2>
+<ul>
+<li><p>En Python también podemos definir funciones dentro de
+funciones:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(...):</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> g(...):</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>      ...</span></code></pre></div></li>
+<li><p>Cuando definimos una función <code>g</code> dentro de otra
+función <code>f</code>, decimos que:</p>
+<ul>
+<li><code>g</code> es un <strong>función local</strong> o
+<strong>interna</strong> de <code>f</code>.</li>
+<li><code>f</code> es la <strong>función externa</strong> de
+<code>g</code>.</li>
+</ul></li>
+<li><p>También se dice que:</p>
+<ul>
+<li><code>g</code> es una <strong>función anidada</strong> dentro de
+<code>f</code>.</li>
+<li><code>f</code> <strong>contiene</strong> a <code>g</code>.</li>
+</ul></li>
+<li><p>Como <code>g</code> se define <strong>dentro</strong> de
+<code>f</code>, sólo es visible dentro de <code>f</code>, ya que el
+<strong>ámbito</strong> de <code>g</code> es el cuerpo de
+<code>f</code>.</p></li>
+<li><p>El uso de funciones locales evita la superpoblación de funciones
+en un espacio de nombres cuando esa función sólo tiene sentido usarla en
+un ámbito más local.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
+<li><p>La función <code class="sourceCode python">fact_iter</code> es
+local a la función <code>fact</code>.</p></li>
+<li><p>Por tanto, no se puede usar fuera de <code>fact</code>, ya que
+sólo existe en el ámbito de la función <code>fact</code> (es decir, en
+el cuerpo de la función <code>fact</code>).</p></li>
+<li><p>Como <code>fact_iter</code> sólo existe para ser usada como
+función auxiliar de <code>fact</code>, tiene sentido definirla como una
+función local de <code>fact</code>.</p></li>
+<li><p>De esta forma, no contaminaremos el espacio de nombres global con
+el nombre <code>fact_iter</code>, que es el nombre de una función que
+sólo debe ser usada y conocida por <code>fact</code>, y que queda oculta
+dentro de <code>fact</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<ul>
+<li><p>Tampoco se puede usar <code>fact_iter</code> dentro de
+<code>fact</code> <em>antes</em> de definirla:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb39-2"><a href="#cb39-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># UnboundLocalError: se usa antes de definirse</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb39-5"><a href="#cb39-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb39-6"><a href="#cb39-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb39-7"><a href="#cb39-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
+<li><p>Esto ocurre porque la sentencia <code
+class="sourceCode python"><span class="kw">def</span></code> de la línea
+3 crea una ligadura entre <code>fact_iter</code> y una variable que
+apunta a la función que se está definiendo, pero esa ligadura y esa
+variable sólo empiezan a existir cuando se ejecuta la sentencia <code
+class="sourceCode python"><span class="kw">def</span></code> en la línea
+3, y no antes.</p></li>
+<li><p>Por tanto, en la línea 2 aún no existe la función
+<code>fact_iter</code> y, por tanto, no se puede usar ahí, dando un
+error <code
+class="sourceCode python"><span class="pp">UnboundLocalError</span></code>.</p>
+<p>Esto puede verse como una extensión a la regla que vimos
+anteriormente sobre cuándo considerar a una variable como local,
+cambiando «<em>asignación</em>» por «<em>definición</em>» y
+«<em>variable</em>» por «<em>función</em>».</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.3">
+
+<ul>
+<li><p>Como ocurre con cualquier otra función, las funciones locales
+también determinan un ámbito.</p></li>
+<li><p>Ese ámbito, como siempre ocurre, estará anidado dentro del ámbito
+en el que se define la función.</p></li>
+<li><p>En este caso, el ámbito de <code>fact_iter</code> está anidado
+dentro del ámbito de <code>fact</code>.</p></li>
+<li><p>Asimismo, como ocurre con cualquier otra función, cuando la
+ejecución del programa entre en el ámbito de <code>fact_iter</code> se
+creará un nuevo marco en el entorno.</p></li>
+<li><p>Y, como siempre, ese nuevo marco apuntará al marco del ámbito que
+lo contiene, es decir, el marco de la función que contiene a la función
+local.</p>
+<p>En este caso, el marco de <code>fact_iter</code> apuntará al marco de
+<code>fact</code>, el cual a su vez apuntará al marco global.</p></li>
+</ul>
+</section>
+
+<section id="nonlocal" class="title-slide slide level2"
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+<code
+class="sourceCode python"><span class="kw">nonlocal</span></code></h2>
+<ul>
+<li><p>Una función local puede <strong>acceder</strong> al valor de las
+variables locales a la función que la contiene, ya que se encuentran
+dentro de su ámbito (aunque en otro marco).</p></li>
+<li><p>En cambio, cuando una función local quiere
+<strong>cambiar</strong> mediante una asignación el valor de una
+variable local a la función que la contiene, deberá declararla
+previamente como <strong>no local</strong> con la sentencia <code
+class="sourceCode python"><span class="kw">nonlocal</span></code>.</p></li>
+<li><p>De lo contrario, al intentar cambiar el valor de la variable, el
+intérprete crearía una nueva variable local a la función actual, que
+haría sombra a la variable que queremos modificar y que pertenece a otra
+función.</p></li>
+<li><p>Es algo similar a lo que ocurre con la sentencia <code
+class="sourceCode python"><span class="kw">global</span></code> y las
+variables globales, pero en ámbitos intermedios.</p></li>
+<li><p>La sentencia «<code
+class="sourceCode python"><span class="kw">nonlocal</span> n</code>» es
+una <strong>declaración</strong> que informa al intérprete de que la
+variable <code>n</code> debe buscarla en el entorno saltándose el marco
+de la función actual y el marco global.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.1">
+
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb40-2"><a href="#cb40-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
+<span id="cb40-3"><a href="#cb40-3"></a>        <span class="kw">nonlocal</span> n</span>
+<span id="cb40-4"><a href="#cb40-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb40-5"><a href="#cb40-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb40-6"><a href="#cb40-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb40-7"><a href="#cb40-7"></a>            acc <span class="op">*=</span> n</span>
+<span id="cb40-8"><a href="#cb40-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
+<span id="cb40-10"><a href="#cb40-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
+<span id="cb40-11"><a href="#cb40-11"></a></span>
+<span id="cb40-12"><a href="#cb40-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
+<ul>
+<li><p>La función <code>fact_iter</code> puede consultar el valor de la
+variable <code>n</code>, ya que es una variable local a la función
+<code>fact</code> y, por tanto, está en el entorno de
+<code>fact_iter</code> (para eso no hace falta declararla como
+<strong>no local</strong>).</p></li>
+<li><p>Como, además, <code>n</code> está declarada <strong>no
+local</strong> en <code>fact_iter</code> (en la línea 3), la función
+<code>fact_iter</code> también puede modificar esa variable y no hace
+falta que la reciba como argumento.</p></li>
+<li><p>Esa instrucción le indica al intérprete que, a la hora de buscar
+<code>n</code> en el entorno de <code>fact_iter</code>, debe saltarse el
+marco de <code>fact_iter</code> y el marco global y, por tanto, debe
+empezar a buscar en el marco de <code>fact</code>.</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="ejercicios"
+class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Ejercicios</h1>
+
+</section>
+<section id="ejercicios-1"
+class="title-slide slide level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted">Ejercicios</h2>
+<ol class="example" type="1">
+<li><p>Considérese la siguiente fórmula (debida a Herón de Alejandrı́a),
+que expresa el valor de la superficie S de un triángulo cualquiera en
+función de sus lados, a, b y c: <span class="math display">S =
+\sqrt{\frac{a+b+c}{2}\left(\frac{a+b+c}{2}-a\right)\left(\frac{a+b+c}{2}-b\right)\left(\frac{a+b+c}{2}-c\right)}</span></p>
+<p>Escribir una función que obtenga el valor <span
+class="math inline">S</span> a partir de <span
+class="math inline">a</span>, <span class="math inline">b</span> y <span
+class="math inline">c</span>, evitando el cálculo repetido del
+semiperı́metro, <span class="math inline">sp = \frac{a+b+c}{2}</span>, y
+almacenando el resultado finalmente en la variable S.</p></li>
+<li><p>Escribir tres funciones que impriman las siguientes salidas en
+función de la cantidad de líneas que se desean (<code>␣</code> es un
+espacio en blanco):</p>
+<pre><code>*****     ␣*         ␣␣␣␣*␣␣␣␣
+*****     ␣␣*        ␣␣␣***␣␣␣
+*****     ␣␣␣*       ␣␣*****␣␣
+*****     ␣␣␣␣*      ␣*******␣
+*****     ␣␣␣␣␣*     ␣␣␣␣*␣␣␣␣</code></pre></li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.2.0.0.2">
+
+<ol start="3" class="example" type="1">
+<li><p>Escribir una función para hallar <span
+class="math inline">\binom{n}{k}</span>, donde <span
+class="math inline">n</span> y <span class="math inline">k</span> son
+datos enteros positivos,</p>
+<ol type="a">
+<li><p>mediante la fórmula <span
+class="math inline">\frac{n!}{(n-k)!k!}</span></p></li>
+<li><p>mediante la fórmula <span
+class="math inline">\frac{n(n-1)\cdots(k+1)}{(n-k)!}</span></p></li>
+</ol>
+<p>¿Qué ventajas presenta la segunda con respecto a la primera?</p></li>
+</ol>
+</section>
+</section>
+<section id="bibliografía"
+class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-pareja_flores_desarrollo_1997" class="csl-entry"
+role="listitem">
+Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada,
+and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos y Técnicas
+de Programación En <span>Pascal</span></em>. Madrid: Ra-Ma.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="./reveal.js/plugin/notes/notes.js"></script>
+  <script src="./reveal.js/plugin/search/search.js"></script>
+  <script src="./reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="./reveal.js/plugin/reveal.js-menu/menu.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: true,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 1080,
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        menu: {
+          hideMissingTitles: true,
+        },
+
+        dependencies: [
+          { src: './reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } }
+        ],
+
+        // reveal.js plugins
+        plugins: [
+          RevealMenu,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="text/javascript">
+       var title = document.getElementsByClassName('title')[0];
+       title = title != null ? title.innerHTML : '';
+       var author = document.getElementsByClassName('author')[0];
+       author = author != null ? author.innerHTML : '';
+       var date = document.getElementsByClassName('date')[0];
+       date = date != null ? date.innerHTML : '';
+       document.getElementById('header-left').innerHTML = '<a href="#/title-slide">' + title + '</a>';
+       document.getElementById('footer-left').innerHTML = '<a href="https://pro.iesdonana.org">&copy; ' + author + ' (' + date + ')</a>';
+
+       function updateHeader(nd) {
+           var hr = document.getElementById('header-right');
+           while (hr.children.length > 0) {
+               hr.removeChild(hr.lastChild);
+           }
+           buscar(nd, 3, hr);
+           buscar(nd, 2, hr);
+           buscar(nd, 1, hr);
+           hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+           hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+           var hl = document.getElementById('header-left');
+           hl.style.fontSize = hr.style.fontSize;
+       }
+
+       function buscar(nd, level, hr) {
+           if (!nd.classList.contains('level' + (level - 1))) {
+               for (var n = nd; n != null; n = n.previousSibling) {
+                   if (n.nodeType == Node.TEXT_NODE) {
+                       continue;
+                   }
+                   var cl = n.classList;
+                   if (cl.contains('level' + level)) {
+                       var h = n.querySelector('h' + level);
+                   } else if (cl.contains('level' + (level - 1))) {
+                       break;
+                   } else {
+                       continue;
+                   }
+                   if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                       hr.innerHTML = '';
+                   } else {
+                       var el = document.createElement('a');
+                       var href = '#/' + n.id;
+                       el.href = href;
+                       el.innerHTML = h.innerHTML;
+                       var a = el.querySelector('a');
+                       if (a !== null) {
+                           a.href = href;
+                       }
+                       if (hr.innerHTML != '') {
+                           hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                       }
+                       hr.insertBefore(el, hr.firstChild);
+                   }
+                   break;
+               }
+           }
+       }
+
+       // On Reveal.js ready event, copy header/footer <div>
+       // into each `.slide-background` <div>
+       Reveal.on('ready', event => {
+           var header = document.getElementById('header');
+           document.querySelector('.reveal').appendChild(header);
+           updateHeader(Reveal.getCurrentSlide());
+       });
+
+       Reveal.on('slidechanged', event => {
+           // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+           updateHeader(event.currentSlide);
+       });
+    </script>
+    </body>
+</html>

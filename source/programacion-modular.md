@@ -1,5 +1,5 @@
 ---
-title: Programación modular (I)
+title: Programación modular
 author: Ricardo Pérez López
 !DATE
 nocite: |
