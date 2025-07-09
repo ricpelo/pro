@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Secuencias</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #268bd2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #d33682; } /* BaseN */
+    code span.bu { color: #4070a0; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #dc322f; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #6c71c4; } /* DataType */
+    code span.dv { color: #d33682; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #d33682; } /* Float */
+    code span.fu { color: #4070a0; } /* Function */
+    code span.im { font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #a57800; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #2aa198; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #6c71c4; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-left"></div>
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Secuencias</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2024/2025</p>
+</section>
+<section id="TOC">
+<nav role="doc-toc"> 
+<ul>
+<li><a href="#/concepto-de-secuencia"
+id="/toc-concepto-de-secuencia"><span
+class="toc-section-number">1</span> Concepto de secuencia</a></li>
+<li><a href="#/inmutables" id="/toc-inmutables"><span
+class="toc-section-number">2</span> Inmutables</a></li>
+<li><a href="#/mutables" id="/toc-mutables"><span
+class="toc-section-number">3</span> Mutables</a></li>
+</ul>
+</nav>
+</section>
+
+<section>
+<section id="concepto-de-secuencia" class="title-slide slide level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span>
+Concepto de secuencia</h1>
+
+</section>
+<section id="definición" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Definición</h2>
+<ul>
+<li><p>Una <strong>secuencia</strong> <span
+class="math inline">\underline{s}</span> es un dato estructurado
+<em>iterable</em> que cumple lo siguiente:</p>
+<ol>
+<li><p>Se le puede calcular su longitud (la cantidad de elementos que
+contiene) mediante la función <code
+class="sourceCode python"><span class="bu">len</span></code>.</p></li>
+<li><p>Cada elemento que contiene lleva asociado un número entero
+llamado <strong>índice</strong>, comprendido entre <code
+class="sourceCode python"><span class="dv">0</span></code> y <code
+class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code>)</code> <code
+class="sourceCode python"><span class="op">-</span> <span class="dv">1</span></code>.</p></li>
+<li><p>Permite el acceso eficiente a cada uno de sus elementos mediante
+indexación <span class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>]</code>, siendo <span
+class="math inline">i</span> el índice del elemento.</p></li>
+</ol></li>
+<li><p>Las secuencias se dividen en:</p>
+<ul>
+<li><p><strong>Inmutables</strong>: cadenas (<code
+class="sourceCode python"><span class="bu">str</span></code>), tuplas
+(<code class="sourceCode python"><span class="bu">tuple</span></code>) y
+rangos (<code
+class="sourceCode python"><span class="bu">range</span></code>).</p></li>
+<li><p><strong>Mutables</strong>: listas (<code
+class="sourceCode python"><span class="bu">list</span></code>)</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="operaciones-comunes" class="title-slide slide level2"
+data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+Operaciones comunes</h2>
+<ul>
+<li><p>Todas las secuencias (ya sean cadenas, listas, tuplas o rangos)
+comparten un conjunto de <strong>operaciones comunes</strong>.</p></li>
+<li><p>Los rangos son una excepción, ya que sus elementos se crean a
+partir de una fórmula y, por eso, no admiten ni la concatenación ni la
+repetición.</p></li>
+<li><p>La siguiente tabla recoge las operaciones comunes sobre
+secuencias, ordenadas por prioridad ascendente. <span
+class="math inline">\underline{s}</span> y <span
+class="math inline">\underline{t}</span> son secuencias del mismo tipo,
+<span class="math inline">\underline{n}</span>, <span
+class="math inline">\underline{i}</span>, <span
+class="math inline">\underline{j}</span> y <span
+class="math inline">\underline{k}</span> son enteros y <span
+class="math inline">\underline{x}</span> es un dato cualquiera que
+cumple con las restricciones que impone <span
+class="math inline">\underline{s}</span>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.1">
+
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code
+class="sourceCode python"><span class="kw">in</span></code> <span
+class="math inline">\ s</span></td>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="va">True</span></code> si algún
+elemento de <span class="math inline">\underline{s}</span> es igual a
+<span class="math inline">\underline{x}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">x\ </span> <code
+class="sourceCode python"><span class="kw">not</span></code>  <code
+class="sourceCode python"><span class="kw">in</span></code> <span
+class="math inline">\ s</span></td>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="va">False</span></code> si algún
+elemento de <span class="math inline">\underline{s}</span> es igual a
+<span class="math inline">\underline{x}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span>
+<code>+</code> <span class="math inline">t</span></td>
+<td style="text-align: left;">La concatenación de <span
+class="math inline">\underline{s}</span> y <span
+class="math inline">\underline{t}</span> (no va con rangos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span>
+<code>*</code> <span class="math inline">n</span><br />
+<span class="math inline">n</span> <code>*</code> <span
+class="math inline">s</span></td>
+<td style="text-align: left;">(<em>Repetición</em>) Equivale a
+concatenar <span class="math inline">\underline{s}</span> consigo misma
+<span class="math inline">\underline{n}</span> veces (no va con
+rangos)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>]</code></td>
+<td style="text-align: left;">El <span
+class="math inline">\underline{i}</span>-ésimo elemento de <span
+class="math inline">\underline{s}</span>, empezando por 0</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>]</code></td>
+<td style="text-align: left;">Rodaja de <span
+class="math inline">\underline{s}</span> desde <span
+class="math inline">\underline{i}</span> hasta <span
+class="math inline">\underline{j}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>:</code><span
+class="math inline">k</span><code>]</code></td>
+<td style="text-align: left;">Rodaja de <span
+class="math inline">\underline{s}</span> desde <span
+class="math inline">\underline{i}</span> hasta <span
+class="math inline">\underline{j}</span> con paso <span
+class="math inline">\underline{k}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">Longitud de <span
+class="math inline">\underline{s}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="bu">min</span></code><code>(</code><span
+class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más pequeño de <span
+class="math inline">\underline{s}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="bu">max</span></code><code>(</code><span
+class="math inline">s</span><code>)</code></td>
+<td style="text-align: left;">El elemento más grande de <span
+class="math inline">\underline{s}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.index</code><code>(</code><span
+class="math inline">x</span> [<code>,</code> <span
+class="math inline">i</span> [<code>,</code> <span
+class="math inline">j</span> ] ]<code>)</code></td>
+<td style="text-align: left;">El índice de la primera aparición de <span
+class="math inline">\underline{x}</span> en <span
+class="math inline">\underline{s}</span> (desde el índice <span
+class="math inline">\underline{i}</span> inclusive y antes del <span
+class="math inline">\underline{j}</span>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.count</code><code>(</code><span
+class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Número total de apariciones de <span
+class="math inline">\underline{x}</span> en <span
+class="math inline">\underline{s}</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="1.2.0.0.2">
+
+<ul>
+<li><p>Además de estas operaciones, las secuencias admiten
+<strong>comparaciones</strong> con los operadores <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>,
+<code>&gt;</code> y <code>&gt;=</code>.</p></li>
+<li><p>Dos secuencias <span class="math inline">\underline{s}</span> y
+<span class="math inline">\underline{t}</span> son iguales (<span
+class="math inline">\underline{s}</span> <code>==</code> <span
+class="math inline">\underline{t}</span>) si:</p>
+<ul>
+<li><p>Son del mismo tipo (<code
+class="sourceCode python"><span class="bu">type</span></code><code>(</code><span
+class="math inline">s</span><code>)</code> <code>==</code> <code
+class="sourceCode python"><span class="bu">type</span></code><code>(</code><span
+class="math inline">t</span><code>)</code>).</p></li>
+<li><p>Tienen la misma longitud (<code
+class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code>)</code> <code>==</code> <code
+class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
+class="math inline">t</span><code>)</code>).</p></li>
+<li><p>Contienen los mismos elementos en el mismo orden<br />
+(<span class="math inline">s</span><code
+class="sourceCode python">[<span class="dv">0</span>]</code>
+<code>==</code> <span class="math inline">t</span><code
+class="sourceCode python">[<span class="dv">0</span>]</code>, <span
+class="math inline">s</span><code
+class="sourceCode python">[<span class="dv">1</span>]</code>
+<code>==</code> <span class="math inline">t</span><code
+class="sourceCode python">[<span class="dv">1</span>]</code>,
+etcétera).</p></li>
+</ul></li>
+<li><p>Por supuesto, las dos secuencias son distintas (<span
+class="math inline">\underline{s}</span> <code>!=</code> <span
+class="math inline">\underline{t}</span>) si no son iguales.</p></li>
+<li><p>Se pueden comparar dos secuencias con los operadores
+<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code> y
+<code>&gt;=</code> para comprobar si una es menor (o igual) o mayor (o
+igual) que la otra si:</p>
+<ul>
+<li><p>Son del mismo tipo (si no son del mismo tipo, lanza una
+excepción).</p></li>
+<li><p>No son rangos.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.3">
+
+<ul>
+<li><p>Las comparaciones <code>&lt;</code>, <code>&lt;=</code>,
+<code>&gt;</code> y <code>&gt;=</code> se hacen lexicográficamente
+elemento a elemento, como en un diccionario.</p></li>
+<li><p>Por ejemplo, <code
+class="sourceCode python"><span class="st">&#39;adios&#39;</span></code>
+<code>&lt;</code> <code
+class="sourceCode python"><span class="st">&#39;hola&#39;</span></code>
+porque <code>adios</code> aparece antes que <code>hola</code> en el
+diccionario.</p></li>
+<li><p>Con el resto de las secuencias se actúa igual que con las
+cadenas.</p>
+<p>Dadas dos secuencias <span class="math inline">\underline{s}</span> y
+<span class="math inline">\underline{t}</span>, para ver si <span
+class="math inline">\underline{s}</span> <code>&lt;</code> <span
+class="math inline">\underline{t}</span> se procede así:</p>
+<ul>
+<li><p>Se empieza comparando el primer elemento de <span
+class="math inline">\underline{s}</span> con el primero de <span
+class="math inline">\underline{t}</span>.</p></li>
+<li><p>Si son iguales, se pasa al siguiente hasta encontrar algún
+elemento de <span class="math inline">\underline{s}</span> que sea
+distinto a su correspondiente de <span
+class="math inline">\underline{t}</span>.</p></li>
+<li><p>Si llegamos al final de <span
+class="math inline">\underline{s}</span> sin haber encontrado ningún
+elemento distinto a su correspondiente en <span
+class="math inline">\underline{t}</span>, es porque <span
+class="math inline">\underline{s}</span> <code>==</code> <span
+class="math inline">\underline{t}</span>.</p></li>
+<li><p>En cuanto se encuentre un elemento de <span
+class="math inline">\underline{s}</span> que no es igual a su
+correspondiente de <span class="math inline">\underline{s}</span>, se
+comparan esos elementos y se devuelve el resultado de esa
+comparación.</p></li>
+</ul></li>
+<li><p>Los rangos no se pueden comparar con <code>&lt;</code>,
+<code>&lt;=</code>, <code>&gt;</code> o <code>&gt;=</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.4">
+
+<ul>
+<li><p>Ejemplos:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">==</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">!=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">==</span> (<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">&lt;</span> (<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">&lt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">&lt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;hola&#39;</span> <span class="op">&lt;</span> <span class="st">&#39;adios&#39;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>) <span class="op">&lt;</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">6</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;&lt;&#39;</span> <span class="kw">not</span> supported between instances of <span class="st">&#39;range&#39;</span> <span class="kw">and</span> <span class="st">&#39;range&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="inmutables" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Inmutables</h1>
+
+</section>
+<section id="cadenas-str" class="title-slide slide level2"
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+Cadenas (<code
+class="sourceCode python"><span class="bu">str</span></code>)</h2>
+<ul>
+<li><p>Las <strong>cadenas</strong> son secuencias inmutables y
+<em>hashables</em> de caracteres.</p></li>
+<li><p>No olvidemos que en Python no existe el tipo <em>carácter</em>.
+En Python, un carácter es una cadena de longitud 1.</p></li>
+<li><p>Las cadenas literales se pueden crear:</p>
+<ul>
+<li><p>Con comillas simples (<code
+class="sourceCode python"><span class="st">&#39;</span></code>) o dobles
+(<code
+class="sourceCode python"><span class="st">&quot;</span></code>):</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
+<li><p>Con triples comillas (<code
+class="sourceCode python"><span class="st">&#39;&#39;&#39;</span></code>
+o <code
+class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;&quot;&quot;hola</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">... qué tal&quot;&quot;&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola</span><span class="ch">\n</span><span class="st">qué tal&#39;</span></span></code></pre></div></li>
+</ul></li>
+<li><p>Las cadenas implementan todas las operaciones de las secuencias,
+además de los métodos que se pueden consultar en <a
+href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
+</ul>
+</section>
+<section id="formateado-de-cadenas" class="title-slide slide level3"
+data-number="2.1.1">
+<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span>
+Formateado de cadenas</h3>
+<ul>
+<li><p>Una <strong>cadena formateada</strong> (también llamada
+<strong><em>f-string</em></strong>) es una cadena literal que lleva un
+prefijo <code>f</code> o <code>F</code>.</p></li>
+<li><p>Estas cadenas contienen <strong>campos de sustitución</strong>,
+que son expresiones encerradas entre llaves.</p></li>
+<li><p>En realidad, las cadenas formateadas son expresiones evaluadas en
+tiempo de ejecución.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.1">
+
+<ul>
+<li><p>Sintaxis:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>f_string</em>⟩</span> ::= (<span
+style="color:teal">⟨<em>carácter_literal</em>⟩</span> |
+<strong><code>{{</code></strong> | <strong><code>}}</code></strong> |
+<span style="color:teal">⟨<em>sustitución</em>⟩</span>)*<br />
+<span style="color:teal">⟨<em>sustitución</em>⟩</span> ::=
+<strong><code>{</code></strong><span
+style="color:teal">⟨<em>expresión</em>⟩</span>
+[<strong><code>!</code></strong><span
+style="color:teal">⟨<em>conversión</em>⟩</span>]
+[<strong><code>:</code></strong><span
+style="color:teal">⟨<em>especif</em>⟩</span>]<strong><code>}</code></strong><br />
+<span style="color:teal">⟨<em>conversión</em>⟩</span> ::=
+<strong><code>s</code></strong> | <strong><code>r</code></strong> |
+<strong><code>a</code></strong><br />
+<span style="color:teal">⟨<em>especif</em>⟩</span> ::= (<span
+style="color:teal">⟨<em>carácter_literal</em>⟩</span> |
+<strong><code>NULL</code></strong> | <span
+style="color:teal">⟨<em>sustitución</em>⟩</span>)*<br />
+<span style="color:teal">⟨<em>carácter_literal</em>⟩</span> ::= <span
+style="color:teal">⟨<em>cualquier carácter Unicode excepto
+<strong><code>{</code></strong>, <strong><code>}</code></strong> o
+<strong><code>NULL</code></strong></em>⟩</span></div></li>
+<li><p>Las partes de la cadena que van fuera de las llaves se tratan
+literalmente, excepto las dobles llaves <code>{{</code> y
+<code>}}</code>, que son sustituidas por una sola llave.</p></li>
+<li><p>Una <code>{</code> marca el comienzo de un <strong>campo de
+sustitución</strong> (<span
+style="color:teal">⟨<em>sustitución</em>⟩</span>), que empieza con una
+expresión.</p></li>
+<li><p>Tras la expresión puede venir un <strong>conversión</strong>
+(<span style="color:teal">⟨<em>conversión</em>⟩</span>), introducida por
+una exclamación <code>!</code>.</p></li>
+<li><p>También puede añadirse un <strong>especificador de
+formato</strong> (<span style="color:teal">⟨<em>especif</em>⟩</span>)
+después de dos puntos <code>:</code>.</p></li>
+<li><p>El campo de sustitución termina con una <code>}</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.2">
+
+<ul>
+<li><p>Las expresiones en un literal de cadena formateada son tratadas
+como cualquier otra expresión Python encerrada entre paréntesis, con
+algunas excepciones:</p>
+<ul>
+<li><p>No se permiten expresiones vacías.</p></li>
+<li><p>Las expresiones lambda deben ir entre paréntesis.</p></li>
+</ul></li>
+<li><p>Los campos de sustitución pueden contener saltos de línea pero no
+comentarios.</p></li>
+<li><p>Si se indica una conversión, el resultado de evaluar la expresión
+se convierte antes de aplicar el formateado.</p>
+<p>La conversión <code>!s</code> llama a la función <code
+class="sourceCode python"><span class="bu">str</span></code> sobre el
+resultado, <code>!r</code> llama a <code
+class="sourceCode python"><span class="bu">repr</span></code> y
+<code>!a</code> llama a <code
+class="sourceCode python"><span class="bu">ascii</span></code>.</p></li>
+<li><p>A continuación, el resultado es formateado usando la función
+<code
+class="sourceCode python"><span class="bu">format</span></code>.</p></li>
+<li><p>Finalmente, el resultado del formateado es incluido en el valor
+final de la cadena completa.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.3">
+
+<ul>
+<li><p>La sintaxis general de un especificador de formato es:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>especif</em>⟩</span> ::= [[<span
+style="color:teal">⟨<em>relleno</em>⟩</span>]<span
+style="color:teal">⟨<em>alig</em>⟩</span>][<span
+style="color:teal">⟨<em>signo</em>⟩</span>][<strong><code>#</code></strong>][<strong><code>0</code></strong>][<span
+style="color:teal">⟨<em>ancho</em>⟩</span>][<span
+style="color:teal">⟨<em>grupos</em>⟩</span>][<strong><code>.</code></strong><span
+style="color:teal">⟨<em>precision</em>⟩</span>][<span
+style="color:teal">⟨<em>tipo</em>⟩</span>]<br />
+<span style="color:teal">⟨<em>relleno</em>⟩</span> ::= <span
+style="color:teal">⟨<em>cualquier carácter</em>⟩</span><br />
+<span style="color:teal">⟨<em>alig</em>⟩</span> ::=
+<strong><code>&lt;</code></strong> | <strong><code>&gt;</code></strong>
+| <strong><code>=</code></strong> |
+<strong><code>^</code></strong><br />
+<span style="color:teal">⟨<em>signo</em>⟩</span> ::=
+<strong><code>+</code></strong> | <strong><code>-</code></strong> |
+<span style="color:teal">⟨<em>espacio</em>⟩</span><br />
+<span style="color:teal">⟨<em>ancho</em>⟩</span> ::= <span
+style="color:teal">⟨<em>dígito</em>⟩</span>+<br />
+<span style="color:teal">⟨<em>grupos</em>⟩</span> ::=
+<strong><code>_</code></strong> | <strong><code>,</code></strong><br />
+<span style="color:teal">⟨<em>precision</em>⟩</span> ::= <span
+style="color:teal">⟨<em>dígito</em>⟩</span>+<br />
+<span style="color:teal">⟨<em>tipo</em>⟩</span> ::=
+<strong><code>b</code></strong> | <strong><code>c</code></strong> |
+<strong><code>d</code></strong> | <strong><code>e</code></strong> |
+<strong><code>E</code></strong> | <strong><code>f</code></strong> |
+<strong><code>F</code></strong> | <strong><code>g</code></strong> |
+<strong><code>G</code></strong> | <strong><code>n</code></strong> |
+<strong><code>o</code></strong> | <strong><code>s</code></strong> |
+<strong><code>x</code></strong> | <strong><code>X</code></strong> |
+<strong><code>%</code></strong></div></li>
+<li><p>Los especificadores de formato de nivel superior pueden incluir
+campos de sustitución anidados.</p></li>
+<li><p>Estos campos anidados pueden incluir, a su vez, sus propios
+campos de conversión y sus propios especificadores de formato, pero no
+pueden incluir más campos de sustitución anidados.</p></li>
+<li><p>Para más información, consultar <a
+href="https://docs.python.org/3.7/library/string.html#format-specification-mini-language">https://docs.python.org/3.7/library/string.html#format-specification-mini-language</a></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.4">
+
+<ul>
+<li><p>Ejemplos de cadenas formateadas:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="st">&#39;Pepe&#39;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El nombre es: </span><span class="sc">{</span>nombre<span class="sc">}</span><span class="ss">&#39;</span>              <span class="co"># Se sustituye la variable por su valor</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El nombre es: Pepe&#39;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> apellidos <span class="op">=</span> <span class="st">&#39;Pérez&#39;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El nombre es: </span><span class="sc">{</span>nombre<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>apellidos<span class="sc">}</span><span class="ss">&#39;</span>  <span class="co"># Igual</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El nombre es: Pepe Pérez&#39;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El nombre es: </span><span class="sc">{</span>nombre <span class="op">+</span> apellidos<span class="sc">}</span><span class="ss">&#39;</span>  <span class="co"># Se puede usar cualquier expresión</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El nombre es: Pepe Pérez&#39;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{</span>nombre<span class="sc">:10}</span><span class="ss">&#39;</span>    <span class="co"># Las cadenas se alinean a la izquierda</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: Pepe      &#39;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{</span>nombre<span class="sc">:&lt;10}</span><span class="ss">&#39;</span>   <span class="co"># Igual que lo anterior</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: Pepe      &#39;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{</span>nombre<span class="sc">:&gt;10}</span><span class="ss">&#39;</span>   <span class="co"># Alinea a la derecha</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:       Pepe&#39;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{</span>nombre<span class="sc">:^10}</span><span class="ss">&#39;</span>   <span class="co"># Alinea al centro</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:    Pepe   &#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.5">
+
+<ul>
+<li><p>Ejemplos de cadenas formateadas con números positivos:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x, y <span class="op">=</span> <span class="dv">400</span>, <span class="dv">300</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;La suma de </span><span class="sc">{x}</span><span class="ss"> y </span><span class="sc">{y}</span><span class="ss"> es </span><span class="sc">{x</span> <span class="op">+</span> <span class="sc">y}</span><span class="ss">&#39;</span> <span class="co"># Se puede usar cualquier expresión</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;La suma de 400 y 300 es 700&#39;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:10}</span><span class="ss">&#39;</span>     <span class="co"># Los números se alinean a la derecha</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:        400&#39;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:&gt;10}</span><span class="ss">&#39;</span>    <span class="co"># Igual que lo anterior</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:        400&#39;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:2}</span><span class="ss">&#39;</span>      <span class="co"># Ancho demasiado pequeño, se ignora</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: 400&#39;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:&lt;10}</span><span class="ss">&#39;</span>    <span class="co"># Alinea a la izquierda</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: 400       &#39;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:&gt;10}</span><span class="ss">&#39;</span>    <span class="co"># Alinea a la derecha</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:        400&#39;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:^10}</span><span class="ss">&#39;</span>    <span class="co"># Alinea al centro</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:    400    &#39;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:=10}</span><span class="ss">&#39;</span>    <span class="co"># En positivos no hay diferencia con &gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:        400&#39;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:@&lt;10}</span><span class="ss">&#39;</span>   <span class="co"># Alinea a la izquierda, rellena con @</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: 400@@@@@@@&#39;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:@&gt;10}</span><span class="ss">&#39;</span>   <span class="co"># Alinea a la derecha, rellena con @</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: @@@@@@@400&#39;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:@^10}</span><span class="ss">&#39;</span>   <span class="co"># Alinea al centro, rellena con @</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: @@@400@@@@&#39;</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{x:@=10}</span><span class="ss">&#39;</span>   <span class="co"># En positivos no hay diferencia con &gt;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: @@@@@@@400&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.6">
+
+<ul>
+<li><p>Ejemplos de cadenas formateadas con números negativos:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="op">-</span><span class="dv">400</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:10}</span><span class="ss">&#39;</span>   <span class="co"># A la derecha, signo junto al nº</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:       -400&#39;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:&lt;10}</span><span class="ss">&#39;</span>  <span class="co"># A la izquierda, signo junto al nº</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: -400      &#39;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:&gt;10}</span><span class="ss">&#39;</span>  <span class="co"># A la derecha, signo junto al nº</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:       -400&#39;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:^10}</span><span class="ss">&#39;</span>  <span class="co"># Al centro, signo junto al nº</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura:    -400   &#39;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:=10}</span><span class="ss">&#39;</span>  <span class="co"># A la derecha, signo junto al relleno</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: -      400&#39;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:010}</span><span class="ss">&#39;</span>  <span class="co"># A la derecha, signo junto al relleno</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: -000000400&#39;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:0&lt;10}</span><span class="ss">&#39;</span> <span class="co"># A la izquierda, signo junto al nº</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: -400000000&#39;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:0&gt;10}</span><span class="ss">&#39;</span> <span class="co"># A la derecha, signo junto al nº</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: 000000-400&#39;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:0^10}</span><span class="ss">&#39;</span> <span class="co"># Al centro, signo junto al nº</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: 000-400000&#39;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:0=10}</span><span class="ss">&#39;</span> <span class="co"># A la derecha, signo junto al relleno</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: -000000400&#39;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:@&lt;10}</span><span class="ss">&#39;</span> <span class="co"># A la izquierda, signo junto al nº</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: -400@@@@@@&#39;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:@&gt;10}</span><span class="ss">&#39;</span> <span class="co"># A la derecha, signo junto al nº</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: @@@@@@-400&#39;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:@^10}</span><span class="ss">&#39;</span> <span class="co"># Al centro, signo junto al nº</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: @@@-400@@@&#39;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{z:@=10}</span><span class="ss">&#39;</span> <span class="co"># A la derecha, signo junto al relleno</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: -@@@@@@400&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.7">
+
+<ul>
+<li><p>Ejemplos de cadenas formateadas con números en coma flotante:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:6.3}</span><span class="ss">&#39;</span>     <span class="co"># Ancho 6, precisión 3</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es   3.14&#39;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:10.3}</span><span class="ss">&#39;</span>    <span class="co"># Ancho 10, precisión 3</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es       3.14&#39;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:&lt;10.3}</span><span class="ss">&#39;</span>   <span class="co"># A la izquierda</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es 3.14      &#39;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:&gt;10.3}</span><span class="ss">&#39;</span>   <span class="co"># A la derecha</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es       3.14&#39;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:^10.3}</span><span class="ss">&#39;</span>   <span class="co"># Al centro</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es    3.14   &#39;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:=10.3}</span><span class="ss">&#39;</span>   <span class="co"># A la derecha</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es       3.14&#39;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:10.3f}</span><span class="ss">&#39;</span>   <span class="co"># 3 dígitos en la parte fraccionaria</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es      3.142&#39;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:&lt;10.3f}</span><span class="ss">&#39;</span>  <span class="co"># A la izquierda</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es 3.142     &#39;</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:&gt;10.3f}</span><span class="ss">&#39;</span>  <span class="co"># A la derecha</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es      3.142&#39;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:^10.3f}</span><span class="ss">&#39;</span>  <span class="co"># Al centro</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es   3.142   &#39;</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{pi:=10.3f}</span><span class="ss">&#39;</span>  <span class="co"># A la derecha</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es      3.142&#39;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El valor de pi es </span><span class="sc">{</span><span class="op">-</span><span class="sc">pi:=10.3f}</span><span class="ss">&#39;</span> <span class="co"># Los negativos, igual que los enteros</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El valor de pi es -    3.142&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.1.0.8">
+
+<ul>
+<li><p>Más ejemplos:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="st">&quot;Fred&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span>nombre<span class="sc">!r}</span><span class="ss">.&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;Dice que su nombre es </span><span class="sc">{</span><span class="bu">repr</span>(nombre)<span class="sc">}</span><span class="ss">.&quot;</span>  <span class="co"># repr es equivalente a !r</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Dice que su nombre es &#39;Fred&#39;.&quot;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ancho <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> precision <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> value <span class="op">=</span> decimal.Decimal(<span class="st">&quot;12.34567&quot;</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;result: </span><span class="sc">{</span>value<span class="sc">:</span>{ancho}<span class="sc">.</span>{precision}<span class="sc">}</span><span class="ss">&quot;</span>  <span class="co"># campos anidados</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;result:      12.35&#39;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> datetime</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> hoy <span class="op">=</span> datetime.datetime(year<span class="op">=</span><span class="dv">2017</span>, month<span class="op">=</span><span class="dv">1</span>, day<span class="op">=</span><span class="dv">27</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>hoy<span class="sc">:</span><span class="op">%</span><span class="sc">B</span> <span class="op">%</span><span class="sc">d,</span> <span class="op">%</span><span class="sc">Y}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de fecha</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;January 27, 2017&#39;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> numero <span class="op">=</span> <span class="dv">1024</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&quot;</span><span class="sc">{</span>numero<span class="sc">:#0x}</span><span class="ss">&quot;</span>  <span class="co"># usando especificador de formato de enteros</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;0x400&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="expresiones-regulares" class="title-slide slide level3"
+data-number="2.1.2">
+<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span>
+Expresiones regulares</h3>
+<ul>
+<li><p>Las <strong>expresiones regulares</strong> (también llamados
+<em>regex</em>) constituyen un pequeño lenguaje muy especializado
+incrustado dentro de Python y disponible a través del módulo
+<code>re</code>.</p></li>
+<li><p>Usando este pequeño lenguaje es posible especificar
+<strong>reglas sintácticas</strong> de una forma distinta pero parecida
+a las <em>gramáticas EBNF</em> (aunque con menos poder
+expresivo).</p></li>
+<li><p>Esas reglas sintácticas se pueden usar luego para
+<strong>comprobar si una cadena <em>se ajusta</em> a un
+patrón</strong>.</p></li>
+<li><p>Este patrón puede ser frases en español, o direcciones de correo
+electrónico o cualquier otra cosa.</p></li>
+<li><p>A continuación, se pueden hacer preguntas del tipo: <em>«¿Esta
+cadena se ajusta al patrón?»</em> o <em>«¿Hay algo que se ajuste al
+patrón en alguna parte de esta cadena?»</em>.</p></li>
+<li><p>También se pueden usar las <em>regexes</em> para
+<strong>modificar</strong> una cadena o <strong>dividirla en
+partes</strong> según el patrón indicado.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.2.0.1">
+
+<ul>
+<li><p>El lenguaje de las expresiones regulares es relativamente pequeño
+y restringido, por lo que no es posible usarlo para realizar cualquier
+tipo de procesamiento de cadenas.</p></li>
+<li><p>Además, hay procesamientos que se pueden realizar con
+<em>regexes</em> pero las expresiones que resultan se vuelven muy
+complicadas.</p></li>
+<li><p>En estos casos, es mejor escribir directamente código Python ya
+que, aunque el código resultante pueda resultar más lento, probablemente
+resulte más fácil de leer.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.2.0.2">
+
+<ul>
+<li><p>Para más información sobre cómo crear y usar expresiones
+regulares, consultar:</p>
+<ul>
+<li><p>Tutorial de introducción en <a
+href="https://docs.python.org/3/howto/regex.html">https://docs.python.org/3/howto/regex.html</a></p></li>
+<li><p>Documentación del módulo <code>re</code> en <a
+href="https://docs.python.org/3/library/re.html">https://docs.python.org/3/library/re.html</a></p></li>
+</ul></li>
+</ul>
+</section>
+
+
+<section id="tuplas" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+Tuplas</h2>
+<ul>
+<li><p>Las <strong>tuplas</strong> (<code
+class="sourceCode python"><span class="bu">tuple</span></code>) son
+secuencias inmutables, usadas frecuentemente para representar
+colecciones de datos heterogéneos (es decir, de tipos
+distintos).</p></li>
+<li><p>También se usan en aquellos casos en los que se necesita una
+secuencia inmutable de datos homogéneos (por ejemplo, para almacenar
+datos en un conjunto o un diccionario).</p></li>
+<li><p>Las tuplas se pueden crear así:</p>
+<ul>
+<li><p>Si es una tupla vacía, con paréntesis vacíos: <code
+class="sourceCode python">()</code></p></li>
+<li><p>Si sólo tiene un elemento, se pone una coma detrás:</p>
+<div class="columns">
+<div class="column">
+<p><span class="math inline">a</span><code>,</code></p>
+</div><div class="column">
+<p><code>(</code><span class="math inline">a</span><code>,)</code></p>
+</div>
+</div></li>
+<li><p>Si tiene más de un elemento, se separan con comas:</p>
+<div class="columns">
+<div class="column">
+<p><span class="math inline">a</span><code>,</code> <span
+class="math inline">b</span><code>,</code> <span
+class="math inline">c</span></p>
+</div><div class="column">
+<p><code>(</code><span class="math inline">a</span><code>,</code> <span
+class="math inline">b</span><code>,</code> <span
+class="math inline">c</span><code>)</code></p>
+</div>
+</div></li>
+<li><p>Usando la función <code
+class="sourceCode python"><span class="bu">tuple</span></code><code>(</code><span
+style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.1">
+
+<ul>
+<li><p>Observar que lo que construye la tupla es realmente la coma, no
+los paréntesis.</p></li>
+<li><p>Los paréntesis son opcionales, excepto en dos casos:</p>
+<ul>
+<li><p>La tupla vacía: <code
+class="sourceCode python">()</code></p></li>
+<li><p>Cuando son necesarios para evitar ambigüedad.</p>
+<p>Por ejemplo, <code>f(</code><span
+class="math inline">a</span><code>,</code> <span
+class="math inline">b</span><code>,</code> <span
+class="math inline">c</span><code>)</code> es una llamada a una función
+con tres argumentos, mientras que <code>f((</code><span
+class="math inline">a</span><code>,</code> <span
+class="math inline">b</span><code>,</code> <span
+class="math inline">c</span><code>))</code> es una llamada a una función
+con un único argumento que es una tupla de tres elementos.</p></li>
+</ul></li>
+<li><p>Las tuplas implementan todas las operaciones comunes de las
+secuencias.</p></li>
+<li><p>En general, las tuplas se pueden considerar como la versión
+inmutable de las listas.</p></li>
+<li><p>Además, las tuplas son <em>hashables</em> si sus elementos
+también lo son.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.2">
+
+<ul>
+<li><p>En memoria, las tuplas se almacenan mediante una estructura de
+datos donde sus elementos se identifican mediante un índice, que es un
+número entero que indica la posición que ocupa el elemento dentro de la
+tupla.</p></li>
+<li><p>Por ejemplo, la siguiente tupla:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p>se almacenaría de la siguiente forma según lo representa la
+herramienta Pythontutor:</p>
+<div class="centered">
+<figure>
+<img data-src="images/tupla_en_pythontutor.png" class="plain"
+style="width:50.0%" alt="Tupla almacenada en memoria" />
+<figcaption aria-hidden="true">Tupla almacenada en memoria</figcaption>
+</figure>
+</div></li>
+</ul>
+</section>
+
+<section id="rangos" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+Rangos</h2>
+<ul>
+<li><p>Los <strong>rangos</strong> (<code
+class="sourceCode python"><span class="bu">range</span></code>)
+representan secuencias inmutables y <em>hashables</em> de números
+enteros y se usan frecuentemente para hacer bucles que se repitan un
+determinado número de veces.</p></li>
+<li><p>Los rangos se crean con la función <code
+class="sourceCode python"><span class="bu">range</span></code>:</p>
+<div class="caja">
+<p><span
+class="math inline">\texttt{range(\([\)\(start\):\,int,\(]\)\;\(stop\):\,int\;\([\),\;\(step\):\,int\(]\))\;-&gt;\;range}</span></p>
+</div></li>
+<li><p>Cuando se omite <em>start</em>, se entiende que es <code
+class="sourceCode python"><span class="dv">0</span></code>.</p></li>
+<li><p>Cuando se omite <em>step</em>, se entiende que es <code
+class="sourceCode python"><span class="dv">1</span></code>.</p></li>
+<li><p>El valor de <em>stop</em> no se alcanza nunca.</p></li>
+<li><p>Cuando <em>start</em> y <em>stop</em> son iguales, representa el
+<em>rango vacío</em>.</p></li>
+<li><p><em>step</em> debe ser siempre distinto de cero.</p></li>
+<li><p>Cuando <em>start</em> es mayor que <em>stop</em>, el valor de
+<em>step</em> debería ser negativo. En caso contrario, también
+representaría el rango vacío.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.1">
+
+<ul>
+<li><p>El <strong>contenido</strong> de un rango <span
+class="math inline">r</span> vendrá determinado por la fórmula: <span
+class="math display">r[i] =
+start + step \cdot i</span> donde <span class="math inline">i \geq
+0</span>. Además:</p>
+<ul>
+<li><p>Si <span class="math inline">step &gt; 0</span>, se impone
+también la restricción <span class="math inline">r[i] &lt;
+\text{\textit{stop}}</span>.</p></li>
+<li><p>Si <span class="math inline">step &lt; 0</span>, se impone
+también la restricción <span class="math inline">r[i] &gt;
+\text{\textit{stop}}</span>.</p></li>
+</ul></li>
+<li><p>Un rango es <strong>vacío</strong> cuando <span
+class="math inline">r[0]</span> no satisface las restricciones
+anteriores.</p></li>
+<li><p>Los rangos admiten <strong>índices negativos</strong>, pero se
+interpretan como si se indexara desde el final de la secuencia usando
+índices positivos.</p></li>
+<li><p>Los rangos implementan <strong>todas las operaciones de las
+secuencias, <em>excepto</em> la concatenación y la
+repetición</strong>.</p>
+<p>Esto es debido a que los rangos sólo pueden representar secuencias
+que siguen un patrón muy estricto, y las repeticiones y las
+concatenaciones a menudo violan ese patrón.</p></li>
+<li><p><strong>Los rangos son perezosos</strong> y además ocupan mucha
+menos memoria que las listas o las tuplas (sólo hay que almacenar
+<em>start</em>, <em>stop</em> y <em>step</em>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.2">
+
+<ul>
+<li><p>La <strong>forma normal</strong> de un rango es una expresión en
+la que se llama a la función <code
+class="sourceCode python"><span class="bu">range</span></code> con los
+argumentos necesarios para construir el rango:</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">10</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span></code></pre></div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>)</span></code></pre></div>
+</div>
+</div></li>
+<li><p>Para ver con claridad todos los elementos de un rango, podemos
+convertirlo en una tupla o una lista. Por ejemplo:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">7</span>, <span class="op">-</span><span class="dv">8</span>, <span class="op">-</span><span class="dv">9</span>]</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>[]</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>[]</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.3">
+
+<ul>
+<li><p>Dos rangos son considerados <strong>iguales</strong> si
+representan la misma secuencia de valores, sin importar si tienen
+distintos valores de <em>start</em>, <em>stop</em> o
+<em>step</em>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">20</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">2</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">2</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.4">
+
+<ul>
+<li><p>El <strong>rango vacío</strong> es un valor que no tiene
+expresión canónica, ya que cualquiera de las siguientes expresiones
+representan al rango vacío tan bien como cualquier otra:</p>
+<ul>
+<li><p><code
+class="sourceCode python"><span class="bu">range</span>(<span class="dv">0</span>)</code>.</p></li>
+<li><p><code
+class="sourceCode python"><span class="bu">range</span></code><code>(</code><span
+class="math inline">a</span><code>,</code><span
+class="math inline">\;a</span><code>)</code>, donde <em>a</em> es
+cualquier entero.</p></li>
+<li><p><code
+class="sourceCode python"><span class="bu">range</span></code><code>(</code><span
+class="math inline">a</span><code>,</code><span
+class="math inline">\;b</span><code>,</code><span
+class="math inline">\;c</span><code>)</code>, donde <span
+class="math inline">a \geq b</span> y <span class="math inline">c &gt;
+0</span>.</p></li>
+<li><p><code
+class="sourceCode python"><span class="bu">range</span></code><code>(</code><span
+class="math inline">a</span><code>,</code><span
+class="math inline">\;b</span><code>,</code><span
+class="math inline">\;c</span><code>)</code>, donde <span
+class="math inline">a \leq b</span> y <span class="math inline">c &lt;
+0</span>.</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+</section>
+</section>
+<section>
+<section id="mutables" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span>
+Mutables</h1>
+
+</section>
+<section id="listas" class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+Listas</h2>
+<ul>
+<li><p>Las <strong>listas</strong> son secuencias <em>mutables</em>,
+usadas frecuentemente para representar colecciones de elementos
+heterogéneos.</p></li>
+<li><p>Al ser mutables, las listas <strong>no</strong> son
+<em>hashables</em>.</p></li>
+<li><p>Se pueden construir de varias maneras:</p>
+<ul>
+<li><p>Usando corchetes vacíos para representar la lista vacía: <code
+class="sourceCode python">[]</code>.</p></li>
+<li><p>Usando corchetes y separando los elementos con comas:</p>
+<p><code>[</code><span class="math inline">a</span><code>]</code></p>
+<p><code>[</code><span class="math inline">a</span><code>,</code> <span
+class="math inline">b</span><code>,</code> <span
+class="math inline">c</span><code>]</code></p></li>
+<li><p>Usando la función <code
+class="sourceCode python"><span class="bu">list</span></code> con las
+sintaxis <code
+class="sourceCode python"><span class="bu">list</span>()</code> o <code
+class="sourceCode python"><span class="bu">list</span></code><code>(</code><span
+style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">list</span></code> construye
+una lista cuyos elementos son los mismos (y están en el mismo orden) que
+los elementos de <span
+style="color:teal">⟨<em>iterable</em>⟩</span>.</p></li>
+<li><p><span style="color:teal">⟨<em>iterable</em>⟩</span> puede
+ser:</p>
+<ul>
+<li><p>una secuencia,</p></li>
+<li><p>un contenedor sobre el que se pueda iterar, o</p></li>
+<li><p>un iterador.</p></li>
+</ul></li>
+<li><p>Si se llama sin argumentos, devuelve una lista vacía.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<ul>
+<li><p>En memoria, las listas se almacenan mediante una estructura de
+datos donde sus elementos se identifican mediante un índice, que es un
+número entero que indica la posición que ocupa el elemento dentro de la
+lista.</p></li>
+<li><p>Por ejemplo, la siguiente lista:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
+<p>se almacenaría de la siguiente forma según lo representa la
+herramienta Pythontutor:</p>
+<div class="centered">
+<figure>
+<img data-src="images/lista_en_pythontutor.png" class="plain"
+style="width:50.0%" alt="Lista almacenada en memoria" />
+<figcaption aria-hidden="true">Lista almacenada en memoria</figcaption>
+</figure>
+</div></li>
+</ul>
+</section>
+<section id="listas-por-comprensión" class="title-slide slide level3"
+data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span>
+Listas por comprensión</h3>
+<ul>
+<li><p>También se pueden crear <strong>listas por comprensión</strong>
+usando la misma sintaxis de las <strong>expresiones generadoras</strong>
+pero encerrando la expresión entre corchetes en lugar de entre
+paréntesis.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>lista_comp</em>⟩</span> ::=
+<strong><code>[</code></strong><span
+style="color:teal">⟨<em>expresión</em>⟩</span>
+(<strong><code>for</code></strong> <span
+style="color:teal">⟨<em>identificador</em>⟩</span>
+<strong><code>in</code></strong> <span
+style="color:teal">⟨<em>secuencia</em>⟩</span>
+[<strong><code>if</code></strong> <span
+style="color:teal">⟨<em>condición</em>⟩</span>])<span
+class="math inline">^+</span><strong><code>]</code></strong></div></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>]</span></code></pre></div></li>
+<li><p>Como se ve, el resultado es directamente una lista, no un
+iterador.</p></li>
+<li><p>Por tanto, a diferencia de lo que pasa con las expresiones
+generadoras, <strong>el resultado de una lista por comprensión no es
+perezoso</strong>, cosa que habrá que tener en cuenta para evitar
+consumir más memoria de la necesaria o generar elementos que al final no
+sean necesarios.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.1.0.1">
+
+<ul>
+<li><p>Por ejemplo, la siguiente expresión generadora:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>res_gen <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10000000000000</span>))</span></code></pre></div>
+<p>es mucho más eficiente en tiempo y espacio que la lista por
+comprensión:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>res_list <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10000000000000</span>)]</span></code></pre></div>
+<p>ya que la expresión generadora devuelve un <strong>iterador</strong>
+que irá generando los valores de uno en uno a medida que los vayamos
+recorriendo con <code
+class="sourceCode python"><span class="bu">next</span>(res_gen)</code>.</p>
+<p>En cambio, la lista por comprensión genera todos los valores de la
+lista a la vez y los almacena todos juntos en la memoria.</p></li>
+<li><p>A cambio, la ventaja de tener una lista frente a tener un
+iterador es que podemos acceder directamente a cualquier elemento de la
+lista mediante la indexación.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.1.0.2">
+
+<ul>
+<li><p>Las listas por comprensión, al igual que las expresiones
+generadoras, <strong>determinan su propio
+<em>ámbito</em></strong>.</p></li>
+<li><p>Ese ámbito abarca toda la lista por comprensión, de principio a
+fin.</p></li>
+<li><p>Los identificadores que aparecen en la cláusula <code
+class="sourceCode python"><span class="cf">for</span></code> se
+consideran <em>variables ligadas</em> en la lista por
+comprensión.</p></li>
+<li><p>Esos identificadores se van ligando, uno a uno, a cada elemento
+de la secuencia indicada en la cláusula <code
+class="sourceCode python"><span class="kw">in</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.1.0.3">
+
+<ul>
+<li><p>Como son variables ligadas, cumplen estas dos propiedades:</p>
+<ol>
+<li><p>Se pueden renombrar (siempre de forma consistente) sin que la
+lista por comprensión cambie su significado.</p>
+<p>Por ejemplo, las dos listas por comprensión siguientes son
+equivalentes, puesto que producen el mismo resultado:</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>[x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>[y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span></code></pre></div></li>
+<li><p>No se pueden usar fuera de la lista por comprensión, ya que
+estarían fuera de su ámbito y no serían visibles.</p>
+<p>Por ejemplo, lo siguiente daría un error de nombre:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la lista por comprensión</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+</ol></li>
+</ul>
+</section>
+
+
+<section id="operaciones-mutadoras" class="title-slide slide level2"
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+Operaciones mutadoras</h2>
+<ul>
+<li>En la siguiente tabla, <span
+class="math inline">\underline{s}</span> es una instancia de un tipo de
+secuencia mutable (por ejemplo, una lista), <span
+class="math inline">\underline{t}</span> es cualquier dato iterable y
+<span class="math inline">\underline{x}</span> es un dato cualquiera que
+cumple con las restricciones que impone <span
+class="math inline">\underline{s}</span>:</li>
+</ul>
+<p><br></p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>]</code> <code>=</code> <span
+class="math inline">x</span></td>
+<td style="text-align: left;">El elemento <span
+class="math inline">i</span>-ésimo de <span
+class="math inline">\underline{s}</span> se sustituye por <span
+class="math inline">\underline{x}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>]</code> <code>=</code> <span
+class="math inline">t</span></td>
+<td style="text-align: left;">La rodaja de <span
+class="math inline">\underline{s}</span> desde <span
+class="math inline">\underline{i}</span> hasta <span
+class="math inline">\underline{j}</span> se sustituye por <span
+class="math inline">\underline{t}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>:</code><span
+class="math inline">k</span><code>]</code> <code>=</code> <span
+class="math inline">t</span></td>
+<td style="text-align: left;">Los elementos de <span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>:</code><span
+class="math inline">k</span><code>]</code> se sustituyen por <span
+class="math inline">\underline{t}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="kw">del</span></code> <span
+class="math inline">\ s</span><code>[</code><span
+class="math inline">i</span><code>]</code></td>
+<td style="text-align: left;">Elimina el elemento <span
+class="math inline">i</span>-ésimo de <span
+class="math inline">\underline{s}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="kw">del</span></code> <span
+class="math inline">\ s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>]</code></td>
+<td style="text-align: left;">Elimina los elementos de <span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>]</code><br />
+Equivale a hacer <span class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>]</code> <code>=</code>
+<code>[]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="kw">del</span></code> <span
+class="math inline">\ s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>:</code><span
+class="math inline">k</span><code>]</code></td>
+<td style="text-align: left;">Elimina los elementos de <span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>:</code><span
+class="math inline">k</span><code>]</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="3.2.0.0.1">
+
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Operación</th>
+<th style="text-align: left;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.append</code><code>(</code><span
+class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Añade <span
+class="math inline">\underline{x}</span> al final de <span
+class="math inline">\underline{s}</span>; es igual que<br />
+<span class="math inline">s</span><code
+class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code
+class="sourceCode python">):<span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code>)]</code> <code>=</code>
+<code>[</code><span class="math inline">x</span><code>]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.clear()</code></td>
+<td style="text-align: left;">Elimina todos los elementos de <span
+class="math inline">\underline{s}</span>; es igual que<br />
+<code class="sourceCode python"><span class="kw">del</span></code> <span
+class="math inline">\ s</span><code
+class="sourceCode python">[:]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.copy()</code></td>
+<td style="text-align: left;">Crea una copia <em>superficial</em> de
+<span class="math inline">\underline{s}</span>; es igual que <span
+class="math inline">s</span><code
+class="sourceCode python">[:]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.extend</code><code>(</code><span
+class="math inline">t</span><code>)</code><br />
+<span class="math inline">s</span> <code>+=</code> <span
+class="math inline">t</span></td>
+<td style="text-align: left;">Extiende <span
+class="math inline">\underline{s}</span> con el contenido de <span
+class="math inline">\underline{t}</span>; es igual que<br />
+<span class="math inline">s</span><code
+class="sourceCode python">[<span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code
+class="sourceCode python">):<span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code>)]</code> <code>=</code> <span
+class="math inline">t</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span>
+<code>*=</code> <span class="math inline">n</span></td>
+<td style="text-align: left;">Modifica <span
+class="math inline">\underline{s}</span> repitiendo su contenido <span
+class="math inline">\underline{n}</span> veces</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.insert</code><code>(</code><span
+class="math inline">i</span><code>,</code> <span
+class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Inserta <span
+class="math inline">\underline{x}</span> en <span
+class="math inline">\underline{s}</span> en el índice <span
+class="math inline">\underline{i}</span>; es igual que <span
+class="math inline">s</span><code>[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">i</span><code>]</code> <code>=</code>
+<code>[</code><span class="math inline">x</span><code>]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.pop</code><code>(</code>[ <span
+class="math inline">i</span> ]<code>)</code></td>
+<td style="text-align: left;">Extrae el elemento <span
+class="math inline">\underline{i}</span> de <span
+class="math inline">\underline{s}</span> y lo devuelve<br />
+(por defecto, <span class="math inline">i</span> vale <code
+class="sourceCode python"><span class="op">-</span><span class="dv">1</span></code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.remove</code><code>(</code><span
+class="math inline">x</span><code>)</code></td>
+<td style="text-align: left;">Quita el primer elemento de <span
+class="math inline">\underline{s}</span> que sea igual a <span
+class="math inline">\underline{x}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.reverse()</code></td>
+<td style="text-align: left;">Invierte los elementos de <span
+class="math inline">\underline{s}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">s</span><code
+class="sourceCode python">.sort()</code></td>
+<td style="text-align: left;">Ordena los elementos de <span
+class="math inline">\underline{s}</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="3.2.0.0.2">
+
+<ul>
+<li><p>La <strong>copia superficial</strong> (a diferencia de la
+<strong><em>copia profunda</em></strong>) significa que sólo se copia el
+objeto sobre el que se aplica la copia, <strong>no sus
+elementos</strong>.</p></li>
+<li><p>Por tanto, al crear la copia superficial, se crea sólo un nuevo
+objeto, donde se copiarán las referencias de los elementos del objeto
+original.</p></li>
+<li><p>Esto influye, sobre todo, cuando los elementos de una colección
+mutable también son objetos mutables.</p></li>
+<li><p>Por ejemplo, si tenemos listas dentro de otra lista, y copiamos
+ésta última con <code class="sourceCode python">.copy()</code>, la nueva
+lista compartirá elementos con la lista original:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]   <span class="co"># los elementos de «x» también son listas</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x.copy()           <span class="co"># «y» es una copia de «x»</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span>                      <span class="co"># no son la misma lista</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>] <span class="kw">is</span> y[<span class="dv">0</span>]</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>                       <span class="co"># sus elementos no se han copiado,</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>].append(<span class="dv">9</span>)         <span class="co"># sino que están compartidos por «x» e «y»</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">99</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">99</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.3">
+
+<ul>
+<li><p>El método <code class="sourceCode python">sort</code> permite
+ordenar los elementos de la secuencia de forma ascendente o
+descendente:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div></li>
+</ul>
+</section>
+</section>
+<section id="bibliografía"
+class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
+role="listitem">
+Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
+<span>Python</span>.”</span> <a
+href="https://docs.python.org/3">https://docs.python.org/3</a>.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="./reveal.js/plugin/notes/notes.js"></script>
+  <script src="./reveal.js/plugin/search/search.js"></script>
+  <script src="./reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="./reveal.js/plugin/reveal.js-menu/menu.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: true,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 1080,
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        menu: {
+          hideMissingTitles: true,
+        },
+
+        dependencies: [
+          { src: './reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } }
+        ],
+
+        // reveal.js plugins
+        plugins: [
+          RevealMenu,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="text/javascript">
+       var title = document.getElementsByClassName('title')[0];
+       title = title != null ? title.innerHTML : '';
+       var author = document.getElementsByClassName('author')[0];
+       author = author != null ? author.innerHTML : '';
+       var date = document.getElementsByClassName('date')[0];
+       date = date != null ? date.innerHTML : '';
+       document.getElementById('header-left').innerHTML = '<a href="#/title-slide">' + title + '</a>';
+       document.getElementById('footer-left').innerHTML = '<a href="https://pro.iesdonana.org">&copy; ' + author + ' (' + date + ')</a>';
+
+       function updateHeader(nd) {
+           var hr = document.getElementById('header-right');
+           while (hr.children.length > 0) {
+               hr.removeChild(hr.lastChild);
+           }
+           buscar(nd, 3, hr);
+           buscar(nd, 2, hr);
+           buscar(nd, 1, hr);
+           hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+           hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+           var hl = document.getElementById('header-left');
+           hl.style.fontSize = hr.style.fontSize;
+       }
+
+       function buscar(nd, level, hr) {
+           if (!nd.classList.contains('level' + (level - 1))) {
+               for (var n = nd; n != null; n = n.previousSibling) {
+                   if (n.nodeType == Node.TEXT_NODE) {
+                       continue;
+                   }
+                   var cl = n.classList;
+                   if (cl.contains('level' + level)) {
+                       var h = n.querySelector('h' + level);
+                   } else if (cl.contains('level' + (level - 1))) {
+                       break;
+                   } else {
+                       continue;
+                   }
+                   if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                       hr.innerHTML = '';
+                   } else {
+                       var el = document.createElement('a');
+                       var href = '#/' + n.id;
+                       el.href = href;
+                       el.innerHTML = h.innerHTML;
+                       var a = el.querySelector('a');
+                       if (a !== null) {
+                           a.href = href;
+                       }
+                       if (hr.innerHTML != '') {
+                           hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                       }
+                       hr.insertBefore(el, hr.firstChild);
+                   }
+                   break;
+               }
+           }
+       }
+
+       // On Reveal.js ready event, copy header/footer <div>
+       // into each `.slide-background` <div>
+       Reveal.on('ready', event => {
+           var header = document.getElementById('header');
+           document.querySelector('.reveal').appendChild(header);
+           updateHeader(Reveal.getCurrentSlide());
+       });
+
+       Reveal.on('slidechanged', event => {
+           // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+           updateHeader(event.currentSlide);
+       });
+    </script>
+    </body>
+</html>
