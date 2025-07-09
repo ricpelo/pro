@@ -3,7 +3,7 @@ title: Programación procedimental
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @pareja_flores_desarrollo_1997
+  @pareja_flores_desarrollo_1997, @python_software_foundation_sitio_nodate
 ---
 
 # Conceptos básicos
