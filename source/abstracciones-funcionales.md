@@ -1036,6 +1036,733 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   dicha expresión lambda y se almacenarán en otro espacio de nombres distinto
   al marco que se crea al llamar a la expresión lambda.
 
+# Funciones recursivas
+
+## Definición
+
+- Una **función recursiva** es aquella que se define en términos de sí misma.
+
+- Eso quiere decir que, durante la ejecución de una llamada a la función, se
+  ejecuta otra llamada a la misma función, es decir, que la función se llama a
+  sí misma directa o indirectamente.
+
+- La forma más sencilla y habitual de función recursiva es aquella en la que
+  **la propia definición de la función contiene una o varias llamadas a ella
+  misma**. En tal caso, decimos que la función se llama a sí misma
+  _directamente_ o que hay una **recursividad directa**.
+
+  Ese es el tipo de recursividad que vamos a estudiar.
+
+- Las definiciones recursivas son el mecanismo básico para ejecutar
+  **repeticiones de instrucciones** en un lenguaje de programación funcional.
+
+---
+
+- Por ejemplo: $$f(n) = n + f(n + 1)$$
+
+- Esta función matemática es _recursiva_ porque aparece ella misma en su propia
+  definición.
+
+  Para calcular el valor de $f(n)$ tenemos que volver a utilizar la propia
+  función $f$.
+
+- Por ejemplo: $$f(1) = 1 + f(2) = 1 + 2 + f(3) = 1 + 2 + 3 + f(4) = \ldots$$
+
+- Cada vez que una función se llama a sí misma decimos que se realiza una
+  **llamada recursiva** o **paso recursivo**.
+
+!ifdef(HTML)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+!IMGP(pintura-recursiva.jpg)()(width=100%)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+!EJERCICIO
+
+@. Desde el principio del curso ya hemos estado trabajando con estructuras que
+pueden tener una definición recursiva. ¿Cuáles son?
+
+## Casos base y casos recursivos
+
+- Resulta importante que una definición recursiva se detenga alguna vez y
+  proporcione un resultado, ya que si no, no sería útil (tendríamos lo que se
+  llama una **recursión infinita**).
+
+- Por tanto, en algún momento, la recursión debe alcanzar un punto en el que la
+  función no se llame a sí misma y se detenga.
+
+- Para ello, es necesario que la función, en cada paso recursivo, se vaya
+  acercando cada vez más a ese punto.
+
+---
+
+- Ese punto en el que la función recursiva **no se llama a sí misma**, se
+  denomina **caso base**, y puede haber más de uno.
+
+- Los casos base, por tanto, determinan bajo qué condiciones la función no se
+  llamará a sí misma, o dicho de otra forma, con qué valores de sus argumentos
+  la función devolverá directamente un valor y no provocará una nueva llamada
+  recursiva.
+
+- Los demás casos, que sí provocan llamadas recursivas, se denominan **casos
+  recursivos**.
+
+## El factorial
+
+- El ejemplo más típico de función recursiva es el **factorial**.
+
+- El factorial de un número natural $n$ se representa por $n!$ y se define como
+  el producto de todos los números desde 1 hasta $n$:
+  $$n! = n\cdot(n-1)\cdot(n-2)\cdot\cdots\cdot1$$
+
+  Por ejemplo:
+  $$6! = 6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720$$
+
+- Pero para calcular $6!$ también se puede calcular $5!$ y después multiplicar
+  el resultado por 6, ya que:
+  $$6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}$$
+  $$6! = 6\cdot5!$$
+
+- Por tanto, el factorial se puede definir de forma **recursiva**.
+
+---
+
+- Tenemos el **caso recursivo**, pero necesitamos al menos un **caso base**
+  para evitar que la recursión se haga *infinita*.
+
+- El caso base del factorial se obtiene sabiendo que el factorial de 0 es
+  directamente 1 (no hay que llamar al factorial recursivamente):
+  $$0! = 1$$
+
+- Combinando ambos casos tendríamos:
+
+  $$n! = \begin{cases}
+           1 & \text{si } n = 0 \text{\quad(caso base)} \\
+           n\cdot(n-1)! & \text{si } n > 0 \text{\quad(caso recursivo)}
+         \end{cases}$$
+
+---
+
+- La **especificación** de una función que calcule el factorial de un número
+  sería:
+
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(n \geq 0)
+  !SIGNAT(\texttt{factorial(!VAR(n):\,int)\;->\;int})
+  !POST(\texttt{factorial(!VAR(n))} = n!)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Y su **implementación** en Python podría ser la siguiente:
+
+  ```python
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
+
+  que sería prácticamente una traducción literal de la definición recursiva de
+  factorial que acabamos de obtener.
+
+## Diseño de funciones recursivas
+
+- El diseño de funciones recursivas se basa en:
+
+  #. Identificación de casos base
+
+  #. Descomposición (reducción) del problema
+
+  #. Pensamiento optimista
+
+### Identificación de casos base
+
+- Debemos identificar los ejemplares para los cuales hay una solución directa
+  que no necesita recursividad.
+
+- Esos ejemplares representarán los _casos base_ de la función recursiva, y por
+  eso los denominamos _ejemplares básicos_.
+
+- Por ejemplo:
+
+  - Supongamos que queremos diseñar una función (llamada $fact$, por ejemplo)
+    que calcule el factorial de un número.
+
+    Es decir: $fact(n)$ debe devolver el factorial de $n$.
+
+  - Sabemos que $0! = 1$, por lo que nuestra función podría devolver
+    directamente $1$ cuando se le pida calcular el factorial de $0$.
+
+  - Por tanto, el caso base del factorial es el cálculo del factorial de 0:
+    $$fact(0) = 1$$
+
+### Descomposición (reducción) del problema
+
+- Reducimos el problema de forma que así tendremos un ejemplar _más pequeño_
+  del problema.
+
+- Un ejemplar más pequeño es aquel que está **más cerca del caso base**.
+
+- De esta forma, cada ejemplar se irá acercando más y más al caso base hasta
+  que finalmente se alcanzará dicho caso base y eso detendrá la recursión.
+
+- Es importante comprobar que eso se cumple, es decir, que la reducción que le
+  realizamos al problema produce ejemplares que están más cerca del caso base,
+  porque de lo contrario se produciría una _recursión infinita_.
+
+---
+
+- En el ejemplo del factorial:
+
+  - El caso base es $fact(0)$, es decir, el caso en el que queremos calcular el
+    factorial de 0, que ya vimos que es directamente 1 (sin necesidad de
+    llamadas recursivas).
+
+  - Si queremos resolver el problema de calcular, por ejemplo, el factorial de
+    5, podríamos intentar reducir el problema a calcular el factorial de 4, que
+    es un número que está más cerca del caso base (que es 0).
+
+  - A su vez, para calcular el factorial de 4, reduciríamos el problema a
+    calcular el factorial de 3, y así sucesivamente.
+
+  - De esta forma, podemos reducir el problema de calcular el factorial de $n$
+    a calcular el factorial de $(n - 1)$, que es un número que está más cerca
+    del 0. Así, cada vez estaremos más cerca del caso base y, al final, siempre
+    lo acabaremos alcanzando.
+
+### Pensamiento optimista
+
+- Consiste en suponer que la función deseada ya existe y que, aunque no sabe
+  resolver el ejemplar original del problema, sí que es capaz de resolver
+  ejemplares _más pequeños_ de ese problema (este paso se denomina **hipótesis
+  inductiva** o **hipótesis de inducción**).
+
+- Suponiendo que se cumple la _hipótesis inductiva_, y aprovechando que ya
+  contamos con un método para _reducir el ejemplar a uno más pequeño_, ahora
+  tratamos de encontrar un _patrón común_ de forma que resolver el ejemplar
+  original implique usar el mismo patrón en un ejemplar más pequeño.
+
+- Es decir:
+
+  - Al reducir el problema, obtenemos un ejemplar más pequeño del mismo
+    problema y, por tanto, podremos usar la función para poder resolver ese
+    ejemplar más pequeño (que sí sabe resolverlo, por hipótesis inductiva).
+
+  - A continuación, usamos dicha solución _parcial_ para tratar de obtener la
+    solución para el ejemplar original del problema.
+
+---
+
+- En el ejemplo del factorial:
+
+  - Supongamos que queremos calcular, por ejemplo, el factorial de 6.
+
+  - Aún no sabemos calcular el factorial de 6, pero suponemos (por _hipótesis
+    inductiva_) que sí sabemos calcular el factorial de 5.
+
+    En ese caso, ¿cómo puedo aprovechar que sé resolver el factorial de 5 para
+    lograr calcular el factorial de 6?
+
+  - Analizando el problema, observo que se cumple esta propiedad:
+    $$6! = 6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}=6\cdot 5!$$
+
+    Por tanto, he deducido un método para resolver el problema de calcular el
+    factorial de 6 a partir del factorial de 5: _para calcular el
+    factorial de 6 basta con calcular primero el factorial de 5 y luego
+    multiplicar el resultado por 6_.
+
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~
+    Dicho de otro modo: _si yo supiera_ calcular el factorial de 5, me bastaría
+    con multiplicarlo por 6 para obtener el factorial de 6.
+    ~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Generalizando para cualquier número, no sólo para el 6:
+
+  - Si queremos diseñar una función $fact(n)$ que calcule el factorial de $n$,
+    supondremos que esa función ya existe pero que aún no sabe calcular el
+    factorial de $n$, aunque **sí sabe calcular el factorial de
+    $\pmb{(n - 1)}$**.
+
+    Tenemos que creer en que es así y actuar como si fuera así, aunque ahora
+    mismo no sea verdad. _Ésta es nuestra **hipótesis inductiva**_.
+
+  - Por otra parte, sabemos que:
+    $$n! = n\cdot\overbrace{(n-1)\cdot(n-2)\cdot(n-3)\cdot2\cdot1}^{(n-1)!}=n\cdot(n-1)!$$
+
+    Por tanto, si sabemos calcular el factorial de $(n - 1)$ llamando a $fact(n
+    - 1)$, para calcular $fact(n)$ sólo necesito multiplicar $n$ por el
+    resultado de $fact(n - 1)$.
+
+    !CAJA
+    ~~~~~~~~~~~~~~~~~~~~
+    Resumiendo: **_si yo supiera_ calcular el factorial de $\pmb{(n - 1)}$, me
+    bastaría con multiplicarlo por $\pmb{n}$ para obtener el factorial de
+    $\pmb{n}$**.
+    ~~~~~~~~~~~~~~~~~~~~
+
+  - Así obtengo el caso recursivo de la función _fact_, que sería:
+    $$fact(n) = n\cdot fact(n-1)$$
+
+---
+
+- Combinando todos los pasos, obtenemos la solución general:
+
+$$fact(n) = \begin{cases}
+         1 & \text{si } n = 0 \text{\quad(caso base)} \\
+         n\cdot fact(n-1) & \text{si } n > 0 \text{\quad(caso recursivo)}
+       \end{cases}$$
+
+## Recursividad lineal
+
+- Una función tiene **recursividad lineal** si cada llamada a la función
+  recursiva genera, como mucho, otra llamada recursiva a la misma función.
+
+- El factorial definido en el ejemplo anterior es un caso típico de
+  recursividad lineal ya que, cada vez que se llama al factorial se genera,
+  como mucho, otra llamada al factorial.
+
+- Eso se aprecia claramente observando que la definición del caso recursivo de
+  la función $fact$ contiene una única llamada a la misma función $fact$:
+
+$$fact(n) = n\cdot fact(n-1)\quad \text{si } n > 0\quad \text{(caso recursivo)}$$
+
+### Procesos recursivos lineales
+
+- La forma más directa y sencilla de definir una función que calcule el
+  factorial de un número a partir de su definición recursiva podría ser la
+  siguiente:
+
+  ```python
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
+
+- Utilizaremos el modelo de sustitución para observar el funcionamiento de esta
+  función al calcular $6!$:
+
+  ```python
+  factorial(6)
+  = (6 * factorial(5))
+  = (6 * (5 * factorial(4)))
+  = (6 * (5 * (4 * factorial(3))))
+  = (6 * (5 * (4 * (3 * factorial(2)))))
+  = (6 * (5 * (4 * (3 * (2 * factorial(1))))))
+  = (6 * (5 * (4 * (3 * (2 * (1 * factorial(0)))))))
+  = (6 * (5 * (4 * (3 * (2 * (1 * 1))))))
+  = (6 * (5 * (4 * (3 * (2 * 1)))))
+  = (6 * (5 * (4 * (3 * 2))))
+  = (6 * (5 * (4 * 6)))
+  = (6 * (5 * 24))
+  = (6 * 120)
+  = 720
+  ```
+
+---
+
+- Podemos observar un perfil de **expansión** seguido de una **contracción**:
+
+  - La **expansión** ocurre conforme el proceso construye una secuencia de
+    operaciones a realizar *posteriormente* (en este caso, una secuencia de
+    multiplicaciones).
+
+  - La **contracción** se realiza conforme se van ejecutando realmente las
+    multiplicaciones.
+
+- Llamaremos **proceso recursivo** a este tipo de proceso caracterizado por una
+  secuencia de **operaciones pendientes de completar**.
+
+- Para poder ejecutar este proceso, el intérprete necesita **memorizar**, en
+  algún lugar, un registro de las multiplicaciones que se han dejado para más
+  adelante.
+
+- En el cálculo de $n!$, la longitud de la secuencia de operaciones pendientes
+  (y, por tanto, la información que necesita almacenar el intérprete), crece
+  *linealmente* con $n$, al igual que el número de pasos de reducción.
+
+  A este tipo de procesos lo llamaremos **proceso recursivo _lineal_**.
+
+### Procesos iterativos lineales
+
+- A continuación adoptaremos un enfoque diferente.
+
+- Podemos mantener un producto acumulado y un contador desde $n$ hasta 1, de
+  forma que el contador y el producto cambien de un paso al siguiente según la
+  siguiente regla:
+
+  $$\begin{array}{l}
+      acumulador_{nuevo} = acumulador_{viejo} \cdot contador_{viejo} \\!MASSEP
+      contador_{nuevo} = contador_{viejo} - 1
+    \end{array}$$
+
+- Su traducción a Python podría ser la siguiente, usando una función auxiliar
+  `fact_iter`:
+
+  ```python
+  fact_iter = lambda cont, acc: acc if cont == 0 else \
+                                fact_iter(cont - 1, cont * acc)
+  factorial = lambda n: fact_iter(n, 1)
+  ```
+
+---
+
+- Al igual que antes, usaremos el modelo de sustitución para visualizar el
+  proceso del cálculo de $6!$:
+
+  ```python
+  factorial(6)
+  = fact_iter(6, 1)
+  = fact_iter(5, 6)
+  = fact_iter(4, 30)
+  = fact_iter(3, 120)
+  = fact_iter(2, 360)
+  = fact_iter(1, 720)
+  = fact_iter(0, 720)
+  = 720
+  ```
+
+- Este proceso no tiene expansiones ni contracciones ya que, en cada instante,
+  toda la información que se necesita almacenar es el valor actual de los
+  parámetros !PYTHON(cont) y !PYTHON(acc), por lo que el tamaño de la memoria
+  necesaria es constante.
+
+- A este tipo de procesos lo llamaremos **proceso iterativo**.
+
+- El número de pasos necesarios para calcular $n!$ usando esta función crece
+  *linealmente* con $n$.
+
+  A este tipo de procesos lo llamaremos **proceso iterativo _lineal_**.
+
+---
+
+--------------------------------------------------------------------------------------------
+Tipo de proceso           Número de                          Memoria necesaria 
+                          reducciones
+------------------------- -------------------------------    -------------------------------
+Recursivo                 Proporcional a $\underline{n}$     Proporcional a $\underline{n}$
+
+Iterativo                 Proporcional a $\underline{n}$     Constante
+--------------------------------------------------------------------------------------------
+
+!ifdef(LATEX)()(<br>* * *<br>)
+
+-------------------------------------------------------------------------------------------
+Tipo de proceso           Número de                         Memoria necesaria
+                          reducciones
+------------------------- -------------------------------   -------------------------------
+Recursivo lineal          Linealmente \                     Linealmente \
+                          proporcional a $\underline{n}$    proporcional a $\underline{n}$
+
+Iterativo lineal          Linealmente \
+                          proporcional a $\underline{n}$    Constante
+-------------------------------------------------------------------------------------------
+
+---
+
+- En general, un **proceso iterativo** es aquel que está definido por una serie
+  de **coordenadas de estado** junto con una **regla** fija que describe cómo
+  actualizar dichas coordenadas conforme cambia el proceso de un estado al
+  siguiente.
+
+- La **diferencia entre los procesos recursivo e iterativo** se puede describir
+  de esta otra manera:
+
+  - En el **proceso iterativo**, los parámetros dan una descripción completa
+    del estado del proceso en cada instante.
+
+    Así, si parásemos el cálculo entre dos pasos, lo único que necesitaríamos
+    hacer para seguir con el cálculo es darle al intérprete el valor de los dos
+    parámetros.
+    
+  - En el **proceso recursivo**, el intérprete tiene que mantener cierta
+    información *oculta* que no está almacenada en ningún parámetro y que
+    indica qué operaciones ha realizado hasta ahora y cuáles quedan pendientes
+    por hacer.
+
+---
+
+- No debe confundirse un **proceso recursivo** con una **función recursiva**:
+
+  - Cuando hablamos de *función recursiva* nos referimos al hecho de que la
+    función se llama a sí misma (directa o indirectamente).
+
+  - Cuando hablamos de *proceso recursivo* nos referimos a la forma en como se
+    desenvuelve la ejecución de la función (con una expansión más una
+    contracción).
+
+- Puede parecer extraño que digamos que una función recursiva (por ejemplo,
+  !PYTHON(fact_iter)) genera un proceso iterativo.
+
+  Sin embargo, el proceso es realmente iterativo porque su estado está definido
+  completamente por dos parámetros, y para ejecutar el proceso sólo se necesita
+  almacenar el valor de esos dos parámetros.
+
+---
+
+- Aquí hemos visto un ejemplo donde se aprecia claramente que **una función
+  sólo puede tener una especificación** pero **puede tener varias
+  implementaciones** distintas.
+
+- Eso sí: todas las implementaciones de una función deben satisfacer su
+  especificación.
+
+- En este caso, las dos implementaciones son:
+
+  ```python
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
+
+  y
+
+  ```python
+  fact_iter = lambda cont, acc: acc if cont == 0 else \
+                                fact_iter(cont - 1, cont * acc)
+  factorial = lambda n: fact_iter(n, 1)
+  ```
+
+- Y aunque las dos satisfacen la misma especificación (y, por tanto, calculan
+  exactamente los mismos valores), lo hacen de una forma muy diferente,
+  generando incluso procesos de distinto tipo.
+
+## Recursividad múltiple
+
+- Una función tiene **recursividad múltiple** cuando la misma llamada a la
+  función recursiva puede generar más de una llamada recursiva a la misma
+  función.
+
+- El ejemplo clásico es la función que calcula los términos de la **sucesión de
+  Fibonacci**.
+
+- La sucesión comienza con los números 0 y 1, y a partir de éstos, cada
+  término es la suma de los dos anteriores:
+
+  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, ...
+
+---
+
+- Podemos definir una función recursiva que devuelva el $n$-ésimo término de la
+  sucesión de Fibonacci:
+
+  $$fib(n) = \begin{cases}
+               0 & \text{si } n = 0 \text{\quad (caso base)} \\
+               1 & \text{si } n = 1 \text{\quad (caso base)} \\
+               fib(n - 1) + fib(n - 2) & \text{si } n > 1 \text{\quad (caso recursivo)}
+             \end{cases}$$
+
+---
+
+- La especificación de una función que devuelva el $n$-ésimo término de la
+  sucesión de Fibonacci sería:
+
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(n \geq 0)
+  !SIGNAT(\texttt{fib(!VAR(n):\,int)\;->\;int})
+  !POST(\texttt{fib(!VAR(n))} = \text{el !VAR(n)-ésimo término de la sucesión de Fibonacci})
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Y su implementación en Python podría ser:
+
+  ```python
+  fib = lambda n: 0 if n == 0 else 1 if n == 1 else fib(n - 1) + fib(n - 2)
+  ```
+
+  o bien, separando la definición en varias líneas:
+
+  ```python
+  fib = lambda n: 0 if n == 0 else \
+                  1 if n == 1 else \
+                  fib(n - 1) + fib(n - 2)
+  ```
+
+---
+
+- Si vemos el perfil de ejecución de !PYTHON(fib(5)), vemos que:
+
+  - Para calcular !PYTHON(fib(5)), antes debemos calcular !PYTHON(fib(4)) y
+    !PYTHON(fib(3)).
+
+  - Para calcular !PYTHON(fib(4)), antes debemos calcular !PYTHON(fib(3)) y
+    !PYTHON(fib(2)).
+
+  - Así sucesivamente hasta poner todo en función de !PYTHON(fib(0)) y
+    !PYTHON(fib(1)), que se pueden calcular directamente (son los casos base).
+
+- En general, el proceso resultante tiene forma de árbol.
+
+- Por eso decimos que las funciones con recursividad múltiple generan
+  **procesos recursivos en árbol**.
+
+---
+
+!DOT(arbol-fibonacci.svg)()()(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [shape = plaintext, fillcolor = transparent]
+rankdir = TB
+fib5[label = "fib(5)"]
+fib4[label = "fib(4)"]
+fib3_1[label = "fib(3)"]
+fib3_2[label = "fib(3)"]
+fib2_1[label = "fib(2)"]
+fib2_2[label = "fib(2)"]
+fib2_3[label = "fib(2)"]
+fib1_1[label = "fib(1)"]
+fib1_2[label = "fib(1)"]
+fib1_3[label = "fib(1)"]
+fib1_4[label = "fib(1)"]
+fib1_5[label = "fib(1)"]
+fib0_1[label = "fib(0)"]
+fib0_2[label = "fib(0)"]
+fib0_3[label = "fib(0)"]
+u1[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u2[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u3[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u4[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+u5[label = "1", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+c1[label = "0", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+c2[label = "0", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+c3[label = "0", shape = circle, width = 0.3, fixedsize = shape, fillcolor = white]
+fib5 -> fib4, fib3_2
+fib4 -> fib3_1, fib2_2
+fib3_1 -> fib2_1, fib1_2
+fib2_1 -> fib1_1, fib0_1
+fib1_1 -> u1
+fib0_1 -> c1
+fib1_2 -> u2
+fib2_2 -> fib1_3, fib0_2
+fib1_3 -> u3
+fib0_2 -> c2
+fib3_2 -> fib2_3, fib1_5
+fib2_3 -> fib1_4, fib0_3
+fib1_4 -> u4
+fib0_3 -> c3
+fib1_5 -> u5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- La función anterior es un buen ejemplo de recursión en árbol, pero desde
+  luego es un método *horrible* para calcular los números de Fibonacci, por la
+  cantidad de **operaciones redundantes** que efectúa.
+
+- Para tener una idea de lo malo que es, se puede observar que $fib(n)$ crece
+  exponencialmente en función de $n$.
+
+- Por lo tanto, el proceso necesita una cantidad de tiempo que crece
+  **exponencialmente** con $n$.
+
+- Por otro lado, el espacio necesario sólo crece **linealmente** con $n$,
+  porque en un cierto momento del cálculo sólo hay que memorizar los nodos que
+  hay por encima.
+
+- En general, en un proceso recursivo en árbol **el tiempo de ejecución crece
+  con el _número de nodos_ del árbol** mientras que **el espacio necesario
+  crece con la _altura máxima_ del árbol**.
+
+---
+
+- Se puede construir un **proceso iterativo** para calcular los números de
+  Fibonacci.
+
+- La idea consiste en usar dos coordenadas de estado _a_ y _b_ (con valores
+  iniciales 0 y 1, respectivamente) y aplicar repetidamente la siguiente
+  transformación:
+
+  $$\begin{array}{l}
+      a_{nuevo} = b_{viejo} \\!MASSEP
+      b_{nuevo} = b_{viejo} + a_{viejo}
+    \end{array}$$
+
+- Después de $n$ pasos, _a_ y _b_ contendrán $fib(n)$ y $fib(n + 1)$,
+  respectivamente.
+
+- En Python sería:
+
+  ```python
+  fib_iter = lambda cont, a, b: a if cont == 0 else fib_iter(cont - 1, b, a + b)
+  fib = lambda n: fib_iter(n, 0, 1)
+  ```
+
+- Esta función genera un proceso iterativo lineal, por lo que es mucho más
+  eficiente.
+
+## Recursividad final y no final
+
+- Lo que diferencia al !PYTHON(fact_iter) que genera un proceso iterativo del
+  !PYTHON(factorial) que genera un proceso recursivo, es el hecho de que
+  !PYTHON(fact_iter) se llama a sí misma y devuelve directamente el valor que
+  le ha devuelto su llamada recursiva sin hacer luego nada más.
+
+  En cambio, !PYTHON(factorial) tiene que hacer una multiplicación después de
+  llamarse a sí misma y antes de terminar de ejecutarse:
+
+  ```python
+  # Versión con recursividad final:
+  fact_iter = lambda cont, acc: acc if cont == 0 else \
+                                fact_iter(cont - 1, acc * cont)
+  fact = lambda n: fact_iter(n, 1)
+
+  # Versión con recursividad no final:
+  factorial = lambda n: 1 if n == 0 else n * factorial(n - 1)
+  ```
+
+---
+
+- Es decir:
+
+  - !PYTHON(fact_iter(cont, acc)) simplemente llama a:
+
+    !PYTHON(fact_iter(cont - 1, acc * cont))
+
+    y luego devuelve directamente el valor que le entrega ésta llamada, sin
+    hacer ninguna otra operación posterior antes de terminar.
+
+  - En cambio, !PYTHON(factorial(n)) hace:
+
+    !PYTHON(n * factorial(n - 1))
+
+    o sea,
+    se llama a sí misma pero el resultado de la llamada recursiva tiene que
+    multiplicarlo luego por !PYTHON(n) antes de devolver el resultado final.
+
+- Por tanto, **lo último que hace !PYTHON(fact_iter) es llamarse a sí misma**.
+  En cambio, lo último que hace !PYTHON(factorial) no es llamarse a sí misma,
+  porque tiene que hacer más operaciones (en este caso, la multiplicación)
+  antes de devolver el resultado.
+
+---
+
+- Cuando lo último que hace una función recursiva es llamarse a sí misma y
+  devolver directamente el valor devuelto por esa llamada recursiva, decimos
+  que la función es **recursiva final** o que tiene **recursividad final**.
+
+- En caso contrario, decimos que la función es **recursiva no final** o que
+  tiene **recursividad no final**.
+
+- **Las funciones recursivas finales generan procesos iterativos.**
+
+- La función `fact_iter` es recursiva final, y por eso genera un proceso
+  iterativo.
+
+- En cambio, la función `factorial` es recursiva no final, y por eso genera un
+  proceso recursivo.
+
+---
+
+- En la práctica, para que un proceso iterativo consuma realmente una cantidad
+  constante de memoria, es necesario que el traductor **optimice la
+  recursividad final**.
+
+- Ese tipo de optimización se denomina **_tail-call optimization (TCO)_**.
+
+- No muchos traductores optimizan la recursividad final.
+
+- De hecho, ni el intérprete de Python ni la máquina virtual de Java optimizan
+  la recursividad final.
+
+- Por tanto, en estos dos lenguajes, las funciones recursivas finales consumen
+  tanta memoria como las no finales.
+
 # Abstracciones funcionales
 
 ## Pureza

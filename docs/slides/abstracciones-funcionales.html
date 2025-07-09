@@ -185,9 +185,12 @@ id="/toc-abstracciones-lambda"><span class="toc-section-number">1</span>
 Abstracciones lambda</a></li>
 <li><a href="#/ámbitos" id="/toc-ámbitos"><span
 class="toc-section-number">2</span> Ámbitos</a></li>
+<li><a href="#/funciones-recursivas"
+id="/toc-funciones-recursivas"><span class="toc-section-number">3</span>
+Funciones recursivas</a></li>
 <li><a href="#/abstracciones-funcionales"
 id="/toc-abstracciones-funcionales"><span
-class="toc-section-number">3</span> Abstracciones funcionales</a></li>
+class="toc-section-number">4</span> Abstracciones funcionales</a></li>
 </ul>
 </nav>
 </section>
@@ -1290,14 +1293,826 @@ llamar a la expresión lambda.</p></li>
 </section>
 </section>
 <section>
-<section id="abstracciones-funcionales" class="title-slide slide level1"
+<section id="funciones-recursivas" class="title-slide slide level1"
 data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span>
+Funciones recursivas</h1>
+
+</section>
+<section id="definición" class="title-slide slide level2"
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+Definición</h2>
+<ul>
+<li><p>Una <strong>función recursiva</strong> es aquella que se define
+en términos de sí misma.</p></li>
+<li><p>Eso quiere decir que, durante la ejecución de una llamada a la
+función, se ejecuta otra llamada a la misma función, es decir, que la
+función se llama a sí misma directa o indirectamente.</p></li>
+<li><p>La forma más sencilla y habitual de función recursiva es aquella
+en la que <strong>la propia definición de la función contiene una o
+varias llamadas a ella misma</strong>. En tal caso, decimos que la
+función se llama a sí misma <em>directamente</em> o que hay una
+<strong>recursividad directa</strong>.</p>
+<p>Ese es el tipo de recursividad que vamos a estudiar.</p></li>
+<li><p>Las definiciones recursivas son el mecanismo básico para ejecutar
+<strong>repeticiones de instrucciones</strong> en un lenguaje de
+programación funcional.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>Por ejemplo: <span class="math display">f(n) = n + f(n +
+1)</span></p></li>
+<li><p>Esta función matemática es <em>recursiva</em> porque aparece ella
+misma en su propia definición.</p>
+<p>Para calcular el valor de <span class="math inline">f(n)</span>
+tenemos que volver a utilizar la propia función <span
+class="math inline">f</span>.</p></li>
+<li><p>Por ejemplo: <span class="math display">f(1) = 1 + f(2) = 1 + 2 +
+f(3) = 1 + 2 + 3 + f(4) = \ldots</span></p></li>
+<li><p>Cada vez que una función se llama a sí misma decimos que se
+realiza una <strong>llamada recursiva</strong> o <strong>paso
+recursivo</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<div class="centered">
+<p><img data-src="images/pintura-recursiva.jpg" class="plain"
+style="width:100.0%" /></p>
+</div>
+</section>
+<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol class="example" type="1">
+<li>Desde el principio del curso ya hemos estado trabajando con
+estructuras que pueden tener una definición recursiva. ¿Cuáles son?</li>
+</ol>
+</section>
+
+<section id="casos-base-y-casos-recursivos"
+class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+Casos base y casos recursivos</h2>
+<ul>
+<li><p>Resulta importante que una definición recursiva se detenga alguna
+vez y proporcione un resultado, ya que si no, no sería útil (tendríamos
+lo que se llama una <strong>recursión infinita</strong>).</p></li>
+<li><p>Por tanto, en algún momento, la recursión debe alcanzar un punto
+en el que la función no se llame a sí misma y se detenga.</p></li>
+<li><p>Para ello, es necesario que la función, en cada paso recursivo,
+se vaya acercando cada vez más a ese punto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.1">
+
+<ul>
+<li><p>Ese punto en el que la función recursiva <strong>no se llama a sí
+misma</strong>, se denomina <strong>caso base</strong>, y puede haber
+más de uno.</p></li>
+<li><p>Los casos base, por tanto, determinan bajo qué condiciones la
+función no se llamará a sí misma, o dicho de otra forma, con qué valores
+de sus argumentos la función devolverá directamente un valor y no
+provocará una nueva llamada recursiva.</p></li>
+<li><p>Los demás casos, que sí provocan llamadas recursivas, se
+denominan <strong>casos recursivos</strong>.</p></li>
+</ul>
+</section>
+
+<section id="el-factorial" class="title-slide slide level2"
+data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> El
+factorial</h2>
+<ul>
+<li><p>El ejemplo más típico de función recursiva es el
+<strong>factorial</strong>.</p></li>
+<li><p>El factorial de un número natural <span
+class="math inline">n</span> se representa por <span
+class="math inline">n!</span> y se define como el producto de todos los
+números desde 1 hasta <span class="math inline">n</span>: <span
+class="math display">n! =
+n\cdot(n-1)\cdot(n-2)\cdot\cdots\cdot1</span></p>
+<p>Por ejemplo: <span class="math display">6! =
+6\cdot5\cdot4\cdot3\cdot2\cdot1 = 720</span></p></li>
+<li><p>Pero para calcular <span class="math inline">6!</span> también se
+puede calcular <span class="math inline">5!</span> y después multiplicar
+el resultado por 6, ya que: <span class="math display">6! =
+6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}</span> <span
+class="math display">6! = 6\cdot5!</span></p></li>
+<li><p>Por tanto, el factorial se puede definir de forma
+<strong>recursiva</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.1">
+
+<ul>
+<li><p>Tenemos el <strong>caso recursivo</strong>, pero necesitamos al
+menos un <strong>caso base</strong> para evitar que la recursión se haga
+<em>infinita</em>.</p></li>
+<li><p>El caso base del factorial se obtiene sabiendo que el factorial
+de 0 es directamente 1 (no hay que llamar al factorial recursivamente):
+<span class="math display">0! = 1</span></p></li>
+<li><p>Combinando ambos casos tendríamos:</p>
+<p><span class="math display">n! = \begin{cases}
+         1 &amp; \text{si } n = 0 \text{\quad(caso base)} \\
+         n\cdot(n-1)! &amp; \text{si } n &gt; 0 \text{\quad(caso
+recursivo)}
+       \end{cases}</span></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.2">
+
+<ul>
+<li><p>La <strong>especificación</strong> de una función que calcule el
+factorial de un número sería:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; n \geq 0 \\[0.5em]
+&amp; \texttt{factorial(\(n\):\,int)\;-&gt;\;int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{factorial(\(n\))} = n!
+\end{array}\right.</span></p></li>
+<li><p>Y su <strong>implementación</strong> en Python podría ser la
+siguiente:</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>que sería prácticamente una traducción literal de la definición
+recursiva de factorial que acabamos de obtener.</p></li>
+</ul>
+</section>
+
+<section id="diseño-de-funciones-recursivas"
+class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span>
+Diseño de funciones recursivas</h2>
+<ul>
+<li><p>El diseño de funciones recursivas se basa en:</p>
+<ol>
+<li><p>Identificación de casos base</p></li>
+<li><p>Descomposición (reducción) del problema</p></li>
+<li><p>Pensamiento optimista</p></li>
+</ol></li>
+</ul>
+</section>
+<section id="identificación-de-casos-base"
+class="title-slide slide level3" data-number="3.4.1">
+<h3 data-number="3.4.1"><span class="header-section-number">3.4.1</span>
+Identificación de casos base</h3>
+<ul>
+<li><p>Debemos identificar los ejemplares para los cuales hay una
+solución directa que no necesita recursividad.</p></li>
+<li><p>Esos ejemplares representarán los <em>casos base</em> de la
+función recursiva, y por eso los denominamos <em>ejemplares
+básicos</em>.</p></li>
+<li><p>Por ejemplo:</p>
+<ul>
+<li><p>Supongamos que queremos diseñar una función (llamada <span
+class="math inline">fact</span>, por ejemplo) que calcule el factorial
+de un número.</p>
+<p>Es decir: <span class="math inline">fact(n)</span> debe devolver el
+factorial de <span class="math inline">n</span>.</p></li>
+<li><p>Sabemos que <span class="math inline">0! = 1</span>, por lo que
+nuestra función podría devolver directamente <span
+class="math inline">1</span> cuando se le pida calcular el factorial de
+<span class="math inline">0</span>.</p></li>
+<li><p>Por tanto, el caso base del factorial es el cálculo del factorial
+de 0: <span class="math display">fact(0) = 1</span></p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="descomposición-reducción-del-problema"
+class="title-slide slide level3" data-number="3.4.2">
+<h3 data-number="3.4.2"><span class="header-section-number">3.4.2</span>
+Descomposición (reducción) del problema</h3>
+<ul>
+<li><p>Reducimos el problema de forma que así tendremos un ejemplar
+<em>más pequeño</em> del problema.</p></li>
+<li><p>Un ejemplar más pequeño es aquel que está <strong>más cerca del
+caso base</strong>.</p></li>
+<li><p>De esta forma, cada ejemplar se irá acercando más y más al caso
+base hasta que finalmente se alcanzará dicho caso base y eso detendrá la
+recursión.</p></li>
+<li><p>Es importante comprobar que eso se cumple, es decir, que la
+reducción que le realizamos al problema produce ejemplares que están más
+cerca del caso base, porque de lo contrario se produciría una
+<em>recursión infinita</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.2.0.1">
+
+<ul>
+<li><p>En el ejemplo del factorial:</p>
+<ul>
+<li><p>El caso base es <span class="math inline">fact(0)</span>, es
+decir, el caso en el que queremos calcular el factorial de 0, que ya
+vimos que es directamente 1 (sin necesidad de llamadas
+recursivas).</p></li>
+<li><p>Si queremos resolver el problema de calcular, por ejemplo, el
+factorial de 5, podríamos intentar reducir el problema a calcular el
+factorial de 4, que es un número que está más cerca del caso base (que
+es 0).</p></li>
+<li><p>A su vez, para calcular el factorial de 4, reduciríamos el
+problema a calcular el factorial de 3, y así sucesivamente.</p></li>
+<li><p>De esta forma, podemos reducir el problema de calcular el
+factorial de <span class="math inline">n</span> a calcular el factorial
+de <span class="math inline">(n - 1)</span>, que es un número que está
+más cerca del 0. Así, cada vez estaremos más cerca del caso base y, al
+final, siempre lo acabaremos alcanzando.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="pensamiento-optimista" class="title-slide slide level3"
+data-number="3.4.3">
+<h3 data-number="3.4.3"><span class="header-section-number">3.4.3</span>
+Pensamiento optimista</h3>
+<ul>
+<li><p>Consiste en suponer que la función deseada ya existe y que,
+aunque no sabe resolver el ejemplar original del problema, sí que es
+capaz de resolver ejemplares <em>más pequeños</em> de ese problema (este
+paso se denomina <strong>hipótesis inductiva</strong> o
+<strong>hipótesis de inducción</strong>).</p></li>
+<li><p>Suponiendo que se cumple la <em>hipótesis inductiva</em>, y
+aprovechando que ya contamos con un método para <em>reducir el ejemplar
+a uno más pequeño</em>, ahora tratamos de encontrar un <em>patrón
+común</em> de forma que resolver el ejemplar original implique usar el
+mismo patrón en un ejemplar más pequeño.</p></li>
+<li><p>Es decir:</p>
+<ul>
+<li><p>Al reducir el problema, obtenemos un ejemplar más pequeño del
+mismo problema y, por tanto, podremos usar la función para poder
+resolver ese ejemplar más pequeño (que sí sabe resolverlo, por hipótesis
+inductiva).</p></li>
+<li><p>A continuación, usamos dicha solución <em>parcial</em> para
+tratar de obtener la solución para el ejemplar original del
+problema.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.3.0.1">
+
+<ul>
+<li><p>En el ejemplo del factorial:</p>
+<ul>
+<li><p>Supongamos que queremos calcular, por ejemplo, el factorial de
+6.</p></li>
+<li><p>Aún no sabemos calcular el factorial de 6, pero suponemos (por
+<em>hipótesis inductiva</em>) que sí sabemos calcular el factorial de
+5.</p>
+<p>En ese caso, ¿cómo puedo aprovechar que sé resolver el factorial de 5
+para lograr calcular el factorial de 6?</p></li>
+<li><p>Analizando el problema, observo que se cumple esta propiedad:
+<span class="math display">6! =
+6\cdot\overbrace{5\cdot4\cdot3\cdot2\cdot1}^{5!}=6\cdot 5!</span></p>
+<p>Por tanto, he deducido un método para resolver el problema de
+calcular el factorial de 6 a partir del factorial de 5: <em>para
+calcular el factorial de 6 basta con calcular primero el factorial de 5
+y luego multiplicar el resultado por 6</em>.</p>
+<div class="caja">
+<p>Dicho de otro modo: <em>si yo supiera</em> calcular el factorial de
+5, me bastaría con multiplicarlo por 6 para obtener el factorial de
+6.</p>
+</div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.3.0.2">
+
+<ul>
+<li><p>Generalizando para cualquier número, no sólo para el 6:</p>
+<ul>
+<li><p>Si queremos diseñar una función <span
+class="math inline">fact(n)</span> que calcule el factorial de <span
+class="math inline">n</span>, supondremos que esa función ya existe pero
+que aún no sabe calcular el factorial de <span
+class="math inline">n</span>, aunque <strong>sí sabe calcular el
+factorial de <span class="math inline">\pmb{(n -
+1)}</span></strong>.</p>
+<p>Tenemos que creer en que es así y actuar como si fuera así, aunque
+ahora mismo no sea verdad. <em>Ésta es nuestra <strong>hipótesis
+inductiva</strong></em>.</p></li>
+<li><p>Por otra parte, sabemos que: <span class="math display">n! =
+n\cdot\overbrace{(n-1)\cdot(n-2)\cdot(n-3)\cdot2\cdot1}^{(n-1)!}=n\cdot(n-1)!</span></p>
+<p>Por tanto, si sabemos calcular el factorial de <span
+class="math inline">(n - 1)</span> llamando a <span
+class="math inline">fact(n
+- 1)</span>, para calcular <span class="math inline">fact(n)</span> sólo
+necesito multiplicar <span class="math inline">n</span> por el resultado
+de <span class="math inline">fact(n - 1)</span>.</p>
+<div class="caja">
+<p>Resumiendo: <strong><em>si yo supiera</em> calcular el factorial de
+<span class="math inline">\pmb{(n - 1)}</span>, me bastaría con
+multiplicarlo por <span class="math inline">\pmb{n}</span> para obtener
+el factorial de <span class="math inline">\pmb{n}</span></strong>.</p>
+</div></li>
+<li><p>Así obtengo el caso recursivo de la función <em>fact</em>, que
+sería: <span class="math display">fact(n) = n\cdot
+fact(n-1)</span></p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.3.0.3">
+
+<ul>
+<li>Combinando todos los pasos, obtenemos la solución general:</li>
+</ul>
+<p><span class="math display">fact(n) = \begin{cases}
+         1 &amp; \text{si } n = 0 \text{\quad(caso base)} \\
+         n\cdot fact(n-1) &amp; \text{si } n &gt; 0 \text{\quad(caso
+recursivo)}
+       \end{cases}</span></p>
+</section>
+
+
+<section id="recursividad-lineal" class="title-slide slide level2"
+data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span>
+Recursividad lineal</h2>
+<ul>
+<li><p>Una función tiene <strong>recursividad lineal</strong> si cada
+llamada a la función recursiva genera, como mucho, otra llamada
+recursiva a la misma función.</p></li>
+<li><p>El factorial definido en el ejemplo anterior es un caso típico de
+recursividad lineal ya que, cada vez que se llama al factorial se
+genera, como mucho, otra llamada al factorial.</p></li>
+<li><p>Eso se aprecia claramente observando que la definición del caso
+recursivo de la función <span class="math inline">fact</span> contiene
+una única llamada a la misma función <span
+class="math inline">fact</span>:</p></li>
+</ul>
+<p><span class="math display">fact(n) = n\cdot fact(n-1)\quad \text{si }
+n &gt; 0\quad \text{(caso recursivo)}</span></p>
+</section>
+<section id="procesos-recursivos-lineales"
+class="title-slide slide level3" data-number="3.5.1">
+<h3 data-number="3.5.1"><span class="header-section-number">3.5.1</span>
+Procesos recursivos lineales</h3>
+<ul>
+<li><p>La forma más directa y sencilla de definir una función que
+calcule el factorial de un número a partir de su definición recursiva
+podría ser la siguiente:</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div></li>
+<li><p>Utilizaremos el modelo de sustitución para observar el
+funcionamiento de esta función al calcular <span
+class="math inline">6!</span>:</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>factorial(<span class="dv">6</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> factorial(<span class="dv">5</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> factorial(<span class="dv">4</span>)))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> factorial(<span class="dv">3</span>))))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> factorial(<span class="dv">2</span>)))))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> factorial(<span class="dv">1</span>))))))</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> factorial(<span class="dv">0</span>)))))))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> <span class="dv">1</span>))))))</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">1</span>)))))</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">2</span>))))</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span>)))</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> <span class="dv">24</span>))</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">720</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.1.0.1">
+
+<ul>
+<li><p>Podemos observar un perfil de <strong>expansión</strong> seguido
+de una <strong>contracción</strong>:</p>
+<ul>
+<li><p>La <strong>expansión</strong> ocurre conforme el proceso
+construye una secuencia de operaciones a realizar
+<em>posteriormente</em> (en este caso, una secuencia de
+multiplicaciones).</p></li>
+<li><p>La <strong>contracción</strong> se realiza conforme se van
+ejecutando realmente las multiplicaciones.</p></li>
+</ul></li>
+<li><p>Llamaremos <strong>proceso recursivo</strong> a este tipo de
+proceso caracterizado por una secuencia de <strong>operaciones
+pendientes de completar</strong>.</p></li>
+<li><p>Para poder ejecutar este proceso, el intérprete necesita
+<strong>memorizar</strong>, en algún lugar, un registro de las
+multiplicaciones que se han dejado para más adelante.</p></li>
+<li><p>En el cálculo de <span class="math inline">n!</span>, la longitud
+de la secuencia de operaciones pendientes (y, por tanto, la información
+que necesita almacenar el intérprete), crece <em>linealmente</em> con
+<span class="math inline">n</span>, al igual que el número de pasos de
+reducción.</p>
+<p>A este tipo de procesos lo llamaremos <strong>proceso recursivo
+<em>lineal</em></strong>.</p></li>
+</ul>
+</section>
+
+<section id="procesos-iterativos-lineales"
+class="title-slide slide level3" data-number="3.5.2">
+<h3 data-number="3.5.2"><span class="header-section-number">3.5.2</span>
+Procesos iterativos lineales</h3>
+<ul>
+<li><p>A continuación adoptaremos un enfoque diferente.</p></li>
+<li><p>Podemos mantener un producto acumulado y un contador desde <span
+class="math inline">n</span> hasta 1, de forma que el contador y el
+producto cambien de un paso al siguiente según la siguiente regla:</p>
+<p><span class="math display">\begin{array}{l}
+    acumulador_{nuevo} = acumulador_{viejo} \cdot contador_{viejo}
+\\[0.5em]
+    contador_{nuevo} = contador_{viejo} - 1
+  \end{array}</span></p></li>
+<li><p>Su traducción a Python podría ser la siguiente, usando una
+función auxiliar <code>fact_iter</code>:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, cont <span class="op">*</span> acc)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.2.0.1">
+
+<ul>
+<li><p>Al igual que antes, usaremos el modelo de sustitución para
+visualizar el proceso del cálculo de <span
+class="math inline">6!</span>:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>factorial(<span class="dv">6</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">6</span>, <span class="dv">1</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">4</span>, <span class="dv">30</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">3</span>, <span class="dv">120</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">2</span>, <span class="dv">360</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">1</span>, <span class="dv">720</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">0</span>, <span class="dv">720</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">720</span></span></code></pre></div></li>
+<li><p>Este proceso no tiene expansiones ni contracciones ya que, en
+cada instante, toda la información que se necesita almacenar es el valor
+actual de los parámetros <code class="sourceCode python">cont</code> y
+<code class="sourceCode python">acc</code>, por lo que el tamaño de la
+memoria necesaria es constante.</p></li>
+<li><p>A este tipo de procesos lo llamaremos <strong>proceso
+iterativo</strong>.</p></li>
+<li><p>El número de pasos necesarios para calcular <span
+class="math inline">n!</span> usando esta función crece
+<em>linealmente</em> con <span class="math inline">n</span>.</p>
+<p>A este tipo de procesos lo llamaremos <strong>proceso iterativo
+<em>lineal</em></strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.2.0.2">
+
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 37%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo de proceso</th>
+<th style="text-align: left;">Número de reducciones</th>
+<th style="text-align: left;">Memoria necesaria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Recursivo</td>
+<td style="text-align: left;">Proporcional a <span
+class="math inline">\underline{n}</span></td>
+<td style="text-align: left;">Proporcional a <span
+class="math inline">\underline{n}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">Iterativo</td>
+<td style="text-align: left;">Proporcional a <span
+class="math inline">\underline{n}</span></td>
+<td style="text-align: left;">Constante</td>
+</tr>
+</tbody>
+</table>
+<p><br>* * *<br></p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 36%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo de proceso</th>
+<th style="text-align: left;">Número de reducciones</th>
+<th style="text-align: left;">Memoria necesaria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Recursivo lineal</td>
+<td style="text-align: left;">Linealmente<br />
+proporcional a <span class="math inline">\underline{n}</span></td>
+<td style="text-align: left;">Linealmente<br />
+proporcional a <span class="math inline">\underline{n}</span></td>
+</tr>
+<tr>
+<td style="text-align: left;">Iterativo lineal</td>
+<td style="text-align: left;">Linealmente<br />
+proporcional a <span class="math inline">\underline{n}</span></td>
+<td style="text-align: left;">Constante</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="3.5.2.0.3">
+
+<ul>
+<li><p>En general, un <strong>proceso iterativo</strong> es aquel que
+está definido por una serie de <strong>coordenadas de estado</strong>
+junto con una <strong>regla</strong> fija que describe cómo actualizar
+dichas coordenadas conforme cambia el proceso de un estado al
+siguiente.</p></li>
+<li><p>La <strong>diferencia entre los procesos recursivo e
+iterativo</strong> se puede describir de esta otra manera:</p>
+<ul>
+<li><p>En el <strong>proceso iterativo</strong>, los parámetros dan una
+descripción completa del estado del proceso en cada instante.</p>
+<p>Así, si parásemos el cálculo entre dos pasos, lo único que
+necesitaríamos hacer para seguir con el cálculo es darle al intérprete
+el valor de los dos parámetros.</p></li>
+<li><p>En el <strong>proceso recursivo</strong>, el intérprete tiene que
+mantener cierta información <em>oculta</em> que no está almacenada en
+ningún parámetro y que indica qué operaciones ha realizado hasta ahora y
+cuáles quedan pendientes por hacer.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.2.0.4">
+
+<ul>
+<li><p>No debe confundirse un <strong>proceso recursivo</strong> con una
+<strong>función recursiva</strong>:</p>
+<ul>
+<li><p>Cuando hablamos de <em>función recursiva</em> nos referimos al
+hecho de que la función se llama a sí misma (directa o
+indirectamente).</p></li>
+<li><p>Cuando hablamos de <em>proceso recursivo</em> nos referimos a la
+forma en como se desenvuelve la ejecución de la función (con una
+expansión más una contracción).</p></li>
+</ul></li>
+<li><p>Puede parecer extraño que digamos que una función recursiva (por
+ejemplo, <code class="sourceCode python">fact_iter</code>) genera un
+proceso iterativo.</p>
+<p>Sin embargo, el proceso es realmente iterativo porque su estado está
+definido completamente por dos parámetros, y para ejecutar el proceso
+sólo se necesita almacenar el valor de esos dos parámetros.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.2.0.5">
+
+<ul>
+<li><p>Aquí hemos visto un ejemplo donde se aprecia claramente que
+<strong>una función sólo puede tener una especificación</strong> pero
+<strong>puede tener varias implementaciones</strong> distintas.</p></li>
+<li><p>Eso sí: todas las implementaciones de una función deben
+satisfacer su especificación.</p></li>
+<li><p>En este caso, las dos implementaciones son:</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>y</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, cont <span class="op">*</span> acc)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span></code></pre></div></li>
+<li><p>Y aunque las dos satisfacen la misma especificación (y, por
+tanto, calculan exactamente los mismos valores), lo hacen de una forma
+muy diferente, generando incluso procesos de distinto tipo.</p></li>
+</ul>
+</section>
+
+
+<section id="recursividad-múltiple" class="title-slide slide level2"
+data-number="3.6">
+<h2 data-number="3.6"><span class="header-section-number">3.6</span>
+Recursividad múltiple</h2>
+<ul>
+<li><p>Una función tiene <strong>recursividad múltiple</strong> cuando
+la misma llamada a la función recursiva puede generar más de una llamada
+recursiva a la misma función.</p></li>
+<li><p>El ejemplo clásico es la función que calcula los términos de la
+<strong>sucesión de Fibonacci</strong>.</p></li>
+<li><p>La sucesión comienza con los números 0 y 1, y a partir de éstos,
+cada término es la suma de los dos anteriores:</p>
+<p>0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987,
+1597, …</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.1">
+
+<ul>
+<li><p>Podemos definir una función recursiva que devuelva el <span
+class="math inline">n</span>-ésimo término de la sucesión de
+Fibonacci:</p>
+<p><span class="math display">fib(n) = \begin{cases}
+             0 &amp; \text{si } n = 0 \text{\quad (caso base)} \\
+             1 &amp; \text{si } n = 1 \text{\quad (caso base)} \\
+             fib(n - 1) + fib(n - 2) &amp; \text{si } n &gt; 1
+\text{\quad (caso recursivo)}
+           \end{cases}</span></p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.2">
+
+<ul>
+<li><p>La especificación de una función que devuelva el <span
+class="math inline">n</span>-ésimo término de la sucesión de Fibonacci
+sería:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; n \geq 0 \\[0.5em]
+&amp; \texttt{fib(\(n\):\,int)\;-&gt;\;int} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{fib(\(n\))} = \text{el \(n\)-ésimo
+término de la sucesión de Fibonacci}
+\end{array}\right.</span></p></li>
+<li><p>Y su implementación en Python podría ser:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>o bien, separando la definición en varias líneas:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.3">
+
+<ul>
+<li><p>Si vemos el perfil de ejecución de <code
+class="sourceCode python">fib(<span class="dv">5</span>)</code>, vemos
+que:</p>
+<ul>
+<li><p>Para calcular <code
+class="sourceCode python">fib(<span class="dv">5</span>)</code>, antes
+debemos calcular <code
+class="sourceCode python">fib(<span class="dv">4</span>)</code> y <code
+class="sourceCode python">fib(<span class="dv">3</span>)</code>.</p></li>
+<li><p>Para calcular <code
+class="sourceCode python">fib(<span class="dv">4</span>)</code>, antes
+debemos calcular <code
+class="sourceCode python">fib(<span class="dv">3</span>)</code> y <code
+class="sourceCode python">fib(<span class="dv">2</span>)</code>.</p></li>
+<li><p>Así sucesivamente hasta poner todo en función de <code
+class="sourceCode python">fib(<span class="dv">0</span>)</code> y <code
+class="sourceCode python">fib(<span class="dv">1</span>)</code>, que se
+pueden calcular directamente (son los casos base).</p></li>
+</ul></li>
+<li><p>En general, el proceso resultante tiene forma de árbol.</p></li>
+<li><p>Por eso decimos que las funciones con recursividad múltiple
+generan <strong>procesos recursivos en árbol</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.4">
+
+<div class="centered">
+<p><img data-src="images/arbol-fibonacci.svg" class="plain"
+style="width:80.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="3.6.0.0.5">
+
+<ul>
+<li><p>La función anterior es un buen ejemplo de recursión en árbol,
+pero desde luego es un método <em>horrible</em> para calcular los
+números de Fibonacci, por la cantidad de <strong>operaciones
+redundantes</strong> que efectúa.</p></li>
+<li><p>Para tener una idea de lo malo que es, se puede observar que
+<span class="math inline">fib(n)</span> crece exponencialmente en
+función de <span class="math inline">n</span>.</p></li>
+<li><p>Por lo tanto, el proceso necesita una cantidad de tiempo que
+crece <strong>exponencialmente</strong> con <span
+class="math inline">n</span>.</p></li>
+<li><p>Por otro lado, el espacio necesario sólo crece
+<strong>linealmente</strong> con <span class="math inline">n</span>,
+porque en un cierto momento del cálculo sólo hay que memorizar los nodos
+que hay por encima.</p></li>
+<li><p>En general, en un proceso recursivo en árbol <strong>el tiempo de
+ejecución crece con el <em>número de nodos</em> del árbol</strong>
+mientras que <strong>el espacio necesario crece con la <em>altura
+máxima</em> del árbol</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.6">
+
+<ul>
+<li><p>Se puede construir un <strong>proceso iterativo</strong> para
+calcular los números de Fibonacci.</p></li>
+<li><p>La idea consiste en usar dos coordenadas de estado <em>a</em> y
+<em>b</em> (con valores iniciales 0 y 1, respectivamente) y aplicar
+repetidamente la siguiente transformación:</p>
+<p><span class="math display">\begin{array}{l}
+    a_{nuevo} = b_{viejo} \\[0.5em]
+    b_{nuevo} = b_{viejo} + a_{viejo}
+  \end{array}</span></p></li>
+<li><p>Después de <span class="math inline">n</span> pasos, <em>a</em> y
+<em>b</em> contendrán <span class="math inline">fib(n)</span> y <span
+class="math inline">fib(n + 1)</span>, respectivamente.</p></li>
+<li><p>En Python sería:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fib_iter <span class="op">=</span> <span class="kw">lambda</span> cont, a, b: a <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> fib_iter(cont <span class="op">-</span> <span class="dv">1</span>, b, a <span class="op">+</span> b)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: fib_iter(n, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div></li>
+<li><p>Esta función genera un proceso iterativo lineal, por lo que es
+mucho más eficiente.</p></li>
+</ul>
+</section>
+
+<section id="recursividad-final-y-no-final"
+class="title-slide slide level2" data-number="3.7">
+<h2 data-number="3.7"><span class="header-section-number">3.7</span>
+Recursividad final y no final</h2>
+<ul>
+<li><p>Lo que diferencia al <code
+class="sourceCode python">fact_iter</code> que genera un proceso
+iterativo del <code class="sourceCode python">factorial</code> que
+genera un proceso recursivo, es el hecho de que <code
+class="sourceCode python">fact_iter</code> se llama a sí misma y
+devuelve directamente el valor que le ha devuelto su llamada recursiva
+sin hacer luego nada más.</p>
+<p>En cambio, <code class="sourceCode python">factorial</code> tiene que
+hacer una multiplicación después de llamarse a sí misma y antes de
+terminar de ejecutarse:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Versión con recursividad final:</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> cont)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>fact <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Versión con recursividad no final:</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.1">
+
+<ul>
+<li><p>Es decir:</p>
+<ul>
+<li><p><code class="sourceCode python">fact_iter(cont, acc)</code>
+simplemente llama a:</p>
+<p><code
+class="sourceCode python">fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> cont)</code></p>
+<p>y luego devuelve directamente el valor que le entrega ésta llamada,
+sin hacer ninguna otra operación posterior antes de terminar.</p></li>
+<li><p>En cambio, <code class="sourceCode python">factorial(n)</code>
+hace:</p>
+<p><code
+class="sourceCode python">n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</code></p>
+<p>o sea, se llama a sí misma pero el resultado de la llamada recursiva
+tiene que multiplicarlo luego por <code
+class="sourceCode python">n</code> antes de devolver el resultado
+final.</p></li>
+</ul></li>
+<li><p>Por tanto, <strong>lo último que hace <code
+class="sourceCode python">fact_iter</code> es llamarse a sí
+misma</strong>. En cambio, lo último que hace <code
+class="sourceCode python">factorial</code> no es llamarse a sí misma,
+porque tiene que hacer más operaciones (en este caso, la multiplicación)
+antes de devolver el resultado.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.2">
+
+<ul>
+<li><p>Cuando lo último que hace una función recursiva es llamarse a sí
+misma y devolver directamente el valor devuelto por esa llamada
+recursiva, decimos que la función es <strong>recursiva final</strong> o
+que tiene <strong>recursividad final</strong>.</p></li>
+<li><p>En caso contrario, decimos que la función es <strong>recursiva no
+final</strong> o que tiene <strong>recursividad no
+final</strong>.</p></li>
+<li><p><strong>Las funciones recursivas finales generan procesos
+iterativos.</strong></p></li>
+<li><p>La función <code>fact_iter</code> es recursiva final, y por eso
+genera un proceso iterativo.</p></li>
+<li><p>En cambio, la función <code>factorial</code> es recursiva no
+final, y por eso genera un proceso recursivo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.3">
+
+<ul>
+<li><p>En la práctica, para que un proceso iterativo consuma realmente
+una cantidad constante de memoria, es necesario que el traductor
+<strong>optimice la recursividad final</strong>.</p></li>
+<li><p>Ese tipo de optimización se denomina <strong><em>tail-call
+optimization (TCO)</em></strong>.</p></li>
+<li><p>No muchos traductores optimizan la recursividad final.</p></li>
+<li><p>De hecho, ni el intérprete de Python ni la máquina virtual de
+Java optimizan la recursividad final.</p></li>
+<li><p>Por tanto, en estos dos lenguajes, las funciones recursivas
+finales consumen tanta memoria como las no finales.</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="abstracciones-funcionales" class="title-slide slide level1"
+data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span>
 Abstracciones funcionales</h1>
 
 </section>
-<section id="pureza" class="title-slide slide level2" data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+<section id="pureza" class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span>
 Pureza</h2>
 <ul>
 <li><p>Si una expresión lambda no contiene identificadores libres, el
@@ -1319,22 +2134,22 @@ valor que depende no sólo de los valores de <code
 class="sourceCode python">x</code> e <code
 class="sourceCode python">y</code> sino también del valor de <code
 class="sourceCode python">z</code> en el entorno:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="4.1.0.0.1">
 
 <ul>
 <li><p>En este otro ejemplo, escribimos una expresión lambda que calcula
 la suma de tres números a partir de otra expresión lambda que calcula la
 suma de dos números:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
 <p>En este caso, hay un identificador (<code
 class="sourceCode python">suma</code>) que no aparece en la lista de
 parámetros de la expresión lambda ligada a <code
@@ -1344,7 +2159,7 @@ que valga <code class="sourceCode python">suma</code> en el entorno
 actual.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.2">
+<section class="slide level5" data-number="4.1.0.0.2">
 
 <ul>
 <li><p>Se dice que una expresión lambda es <strong>pura</strong> si,
@@ -1371,21 +2186,21 @@ class="sourceCode python">suma</code>) se usa como una
 <strong>función</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="4.1.0.0.3">
 
 <ul>
 <li><p>Por ejemplo, las siguientes expresiones lambda están ordenadas de
 mayor a menor pureza, siendo la primera totalmente
 <strong>pura</strong>:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus identificadores libres (en este</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su identificador libre (z) no es una función:</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus identificadores libres (en este</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su identificador libre (z) no es una función:</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
 <li><p><strong>La pureza de una función es un rasgo deseado y que hay
 que tratar de alcanzar siempre que sea posible</strong>, ya que facilita
 el desarrollo y mantenimiento de los programas, además de simplificar el
@@ -1400,15 +2215,15 @@ expresión lambda.</p></li>
 </section>
 
 <section id="las-funciones-como-abstracciones"
-class="title-slide slide level2" data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span> Las
+class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Las
 funciones como abstracciones</h2>
 <ul>
 <li><p>Recordemos la definición de la función <code
 class="sourceCode python">area</code>:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
 <li><p>Aunque es muy sencilla, la función <code
 class="sourceCode python">area</code> ejemplifica la propiedad más
 potente de las funciones definidas por el programador: la
@@ -1431,7 +2246,7 @@ class="sourceCode python">area</code>, para considerarlos más tarde si
 hiciera falta.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.1">
+<section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
 <li><p>De hecho, por lo que respecta a <code
@@ -1445,17 +2260,17 @@ función que calcule el cuadrado de un número.</p></li>
 las tres funciones siguientes son indistinguibles e igual de válidas
 para <code class="sourceCode python">area</code>. Ambas reciben un
 argumento numérico y devuelven el cuadrado de ese número:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
 <li><p>En otras palabras: la definición de una función debe ser capaz de
 <strong>ocultar sus detalles internos de funcionamiento</strong>, ya que
 para usar la función no debe ser necesario conocer esos
 detalles.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.2">
+<section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
 <li><p>«<em>Abstraer</em>» es centrarse en lo importante en un
@@ -1477,7 +2292,7 @@ actúe (a ojos del programador que la utilice) como si fuera un elemento
 <em>predefinido</em> del lenguaje.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.3">
+<section class="slide level5" data-number="4.2.0.0.3">
 
 <ul>
 <li><p><strong>Las funciones son</strong>, por tanto,
@@ -1487,10 +2302,10 @@ conocer los detalles internos del procesamiento que realizan.</p></li>
 class="sourceCode python">cubo</code> (que calcula el cubo de un
 número), nos da igual que dicha función esté implementada de cualquiera
 de las siguientes maneras:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Para <strong>usar</strong> la función, nos basta con saber que
 calcula el cubo de un número, sin necesidad de saber qué cálculo
 concreto realiza para obtener el resultado.</p></li>
@@ -1499,7 +2314,7 @@ decimos que <code class="sourceCode python">cubo</code> es una
 abstracción.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.4">
+<section class="slide level5" data-number="4.2.0.0.4">
 
 <ul>
 <li><p>Las funciones también son abstracciones porque describen
@@ -1508,8 +2323,8 @@ cuáles sean esos valores en concreto (son
 <strong><em>generalizaciones</em></strong> de casos
 particulares).</p></li>
 <li><p>Por ejemplo, cuando definimos:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
 <p>no estamos hablando del cubo de un número en particular, sino más
 bien de un <strong>método</strong> para calcular el cubo de cualquier
 número.</p></li>
@@ -1526,7 +2341,7 @@ número, pero no tendrían la habilidad de expresar el concepto de
 <em>elevar al cubo</em></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.5">
+<section class="slide level5" data-number="4.2.0.0.5">
 
 <ul>
 <li><p>Una de las habilidades que deberíamos pedir a un lenguaje potente
@@ -1544,7 +2359,7 @@ patrón (<em>elevar al cubo</em>).</p></li>
 <em>regla</em> necesaria para elevar algo al cubo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.6">
+<section class="slide level5" data-number="4.2.0.0.6">
 
 <ul>
 <li><p>Por tanto, algunas veces, analizando ciertos <em>casos
@@ -1567,7 +2382,7 @@ concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.7">
+<section class="slide level5" data-number="4.2.0.0.7">
 
 <ul>
 <li><p>Por ejemplo, cuando vemos que en nuestros programas es frecuente
@@ -1581,7 +2396,7 @@ le llamamos «<em>elevar al cubo</em>»:</p></li>
 style="width:80.0%" /></p>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.8">
+<section class="slide level5" data-number="4.2.0.0.8">
 
 <ul>
 <li><p>La <strong>especificación de una <em>función</em></strong> es la
@@ -1606,8 +2421,8 @@ pero no se sabe cómo funciona por dentro.</p></li>
 </ul>
 </section>
 <section id="especificaciones-de-funciones"
-class="title-slide slide level3" data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span>
+class="title-slide slide level3" data-number="4.2.1">
+<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span>
 Especificaciones de funciones</h3>
 <ul>
 <li><p>Para poder <strong>usar una abstracción funcional</strong>
@@ -1630,7 +2445,7 @@ relación entre su entrada y su salida.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.1">
+<section class="slide level5" data-number="4.2.1.0.1">
 
 <ul>
 <li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos
@@ -1655,7 +2470,7 @@ programas, y se podría seguir usando para especificar funciones, ya que
 de otros programas más grandes).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.2">
+<section class="slide level5" data-number="4.2.1.0.2">
 
 <ul>
 <li><p>Pero para especificar funciones resulta más adecuado usar el
@@ -1681,7 +2496,7 @@ función respetando su signatura y cumpliendo su precondición, la llamada
 termina cumpliendo su postcondición</em></strong>».</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.3">
+<section class="slide level5" data-number="4.2.1.0.3">
 
 <ul>
 <li><p>En este caso, la <strong>precondición</strong> es <code
@@ -1706,7 +2521,7 @@ lenguaje de programación que se vaya a usar para implementar la función
 (Python, en este caso).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.4">
+<section class="slide level5" data-number="4.2.1.0.4">
 
 <ul>
 <li><p>Recordemos la diferencia entre:</p>
@@ -1730,7 +2545,7 @@ del conjunto imagen que cumplen la
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.5">
+<section class="slide level5" data-number="4.2.1.0.5">
 
 <ul>
 <li><p>En el caso de la función <code
@@ -1756,7 +2571,7 @@ así está declarado el tipo de retorno de la función.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.6">
+<section class="slide level5" data-number="4.2.1.0.6">
 
 <ul>
 <li><p>Las pre y postcondiciones no es necesario escribirlas de una
@@ -1779,7 +2594,7 @@ especiales que no se tienen en cuenta.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.7">
+<section class="slide level5" data-number="4.2.1.0.7">
 
 <ul>
 <li><p>En este otro ejemplo, más completo, se especifica una función
@@ -1807,7 +2622,7 @@ coinciden</strong> (no todos los valores pertenecientes al conjunto
 origen sirven como datos de entrada válidos para la función).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.8">
+<section class="slide level5" data-number="4.2.1.0.8">
 
 <ul>
 <li><p>En esta especificación, <code
@@ -1830,7 +2645,7 @@ la cadena <span
 class="math inline">\underline{\textbf{\textit{cadena}}}</span></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.9">
+<section class="slide level5" data-number="4.2.1.0.9">
 
 <ul>
 <li><p>En realidad, las condiciones de la especificación anterior se
@@ -1845,13 +2660,13 @@ cadena\texttt{.count(\(car\))}
 \end{array}\right.</span></p></li>
 </ul>
 </section>
-<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<section id="ejercicio-1" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejercicio</h5>
-<ol class="example" type="1">
+<ol start="2" class="example" type="1">
 <li>¿Por qué?</li>
 </ol>
 </section>
-<section class="slide level5" data-number="3.2.1.0.10">
+<section class="slide level5" data-number="4.2.1.0.10">
 
 <ul>
 <li><p>Finalmente, podríamos escribir la misma especificación en
