@@ -38,8 +38,7 @@ nocite: |
   carácter de dos puntos (`:`) son los **parámetros** de la expresión lambda.
 
 - La expresión que aparece tras los dos puntos (`:`) es el **cuerpo** de la
-  expresión lambda, donde pueden aparecer los parámetros además de otros
-  elementos.
+  expresión lambda.
 
 - En el ejemplo anterior:
 
@@ -237,13 +236,14 @@ nocite: |
   = 63
   ```
 
-## Identificadores locales y libres de una expresión lambda
+## Identificadores cuantificados y libres de una expresión lambda
 
 - Si un _identificador_ de los que aparecen en el _cuerpo_ de una expresión
   lambda también aparece en la _lista de parámetros_ de esa expresión lambda,
-  decimos que es un **identificador local** de la expresión lambda.
+  decimos que es un **identificador cuantificado** de la expresión lambda.
 
-- En caso contrario, le llamamos **identificador libre** de la expresión lambda.
+- En caso contrario, le llamamos **identificador libre** de la expresión
+  lambda.
 
 - En el ejemplo anterior:
 
@@ -253,7 +253,7 @@ nocite: |
 
   los dos identificadores que aparecen en el cuerpo (!PYTHON{x} e !PYTHON{y})
   aparecen también en la lista de parámetros de la expresión lambda, por lo que
-  ambos son identificadores locales y no hay ningún identificador libre.
+  ambos son identificadores cuantificados y no hay ningún identificador libre.
 
 - En cambio, en la expresión lambda:
 
@@ -261,42 +261,52 @@ nocite: |
   lambda x, y: x + y + z
   ```
 
-  !PYTHON(x) e !PYTHON(y) son identificadores locales (porque aparecen en la
-  lista de parámetros de la expresión lambda), mientras que !PYTHON(z) es un
+  !PYTHON(x) e !PYTHON(y) son identificadores cuantificados (porque aparecen en
+  la lista de parámetros de la expresión lambda), mientras que !PYTHON(z) es un
   identificador libre.
 
 ---
 
-- En realidad, **un _identificador local_ y un _parámetro_ están vinculados,
-  hasta el punto en que podemos considerar que son la misma cosa**.
+- En realidad, **un _identificador cuantificado_ y un _parámetro_ están
+  vinculados, hasta el punto en que podemos considerar que son la misma cosa**.
 
 - Tan sólo cambia su denominación dependiendo del lugar donde aparece su
   identificador en la expresión lambda:
 
   - Cuando aparece **antes** del «`:`», le llamamos «_parámetro_».
 
-  - Cuando aparece **después** del «`:`», le llamamos «_identificador local_».
+  - Cuando aparece **después** del «`:`», le llamamos «_identificador
+    cuantificado_».
 
 - Por ejemplo: en la siguiente expresión lambda:
 
   ```python
   lambda x, y: x + y
          ┬     ┬
-         │     └────── identificador local
+         │     └────── identificador cuantificado
          └── parámetro
   ```
 
   el identificador !PYTHON(x) aparece dos veces, pero en los dos casos
   representa la misma cosa. Tan sólo se llama de distinta forma («_parámetro_»
-  o «_identificador local_») dependiendo de dónde aparece.
+  o «_identificador cuantificado_») dependiendo de dónde aparece.
 
 ---
 
-- A los identificadores locales se les llama así porque son _locales_ a la
-  expresión lambda, es decir, que **pertenencen a dicha expresión lambda y no
-  existen fuera de ella**.
+- A los identificadores cuantificados se les llama así porque sus posibles
+  valores están cuantificados o _restringidos_ a los posibles valores que
+  puedan tomar los parámetros de la expresión lambda en cada llamada a la
+  misma.
 
-  Tiene mucho que ver con el concepto de _ámbito_ que veremos a continuación.
+- Dicho valor vendrá determinado automáticamente por la ligadura que crea el
+  intérprete durante la llamada a la expresión lambda.
+
+- Es decir: el identificador cuantificado se liga automáticamente al valor del
+  correspondiente argumento durante la llamada a la expresión lambda.
+
+- En cambio, el valor al que esté ligado un identificador libre de una
+  expresión lambda no viene determinado por ninguna característica propia de
+  dicha expresión lambda.
 
 # Ámbitos
 
@@ -493,26 +503,19 @@ nocite: |
 ---
 
 2. Si la ligadura no se crea dentro de un objeto usando el operador punto
-   (`.`), entonces el espacio de nombres dependerá del ámbito:
+   (`.`), entonces el espacio de nombres irá asociado al ámbito.
 
-   a. Si el ámbito donde se crea la ligadura lleva asociado un espacio de
-      nombres, ese espacio de nombres almacenará las ligaduras que se crean
-      dentro de ese ámbito.
+   En este caso, este espacio de nombres siempre será un marco.
 
-   b. Si no, entonces la ligadura se almacenará en el espacio de nombres del
-      ámbito más interno que contenga al actual y que sí lleve asociado un
-      espacio de nombres.
-
-   Por tanto, a la hora de almacenar una ligadura, se van mirando todos los
-   ámbitos desde el ámbito actual, pasando por todos los ámbitos que incluyen a
-   éste (en orden, del más interno al más externo), hasta encontrar el primer
-   ámbito que lleve asociado un espacio de nombres.
-
-   En cualquier caso, aquí el espacio de nombres seleccionado siempre será un
-   marco.
+   Ese marco será el que corresponda al _ámbito actual_, es decir, el marco del
+   ámbito más interno en el que se encuentra la instrucción que crea la
+   ligadura.
 
    Cuando la ligadura se almacena en el marco global, se dice que tiene
    **almacenamiento global**.
+
+   En caso contrario, decimos que tiene **almacenamiento local** al ámbito
+   correspondiente a ese marco.
 
 ### Visibilidad
 
@@ -981,26 +984,26 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - Por ejemplo, nos permite crear funciones sin preocuparnos de si los nombres
   de los parámetros ya han sido utilizados en otras partes del programa.
 
-## Ámbito de un identificador local
+## Ámbito de un identificador cuantificado
 
 - Hemos visto que a los **parámetros** de una expresión lambda se les llama
-  **identificadores locales** cuando aparecen dentro del cuerpo de dicha
+  **identificadores cuantificados** cuando aparecen dentro del cuerpo de dicha
   expresión lambda.
 
 - Por tanto, todo lo que se dijo sobre el ámbito de un parámetro se aplica
-  exactamente igual al ámbito de un identificador local.
+  exactamente igual al ámbito de un identificador cuantificado.
 
 - Recordemos que el ámbito de un parámetro es el cuerpo de su expresión lambda,
   que es la porción de código donde podemos acceder al valor del argumento con
   el que está ligado.
 
-- Por tanto, **el _ámbito_ de un identificador local es el _cuerpo_ de la
-  expresión lambda** donde aparece, y es el único lugar dentro del cual
-  podremos acceder al valor del identificador local (que también será el valor
-  del argumento con el que está ligada).
+- Por tanto, **el _ámbito_ de un identificador cuantificado es el _cuerpo_ de
+  la expresión lambda** donde aparece, y es el único lugar dentro del cual
+  podremos acceder al valor del identificador cuantificado (que también será el
+  valor del argumento con el que está ligada).
 
-- Por eso también se dice que el identificador local tiene un **ámbito local**
-  al cuerpo de la expresión lambda.
+- Por eso también se dice que el identificador cuantificado tiene un **ámbito
+  local** al cuerpo de la expresión lambda.
 
 ---
 
@@ -1008,23 +1011,23 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **En resumen:**
 
-- El **ámbito de un identificador local** es el ámbito de la ligadura que se
-  crea entre ésto y su argumento correspondiente, y se corresponde con el
-  **cuerpo** de la expresión lambda donde aparece.
+- El **ámbito de un identificador cuantificado** es el ámbito de la ligadura
+  que se crea entre ésto y su argumento correspondiente, y se corresponde con
+  el **cuerpo** de la expresión lambda donde aparece.
 
-- Por tanto, el identificador local sólo existe dentro del cuerpo de la
+- Por tanto, el identificador cuantificado sólo existe dentro del cuerpo de la
   expresión lambda y no podemos **acceder** a su valor fuera del mismo; por eso
   se dice que tiene un **ámbito _local_** a la expresión lambda.
 
-- Además, **la ligadura** entre el identificador local y su argumento **se
-  almacena en el marco** de la llamada a la expresión lambda, y por eso se dice
-  que tiene un **almacenamiento _local_** a la expresión lambda.
+- Además, **la ligadura** entre el identificador cuantificado y su argumento
+  **se almacena en el marco** de la llamada a la expresión lambda, y por eso se
+  dice que tiene un **almacenamiento _local_** a la expresión lambda.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- O sea: con los **identificadores locales** ocurre exactamente lo mismo que
-  con los **parámetros**, ya que, de hecho, **un parámetro y un identificador
-  local son la misma cosa**, como ya hemos visto.
+- O sea: con los **identificadores cuantificados** ocurre exactamente lo mismo
+  que con los **parámetros**, ya que, de hecho, **un parámetro y un
+  identificador cuantificado son la misma cosa**, como ya hemos visto.
 
 !EJEMPLO
 
@@ -1041,15 +1044,16 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   la expresión lambda (la expresión !PYTHON(x * x)).
 
 - La expresión lambda de la línea 2 tiene un parámetro (!PYTHON(x)) que aparece
-  como el identificador local !PYTHON(x) en el cuerpo de la expresión lambda.
-
-- El ámbito del identificador local !PYTHON(x) es el **cuerpo** de la expresión
+  como el identificador cuantificado !PYTHON(x) en el cuerpo de la expresión
   lambda.
 
+- El ámbito del identificador cuantificado !PYTHON(x) es el **cuerpo** de la
+  expresión lambda.
+
 - Por tanto, fuera del cuerpo de la expresión lambda, no es posible acceder al
-  valor del identificador local !PYTHON(x), al encontrarnos **fuera de su
-  ámbito** (la ligadura **sólo es visible dentro del cuerpo** de la expresión
-  lambda).
+  valor del identificador cuantificado !PYTHON(x), al encontrarnos **fuera de
+  su ámbito** (la ligadura **sólo es visible dentro del cuerpo** de la
+  expresión lambda).
 
 - Por eso, la línea 4 dará un error al intentar acceder al valor del
   identificador !PYTHON(x), cuya ligadura no es visible fuera de la expresión

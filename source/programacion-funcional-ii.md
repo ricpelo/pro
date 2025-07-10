@@ -338,6 +338,29 @@ maximo -> lambda
   detectar la línea anterior como incorrecta mediante un análisis estático (sin
   ejecutar) del código.
 
+### Otras formas de crear ligaduras
+
+- Las definiciones no son las únicas construcciones del lenguaje que crean
+  ligaduras.
+
+- Por ejemplo, los módulos se ligan con sus nombres al hacer !PYTHON(import) o
+  !PYTHON(from ... import).
+
+- Otras formas de crear ligaduras que aún no hemos visto incluyen las
+  siguientes:
+
+  - Los parámetros se ligan a sus argumentos en las llamadas a funciones.
+
+  - Las clases se ligan con sus nombres en las definiciones de clase.
+
+  - Las funciones se ligan con sus nombres en las definiciones de funciones
+    imperativas.
+
+  - Los bucles `for` o los gestores de contexto crean ligaduras.
+
+  - Las expresiones generadoras, así como las listas por comprensión, los
+    conjuntos por comprensión y los diccionarios por comprensión.
+
 ## Espacios de nombres
 
 - Ciertas estructuras o construcciones sintácticas del programa definen lo que
