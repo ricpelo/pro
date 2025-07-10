@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ricardo Pérez López">
-  <title>Colecciones e iteradores</title>
+  <title>Procesamiento de datos de alto nivel</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -173,27 +173,30 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Colecciones e iteradores</h1>
+  <h1 class="title">Procesamiento de datos de alto nivel</h1>
   <p class="author">Ricardo Pérez López</p>
   <p class="date">IES Doñana, curso 2025/2026</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
 <ul>
-<li><a href="#/introducción" id="/toc-introducción"><span
-class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="#/colecciones" id="/toc-colecciones"><span
+class="toc-section-number">1</span> Colecciones</a></li>
+<li><a href="#/iterables-e-iteradores"
+id="/toc-iterables-e-iteradores"><span
+class="toc-section-number">2</span> Iterables e iteradores</a></li>
 <li><a href="#/funciones-de-orden-superior"
 id="/toc-funciones-de-orden-superior"><span
-class="toc-section-number">2</span> Funciones de orden superior</a></li>
+class="toc-section-number">3</span> Funciones de orden superior</a></li>
 </ul>
 </nav>
 </section>
 
 <section>
-<section id="introducción" class="title-slide slide level1"
+<section id="colecciones" class="title-slide slide level1"
 data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span>
-Introducción</h1>
+Colecciones</h1>
 
 </section>
 <section id="composición" class="title-slide slide level2"
@@ -607,10 +610,17 @@ tanto, de su contenido), usando una fórmula matemática.</li>
 </tbody>
 </table>
 </section>
+</section>
+<section>
+<section id="iterables-e-iteradores" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Iterables e iteradores</h1>
 
+</section>
 <section id="iterables" class="title-slide slide level2"
-data-number="1.5">
-<h2 data-number="1.5"><span class="header-section-number">1.5</span>
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
 Iterables</h2>
 <ul>
 <li><p>Se dice que un dato compuesto es <strong>iterable</strong> cuando
@@ -633,7 +643,7 @@ sobre iterables en general, en lugar de hacerlo sobre un tipo concreto
 (lista, tupla, …).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.5.0.0.1">
+<section class="slide level5" data-number="2.1.0.0.1">
 
 <ul>
 <li><p>Por ejemplo, las listas son iterables ya que nos permite acceder
@@ -652,8 +662,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 </section>
 
 <section id="iteradores" class="title-slide slide level2"
-data-number="1.6">
-<h2 data-number="1.6"><span class="header-section-number">1.6</span>
+data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
 Iteradores</h2>
 <ul>
 <li><p>La forma básica de recorrer un dato iterable es usando un
@@ -680,7 +690,7 @@ class="sourceCode python"><span class="bu">next</span></code> se seguirá
 lanzando esa excepción.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.0.0.1">
+<section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
 <li><p>Se puede obtener un iterador a partir de cualquier dato iterable
@@ -716,7 +726,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;int&#39;</span> <span class="bu">object</span> <span class="kw">is</span> <span class="kw">not</span> iterable</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.0.0.2">
+<section class="slide level5" data-number="2.2.0.0.2">
 
 <ul>
 <li><p>Los iteradores son <strong>iterables perezosos de un solo
@@ -749,7 +759,7 @@ donde se espere un iterable.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.0.0.3">
+<section class="slide level5" data-number="2.2.0.0.3">
 
 <ul>
 <li><p>Funciones como <code
@@ -772,7 +782,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a hr
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.0.0.4">
+<section class="slide level5" data-number="2.2.0.0.4">
 
 <ul>
 <li><p>Las <strong>expresiones generadoras</strong>, ya conocidas por
@@ -802,8 +812,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
 </ul>
 </section>
 <section id="el-bucle-for" class="title-slide slide level3"
-data-number="1.6.1">
-<h3 data-number="1.6.1"><span class="header-section-number">1.6.1</span>
+data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
 El bucle <code
 class="sourceCode python"><span class="cf">for</span></code></h3>
 <ul>
@@ -842,7 +852,7 @@ class="sourceCode python"><span class="cf">else</span>:</code><br />
 style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.1.0.1">
+<section class="slide level5" data-number="2.2.1.0.1">
 
 <ul>
 <li>Ejemplos:</li>
@@ -869,7 +879,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a h
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="1.6.1.0.2">
+<section class="slide level5" data-number="2.2.1.0.2">
 
 <ul>
 <li><p>Al recorrer el iterable, la variable va almacenando en cada
@@ -898,7 +908,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a h
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>El elemento en la posición <span class="dv">2</span> es c</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.1.0.3">
+<section class="slide level5" data-number="2.2.1.0.3">
 
 <ul>
 <li><p>Existen iterables e iteradores incluso donde uno menos se lo
@@ -917,8 +927,8 @@ línea de una en una en lugar de todas a la vez.</p></li>
 </section>
 
 <section id="el-módulo-itertools" class="title-slide slide level3"
-data-number="1.6.2">
-<h3 data-number="1.6.2"><span class="header-section-number">1.6.2</span>
+data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
 El módulo <code class="sourceCode python">itertools</code></h3>
 <ul>
 <li><p>El módulo <code class="sourceCode python">itertools</code>
@@ -950,7 +960,7 @@ class="sourceCode python">itertools.count(<span class="dv">10</span>, <span clas
 45, …</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.6.2.0.1">
+<section class="slide level5" data-number="2.2.2.0.1">
 
 <ul>
 <li><p><code
@@ -980,8 +990,8 @@ abc</p></li>
 </ul>
 </section>
 
-<section id="zip" class="title-slide slide level3" data-number="1.6.3">
-<h3 data-number="1.6.3"><span class="header-section-number">1.6.3</span>
+<section id="zip" class="title-slide slide level3" data-number="2.2.3">
+<h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span>
 <code>zip</code></h3>
 <ul>
 <li><p>La función <code
@@ -1036,14 +1046,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a h
 </section>
 <section>
 <section id="funciones-de-orden-superior"
-class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span>
+class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span>
 Funciones de orden superior</h1>
 
 </section>
 <section id="concepto" class="title-slide slide level2"
-data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
 Concepto</h2>
 <ul>
 <li><p>Sabemos que, en programación funcional, <strong>las
@@ -1058,7 +1068,7 @@ recibe funciones como argumentos o devuelve funciones como
 resultado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
 <li><p>Por ejemplo, la siguiente función <strong>recibe otra función
@@ -1087,7 +1097,7 @@ class="sourceCode python">aplica5</code> debe recibir un único argumento
 de tipo numérico.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>También se puede <strong>devolver una función como
@@ -1115,7 +1125,7 @@ class="sourceCode python">suma_o_resta</code> son <strong>funciones de
 orden superior</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
 <li><p>Una función es una abstracción porque agrupa lo que tienen en
@@ -1132,7 +1142,7 @@ otras funciones como argumentos o que devuelvan otra función como
 resultado (es decir, funciones de orden superior).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.4">
+<section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
 <li><p>Supongamos las dos funciones siguientes:</p>
@@ -1161,7 +1171,7 @@ style="color:teal">⟨<em>término</em>⟩</span>(a) + <span
 style="color:teal">⟨<em>nombre</em>⟩</span>(a + 1, b)</div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.5">
+<section class="slide level5" data-number="3.1.0.0.5">
 
 <ul>
 <li><p>La existencia de este patrón común nos demuestra que hay una
@@ -1180,7 +1190,7 @@ el concepto de sumatorio, en vez de funciones particulares que calculen
 sumas concretas.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.6">
+<section class="slide level5" data-number="3.1.0.0.6">
 
 <ul>
 <li><p>En programación funcional lo conseguimos creando funciones que
@@ -1203,7 +1213,7 @@ cuales también son abstracciones que capturan sus respectivos patrones
 comunes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.7">
+<section class="slide level5" data-number="3.1.0.0.7">
 
 <div class="centered">
 <figure>
@@ -1223,8 +1233,8 @@ class="sourceCode python">suma</code>?</li>
 </ol>
 </section>
 
-<section id="map" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+<section id="map" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
 <code>map</code></h2>
 <ul>
 <li>Supongamos que queremos escribir una función que, dada una tupla de
@@ -1238,7 +1248,7 @@ cubo.</li>
 <li>Inténtalo.</li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.2.0.0.1">
+<section class="slide level5" data-number="3.2.0.0.1">
 
 <ul>
 <li><p>Una forma de hacerlo sería:</p>
@@ -1255,7 +1265,7 @@ class="sourceCode python">f</code> a los elementos de una tupla y
 devuelva la tupla resultante.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="3.2.0.0.2">
 
 <ul>
 <li><p>Esa función se llama <code
@@ -1272,7 +1282,7 @@ class="math inline">\texttt{map(\(func\),\;\(iterable\))\;-&gt;\;Iterator}</span
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.3">
+<section class="slide level5" data-number="3.2.0.0.3">
 
 <ul>
 <li><p>Podemos usarla así:</p>
@@ -1303,7 +1313,7 @@ que devolviera una tupla?</p></li>
 <li>Inténtalo.</li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.2.0.0.4">
+<section class="slide level5" data-number="3.2.0.0.4">
 
 <ul>
 <li><p>Podríamos definirla así:</p>
@@ -1312,8 +1322,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a h
 </ul>
 </section>
 
-<section id="filter" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+<section id="filter" class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span>
 <code>filter</code></h2>
 <ul>
 <li><p><code
@@ -1341,8 +1351,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a h
 </ul>
 </section>
 
-<section id="reduce" class="title-slide slide level2" data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span>
+<section id="reduce" class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span>
 <code>reduce</code></h2>
 <ul>
 <li><p><code
@@ -1371,7 +1381,7 @@ class="sourceCode python"><span class="dv">0</span></code> o <code
 class="sourceCode python"><span class="dv">1</span></code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.1">
+<section class="slide level5" data-number="3.4.0.0.1">
 
 <ul>
 <li><p>Si abstraemos ese patrón común, podemos crear una función de
@@ -1398,7 +1408,7 @@ generará un error).</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.2">
+<section class="slide level5" data-number="3.4.0.0.2">
 
 <ul>
 <li><p>Para usarla, primero tenemos que <em>importarla</em> del
@@ -1412,7 +1422,7 @@ ahora nos basta con lo que ya sabemos: que contienen definiciones que
 podemos incorporar a nuestros <em>scripts</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.3">
+<section class="slide level5" data-number="3.4.0.0.3">
 
 <ul>
 <li><p>Por ejemplo, para calcular la suma y el producto de <code
@@ -1441,7 +1451,7 @@ class="sourceCode python">(<span class="kw">lambda</span> x, y: x <span class="o
 respectivamente.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.4">
+<section class="slide level5" data-number="3.4.0.0.4">
 
 <ul>
 <li><p>En general, si <span class="math inline">iterable</span>
@@ -1461,7 +1471,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a h
 class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>((((<span class="dv">0</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">+</span> <span class="dv">2</span>) <span class="op">+</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.5">
+<section class="slide level5" data-number="3.4.0.0.5">
 
 <ul>
 <li><p>Si <span class="math inline">iterable</span> representa un
@@ -1476,7 +1486,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a h
 class="sourceCode python"><span class="dv">0</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.6">
+<section class="slide level5" data-number="3.4.0.0.6">
 
 <ul>
 <li><p>Si <strong>no se indica un valor inicial</strong>, tenemos que:
@@ -1501,7 +1511,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a h
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="bu">reduce</span>() of empty iterable <span class="cf">with</span> no initial value</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.7">
+<section class="slide level5" data-number="3.4.0.0.7">
 
 <ul>
 <li><p>Con lo que acabamos de ver, se demuestra que la implementación de
@@ -1524,7 +1534,7 @@ este momento está visitando <code>reduce</code>.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.8">
+<section class="slide level5" data-number="3.4.0.0.8">
 
 <ul>
 <li><p>Por tanto, es frecuente que el primer parámetro de esa función se
@@ -1548,7 +1558,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a h
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">6</span>, <span class="dv">4</span>)   <span class="co"># acc = 6, e = 4</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.9">
+<section class="slide level5" data-number="3.4.0.0.9">
 
 <ul>
 <li>¿Cómo podríamos definir la función <code
@@ -1562,7 +1572,7 @@ recibiera una tupla y no cualquier iterable?</li>
 <li>Inténtalo.</li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.4.0.0.10">
+<section class="slide level5" data-number="3.4.0.0.10">
 
 <ul>
 <li><p>Una forma (con valor inicial obligatorio) podría ser así:</p>
@@ -1573,8 +1583,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 </section>
 
 <section id="expresiones-generadoras" class="title-slide slide level2"
-data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span>
+data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span>
 Expresiones generadoras</h2>
 <ul>
 <li><p>Dos operaciones que se realizan con frecuencia sobre un iterable
@@ -1592,7 +1602,7 @@ de una forma muy concisa.</p></li>
 <li><p>El resultado que devuelve es un iterador.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.1">
+<section class="slide level5" data-number="3.5.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -1610,7 +1620,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a h
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.2">
+<section class="slide level5" data-number="3.5.0.0.2">
 
 <ul>
 <li><p>Su sintaxis es:</p>
@@ -1644,7 +1654,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a h
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>))</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.3">
+<section class="slide level5" data-number="3.5.0.0.3">
 
 <ul>
 <li><p>Las expresiones generadoras, al igual que las expresiones lambda,
@@ -1658,7 +1668,7 @@ cláusula <code
 class="sourceCode python"><span class="kw">in</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.0.0.4">
+<section class="slide level5" data-number="3.5.0.0.4">
 
 <ul>
 <li><p>Esos identificadores cumplen estas dos propiedades:</p>

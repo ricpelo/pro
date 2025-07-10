@@ -1,12 +1,12 @@
 ---
-title: Colecciones e iteradores
+title: Procesamiento de datos de alto nivel
 author: Ricardo Pérez López
 !DATE
 nocite: |
   @python_software_foundation_sitio_nodate
 ---
 
-# Introducción
+# Colecciones
 
 ## Composición
 
@@ -321,6 +321,8 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 | - Por tanto, no cambia si se modifica el dato.                        | - Por tanto, un dato mutable no puede ser _hashable_, ya que su _hash_     |
 |                                                                       |   cambiaría al cambiar su contenido o estado interno.                      |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+
+# Iterables e iteradores
 
 ## Iterables
 
@@ -642,6 +644,62 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   abc, ...
 
   !PYTHON(itertools.repeat('abc', 5)) $\Rightarrow$ abc, abc, abc, abc, abc
+
+### `zip`
+
+- La función !PYTHON(zip) en Python devuelve un iterador de tuplas, donde cada
+  tupla contiene un elemento de cada uno de los iterables que se le pasen como
+  argumentos, agrupados por su posición.
+
+- En otras palabras:
+
+  - Toma los elementos en posición 0 de cada iterable y forma la primera tupla.
+
+  - Luego toma los elementos en posición 1 de cada iterable y forma la segunda
+    tupla.
+
+  - Y así sucesivamente, hasta que el iterable más corto se quede sin
+    elementos.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(zip)!T{(}!NT(iterable$_1$) [, ... !NT(iterable$_n$)]!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!EJEMPLOS
+
+- El siguiente código:
+
+  ```python
+  a = [1, 2, 3]
+  b = ['x', 'y', 'z']
+  c = zip(a, b)
+
+  print(list(c))
+  ```
+
+  produce la siguiente salida:
+
+  ```python
+  [(1, 'x'), (2, 'y'), (3, 'z')]
+  ```
+
+- Si los iterables tienen distinta longitud, la función `zip` se detiene en el
+  más corto. Por ejemplo, el siguiente código:
+
+  ```python
+  a = [1, 2]
+  b = ['x', 'y', 'z']
+  print(list(zip(a, b)))
+  ```
+
+  produce la siguiente salida:
+
+  ```python
+  [(1, 'x'), (2, 'y')]
+  ```
 
 # Funciones de orden superior
 
