@@ -162,380 +162,21 @@
 <section id="TOC">
 <nav role="doc-toc"> 
 <ul>
-<li><a href="#/documentación-interna"
-id="/toc-documentación-interna"><span
-class="toc-section-number">1</span> Documentación interna</a></li>
 <li><a href="#/pruebas" id="/toc-pruebas"><span
-class="toc-section-number">2</span> Pruebas</a></li>
+class="toc-section-number">1</span> Pruebas</a></li>
 </ul>
 </nav>
 </section>
 
 <section>
-<section id="documentación-interna" class="title-slide slide level1"
-data-number="1">
+<section id="pruebas" class="title-slide slide level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span>
-Documentación interna</h1>
-
-</section>
-<section id="concepto" class="title-slide slide level2"
-data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span>
-Concepto</h2>
-<ul>
-<li><p>El uso apropiado de una clara disposición del texto, la inclusión
-de comentarios apropiados y una buena elección de los identificadores,
-se conoce como <strong>documentación interna</strong> o
-<strong>autodocumentación</strong>.</p></li>
-<li><p>La autodocumentación no es ningún lujo superfluo; por el
-contrario, se considera preciso adquirir desde el principio el hábito de
-desarrollar programas claros y bien autodocumentados.</p></li>
-</ul>
-</section>
-
-<section id="comentarios" class="title-slide slide level2"
-data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span>
-Comentarios</h2>
-<ul>
-<li><p>Recordaremos lo más importante que ya sabemos sobre los
-comentarios:</p>
-<ul>
-<li><p>Los comentarios van desde el carácter <code>#</code> hasta el
-final de la línea.</p></li>
-<li><p>Para crear comentarios de varias líneas, se puede usar una cadena
-encerrada entre triples comillas (<code
-class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
-<li><p>Deben expresar información que no sea evidente por la simple
-lectura del código fuente.</p></li>
-<li><p>No deben decir lo mismo que el código, porque entonces será un
-comentario <em>redundante</em> que, si no tenemos cuidado, puede acabar
-diciendo algo incompatible con el código si no nos preocupamos de
-actualizar el comentario cuando cambie el código (que lo hará).</p></li>
-<li><p>Deben ser los justos: ni más ni menos que los
-necesarios.</p></li>
-</ul></li>
-</ul>
-</section>
-
-<section id="docstrings" class="title-slide slide level2"
-data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span>
-<em>Docstrings</em></h2>
-<ul>
-<li><p>Una <strong>cadena de documentación</strong> (<em>docstring</em>)
-es un literal de tipo cadena que aparece como primera sentencia en un
-módulo o función.</p></li>
-<li><p>Las <em>docstrings</em> son comentarios que tienen la finalidad
-de <strong>documentar</strong> el módulo o la función
-correspondientes.</p></li>
-<li><p>Por convenio, las <em>docstrings</em> siempre se delimitan
-mediante triples dobles comillas (<code
-class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
-<li><p>La función <code
-class="sourceCode python"><span class="bu">help</span></code> muestran
-la <em>docstring</em> del objeto para el que se solicita la
-ayuda.</p></li>
-<li><p>Internamente, la <em>docstring</em> se almacena en el atributo
-<code class="sourceCode python">__doc__</code> del objeto.</p></li>
-</ul>
-</section>
-<section id="ejemplo" class="slide level5 unnumbered unlisted">
-<h5 class="unnumbered unlisted">Ejemplo</h5>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;Módulo de ejemplo (ejemplo.py).&quot;&quot;&quot;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(nombre):</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve un saludo.</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Args:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">        nombre (str): El nombre de la persona a la que saluda.</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">    Returns:</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">        str: El saludo.</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;¡Hola, &quot;</span> <span class="op">+</span> nombre <span class="op">+</span> <span class="st">&quot;!&quot;</span></span></code></pre></div>
-<ul>
-<li><p>Existen dos formas distintas de <em>docstrings</em>:</p>
-<ul>
-<li><p><strong>De una sola línea (<em>one-line</em>):</strong> para
-casos muy obvios que necesiten poca explicación.</p></li>
-<li><p><strong>De varias líneas (<em>multi-line</em>):</strong> para
-casos donde se necesita una explicación más detallada.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.3.0.0.1">
-
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(ejemplo)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Help on module ejemplo:</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>NAME</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    ejemplo <span class="op">-</span> Módulo de ejemplo (ejemplo.py).</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>FUNCTIONS</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    saluda(nombre)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        Devuelve un saludo.</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        Args:</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        Returns:</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            <span class="bu">str</span>: El saludo.</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>FILE</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python<span class="op">/</span>ejemplo.py</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(ejemplo.saluda)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>Help on function saluda <span class="kw">in</span> module ejemplo:</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>saluda(nombre)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    Devuelve un saludo.</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    Args:</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    Returns:</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="bu">str</span>: El saludo.</span></code></pre></div>
-</section>
-<section class="slide level5" data-number="1.3.0.0.2">
-
-<ul>
-<li><p>Lo que hace básicamente la función <code
-class="sourceCode python"><span class="bu">help</span>(</code><em>objeto</em><code
-class="sourceCode python">)</code> es acceder al contenido del atributo
-<code class="sourceCode python">__doc__</code> del objeto y mostrarlo de
-forma legible.</p></li>
-<li><p>Siempre podemos acceder directamente al atributo <code
-class="sourceCode python">__doc__</code> para recuperar la
-<em>docstring</em> original usando <em>objeto</em><code
-class="sourceCode python">.__doc__</code>:</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.__doc__)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Módulo de ejemplo (ejemplo.py).</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.saluda.__doc__)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Devuelve un saludo.</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    Args:</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    Returns:</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">str</span>: El saludo.</span></code></pre></div></li>
-<li><p>Esta información también es usada por otras herramientas de
-documentación externa, como <code>pydoc</code>.</p></li>
-</ul>
-</section>
-<section id="cuándo-y-cómo-usar-cada-forma-de-docstring"
-class="title-slide slide level4" data-number="1.3.0.1">
-<h4 data-number="1.3.0.1"><span
-class="header-section-number">1.3.0.1</span> ¿Cuándo y cómo usar cada
-forma de <em>docstring</em> ?</h4>
-<ul>
-<li><p><strong><em>Docstrings</em> de una sola línea:</strong></p>
-<ul>
-<li><p>Más apropiada para funciones sencillas.</p></li>
-<li><p>Las comillas de apertura y cierre deben aparecer en la misma
-línea.</p></li>
-<li><p>No hay líneas en blanco antes o despues de la
-<em>docstring</em>.</p></li>
-<li><p>Debe ser una frase acabada en punto que describa el efecto de la
-función («Hace <em>esto</em>», «Devuelve <em>aquello</em>»…).</p></li>
-<li><p>No debe ser una signatura, así que lo siguiente está mal:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;funcion(a, b) -&gt; tuple&quot;&quot;&quot;</span></span></code></pre></div>
-<p>Esto está mejor:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Hace esto y aquello, y devuelve una tupla.&quot;&quot;&quot;</span></span></code></pre></div></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.3.0.1.1">
-
-<ul>
-<li><p><strong><em>Docstrings</em> de varias líneas:</strong></p>
-<ul>
-<li><p>Toda la <em>docstring</em> debe ir indentada al mismo nivel que
-las comillas de apertura.</p></li>
-<li><p>La primera línea debe ser un resumen informativo y caber en 80
-columnas.</p>
-<p>Puede ir en la misma línea que las comillas de apertura, o en la
-línea siguiente.</p></li>
-<li><p>A continuación, debe ir una línea en blanco, seguida de una
-descripción más detallada.</p></li>
-<li><p>La <em>docstring</em> de un módulo debe enumerar los elementos
-que exporta, con una línea resumen para cada uno.</p></li>
-<li><p>La <em>docstring</em> de una función debe resumir su
-comportamiento y documentar sus argumentos, valores de retorno, efectos
-laterales, excepciones que lanza y precondiciones (si tiene).</p></li>
-</ul></li>
-</ul>
-</section>
-
-
-<section id="pydoc" class="title-slide slide level2" data-number="1.4">
-<h2 data-number="1.4"><span class="header-section-number">1.4</span>
-<code>pydoc</code></h2>
-<ul>
-<li><p>El módulo <code>pydoc</code> es un generador automático de
-documentación para programas Python.</p></li>
-<li><p>La documentación generada se puede presentar en forma de páginas
-de texto en la consola, enviada a un navegador web o guardada en
-archivos HTML.</p></li>
-<li><p>Dicha documentación se genera a partir de los <em>docstrings</em>
-de los elementos que aparecen en el código fuente del programa.</p></li>
-<li><p>La función <code
-class="sourceCode python"><span class="bu">help</span></code> llama al
-sistema de ayuda en línea del intérprete interactivo, el cual usa
-<code>pydoc</code> para generar su documentación en forma de texto para
-la la consola.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.4.0.0.1">
-
-<ul>
-<li><p>En la línea de órdenes del sistema operativo, se puede usar
-<code>pydoc</code> pasándole el nombre de una función, módulo o
-atributo:</p>
-<ol>
-<li><p>Si no se indican más opciones, se visualizará en pantalla la
-documentación del objeto indicado:</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc sys</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc len</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc sys.argv</span></code></pre></div></li>
-<li><p>Con la opción <code>-w</code> se genera un archivo HTML:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -w ejemplo</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>wrote ejemplo.html</span></code></pre></div></li>
-<li><p>Con la opción <code>-b</code> se arranca un servidor HTTP y se
-abre el navegador para visualizar la documentación:</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -b</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Server ready at http://localhost:45373/</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Server commands: [b]rowser, [q]uit</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>server&gt; </span></code></pre></div></li>
-</ol></li>
-</ul>
-</section>
-
-<section id="estándares-de-codificación"
-class="title-slide slide level2" data-number="1.5">
-<h2 data-number="1.5"><span class="header-section-number">1.5</span>
-Estándares de codificación</h2>
-<ul>
-<li><p>Un estándar de codificación (o estándar de programación) es un
-conjunto de normas, reglas y recomendaciones que definen cómo debe
-escribirse el código fuente en un lenguaje de programación dentro de un
-proyecto, equipo o empresa.</p></li>
-<li><p>Los objetivos de un estándar de codificación son:</p>
-<ul>
-<li><p>Mejorar la legibilidad y comprensión del código por parte de
-cualquier miembro del equipo.</p></li>
-<li><p>Facilitar el mantenimiento y la corrección de errores.</p></li>
-<li><p>Asegurar consistencia en el estilo y estructura del
-código.</p></li>
-<li><p>Reducir la probabilidad de errores por prácticas incorrectas o
-confusas.</p></li>
-<li><p>Permitir una colaboración eficiente en proyectos donde varias
-personas contribuyen.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.5.0.0.1">
-
-<ul>
-<li><p>Qué suele incluir un estándar de codificación:</p>
-<ul>
-<li><p>Nombres de variables, funciones y clases (por ejemplo, usar
-<code>snake_case</code>, <code>camelCase</code> o
-<code>PascalCase</code>).</p></li>
-<li><p>Formato y estilo: sangrías, espacios, líneas en blanco.</p></li>
-<li><p>Estructura de archivos y carpetas en el proyecto.</p></li>
-<li><p>Convenciones de comentarios y documentación.</p></li>
-<li><p>Buenas prácticas específicas del lenguaje (por ejemplo, en
-Python, seguir la norma PEP 8).</p></li>
-<li><p>Reglas sobre uso de excepciones, manejo de errores y
-<em>logging</em>.</p></li>
-<li><p>Restricciones o recomendaciones de diseño de software (por
-ejemplo, evitar funciones demasiado largas o complejas).</p></li>
-</ul></li>
-</ul>
-</section>
-<section id="pep-8" class="title-slide slide level3"
-data-number="1.5.1">
-<h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span>
-PEP 8</h3>
-<ul>
-<li><p>En Python, el estándar de codificación más utilizado es PEP 8,
-que define:</p>
-<ul>
-<li><p>Sangría de 4 espacios.</p></li>
-<li><p>Uso de <code>snake_case</code> para nombres de funciones y
-variables.</p></li>
-<li><p>Uso de <code>PascalCase</code> para nombres de clases.</p></li>
-<li><p>Líneas de máximo 79 caracteres.</p></li>
-<li><p>Espacios alrededor de operadores.</p></li>
-</ul></li>
-</ul>
-</section>
-
-<section id="pylint" class="title-slide slide level3"
-data-number="1.5.2">
-<h3 data-number="1.5.2"><span class="header-section-number">1.5.2</span>
-<code>pylint</code></h3>
-<ul>
-<li><p><code>pylint</code> es una herramienta que comprueba determinado
-tipo de errores en el código fuente de un programa Python.</p></li>
-<li><p>Trata de asegurar que el programa se ajusta a un estándar de
-codificación.</p></li>
-<li><p>Localiza determinados patrones que están mal vistos o que pueden
-mejorarse fácilmente.</p></li>
-<li><p>Sugiere cambios en el código, recomienda refactorizaciones y
-ofrece detalles sobre la complejidad del código.</p></li>
-<li><p>Se puede instalar o manualmente haciendo:</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pip install pylint</span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.5.2.0.1">
-
-<ul>
-<li><p>Desde la consola, <code>pylint</code> se ejecuta directamente
-sobre un archivo <code>.py</code>:</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pylint prueba.py</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>************* Module prueba</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>prueba.py:1:0: C0114: Missing module docstring (missing-module-docstring)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Your code has been rated at 5.00/10 (previous run: 10.00/10, -5.00)</span></code></pre></div></li>
-<li><p>Se puede deshabilitar la comprobación de determinados
-<em>defectos</em> usando la opción <code>--disable</code>:</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pylint --disable=missing-docstring prueba.py</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>Your code has been rated at 10.00/10 (previous run: 5.00/10, +5.00)</span></code></pre></div></li>
-<li><p>Con la opción <code>--lists-msgs</code> se pueden consulta la
-lista de todos los comprobadores predefinidos.</p></li>
-</ul>
-</section>
-
-</section>
-<section>
-<section id="pruebas" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span>
 Pruebas</h1>
 
 </section>
 <section id="doctest" class="title-slide slide level2"
-data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
 <code>doctest</code></h2>
 <ul>
 <li><p><code>doctest</code> es una herramienta que permite realizar
@@ -553,66 +194,66 @@ esperada según dicta la <em>docstring</em> de la función.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.1">
+<section class="slide level5" data-number="1.1.0.0.1">
 
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo.py</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> factorial(n):</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve el factorial de n, un número entero &gt;= 0.</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; [factorial(n) for n in range(6)]</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">    [1, 1, 2, 6, 24, 120]</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; factorial(30)</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">    265252859812191058636308480000000</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; factorial(-1)</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st">    Traceback (most recent call last):</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="st">        ...</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ValueError: n debe ser &gt;= 0</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> math</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> n <span class="op">&gt;=</span> <span class="dv">0</span>:</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;n debe ser &gt;= 0&quot;</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    factor <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> factor <span class="op">&lt;=</span> n:</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        result <span class="op">*=</span> factor</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        factor <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo.py</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> factorial(n):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve el factorial de n, un número entero &gt;= 0.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; [factorial(n) for n in range(6)]</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">    [1, 1, 2, 6, 24, 120]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; factorial(30)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">    265252859812191058636308480000000</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; factorial(-1)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">    Traceback (most recent call last):</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">        ...</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ValueError: n debe ser &gt;= 0</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> math</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> n <span class="op">&gt;=</span> <span class="dv">0</span>:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;n debe ser &gt;= 0&quot;</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    factor <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> factor <span class="op">&lt;=</span> n:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        result <span class="op">*=</span> factor</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        factor <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div>
 </section>
-<section class="slide level5" data-number="2.1.0.0.2">
+<section class="slide level5" data-number="1.1.0.0.2">
 
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py <span class="op">-</span>v</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Trying:</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    [factorial(n) <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">24</span>, <span class="dv">120</span>]</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ok</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Trying:</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    factorial(<span class="dv">30</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">265252859812191058636308480000000</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ok</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>Trying:</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    factorial(<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    Traceback (most recent call last):</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        ...</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="pp">ValueError</span>: n debe ser <span class="op">&gt;=</span> <span class="dv">0</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>ok</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> items had no tests:</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    ejemplo</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> items passed <span class="bu">all</span> tests:</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>   <span class="dv">3</span> tests <span class="kw">in</span> ejemplo.factorial</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> tests <span class="kw">in</span> <span class="dv">2</span> items.</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> passed <span class="kw">and</span> <span class="dv">0</span> failed.</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>Test passed.</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py <span class="op">-</span>v</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Trying:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    [factorial(n) <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">24</span>, <span class="dv">120</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ok</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Trying:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    factorial(<span class="dv">30</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">265252859812191058636308480000000</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ok</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Trying:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    factorial(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    Traceback (most recent call last):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="pp">ValueError</span>: n debe ser <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>ok</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> items had no tests:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    ejemplo</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> items passed <span class="bu">all</span> tests:</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>   <span class="dv">3</span> tests <span class="kw">in</span> ejemplo.factorial</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> tests <span class="kw">in</span> <span class="dv">2</span> items.</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> passed <span class="kw">and</span> <span class="dv">0</span> failed.</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>Test passed.</span></code></pre></div>
 </section>
 
-<section id="pytest" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+<section id="pytest" class="title-slide slide level2" data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
 <code>pytest</code></h2>
 <ul>
 <li><p><code>pytest</code> es una herramienta que permite realizar
@@ -635,41 +276,41 @@ style="color:teal">⟨<em>nombre</em>⟩</span> no ha superado dicha
 prueba.</p></li>
 <li><p>En Python 3, la herramienta se llama <code>pytest-3</code> y se
 instala mediante:</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pytest</span></code></pre></div></li>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pytest</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.1">
+<section class="slide level5" data-number="1.2.0.0.1">
 
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_respuesta():</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">========================</span> test session starts <span class="op">=========================</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.8.5</span>, pytest<span class="op">-</span><span class="fl">4.6.9</span>, py<span class="op">-</span><span class="fl">1.8.1</span>, pluggy<span class="op">-</span><span class="fl">0.13.0</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>rootdir: <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>collected <span class="dv">1</span> item                                                     </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py F                                              [<span class="dv">100</span><span class="op">%</span>]</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="op">==============================</span> FAILURES <span class="op">==============================</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>___________________________ test_respuesta ___________________________</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_respuesta():</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>       <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>E       <span class="cf">assert</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">5</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>E        <span class="op">+</span>  where <span class="dv">4</span> <span class="op">=</span> inc(<span class="dv">3</span>)</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py:<span class="dv">7</span>: <span class="pp">AssertionError</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="op">======================</span> <span class="dv">1</span> failed <span class="kw">in</span> <span class="fl">2.48</span> seconds <span class="op">======================</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_respuesta():</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">========================</span> test session starts <span class="op">=========================</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.8.5</span>, pytest<span class="op">-</span><span class="fl">4.6.9</span>, py<span class="op">-</span><span class="fl">1.8.1</span>, pluggy<span class="op">-</span><span class="fl">0.13.0</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>rootdir: <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>collected <span class="dv">1</span> item                                                     </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py F                                              [<span class="dv">100</span><span class="op">%</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">==============================</span> FAILURES <span class="op">==============================</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>___________________________ test_respuesta ___________________________</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_respuesta():</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>       <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>E       <span class="cf">assert</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>E        <span class="op">+</span>  where <span class="dv">4</span> <span class="op">=</span> inc(<span class="dv">3</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py:<span class="dv">7</span>: <span class="pp">AssertionError</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="op">======================</span> <span class="dv">1</span> failed <span class="kw">in</span> <span class="fl">2.48</span> seconds <span class="op">======================</span></span></code></pre></div>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="1.2.0.0.2">
 
 <ul>
 <li><p><code>pytest</code> sigue la siguiente estrategia a la hora de
@@ -686,8 +327,8 @@ empiece por <code>test</code>.</p></li>
 </section>
 
 <section id="desarrollo-conducido-por-pruebas"
-class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span>
 Desarrollo conducido por pruebas</h2>
 <ul>
 <li><p>El <strong>desarrollo conducido por pruebas</strong> o
@@ -709,8 +350,8 @@ los requisitos que se han establecido.</p></li>
 </ul>
 </section>
 <section id="ciclo-de-desarrollo" class="title-slide slide level3"
-data-number="2.3.1">
-<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span>
+data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span>
 Ciclo de desarrollo</h3>
 <ul>
 <li><p>En primer lugar se debe definir una lista de requisitos y después
@@ -729,7 +370,7 @@ es errónea.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.1.0.1">
+<section class="slide level5" data-number="1.3.1.0.1">
 
 <ol start="4" type="1">
 <li><p><strong>Escribir la implementación:</strong> Se escribe el código
@@ -743,7 +384,7 @@ pruebas.</p></li>
 requisito implementado y se agregan otros nuevos si hace falta.</p></li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.3.1.0.2">
+<section class="slide level5" data-number="1.3.1.0.2">
 
 <ul>
 <li><p>Todo este ciclo se resume en que, por cada requisito, hay que

@@ -847,35 +847,15 @@ z -> 3
 
 # Documentación interna
 
-## Identificadores significativos
+## Concepto
 
-- Se recomienda usar identificadores descriptivos.
+- El uso apropiado de una clara disposición del texto, la inclusión de
+  comentarios apropiados y una buena elección de los identificadores, se conoce
+  como **documentación interna** o **autodocumentación**.
 
-  Es mejor usar:
-
-  ```python
-  ancho = 640
-  alto = 400
-  superficie = ancho * alto
-  ```
-
-  que
-
-  ```python
-  x = 640
-  y = 400
-  z = x * y
-  ```
-
-  aunque ambos programas sean equivalentes en cuanto al efecto que producen y
-  el resultado que generan.
-
-- Si el identificador representa varias palabras, se puede usar el carácter de
-  guión bajo (`_`) para separarlas y formar un único identificador:
-
-  ```python
-  altura_triangulo = 34.2
-  ```
+- La autodocumentación no es ningún lujo superfluo; por el contrario, se
+  considera preciso adquirir desde el principio el hábito de desarrollar
+  programas claros y bien autodocumentados.
 
 ## Comentarios
 
@@ -913,6 +893,151 @@ z -> 3
 
 - Python evaluará la cadena pero, al no usarse dentro de ninguna expresión ni
   ligarse a ningún identificador, simplementa la ignorará (como un comentario).
+
+---
+
+- Los comentarios:
+
+  - Deben expresar información que no sea evidente por la simple lectura del
+    código fuente.
+
+  - No deben decir lo mismo que el código, porque entonces será un comentario
+    _redundante_ que, si no tenemos cuidado, puede acabar diciendo algo
+    incompatible con el código si no nos preocupamos de actualizar el
+    comentario cuando cambie el código (que lo hará).
+
+  - Deben ser los justos: ni más ni menos que los necesarios.
+
+## Identificadores significativos
+
+- Se recomienda usar identificadores descriptivos.
+
+  Es mejor usar:
+
+  ```python
+  ancho = 640
+  alto = 400
+  superficie = ancho * alto
+  ```
+
+  que
+
+  ```python
+  x = 640
+  y = 400
+  z = x * y
+  ```
+
+  aunque ambos programas sean equivalentes en cuanto al efecto que producen y
+  el resultado que generan.
+
+- Si el identificador representa varias palabras, se puede usar el carácter de
+  guión bajo (`_`) para separarlas y formar un único identificador:
+
+  ```python
+  altura_triangulo = 34.2
+  ```
+
+## Estándares de codificación
+
+- Un estándar de codificación (o estándar de programación) es un conjunto de
+  normas, reglas y recomendaciones que definen cómo debe escribirse el código
+  fuente en un lenguaje de programación dentro de un proyecto, equipo o
+  empresa.
+
+- Los objetivos de un estándar de codificación son:
+
+  - Mejorar la legibilidad y comprensión del código por parte de cualquier
+    miembro del equipo.
+
+  - Facilitar el mantenimiento y la corrección de errores.
+
+  - Asegurar consistencia en el estilo y estructura del código.
+
+  - Reducir la probabilidad de errores por prácticas incorrectas o confusas.
+
+  - Permitir una colaboración eficiente en proyectos donde varias personas
+    contribuyen.
+
+---
+
+- Qué suele incluir un estándar de codificación:
+
+  - Nombres de variables, funciones y clases (por ejemplo, usar `snake_case`,
+    `camelCase` o `PascalCase`).
+
+  - Formato y estilo: sangrías, espacios, líneas en blanco.
+
+  - Estructura de archivos y carpetas en el proyecto.
+
+  - Convenciones de comentarios y documentación.
+
+  - Buenas prácticas específicas del lenguaje (por ejemplo, en Python, seguir
+    la norma PEP 8).
+
+  - Reglas sobre uso de excepciones, manejo de errores y _logging_.
+
+  - Restricciones o recomendaciones de diseño de software (por ejemplo, evitar
+    funciones demasiado largas o complejas).
+
+### PEP 8
+
+- En Python, el estándar de codificación más utilizado es PEP 8, que define:
+
+  - Sangría de 4 espacios.
+
+  - Uso de `snake_case` para nombres de funciones y variables.
+
+  - Uso de `PascalCase` para nombres de clases.
+
+  - Líneas de máximo 79 caracteres.
+
+  - Espacios alrededor de operadores.
+
+### `pylint`
+
+- `pylint` es una herramienta que comprueba determinado tipo de errores en el
+  código fuente de un programa Python.
+
+- Trata de asegurar que el programa se ajusta a un estándar de codificación.
+
+- Localiza determinados patrones que están mal vistos o que pueden mejorarse
+  fácilmente.
+
+- Sugiere cambios en el código, recomienda refactorizaciones y ofrece detalles
+  sobre la complejidad del código.
+
+- Se puede instalar o manualmente haciendo:
+
+  ```console
+  $ pip install pylint
+  ```
+
+---
+
+- Desde la consola, `pylint` se ejecuta directamente sobre un archivo `.py`:
+
+  ```console
+  $ pylint prueba.py
+  ************* Module prueba
+  prueba.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+
+  -------------------------------------------------------------------
+  Your code has been rated at 5.00/10 (previous run: 10.00/10, -5.00)
+  ```
+
+- Se puede deshabilitar la comprobación de determinados _defectos_ usando la
+  opción `--disable`:
+
+    ```console
+    $ pylint --disable=missing-docstring prueba.py
+
+    -------------------------------------------------------------------
+    Your code has been rated at 10.00/10 (previous run: 5.00/10, +5.00)
+    ```
+
+- Con la opción `--lists-msgs` se pueden consulta la lista de todos los
+  comprobadores predefinidos.
 
 # Resumen {.unnumbered .unlisted}
 

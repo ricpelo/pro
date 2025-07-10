@@ -667,7 +667,9 @@ nocite: |
 
 ---
 
-- Al igual que ocurre con las cadenas, tenemos las operaciones !PYTHON(t[0]) (primer elemento de la tupla), !PYTHON(t[1:]) (resto de la tupla) y `+` (**concatenación**).
+- Al igual que ocurre con las cadenas, tenemos las operaciones !PYTHON(t[0])
+  (primer elemento de la tupla), !PYTHON(t[1:]) (resto de la tupla) y `+`
+  (**concatenación**).
 
 - Con la concatenación se pueden crear nuevas tuplas a partir de otras tuplas.
 

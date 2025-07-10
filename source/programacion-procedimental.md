@@ -1197,6 +1197,206 @@ E -> suma [lhead = cluster0]
   print(cambia(l, 2, 99))           # imprime [1, 2, 99, 4]
   ```
 
+## *Docstrings*
+
+- Una **cadena de documentación** (_docstring_) es un literal de tipo cadena
+  que aparece como primera sentencia en un módulo o función.
+
+- Las _docstrings_ son comentarios que tienen la finalidad de **documentar** el
+  módulo o la función correspondientes.
+
+- Por convenio, las _docstrings_ siempre se delimitan mediante triples dobles
+  comillas (!PYTHON(""")).
+
+- La función !PYTHON(help) (que se usa sobre todo en sesiones interactivas)
+  muestran la _docstring_ del objeto para el que se solicita la ayuda.
+
+- Internamente, la _docstring_ se almacena en el atributo !PYTHON(__doc__) del
+  objeto.
+
+!EJEMPLO
+
+```python
+"""Módulo de ejemplo (ejemplo.py)."""
+
+def saluda(nombre):
+    """Devuelve un saludo.
+
+    Args:
+        nombre (str): El nombre de la persona a la que saluda.
+
+    Returns:
+        str: El saludo.
+    """
+    return "¡Hola, " + nombre + "!"
+```
+
+- Existen dos formas distintas de _docstrings_:
+
+  - **De una sola línea (_one-line_):** para casos muy obvios que necesiten
+    poca explicación.
+
+  - **De varias líneas (_multi-line_):** para casos donde se necesita una
+    explicación más detallada.
+
+---
+
+```python
+>>> import ejemplo
+>>> help(ejemplo)
+Help on module ejemplo:
+
+NAME
+    ejemplo - Módulo de ejemplo (ejemplo.py).
+
+FUNCTIONS
+    saluda(nombre)
+        Devuelve un saludo.
+        
+        Args:
+            nombre (str): El nombre de la persona a la que saluda.
+        
+        Returns:
+            str: El saludo.
+
+FILE
+    /home/ricardo/python/ejemplo.py
+
+>>> help(ejemplo.saluda)
+Help on function saluda in module ejemplo:
+
+saluda(nombre)
+    Devuelve un saludo.
+    
+    Args:
+        nombre (str): El nombre de la persona a la que saluda.
+    
+    Returns:
+        str: El saludo.
+```
+
+---
+
+- Lo que hace básicamente la función !PYTHON{help(}_objeto_!PYTHON{)} es
+  acceder al contenido del atributo !PYTHON(__doc__) del objeto y mostrarlo de
+  forma legible.
+
+- Siempre podemos acceder directamente al atributo !PYTHON(__doc__) para
+  recuperar la _docstring_ original usando _objeto_!PYTHON(.__doc__):
+
+  ```python
+  >>> import ejemplo
+  >>> print(ejemplo.__doc__)
+  Módulo de ejemplo (ejemplo.py).
+  >>> print(ejemplo.saluda.__doc__)
+  Devuelve un saludo.
+
+      Args:
+          nombre (str): El nombre de la persona a la que saluda.
+
+      Returns:
+          str: El saludo.
+      
+  ```
+
+- Esta información también es usada por otras herramientas de documentación
+  externa, como `pydoc`.
+
+#### ¿Cuándo y cómo usar cada forma de _docstring_!ifdef(HTML)(&nbsp;)()?
+
+- **_Docstrings_ de una sola línea:**
+
+  - Más apropiada para funciones sencillas.
+
+  - Las comillas de apertura y cierre deben aparecer en la misma línea.
+
+  - No hay líneas en blanco antes o despues de la _docstring_.
+
+  - Debe ser una frase acabada en punto que describa el efecto de la función
+    («Hace _esto_», «Devuelve _aquello_»...).
+
+  - No debe ser una signatura, así que lo siguiente está mal:
+
+    ```python
+    def funcion(a, b):
+        """funcion(a, b) -> tuple"""
+    ```
+
+    Esto está mejor:
+
+    ```python
+    def funcion(a, b):
+        """Hace esto y aquello, y devuelve una tupla."""
+    ```
+
+---
+
+- **_Docstrings_ de varias líneas:**
+
+  - Toda la _docstring_ debe ir indentada al mismo nivel que las comillas de
+    apertura.
+
+  - La primera línea debe ser un resumen informativo y caber en 80 columnas.
+
+    Puede ir en la misma línea que las comillas de apertura, o en la línea
+    siguiente.
+
+  - A continuación, debe ir una línea en blanco, seguida de una descripción más
+    detallada.
+
+  - La _docstring_ de un módulo debe enumerar los elementos que exporta, con
+    una línea resumen para cada uno.
+
+  - La _docstring_ de una función debe resumir su comportamiento y documentar
+    sus argumentos, valores de retorno, efectos laterales, excepciones que
+    lanza y precondiciones (si tiene).
+
+### `pydoc`
+
+- El módulo `pydoc` es un generador automático de documentación para programas
+  Python.
+
+- La documentación generada se puede presentar en forma de páginas de texto en
+  la consola, enviada a un navegador web o guardada en archivos HTML.
+
+- Dicha documentación se genera a partir de los _docstrings_ de los elementos
+  que aparecen en el código fuente del programa.
+
+- La función !PYTHON(help) llama al sistema de ayuda en línea del intérprete
+  interactivo, el cual usa `pydoc` para generar su documentación en forma de
+  texto para la la consola.
+
+---
+
+- En la línea de órdenes del sistema operativo, se puede usar `pydoc` pasándole
+  el nombre de una función, módulo o atributo:
+
+  #. Si no se indican más opciones, se visualizará en pantalla la documentación
+     del objeto indicado: 
+
+     ```console
+     $ pydoc sys
+     $ pydoc len
+     $ pydoc sys.argv
+     ```
+
+  #. Con la opción `-w` se genera un archivo HTML:
+
+     ```console
+     $ pydoc -w ejemplo
+     wrote ejemplo.html
+     ```
+
+  #. Con la opción `-b` se arranca un servidor HTTP y se abre el navegador para
+     visualizar la documentación:
+
+     ```console
+     $ pydoc -b
+     Server ready at http://localhost:45373/
+     Server commands: [b]rowser, [q]uit
+     server> 
+     ```
+
 # Funciones locales a funciones
 
 ## Definición

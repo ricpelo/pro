@@ -1410,6 +1410,212 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a h
 </section>
 
 
+
+<section id="docstrings" class="title-slide slide level2"
+data-number="2.7">
+<h2 data-number="2.7"><span class="header-section-number">2.7</span>
+<em>Docstrings</em></h2>
+<ul>
+<li><p>Una <strong>cadena de documentación</strong> (<em>docstring</em>)
+es un literal de tipo cadena que aparece como primera sentencia en un
+módulo o función.</p></li>
+<li><p>Las <em>docstrings</em> son comentarios que tienen la finalidad
+de <strong>documentar</strong> el módulo o la función
+correspondientes.</p></li>
+<li><p>Por convenio, las <em>docstrings</em> siempre se delimitan
+mediante triples dobles comillas (<code
+class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">help</span></code> muestran
+la <em>docstring</em> del objeto para el que se solicita la
+ayuda.</p></li>
+<li><p>Internamente, la <em>docstring</em> se almacena en el atributo
+<code class="sourceCode python">__doc__</code> del objeto.</p></li>
+</ul>
+</section>
+<section id="ejemplo" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;Módulo de ejemplo (ejemplo.py).&quot;&quot;&quot;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(nombre):</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve un saludo.</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Args:</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="st">        nombre (str): El nombre de la persona a la que saluda.</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="st">    Returns:</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="st">        str: El saludo.</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;¡Hola, &quot;</span> <span class="op">+</span> nombre <span class="op">+</span> <span class="st">&quot;!&quot;</span></span></code></pre></div>
+<ul>
+<li><p>Existen dos formas distintas de <em>docstrings</em>:</p>
+<ul>
+<li><p><strong>De una sola línea (<em>one-line</em>):</strong> para
+casos muy obvios que necesiten poca explicación.</p></li>
+<li><p><strong>De varias líneas (<em>multi-line</em>):</strong> para
+casos donde se necesita una explicación más detallada.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.7.0.0.1">
+
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(ejemplo)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>Help on module ejemplo:</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>NAME</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    ejemplo <span class="op">-</span> Módulo de ejemplo (ejemplo.py).</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>FUNCTIONS</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    saluda(nombre)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>        Devuelve un saludo.</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>        Args:</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>            nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>        Returns:</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>            <span class="bu">str</span>: El saludo.</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>FILE</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python<span class="op">/</span>ejemplo.py</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(ejemplo.saluda)</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>Help on function saluda <span class="kw">in</span> module ejemplo:</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>saluda(nombre)</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>    Devuelve un saludo.</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    Args:</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>        nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>    Returns:</span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>        <span class="bu">str</span>: El saludo.</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="2.7.0.0.2">
+
+<ul>
+<li><p>Lo que hace básicamente la función <code
+class="sourceCode python"><span class="bu">help</span>(</code><em>objeto</em><code
+class="sourceCode python">)</code> es acceder al contenido del atributo
+<code class="sourceCode python">__doc__</code> del objeto y mostrarlo de
+forma legible.</p></li>
+<li><p>Siempre podemos acceder directamente al atributo <code
+class="sourceCode python">__doc__</code> para recuperar la
+<em>docstring</em> original usando <em>objeto</em><code
+class="sourceCode python">.__doc__</code>:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.__doc__)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>Módulo de ejemplo (ejemplo.py).</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.saluda.__doc__)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>Devuelve un saludo.</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    Args:</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    Returns:</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">str</span>: El saludo.</span></code></pre></div></li>
+<li><p>Esta información también es usada por otras herramientas de
+documentación externa, como <code>pydoc</code>.</p></li>
+</ul>
+</section>
+<section id="cuándo-y-cómo-usar-cada-forma-de-docstring"
+class="title-slide slide level4" data-number="2.7.0.1">
+<h4 data-number="2.7.0.1"><span
+class="header-section-number">2.7.0.1</span> ¿Cuándo y cómo usar cada
+forma de <em>docstring</em> ?</h4>
+<ul>
+<li><p><strong><em>Docstrings</em> de una sola línea:</strong></p>
+<ul>
+<li><p>Más apropiada para funciones sencillas.</p></li>
+<li><p>Las comillas de apertura y cierre deben aparecer en la misma
+línea.</p></li>
+<li><p>No hay líneas en blanco antes o despues de la
+<em>docstring</em>.</p></li>
+<li><p>Debe ser una frase acabada en punto que describa el efecto de la
+función («Hace <em>esto</em>», «Devuelve <em>aquello</em>»…).</p></li>
+<li><p>No debe ser una signatura, así que lo siguiente está mal:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;funcion(a, b) -&gt; tuple&quot;&quot;&quot;</span></span></code></pre></div>
+<p>Esto está mejor:</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funcion(a, b):</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Hace esto y aquello, y devuelve una tupla.&quot;&quot;&quot;</span></span></code></pre></div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.7.0.1.1">
+
+<ul>
+<li><p><strong><em>Docstrings</em> de varias líneas:</strong></p>
+<ul>
+<li><p>Toda la <em>docstring</em> debe ir indentada al mismo nivel que
+las comillas de apertura.</p></li>
+<li><p>La primera línea debe ser un resumen informativo y caber en 80
+columnas.</p>
+<p>Puede ir en la misma línea que las comillas de apertura, o en la
+línea siguiente.</p></li>
+<li><p>A continuación, debe ir una línea en blanco, seguida de una
+descripción más detallada.</p></li>
+<li><p>La <em>docstring</em> de un módulo debe enumerar los elementos
+que exporta, con una línea resumen para cada uno.</p></li>
+<li><p>La <em>docstring</em> de una función debe resumir su
+comportamiento y documentar sus argumentos, valores de retorno, efectos
+laterales, excepciones que lanza y precondiciones (si tiene).</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="pydoc" class="title-slide slide level3"
+data-number="2.7.1">
+<h3 data-number="2.7.1"><span class="header-section-number">2.7.1</span>
+<code>pydoc</code></h3>
+<ul>
+<li><p>El módulo <code>pydoc</code> es un generador automático de
+documentación para programas Python.</p></li>
+<li><p>La documentación generada se puede presentar en forma de páginas
+de texto en la consola, enviada a un navegador web o guardada en
+archivos HTML.</p></li>
+<li><p>Dicha documentación se genera a partir de los <em>docstrings</em>
+de los elementos que aparecen en el código fuente del programa.</p></li>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">help</span></code> llama al
+sistema de ayuda en línea del intérprete interactivo, el cual usa
+<code>pydoc</code> para generar su documentación en forma de texto para
+la la consola.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.7.1.0.1">
+
+<ul>
+<li><p>En la línea de órdenes del sistema operativo, se puede usar
+<code>pydoc</code> pasándole el nombre de una función, módulo o
+atributo:</p>
+<ol>
+<li><p>Si no se indican más opciones, se visualizará en pantalla la
+documentación del objeto indicado:</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc sys</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc len</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc sys.argv</span></code></pre></div></li>
+<li><p>Con la opción <code>-w</code> se genera un archivo HTML:</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -w ejemplo</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>wrote ejemplo.html</span></code></pre></div></li>
+<li><p>Con la opción <code>-b</code> se arranca un servidor HTTP y se
+abre el navegador para visualizar la documentación:</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pydoc -b</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>Server ready at http://localhost:45373/</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>Server commands: [b]rowser, [q]uit</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>server&gt; </span></code></pre></div></li>
+</ol></li>
+</ul>
+</section>
+
 </section>
 <section>
 <section id="funciones-locales-a-funciones"
@@ -1425,10 +1631,10 @@ Definición</h2>
 <ul>
 <li><p>En Python también podemos definir funciones dentro de
 funciones:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(...):</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> g(...):</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>      ...</span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(...):</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> g(...):</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>      ...</span></code></pre></div></li>
 <li><p>Cuando definimos una función <code>g</code> dentro de otra
 función <code>f</code>, decimos que:</p>
 <ul>
@@ -1456,19 +1662,19 @@ un ámbito más local.</p></li>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))  </span></code></pre></div></li>
 <li><p>La función <code class="sourceCode python">fact_iter</code> es
 local a la función <code>fact</code>.</p></li>
 <li><p>Por tanto, no se puede usar fuera de <code>fact</code>, ya que
@@ -1488,14 +1694,14 @@ dentro de <code>fact</code>.</p></li>
 <ul>
 <li><p>Tampoco se puede usar <code>fact_iter</code> dentro de
 <code>fact</code> <em>antes</em> de definirla:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb39-2"><a href="#cb39-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># UnboundLocalError: se usa antes de definirse</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb39-5"><a href="#cb39-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb39-6"><a href="#cb39-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb39-7"><a href="#cb39-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb47-2"><a href="#cb47-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># UnboundLocalError: se usa antes de definirse</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
+<span id="cb47-4"><a href="#cb47-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb47-5"><a href="#cb47-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb47-6"><a href="#cb47-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb47-7"><a href="#cb47-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
 <li><p>Esto ocurre porque la sentencia <code
 class="sourceCode python"><span class="kw">def</span></code> de la línea
 3 crea una ligadura entre <code>fact_iter</code> y una variable que
@@ -1563,19 +1769,19 @@ de la función actual y el marco global.</p></li>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
 
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb40-2"><a href="#cb40-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
-<span id="cb40-3"><a href="#cb40-3"></a>        <span class="kw">nonlocal</span> n</span>
-<span id="cb40-4"><a href="#cb40-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb40-5"><a href="#cb40-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb40-6"><a href="#cb40-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb40-7"><a href="#cb40-7"></a>            acc <span class="op">*=</span> n</span>
-<span id="cb40-8"><a href="#cb40-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
-<span id="cb40-9"><a href="#cb40-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
-<span id="cb40-10"><a href="#cb40-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
-<span id="cb40-11"><a href="#cb40-11"></a></span>
-<span id="cb40-12"><a href="#cb40-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb48-2"><a href="#cb48-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
+<span id="cb48-3"><a href="#cb48-3"></a>        <span class="kw">nonlocal</span> n</span>
+<span id="cb48-4"><a href="#cb48-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb48-5"><a href="#cb48-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb48-6"><a href="#cb48-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb48-7"><a href="#cb48-7"></a>            acc <span class="op">*=</span> n</span>
+<span id="cb48-8"><a href="#cb48-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb48-9"><a href="#cb48-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
+<span id="cb48-10"><a href="#cb48-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
+<span id="cb48-11"><a href="#cb48-11"></a></span>
+<span id="cb48-12"><a href="#cb48-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
 <ul>
 <li><p>La función <code>fact_iter</code> puede consultar el valor de la
 variable <code>n</code>, ya que es una variable local a la función
