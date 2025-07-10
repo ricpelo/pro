@@ -1063,25 +1063,44 @@ data-number="3.1">
 pila de control</h2>
 <ul>
 <li><p>La <strong>pila de control</strong> es una estructura de datos
-que utiliza el intérprete para llevar la cuenta de las <strong>llamadas
-<em>activas</em></strong> en un determinado momento.</p>
-<ul>
-<li>Las <strong>llamadas activas</strong> son aquellas llamadas a
-funciones que aún no han terminado de ejecutarse.</li>
-</ul></li>
+que utiliza el intérprete para llevar la cuenta de las
+<strong>ejecuciones <em>activas</em></strong> que hay en un determinado
+momento de la ejecución del programa.</p></li>
+<li><p>Las <strong>ejecuciones activas</strong> son aquellas llamadas a
+funciones (o ejecuciones de <em>scripts</em>) que aún no han terminado
+de ejecutarse.</p></li>
 <li><p>La pila de control es, básicamente, un <strong>almacén de
 marcos</strong>.</p></li>
-<li><p>Cada vez que se hace una nueva llamada a una función, <strong>su
-marco</strong> correspondiente <strong>se almacena en la cima de la
-pila</strong> sobre los demás marcos que pudiera haber.</p></li>
-<li><p>Ese marco es el primero de la secuencia de marcos que forman el
-entorno de la función, que también estarán almacenados en la pila, más
-abajo.</p></li>
+<li><p>El marco que hay en el fondo de la pila siempre es el <em>marco
+global</em> y se corresponde con el espacio de nombres del
+<em>script</em> actual.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>Cada vez que se hace una nueva llamada a una función:</p>
+<ol type="1">
+<li><p>la ejecución actual se detiene,</p></li>
+<li><p>el marco correspondiente a esa llamada <strong>se almacena en la
+cima de la pila</strong> sobre los demás marcos que pudiera haber
+y</p></li>
+<li><p>se continúa la ejecución en la función llamada.</p></li>
+</ol></li>
+<li><p>Ese marco representa por dónde va la ejecución del programa en
+este momento.</p></li>
+<li><p>Según ésto, si un marco <em>A</em> está justo debajo de otro
+marco <em>B</em>, es porque el código correspondiente a <em>A</em> está
+esperando a que termine el código correspondiente a <em>B</em>
+(normalmente, una función).</p></li>
+<li><p>Ese marco además es el primero de la secuencia de marcos que
+forman el entorno de la función, que también estarán almacenados en la
+pila, más abajo.</p></li>
 <li><p>Los marcos se enlazan entre sí para representar los entornos que
 actúan en las distintas llamadas activas.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>El intérprete almacena en el marco cualquier información que
@@ -1128,7 +1147,7 @@ función <code>tres</code> activada</figcaption>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.1.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
 <li><p>Del análisis del diagrama del ejemplo anterior se pueden deducir
@@ -1154,7 +1173,7 @@ global.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
 <li><p>Si tenemos ámbitos anidados, los marcos se apuntarán entre sí en
@@ -1166,7 +1185,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a h
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>uno(<span class="dv">3</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.4">
+<section class="slide level5" data-number="3.1.0.0.5">
 
 <div class="centered">
 <figure>
@@ -1178,7 +1197,7 @@ función <code>dos</code> activada</figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.1.0.0.5">
+<section class="slide level5" data-number="3.1.0.0.6">
 
 <ul>
 <li><p>Hemos dicho que habrá un marco por cada nueva llamada que se
@@ -1191,7 +1210,7 @@ marco por cada llamada recursiva.</p></li>
 class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fact <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> fact(n <span class="op">-</span> <span class="dv">1</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fact(<span class="dv">4</span>)</span></code></pre></div>
 </section>
-<section class="slide level5" data-number="3.1.0.0.6">
+<section class="slide level5" data-number="3.1.0.0.7">
 
 <div class="centered">
 <figure>
@@ -1203,7 +1222,7 @@ desde <code>fact(4)</code></figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="3.1.0.0.7">
+<section class="slide level5" data-number="3.1.0.0.8">
 
 <ul>
 <li><p>Los <strong>traductores que optimizan la recursividad
@@ -1228,7 +1247,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">120</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.8">
+<section class="slide level5" data-number="3.1.0.0.9">
 
 <ul>
 <li><p><code

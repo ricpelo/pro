@@ -1043,20 +1043,36 @@ E -> w [lhead = cluster1]
 ## La pila de control
 
 - La **pila de control** es una estructura de datos que utiliza el intérprete
-  para llevar la cuenta de las **llamadas _activas_** en un determinado
-  momento.
+  para llevar la cuenta de las **ejecuciones _activas_** que hay en un
+  determinado momento de la ejecución del programa.
 
-  - Las **llamadas activas** son aquellas llamadas a funciones que aún no han
-    terminado de ejecutarse.
+- Las **ejecuciones activas** son aquellas llamadas a funciones (o ejecuciones
+  de _scripts_) que aún no han terminado de ejecutarse.
 
 - La pila de control es, básicamente, un **almacén de marcos**.
 
-- Cada vez que se hace una nueva llamada a una función, **su marco**
-  correspondiente **se almacena en la cima de la pila** sobre los demás marcos
-  que pudiera haber.
+- El marco que hay en el fondo de la pila siempre es el _marco global_ y se
+  corresponde con el espacio de nombres del _script_ actual.
 
-- Ese marco es el primero de la secuencia de marcos que forman el entorno de la
-  función, que también estarán almacenados en la pila, más abajo.
+---
+
+- Cada vez que se hace una nueva llamada a una función:
+
+  1. la ejecución actual se detiene,
+
+  2. el marco correspondiente a esa llamada **se almacena en la cima de la
+     pila** sobre los demás marcos que pudiera haber y
+
+  3. se continúa la ejecución en la función llamada.
+
+- Ese marco representa por dónde va la ejecución del programa en este momento.
+
+- Según ésto, si un marco _A_ está justo debajo de otro marco _B_, es porque el
+  código correspondiente a _A_ está esperando a que termine el código
+  correspondiente a _B_ (normalmente, una función).
+
+- Ese marco además es el primero de la secuencia de marcos que forman el
+  entorno de la función, que también estarán almacenados en la pila, más abajo.
 
 - Los marcos se enlazan entre sí para representar los entornos que actúan en
   las distintas llamadas activas.
