@@ -562,16 +562,6 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
   ```
 
----
-
-- Al recorrer el iterable, las variables van almacenando en cada iteración del
-  bucle el valor del elemento que en ese momento se está visitando.
-
-- Debido a ello, podemos afirmar que las variables que aparecen en la cabecera
-  de la sentencia `for` son **identificadores cuantificados**, ya que toman sus
-  valores automáticamente y éstos están restringido a los valores que devuelva
-  el iterable.
-
 ### El módulo !PYTHON(itertools)
 
 - El módulo !PYTHON(itertools) contiene una variedad de iteradores de uso
