@@ -839,15 +839,20 @@ True
 
 - Ese ámbito abarca toda la lista por comprensión, de principio a fin.
 
-- Los identificadores que aparecen en la cláusula !PYTHON(for) se consideran
-  _variables ligadas_ en la lista por comprensión.
+- Al recorrer el iterable, las variables van almacenando en cada iteración del
+  bucle el valor del elemento que en ese momento se está visitando.
 
-- Esos identificadores se van ligando, uno a uno, a cada elemento de la
-  secuencia indicada en la cláusula !PYTHON(in).
+- Debido a ello, podemos afirmar que las variables que aparecen en en cada
+  cláusula `for` de la lista por comprensión son **identificadores
+  cuantificados**, ya que toman sus valores automáticamente y éstos están
+  restringido a los valores que devuelva el iterable.
+
+- Además, estos identificadores cuantificados son locales a la lista por
+  comprensión, y sólo existen dentro de ella.
 
 ---
 
-- Como son variables ligadas, cumplen estas dos propiedades:
+- Debido a lo anterior, esos identificadores cumplen estas dos propiedades:
 
   #. Se pueden renombrar (siempre de forma consistente) sin que la lista por
      comprensión cambie su significado.

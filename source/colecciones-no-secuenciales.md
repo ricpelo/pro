@@ -186,20 +186,25 @@ nocite: |
 
 ---
 
-- Los conjuntos por comprensión, al igual que las expresiones generadoras y las
-  listas por comprensión, **determinan su propio _ámbito_**.
+- Los conjuntos por comprensión, al igual que las expresiones generadoras y
+  las listas por comprensión, **determinan su propio _ámbito_**.
 
 - Ese ámbito abarca todo el conjunto por comprensión, de principio a fin.
 
-- Los identificadores que aparecen en la cláusula !PYTHON(for) se consideran
-  _variables ligadas_ en el conjunto por comprensión.
+- Al recorrer el iterable, las variables van almacenando en cada iteración del
+  bucle el valor del elemento que en ese momento se está visitando.
 
-- Esos identificadores se van ligando, uno a uno, a cada elemento de la
-  secuencia indicada en la cláusula !PYTHON(in).
+- Debido a ello, podemos afirmar que las variables que aparecen en en cada
+  cláusula `for` del conjunto por comprensión son **identificadores
+  cuantificados**, ya que toman sus valores automáticamente y éstos están
+  restringido a los valores que devuelva el iterable.
+
+- Además, estos identificadores cuantificados son locales al conjunto por
+  comprensión, y sólo existen dentro de él.
 
 ---
 
-- Como son variables ligadas, cumplen estas dos propiedades:
+- Debido a lo anterior, esos identificadores cumplen estas dos propiedades:
 
   #. Se pueden renombrar (siempre de forma consistente) sin que el conjunto por
      comprensión cambie su significado.
@@ -609,15 +614,20 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
 - Ese ámbito abarca todo el diccionario por comprensión, de principio a fin.
 
-- Los identificadores que aparecen en la cláusula !PYTHON(for) se consideran
-  _variables ligadas_ en el diccionario por comprensión.
+- Al recorrer el iterable, las variables van almacenando en cada iteración del
+  bucle el valor del elemento que en ese momento se está visitando.
 
-- Esos identificadores se van ligando, uno a uno, a cada elemento de la
-  secuencia indicada en la cláusula !PYTHON(in).
+- Debido a ello, podemos afirmar que las variables que aparecen en en cada
+  cláusula `for` del diccionario por comprensión son **identificadores
+  cuantificados**, ya que toman sus valores automáticamente y éstos están
+  restringido a los valores que devuelva el iterable.
+
+- Además, estos identificadores cuantificados son locales al diccionario por
+  comprensión, y sólo existen dentro de él.
 
 ---
 
-- Como son variables ligadas, cumplen estas dos propiedades:
+- Debido a lo anterior, esos identificadores cumplen estas dos propiedades:
 
   #. Se pueden renombrar (siempre de forma consistente) sin que el diccionario
   por comprensión cambie su significado.

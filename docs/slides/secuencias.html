@@ -1273,19 +1273,23 @@ generadoras, <strong>determinan su propio
 <em>ámbito</em></strong>.</p></li>
 <li><p>Ese ámbito abarca toda la lista por comprensión, de principio a
 fin.</p></li>
-<li><p>Los identificadores que aparecen en la cláusula <code
-class="sourceCode python"><span class="cf">for</span></code> se
-consideran <em>variables ligadas</em> en la lista por
-comprensión.</p></li>
-<li><p>Esos identificadores se van ligando, uno a uno, a cada elemento
-de la secuencia indicada en la cláusula <code
-class="sourceCode python"><span class="kw">in</span></code>.</p></li>
+<li><p>Al recorrer el iterable, las variables van almacenando en cada
+iteración del bucle el valor del elemento que en ese momento se está
+visitando.</p></li>
+<li><p>Debido a ello, podemos afirmar que las variables que aparecen en
+en cada cláusula <code>for</code> de la lista por comprensión son
+<strong>identificadores cuantificados</strong>, ya que toman sus valores
+automáticamente y éstos están restringido a los valores que devuelva el
+iterable.</p></li>
+<li><p>Además, estos identificadores cuantificados son locales a la
+lista por comprensión, y sólo existen dentro de ella.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.1.0.3">
 
 <ul>
-<li><p>Como son variables ligadas, cumplen estas dos propiedades:</p>
+<li><p>Debido a lo anterior, esos identificadores cumplen estas dos
+propiedades:</p>
 <ol>
 <li><p>Se pueden renombrar (siempre de forma consistente) sin que la
 lista por comprensión cambie su significado.</p>

@@ -298,11 +298,12 @@ nocite: |
   puedan tomar los parámetros de la expresión lambda en cada llamada a la
   misma.
 
-- Dicho valor vendrá determinado automáticamente por la ligadura que crea el
+- Dicho valor además vendrá determinado automáticamente por la ligadura que crea el
   intérprete durante la llamada a la expresión lambda.
 
-- Es decir: el identificador cuantificado se liga automáticamente al valor del
-  correspondiente argumento durante la llamada a la expresión lambda.
+  Es decir: el intérprete liga automáticamente el identificador cuantificado
+  al valor del correspondiente argumento durante la llamada a la expresión
+  lambda.
 
 - En cambio, el valor al que esté ligado un identificador libre de una
   expresión lambda no viene determinado por ninguna característica propia de

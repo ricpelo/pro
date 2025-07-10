@@ -465,30 +465,6 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   (1, 2, 3)
   ```
 
----
-
-- Las **expresiones generadoras**, ya conocidas por nosotros, también son
-  expresiones que **devuelven un iterador**:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T{)}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Ejemplo:
-
-  ```python
-  >>> cuadrados = (x ** 2 for x in range(1, 10))
-  >>> cuadrados
-  <generator object <genexpr> at 0x7f6a0fc7db48>
-  >>> next(cuadrados)
-  1
-  >>> next(cuadrados)
-  4
-  >>> next(cuadrados)
-  9
-  ```
-
 ### El bucle !PYTHON(for)
 
 - Probablemente, la mejor forma de recorrer los elementos que devuelve un
@@ -563,9 +539,6 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- Al recorrer el iterable, la variable va almacenando en cada iteración del
-  bucle el valor del elemento que en ese momento se está visitando.
-
 - Si estamos recorriendo una secuencia y necesitamos recuperar tanto el valor
   como el **índice** de cada elemento, podemos usar la función
   !PYTHON(enumerate).
@@ -591,20 +564,13 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- Existen iterables e iteradores incluso donde uno menos se lo podría esperar.
+- Al recorrer el iterable, las variables van almacenando en cada iteración del
+  bucle el valor del elemento que en ese momento se está visitando.
 
-- Por ejemplo, **los archivos abiertos también son iterables**, ya que se
-  pueden recorrer línea a línea usando un iterador:
-
-  ```python
-  with open('archivo.txt') as f:
-      for linea in f:
-          print(linea)
-  ```
-
-- Esta forma de recorrer los archivos, además de resultar simple y elegante,
-  también resulta muy eficiente, ya que se va recuperando cada línea de una en
-  una en lugar de todas a la vez.
+- Debido a ello, podemos afirmar que las variables que aparecen en la cabecera
+  de la sentencia `for` son **identificadores cuantificados**, ya que toman sus
+  valores automáticamente y éstos están restringido a los valores que devuelva
+  el iterable.
 
 ### El módulo !PYTHON(itertools)
 
@@ -1274,7 +1240,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T{)}
+  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(iterador) [!T(if) !NT{condición}])!MAS!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los elementos de la salida generada serán los sucesivos valores de
@@ -1305,12 +1271,25 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Ese ámbito abarca toda la expresión generadora, de principio a fin.
 
 - Los identificadores que aparecen en la cláusula !PYTHON(for) se se van
-  ligando, uno a uno, a cada elemento de la secuencia indicada en la cláusula
-  !PYTHON(in).
+  ligando automáticamente, uno a uno, a cada elemento del iterable indicada en
+  la cláusula !PYTHON(in).
 
 ---
 
-- Esos identificadores cumplen estas dos propiedades:
+- Al recorrer el iterable, las variables van almacenando en cada iteración del
+  bucle el valor del elemento que en ese momento se está visitando.
+
+- Debido a ello, podemos afirmar que las variables que aparecen en en cada
+  cláusula `for` de la expresión generadora son **identificadores
+  cuantificados**, ya que toman sus valores automáticamente y éstos están
+  restringido a los valores que devuelva el iterable.
+
+- Además, estos identificadores cuantificados son locales a la expresión
+  generadora, y sólo existen dentro de ella.
+
+---
+
+- Debido a lo anterior, esos identificadores cumplen estas dos propiedades:
 
   - Se pueden renombrar (siempre de forma consistente) sin que la expresión
     cambie su significado.
