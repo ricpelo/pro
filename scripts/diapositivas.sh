@@ -27,6 +27,8 @@ FILES="fundamentos.md $FILES"
 echo "| Título | HTML | PDF | Apuntes | Ejercicios | Prácticas |"
 echo "| ------ |:----:|:---:|:-------:|:----------:|:---------:|"
 
+contador=0
+
 for f in $FILES; do
     FECHA=$(date +'%Y-%m-%d %H:%M:%S%:z' --date @$(stat -c %Y $SOURCE/$f))
     HTML="slides/${f%.md}.html"
@@ -34,7 +36,7 @@ for f in $FILES; do
     APUNTES="apuntes/${f%.md}-apuntes.pdf"
     TITLE=$(grep -Po "^title: \K.*" $SOURCE/$f)
     ULTACT="Última actualización"
-    echo -n  "| <strong>$TITLE</strong><br><small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
+    echo -n  "| <strong>$contador. $TITLE</strong><br><small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
     echo -n " | [HTML]($HTML){:target=\"_blank\"}"
     echo -n " | [PDF]($PDF){:target=\"_blank\"}"
     echo -n " | [Apuntes]($APUNTES){:target=\"_blank\"}"
@@ -51,5 +53,6 @@ for f in $FILES; do
         echo -n    "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
     fi
     echo
+    contador=$((contador + 1))
 done
 echo "{:.stretch-table}"
