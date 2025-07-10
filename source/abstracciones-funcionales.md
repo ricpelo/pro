@@ -200,7 +200,7 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
   !NT(función) ::= !T(identificador)
-                    | !T{(}!NT(expresión_lambda)!T{)}
+  !SPC(25) | !T{(}!NT(expresión_lambda)!T{)}
   !NT(expresión_lambda) ::= !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
   !NT(lista_parámetros) ::= !T{identificador}(!T(,) !T{identificador})\*
   !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
@@ -1469,7 +1469,7 @@ $$fact(n) = n\cdot fact(n-1)\quad \text{si } n > 0\quad \text{(caso recursivo)}$
 ---
 
 --------------------------------------------------------------------------------------------
-Tipo de proceso           Número de                          Memoria necesaria 
+Tipo de proceso           Número de                          Memoria necesaria
                           reducciones
 ------------------------- -------------------------------    -------------------------------
 Recursivo                 Proporcional a $\underline{n}$     Proporcional a $\underline{n}$
@@ -1506,7 +1506,7 @@ Iterativo lineal          Linealmente \
     Así, si parásemos el cálculo entre dos pasos, lo único que necesitaríamos
     hacer para seguir con el cálculo es darle al intérprete el valor de los dos
     parámetros.
-    
+
   - En el **proceso recursivo**, el intérprete tiene que mantener cierta
     información *oculta* que no está almacenada en ningún parámetro y que
     indica qué operaciones ha realizado hasta ahora y cuáles quedan pendientes

@@ -54,7 +54,7 @@ $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\
 $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
 $s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
-                                        
+
 $s$ `*` $n$ \                             (_Repetición_) Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
 $n$ `*` $s$                               (no va con rangos)
 
@@ -208,17 +208,17 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(f_string) ::= (!NT(carácter_literal) | !T({{) | !T(}}) | !NT{sustitución})\*
-!NT(sustitución) ::= !T({)!NT(expresión) [!T(!)!NT(conversión)] [!T(:)!NT(especif)]!T(})
-!NT(conversión) ::= !T(s) | !T(r) | !T(a)
-!NT(especif) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{sustitución})\*
-!ifdef(HTML)
-~~~~~~~~~~~~~~
-!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto !T({), !T(}) o !T{NULL})
-~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~
-!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
-~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(sustitución) ::= !T({)!NT(expresión) [!T(!)!NT(conversión)] [!T(:)!NT(especif)]!T(})
+  !NT(conversión) ::= !T(s) | !T(r) | !T(a)
+  !NT(especif) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{sustitución})\*
+  !ifdef(HTML)
+  ~~~~~~~~~~~~~~
+  !NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto !T({), !T(}) o !T{NULL})
+  ~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~
+  !NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
+  ~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Las partes de la cadena que van fuera de las llaves se tratan literalmente,
   excepto las dobles llaves `{{` y `}}`, que son sustituidas por una sola
@@ -266,14 +266,14 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(especif) ::= [[!NT{relleno}\]!NT{alig}][!NT{signo}][!T(#)][!T(0)][!NT(ancho)][!NT(grupos)][!T(.)!NT(precision)][!NT(tipo)]
-!NT(relleno) ::= !NT(cualquier carácter)
-!NT(alig) ::= !T(<) | !T(>) | !T(=) | !T(^)
-!NT(signo) ::=  !T(+) | !T(-) | !NT(espacio)
-!NT(ancho) ::= !NT(dígito)+
-!NT(grupos) ::= !T(_)(_) | !T(,)
-!NT(precision) ::= !NT(dígito)+
-!NT(tipo) ::= !T(b) | !T(c) | !T(d) | !T(e) | !T(E) | !T(f) | !T(F) | !T(g) | !T(G) | !T(n) | !T(o) | !T(s) | !T(x) | !T(X) | !T(%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(relleno) ::= !NT(cualquier carácter)
+  !NT(alig) ::= !T(<) | !T(>) | !T(=) | !T(^)
+  !NT(signo) ::=  !T(+) | !T(-) | !NT(espacio)
+  !NT(ancho) ::= !NT(dígito)+
+  !NT(grupos) ::= !T(_)(_) | !T(,)
+  !NT(precision) ::= !NT(dígito)+
+  !NT(tipo) ::= !T(b) | !T(c) | !T(d) | !T(e) | !T(E) | !T(f) | !T(F) | !T(g) | !T(G) | !T(n) | !T(o) | !T(s) | !T(x) | !T(X) | !T(%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los especificadores de formato de nivel superior pueden incluir campos de
   sustitución anidados.
@@ -491,7 +491,7 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   - Si es una tupla vacía, con paréntesis vacíos: !PYTHON(())
 
   - Si sólo tiene un elemento, se pone una coma detrás:
-    
+
     :::: columns
 
     ::: column
@@ -731,9 +731,9 @@ True
   - Usando corchetes vacíos para representar la lista vacía: !PYTHON([]).
 
   - Usando corchetes y separando los elementos con comas:
-  
+
     `[`$a$`]`
-    
+
     `[`$a$`,` $b$`,` $c$`]`
 
   - Usando la función !PYTHON(list) con las sintaxis !PYTHON(list()) o
@@ -867,7 +867,7 @@ True
      de su ámbito y no serían visibles.
 
      Por ejemplo, lo siguiente daría un error de nombre:
-  
+
      ```python
      >>> e = [x for x in (1, 2, 3)]
      >>> x       # Intento acceder a la 'x' de la lista por comprensión
@@ -875,7 +875,7 @@ True
        File "<stdin>", line 1, in <module>
      NameError: name 'x' is not defined
      ```
- 
+
 ## Operaciones mutadoras
 
 - En la siguiente tabla, $\underline{s}$ es una instancia de un tipo de
@@ -920,7 +920,7 @@ $s$!PYTHON(.clear())              Elimina todos los elementos de $\underline{s}$
 $s$!PYTHON(.copy())               Crea una copia *superficial* de $\underline{s}$; es igual que $s$!PYTHON([:])
 
 $s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es igual que \
-$s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` $t$ 
+$s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` $t$
 
 $s$ `*=` $n$                      Modifica $\underline{s}$ repitiendo su contenido $\underline{n}$ veces
 

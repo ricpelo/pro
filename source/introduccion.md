@@ -216,7 +216,7 @@ acuerdo con un programa almacenado.
     Su contenido se borra al apagar el ordenador.
 
   - **Memoria de sólo lectura (ROM)**:
-   
+
     Información permanente (ni se borra ni se puede cambiar).
 
     Contiene la información esencial (datos y software) para que el ordenador
@@ -290,7 +290,7 @@ UC -> MS [ltail = cluster0];
 
 - Una vez allí, la CPU va **extrayendo** las instrucciones que forman el
   programa y las va **ejecutando** paso a paso, en un bucle continuo que se
-  denomina **ciclo de instrucción**. 
+  denomina **ciclo de instrucción**.
 
 - Durante la ejecución del programa, la CPU recogerá los datos de entrada desde
   los dispositivos de entrada y los almacenará en la memoria principal, para
@@ -806,7 +806,7 @@ Un algoritmo es un método para resolver un problema.
 
   - **Preciso**: debe expresarse de forma no ambigua. La precisión afecta por
     igual a dos aspectos:
-    
+
     - Al *orden* de los pasos que han de llevarse a cabo.
 
     - Al *contenido* de los pasos, pues en cada uno hay que saber qué hacer
@@ -999,7 +999,7 @@ Determinar cuál es el máximo de dos números
   ~~~~~~~~~~~~~~~~~~
   ¿Toda función $f$ es computable (resoluble algorítmicamente)?
   ~~~~~~~~~~~~~~~~~~
-  
+
 ---
 
 La respuesta es que **NO**.
@@ -1138,7 +1138,7 @@ La respuesta es que **NO**.
   anterior) con tiempos de ejecución $$t_A(n) \simeq 3n^2$$ y $$t_B(n) \simeq
   4n$$ siendo $n$ la longitud de la cadena de entrada, el algoritmo $B$ se
   considera más eficiente que $A$ ya que su tiempo de ejecución es menor a
-  medida que aumenta $n$. 
+  medida que aumenta $n$.
 
 - Esto es así aunque hay algún caso (como el de $n = 1$) donde el algoritmo $A$
   es más eficiente que $B$, ya que la constante multiplicativa 3 que aparece en
@@ -1530,12 +1530,12 @@ frase sus características básicas.
 - La especificación define con precisión (cuanto más formal mejor):
 
   - Cuál es la **entrada requerida**:
-  
+
     - Qué datos de entrada se necesitan y qué propiedades deben cumplir.
 
     - Con esto se determina el **dominio de definición** del problema, es
       decir, el conjunto de sus ejemplares.
-  
+
   - Cuál es la **salida deseada**:
 
     - Básicamente, es el resultado que se desea obtener como solución al
@@ -1623,16 +1623,16 @@ frase sus características básicas.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Algoritmo:** Cálculo del máximo de dos números
-**Entrada:** $n_1, n_2 \in \mathbb{Z}$
-**Salida:** el mayor de ambos
+  **Entrada:** $n_1, n_2 \in \mathbb{Z}$
+  **Salida:** el mayor de ambos
 
-**inicio**
-    **si** $n_1 > n_2$ **entonces**
-        **devolver** $n_1$
-    **sino**
-        **devolver** $n_2$
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **inicio**
+  !SPC(6)    **si** $n_1 > n_2$ **entonces**
+  !SPC(12)        **devolver** $n_1$
+  !SPC(6)    **sino**
+  !SPC(12)        **devolver** $n_2$
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por tanto, este algoritmo, así representado, sería muy apropiado para
   traducirlo luego a un programa escrito en un lenguaje estructurado (como
@@ -1992,7 +1992,7 @@ intérprete? Razona la respuesta.
     se refiere al uso de **comentarios**, identificadores descriptivos,
     indentación, **reglas de estilo**, etc. Todo orientado a ayudar a entender
     el código cuando lo lea un humano.
-  
+
   - La **documentación externa** va fuera del código fuente e incluye análisis,
     diagramas de flujo y/o pseudocódigos, manuales de usuario con instrucciones
     para ejecutar el programa y para interpretar los resultados.

@@ -512,7 +512,7 @@ sentencias</strong> que se ejecutarán dentro de ese ámbito en el momento
 en que el intérprete ejecute la definición:</p>
 <div class="line-block"><strong><code>class</code></strong> <span
 style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>:</code></strong><br />
-<span style="color:teal">⟨<em>sentencia</em>⟩</span><span
+       <span style="color:teal">⟨<em>sentencia</em>⟩</span><span
 class="math inline">^+</span></div></li>
 <li><p>Todas las definiciones que se realicen directamente en el ámbito
 de la clase como consecuencia de ejecutar su bloque de sentencias, serán
@@ -1923,10 +1923,10 @@ compartido, y si Pedro hace una retirada de efectivo a través de
 
   - Por tanto, las operaciones
     realizadas en el depósito de Pedro no afectarán al de Pablo, y viceversa.
-  
+
 - En el segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
   exactamente la misma cosa que `dep_Pedro`.
-  
+
   - Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
     compartido, y si Pedro hace una retirada de efectivo a través de `dep_Pedro`,
     Pablo observará que hay menos dinero en `dep_Pablo` (porque son _el mismo_
@@ -3818,43 +3818,44 @@ class="header-section-number">5.1.2.6</span> Un ejemplo completo</h4>
 <strong>inmutable</strong>:</li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>pila</em><br />
-<strong>parámetros</strong><br />
-      <em>elemento</em><br />
-<strong>operaciones</strong><br />
-      <code>pvacia</code> : <span class="math inline">\rightarrow</span>
-<em>pila</em><br />
-      <code>apilar</code> : <em>pila</em> <span
+       <strong>parámetros</strong><br />
+             <em>elemento</em><br />
+       <strong>operaciones</strong><br />
+             <code>pvacia</code> : <span
+class="math inline">\rightarrow</span> <em>pila</em><br />
+             <code>apilar</code> : <em>pila</em> <span
 class="math inline">\times</span> <em>elemento</em> <span
 class="math inline">\rightarrow</span> <em>pila</em><br />
-      <strong>parcial</strong> <code>desapilar</code> : <em>pila</em>
-<span class="math inline">\rightarrow</span> <em>pila</em><br />
-      <strong>parcial</strong> <code>cima</code> : <em>pila</em> <span
-class="math inline">\rightarrow</span> <em>elemento</em><br />
-      <code>vacia?</code> : <em>pila</em> <span
+             <strong>parcial</strong> <code>desapilar</code> :
+<em>pila</em> <span class="math inline">\rightarrow</span>
+<em>pila</em><br />
+             <strong>parcial</strong> <code>cima</code> : <em>pila</em>
+<span class="math inline">\rightarrow</span> <em>elemento</em><br />
+             <code>vacia?</code> : <em>pila</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{B}</span><br />
-<strong>var</strong><br />
-      <span class="math inline">p</span> : <em>pila</em>; <span
+       <strong>var</strong><br />
+             <span class="math inline">p</span> : <em>pila</em>; <span
 class="math inline">x</span> : <em>elemento</em><br />
-<strong>ecuaciones</strong><br />
-      <code>cima</code>(<code>apilar</code>(<span
+       <strong>ecuaciones</strong><br />
+             <code>cima</code>(<code>apilar</code>(<span
 class="math inline">p</span>, <span class="math inline">x</span>)) <span
 class="math inline">\equiv</span> <span
 class="math inline">x</span><br />
-      <code>desapilar</code>(<code>apilar</code>(<span
+             <code>desapilar</code>(<code>apilar</code>(<span
 class="math inline">p</span>, <span class="math inline">x</span>)) <span
 class="math inline">\equiv</span> <span
 class="math inline">p</span><br />
-      <code>vacia?</code>(<code>pvacia</code>) <span
+             <code>vacia?</code>(<code>pvacia</code>) <span
 class="math inline">\equiv</span> <span
 class="math inline">V</span><br />
-      <code>vacia?</code>(<code>apilar</code>(<span
+             <code>vacia?</code>(<code>apilar</code>(<span
 class="math inline">p</span>, <span class="math inline">x</span>)) <span
 class="math inline">\equiv</span> <span
 class="math inline">F</span><br />
-      <code>cima</code>(<code>pvacia</code>) <span
+             <code>cima</code>(<code>pvacia</code>) <span
 class="math inline">\equiv</span> <strong>error</strong><br />
-      <code>desapilar</code>(<code>pvacia</code>) <span
+             <code>desapilar</code>(<code>pvacia</code>) <span
 class="math inline">\equiv</span> <strong>error</strong></div>
 </section>
 <section class="slide level5" data-number="5.1.2.6.1">
@@ -3864,57 +3865,57 @@ class="math inline">\equiv</span> <strong>error</strong></div>
 <strong>mutable</strong> podría ser:</li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>pila</em><br />
-<strong>parámetros</strong><br />
-      <em>elemento</em><br />
-<strong>operaciones</strong><br />
-      <code>pila</code> : <span class="math inline">\rightarrow</span>
-<em>pila</em><br />
-      <code>apilar</code> : <em>pila</em> <span
+       <strong>parámetros</strong><br />
+             <em>elemento</em><br />
+       <strong>operaciones</strong><br />
+             <code>pila</code> : <span
+class="math inline">\rightarrow</span> <em>pila</em><br />
+             <code>apilar</code> : <em>pila</em> <span
 class="math inline">\times</span> <em>elemento</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\empty</span><br />
-      <strong>parcial</strong> <code>desapilar</code> : <em>pila</em>
-<span class="math inline">\rightarrow</span> <span
+             <strong>parcial</strong> <code>desapilar</code> :
+<em>pila</em> <span class="math inline">\rightarrow</span> <span
 class="math inline">\empty</span><br />
-      <strong>parcial</strong> <code>cima</code> : <em>pila</em> <span
-class="math inline">\rightarrow</span> <em>elemento</em><br />
-      <code>vacía?</code> : <em>pila</em> <span
+             <strong>parcial</strong> <code>cima</code> : <em>pila</em>
+<span class="math inline">\rightarrow</span> <em>elemento</em><br />
+             <code>vacía?</code> : <em>pila</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{B}</span><br />
-      _ <code>==</code> _ : <em>pila</em> <span
+             _ <code>==</code> _ : <em>pila</em> <span
 class="math inline">\times</span> <em>pila</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{B}</span><br />
-<strong>var</strong><br />
-      <span class="math inline">p</span>, <span
+       <strong>var</strong><br />
+             <span class="math inline">p</span>, <span
 class="math inline">p_1</span>, <span class="math inline">p_2</span> :
 <em>pila</em>; <span class="math inline">x</span> :
 <em>elemento</em><br />
-<strong>ecuaciones</strong><br />
-      <span class="math inline">p_1</span> <code>==</code> <span
+       <strong>ecuaciones</strong><br />
+             <span class="math inline">p_1</span> <code>==</code> <span
 class="math inline">p_2</span> <span class="math inline">\equiv</span>
 «<span class="math inline">p_1</span> y <span
 class="math inline">p_2</span> tienen los mismos elementos en el mismo
 orden»<br />
-      <code>vacía?</code>(<span class="math inline">p</span>) <span
-class="math inline">\equiv</span> <span class="math inline">p</span>
-<code>==</code> <code>pila</code><br />
-      <code>apilar</code>(<span class="math inline">p</span>, <span
-class="math inline">x</span>)   { Apila el elemento <span
+             <code>vacía?</code>(<span class="math inline">p</span>)
+<span class="math inline">\equiv</span> <span
+class="math inline">p</span> <code>==</code> <code>pila</code><br />
+             <code>apilar</code>(<span class="math inline">p</span>,
+<span class="math inline">x</span>)   { Apila el elemento <span
 class="math inline">x</span> en la cima de la pila <span
 class="math inline">p</span> }<br />
-      <code>desapilar</code>(<span class="math inline">p</span>)   {
-Saca de la pila <span class="math inline">p</span> el elemento situado
-en su cima }<br />
-      <code>cima</code>(<span class="math inline">p</span>) <span
+             <code>desapilar</code>(<span class="math inline">p</span>)
+  { Saca de la pila <span class="math inline">p</span> el elemento
+situado en su cima }<br />
+             <code>cima</code>(<span class="math inline">p</span>) <span
 class="math inline">\equiv</span> «el último elemento apilado en <span
 class="math inline">p</span> y aún no desapilado»<br />
-      <code>vacía?</code>(<span class="math inline">p</span>) <span
-class="math inline">\Rightarrow</span> <code>desapilar</code>(<span
-class="math inline">p</span>) <span class="math inline">\equiv</span>
-<strong>error</strong><br />
-      <code>vacía?</code>(<span class="math inline">p</span>) <span
-class="math inline">\Rightarrow</span> <code>cima</code>(<span
+             <code>vacía?</code>(<span class="math inline">p</span>)
+<span class="math inline">\Rightarrow</span>
+<code>desapilar</code>(<span class="math inline">p</span>) <span
+class="math inline">\equiv</span> <strong>error</strong><br />
+             <code>vacía?</code>(<span class="math inline">p</span>)
+<span class="math inline">\Rightarrow</span> <code>cima</code>(<span
 class="math inline">p</span>) <span class="math inline">\equiv</span>
 <strong>error</strong></div>
 </section>
@@ -4407,7 +4408,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb113-1"><a 
 <span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_valor(<span class="va">self</span>):</span>
 <span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__valor</span>
-<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> suma(<span class="va">self</span>, otro):</span>
 <span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_valor(<span class="va">self</span>.get_valor() <span class="op">+</span> otro)</span>
 <span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a></span>

@@ -135,9 +135,9 @@ nocite: |
   estructurado supone cambiar también su estado interno.
 
 - Por ejemplo, si en la lista !PYTHON([7, 8, 9]) sustituimos su segundo
-  elemento (el !PYTHON(8)) por un !PYTHON(5) para obtener la lista !PYTHON([7,
-  5, 9]), estamos cambiando el contenido de la lista y, por consiguiente, su
-  estado interno.
+  elemento (el !PYTHON(8)) por un !PYTHON(5) para obtener la lista
+  !PYTHON([7, 5, 9]), estamos cambiando el contenido de la lista y, por
+  consiguiente, su estado interno.
 
   Su identidad no ha cambiado, pero su estado interno sí.
 
@@ -470,7 +470,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 - Las **expresiones generadoras**, ya conocidas por nosotros, también son
   expresiones que **devuelven un iterador**:
 
-  !ALGO                                                                            
+  !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])+!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -500,7 +500,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(for) !NT{variable}(!T{,} !NT{variable})\* !T(in) !NT(iterable)!T(:)
-        !NT(sentencia)
+  !SPC(6) !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   que no es más que azúcar sintáctico para el siguiente código equivalente:
@@ -508,14 +508,14 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PYTHON{iterador = iter(}!NT(iterable)!PYTHON{)}
-!PYTHON(while True:)
-        !PYTHON(try:)
-                !NT{variable}(`,` !NT{variable})\*\  !PYTHON(= next(iterador))
-        !PYTHON(except StopIteration:)
-                !PYTHON(break)
-        !PYTHON(else:)
-                !NT(sentencia)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON(while True:)
+  !SPC(6)        !PYTHON(try:)
+  !SPC(12)                !NT{variable}(`,` !NT{variable})\*\  !PYTHON(= next(iterador))
+  !SPC(6)        !PYTHON(except StopIteration:)
+  !SPC(12)                !PYTHON(break)
+  !SPC(6)        !PYTHON(else:)
+  !SPC(12)                !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -791,7 +791,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- Supongamos las dos funciones siguientes: 
+- Supongamos las dos funciones siguientes:
 
   ```python
   # Suma los enteros comprendidos entre a y b:

@@ -180,7 +180,7 @@ nocite: |
 
   Es una herramienta conceptual que permite a los programadores razonar sobre
   el funcionamiento de un programa sin tener que ejecutarlo directamente en el
-  ordenador. 
+  ordenador.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Podemos definir diferentes modelos de ejecución dependiendo, principalmente,
@@ -217,7 +217,7 @@ nocite: |
   *hardware*, que almacena los datos en celdas de la memoria principal, que
   ejecuta ciclos de instrucción en la CPU, que las instrucciones modifican los
   datos de la memoria...
-  
+
 - Todo resulta mucho más fácil que eso, ya que **todo se reduce a evaluar
   expresiones**, reescribiendo unas subexpresiones por otras, sin importar
   aspectos secundarios como la tecnología, el momento en el que se evalúan, el
@@ -306,7 +306,7 @@ nocite: |
 
   Se dice que «_un dato **es de** un tipo_», o que «_un dato **tiene** un
   tipo_» o que «_un dato **pertenece a** un tipo_» cuando ese dato tiene (o
-  puede tener) un valor de ese tipo.  
+  puede tener) un valor de ese tipo.
 
 - Dependiendo del lenguaje de programación utilizado, el tipo de un dato puede
   venir definido:
@@ -429,7 +429,7 @@ nocite: |
 
 - Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite
   esa operación, se produce un **error de tipos**.
-  
+
 - Ese error puede ocurrir cuando:
 
   - Los operandos de un operador no pertenecen al tipo que el operador necesita
@@ -452,7 +452,7 @@ nocite: |
   estamos usando un lenguaje interpretado o compilado:
 
   - Si el lenguaje es **interpretado** (Python):
-  
+
     El error se localizará **durante la ejecución** del programa y el
     intérprete mostrará un mensaje de error advirtiendo del mismo en el momento
     justo en que la ejecución alcance la línea de código errónea, para acto
@@ -660,7 +660,7 @@ nocite: |
   ```
 
 - Si sólo tiene un elemento, hay que poner una coma detrás:
-    
+
   ```python
   tupla = (35,)
   ```
@@ -769,19 +769,19 @@ nocite: |
  Operador  Descripción           Ejemplo           Resultado          Comentarios
 ---------- ------------------ ------------------- ------------------- ----------------------
    `+`     Suma                !PYTHON(3 + 4)      !PYTHON(7)
-                             
+
    `-`     Resta               !PYTHON(3 - 4)      !PYTHON(-1)
-                             
+
    `*`     Producto            !PYTHON(3 * 4)      !PYTHON(12)
-                             
+
    `/`     División            !PYTHON(3 / 4)      !PYTHON(0.75)      Devuelve un
                                                                       !PYTHON(float)
-                             
+
    `%`     Módulo              !PYTHON(4 % 3) \    !PYTHON(1) \       Resto de la división
                                !PYTHON(8 % 3)      !PYTHON(2)
-                             
+
    `**`    Exponente           !PYTHON(3 ** 4)     !PYTHON(81)        Devuelve $3^4$
-                             
+
    `//`    División entera     !PYTHON(4 // 3) \   !PYTHON(1) \       \hfill{} \
            hacia abajo         !PYTHON(-4 // 3)    !PYTHON(-2)        ??
 --------------------------------------------------------------------------------------------
@@ -789,16 +789,16 @@ nocite: |
 ### Operadores de cadenas
 
 -----------------------------------------------------------------------------------
-  Operador         Descripción           Ejemplo                Resultado 
+  Operador         Descripción           Ejemplo                Resultado
 ------------------ ------------------ ------------------------ --------------------
    `+`             Concatenación       !PYTHON('ab' + 'cd')     !PYTHON('abcd')
-                                       !PYTHON('ab' 'cd')                      
-                                                             
+                                       !PYTHON('ab' 'cd')
+
    `*`             Repetición          !PYTHON('ab' * 3) \      !PYTHON('ababab') \
                                        !PYTHON(3 * 'ab')        !PYTHON('ababab')
-                                                             
+
    !PYTHON([0])    Primer carácter     !PYTHON('hola'[0])       !PYTHON('h')
-                                                             
+
    !PYTHON([1:])   Resto de cadena     !PYTHON('hola'[1:])      !PYTHON('ola')
 -----------------------------------------------------------------------------------
 
@@ -808,16 +808,16 @@ nocite: |
 Función                       Descripción           Ejemplo                       Resultado
 ----------------------------- --------------------- ---------------------------- -----------------
 `abs(`$n$`)`                  Valor absoluto        !PYTHON(abs(-23))             !PYTHON(23)
-                             
+
 `len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))          !PYTHON(4)
-                             
+
 `max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))         !PYTHON(5)
-                             
+
 `min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))         !PYTHON(2)
-                             
+
 `round(`$n$[`,` $p$]`)`       Redondeo              !PYTHON(round(23.493))  \     !PYTHON(23) \
                                                     !PYTHON(round(23.493, 1))     !PYTHON(23.5)
-                             
+
 `type(`$v$`)`                 Tipo del valor        !PYTHON(type(23.5))           !PYTHON(<class) \
                                                                                   !PYTHON('float'>)
 --------------------------------------------------------------------------------------------------
@@ -884,10 +884,10 @@ Función                       Descripción           Ejemplo                   
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(función) ::= [!NT(módulo)!T(.)]!T(identificador)
-!NT(módulo) ::= !T(identificador)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
+  !NT(función) ::= [!NT(módulo)!T(.)]!T(identificador)
+  !NT(módulo) ::= !T(identificador)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Pero técnicamente no es necesario, ya que las funciones contenidas en un
   módulo se invocan como si fueran **métodos que se ejecutan sobre el _objeto
@@ -1126,7 +1126,7 @@ True
 
 - En **lógica proposicional** (un tipo de lógica matemática que tiene
   estructura de álgebra de Boole), se llaman:
-  
+
     Operación      Operador
   --------------- ----------
     Disyunción     $\lor$
@@ -1440,14 +1440,14 @@ de Boole.
   Valor u operación                 Notación
   -------------------------------   --------------------
   Valor verdadero                   $1$
-                                  
+
   Valor falso                       $0$
-                                  
+
   Producto de $A$ y $B$             $A \cdot B$ \
                                     $AB$
-                                  
+
   Suma de $A$ y $B$                 $A + B$
-                                  
+
   Complemento de $A$                $\overline{A}$
   ------------------------------------------------------
 
@@ -2097,13 +2097,13 @@ mas -> por
 - Y la suma de dos números enteros se puede expresar:
 
   - Mediante el operador `+`:
-  
+
     ```python
     4 + 3
     ```
 
   - Mediante la función `int.__add__`:
-  
+
     ```python
     int.__add__(4, 3)
     ```

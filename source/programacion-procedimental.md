@@ -129,13 +129,13 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Algoritmo:** Tabla de multiplicar de $n \times n$
-**Entrada:** El tamaño $n$ (por la entrada estándar)
-**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
-**inicio**
-      **leer $n$**
-      construir_tabla($n$)
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Entrada:** El tamaño $n$ (por la entrada estándar)
+  **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+  **inicio**
+  !SPC(6)      **leer $n$**
+  !SPC(6)      construir_tabla($n$)
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::: columns
 
@@ -144,15 +144,15 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Procedimiento:** construir_tabla($m$)
-**Entrada:** El tamaño $m$
-**Salida:** La tabla de multiplicar de $m \times m$ (por la salida estándar)
-**inicio**
-      $i \longleftarrow 1$
-      **mientras** $i \leq m$ **hacer**
-              escribir_fila($i$, $m$)
-              $i \longleftarrow i + 1$
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Entrada:** El tamaño $m$
+  **Salida:** La tabla de multiplicar de $m \times m$ (por la salida estándar)
+  **inicio**
+  !SPC(6)      $i \longleftarrow 1$
+  !SPC(6)      **mientras** $i \leq m$ **hacer**
+  !SPC(12)              escribir_fila($i$, $m$)
+  !SPC(6)              $i \longleftarrow i + 1$
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
@@ -165,16 +165,16 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Procedimiento:** escribir_fila($f$, $t$)
-**Entrada:** El número ($f$) de la fila a escribir y el tamaño ($t$) de la tabla
-**Salida:** La fila $f$ de la tabla de multiplicar (por la salida estándar)
-**inicio**
-      $i \longleftarrow 1$
-      **mientras** $i \leq t$ **hacer**
-              **escribir** $f \times i$ sin salto de línea
-              $i \longleftarrow i + 1$
-      **escribir** un salto de línea
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Entrada:** El número ($f$) de la fila a escribir y el tamaño ($t$) de la tabla
+  **Salida:** La fila $f$ de la tabla de multiplicar (por la salida estándar)
+  **inicio**
+  !SPC(6)      $i \longleftarrow 1$
+  !SPC(6)      **mientras** $i \leq t$ **hacer**
+  !SPC(12)              **escribir** $f \times i$ sin salto de línea
+  !SPC(12)              $i \longleftarrow i + 1$
+  !SPC(6)      **escribir** un salto de línea
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
@@ -253,17 +253,17 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(definición_función) ::=
-!T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
-      !NT(cuerpo)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
+  !SPC(6)      !NT(cuerpo)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - donde:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(lista_parámetros) ::= !T(identificador) [!T(,) !T(identificador)]\*
-!NT(cuerpo) ::= !NT(sentencia)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(cuerpo) ::= !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
 
@@ -324,16 +324,16 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~
   !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
   !NT(estructura) ::= !NT(secuencia)
-                               | !NT(selección)
-                               | !NT(iteración)
-                               | !NT(gestión_excepciones)
-                               | !NT(definición_función)
+  !SPC(31) | !NT(selección)
+  !SPC(31) | !NT(iteración)
+  !SPC(31) | !NT(gestión_excepciones)
+  !SPC(31) | !NT(definición_función)
   !NT(definición_función) ::=
   !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
-        !NT(sentencia)
-~~~~~~~~~~~~~~~~~~~~
+  !SPC(6)      !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~
 
-## Llamadas a funciones imperativas 
+## Llamadas a funciones imperativas
 
 - Cuando se llama a una función imperativa, ocurre lo siguiente (en este
   orden):
@@ -345,7 +345,7 @@ nocite: |
   2. Se pasan los argumentos de la llamada a los parámetros de la función, de
      forma que los parámetros toman los valores de los argumentos
      correspondientes.
-  
+
      Recordemos que en Python se sigue el orden aplicativo (o evaluación
      estricta): primero se evalúan los argumentos y después se pasan a los
      parámetros correspondientes.
@@ -361,7 +361,7 @@ nocite: |
   1. Se genera su valor de retorno (en breve veremos cómo).
 
   2. Se saca su marco de la pila.
-  
+
   3. Se devuelve el control de la ejecución a la sentencia que llamó a la
      función.
 
@@ -495,7 +495,7 @@ Una función puede llamar a otra.
   argumentos que se hayan pasado a la función al llamar a la misma.
 
 - Existen distintos mecanismos de paso de argumentos, dependiendo del lenguaje
-  de programación utilizado. 
+  de programación utilizado.
 
 - Los más conocidos son los llamados **paso de argumentos _por valor_** y
   **paso de argumentos _por referencia_**.
@@ -547,14 +547,14 @@ Una función puede llamar a otra.
 
 - La función es capaz de **cambiar el estado interno de la lista que se ha
   pasado como argumento** porque:
-  
+
   - Al llamar a la función, el argumento !PYTHON(lista) se pasa a la función
     **asignándola** al parámetro !PYTHON(l) como si hubiera hecho
     !PYTHON(l) `=` !PYTHON(lista).
-  
+
   - Eso hace que ambas variables sean *alias* una de la otra (se refieren al
     mismo objeto lista).
-  
+
   - Por tanto, la función está modificando el valor de la variable
     !PYTHON(lista) que se ha pasado como argumento.
 
@@ -570,9 +570,9 @@ Una función puede llamar a otra.
      expresión que aparece en la sentencia !PYTHON(return).
 
   #. Se finaliza la ejecución de la función, sacando su marco de la pila.
-  
+
   #. Se devuelve el control a la sentencia que llamó a la función.
-  
+
   #. En esa sentencia, se sustituye la llamada a la función por su valor de
      retorno (el calculado en el paso 1 anterior).
 
@@ -805,7 +805,7 @@ E -> x [lhead = cluster1]
 ::: {.column width=40%}
 
 !DOT(funcion-entorno-fuera.svg)(Entorno en la línea 6)(width=80%)(width=35%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 7 [shape = circle]
 lambda [shape = circle, label = "λ"]
@@ -820,7 +820,7 @@ suma:f1 -> lambda
 resultado:f1 -> 7
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> suma [lhead = cluster0]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
@@ -836,10 +836,10 @@ E -> suma [lhead = cluster0]
   existen dentro de ella.
 
   Su **ámbito** es **el cuerpo de la función** a la que pertenecen.
-  
+
 - Los **parámetros** se pueden usar libremente en cualquier parte del cuerpo de
   la función porque ya se les ha asignado un valor.
-  
+
 - En cambio, se produce un error !PYTHON(UnboundLocalError) si se intenta usar
   una **variable local** antes de asignarle un valor:
 
@@ -861,7 +861,7 @@ E -> suma [lhead = cluster0]
 
   ```python
   x = 4          # esta variable es global
-  
+
   def prueba():
       print(x)   # accede a la variable 'x' global, que vale 4
 
@@ -1252,10 +1252,10 @@ NAME
 FUNCTIONS
     saluda(nombre)
         Devuelve un saludo.
-        
+
         Args:
             nombre (str): El nombre de la persona a la que saluda.
-        
+
         Returns:
             str: El saludo.
 
@@ -1267,10 +1267,10 @@ Help on function saluda in module ejemplo:
 
 saluda(nombre)
     Devuelve un saludo.
-    
+
     Args:
         nombre (str): El nombre de la persona a la que saluda.
-    
+
     Returns:
         str: El saludo.
 ```
@@ -1296,7 +1296,7 @@ saluda(nombre)
 
       Returns:
           str: El saludo.
-      
+
   ```
 
 - Esta información también es usada por otras herramientas de documentación
@@ -1372,7 +1372,7 @@ saluda(nombre)
   el nombre de una función, módulo o atributo:
 
   #. Si no se indican más opciones, se visualizará en pantalla la documentación
-     del objeto indicado: 
+     del objeto indicado:
 
      ```console
      $ pydoc sys
@@ -1394,7 +1394,7 @@ saluda(nombre)
      $ pydoc -b
      Server ready at http://localhost:45373/
      Server commands: [b]rowser, [q]uit
-     server> 
+     server>
      ```
 
 # Funciones locales a funciones
@@ -1442,7 +1442,7 @@ saluda(nombre)
   print(fact(5))
 
   # daría un error porque fact_iter no existe en el ámbito global:
-  print(fact_iter(5, 1))  
+  print(fact_iter(5, 1))
   ```
 
 - La función !PYTHON(fact_iter) es local a la función `fact`.
@@ -1509,7 +1509,7 @@ saluda(nombre)
 - Una función local puede **acceder** al valor de las variables locales a la
   función que la contiene, ya que se encuentran dentro de su ámbito (aunque en
   otro marco).
-  
+
 - En cambio, cuando una función local quiere **cambiar** mediante una
   asignación el valor de una variable local a la función que la contiene,
   deberá declararla previamente como **no local** con la sentencia
@@ -1553,7 +1553,7 @@ saluda(nombre)
 
 - Esa instrucción le indica al intérprete que, a la hora de buscar `n` en el
   entorno de `fact_iter`, debe saltarse el marco de `fact_iter` y el marco
-  global y, por tanto, debe empezar a buscar en el marco de `fact`. 
+  global y, por tanto, debe empezar a buscar en el marco de `fact`.
 
 !SECCIONEJERCICIOS
 

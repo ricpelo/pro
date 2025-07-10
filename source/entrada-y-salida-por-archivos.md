@@ -63,45 +63,45 @@ nocite: |
 ##### Modo texto {.unnumbered .unlisted}
 
 ---------------------------------------------------------------------------------------------------------------------------------
-  Modo    Significado                                                                        El puntero se coloca...            
+  Modo    Significado                                                                        El puntero se coloca...
 --------  ---------------------------------------------------------------------------------- ------------------------------------
- `'r'`    Abre sólo para lectura de texto.                                                   Al principio.                      
-                                                                                                                                
- `'r+'`   Abre para lectura/escritura de texto.                                              Al principio.                      
-                                                                                                                                
- `'w'`    Abre sólo para escritura de texto. Vacía y sobreescribe el archivo si ya           Al principio.                      
-          existe. Si no existe, lo crea y lo abre sólo para escritura.                                                          
-                                                                                                                                
- `'w+'`   Abre para lectura/escritura de texto. Vacía y sobreescribe el archivo si ya        Al principio.                      
-          existe. Si no existe, lo crea y lo abre para lectura/escritura.                                                       
-                                                                                                                                
- `'a'`    Abre para añadir texto. Si el archivo no existe, lo crea y lo abre sólo            Al final si el archivo ya existe.  
-          para escritura.                                                                                                       
-                                                                                                                                
- `'a+'`   Abre para lectura/añadir en modo texto. Si el archivo no existe, lo crea y lo      Al final si el archivo ya existe.  
-          abre para lectura/escritura.                                                                                          
+ `'r'`    Abre sólo para lectura de texto.                                                   Al principio.
+
+ `'r+'`   Abre para lectura/escritura de texto.                                              Al principio.
+
+ `'w'`    Abre sólo para escritura de texto. Vacía y sobreescribe el archivo si ya           Al principio.
+          existe. Si no existe, lo crea y lo abre sólo para escritura.
+
+ `'w+'`   Abre para lectura/escritura de texto. Vacía y sobreescribe el archivo si ya        Al principio.
+          existe. Si no existe, lo crea y lo abre para lectura/escritura.
+
+ `'a'`    Abre para añadir texto. Si el archivo no existe, lo crea y lo abre sólo            Al final si el archivo ya existe.
+          para escritura.
+
+ `'a+'`   Abre para lectura/añadir en modo texto. Si el archivo no existe, lo crea y lo      Al final si el archivo ya existe.
+          abre para lectura/escritura.
 ---------------------------------------------------------------------------------------------------------------------------------
 
 ##### Modo binario {.unnumbered .unlisted}
 
 ---------------------------------------------------------------------------------------------------------------------------------
-  Modo    Significado                                                                        El puntero se coloca...            
+  Modo    Significado                                                                        El puntero se coloca...
 --------  ---------------------------------------------------------------------------------- ------------------------------------
- `'rb'`   Abre sólo para lectura en binario.                                                 Al principio.                      
-                                                                                                                                
- `'rb+'`  Abre para lectura/escritura en binario.                                            Al principio.                      
-                                                                                                                                
- `'wb'`   Abre sólo para escritura en binario. Vacía y sobreescribe el archivo si ya         Al principio.                      
-          existe. Si no existe, lo crea y lo abre sólo para escritura.                                                          
-                                                                                                                                
- `'wb+'`  Abre para lectura/escritura en binario. Vacía y sobreescribe el archivo si ya      Al principio.                      
-          existe. Si no existe, lo crea y lo abre para lectura/escritura.                                                       
-                                                                                                                                
- `'ab'`   Abre para añadir en binario. Si el archivo no existe, lo crea y lo abre sólo       Al final si el archivo ya existe.  
-          para escritura.                                                                                                       
-                                                                                                                                
- `'ab+'`  Abre para lectura/añadir en binario. Si el archivo no existe, lo crea y lo abre    Al final si el archivo ya existe.  
-          para lectura/escritura.                                                                                               
+ `'rb'`   Abre sólo para lectura en binario.                                                 Al principio.
+
+ `'rb+'`  Abre para lectura/escritura en binario.                                            Al principio.
+
+ `'wb'`   Abre sólo para escritura en binario. Vacía y sobreescribe el archivo si ya         Al principio.
+          existe. Si no existe, lo crea y lo abre sólo para escritura.
+
+ `'wb+'`  Abre para lectura/escritura en binario. Vacía y sobreescribe el archivo si ya      Al principio.
+          existe. Si no existe, lo crea y lo abre para lectura/escritura.
+
+ `'ab'`   Abre para añadir en binario. Si el archivo no existe, lo crea y lo abre sólo       Al final si el archivo ya existe.
+          para escritura.
+
+ `'ab+'`  Abre para lectura/añadir en binario. Si el archivo no existe, lo crea y lo abre    Al final si el archivo ya existe.
+          para lectura/escritura.
 ---------------------------------------------------------------------------------------------------------------------------------
 
 ---
@@ -281,9 +281,9 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(gestor_contexto) ::=
-!T(with) !NT(expresión) [!T(as) !NT(identificador)]!T(:)
-      !NT(sentencia)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !SPC(6) !T(with) !NT(expresión) [!T(as) !NT(identificador)]!T(:)
+  !SPC(12) !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El siguiente código es equivalente al anterior:
 
@@ -698,8 +698,11 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(archivo)!PYTHON(.seek)`(`_offset_`:` !PYTHON(int)`)` `->` !PYTHON(int)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!NT(archivo)!PYTHON(.tell)`()` `->` !PYTHON(int)
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(archivo)!PYTHON(.tell)`()` `->` !PYTHON(int)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El _offset_ es la posición a la que se desea mover el puntero, empezando por

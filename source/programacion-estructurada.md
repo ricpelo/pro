@@ -311,8 +311,8 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~~~
     $A$
-$B$
-~~~~~~~~~~~~~~~~~~~~~~~
+    $B$
+    ~~~~~~~~~~~~~~~~~~~~~~~
 
     !SALTO
 
@@ -321,10 +321,10 @@ $B$
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~~~
     **si** $p$ **entonces**
-      $A$
-**sino**
-      $B$
-~~~~~~~~~~~~~~~~~~~~~~~
+    !SPC(6)    $A$
+    **sino**
+    !SPC(6)    $B$
+    ~~~~~~~~~~~~~~~~~~~~~~~
 
     !SALTO
 
@@ -333,8 +333,8 @@ $B$
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~~~
     **mientras** $p$ **hacer**
-      $A$
-~~~~~~~~~~~~~~~~~~~~~~~
+    !SPC(6)    $A$
+    ~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
@@ -407,10 +407,10 @@ programa.
 **leer** $a$
 **leer** $b$
 **mientras** $a !NEQ b$ **hacer**
-      **si** $a < b$ **entonces**
-            $b \longleftarrow b - a$
-      **sino**
-            $a \longleftarrow a - b$
+!SPC(6)      **si** $a < b$ **entonces**
+!SPC(12)            $b \longleftarrow b - a$
+!SPC(6)      **sino**
+!SPC(12)            $a \longleftarrow a - b$
 **escribir** $a$
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -492,8 +492,8 @@ programa.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(secuencia) ::=
-!NT(sentencia)
-!NT(sentencia)\*
+  !NT(sentencia)
+  !NT(sentencia)\*
   ~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -543,11 +543,11 @@ el archivo fuente) pertenecen a la misma estructura.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
-!NT(estructura) ::= !NT(secuencia)
-!NT(secuencia) ::=
-!NT(sentencia)
-!NT(sentencia)\*
-~~~~~~~~~~~~~~~~~~~~
+  !NT(estructura) ::= !NT(secuencia)
+  !NT(secuencia) ::=
+  !NT(sentencia)
+  !NT(sentencia)\*
+  ~~~~~~~~~~~~~~~~~~~~
 
 ## Selección
 
@@ -561,12 +561,12 @@ el archivo fuente) pertenecen a la misma estructura.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(selección) ::=
-!T(if) !NT(condición)!T(:)
-      !NT(sentencia)
-[!T(elif) !NT(condición)!T(:)
-      !NT(sentencia)]*
-[!T(else)!T(:)
-      !NT(sentencia)]
+  !T(if) !NT(condición)!T(:)
+  !SPC(6)      !NT(sentencia)
+  [!T(elif) !NT(condición)!T(:)
+  !SPC(6)      !NT(sentencia)]*
+  [!T(else)!T(:)
+  !SPC(6)      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~
 
 - También se la llama «**sentencia !PYTHON(if)**».
@@ -676,15 +676,15 @@ el archivo fuente) pertenecen a la misma estructura.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
-!NT(estructura) ::= !NT(secuencia) | !NT(selección)
-!NT(selección) ::=
-!T(if) !NT(condición)!T(:)
-      !NT(sentencia)
-[!T(elif) !NT(condición)!T(:)
-      !NT(sentencia)]*
-[!T(else)!T(:)
-      !NT(sentencia)]
-~~~~~~~~~~~~~~~~~~~~
+  !NT(estructura) ::= !NT(secuencia) | !NT(selección)
+  !NT(selección) ::=
+  !T(if) !NT(condición)!T(:)
+  !SPC(6)      !NT(sentencia)
+  [!T(elif) !NT(condición)!T(:)
+  !SPC(6)      !NT(sentencia)]*
+  [!T(else)!T(:)
+  !SPC(6)      !NT(sentencia)]
+  ~~~~~~~~~~~~~~~~~~~~
 
 ## Iteración
 
@@ -694,8 +694,8 @@ el archivo fuente) pertenecen a la misma estructura.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(iteración) ::=
-!T(while) !NT(condición)!T(:)
-      !NT(sentencia)
+  !T(while) !NT(condición)!T(:)
+  !SPC(6)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
 - A esta estructura también se la llama «**sentencia !PYTHON(while)**»,
@@ -813,11 +813,11 @@ while not salida:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
-!NT(estructura) ::= !NT(secuencia) | !NT(selección) | !NT(iteración)
-!NT(iteración) ::=
-!T(while) !NT(condición)!T(:)
-      !NT(sentencia)
-~~~~~~~~~~~~~~~~~~~~
+  !NT(estructura) ::= !NT(secuencia) | !NT(selección) | !NT(iteración)
+  !NT(iteración) ::=
+  !T(while) !NT(condición)!T(:)
+  !SPC(6)      !NT(sentencia)
+  ~~~~~~~~~~~~~~~~~~~~
 
 !ifdef(LATEX)(\newpage)
 
@@ -937,23 +937,23 @@ while not salida:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(gestión_excepciones) ::=
-!T(try:)
-      !NT(sentencia)
-\(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-      !NT(sentencia))!MAS()
-[!T(else:)
-      !NT(sentencia)]
-[!T(finally:)
-      !NT(sentencia)]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(try:)
+  !SPC(6)      !NT(sentencia)
+  \(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
+  !SPC(6)      !NT(sentencia))!MAS()
+  [!T(else:)
+  !SPC(6)      !NT(sentencia)]
+  [!T(finally:)
+  !SPC(6)      !NT(sentencia)]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(excepcion) ::= !NT(nombre_excepcion)
-                     | !T{(}!NT{nombre_excepcion}(!T(,) !NT(nombre_excepcion))*!T{)}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !SPC(29) | !T{(}!NT{nombre_excepcion}(!T(,) !NT(nombre_excepcion))*!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -1000,9 +1000,9 @@ while not salida:
 ~~~~~~~~~~~~~~~~~~~~
 !NT(sentencia) ::= !NT(sentencia_simple) | !NT(estructura)
 !NT(estructura) ::= !NT(secuencia)
-                        | !NT(selección)
-                        | !NT(iteración)
-                        | !NT(gestión_excepciones)
+!SPC(31) | !NT(selección)
+!SPC(31) | !NT(iteración)
+!SPC(31) | !NT(gestión_excepciones)
 !NT(gestión_excepciones) ::=
 !T(try:)
       !NT(sentencia)
@@ -1030,7 +1030,7 @@ while not salida:
 
 - Los programas se diseñan de lo general a lo particular por medio de sucesivos
   refinamientos o descomposiciones que nos van acercando a las instrucciones
-  finales del programa. 
+  finales del programa.
 
 - El último nivel permite la codificación directa en un lenguaje de
   programación.
@@ -1112,13 +1112,13 @@ while not salida:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Algoritmo:** Tabla de multiplicar de $n \times n$
-**Entrada:** El tamaño $n$ (por la entrada estándar)
-**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
-**inicio**
-      **leer $n$**
-      **construir la tabla de $n \times n$**
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Entrada:** El tamaño $n$ (por la entrada estándar)
+  **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+  **inicio**
+  !SPC(6)      **leer $n$**
+  !SPC(6)      **construir la tabla de $n \times n$**
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
@@ -1155,16 +1155,16 @@ while not salida:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Algoritmo:** Tabla de multiplicar de $n \times n$
-**Entrada:** El tamaño $n$ (por la entrada estándar)
-**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
-**inicio**
-      **leer $n$**
-      $i \longleftarrow 1$
-      **mientras** $i \leq n$ **hacer**
-              **escribir la fila de $i$**
-              $i \longleftarrow i + 1$
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Entrada:** El tamaño $n$ (por la entrada estándar)
+  **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+  **inicio**
+  !SPC(6)      **leer $n$**
+  !SPC(6)      $i \longleftarrow 1$
+  !SPC(6)      **mientras** $i \leq n$ **hacer**
+  !SPC(12)              **escribir la fila de $i$**
+  !SPC(12)              $i \longleftarrow i + 1$
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde ahora aparece la sentencia «**escribir la fila de $i$**», que escribe
   cada una de las filas de la tabla, y que habrá que refinar porque no se puede
@@ -1177,20 +1177,20 @@ while not salida:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Algoritmo:** Tabla de multiplicar de $n \times n$
-**Entrada:** El tamaño $n$ (por la entrada estándar)
-**Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
-**inicio**
-      **leer $n$**
-      $i \longleftarrow 1$
-      **mientras** $i \leq n$ **hacer**
-              $j \longleftarrow 1$
-              **mientras** $j \leq n$ **hacer**
-                      **escribir** $i \times j$ sin salto de línea
-                      $j \longleftarrow j + 1$
-              **escribir** un salto de línea
-              $i \longleftarrow i + 1$
-**fin**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Entrada:** El tamaño $n$ (por la entrada estándar)
+  **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+  **inicio**
+  !SPC(6)      **leer $n$**
+  !SPC(6)      $i \longleftarrow 1$
+  !SPC(6)      **mientras** $i \leq n$ **hacer**
+  !SPC(12)              $j \longleftarrow 1$
+  !SPC(12)              **mientras** $j \leq n$ **hacer**
+  !SPC(18)                      **escribir** $i \times j$ sin salto de línea
+  !SPC(18)                      $j \longleftarrow j + 1$
+  !SPC(12)              **escribir** un salto de línea
+  !SPC(12)              $i \longleftarrow i + 1$
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Este es el último nivel de refinamiento, porque todas las instrucciones ya se
   pueden traducir directamente a un lenguaje de programación.

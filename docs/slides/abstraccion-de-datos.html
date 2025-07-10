@@ -598,20 +598,20 @@ algebraica</strong>.</li>
 <li><p>Su sintaxis es la siguiente:</p>
 <div class="line-block"><strong><code>espec</code></strong> <span
 style="color:teal">⟨<em>tipo</em>⟩</span><br />
-[<strong><code>parámetros</code></strong><br />
-      <span style="color:teal">⟨<em>parámetro</em>⟩</span><span
+       [<strong><code>parámetros</code></strong><br />
+             <span style="color:teal">⟨<em>parámetro</em>⟩</span><span
 class="math inline">^+</span>]<br />
-<strong><code>operaciones</code></strong><br />
-      (<span style="color:teal">⟨<em>operación</em>⟩</span>
+       <strong><code>operaciones</code></strong><br />
+             (<span style="color:teal">⟨<em>operación</em>⟩</span>
 <strong><code>:</code></strong> <span
 style="color:teal">⟨<em>signatura</em>⟩</span>)<span
 class="math inline">^+</span><br />
-[<strong><code>var</code></strong><br />
-      <span style="color:teal">⟨<em>decl_var</em>⟩</span>
+       [<strong><code>var</code></strong><br />
+             <span style="color:teal">⟨<em>decl_var</em>⟩</span>
 (<strong><code>;</code></strong> <span
 style="color:teal">⟨<em>decl_var</em>⟩</span>)*]<br />
-<strong><code>ecuaciones</code></strong><br />
-      <span style="color:teal">⟨<em>ecuación</em>⟩</span><span
+       <strong><code>ecuaciones</code></strong><br />
+             <span style="color:teal">⟨<em>ecuación</em>⟩</span><span
 class="math inline">^+</span></div></li>
 </ul>
 </div><div class="column" style="width:4%;">
@@ -1459,11 +1459,11 @@ implementación de <code>racional</code>.</p></li>
 <li><p>Usando el máximo común divisor podemos reducir el numerador y el
 denominador para obtener el número racional simplificado:</p>
 <div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd </span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> racional(n, d): </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> racional(n, d):</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> gcd(n, d)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [n <span class="op">//</span> g, d <span class="op">//</span> g]   </span></code></pre></div></li>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [n <span class="op">//</span> g, d <span class="op">//</span> g]</span></code></pre></div></li>
 <li><p>Con esta implementación revisada de <code>racional</code> nos
 aseguramos de que los racionales se expresan de la forma más
 simplificada posible:</p>
@@ -1647,8 +1647,8 @@ nivel más bajo.</p></li>
 racional se implementa mejor en términos de <code>mult</code>, que no
 necesita suponer nada sobre cómo se implementa un número racional:</p>
 <div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado(x): </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mult(x,x)      </span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado(x):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mult(x,x)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.3">
@@ -1657,13 +1657,13 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a h
 <li><p>Si hiciéramos referencia directa a los numeradores y los
 denominadores, estaríamos violando una barrera de abstracción:</p>
 <div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_una_barrera(x): </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> racional(numer(x) <span class="op">*</span> numer(x), denom(x) <span class="op">*</span> denom(x)) </span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_una_barrera(x):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> racional(numer(x) <span class="op">*</span> numer(x), denom(x) <span class="op">*</span> denom(x))</span></code></pre></div></li>
 <li><p>Y si usamos el conocimiento de que los racionales se representan
 como listas, estaríamos violando dos barreras de abstracción:</p>
 <div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_dos_barreras(x): </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [x[<span class="dv">0</span>] <span class="op">*</span> x[<span class="dv">0</span>], x[<span class="dv">1</span>] <span class="op">*</span> x[<span class="dv">1</span>]]    </span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_dos_barreras(x):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [x[<span class="dv">0</span>] <span class="op">*</span> x[<span class="dv">0</span>], x[<span class="dv">1</span>] <span class="op">*</span> x[<span class="dv">1</span>]]</span></code></pre></div></li>
 </ul>
 <div class="caja">
 <p>Cuantas menos barreras de abstracción se crucen al escribir
@@ -2803,41 +2803,41 @@ mejor que podemos hacer, en general.</p></li>
 <li><p>Por ejemplo, la especificación del tipo <strong>Depósito</strong>
 podría expresarse así si no hubiera mutabilidad ni estado interno:</p>
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
-<strong>operaciones</strong><br />
-      <code>depósito</code> : <span
+       <strong>operaciones</strong><br />
+             <code>depósito</code> : <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <em>depósito</em><br />
-      <strong>parcial</strong> <code>retirar</code> : <em>depósito</em>
-<span class="math inline">\times</span> <span
+             <strong>parcial</strong> <code>retirar</code> :
+<em>depósito</em> <span class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-      <code>ingresar</code> : <em>depósito</em> <span
+             <code>ingresar</code> : <em>depósito</em> <span
 class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-      <code>saldo</code> : <em>depósito</em> <span
+             <code>saldo</code> : <em>depósito</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-<strong>ecuaciones</strong><br />
-      <span class="math inline">f &lt; c</span> <span
+       <strong>ecuaciones</strong><br />
+             <span class="math inline">f &lt; c</span> <span
 class="math inline">\Rightarrow</span>
 <code>retirar</code>(<code>depósito</code>(<span
 class="math inline">f</span>), <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <span
 class="math inline">error</span><br />
-      <span class="math inline">f \geq c</span> <span
+             <span class="math inline">f \geq c</span> <span
 class="math inline">\Rightarrow</span>
 <code>retirar</code>(<code>depósito</code>(<span
 class="math inline">f</span>), <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <code>depósito</code>(<span
 class="math inline">f - c</span>)<br />
-      <code>ingresar</code>(<code>depósito</code>(<span
+             <code>ingresar</code>(<code>depósito</code>(<span
 class="math inline">f</span>), <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <code>depósito</code>(<span
 class="math inline">f + c</span>)<br />
-      <code>saldo</code>(<code>depósito</code>(<span
+             <code>saldo</code>(<code>depósito</code>(<span
 class="math inline">f</span>)) <span class="math inline">\equiv</span>
 <span class="math inline">f</span></div></li>
 <li><p><code>depósito</code> es la operación generadora.</p></li>
@@ -2859,49 +2859,49 @@ otras cosas, el <strong>efecto</strong> que producen las operaciones
 mutadoras sobre el dato abstracto.</p></li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
-<strong>operaciones</strong><br />
-      <code>depósito</code> : <span
+       <strong>operaciones</strong><br />
+             <code>depósito</code> : <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <em>depósito</em><br />
-      <strong>parcial</strong> <code>retirar</code> : <em>depósito</em>
-<span class="math inline">\times</span> <span
+             <strong>parcial</strong> <code>retirar</code> :
+<em>depósito</em> <span class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\empty</span><br />
-      <code>ingresar</code> : <em>depósito</em> <span
+             <code>ingresar</code> : <em>depósito</em> <span
 class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\empty</span><br />
-      <code>saldo</code> : <em>depósito</em> <span
+             <code>saldo</code> : <em>depósito</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-<strong>var</strong><br />
-      <span class="math inline">d</span> : <em>depósito</em>; <span
-class="math inline">f</span>, <span class="math inline">c</span> : <span
-class="math inline">\mathbb{R}</span><br />
-<strong>ecuaciones</strong><br />
-      <code>depósito</code>(<span class="math inline">f</span>)   { Crea
-un depósito con un fondo (estado interno) inicial de <span
+       <strong>var</strong><br />
+             <span class="math inline">d</span> : <em>depósito</em>;
+<span class="math inline">f</span>, <span class="math inline">c</span> :
+<span class="math inline">\mathbb{R}</span><br />
+       <strong>ecuaciones</strong><br />
+             <code>depósito</code>(<span class="math inline">f</span>)
+  { Crea un depósito con un fondo (estado interno) inicial de <span
 class="math inline">f</span><br />
-                                 y lo devuelve }<br />
-      <code>saldo</code>(<span class="math inline">d</span>) <span
-class="math inline">\equiv</span> «los fondos actuales de <span
+                                                y lo devuelve }<br />
+             <code>saldo</code>(<span class="math inline">d</span>)
+<span class="math inline">\equiv</span> «los fondos actuales de <span
 class="math inline">d</span>»<br />
-      <code>saldo</code>(<span class="math inline">d</span>) <span
-class="math inline">\geq</span> <span class="math inline">c</span> <span
-class="math inline">\Rightarrow</span> <code>retirar</code>(<span
+             <code>saldo</code>(<span class="math inline">d</span>)
+<span class="math inline">\geq</span> <span class="math inline">c</span>
+<span class="math inline">\Rightarrow</span> <code>retirar</code>(<span
 class="math inline">d</span>, <span class="math inline">c</span>)   {
 Reduce en <span class="math inline">c</span> unidades los fondos del
 depósito <span class="math inline">d</span> }<br />
-      <code>saldo</code>(<span class="math inline">d</span>) <span
-class="math inline">&lt;</span> <span class="math inline">c</span> <span
-class="math inline">\Rightarrow</span> <code>retirar</code>(<span
+             <code>saldo</code>(<span class="math inline">d</span>)
+<span class="math inline">&lt;</span> <span class="math inline">c</span>
+<span class="math inline">\Rightarrow</span> <code>retirar</code>(<span
 class="math inline">d</span>, <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <span
 class="math inline">error</span><br />
-      <code>ingresar</code>(<span class="math inline">d</span>, <span
-class="math inline">c</span>)   { Aumenta en <span
+             <code>ingresar</code>(<span class="math inline">d</span>,
+<span class="math inline">c</span>)   { Aumenta en <span
 class="math inline">c</span> unidades los fondos del depósito <span
 class="math inline">d</span> }</div>
 </section>
@@ -2937,55 +2937,55 @@ efectivo).</p></li>
 <li><p>En tal caso, podría quedar algo así:</p></li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
-<strong>operaciones</strong><br />
-      <code>depósito</code> : <span
+       <strong>operaciones</strong><br />
+             <code>depósito</code> : <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <em>depósito</em><br />
-      <strong>parcial</strong> <code>retirar</code> : <em>depósito</em>
-<span class="math inline">\times</span> <span
+             <strong>parcial</strong> <code>retirar</code> :
+<em>depósito</em> <span class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-      <code>ingresar</code> : <em>depósito</em> <span
+             <code>ingresar</code> : <em>depósito</em> <span
 class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-      <code>saldo</code> : <em>depósito</em> <span
+             <code>saldo</code> : <em>depósito</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-<strong>var</strong><br />
-      <span class="math inline">d</span> : <em>depósito</em>; <span
-class="math inline">f</span>, <span class="math inline">c</span> : <span
-class="math inline">\mathbb{R}</span><br />
-<strong>ecuaciones</strong><br />
-      <code>depósito</code>(<span class="math inline">f</span>)   { Crea
-un depósito con un fondo (estado interno) inicial de <span
+       <strong>var</strong><br />
+             <span class="math inline">d</span> : <em>depósito</em>;
+<span class="math inline">f</span>, <span class="math inline">c</span> :
+<span class="math inline">\mathbb{R}</span><br />
+       <strong>ecuaciones</strong><br />
+             <code>depósito</code>(<span class="math inline">f</span>)
+  { Crea un depósito con un fondo (estado interno) inicial de <span
 class="math inline">f</span><br />
-                                 y lo devuelve }<br />
-      <code>saldo</code>(<span class="math inline">d</span>) <span
-class="math inline">\equiv</span> «los fondos actuales de <span
+                                                y lo devuelve }<br />
+             <code>saldo</code>(<span class="math inline">d</span>)
+<span class="math inline">\equiv</span> «los fondos actuales de <span
 class="math inline">d</span>»<br />
-      <code>saldo</code>(<span class="math inline">d</span>) <span
-class="math inline">\geq</span> <span class="math inline">c</span> <span
-class="math inline">\Rightarrow</span> <code>retirar</code>(<span
+             <code>saldo</code>(<span class="math inline">d</span>)
+<span class="math inline">\geq</span> <span class="math inline">c</span>
+<span class="math inline">\Rightarrow</span> <code>retirar</code>(<span
 class="math inline">d</span>, <span class="math inline">c</span>)   {
 Reduce en <span class="math inline">c</span> unidades los fondos del
 depósito <span class="math inline">d</span><br />
-                                                              y devuelve
-el saldo que queda }<br />
-      <code>saldo</code>(<span class="math inline">d</span>) <span
-class="math inline">&lt;</span> <span class="math inline">c</span> <span
-class="math inline">\Rightarrow</span> <code>retirar</code>(<span
+                                                                                     
+y devuelve el saldo que queda }<br />
+             <code>saldo</code>(<span class="math inline">d</span>)
+<span class="math inline">&lt;</span> <span class="math inline">c</span>
+<span class="math inline">\Rightarrow</span> <code>retirar</code>(<span
 class="math inline">d</span>, <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <span
 class="math inline">error</span><br />
-      <code>ingresar</code>(<span class="math inline">d</span>, <span
-class="math inline">c</span>)   { Aumenta en <span
+             <code>ingresar</code>(<span class="math inline">d</span>,
+<span class="math inline">c</span>)   { Aumenta en <span
 class="math inline">c</span> unidades los fondos del depósito <span
 class="math inline">d</span><br />
-                                     y devuelve el saldo que queda
-}</div>
+                                                     y devuelve el saldo
+que queda }</div>
 </section>
 </section>
 <section>

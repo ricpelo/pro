@@ -245,8 +245,8 @@ abstracto, al que denominamos el **valor** de la expresión.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre)
   !NT(operación) ::= !T{(}!NT(expresión) !NT(operador_binario) !NT(expresión)!T{)}
-                       | !T{(}!NT(operador_unario) !NT(expresión)!T{)} 
-                       | !NT(llamada_función) | !NT(llamada_método)
+  !SPC(30) | !T{(}!NT(operador_unario) !NT(expresión)!T{)}
+  !SPC(30) | !NT(llamada_función) | !NT(llamada_método)
   !NT(nombre) ::= !T(identificador)
   !NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
   !NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
@@ -612,7 +612,7 @@ Se dice:
   !PYTHON((1 + 2))
 
   !PYTHON((5 - 2))
-  
+
   que denotan todas el mismo valor abstracto **tres**, seleccionamos una (la
   expresión !PYTHON(3)) como la **expresión canónica** de ese valor.
 
@@ -1220,11 +1220,11 @@ $$
   ```
 
   Si hiciéramos:
-  
+
   ```python
   (8 + 4) * 2
   ```
-  
+
   el resultado sería distinto.
 
 - Ver prioridad de los operadores en Python en
@@ -1250,11 +1250,11 @@ $$
   ```
 
   Si hiciéramos:
-  
+
   ```python
   8 / (4 / 2)
   ```
-  
+
   el resultado sería distinto.
 
 - En Python, todos los operadores son **asociativos por la izquierda** excepto
@@ -1377,8 +1377,8 @@ $$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(expresión) ::= !NT(operación) | !NT(literal) | !NT(nombre) | !T{(}!NT(expresión)!T{)}
   !NT(operación) ::= !NT(expresión) !NT(operador_binario) !NT(expresión)
-                       | !NT(operador_unario) !NT(expresión)
-                       | !NT(llamada_función) | !NT(llamada_método)
+  !SPC(30) | !NT(operador_unario) !NT(expresión)
+  !SPC(30) | !NT(llamada_función) | !NT(llamada_método)
   !NT(nombre) ::= !T(identificador)
   !NT(literal) ::= !T(entero) | !T(real) | !T(cadena) | ...
   !NT(operador_binario) ::= !T(+) | !T(-) | !T(*) | !T(/) | !T(//) | !T( ** ) | !T(%) | ...
@@ -1394,7 +1394,7 @@ $$
 - Ahora, cualquier expresión puede llevar paréntesis si es necesario, pero si
   no son necesarios se pueden omitir.
 
-### Paréntesis y orden de evaluación 
+### Paréntesis y orden de evaluación
 
 - Es importante entender que los paréntesis sirven para agrupar elementos, pero
   por sí mismos no son suficientes para imponer un determinado **orden de
@@ -1491,7 +1491,7 @@ $$
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   TypeError: unsupported operand type(s) for /: 'str' and 'str'
-  >>> 
+  >>>
   ```
 
 - Durante la evaluación de una expresión, se deberá ir calculando tanto el
@@ -1624,9 +1624,9 @@ $$
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(llamada_función) ::= !NT(función)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(función) ::= !T(identificador)
-!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(función) ::= !T(identificador)
+  !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, si queremos calcular el valor absoluto del número $-3$, podemos
   llamar a la función !PYTHON(abs) pasándole !PYTHON(-3) como su argumento:
@@ -1672,7 +1672,7 @@ $$
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   TypeError: bad operand type for abs(): 'str'
-  >>> 
+  >>>
   ```
 
 ---
@@ -2022,11 +2022,11 @@ $$
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
-!NT(objeto) ::= !NT(expresión)
-!NT(método) ::= !T(identificador)
-!NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(llamada_método) ::= !NT(objeto)!T(.)!NT(método)!T{(}[!NT(lista_argumentos)]!T{)}
+  !NT(objeto) ::= !NT(expresión)
+  !NT(método) ::= !T(identificador)
+  !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})\*
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Según esta gramática, las llamadas a métodos tienen esta forma:
 
@@ -2072,7 +2072,7 @@ $$
   - El primero es más **orientado a objetos**: decimos que el *objeto*
     $\underline{o}$ «recibe» un mensaje solicitando la ejecución del método
     $\underline{m}$.
-  
+
   - En cambio, el segundo es más **funcional**: decimos que la *función*
     $\underline{m}$ se aplica a sus argumentos, de los cuales $\underline{o}$
     es uno más.

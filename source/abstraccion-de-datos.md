@@ -243,7 +243,7 @@ de implementación.
 --------------------------------------------------------------------------------
 Elementos del lenguaje      Instrucciones               Datos
 --------------------------- --------------------------- ------------------------
-Primitivas                  Definiciones y sentencias   Literales y datos 
+Primitivas                  Definiciones y sentencias   Literales y datos
                             simples                     simples (enteros,
                                                         reales, booleanos...)
 
@@ -294,9 +294,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
   #. **La _especificación_ del tipo:** única parte que debe conocer el usuario
      del mismo y que consiste en:
-  
+
      - El **nombre** del tipo.
-    
+
      - La especificación de las **operaciones** permitidas. Esta especificación
        tendrá:
 
@@ -335,15 +335,15 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(espec) !NT(tipo)
-      [!T(parámetros)
-            !NT(parámetro)!MAS]
-      !T(operaciones)
-            \(!NT{operación} !T{:} !NT{signatura}\)!MAS
-      \[!T(var)
-            !NT(decl_var) \(!T(;) !NT(decl_var)\)*]
-      !T(ecuaciones)
-            !NT(ecuación)!MAS
-~~~~~~~~~~~~~~~~~~~~~~~~~
+  !SPC(6)      [!T(parámetros)
+  !SPC(12)            !NT(parámetro)!MAS]
+  !SPC(6)      !T(operaciones)
+  !SPC(12)            \(!NT{operación} !T{:} !NT{signatura}\)!MAS
+  !SPC(6)      \[!T(var)
+  !SPC(12)            !NT(decl_var) \(!T(;) !NT(decl_var)\)*]
+  !SPC(6)      !T(ecuaciones)
+  !SPC(12)            !NT(ecuación)!MAS
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
@@ -358,8 +358,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~
   !NT(decl_var) ::= !NT{variable} !T{:} !NT{tipo}
-!NT(ecuación) ::= !NT(izquierda) $\equiv$ !NT(derecha)
-~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(ecuación) ::= !NT(izquierda) $\equiv$ !NT(derecha)
+  ~~~~~~~~~~~~~~~~~~~~~~~
 
 - Las **operaciones** son **abstracciones funcionales**.
 
@@ -413,7 +413,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
           `[`$x$`]` $\equiv$ $x$ `:` `[]`
           $l$ `++` `[]` $\equiv$ $l$
           `[]` `++` $l$ $\equiv$ $l$
-          ($x$ `:` $l_1$) `++` $l_2$ $\equiv$ $x$ `:` ($l_1$ `++` $l_2$) 
+          ($x$ `:` $l_1$) `++` $l_2$ $\equiv$ $x$ `:` ($l_1$ `++` $l_2$)
           ($l_1$ `++` $l_2$) `++` $l_3$ $\equiv$ $l_1$ `++` ($l_2$ `++` $l_3$)
           `len`(`[]`) $\equiv$ 0
           `len`(`[`$x$`]`) $\equiv$ 1
@@ -613,13 +613,13 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
      ---------------------------------- ----------------------------------
      $l$ `++` `[]`                      # _por definición de $l$_
- 
+
      $\equiv$ ($x$ `:` $l_1$) `++` `[]` # _por el segundo axioma de `++`_
- 
+
      $\equiv$ $x$ `:` ($l_1$ `++` `[]`) # _por hipótesis inductiva_
 
      $\equiv$ $x$ `:` $l_1$             # _por definición de $l$_
- 
+
      $\equiv$ $l$
      ---------------------------------- ----------------------------------
 
@@ -860,7 +860,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   **pensamiento optimista**, ya que todavía no hemos dicho cómo se representa
   un número racional, o cómo se deben implementar las funciones `numer`,
   `denom` y `racional`.
-  
+
 - Nos basta con saber *qué* hacen y *suponer* que ya las tenemos.
 
 ---
@@ -912,7 +912,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Ahora tenemos las operaciones sobre números racionales implementadas sobre
   las funciones selectoras `numer` y `denom` y la función constructora
   `racional`, pero aún no hemos implementado estas tres funciones.
-  
+
 - Lo que necesitamos es alguna forma de unir un numerador y un denominador en
   un único valor compuesto (una pareja de números).
 
@@ -966,11 +966,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   para obtener el número racional simplificado:
 
   ```python
-  from math import gcd 
+  from math import gcd
 
-  def racional(n, d): 
+  def racional(n, d):
       g = gcd(n, d)
-      return [n // g, d // g]   
+      return [n // g, d // g]
   ```
 
 - Con esta implementación revisada de `racional` nos aseguramos de que los
@@ -1011,11 +1011,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 - La diferencia entre esta implementación y la anterior está en cuándo se
   calcula el máximo común divisor.
-  
+
   - Si los programas que normalmente usan los números racionales acceden muchas
     veces a sus numeradores y denominadores, será preferible calcular el m.c.d.
     en el constructor.
-    
+
   - En caso contrario, puede que sea mejor esperar a acceder al numerador o al
     denominador para calcular el m.c.d.
 
@@ -1055,7 +1055,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   #. identificar un **conjunto básico de operaciones** sobre las cuales se
      expresarán todas las operaciones que manipulen los valores de ese tipo, y
      luego
-  
+
   #. **obligar a usar sólo esas operaciones** para manipular los datos.
 
 - Al obligar a usar los datos únicamente a través de sus operaciones, es mucho
@@ -1112,8 +1112,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   cómo se implementa un número racional:
 
   ```python
-  def cuadrado(x): 
-      return mult(x,x)      
+  def cuadrado(x):
+      return mult(x,x)
   ```
 
 ---
@@ -1122,16 +1122,16 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   estaríamos violando una barrera de abstracción:
 
   ```python
-  def cuadrado_viola_una_barrera(x): 
-      return racional(numer(x) * numer(x), denom(x) * denom(x)) 
+  def cuadrado_viola_una_barrera(x):
+      return racional(numer(x) * numer(x), denom(x) * denom(x))
   ```
 
 - Y si usamos el conocimiento de que los racionales se representan como listas,
   estaríamos violando dos barreras de abstracción:
 
   ```python
-  def cuadrado_viola_dos_barreras(x): 
-      return [x[0] * x[0], x[1] * x[1]]    
+  def cuadrado_viola_dos_barreras(x):
+      return [x[0] * x[0], x[1] * x[1]]
   ```
 
 !CAJA
@@ -1182,7 +1182,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   Si $x$ `=` `racional(`$n$`,`&nbsp; $d$`)`, entonces `numer(`$x$`)/denom(`$x$`)`
   `==` $n/d$ .
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
+
 ---
 
 - De hecho, esta es la única condición que deben cumplir las tres funciones
@@ -1211,7 +1211,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 
 - Este punto de vista tambíen se puede aplicar, por ejemplo, a las listas que
   hemos usado para implementar números racionales.
-  
+
 - En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier
   representación que agrupe una pareja de valores juntos y que nos permita
   acceder a cada valor de una pareja por separado. Es decir, la propiedad que
@@ -1478,7 +1478,7 @@ E -> i [lhead = cluster1]
 
 - Ahora la clausura hace referencia al marco dentro del montículo, es decir,
   que la clausura guarda una referencia al marco, que ahora es un dato más
-  dentro del montículo. 
+  dentro del montículo.
 
 - Ese marco seguirá existiendo en el montículo mientras haya una referencia que
   apunte a él, como cualquier otro dato.
@@ -2140,7 +2140,7 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 - La representación funcional, aunque pueda parecer extraña, es una forma
   perfectamente adecuada de representar parejas, ya que cumple las propiedades
   que deben cumplir las parejas.
-  
+
 - Este ejemplo también demuestra que la capacidad de manipular funciones como
   valores (mediante funciones de orden superior) proporciona la capacidad de
   manipular datos compuestos.
@@ -2454,16 +2454,16 @@ def deposito(fondos):
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **espec** _depósito_
-      **operaciones**
-            `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
-            **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-            `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-            `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
-      **ecuaciones**
-            $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ $error$
-            $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
-            `ingresar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f + c$)
-            `saldo`(`depósito`($f$)) $\equiv$ $f$
+  !SPC(6)    **operaciones**
+  !SPC(12)          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
+  !SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+  !SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+  !SPC(12)          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+  !SPC(6)    **ecuaciones**
+  !SPC(12)          $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ $error$
+  !SPC(12)          $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
+  !SPC(12)          `ingresar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f + c$)
+  !SPC(12)          `saldo`(`depósito`($f$)) $\equiv$ $f$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `depósito` es la operación generadora.
@@ -2485,20 +2485,20 @@ def deposito(fondos):
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _depósito_
-    **operaciones**
-          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
-          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
-          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
-          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
-    **var**
-          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
-    **ecuaciones**
-          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
-                                     y lo devuelve }
-          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
-          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
-          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
-          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
+!SPC(6)    **operaciones**
+!SPC(12)          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
+!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
+!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
+!SPC(12)          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+!SPC(6)    **var**
+!SPC(12)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
+!SPC(6)    **ecuaciones**
+!SPC(12)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
+!SPC(47)                                     y lo devuelve }
+!SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
+!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
+!SPC(12)          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
+!SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2532,22 +2532,22 @@ def deposito(fondos):
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _depósito_
-    **operaciones**
-          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
-          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$ 
-          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
-    **var**
-          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
-    **ecuaciones**
-          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
-                                     y lo devuelve }
-          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
-          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
-                                                                  y devuelve el saldo que queda \}
-          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
-          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
-                                         y devuelve el saldo que queda \}
+!SPC(6)    **operaciones**
+!SPC(12)          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
+!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
+!SPC(12)          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+!SPC(6)    **var**
+!SPC(12)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
+!SPC(6)    **ecuaciones**
+!SPC(12)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
+!SPC(47)                                     y lo devuelve }
+!SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
+!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
+!SPC(85)                                                                  y devuelve el saldo que queda \}
+!SPC(12)          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
+!SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
+!SPC(52)                                         y devuelve el saldo que queda \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Abstracción de datos y modularidad

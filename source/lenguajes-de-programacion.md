@@ -52,9 +52,9 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 - La sintaxis de los lenguajes de programación es definida generalmente
   utilizando:
-  
+
   - **Expresiones regulares** (para los componentes léxicos)
-  
+
   - **Notación de Backus-Naur extendida** (para la estructura gramatical)
 
 - Cada una de esas notaciones son formalismos usados para describir estructuras
@@ -231,15 +231,15 @@ adverbio -> mucho
 @. ¿Qué frases genera (o reconoce) la siguiente gramática? Poner ejemplos:
 
     !ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~
-!NT(expresión) ::= !NT(átomo) | !NT(lista)
-!NT(átomo) ::= !NT(número) | !NT(símbolo)
-!NT(lista) ::= !T{(} !NT(expresión)\* !T{)}
-!NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)!MAS
-!NT(símbolo) ::= !NT(letra) (!NT(letra) | !NT(dígito))!MAS
-!NT(dígito) ::= !T(0) | !T(1) | !T(2) | !T(3) | !T(4) | !T(5) | !T(6) | !T(7) | !T(8) | !T(9)
-!NT(letra) ::= !T(a) | !T(b) | ... | !T(z)
-~~~~~~~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
+    !NT(expresión) ::= !NT(átomo) | !NT(lista)
+    !NT(átomo) ::= !NT(número) | !NT(símbolo)
+    !NT(lista) ::= !T{(} !NT(expresión)\* !T{)}
+    !NT(número) ::= \[!T(+) | !T(-)\] !NT(dígito)!MAS
+    !NT(símbolo) ::= !NT(letra) (!NT(letra) | !NT(dígito))!MAS
+    !NT(dígito) ::= !T(0) | !T(1) | !T(2) | !T(3) | !T(4) | !T(5) | !T(6) | !T(7) | !T(8) | !T(9)
+    !NT(letra) ::= !T(a) | !T(b) | ... | !T(z)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Semántica estática
 
@@ -303,7 +303,7 @@ adverbio -> mucho
 
 ## Evolución histórica
 
-- **1804: El telar de Jacquard (_Joseph Marie Jacquard_)** 
+- **1804: El telar de Jacquard (_Joseph Marie Jacquard_)**
 
   - Tarjetas perforadas para controlar los diseños en los tejidos.
 
@@ -489,7 +489,7 @@ adverbio -> mucho
   - **JavaScript (_Brendan Eich, Netscape Communications_)**
 
     - Lenguaje multiparadigma, basado en prototipos e interpretado.
-    
+
     - Usado como lenguaje cliente en los navegadores web.
 
   - **PHP (_Rasmus Lerdorf_)**

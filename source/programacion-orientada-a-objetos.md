@@ -20,9 +20,9 @@ nocite: |
   - Las funciones pueden tener **estado interno** usando clausuras, que se
     crean a partir de funciones locales, funciones de orden superior y
     variables no locales.
-    
+
   - Una función puede representar un dato.
-  
+
   - Un dato puede tener estado interno, usando el estado interno de la función
     que lo representa.
 
@@ -32,7 +32,7 @@ nocite: |
 
   - El **paso de mensajes** agrupa las operaciones que actúan sobre ese dato
     dentro de una función que responde a diferentes mensajes **despachando** a
-    otras funciones dependiendo del mensaje recibido. 
+    otras funciones dependiendo del mensaje recibido.
 
   - La función que representa al dato **encapsula su estado interno junto con
     las operaciones** que lo manipulan en *una única unidad sintáctica* que
@@ -111,7 +111,7 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
 
 - El sistema de objetos de Python proporciona una sintaxis cómoda para promover
   el uso de estas técnicas de organización de programas.
-  
+
 - Gran parte de esta sintaxis es compartida con otros lenguajes de programación
   orientados a objetos.
 
@@ -119,13 +119,13 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
 
   - Proporciona una **nueva metáfora** para diseñar programas en los que varios
     agentes independientes **interactúan** dentro del ordenador.
-  
+
   - Cada objeto **agrupa (_encapsula_)** el estado local y el comportamiento de
     una manera que abstrae la complejidad de ambos.
-  
+
   - Los objetos **se comunican entre sí** y se obtienen resultados útiles como
     consecuencia de su interacción.
-  
+
   - Los objetos no sólo transmiten mensajes, sino que también **comparten el
     comportamiento** entre otros objetos del mismo tipo y **heredan
     características** de otros tipos relacionados.
@@ -301,7 +301,7 @@ def deposito(fondos):
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(class) !NT(nombre)!T(:)
-      !NT(sentencia)!MAS
+  !SPC(6)    !NT(sentencia)!MAS
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Todas las definiciones que se realicen directamente en el ámbito de la clase
@@ -315,7 +315,7 @@ def deposito(fondos):
 
 - Las funciones que son miembros de una clase se denominan **métodos** de la
   clase.
- 
+
 ---
 
 - Por ejemplo, las funciones !PYTHON(__init__), `retirar`, `ingresar` y `saldo`
@@ -512,7 +512,7 @@ def deposito(fondos):
 - Por ejemplo, en Python:
 
   - El tipo !PYTHON(int) es una clase.
-  
+
   - El entero !PYTHON(5) es un objeto, instancia de la clase !PYTHON(int).
 
 - Java es un lenguaje orientado a objetos **híbrido**, ya que un programa Java
@@ -661,7 +661,7 @@ dep = Deposito(100)
 
   tendremos dos variables que contienen la misma referencia y, por tanto, **_se
   refieren_ (o _apuntan_) al mismo objeto**.
-  
+
 - En ese caso, decimos que `dep1` y `dep2` son **idénticas**, porque las
   identidades de los objetos a los que apuntan son iguales, cosa que podemos
   comprobar usando !PYTHON(id) o !PYTHON(is):
@@ -1061,7 +1061,7 @@ dep2.otro = 'adiós'
 
 - Supongamos que _o_ es una instancia de la clase _C_, que _m_ es un método
   almacenado como un atributo de la clase _C_ y que _o_ no contiene ningún
-  atributo que se llame _m_. 
+  atributo que se llame _m_.
 
 - La ejecución del **_método_** _m_ con argumentos $a_1, a_2, \ldots, a_n$
   sobre el objeto *o* tiene esta forma:
@@ -1081,7 +1081,7 @@ dep2.otro = 'adiós'
 
 - Es decir: el intérprete llama a la **_función_** _m_ definida en la clase _C_
   y le pasa automática e implícitamente el objeto _o_ como primer argumento (el
-  resto de los argumentos originales irían a continuación de _o_). 
+  resto de los argumentos originales irían a continuación de _o_).
 
 - Esto nos vuelve a demostrar que los métodos no son más que una forma especial
   de función.
@@ -1163,7 +1163,7 @@ class Deposito:
 
 - En este caso, contendrá el objeto del que se desea conocer los fondos que
   posee.
-  
+
 - Por tanto, dentro de `saldo`, accedemos a los fondos del objeto usando la
   expresión !PYTHON(self.fondos), y ese es el valor que retorna el método.
 
@@ -1193,7 +1193,7 @@ class Deposito:
   valor del atributo `fondos` del objeto !PYTHON(self).
 
 - Por tanto, lo que hace el método es incrementar el valor de dicho atributo en
-  el objeto !PYTHON(self), sumándole la cantidad indicada en el parámetro. 
+  el objeto !PYTHON(self), sumándole la cantidad indicada en el parámetro.
 
 - Por ejemplo, la expresión !PYTHON(dep.ingresar(35)) se traducirá como
   !PYTHON(Deposito.ingresar(dep, 35)). Por tanto, en la llamada al método,
@@ -1733,10 +1733,10 @@ class Deposito:
 
   - Por tanto, las operaciones
     realizadas en el depósito de Pedro no afectarán al de Pablo, y viceversa.
-  
+
 - En el segundo caso, en cambio, hemos definido a `dep_Pablo` para que sea
   exactamente la misma cosa que `dep_Pedro`.
-  
+
   - Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
     compartido, y si Pedro hace una retirada de efectivo a través de `dep_Pedro`,
     Pablo observará que hay menos dinero en `dep_Pablo` (porque son _el mismo_
@@ -1773,7 +1773,7 @@ class Deposito:
 - Pero esto deja de ser válido cuando incorporamos mutabilidad, porque entonces
   un objeto compuesto tiene una «identidad» que es algo diferente de las partes
   que lo componen.
- 
+
 ---
 
 - Por ejemplo, un número racional viene definido por su numerador y su
@@ -1978,7 +1978,7 @@ class Deposito:
 
   - Si la clase de `cola1` tiene definido el método `__eq__`, entonces
     `cola1 == cola2` equivale a !PYTHON(cola1.__eq__(cola2)).
-  
+
   - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que
     !PYTHON(cola1 is cola2), como acabamos de ver.
 
@@ -2572,7 +2572,7 @@ True
   def __repr__(self):
       return f'Persona({repr(self.__dni)}, {repr(self.__nombre)})'
   ```
-  
+
 - Esto se puede abreviar haciendo uso de la _conversión_ `r` en los campos de
   sustitución de la _f-string_:
 
@@ -3264,7 +3264,7 @@ propiedades se traducen en invariantes** de la clase.
 
 - El intérprete comprobará el aserto cuando el flujo de control llegue a la
   sentencia !PYTHON(assert) y, en caso de que no se cumpla, lanzará una
-  excepción de tipo !PYTHON(AssertionError). 
+  excepción de tipo !PYTHON(AssertionError).
 
 ---
 
@@ -3438,23 +3438,23 @@ class Deposito:
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _pila_
-    **parámetros**
-          _elemento_
-    **operaciones**
-          `pvacia` : $\rightarrow$ _pila_
-          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
-          **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
-          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
-          `vacia?` : _pila_ $\rightarrow$ $\mathbb{B}$
-    **var**
-          $p$ : _pila_; $x$ : _elemento_
-    **ecuaciones**
-          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
-          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
-          `vacia?`(`pvacia`) $\equiv$ $V$
-          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
-          `cima`(`pvacia`) $\equiv$ **error**
-          `desapilar`(`pvacia`) $\equiv$ **error**
+!SPC(6)    **parámetros**
+!SPC(12)          _elemento_
+!SPC(6)    **operaciones**
+!SPC(12)          `pvacia` : $\rightarrow$ _pila_
+!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
+!SPC(12)          **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
+!SPC(12)          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
+!SPC(12)          `vacia?` : _pila_ $\rightarrow$ $\mathbb{B}$
+!SPC(6)    **var**
+!SPC(12)          $p$ : _pila_; $x$ : _elemento_
+!SPC(6)    **ecuaciones**
+!SPC(12)          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
+!SPC(12)          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
+!SPC(12)          `vacia?`(`pvacia`) $\equiv$ $V$
+!SPC(12)          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
+!SPC(12)          `cima`(`pvacia`) $\equiv$ **error**
+!SPC(12)          `desapilar`(`pvacia`) $\equiv$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -3464,25 +3464,25 @@ class Deposito:
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _pila_
-    **parámetros**
-          _elemento_
-    **operaciones**
-          `pila` : $\rightarrow$ _pila_
-          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ $\empty$
-          **parcial** `desapilar` : _pila_ $\rightarrow$ $\empty$
-          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
-          `vacía?` : _pila_ $\rightarrow$ $\mathbb{B}$
-          _ `==` _ : _pila_ $\times$ _pila_ $\rightarrow$ $\mathbb{B}$
-    **var**
-          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
-    **ecuaciones**
-          $p_1$ `==` $p_2$ $\equiv$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
-          `vacía?`($p$) $\equiv$ $p$ `==` `pila`
-          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
-          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \} 
-          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
-          `vacía?`($p$) $\Rightarrow$ `desapilar`($p$) $\equiv$ **error**
-          `vacía?`($p$) $\Rightarrow$ `cima`($p$) $\equiv$ **error**
+!SPC(6)    **parámetros**
+!SPC(12)          _elemento_
+!SPC(6)    **operaciones**
+!SPC(12)          `pila` : $\rightarrow$ _pila_
+!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ $\empty$
+!SPC(12)          **parcial** `desapilar` : _pila_ $\rightarrow$ $\empty$
+!SPC(12)          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
+!SPC(12)          `vacía?` : _pila_ $\rightarrow$ $\mathbb{B}$
+!SPC(12)          _ `==` _ : _pila_ $\times$ _pila_ $\rightarrow$ $\mathbb{B}$
+!SPC(6)    **var**
+!SPC(12)          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
+!SPC(6)    **ecuaciones**
+!SPC(12)          $p_1$ `==` $p_2$ $\equiv$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
+!SPC(12)          `vacía?`($p$) $\equiv$ $p$ `==` `pila`
+!SPC(12)          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
+!SPC(12)          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \}
+!SPC(12)          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
+!SPC(12)          `vacía?`($p$) $\Rightarrow$ `desapilar`($p$) $\equiv$ **error**
+!SPC(12)          `vacía?`($p$) $\Rightarrow$ `cima`($p$) $\equiv$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -3552,7 +3552,7 @@ class Deposito:
 
   Devuelve $V$ si la pila $p$ no tiene elementos, y $F$ en caso contrario.
 
-- `cima(`$p$: _pila_`)` $\rightarrow$ $cualquiera$ 
+- `cima(`$p$: _pila_`)` $\rightarrow$ $cualquiera$
 
   Devuelve el elemento situado en la cima de la pila. Si la pila está vacía,
   da error.
@@ -3824,7 +3824,7 @@ class Deposito:
 
       def get_valor(self):
           return self.__valor
-          
+
       def suma(self, otro):
           self.set_valor(self.get_valor() + otro)
 
@@ -3961,7 +3961,7 @@ class Numero:
 
     def get_valor(self):
         return self.__valor
-        
+
     def suma(self, otro):
         self.set_valor(self.get_valor() + otro)
 
