@@ -6,29 +6,29 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="ricardo.20250709150702.1"><vh>@auto source/introduccion.md</vh></v>
-<v t="ricardo.20250709150702.2"><vh>@auto source/lenguajes-de-programacion.md</vh></v>
-<v t="ricardo.20250709150702.3"><vh>@auto source/expresiones.md</vh></v>
-<v t="ricardo.20250709150702.4"><vh>@auto source/programacion-funcional-i.md</vh></v>
-<v t="ricardo.20250709150702.5"><vh>@auto source/programacion-funcional-ii.md</vh></v>
-<v t="ricardo.20250709150702.6"><vh>@auto source/abstracciones-funcionales.md</vh></v>
-<v t="ricardo.20250709150702.7"><vh>@auto source/evaluacion.md</vh></v>
-<v t="ricardo.20250709150702.8"><vh>@auto source/programacion-imperativa-i.md</vh></v>
-<v t="ricardo.20250709150702.9"><vh>@auto source/programacion-imperativa-ii.md</vh></v>
-<v t="ricardo.20250709150702.10"><vh>@auto source/programacion-estructurada.md</vh></v>
-<v t="ricardo.20250709150702.11"><vh>@auto source/programacion-procedimental.md</vh></v>
-<v t="ricardo.20250709150702.12"><vh>@auto source/calidad.md</vh></v>
-<v t="ricardo.20250709150702.13"><vh>@auto source/colecciones-e-iteradores.md</vh></v>
-<v t="ricardo.20250709150702.14"><vh>@auto source/secuencias.md</vh></v>
-<v t="ricardo.20250709150702.15"><vh>@auto source/colecciones-no-secuenciales.md</vh></v>
-<v t="ricardo.20250709150702.16"><vh>@auto source/entrada-y-salida-por-archivos.md</vh></v>
-<v t="ricardo.20250709150702.17"><vh>@auto source/programacion-modular.md</vh></v>
-<v t="ricardo.20250709150702.18"><vh>@auto source/abstraccion-de-datos.md</vh></v>
-<v t="ricardo.20250709150702.19"><vh>@auto source/programacion-orientada-a-objetos.md</vh></v>
-<v t="ricardo.20250709150702.20"><vh>@auto source/relaciones-entre-clases.md</vh></v>
-<v t="ricardo.20250709150702.21"><vh>@auto source/programacion-de-interfaces-graficas-de-usuario.md</vh></v>
-<v t="ricardo.20250709150702.22"><vh>@auto source/bases-de-datos-orientadas-a-objetos.md</vh></v>
-<v t="ricardo.20250709150702.23"><vh>@auto source/bases-de-datos-relacionales.md</vh></v>
+<v t="ricardo.20250710125052.1"><vh>@auto source/introduccion.md</vh></v>
+<v t="ricardo.20250710125052.2"><vh>@auto source/lenguajes-de-programacion.md</vh></v>
+<v t="ricardo.20250710125052.3"><vh>@auto source/expresiones.md</vh></v>
+<v t="ricardo.20250710125052.4"><vh>@auto source/programacion-funcional-i.md</vh></v>
+<v t="ricardo.20250710125052.5"><vh>@auto source/programacion-funcional-ii.md</vh></v>
+<v t="ricardo.20250710125052.6"><vh>@auto source/abstracciones-funcionales.md</vh></v>
+<v t="ricardo.20250710125052.7"><vh>@auto source/evaluacion.md</vh></v>
+<v t="ricardo.20250710125052.8"><vh>@auto source/programacion-imperativa-i.md</vh></v>
+<v t="ricardo.20250710125052.9"><vh>@auto source/programacion-imperativa-ii.md</vh></v>
+<v t="ricardo.20250710125052.10"><vh>@auto source/programacion-estructurada.md</vh></v>
+<v t="ricardo.20250710125052.11"><vh>@auto source/programacion-procedimental.md</vh></v>
+<v t="ricardo.20250710125052.12"><vh>@auto source/calidad.md</vh></v>
+<v t="ricardo.20250710125052.13"><vh>@auto source/colecciones-e-iteradores.md</vh></v>
+<v t="ricardo.20250710125052.14"><vh>@auto source/secuencias.md</vh></v>
+<v t="ricardo.20250710125052.15"><vh>@auto source/colecciones-no-secuenciales.md</vh></v>
+<v t="ricardo.20250710125052.16"><vh>@auto source/entrada-y-salida-por-archivos.md</vh></v>
+<v t="ricardo.20250710125052.17"><vh>@auto source/programacion-modular.md</vh></v>
+<v t="ricardo.20250710125052.18"><vh>@auto source/abstraccion-de-datos.md</vh></v>
+<v t="ricardo.20250710125052.19"><vh>@auto source/programacion-orientada-a-objetos.md</vh></v>
+<v t="ricardo.20250710125052.20"><vh>@auto source/relaciones-entre-clases.md</vh></v>
+<v t="ricardo.20250710125052.21"><vh>@auto source/programacion-de-interfaces-graficas-de-usuario.md</vh></v>
+<v t="ricardo.20250710125052.22"><vh>@auto source/bases-de-datos-orientadas-a-objetos.md</vh></v>
+<v t="ricardo.20250710125052.23"><vh>@auto source/bases-de-datos-relacionales.md</vh></v>
 </vnodes>
 <tnodes>
 </tnodes>

@@ -92,7 +92,27 @@
     code span.va { color: #6c71c4; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
@@ -145,10 +165,8 @@
 <li><a href="#/documentación-interna"
 id="/toc-documentación-interna"><span
 class="toc-section-number">1</span> Documentación interna</a></li>
-<li><a href="#/depuración" id="/toc-depuración"><span
-class="toc-section-number">2</span> Depuración</a></li>
 <li><a href="#/pruebas" id="/toc-pruebas"><span
-class="toc-section-number">3</span> Pruebas</a></li>
+class="toc-section-number">2</span> Pruebas</a></li>
 </ul>
 </nav>
 </section>
@@ -183,8 +201,7 @@ Comentarios</h2>
 <li><p>Recordaremos lo más importante que ya sabemos sobre los
 comentarios:</p>
 <ul>
-<li><p>Los comentarios van desde el carácter <code
-class="sourceCode python"><span class="co">#</span></code> hasta el
+<li><p>Los comentarios van desde el carácter <code>#</code> hasta el
 final de la línea.</p></li>
 <li><p>Para crear comentarios de varias líneas, se puede usar una cadena
 encerrada entre triples comillas (<code
@@ -410,13 +427,61 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb8-1"><a 
 class="title-slide slide level2" data-number="1.5">
 <h2 data-number="1.5"><span class="header-section-number">1.5</span>
 Estándares de codificación</h2>
+<ul>
+<li><p>Un estándar de codificación (o estándar de programación) es un
+conjunto de normas, reglas y recomendaciones que definen cómo debe
+escribirse el código fuente en un lenguaje de programación dentro de un
+proyecto, equipo o empresa.</p></li>
+<li><p>Los objetivos de un estándar de codificación son:</p>
+<ul>
+<li><p>Mejorar la legibilidad y comprensión del código por parte de
+cualquier miembro del equipo.</p></li>
+<li><p>Facilitar el mantenimiento y la corrección de errores.</p></li>
+<li><p>Asegurar consistencia en el estilo y estructura del
+código.</p></li>
+<li><p>Reducir la probabilidad de errores por prácticas incorrectas o
+confusas.</p></li>
+<li><p>Permitir una colaboración eficiente en proyectos donde varias
+personas contribuyen.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.1">
 
+<ul>
+<li><p>Qué suele incluir un estándar de codificación:</p>
+<ul>
+<li><p>Nombres de variables, funciones y clases (por ejemplo, usar
+<code>snake_case</code>, <code>camelCase</code> o
+<code>PascalCase</code>).</p></li>
+<li><p>Formato y estilo: sangrías, espacios, líneas en blanco.</p></li>
+<li><p>Estructura de archivos y carpetas en el proyecto.</p></li>
+<li><p>Convenciones de comentarios y documentación.</p></li>
+<li><p>Buenas prácticas específicas del lenguaje (por ejemplo, en
+Python, seguir la norma PEP 8).</p></li>
+<li><p>Reglas sobre uso de excepciones, manejo de errores y
+<em>logging</em>.</p></li>
+<li><p>Restricciones o recomendaciones de diseño de software (por
+ejemplo, evitar funciones demasiado largas o complejas).</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="pep-8" class="title-slide slide level3"
 data-number="1.5.1">
 <h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span>
 PEP 8</h3>
-
+<ul>
+<li><p>En Python, el estándar de codificación más utilizado es PEP 8,
+que define:</p>
+<ul>
+<li><p>Sangría de 4 espacios.</p></li>
+<li><p>Uso de <code>snake_case</code> para nombres de funciones y
+variables.</p></li>
+<li><p>Uso de <code>PascalCase</code> para nombres de clases.</p></li>
+<li><p>Líneas de máximo 79 caracteres.</p></li>
+<li><p>Espacios alrededor de operadores.</p></li>
+</ul></li>
+</ul>
 </section>
 
 <section id="pylint" class="title-slide slide level3"
@@ -440,24 +505,6 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb9-1"><a 
 <section class="slide level5" data-number="1.5.2.0.1">
 
 <ul>
-<li><p>También se puede instalar indirectamente a través de Visual
-Studio Code. Para ello:</p>
-<ul>
-<li><p>Instalar la extensión <em>Python</em>.</p></li>
-<li><p>Configurar las siguientes opciones:</p></li>
-<li><p><em>Python &gt; Linting: Enabled</em>: Activado</p>
-<ul>
-<li><em>Python &gt; Linting: Pylint Enabled</em>: Activado</li>
-</ul></li>
-</ul></li>
-<li><p>De esta forma, Visual Studio Code ejecutará <code>pylint</code>
-de forma automática cuando estemos editando un archivo de código fuente
-de Python.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.5.2.0.2">
-
-<ul>
 <li><p>Desde la consola, <code>pylint</code> se ejecuta directamente
 sobre un archivo <code>.py</code>:</p>
 <div class="sourceCode" id="cb10"><pre
@@ -478,106 +525,17 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb11-1"><a
 lista de todos los comprobadores predefinidos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.5.2.0.3">
-
-<ul>
-<li><p>En Visual Studio Code, se pueden establecer las opciones de
-arranque de <code>pylint</code> (por ejemplo, para deshabilitar ciertas
-comprobaciones).</p></li>
-<li><p>Para ello, en la configuración de VS Code se cambia la opción
-<em>Python › Linting: Pylint Args</em>.</p></li>
-<li><p>Por ejemplo, si queremos deshabilitar algunas comprobaciones,
-podemos poner lo siguiente en dicha opción:</p>
-<p><code>--disable=invalid-name,redefined-outer-name,missing-docstring</code></p></li>
-</ul>
-</section>
-
-<section id="autopep8" class="title-slide slide level3"
-data-number="1.5.3">
-<h3 data-number="1.5.3"><span class="header-section-number">1.5.3</span>
-<code>autopep8</code></h3>
-
-</section>
 
 </section>
 <section>
-<section id="depuración" class="title-slide slide level1"
-data-number="2">
+<section id="pruebas" class="title-slide slide level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span>
-Depuración</h1>
-
-</section>
-<section id="print" class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span>
-<code>print</code></h2>
-
-</section>
-
-<section id="depuración-en-el-ide" class="title-slide slide level2"
-data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span>
-Depuración en el IDE</h2>
-
-</section>
-</section>
-<section>
-<section id="pruebas" class="title-slide slide level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span>
 Pruebas</h1>
 
 </section>
-<section id="enfoques-de-pruebas" class="title-slide slide level2"
-data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span>
-Enfoques de pruebas</h2>
-
-</section>
-<section id="pruebas-de-caja-blanca" class="title-slide slide level3"
-data-number="3.1.1">
-<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span>
-Pruebas de caja blanca</h3>
-
-</section>
-
-<section id="pruebas-de-caja-negra" class="title-slide slide level3"
-data-number="3.1.2">
-<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span>
-Pruebas de caja negra</h3>
-
-</section>
-
-
-<section id="estrategias-de-pruebas" class="title-slide slide level2"
-data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span>
-Estrategias de pruebas</h2>
-
-</section>
-<section id="unitarias" class="title-slide slide level3"
-data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span>
-Unitarias</h3>
-
-</section>
-
-<section id="funcionales" class="title-slide slide level3"
-data-number="3.2.2">
-<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span>
-Funcionales</h3>
-
-</section>
-
-<section id="de-aceptación" class="title-slide slide level3"
-data-number="3.2.3">
-<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span>
-De aceptación</h3>
-
-</section>
-
-
 <section id="doctest" class="title-slide slide level2"
-data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
 <code>doctest</code></h2>
 <ul>
 <li><p><code>doctest</code> es una herramienta que permite realizar
@@ -595,7 +553,7 @@ esperada según dicta la <em>docstring</em> de la función.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.0.0.1">
+<section class="slide level5" data-number="2.1.0.0.1">
 
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo.py</span></span>
@@ -622,7 +580,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a h
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        factor <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div>
 </section>
-<section class="slide level5" data-number="3.3.0.0.2">
+<section class="slide level5" data-number="2.1.0.0.2">
 
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py</span>
@@ -653,8 +611,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a h
 <span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>Test passed.</span></code></pre></div>
 </section>
 
-<section id="pytest" class="title-slide slide level2" data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span>
+<section id="pytest" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
 <code>pytest</code></h2>
 <ul>
 <li><p><code>pytest</code> es una herramienta que permite realizar
@@ -677,40 +635,41 @@ style="color:teal">⟨<em>nombre</em>⟩</span> no ha superado dicha
 prueba.</p></li>
 <li><p>En Python 3, la herramienta se llama <code>pytest-3</code> y se
 instala mediante:</p>
-<p><code>python $ sudo apt install python3-pytest</code></p></li>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pytest</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.4.0.0.1">
+<section class="slide level5" data-number="2.2.0.0.1">
 
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_respuesta():</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">========================</span> test session starts <span class="op">=========================</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.8.5</span>, pytest<span class="op">-</span><span class="fl">4.6.9</span>, py<span class="op">-</span><span class="fl">1.8.1</span>, pluggy<span class="op">-</span><span class="fl">0.13.0</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>rootdir: <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>collected <span class="dv">1</span> item                                                     </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py F                                              [<span class="dv">100</span><span class="op">%</span>]</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">==============================</span> FAILURES <span class="op">==============================</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>___________________________ test_respuesta ___________________________</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_respuesta():</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>       <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>E       <span class="cf">assert</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">5</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>E        <span class="op">+</span>  where <span class="dv">4</span> <span class="op">=</span> inc(<span class="dv">3</span>)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py:<span class="dv">7</span>: <span class="pp">AssertionError</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="op">======================</span> <span class="dv">1</span> failed <span class="kw">in</span> <span class="fl">2.48</span> seconds <span class="op">======================</span></span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_respuesta():</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">========================</span> test session starts <span class="op">=========================</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.8.5</span>, pytest<span class="op">-</span><span class="fl">4.6.9</span>, py<span class="op">-</span><span class="fl">1.8.1</span>, pluggy<span class="op">-</span><span class="fl">0.13.0</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>rootdir: <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>collected <span class="dv">1</span> item                                                     </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py F                                              [<span class="dv">100</span><span class="op">%</span>]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="op">==============================</span> FAILURES <span class="op">==============================</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>___________________________ test_respuesta ___________________________</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_respuesta():</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>       <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>E       <span class="cf">assert</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>E        <span class="op">+</span>  where <span class="dv">4</span> <span class="op">=</span> inc(<span class="dv">3</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py:<span class="dv">7</span>: <span class="pp">AssertionError</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="op">======================</span> <span class="dv">1</span> failed <span class="kw">in</span> <span class="fl">2.48</span> seconds <span class="op">======================</span></span></code></pre></div>
 </section>
-<section class="slide level5" data-number="3.4.0.0.2">
+<section class="slide level5" data-number="2.2.0.0.2">
 
 <ul>
 <li><p><code>pytest</code> sigue la siguiente estrategia a la hora de
@@ -727,8 +686,8 @@ empiece por <code>test</code>.</p></li>
 </section>
 
 <section id="desarrollo-conducido-por-pruebas"
-class="title-slide slide level2" data-number="3.5">
-<h2 data-number="3.5"><span class="header-section-number">3.5</span>
+class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
 Desarrollo conducido por pruebas</h2>
 <ul>
 <li><p>El <strong>desarrollo conducido por pruebas</strong> o
@@ -750,34 +709,41 @@ los requisitos que se han establecido.</p></li>
 </ul>
 </section>
 <section id="ciclo-de-desarrollo" class="title-slide slide level3"
-data-number="3.5.1">
-<h3 data-number="3.5.1"><span class="header-section-number">3.5.1</span>
+data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span>
 Ciclo de desarrollo</h3>
 <ul>
 <li><p>En primer lugar se debe definir una lista de requisitos y después
-se ejecuta el siguiente ciclo:</p>
+se ejecuta el siguiente ciclo de siete pasos:</p>
 <ol>
-<li><strong>Elegir un requisito:</strong> Se elige el que nos dará mayor
-conocimiento del problema y que además sea fácilmente
-implementable.</li>
-<li><strong>Escribir una prueba:</strong> Se comienza escribiendo una
+<li><p><strong>Elegir un requisito:</strong> Se elige el que nos dará
+mayor conocimiento del problema y que además sea fácilmente
+implementable.</p></li>
+<li><p><strong>Escribir una prueba:</strong> Se comienza escribiendo una
 prueba para el requisito, para lo cual el programador debe entender
-claramente las especificaciones de la funcionalidad a implementar.</li>
-<li><strong>Verificar que la prueba falla:</strong> Si la prueba no
+claramente las especificaciones de la funcionalidad a
+implementar.</p></li>
+<li><p><strong>Verificar que la prueba falla:</strong> Si la prueba no
 falla es porque el requisito ya estaba implementado o porque la prueba
-es errónea.</li>
-<li><strong>Escribir la implementación:</strong> Se escribe el código
-más sencillo que haga que la prueba funcione.</li>
-<li><strong>Ejecutar las pruebas automatizadas:</strong> Se verifica si
-todo el conjunto de pruebas se pasa correctamente.</li>
-<li><strong>Refactorizar:</strong> Se modifica el código para hacerlo
-más mantenible con cuidado de que sigan pasando todas las pruebas.</li>
-<li><strong>Actualizar la lista de requisitos:</strong> Se tacha el
-requisito implementado y se agregan otros nuevos si hace falta.</li>
+es errónea.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.1.0.1">
+<section class="slide level5" data-number="2.3.1.0.1">
+
+<ol start="4" type="1">
+<li><p><strong>Escribir la implementación:</strong> Se escribe el código
+más sencillo que haga que la prueba funcione.</p></li>
+<li><p><strong>Ejecutar las pruebas automatizadas:</strong> Se verifica
+si todo el conjunto de pruebas se pasa correctamente.</p></li>
+<li><p><strong>Refactorizar:</strong> Se modifica el código para hacerlo
+más mantenible con cuidado de que sigan pasando todas las
+pruebas.</p></li>
+<li><p><strong>Actualizar la lista de requisitos:</strong> Se tacha el
+requisito implementado y se agregan otros nuevos si hace falta.</p></li>
+</ol>
+</section>
+<section class="slide level5" data-number="2.3.1.0.2">
 
 <ul>
 <li><p>Todo este ciclo se resume en que, por cada requisito, hay que
@@ -790,13 +756,19 @@ hacer:</p>
 </ul>
 </section>
 
-<section id="ventajas" class="title-slide slide level3"
-data-number="3.5.2">
-<h3 data-number="3.5.2"><span class="header-section-number">3.5.2</span>
-Ventajas</h3>
-
 </section>
-
+<section id="bibliografía"
+class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
+role="listitem">
+Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
+<span>Python</span>.”</span> <a
+href="https://docs.python.org/3">https://docs.python.org/3</a>.
+</div>
+</div>
 </section>
     </div>
   </div>

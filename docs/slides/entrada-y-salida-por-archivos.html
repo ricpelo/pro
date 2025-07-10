@@ -482,6 +482,137 @@ valor lógico que el propio objeto modifica al cambiar su estado de
 abierto a cerrado o viceversa.</p></li>
 </ul>
 </section>
+
+<section id="gestores-de-contexto" class="title-slide slide level2"
+data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+Gestores de contexto</h2>
+<ul>
+<li><p>A veces un programa necesita trabajar con recursos externos:</p>
+<ul>
+<li><p>Archivos locales.</p></li>
+<li><p>Conexiones a bases de datos.</p></li>
+<li><p>Conexiones de red.</p></li>
+</ul></li>
+<li><p>Trabajar con esos recursos siempre implica los siguientes
+pasos:</p>
+<ol>
+<li><p>Abrir el recurso (solicitar la apertura o la conexión al sistema
+operativo).</p></li>
+<li><p>Usar el recurso.</p></li>
+<li><p>Cerrar el recurso (solicitar su cierre o su desconexión al
+sistema operativo).</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.1">
+
+<ul>
+<li><p>Por ejemplo, al trabajar con archivos hay que:</p>
+<ol>
+<li><p>Abrir el archivo con <code
+class="sourceCode python">f <span class="op">=</span> <span class="bu">open</span>(...)</code>.</p></li>
+<li><p>Usar el archivo con <code
+class="sourceCode python">f.read(...)</code>, <code
+class="sourceCode python">f.write(...)</code>, etc.</p></li>
+<li><p>Cerrar el archivo con <code
+class="sourceCode python">f.close()</code>.</p></li>
+</ol></li>
+<li><p>La <strong>cantidad de recursos abiertos</strong> al mismo tiempo
+está <strong>limitada</strong> por el sistema operativo o el
+intérprete.</p>
+<p>Por ejemplo, si intentamos abrir demasiados archivos a la vez, el
+intérprete nos devolverá el error:
+<code>OSError: [Errno 24] Too many open files</code>.</p></li>
+<li><p>Además, cada recurso abierto consume, a su vez, recursos del
+sistema operativo o del intérprete (memoria, descriptores internos,
+etcétera).</p></li>
+<li><p>Por ello, es importante <strong>acordarse de cerrar el
+recurso</strong> una vez hayamos terminado de trabajar con él, para que
+el sistema operativo o el intérprete pueda liberar los recursos que está
+consumiendo y éstos se puedan reutilizar.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.2">
+
+<ul>
+<li><p>Para ello, se puede usar un <code
+class="sourceCode python"><span class="cf">try</span> ... <span class="cf">finally</span></code>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;hola.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">&#39;¡Hola, mundo!&#39;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    f.close()</span></code></pre></div>
+<p>Esto garantiza que el archivo se cerrará aunque el <code
+class="sourceCode python">f.write(...)</code> levante una
+excepción.</p></li>
+<li><p>Los gestores de contexto son un mecanismo más cómodo y elegante
+para trabajar con recursos y asegurarse de que se cierran al
+final.</p></li>
+<li><p>Para ello, se usa la sentencia <code
+class="sourceCode python"><span class="cf">with</span> ... <span class="im">as</span></code>,
+cuya sintaxis es:</p>
+<div class="line-block"><span
+style="color:teal">⟨<em>gestor_contexto</em>⟩</span> ::=<br />
+<strong><code>with</code></strong> <span
+style="color:teal">⟨<em>expresión</em>⟩</span>
+[<strong><code>as</code></strong> <span
+style="color:teal">⟨<em>identificador</em>⟩</span>]<strong><code>:</code></strong><br />
+      <span style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
+<li><p>El siguiente código es equivalente al anterior:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;hola.txt&#39;</span>, <span class="st">&#39;w&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">&#39;¡Hola, mundo!&#39;</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.3">
+
+<ul>
+<li><p>La sentencia <code
+class="sourceCode python"><span class="cf">with</span> ... <span class="im">as</span></code>
+es una estructura de control que hace lo siguiente:</p>
+<ol>
+<li><p>Evalúa la <span style="color:teal">⟨<em>expresión</em>⟩</span>,
+que deberá devolver un <strong>gestor de recursos</strong>.</p>
+<p>Los gestores de recursos son objetos que responden a los métodos
+<code class="sourceCode python"><span class="fu">__enter__</span></code>
+y <code
+class="sourceCode python"><span class="fu">__exit__</span></code>.</p></li>
+<li><p>Llama al método <code
+class="sourceCode python"><span class="fu">__enter__</span></code> sobre
+el objeto, el cual debe abrir y devolver el recurso.</p></li>
+<li><p>Ese recurso se asigna a la variable del <code
+class="sourceCode python">identificador</code>.</p></li>
+<li><p>Ejecuta la <code class="sourceCode python">sentencia</code> que,
+por supuesto, puede ser simple o compuesta.</p></li>
+<li><p>Cuando termina de ejecutar la sentencia, llama al método <code
+class="sourceCode python"><span class="fu">__exit__</span></code> sobre
+el objeto inicial, el cual se encargará de cerrar el recurso.</p></li>
+</ol></li>
+<li><p>Por tanto, al salir de la estructura de control <code
+class="sourceCode python"><span class="cf">with</span> ... <span class="im">as</span></code>,
+se garantiza que el recurso asignado a <code
+class="sourceCode python">f</code> está cerrado.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.0.0.4">
+
+<ul>
+<li><p>Eso significa que, en el siguiente código, la última llamada al
+método <code class="sourceCode python">write</code> fallará al no estar
+abierto el recurso:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&#39;hola.txt&#39;</span>, <span class="st">&#39;w&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>...    f.write(<span class="st">&#39;¡Hola, mundo!&#39;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Esto fallará&#39;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: I<span class="op">/</span>O operation on closed <span class="bu">file</span>.</span></code></pre></div></li>
+</ul>
+</section>
 </section>
 <section>
 <section id="operaciones-de-lectura" class="title-slide slide level1"
@@ -539,25 +670,25 @@ indicado.</p></li>
 
 <ul>
 <li><p>Ejemplos de lectura de todo el archivo:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este es el contenido del archivo.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
 <li><p>Ejemplos de lectura del archivo en varios trozos:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este&#39;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;el c&#39;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;ontenido del archivo</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Este&#39;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;el c&#39;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;ontenido del archivo</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -612,29 +743,29 @@ indicado.</p></li>
 </section>
 <section id="ejemplos" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline(<span class="dv">4</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="st">&#39; es &#39;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span></code></pre></div>
 </section>
 
 <section id="readlines" class="title-slide slide level2"
@@ -691,22 +822,22 @@ puntero.</p></li>
 </section>
 <section id="ejemplos-1" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>[]</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines(<span class="dv">5</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39; es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>[]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines(<span class="dv">5</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39; es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
 </section>
 </section>
 <section>
@@ -754,13 +885,13 @@ escribir en un archivo.</p></li>
 class="sourceCode python"><span class="bu">print</span></code> y usar
 <code class="sourceCode python">write</code>.</p></li>
 <li><p>Hacer:</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Hola Manolo</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
 <p>equivale a hacer:</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;archivo.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="bu">file</span><span class="op">=</span>f)</span></code></pre></div></li>
 <li><p>Hay que tener en cuenta los separadores y los saltos de línea que
 introduce <code
 class="sourceCode python"><span class="bu">print</span></code>.</p></li>
@@ -783,25 +914,25 @@ archivo</strong> y la escritura <strong>siempre</strong> se realizará a
 partir de ese punto, aunque previamente hayamos leído algo o hayamos
 movido el puntero explícitamente mediante <code
 class="sourceCode python">seek</code>:</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/añadir</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># El puntero está situado al final, y...</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span>                                 <span class="co"># ... si leemos algo, allí no hay nada</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres al final</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/añadir</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># El puntero está situado al final, y...</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span>                                 <span class="co"># ... si leemos algo, allí no hay nada</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres al final</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.3">
@@ -816,25 +947,25 @@ la escritura se hará <em>al final</em></strong> del archivo (como si lo
 hubiésemos abierto con un modo <code>'a+'</code>) a menos que primero
 movamos el puntero explícitamente mediante <code
 class="sourceCode python">seek</code>:</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/escritura</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># Leemos cuatro caracteres (desde el principio)</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Abrimos el archivo para ver su contenido</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que contiene las líneas originales</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)  <span class="co"># Lo volvemos a abrir en lectura/escritura</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.read(<span class="dv">4</span>)                      <span class="co"># Leemos cuatro caracteres (desde el principio)</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta&#39;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)            <span class="co"># Escribimos siete caracteres</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()                      <span class="co"># Cerramos el archivo para guardar los cambios</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)   <span class="co"># Volvemos a abrir el archivo</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                  <span class="co"># Comprobamos que se ha escrito al final...</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,    <span class="co"># ... del archivo, y no en la posición 4...</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,          <span class="co"># ... como cabría haber esperado</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -871,18 +1002,18 @@ class="sourceCode python">writelines</code>.</p></li>
 </section>
 <section id="ejemplos-2" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.writelines([<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>])</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;w&#39;</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.writelines([<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>])</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;salida.txt&#39;</span>, <span class="st">&#39;r&#39;</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Primera línea de salida.txt.</span><span class="ch">\n</span><span class="st">&#39;</span>,<span class="st">&#39;Segunda línea.</span><span class="ch">\n</span><span class="st">&#39;</span>]</span></code></pre></div>
 <ul>
 <li>Al igual que <code class="sourceCode python">write</code>, el método
 <code class="sourceCode python">writelines</code> NO escribe el
@@ -936,60 +1067,60 @@ actual del puntero.</p></li>
 </section>
 <section id="ejemplos-3" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)    <span class="co"># Abre en modo lectura/escritura</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al principio</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Lee una línea de texto</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># Se ha movido el puntero</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la misma línea</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Cambiar&#39;</span>)               <span class="co"># Escribe desde el principio</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Se ha cambiado la primera línea</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;r+&#39;</span>)    <span class="co"># Abre en modo lectura/escritura</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al principio</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Lee una línea de texto</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># Se ha movido el puntero</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la misma línea</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Cambiar&#39;</span>)               <span class="co"># Escribe desde el principio</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Se ha cambiado la primera línea</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Cambiar la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span></code></pre></div>
 </section>
 <section class="slide level5" data-number="5.1.0.0.1">
 
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)    <span class="co"># Abre en modo lectura/añadir</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dv">69</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Allí no hay nada</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Movemos el puntero al principio</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero se ha movido</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la primera línea</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero se ha movido</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)              <span class="co"># Siempre se escribe al final</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="dv">76</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                    <span class="co"># Allí no hay nada</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>[]</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Movemos el puntero al principio</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                    <span class="co"># Leemos todas las líneas</span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]                         <span class="co"># Se ha escrito al final</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;entrada.txt&#39;</span>, <span class="st">&#39;a+&#39;</span>)    <span class="co"># Abre en modo lectura/añadir</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dv">69</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Allí no hay nada</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Movemos el puntero al principio</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero se ha movido</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readline()                     <span class="co"># Por tanto, se lee la primera línea</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero se ha movido</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Vuelve a colocarlo al principio</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>)              <span class="co"># Siempre se escribe al final</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.tell()                         <span class="co"># El puntero está al final</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="dv">76</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                    <span class="co"># Allí no hay nada</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>[]</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.seek(<span class="dv">0</span>)                        <span class="co"># Movemos el puntero al principio</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.readlines()                    <span class="co"># Leemos todas las líneas</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;Esta es la primera línea.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Esta es la segunda.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Y esta es la tercera.</span><span class="ch">\n</span><span class="st">&#39;</span>,</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a> <span class="st">&#39;Prueba</span><span class="ch">\n</span><span class="st">&#39;</span>]                         <span class="co"># Se ha escrito al final</span></span></code></pre></div>
 </section>
 </section>
 <section id="bibliografía"

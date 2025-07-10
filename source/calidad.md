@@ -2,6 +2,8 @@
 title: Calidad
 author: Ricardo Pérez López
 !DATE
+nocite: |
+  @python_software_foundation_sitio_nodate
 ---
 
 # Documentación interna
@@ -20,8 +22,7 @@ author: Ricardo Pérez López
 
 - Recordaremos lo más importante que ya sabemos sobre los comentarios:
 
-  - Los comentarios van desde el carácter !PYTHON(#) hasta el final de la
-    línea.
+  - Los comentarios van desde el carácter `#` hasta el final de la línea.
 
   - Para crear comentarios de varias líneas, se puede usar una cadena encerrada
     entre triples comillas (!PYTHON(""")).
@@ -238,7 +239,59 @@ saluda(nombre)
 
 ## Estándares de codificación
 
+- Un estándar de codificación (o estándar de programación) es un conjunto de
+  normas, reglas y recomendaciones que definen cómo debe escribirse el código
+  fuente en un lenguaje de programación dentro de un proyecto, equipo o
+  empresa.
+
+- Los objetivos de un estándar de codificación son:
+
+  - Mejorar la legibilidad y comprensión del código por parte de cualquier
+    miembro del equipo.
+
+  - Facilitar el mantenimiento y la corrección de errores.
+
+  - Asegurar consistencia en el estilo y estructura del código.
+
+  - Reducir la probabilidad de errores por prácticas incorrectas o confusas.
+
+  - Permitir una colaboración eficiente en proyectos donde varias personas
+    contribuyen.
+
+---
+
+- Qué suele incluir un estándar de codificación:
+
+  - Nombres de variables, funciones y clases (por ejemplo, usar `snake_case`,
+    `camelCase` o `PascalCase`).
+
+  - Formato y estilo: sangrías, espacios, líneas en blanco.
+
+  - Estructura de archivos y carpetas en el proyecto.
+
+  - Convenciones de comentarios y documentación.
+
+  - Buenas prácticas específicas del lenguaje (por ejemplo, en Python, seguir
+    la norma PEP 8).
+
+  - Reglas sobre uso de excepciones, manejo de errores y _logging_.
+
+  - Restricciones o recomendaciones de diseño de software (por ejemplo, evitar
+    funciones demasiado largas o complejas).
+
 ### PEP 8
+
+- En Python, el estándar de codificación más utilizado es PEP 8, que define:
+
+  - Sangría de 4 espacios.
+
+  - Uso de `snake_case` para nombres de funciones y variables.
+
+  - Uso de `PascalCase` para nombres de clases.
+
+  - Líneas de máximo 79 caracteres.
+
+  - Espacios alrededor de operadores.
 
 ### `pylint`
 
@@ -258,22 +311,6 @@ saluda(nombre)
   ```console
   $ pip install pylint
   ```
-
----
-
-- También se puede instalar indirectamente a través de Visual Studio Code.
-  Para ello:
-
-  - Instalar la extensión _Python_.
-
-  - Configurar las siguientes opciones:
-
-  - _Python > Linting: Enabled_: Activado
-
-    - _Python > Linting: Pylint Enabled_: Activado
-
-- De esta forma, Visual Studio Code ejecutará `pylint` de forma automática
-  cuando estemos editando un archivo de código fuente de Python.
 
 ---
 
@@ -301,42 +338,7 @@ saluda(nombre)
 - Con la opción `--lists-msgs` se pueden consulta la lista de todos los
   comprobadores predefinidos.
 
----
-
-- En Visual Studio Code, se pueden establecer las opciones de arranque de
-  `pylint` (por ejemplo, para deshabilitar ciertas comprobaciones).
-
-- Para ello, en la configuración de VS Code se cambia la opción _Python ›
-  Linting: Pylint Args_.
-
-- Por ejemplo, si queremos deshabilitar algunas comprobaciones, podemos
-  poner lo siguiente en dicha opción:
-
-  `--disable=invalid-name,redefined-outer-name,missing-docstring`
-
-### `autopep8`
-
-# Depuración
-
-## `print`
-
-## Depuración en el IDE
-
 # Pruebas
-
-## Enfoques de pruebas
-
-### Pruebas de caja blanca
-
-### Pruebas de caja negra
-
-## Estrategias de pruebas
-
-### Unitarias
-
-### Funcionales
-
-### De aceptación
 
 ## `doctest`
 
@@ -436,7 +438,9 @@ Test passed.
 
 - En Python 3, la herramienta se llama `pytest-3` y se instala mediante:
 
-  ```python $ sudo apt install python3-pytest ```
+  ```console
+  $ sudo apt install python3-pytest
+  ```
 
 ---
 
@@ -506,21 +510,29 @@ test_ejemplo.py:7: AssertionError
 ### Ciclo de desarrollo
 
 - En primer lugar se debe definir una lista de requisitos y después se ejecuta
-  el siguiente ciclo:
+  el siguiente ciclo de siete pasos:
 
   #. **Elegir un requisito:** Se elige el que nos dará mayor conocimiento del
      problema y que además sea fácilmente implementable.
+
   #. **Escribir una prueba:** Se comienza escribiendo una prueba para el
      requisito, para lo cual el programador debe entender claramente las
      especificaciones de la funcionalidad a implementar.
+
   #. **Verificar que la prueba falla:** Si la prueba no falla es porque el
      requisito ya estaba implementado o porque la prueba es errónea.
-  #. **Escribir la implementación:** Se escribe el código más sencillo que haga
+
+---
+
+  4. **Escribir la implementación:** Se escribe el código más sencillo que haga
      que la prueba funcione.
+
   #. **Ejecutar las pruebas automatizadas:** Se verifica si todo el conjunto de
      pruebas se pasa correctamente.
+
   #. **Refactorizar:** Se modifica el código para hacerlo más mantenible con
      cuidado de que sigan pasando todas las pruebas.
+
   #. **Actualizar la lista de requisitos:** Se tacha el requisito implementado
      y se agregan otros nuevos si hace falta.
 
@@ -534,5 +546,4 @@ test_ejemplo.py:7: AssertionError
 
   #. **Refactorizar:** se mejora el código
 
-### Ventajas
-
+!BIBLIOGRAFIA
