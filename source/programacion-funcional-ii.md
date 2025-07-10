@@ -385,41 +385,25 @@ maximo -> lambda
 
 ---
 
-- Algunos espacios de nombres provienen de estructuras estáticas (o sea, que
-  vienen definidas en tiempo de compilación) y otras provienen de estructuras
-  dinámicas (definidas en tiempo de ejecución).
+- Durante la ejecución de un programa se pueden ir creando ciertas estructuras
+  en memoria que representan _espacios de nombres_.
 
-- Por tanto, podemos tener **espacios de nombres _estáticos_** y **espacios de
-  nombres _dinámicos_**.
+  En Python, estas estructuras pueden ser:
 
-- En Java, las clases y los paquetes son _espacios de nombres estáticos_, que
-  el compilador gestiona a través de su _tabla de símbolos_.
+  - Los **marcos** que se crean al ejecutar _scripts_ y al invocar funciones (o
+    métodos) definidas por el programador.
 
----
+  - Los **objetos**.
 
-- Por otra parte, durante la ejecución de un programa se pueden ir creando
-  ciertas estructuras en memoria que representan _espacios de nombres
-  dinámicos_.
+  - Las **clases** (que también son objetos).
 
-  Los ejemplos más comunes de estas estructuras son:
-
-  - Los **marcos** que se crean al ejecutar _scripts_ de Python y al invocar
-    funciones (o métodos) definidas por el programador en Python y Java.
-
-  - Los **objetos** de Python.
-
-  - Las **clases** de Python (que también son objetos).
-
-  - Los **módulos** de Python (que también son objetos).
+  - Los **módulos** (que también son objetos).
 
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- Los marcos y los objetos son los únicos espacios de nombres que existen en
-  Python.
-
-- Por tanto, todos los espacios de nombres en Python son dinámicos.
-
+Los marcos y los objetos son los únicos espacios de nombres que existen en
+Python.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -477,31 +461,6 @@ maximo -> lambda
   Por tanto, las definiciones que se ejecutan directamente en una sesión
   interactiva con el intérprete, crean ligaduras que se almacenan en el marco
   global.
-
----
-
-- Es importante aclarar que, en un programa escrito en un lenguaje funcional
-  puro, no importa el orden en el que aparezcan las definiciones, por lo que se
-  podría usar un nombre antes de que aparezca su definición en el código fuente
-  del programa.
-
-- Por ejemplo, en un lenguaje funcional puro como Haskell podríamos escribir lo
-  siguiente:
-
-  ```haskell
-  a = 2 + b
-  b = 5
-  ```
-
-  y funcionaría perfectamente, aunque en la primera línea de código estemos
-  usando un nombre que se define después en el código fuente, en la segunda
-  línea.
-
-- Eso es debido a que los lenguajes funcionales puros no dependen del orden de
-  ejecución de las instrucciones.
-
-- En cambio, Python no es un lenguaje funcional puro, así que el orden de
-  ejecución de las instrucciones sí que importa.
 
 ---
 
@@ -668,7 +627,7 @@ z -> 3
 ## Evaluación de expresiones con identificadores
 
 - Podemos usar un identificador ligado dentro de una expresión, siempre que la
-  expresión resulte ser válida según las reglas del lenguaje.
+  expresión sea válida según las reglas del lenguaje.
 
 - El identificador representa a su valor ligado y se evalúa a dicho valor en
   cualquier expresión donde aparezca ese identificador:
@@ -714,7 +673,8 @@ z -> 3
 
 - Los espacios de nombres donde se buscan las ligaduras para ese identificador
   dependerán del _contexto_ en el que se está intentando resolver dicho
-  identificador.
+  identificador, que básicamente depende de si queremos resolver un atributo
+  de un objeto, o no.
 
 - Por ejemplo, en el siguiente código:
 
