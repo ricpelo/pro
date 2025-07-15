@@ -1119,7 +1119,7 @@ uno(3)
 
 ::: column
 
-!DOT(pila-control.svg)(Pila de control con la llamada a la función `tres` activada)(width=40%)(width=60%)
+!DOT(pila-control.svg)(Pila de control con la llamada a la función `tres` activada)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
@@ -1213,7 +1213,7 @@ w -> uno [lhead = cluster0, ltail = cluster3, minlen = 2]
 
 ---
 
-!DOT(pila-control-ambitos-anidados.svg)(Pila de control con ámbitos anidados y la función `dos` activada)(width=30%)(width=60%)
+!DOT(pila-control-ambitos-anidados.svg)(Pila de control con ámbitos anidados y la función `dos` activada)(width=30%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
@@ -1285,7 +1285,7 @@ fact(4)
 
 ---
 
-!DOT(pila-control-factorial.svg)(Pila de control tras tres activaciones desde `fact(4)`)(width=30%)(width=60%)
+!DOT(pila-control-factorial.svg)(Pila de control tras tres activaciones desde `fact(4)`)(width=30%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
