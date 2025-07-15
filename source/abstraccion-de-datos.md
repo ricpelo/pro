@@ -155,6 +155,50 @@ nocite: |
 
 ---
 
+- De hecho, si definiéramos la función usando anotaciones de tipos, quedaría de
+  la siguiente forma:
+
+  ```python
+  def mult_rac(r1: tuple[int, int], r2: tuple[int, int]) -> tuple[int, int]:
+      return (r1[0] * r2[0], r1[1] * r2[1])
+  ```
+
+  lo que resalta aún más el hecho de que los racionales se representan mediante
+  tuplas de enteros, que es un detalle de implementación.
+
+- De esta forma, tanto dentro como fuera de la función, el programa tiene que
+  conocer la representación interna de un racional.
+
+---
+
+- En Python podemos definir **sinónimos de tipos**, que son otros nombres para
+  tipos ya existentes.
+
+- Con ello, **no estaríamos creando un nuevo tipo**, sino más bien un nuevo
+  nombre para otro tipo ya conocido.
+
+- Para ello, se usa la palabra clave `type`, indicando el nuevo nombre del tipo
+  y el tipo sobre el que se define, como si fuera una sentencia de definición.
+
+- Por ejemplo, así definimos el tipo `rac` como el tipo _tupla de dos enteros_:
+
+  ```python
+  type rac = tuple[int, int]
+  ```
+
+- Con este nuevo sinónimo de tipo, podemos definir la función `mult_rac` de la
+  siguiente forma:
+
+  ```python
+  def mult_rac(r1: rac, r2: rac) -> rac:
+      return (r1[0] * r2[0], r1[1] * r2[1])
+  ```
+
+- Pero eso no impide el hecho de que `mult_rac` tiene que saber que un racional
+  es una tupla de dos enteros.
+
+---
+
 - Nos interesa que nuestro programa sea capaz de expresar el concepto de
   «número racional» y **que pueda manipular números racionales como valores con
   existencia propia y definida**, no simplemente como parejas de números
