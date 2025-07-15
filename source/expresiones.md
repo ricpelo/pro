@@ -496,11 +496,11 @@ T -> O [label = "Determina un conjunto de"]
     posibilidades contrarias, como **verdadero** o **falso**, **sí** o **no**,
     **encendido** o **apagado**, etc.
 
+---
+
 - Así, por ejemplo, cuando un dato es un número entero, en Python decimos que
   pertenece al tipo !PYTHON(int); cuando es una cadena, decimos que pertenece
   al tipo !PYTHON(str); etcétera.
-
----
 
 - Para indicar que un dato tiene (o pertenece a) un determinado tipo, se pueden
   usar distintas notaciones dependiendo del lenguaje empleado.
