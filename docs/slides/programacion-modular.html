@@ -928,6 +928,117 @@ fuente distintos, y se recuperarán al finalizar la ejecución del módulo
 y volver al archivo fuente anterior.</p></li>
 </ul>
 </section>
+<section id="docstrings" class="title-slide slide level3"
+data-number="3.1.1">
+<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span>
+<em>Docstrings</em></h3>
+<ul>
+<li><p>Al igual que ocurre con las funciones imperativas, los módulos
+también pueden llevar su <strong>cadena de documentación
+(<em>docstring</em>)</strong>.</p></li>
+<li><p>La cadena de documentación es un literal de tipo cadena que
+aparece como primera sentencia del módulo, y que tiene la finalidad de
+documentar el mismo.</p></li>
+<li><p>Recordemos que, por convenio, las <em>docstrings</em> siempre se
+delimitan mediante triples comillas (<code
+class="sourceCode python"><span class="st">&quot;&quot;&quot;</span></code>).</p></li>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">help</span></code> muestran
+la <em>docstring</em> del objeto para el que se solicita la
+ayuda.</p></li>
+<li><p>Internamente, la <em>docstring</em> se almacena en el atributo
+<code class="sourceCode python">__doc__</code> del módulo.</p></li>
+</ul>
+</section>
+<section id="ejemplo" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;Módulo de ejemplo (ejemplo.py).&quot;&quot;&quot;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saluda(nombre):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve un saludo.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Args:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">        nombre (str): El nombre de la persona a la que saluda.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">    Returns:</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">        str: El saludo.</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;¡Hola, &quot;</span> <span class="op">+</span> nombre <span class="op">+</span> <span class="st">&quot;!&quot;</span></span></code></pre></div>
+<ul>
+<li><p>Existen dos formas distintas de <em>docstrings</em>:</p>
+<ul>
+<li><p><strong>De una sola línea (<em>one-line</em>):</strong> para
+casos muy obvios que necesiten poca explicación.</p></li>
+<li><p><strong>De varias líneas (<em>multi-line</em>):</strong> para
+casos donde se necesita una explicación más detallada.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.1.0.1">
+
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(ejemplo)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Help on module ejemplo:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>NAME</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    ejemplo <span class="op">-</span> Módulo de ejemplo (ejemplo.py).</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>FUNCTIONS</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    saluda(nombre)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        Devuelve un saludo.</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        Args:</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        Returns:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            <span class="bu">str</span>: El saludo.</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>FILE</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python<span class="op">/</span>ejemplo.py</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">help</span>(ejemplo.saluda)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>Help on function saluda <span class="kw">in</span> module ejemplo:</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>saluda(nombre)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    Devuelve un saludo.</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    Args:</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    Returns:</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="bu">str</span>: El saludo.</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="3.1.1.0.2">
+
+<ul>
+<li><p>Lo que hace básicamente la función <code
+class="sourceCode python"><span class="bu">help</span>(</code><em>objeto</em><code
+class="sourceCode python">)</code> es acceder al contenido del atributo
+<code class="sourceCode python">__doc__</code> del objeto y mostrarlo de
+forma legible.</p></li>
+<li><p>Siempre podemos acceder directamente al atributo <code
+class="sourceCode python">__doc__</code> para recuperar la
+<em>docstring</em> original usando <em>objeto</em><code
+class="sourceCode python">.__doc__</code>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> ejemplo</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.__doc__)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Módulo de ejemplo (ejemplo.py).</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(ejemplo.saluda.__doc__)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Devuelve un saludo.</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    Args:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        nombre (<span class="bu">str</span>): El nombre de la persona a la que saluda.</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    Returns:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">str</span>: El saludo.</span></code></pre></div></li>
+<li><p>Esta información también es usada por otras herramientas de
+documentación externa, como <code>pydoc</code>.</p></li>
+</ul>
+</section>
+
 
 <section id="importación-de-módulos" class="title-slide slide level2"
 data-number="3.2">
@@ -939,8 +1050,8 @@ Importación de módulos</h2>
 class="sourceCode python"><span class="im">import</span></code>. Por
 ejemplo, la siguiente sentencia importa el módulo <code
 class="sourceCode python">math</code> dentro del ámbito actual:</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code></pre></div></li>
 <li><p>Al importar un módulo de esta forma, se incorpora al espacio de
 nombres actual (que suele ser el marco del <em>script</em> o función que
 se está ejecutando actualmente) la ligadura entre el nombre del módulo
@@ -958,23 +1069,23 @@ módulos, que es lo mismo en Python) <code>uno.py</code> y
 <code>dos.py</code>, y empezamos a ejecutar <code>uno.py</code>:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># uno.py</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>x <span class="op">=</span> <span class="dv">7</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="im">import</span> dos</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a>a <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>b <span class="op">=</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># uno.py</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>x <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="im">import</span> dos</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>a <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>b <span class="op">=</span> <span class="dv">3</span></span></code></pre></div>
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:40%;">
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
 </div>
 </div></li>
 <li><p>Al ejecutar la línea 3 tendremos el siguiente entorno:</p></li>
@@ -1067,10 +1178,10 @@ y el nombre del contenido al que queramos acceder:</li>
 <li><p>Por ejemplo, para acceder a la función <code
 class="sourceCode python">gcd</code> definida en el módulo <code
 class="sourceCode python">math</code>, haremos:</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
@@ -1095,14 +1206,14 @@ principio del módulo importador.</li>
 espacio de nombres actual, usando la sentencia <code
 class="sourceCode python"><span class="im">import</span> ... <span class="im">as</span></code>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math <span class="im">as</span> mates</span></code></pre></div>
 <p>La sentencia anterior importa el módulo <code>math</code> dentro del
 espacio de nombres actual pero con el nombre <code>mates</code> en lugar
 del <code>math</code> original. Por tanto, para usar la función
 <code>gcd</code> del ejemplo anterior, haremos:</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mates.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mates.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
@@ -1124,13 +1235,13 @@ propio módulo. Para ello, se usa la orden <code
 class="sourceCode python"><span class="im">from</span></code>.</p></li>
 <li><p>Por ejemplo, para importar sólo la función <code>gcd</code> del
 módulo <code>math</code>, y no el módulo en sí, haremos:</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd</span></code></pre></div></li>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd</span></code></pre></div></li>
 <li><p>Por lo que ahora podemos usar la función <code>gcd</code>
 directamente, sin necesidad de indicar el nombre del módulo
 importado:</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
@@ -1153,8 +1264,8 @@ ninguna ligadura con el nombre del módulo importado.</p></li>
 no existe ahora como tal en el módulo importador y, por tanto, ese
 nombre no está definido en el ámbito del módulo importador.</p></li>
 <li><p>En consecuencia, si hacemos:</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math  <span class="co"># error</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> math  <span class="co"># error</span></span></code></pre></div>
 <p>da error, porque no hemos importado el módulo como tal, sino sólo una
 de sus funciones.</p></li>
 </ul>
@@ -1165,14 +1276,14 @@ de sus funciones.</p></li>
 <li><p>También podemos usar la palabra clave <code
 class="sourceCode python"><span class="im">as</span></code> con la orden
 <code class="sourceCode python"><span class="im">from</span></code>:</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> gcd <span class="im">as</span> mcd</span></code></pre></div>
 <p>De esta forma, se importa en el módulo actual la función
 <code>gcd</code> del módulo <code>math</code> pero llamándola
 <code>mcd</code>.</p></li>
 <li><p>Por tanto, para usarla la invocaremos con su nuevo nombre:</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> mcd(<span class="dv">16</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 </ul>
 <div class="centered">
 <figure>
@@ -1189,8 +1300,8 @@ anteriores</figcaption>
 <ul>
 <li><p>Existe incluso una variante para importar todas las definiciones
 de un módulo:</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 <li><p>Con esta sintaxis importaremos todas las definiciones del módulo
 excepto aquellas cuyo nombre comience por un guión bajo
 (<code>_</code>).</p>
@@ -1211,16 +1322,16 @@ dentro del módulo importador, lo que incluso puede provocar que se
 <li><p>Para saber qué definiciones (públicas o privadas) contiene un
 módulo, se puede usar la funcion <code
 class="sourceCode python"><span class="bu">dir</span></code>:</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">dir</span>(math)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;__doc__&#39;</span>, <span class="st">&#39;__loader__&#39;</span>, <span class="st">&#39;__name__&#39;</span>, <span class="st">&#39;__package__&#39;</span>, <span class="st">&#39;__spec__&#39;</span>, <span class="st">&#39;acos&#39;</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;acosh&#39;</span>, <span class="st">&#39;asin&#39;</span>, <span class="st">&#39;asinh&#39;</span>, <span class="st">&#39;atan&#39;</span>, <span class="st">&#39;atan2&#39;</span>, <span class="st">&#39;atanh&#39;</span>, <span class="st">&#39;ceil&#39;</span>, <span class="st">&#39;copysign&#39;</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;cos&#39;</span>, <span class="st">&#39;cosh&#39;</span>, <span class="st">&#39;degrees&#39;</span>, <span class="st">&#39;e&#39;</span>, <span class="st">&#39;erf&#39;</span>, <span class="st">&#39;erfc&#39;</span>, <span class="st">&#39;exp&#39;</span>, <span class="st">&#39;expm1&#39;</span>, <span class="st">&#39;fabs&#39;</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;factorial&#39;</span>, <span class="st">&#39;floor&#39;</span>, <span class="st">&#39;fmod&#39;</span>, <span class="st">&#39;frexp&#39;</span>, <span class="st">&#39;fsum&#39;</span>, <span class="st">&#39;gamma&#39;</span>, <span class="st">&#39;gcd&#39;</span>, <span class="st">&#39;hypot&#39;</span>,</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;inf&#39;</span>, <span class="st">&#39;isclose&#39;</span>, <span class="st">&#39;isfinite&#39;</span>, <span class="st">&#39;isinf&#39;</span>, <span class="st">&#39;isnan&#39;</span>, <span class="st">&#39;ldexp&#39;</span>, <span class="st">&#39;lgamma&#39;</span>, <span class="st">&#39;log&#39;</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;log10&#39;</span>, <span class="st">&#39;log1p&#39;</span>, <span class="st">&#39;log2&#39;</span>, <span class="st">&#39;modf&#39;</span>, <span class="st">&#39;nan&#39;</span>, <span class="st">&#39;pi&#39;</span>, <span class="st">&#39;pow&#39;</span>, <span class="st">&#39;radians&#39;</span>, <span class="st">&#39;sin&#39;</span>,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;sinh&#39;</span>, <span class="st">&#39;sqrt&#39;</span>, <span class="st">&#39;tan&#39;</span>, <span class="st">&#39;tanh&#39;</span>, <span class="st">&#39;tau&#39;</span>, <span class="st">&#39;trunc&#39;</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">dir</span>(math)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;__doc__&#39;</span>, <span class="st">&#39;__loader__&#39;</span>, <span class="st">&#39;__name__&#39;</span>, <span class="st">&#39;__package__&#39;</span>, <span class="st">&#39;__spec__&#39;</span>, <span class="st">&#39;acos&#39;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;acosh&#39;</span>, <span class="st">&#39;asin&#39;</span>, <span class="st">&#39;asinh&#39;</span>, <span class="st">&#39;atan&#39;</span>, <span class="st">&#39;atan2&#39;</span>, <span class="st">&#39;atanh&#39;</span>, <span class="st">&#39;ceil&#39;</span>, <span class="st">&#39;copysign&#39;</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;cos&#39;</span>, <span class="st">&#39;cosh&#39;</span>, <span class="st">&#39;degrees&#39;</span>, <span class="st">&#39;e&#39;</span>, <span class="st">&#39;erf&#39;</span>, <span class="st">&#39;erfc&#39;</span>, <span class="st">&#39;exp&#39;</span>, <span class="st">&#39;expm1&#39;</span>, <span class="st">&#39;fabs&#39;</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;factorial&#39;</span>, <span class="st">&#39;floor&#39;</span>, <span class="st">&#39;fmod&#39;</span>, <span class="st">&#39;frexp&#39;</span>, <span class="st">&#39;fsum&#39;</span>, <span class="st">&#39;gamma&#39;</span>, <span class="st">&#39;gcd&#39;</span>, <span class="st">&#39;hypot&#39;</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;inf&#39;</span>, <span class="st">&#39;isclose&#39;</span>, <span class="st">&#39;isfinite&#39;</span>, <span class="st">&#39;isinf&#39;</span>, <span class="st">&#39;isnan&#39;</span>, <span class="st">&#39;ldexp&#39;</span>, <span class="st">&#39;lgamma&#39;</span>, <span class="st">&#39;log&#39;</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;log10&#39;</span>, <span class="st">&#39;log1p&#39;</span>, <span class="st">&#39;log2&#39;</span>, <span class="st">&#39;modf&#39;</span>, <span class="st">&#39;nan&#39;</span>, <span class="st">&#39;pi&#39;</span>, <span class="st">&#39;pow&#39;</span>, <span class="st">&#39;radians&#39;</span>, <span class="st">&#39;sin&#39;</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;sinh&#39;</span>, <span class="st">&#39;sqrt&#39;</span>, <span class="st">&#39;tan&#39;</span>, <span class="st">&#39;tanh&#39;</span>, <span class="st">&#39;tau&#39;</span>, <span class="st">&#39;trunc&#39;</span>]</span></code></pre></div></li>
 <li><p>La función <code
 class="sourceCode python"><span class="bu">dir</span></code> puede
 usarse con cualquier objeto al que podamos acceder a través de una
@@ -1235,8 +1346,8 @@ Módulos como <em>scripts</em></h2>
 <ul>
 <li><p>Cuando se ejecuta un módulo Python desde la línea de órdenes
 como:</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
 <p>se ejecutará el módulo como un <em>script</em>, igual que si se
 hubiera importado con un <code
 class="sourceCode python"><span class="im">import</span></code> dentro
@@ -1248,9 +1359,9 @@ class="sourceCode python"><span class="st">&quot;__main__&quot;</span></code>.</
 principal</strong> (en inglés, <em>main module</em>) del
 programa.</p></li>
 <li><p>Por eso, si se añade este código al final del módulo:</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;sentencias&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;sentencias&gt;</span></span></code></pre></div>
 <p>esas sentencias se ejecutarán únicamente cuando el módulo se ejecute
 como el módulo principal del programa.</p></li>
 </ul>
@@ -1260,23 +1371,23 @@ como el módulo principal del programa.</p></li>
 <ul>
 <li><p>Por ejemplo, supongamos el siguiente módulo
 <code>fact.py</code>:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fac(n):</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fac(n <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fac(n):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fac(n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</span></code></pre></div></li>
 <li><p>Este módulo se podrá usar como un <em>script</em> separado o como
 un módulo que se puede importar dentro de otro.</p></li>
 <li><p>Si se usa como <em>script</em>, podremos llamarlo desde la línea
 de órdenes del sistema operativo:</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fac.py 4</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>24</span></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python3 fac.py 4</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>24</span></code></pre></div></li>
 <li><p>Y si importamos el módulo dentro de otro, la condición del último
 <code class="sourceCode python"><span class="cf">if</span></code> no se
 cumplirá, por lo que su único efecto será el de incorporar la definición

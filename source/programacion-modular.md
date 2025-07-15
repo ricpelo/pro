@@ -652,6 +652,112 @@ F -> G
   recuperarán al finalizar la ejecución del módulo y volver al archivo fuente
   anterior.
 
+### *Docstrings*
+
+- Al igual que ocurre con las funciones imperativas, los módulos también
+  pueden llevar su **cadena de documentación (_docstring_)**.
+
+- La cadena de documentación es un literal de tipo cadena que aparece como
+  primera sentencia del módulo, y que tiene la finalidad de documentar el
+  mismo.
+
+- Recordemos que, por convenio, las _docstrings_ siempre se delimitan mediante
+  triples comillas (!PYTHON(""")).
+
+- La función !PYTHON(help) (que se usa sobre todo en sesiones interactivas)
+  muestran la _docstring_ del objeto para el que se solicita la ayuda.
+
+- Internamente, la _docstring_ se almacena en el atributo !PYTHON(__doc__) del
+  módulo.
+
+!EJEMPLO
+
+```python
+"""Módulo de ejemplo (ejemplo.py)."""
+
+def saluda(nombre):
+    """Devuelve un saludo.
+
+    Args:
+        nombre (str): El nombre de la persona a la que saluda.
+
+    Returns:
+        str: El saludo.
+    """
+    return "¡Hola, " + nombre + "!"
+```
+
+- Existen dos formas distintas de _docstrings_:
+
+  - **De una sola línea (_one-line_):** para casos muy obvios que necesiten
+    poca explicación.
+
+  - **De varias líneas (_multi-line_):** para casos donde se necesita una
+    explicación más detallada.
+
+---
+
+```python
+>>> import ejemplo
+>>> help(ejemplo)
+Help on module ejemplo:
+
+NAME
+    ejemplo - Módulo de ejemplo (ejemplo.py).
+
+FUNCTIONS
+    saluda(nombre)
+        Devuelve un saludo.
+
+        Args:
+            nombre (str): El nombre de la persona a la que saluda.
+
+        Returns:
+            str: El saludo.
+
+FILE
+    /home/ricardo/python/ejemplo.py
+
+>>> help(ejemplo.saluda)
+Help on function saluda in module ejemplo:
+
+saluda(nombre)
+    Devuelve un saludo.
+
+    Args:
+        nombre (str): El nombre de la persona a la que saluda.
+
+    Returns:
+        str: El saludo.
+```
+
+---
+
+- Lo que hace básicamente la función !PYTHON{help(}_objeto_!PYTHON{)} es
+  acceder al contenido del atributo !PYTHON(__doc__) del objeto y mostrarlo de
+  forma legible.
+
+- Siempre podemos acceder directamente al atributo !PYTHON(__doc__) para
+  recuperar la _docstring_ original usando _objeto_!PYTHON(.__doc__):
+
+  ```python
+  >>> import ejemplo
+  >>> print(ejemplo.__doc__)
+  Módulo de ejemplo (ejemplo.py).
+  >>> print(ejemplo.saluda.__doc__)
+  Devuelve un saludo.
+
+      Args:
+          nombre (str): El nombre de la persona a la que saluda.
+
+      Returns:
+          str: El saludo.
+
+  ```
+
+- Esta información también es usada por otras herramientas de documentación
+  externa, como `pydoc`.
+
 ## Importación de módulos
 
 - Para que un módulo pueda usar a otros módulos tiene que **importarlos**
