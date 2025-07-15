@@ -705,6 +705,23 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
+- Lo mismo se puede hacer con funciones imperativas, o combinando funciones
+  imperativas con expresiones lambda:
+
+  ```python
+  >>> def aplica5(f):
+  ...     return f(5)
+  >>> def (cuadrado):
+  ...     return x ** 2
+  >>> cubo = lambda x: x ** 3
+  >>> aplica5(cuadrado)
+  25
+  >>> aplica5(cubo)
+  125
+  ```
+
+---
+
 - También se puede **devolver una función como resultado**.
 
 - Por ejemplo, la siguiente función !PYTHON(suma_o_resta) recibe una cadena y
@@ -728,6 +745,32 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 - Tanto !PYTHON(aplica5) como !PYTHON(suma_o_resta) son **funciones de orden
   superior**.
+
+---
+
+- Y con funciones imperativas:
+
+  ```python
+  >>> def suma_o_resta(s):
+  ...    def sumar(x, y):
+  ...        return x + y
+  ...    def restar(x, y):
+  ...        return x - y
+  ...    if s == 'suma':
+  ...        return sumar
+  ...    else:
+  ...        return restar
+  >>> suma_o_resta('suma')
+  <function <lambda>.<locals>.<lambda> at 0x7f526ab4a790>
+  >>> suma = suma_o_resta('suma')
+  >>> suma(2, 3)
+  5
+  >>> resta = suma_o_resta('resta')
+  >>> resta(4, 3)
+  1
+  >>> suma_o_resta('suma')(6, 4)
+  10
+  ```
 
 ---
 

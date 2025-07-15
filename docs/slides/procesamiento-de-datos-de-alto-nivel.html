@@ -1051,6 +1051,23 @@ de tipo numérico.</p></li>
 <section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
+<li><p>Lo mismo se puede hacer con funciones imperativas, o combinando
+funciones imperativas con expresiones lambda:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> aplica5(f):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">return</span> f(<span class="dv">5</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> (cuadrado):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> aplica5(cuadrado)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> aplica5(cubo)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="dv">125</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.3">
+
+<ul>
 <li><p>También se puede <strong>devolver una función como
 resultado</strong>.</p></li>
 <li><p>Por ejemplo, la siguiente función <code
@@ -1058,25 +1075,51 @@ class="sourceCode python">suma_o_resta</code> recibe una cadena y
 devuelve una función que suma si la cadena es <code
 class="sourceCode python"><span class="st">&#39;suma&#39;</span></code>;
 en caso contrario, devuelve una función que resta:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta <span class="op">=</span> <span class="kw">lambda</span> s: (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y) <span class="cf">if</span> s <span class="op">==</span> <span class="st">&#39;suma&#39;</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                             (<span class="kw">lambda</span> x, y: x <span class="op">-</span> y)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span>.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.<span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span> at <span class="bn">0x7f526ab4a790</span><span class="op">&gt;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> resta <span class="op">=</span> suma_o_resta(<span class="st">&#39;resta&#39;</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> resta(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)(<span class="dv">6</span>, <span class="dv">4</span>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta <span class="op">=</span> <span class="kw">lambda</span> s: (<span class="kw">lambda</span> x, y: x <span class="op">+</span> y) <span class="cf">if</span> s <span class="op">==</span> <span class="st">&#39;suma&#39;</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                             (<span class="kw">lambda</span> x, y: x <span class="op">-</span> y)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span>.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.<span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span> at <span class="bn">0x7f526ab4a790</span><span class="op">&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> resta <span class="op">=</span> suma_o_resta(<span class="st">&#39;resta&#39;</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> resta(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)(<span class="dv">6</span>, <span class="dv">4</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div></li>
 <li><p>Tanto <code class="sourceCode python">aplica5</code> como <code
 class="sourceCode python">suma_o_resta</code> son <strong>funciones de
 orden superior</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.4">
+
+<ul>
+<li><p>Y con funciones imperativas:</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">def</span> suma_o_resta(s):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>...    <span class="kw">def</span> sumar(x, y):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>...        <span class="cf">return</span> x <span class="op">+</span> y</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>...    <span class="kw">def</span> restar(x, y):</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>...        <span class="cf">return</span> x <span class="op">-</span> y</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>...    <span class="cf">if</span> s <span class="op">==</span> <span class="st">&#39;suma&#39;</span>:</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>...        <span class="cf">return</span> sumar</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>...    <span class="cf">else</span>:</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>...        <span class="cf">return</span> restar</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function <span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span>.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.<span class="op">&lt;</span><span class="kw">lambda</span><span class="op">&gt;</span> at <span class="bn">0x7f526ab4a790</span><span class="op">&gt;</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> resta <span class="op">=</span> suma_o_resta(<span class="st">&#39;resta&#39;</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> resta(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma_o_resta(<span class="st">&#39;suma&#39;</span>)(<span class="dv">6</span>, <span class="dv">4</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.5">
 
 <ul>
 <li><p>Una función es una abstracción porque agrupa lo que tienen en
@@ -1093,16 +1136,16 @@ otras funciones como argumentos o que devuelvan otra función como
 resultado (es decir, funciones de orden superior).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.4">
+<section class="slide level5" data-number="3.1.0.0.6">
 
 <ul>
 <li><p>Supongamos las dos funciones siguientes:</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Suma los enteros comprendidos entre a y b:</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> a <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Suma los cubos de los enteros comprendidos entre a y b:</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> cubo(a) <span class="op">+</span> suma_cubos(a <span class="op">+</span> <span class="dv">1</span>, b)</span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Suma los enteros comprendidos entre a y b:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> a <span class="op">+</span> suma_enteros(a <span class="op">+</span> <span class="dv">1</span>, b)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Suma los cubos de los enteros comprendidos entre a y b:</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> cubo(a) <span class="op">+</span> suma_cubos(a <span class="op">+</span> <span class="dv">1</span>, b)</span></code></pre></div></li>
 <li><p>Estas dos funciones comparten claramente un patrón común. Se
 diferencian solamente en:</p>
 <ul>
@@ -1122,7 +1165,7 @@ style="color:teal">⟨<em>término</em>⟩</span>(a) + <span
 style="color:teal">⟨<em>nombre</em>⟩</span>(a + 1, b)</div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.5">
+<section class="slide level5" data-number="3.1.0.0.7">
 
 <ul>
 <li><p>La existencia de este patrón común nos demuestra que hay una
@@ -1141,30 +1184,30 @@ el concepto de sumatorio, en vez de funciones particulares que calculen
 sumas concretas.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.6">
+<section class="slide level5" data-number="3.1.0.0.8">
 
 <ul>
 <li><p>En programación funcional lo conseguimos creando funciones que
 conviertan los «casilleros» en parámetros que recibirían funciones:</p>
-<div class="sourceCode" id="cb20"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> term, a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> term(a) <span class="op">+</span> suma(term, a <span class="op">+</span> <span class="dv">1</span>, b)</span></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> term, a, b: <span class="dv">0</span> <span class="cf">if</span> a <span class="op">&gt;</span> b <span class="cf">else</span> term(a) <span class="op">+</span> suma(term, a <span class="op">+</span> <span class="dv">1</span>, b)</span></code></pre></div></li>
 <li><p>De esta forma, las dos funciones <code
 class="sourceCode python">suma_enteros</code> y <code
 class="sourceCode python">suma_cubos</code> anteriores se podrían
 definir en términos de esta <code
 class="sourceCode python">suma</code>:</p>
-<div class="sourceCode" id="cb21"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x, a, b)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x, a, b)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># O mejor aún:</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(cubo, a, b)</span></code></pre></div></li>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>suma_enteros <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x, a, b)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x, a, b)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># O mejor aún:</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>suma_cubos <span class="op">=</span> <span class="kw">lambda</span> a, b: suma(cubo, a, b)</span></code></pre></div></li>
 <li><p><code>suma</code> es una abstracción que captura el patrón común
 que comparten <code>suma_enteros</code> y <code>suma_cubos</code>, las
 cuales también son abstracciones que capturan sus respectivos patrones
 comunes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.7">
+<section class="slide level5" data-number="3.1.0.0.9">
 
 <div class="centered">
 <figure>
@@ -1203,13 +1246,13 @@ cubo.</li>
 
 <ul>
 <li><p>Una forma de hacerlo sería:</p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>elevar_cubo <span class="op">=</span> <span class="kw">lambda</span> t: () <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                        (cubo(t[<span class="dv">0</span>]),) <span class="op">+</span> elevar_cubo(t[<span class="dv">1</span>:])</span></code></pre></div></li>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>elevar_cubo <span class="op">=</span> <span class="kw">lambda</span> t: () <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                        (cubo(t[<span class="dv">0</span>]),) <span class="op">+</span> elevar_cubo(t[<span class="dv">1</span>:])</span></code></pre></div></li>
 <li><p>¿Y elevar a la cuarta potencia?</p>
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>elevar_cuarta <span class="op">=</span> <span class="kw">lambda</span> t: () <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                          ((<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">4</span>)(t[<span class="dv">0</span>]),) <span class="op">+</span> elevar_cuarta(t[<span class="dv">1</span>:])</span></code></pre></div></li>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>elevar_cuarta <span class="op">=</span> <span class="kw">lambda</span> t: () <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                          ((<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">4</span>)(t[<span class="dv">0</span>]),) <span class="op">+</span> elevar_cuarta(t[<span class="dv">1</span>:])</span></code></pre></div></li>
 <li><p>Es evidente que hay un patrón subyacente que se podría abstraer
 creando una función de orden superior que aplique una función <code
 class="sourceCode python">f</code> a los elementos de una tupla y
@@ -1237,22 +1280,22 @@ class="math inline">\texttt{map(\(func\),\;\(iterable\))\;-&gt;\;Iterator}</span
 
 <ul>
 <li><p>Podemos usarla así:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">map</span>(cubo, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="bu">map</span> <span class="bu">object</span> at <span class="bn">0x7f22b25e9d68</span><span class="op">&gt;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">map</span>(cubo, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="bu">map</span> <span class="bu">object</span> at <span class="bn">0x7f22b25e9d68</span><span class="op">&gt;</span></span></code></pre></div></li>
 <li><p>Lo que devuelve es un iterador que luego podemos recorrer o, por
 ejemplo, convertir en una tupla usando la función <code
 class="sourceCode python"><span class="bu">tuple</span></code>:</p>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(cubo, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(cubo, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div></li>
 <li><p>Además de una tupla, también podemos usar cualquier otro iterable
 como argumento para <code
 class="sourceCode python"><span class="bu">map</span></code>, como por
 ejemplo un rango:</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(cubo, <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(cubo, <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div></li>
 <li><p>¿Cómo definirías la función <code
 class="sourceCode python"><span class="bu">map</span></code> de forma
 que devolviera una tupla?</p></li>
@@ -1268,8 +1311,8 @@ que devolviera una tupla?</p></li>
 
 <ul>
 <li><p>Podríamos definirla así:</p>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, t: () <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> (f(t[<span class="dv">0</span>]),) <span class="op">+</span> <span class="bu">map</span>(f, t[<span class="dv">1</span>:])</span></code></pre></div></li>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> <span class="kw">lambda</span> f, t: () <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> (f(t[<span class="dv">0</span>]),) <span class="op">+</span> <span class="bu">map</span>(f, t[<span class="dv">1</span>:])</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1296,9 +1339,9 @@ con la función <code
 class="sourceCode python"><span class="bu">tuple</span></code>, por
 ejemplo.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>)))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>)))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1315,15 +1358,15 @@ class="sourceCode python"><span class="bu">reduce</span></code> es una
 sobre secuencias.</p></li>
 <li><p>Por ejemplo, para calcular la suma de todos los elementos de una
 tupla, haríamos:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> t: <span class="dv">0</span> <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> t[<span class="dv">0</span>] <span class="op">+</span> suma(t[<span class="dv">1</span>:])</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> t: <span class="dv">0</span> <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> t[<span class="dv">0</span>] <span class="op">+</span> suma(t[<span class="dv">1</span>:])</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div></li>
 <li><p>Y para calcular el producto:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> producto <span class="op">=</span> <span class="kw">lambda</span> t: <span class="dv">1</span> <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> t[<span class="dv">0</span>] <span class="op">*</span> producto(t[<span class="dv">1</span>:])</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> producto((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> producto <span class="op">=</span> <span class="kw">lambda</span> t: <span class="dv">1</span> <span class="cf">if</span> t <span class="op">==</span> () <span class="cf">else</span> t[<span class="dv">0</span>] <span class="op">*</span> producto(t[<span class="dv">1</span>:])</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> producto((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span></span></code></pre></div></li>
 <li><p>Como podemos observar, la estrategia de cálculo es esencialmente
 la misma; sólo se diferencian en la <em>operación</em> a realizar
 (<code>+</code> o <code>*</code>) y en el <em>valor inicial</em> o
@@ -1364,8 +1407,8 @@ generará un error).</p></li>
 <ul>
 <li><p>Para usarla, primero tenemos que <em>importarla</em> del
 <em>módulo</em> <code class="sourceCode python">functools</code>:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span></code></pre></div></li>
 <li><p>No es la primera vez que importamos un módulo. Ya lo hicimos con
 el módulo <code class="sourceCode python">math</code>.</p></li>
 <li><p>En su momento estudiaremos con detalle qué son los módulos. Por
@@ -1380,20 +1423,20 @@ podemos incorporar a nuestros <em>scripts</em>.</p></li>
 class="sourceCode python">(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</code>,
 podemos definir las funciones <code>suma_de_numeros</code> y
 <code>producto_de_numeros</code> a partir de <code>reduce</code>:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>suma_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y, tupla, <span class="dv">0</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>producto_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, tupla, <span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>suma_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y, tupla, <span class="dv">0</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>producto_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(<span class="kw">lambda</span> x, y: x <span class="op">*</span> y, tupla, <span class="dv">1</span>)</span></code></pre></div></li>
 <li><p>También podemos importar y usar las funciones <code>add</code> y
 <code>mul</code> del módulo <code>operator</code>, las cuales actúan,
 respectivamente, como el operador <code>+</code> y <code>*</code>:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add, mul</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>suma_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(add, tupla, <span class="dv">0</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>producto_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(mul, tupla, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> <span class="bu">reduce</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add, mul</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>suma_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(add, tupla, <span class="dv">0</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>producto_de_numeros <span class="op">=</span> <span class="kw">lambda</span> tupla: <span class="bu">reduce</span>(mul, tupla, <span class="dv">1</span>)</span></code></pre></div>
 <p>De esta forma, usamos <code>add</code> y <code>mul</code> en lugar de
 las expresiones lambda <code
 class="sourceCode python">(<span class="kw">lambda</span> x, y: x <span class="op">+</span> y)</code>
@@ -1412,14 +1455,14 @@ entonces tenemos que: <span
 class="math display">\texttt{reduce(\(f\),\;\(iterable\),\;\(ini\))} =
 f(\ldots{}f(f(f(ini, e_1), e_2), e_3), \ldots, e_n)</span></p></li>
 <li><p>Por ejemplo, la siguiente llamada a <code>reduce</code>:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(add, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="dv">0</span>)</span></code></pre></div>
-<p>realiza y devuelve el resultado del siguiente cálculo:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>add(add(add(add(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dv">2</span>), <span class="dv">3</span>), <span class="dv">4</span>)</span></code></pre></div>
-<p>lo que, en la práctica, equivale a:</p>
 <div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>((((<span class="dv">0</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">+</span> <span class="dv">2</span>) <span class="op">+</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span>)</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(add, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="dv">0</span>)</span></code></pre></div>
+<p>realiza y devuelve el resultado del siguiente cálculo:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>add(add(add(add(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dv">2</span>), <span class="dv">3</span>), <span class="dv">4</span>)</span></code></pre></div>
+<p>lo que, en la práctica, equivale a:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>((((<span class="dv">0</span> <span class="op">+</span> <span class="dv">1</span>) <span class="op">+</span> <span class="dv">2</span>) <span class="op">+</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.5">
@@ -1431,8 +1474,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a h
 class="math display">\texttt{reduce(\(f\),\;\(iterable\),\;\(ini\))} =
 ini</span></p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(add, (), <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(add, (), <span class="dv">0</span>)</span></code></pre></div>
 <p>devuelve directamente <code
 class="sourceCode python"><span class="dv">0</span></code>.</p></li>
 </ul>
@@ -1446,20 +1489,20 @@ e_n)\))} = f(\ldots{}f(f(e_1, e_2), e_3), \ldots, e_n)</span></p>
 <p>Es decir: se usará el primer elemento del iterable como valor
 inicial.</p></li>
 <li><p>Por ejemplo, la siguiente llamada a <code>reduce</code>:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(add, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
-<p>realiza y devuelve el resultado del siguiente cálculo:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>add(add(add(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">3</span>), <span class="dv">4</span>)</span></code></pre></div>
-<p>lo que, en la práctica, equivale a:</p>
 <div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>(((<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span>) <span class="op">+</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span>)</span></code></pre></div></li>
-<li><p>Pero si el iterable es <strong>vacío</strong>, dará un error:</p>
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(add, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+<p>realiza y devuelve el resultado del siguiente cálculo:</p>
 <div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">reduce</span>(add, ())</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="bu">reduce</span>() of empty iterable <span class="cf">with</span> no initial value</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>add(add(add(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">3</span>), <span class="dv">4</span>)</span></code></pre></div>
+<p>lo que, en la práctica, equivale a:</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>(((<span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span>) <span class="op">+</span> <span class="dv">3</span>) <span class="op">+</span> <span class="dv">4</span>)</span></code></pre></div></li>
+<li><p>Pero si el iterable es <strong>vacío</strong>, dará un error:</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">reduce</span>(add, ())</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="bu">reduce</span>() of empty iterable <span class="cf">with</span> no initial value</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.7">
@@ -1492,8 +1535,8 @@ este momento está visitando <code>reduce</code>.</p></li>
 llame <code>acc</code> o algo similar, para expresar el hecho de que ahí
 se va recibiendo el valor acumulado hasta el momento.</p></li>
 <li><p>Por ejemplo, en la siguiente llamada:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="dv">0</span>)</span></code></pre></div>
 <ul>
 <li><p><code>acc</code> va a contener la suma parcial acumulada hasta
 ahora.</p></li>
@@ -1502,11 +1545,11 @@ está visitando.</p></li>
 </ul>
 <p>Así, durante la ejecución del <code>reduce</code>, ésta provocará las
 siguientes llamadas a la expresión lambda:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">0</span>, <span class="dv">1</span>)   <span class="co"># acc = 0, e = 1</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">1</span>, <span class="dv">2</span>)   <span class="co"># acc = 1, e = 2</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">3</span>, <span class="dv">3</span>)   <span class="co"># acc = 3, e = 3</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">6</span>, <span class="dv">4</span>)   <span class="co"># acc = 6, e = 4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">0</span>, <span class="dv">1</span>)   <span class="co"># acc = 0, e = 1</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">1</span>, <span class="dv">2</span>)   <span class="co"># acc = 1, e = 2</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">3</span>, <span class="dv">3</span>)   <span class="co"># acc = 3, e = 3</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> acc, e: acc <span class="op">+</span> e)(<span class="dv">6</span>, <span class="dv">4</span>)   <span class="co"># acc = 6, e = 4</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.0.0.9">
@@ -1527,9 +1570,9 @@ recibiera una tupla y no cualquier iterable?</li>
 
 <ul>
 <li><p>Una forma (con valor inicial obligatorio) podría ser así:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span> <span class="op">=</span> <span class="kw">lambda</span> fun, tupla, ini: ini <span class="cf">if</span> tupla <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="bu">reduce</span>(fun, tupla[<span class="dv">1</span>:], fun(ini, tupla[<span class="dv">0</span>]))</span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span> <span class="op">=</span> <span class="kw">lambda</span> fun, tupla, ini: ini <span class="cf">if</span> tupla <span class="op">==</span> () <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="bu">reduce</span>(fun, tupla[<span class="dv">1</span>:], fun(ini, tupla[<span class="dv">0</span>]))</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1557,18 +1600,18 @@ de una forma muy concisa.</p></li>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="op">**</span> <span class="dv">3</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># equivale a:</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span>, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>) <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># equivale a:</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>)))</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="op">**</span> <span class="dv">3</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># equivale a:</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span>, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>) <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># equivale a:</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>)))</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.2">
@@ -1596,13 +1639,13 @@ style="color:teal">⟨<em>condición</em>⟩</span>.</p></li>
 expresión generadora se pueden quitar si la expresión se usa como único
 argumento de una función.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec1 <span class="op">=</span> <span class="st">&#39;abc&#39;</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec2 <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>((x, y) <span class="cf">for</span> x <span class="kw">in</span> sec1 <span class="cf">for</span> y <span class="kw">in</span> sec2)</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>((<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">3</span>),</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">3</span>),</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>))</span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec1 <span class="op">=</span> <span class="st">&#39;abc&#39;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec2 <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>((x, y) <span class="cf">for</span> x <span class="kw">in</span> sec1 <span class="cf">for</span> y <span class="kw">in</span> sec2)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>((<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">3</span>),</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">3</span>),</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>))</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.3">
@@ -1644,19 +1687,19 @@ propiedades:</p>
 expresión cambie su significado.</p>
 <p>Por ejemplo, las dos expresiones generadoras siguientes son
 equivalentes, puesto que producen el mismo resultado:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>(y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>(y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div></li>
 <li><p>No se pueden usar fuera de la expresión generadora, ya que
 estarían fuera de su ámbito y no serían visibles.</p>
 <p>Por ejemplo, lo siguiente daría un error de nombre:</p>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> (x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la expresión generadora</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> (x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la expresión generadora</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
