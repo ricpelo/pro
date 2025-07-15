@@ -985,6 +985,11 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - Por ejemplo, nos permite crear funciones sin preocuparnos de si los nombres
   de los parámetros ya han sido utilizados en otras partes del programa.
 
+- De lo contrario, se podría provocar lo que se conoce como _name clash_
+  (_conflicto de nombres_ o _choque de _nombres_), que es el problema que se
+  produce cuando usamos el mismo nombre para varias cosas diferentes y que
+  impide que se puedan usar todas al mismo tiempo.
+
 ## Ámbito de un identificador cuantificado
 
 - Hemos visto que a los **parámetros** de una expresión lambda se les llama
