@@ -1615,6 +1615,159 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb44-1"><a
 </ul>
 </section>
 
+<section id="doctest" class="title-slide slide level3"
+data-number="2.7.2">
+<h3 data-number="2.7.2"><span class="header-section-number">2.7.2</span>
+<code>doctest</code></h3>
+<ul>
+<li><p><code>doctest</code> es una herramienta que permite realizar
+pruebas de forma automática sobre una función.</p></li>
+<li><p>Para ello, se usa la <em>docstring</em> de la función.</p></li>
+<li><p>En ella, se escribe una <em>simulación</em> de una pretendida
+ejecución de la función desde el intérprete interactivo de
+Python.</p></li>
+<li><p>La herramienta comprueba si la salida obtenida coincide con la
+esperada según dicta la <em>docstring</em> de la función.</p></li>
+<li><p>De esta forma, la <em>docstring</em> cumple dos funciones:</p>
+<ul>
+<li><p>Documentación de la función.</p></li>
+<li><p>Especificación de casos de prueba de la función.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.7.2.0.1">
+
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo.py</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> factorial(n):</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve el factorial de n, un número entero &gt;= 0.</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; [factorial(n) for n in range(6)]</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="st">    [1, 1, 2, 6, 24, 120]</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; factorial(30)</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="st">    265252859812191058636308480000000</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &gt;&gt;&gt; factorial(-1)</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="st">    Traceback (most recent call last):</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="st">        ...</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ValueError: n debe ser &gt;= 0</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> math</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> n <span class="op">&gt;=</span> <span class="dv">0</span>:</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;n debe ser &gt;= 0&quot;</span>)</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>    factor <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> factor <span class="op">&lt;=</span> n:</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>        result <span class="op">*=</span> factor</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>        factor <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="2.7.2.0.2">
+
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>$ python <span class="op">-</span>m doctest ejemplo.py <span class="op">-</span>v</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>Trying:</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    [factorial(n) <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">24</span>, <span class="dv">120</span>]</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>ok</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>Trying:</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    factorial(<span class="dv">30</span>)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">265252859812191058636308480000000</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>ok</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>Trying:</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>    factorial(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>Expecting:</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>    Traceback (most recent call last):</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>    <span class="pp">ValueError</span>: n debe ser <span class="op">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>ok</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> items had no tests:</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>    ejemplo</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> items passed <span class="bu">all</span> tests:</span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>   <span class="dv">3</span> tests <span class="kw">in</span> ejemplo.factorial</span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> tests <span class="kw">in</span> <span class="dv">2</span> items.</span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> passed <span class="kw">and</span> <span class="dv">0</span> failed.</span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>Test passed.</span></code></pre></div>
+</section>
+
+<section id="pytest" class="title-slide slide level3"
+data-number="2.7.3">
+<h3 data-number="2.7.3"><span class="header-section-number">2.7.3</span>
+<code>pytest</code></h3>
+<ul>
+<li><p><code>pytest</code> es una herramienta que permite realizar
+pruebas automáticas sobre una función o programa Python, pero de una
+manera más general que con <code>doctest</code>.</p></li>
+<li><p>La forma más sencilla de usarla es crear una función llamada
+<code>test_</code><span style="color:teal">⟨<em>nombre</em>⟩</span> por
+cada función <span style="color:teal">⟨<em>nombre</em>⟩</span> que
+queramos probar.</p></li>
+<li><p>Esa función <code>test_</code><span
+style="color:teal">⟨<em>nombre</em>⟩</span> será la encargada de probar
+automáticamente el funcionamiento correcto de la función <span
+style="color:teal">⟨<em>nombre</em>⟩</span>.</p></li>
+<li><p>Dentro de la función <code>test_</code><span
+style="color:teal">⟨<em>nombre</em>⟩</span>, usaremos la orden <code
+class="sourceCode python"><span class="cf">assert</span></code> para
+comprobar si se cumple una determinada condición.</p></li>
+<li><p>En caso de que no se cumpla, se entenderá que la función <span
+style="color:teal">⟨<em>nombre</em>⟩</span> no ha superado dicha
+prueba.</p></li>
+<li><p>En Python 3, la herramienta se llama <code>pytest-3</code> y se
+instala mediante:</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pytest</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.7.3.0.1">
+
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_respuesta():</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">========================</span> test session starts <span class="op">=========================</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.8.5</span>, pytest<span class="op">-</span><span class="fl">4.6.9</span>, py<span class="op">-</span><span class="fl">1.8.1</span>, pluggy<span class="op">-</span><span class="fl">0.13.0</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>rootdir: <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>collected <span class="dv">1</span> item                                                     </span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py F                                              [<span class="dv">100</span><span class="op">%</span>]</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="op">==============================</span> FAILURES <span class="op">==============================</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>___________________________ test_respuesta ___________________________</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_respuesta():</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>       <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>E       <span class="cf">assert</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>E        <span class="op">+</span>  where <span class="dv">4</span> <span class="op">=</span> inc(<span class="dv">3</span>)</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py:<span class="dv">7</span>: <span class="pp">AssertionError</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="op">======================</span> <span class="dv">1</span> failed <span class="kw">in</span> <span class="fl">2.48</span> seconds <span class="op">======================</span></span></code></pre></div>
+</section>
+<section class="slide level5" data-number="2.7.3.0.2">
+
+<ul>
+<li><p><code>pytest</code> sigue la siguiente estrategia a la hora de
+localizar pruebas:</p>
+<ul>
+<li><p>Si no se especifica ningún argumento, empieza a buscar
+recursivamente empezando en el directorio actual.</p></li>
+<li><p>En esos directorios, busca todos los archivos
+<code>test_*.py</code> o <code>*_test.py</code>.</p></li>
+<li><p>En esos archivos, localiza todas las funciones cuyo nombre
+empiece por <code>test</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+
 </section>
 <section>
 <section id="funciones-locales-a-funciones"
@@ -1630,10 +1783,10 @@ Definición</h2>
 <ul>
 <li><p>En Python también podemos definir funciones dentro de
 funciones:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(...):</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> g(...):</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>      ...</span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(...):</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> g(...):</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>      ...</span></code></pre></div></li>
 <li><p>Cuando definimos una función <code>g</code> dentro de otra
 función <code>f</code>, decimos que:</p>
 <ul>
@@ -1661,19 +1814,19 @@ un ámbito más local.</p></li>
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))</span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fact_iter(n, acc):</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> acc</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="co"># daría un error porque fact_iter no existe en el ámbito global:</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fact_iter(<span class="dv">5</span>, <span class="dv">1</span>))</span></code></pre></div></li>
 <li><p>La función <code class="sourceCode python">fact_iter</code> es
 local a la función <code>fact</code>.</p></li>
 <li><p>Por tanto, no se puede usar fuera de <code>fact</code>, ya que
@@ -1693,14 +1846,14 @@ dentro de <code>fact</code>.</p></li>
 <ul>
 <li><p>Tampoco se puede usar <code>fact_iter</code> dentro de
 <code>fact</code> <em>antes</em> de definirla:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb47-2"><a href="#cb47-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># UnboundLocalError: se usa antes de definirse</span></span>
-<span id="cb47-3"><a href="#cb47-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
-<span id="cb47-4"><a href="#cb47-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb47-5"><a href="#cb47-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb47-6"><a href="#cb47-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb47-7"><a href="#cb47-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb52-2"><a href="#cb52-2"></a>    <span class="bu">print</span>(fact_iter(n, <span class="dv">1</span>))  <span class="co"># UnboundLocalError: se usa antes de definirse</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>    <span class="kw">def</span> fact_iter(n, acc):  <span class="co"># aquí es donde empieza su definición</span></span>
+<span id="cb52-4"><a href="#cb52-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb52-5"><a href="#cb52-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb52-6"><a href="#cb52-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb52-7"><a href="#cb52-7"></a>            <span class="cf">return</span> fact_iter(n <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> n)</span></code></pre></div></li>
 <li><p>Esto ocurre porque la sentencia <code
 class="sourceCode python"><span class="kw">def</span></code> de la línea
 3 crea una ligadura entre <code>fact_iter</code> y una variable que
@@ -1768,19 +1921,19 @@ de la función actual y el marco global.</p></li>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
 
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw">def</span> fact(n):</span>
-<span id="cb48-2"><a href="#cb48-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
-<span id="cb48-3"><a href="#cb48-3"></a>        <span class="kw">nonlocal</span> n</span>
-<span id="cb48-4"><a href="#cb48-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb48-5"><a href="#cb48-5"></a>            <span class="cf">return</span> acc</span>
-<span id="cb48-6"><a href="#cb48-6"></a>        <span class="cf">else</span>:</span>
-<span id="cb48-7"><a href="#cb48-7"></a>            acc <span class="op">*=</span> n</span>
-<span id="cb48-8"><a href="#cb48-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
-<span id="cb48-9"><a href="#cb48-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
-<span id="cb48-10"><a href="#cb48-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
-<span id="cb48-11"><a href="#cb48-11"></a></span>
-<span id="cb48-12"><a href="#cb48-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a><span class="kw">def</span> fact(n):</span>
+<span id="cb53-2"><a href="#cb53-2"></a>    <span class="kw">def</span> fact_iter(acc):</span>
+<span id="cb53-3"><a href="#cb53-3"></a>        <span class="kw">nonlocal</span> n</span>
+<span id="cb53-4"><a href="#cb53-4"></a>        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb53-5"><a href="#cb53-5"></a>            <span class="cf">return</span> acc</span>
+<span id="cb53-6"><a href="#cb53-6"></a>        <span class="cf">else</span>:</span>
+<span id="cb53-7"><a href="#cb53-7"></a>            acc <span class="op">*=</span> n</span>
+<span id="cb53-8"><a href="#cb53-8"></a>            n <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb53-9"><a href="#cb53-9"></a>            <span class="cf">return</span> fact_iter(acc)</span>
+<span id="cb53-10"><a href="#cb53-10"></a>    <span class="cf">return</span> fact_iter(<span class="dv">1</span>)</span>
+<span id="cb53-11"><a href="#cb53-11"></a></span>
+<span id="cb53-12"><a href="#cb53-12"></a><span class="bu">print</span>(fact(<span class="dv">5</span>))</span></code></pre></div>
 <ul>
 <li><p>La función <code>fact_iter</code> puede consultar el valor de la
 variable <code>n</code>, ya que es una variable local a la función
