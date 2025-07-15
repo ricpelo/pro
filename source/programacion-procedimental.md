@@ -333,6 +333,60 @@ nocite: |
   !SPC(6)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- En la definición de un función, podemos indicar los tipos tanto de los
+  parámetros como del valor de retorno de la función.
+
+- Esos tipos son, efectivamente, **anotaciones de tipo** (o _type hints_ en
+  inglés), y ya los hemos visto anteriormente, por ejemplo al escribir la
+  **signatura** de una función.
+
+- En realidad, la primera línea de la definición de una función (que
+  técnicamente se denomina la **cabecera** de la función) podría entenderse que
+  es la signatura de la función, precedida por la palabra clave !PYTHON(def).
+
+---
+
+- Por ejemplo, la siguiente definición de una función que saluda a una persona
+  a partir de su nombre y sus apellidos:
+
+  ```python
+  def saluda(nombre, apellidos):
+      print('Hola', nombre, apellidos)
+  ```
+
+  se podría anotar de la siguiente forma:
+
+  ```python
+  def saluda(nombre: str, apellidos: str) -> None:
+      print('Hola', nombre, apellidos)
+  ```
+
+  lo que nos lleva a que la función tiene la siguiente signatura:
+
+  $\texttt{saluda(!VAR(nombre):\,str,\;!VAR(apellidos):\,str)\;->\;None}$
+
+- La función anterior devuelve `None` porque realmente no devuelve ningún valor
+  (su único cometido es escribir en la consola usando !PYTHON{print}).
+
+---
+
+- Por tanto, nuestra sintaxis se puede ampliar para incluir las anotaciones de
+  tipo en las definiciones de las funciones:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(definición_función) ::=
+  !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}[!T(->) !NT(tipo)]!T(:)
+  !SPC(6)      !NT(cuerpo)
+  !NT(lista_parámetros) ::= !T(identificador)[[!T(:) !NT(tipo)] [!T(,) !T(identificador)]\*
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Es importante recordar que el intérprete no comprueba en ningún momento las
+  anotaciones de tipo para verificar que son correctas. Para ello se utilizan
+  herramientas externas como `pylint` o `mypy`.
+
 ## Llamadas a funciones imperativas
 
 - Cuando se llama a una función imperativa, ocurre lo siguiente (en este
@@ -557,6 +611,29 @@ Una función puede llamar a otra.
 
   - Por tanto, la función está modificando el valor de la variable
     !PYTHON(lista) que se ha pasado como argumento.
+
+---
+
+- Recordemos de nuevo que el intérprete no comprueba si los tipos de los
+  argumentos coinciden con los esperados en la lista de parámetros cuando se
+  usan anotaciones de tipos.
+
+- Por tanto, el intérprete de Python ejecutará el siguiente programa sin dar
+  ningún error:
+
+  ```python
+  def saluda(nombre: str) -> None:
+      print('Hola', nombre)
+
+  saluda(2)
+  ```
+
+- El intérprete no se quejará aunque en la llamada a la función le hayamos
+  pasado un argumento de tipo !PYTHON(int) cuando deberíamos haberle pasado uno
+  de tipo !PYTHON(str), según se indica en su lista de parámetros.
+
+- En este caso, además, la función !PYTHON(print) tampoco dará ningún error ya
+  que puede imprimir valores de tipo entero.
 
 ## La sentencia !PYTHON(return)
 
