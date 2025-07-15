@@ -990,6 +990,13 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   produce cuando usamos el mismo nombre para varias cosas diferentes y que
   impide que se puedan usar todas al mismo tiempo.
 
+- Entonces,¿qué impide el _name clash_? Dos cosas:
+
+  - Los ámbitos hacen que los nombres sólo sean visibles en ciertas zonas.
+
+  - Los espacios de nombres permiten que un mismo nombre pueda ligarse a
+    diferentes nombres simultáneamente.
+
 ## Ámbito de un identificador cuantificado
 
 - Hemos visto que a los **parámetros** de una expresión lambda se les llama
