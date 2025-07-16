@@ -1,5 +1,5 @@
 ---
-title: Programación procedimental (I)
+title: Programación procedimental
 author: Ricardo Pérez López
 !DATE
 nocite: |
