@@ -1958,7 +1958,7 @@ $$
   = 40
   ```
 
-### Composición de operaciones y funciones
+### Composición de operaciones
 
 - Como acabamos de ver, el resultado de una operación puede ser un dato sobre
   el que aplicar otra operación dentro de la misma expresión:
