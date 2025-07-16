@@ -1431,7 +1431,9 @@ False
   quien desee usarla, sepa perfectamente qué efectos produce más allá de
   devolver un resultado.
 
-## Entrada y salida
+# Entrada y salida
+
+## Conceptos básicos
 
 - Nuestro programa puede comunicarse con el exterior realizando **operaciones
   de entrada/salida (E/S)**.
@@ -1572,7 +1574,7 @@ False
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PYTHON(print)`(`!NT{expresión}(`,` !NT{expresión})\* [`, sep=`!NT(expresión)][`, end=`!NT(expresión)]`)`
+  !PYTHON(print)`(`!NT{expresión}(`,` !NT{expresión})\* [`, ` `sep=`!NT(expresión)][`, ` `end=`!NT(expresión)]`)`
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El `sep` es el *separador* y su valor por defecto es !PYTHON{' '} (un
