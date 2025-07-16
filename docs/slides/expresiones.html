@@ -2068,9 +2068,9 @@ varias formas según el lenguaje utilizado. Por ejemplo:</p>
 class="math inline">\texttt{abs(\(x\):\,int)\;-&gt;\;int}</span></p>
 <p><span
 class="math inline">\texttt{pow(\(base\):\,float,\;\(exp\):\,float)\;-&gt;\;float}</span></p>
-<p>Esta sintaxis, con la cual se representan los tipos de los elementos
-de un programa en Python, se denomina <strong>anotaciones de
-tipo</strong> o <em>type hints</em>.</p></li>
+<!-- Esta sintaxis, con la cual se representan los tipos de los elementos
+de un programa en Python, se denomina **anotaciones de tipo** o _type
+hints_. --></li>
 <li><p>En Java:</p>
 <p><span class="math inline">\texttt{int abs(int\;\,\(x\))}</span></p>
 <p><span class="math inline">\texttt{double
@@ -2313,18 +2313,27 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a h
 <ul>
 <li><p>Como último ejemplo, la función <code
 class="sourceCode python"><span class="bu">max</span></code> devuelve el
-máximo de dos valores recibidos como argumentos:</p>
+máximo de varios valores recibidos como argumentos:</p>
 <p><code>max(</code><span class="math inline">arg_1</span><code>,</code>
-<code></code><span
-class="math inline">arg_2</span><code>)</code></p></li>
+<code></code><span class="math inline">arg_2</span><code>,</code>
+<code></code> <span class="math inline">\ldots</span> <code>,</code>
+<span class="math inline">arg_n</span><code>)</code></p></li>
 <li><p>Aquí es más complicado definir su signatura, ya que <code
-class="sourceCode python"><span class="bu">max</span></code> admite
-argumentos de varios tipos (se puede calcular el máximo de dos números,
-de dos cadenas… de casi cualquier par de cosas que sean
-<em>comparables</em> entre sí).</p></li>
+class="sourceCode python"><span class="bu">max</span></code>:</p>
+<ul>
+<li><p>Admite <strong>argumentos de muchos tipos</strong> (se puede
+calcular el máximo de varios números, de varias cadenas… de casi
+cualquier conjunto de cosas que sean <em>comparables</em> entre sí), por
+lo que decimos que es una función <strong>polimórfica</strong>, aunque
+además <strong>todos los argumentos deben ser del mismo
+tipo</strong>.</p></li>
+<li><p>Admite un <strong>número variable de argumentos</strong> (es una
+función <strong>variádica</strong>), aunque como mínimo debe recibir
+uno.</p></li>
+</ul></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">4</span>, <span class="dv">28</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>(<span class="st">&quot;hola&quot;</span>, <span class="st">&quot;pepe&quot;</span>)</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;pepe&#39;</span></span>
@@ -2357,8 +2366,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a h
 <p>(Recordemos que las funciones no tienen forma normal.)</p></li>
 <li><p>En resumen: la expresión <code
 class="sourceCode python"><span class="bu">max</span></code> devuelve la
-propia función «<strong>máximo de dos números</strong>» y la expresión
-<code
+propia función «<strong>máximo</strong>» y la expresión <code
 class="sourceCode python"><span class="bu">max</span>(<span class="dv">4</span>, <span class="dv">8</span>)</code>
 devuelve el valor <code
 class="sourceCode python"><span class="dv">8</span></code>.</p></li>

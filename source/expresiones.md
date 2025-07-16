@@ -1568,8 +1568,9 @@ $$
 
     $\texttt{pow(!VAR(base):\,float,\;!VAR(exp):\,float)\;->\;float}$
 
-    Esta sintaxis, con la cual se representan los tipos de los elementos de un
-    programa en Python, se denomina **anotaciones de tipo** o _type hints_.
+    <!-- Esta sintaxis, con la cual se representan los tipos de los elementos
+    de un programa en Python, se denomina **anotaciones de tipo** o _type
+    hints_. -->
 
   - En Java:
 
@@ -1780,20 +1781,26 @@ $$
 
 ---
 
-- Como último ejemplo, la función !PYTHON(max) devuelve el máximo de dos
+- Como último ejemplo, la función !PYTHON(max) devuelve el máximo de varios
   valores recibidos como argumentos:
 
-  `max(`$arg_1$`,` ` `$arg_2$`)`
+  `max(`$arg_1$`,` ` `$arg_2$`,` ` ` $\ldots$ `,` $arg_n$`)`
 
-- Aquí es más complicado definir su signatura, ya que !PYTHON(max) admite
-  argumentos de varios tipos (se puede calcular el máximo de dos números, de
-  dos cadenas... de casi cualquier par de cosas que sean _comparables_ entre
-  sí).
+- Aquí es más complicado definir su signatura, ya que !PYTHON(max):
+
+  - Admite **argumentos de muchos tipos** (se puede calcular el máximo de
+    varios números, de varias cadenas... de casi cualquier conjunto de cosas
+    que sean _comparables_ entre sí), por lo que decimos que es una función
+    **polimórfica**, aunque además **todos los argumentos deben ser del mismo
+    tipo**.
+
+  - Admite un **número variable de argumentos** (es una función **variádica**),
+    aunque como mínimo debe recibir uno.
 
 - Por ejemplo:
 
   ```python
-  >>> max(13, 28)
+  >>> max(13, 4, 28)
   28
   >>> max("hola", "pepe")
   'pepe'
@@ -1822,9 +1829,8 @@ $$
 
   (Recordemos que las funciones no tienen forma normal.)
 
-- En resumen: la expresión !PYTHON(max) devuelve la propia función «**máximo de
-  dos números**» y la expresión !PYTHON(max(4, 8)) devuelve el valor
-  !PYTHON(8).
+- En resumen: la expresión !PYTHON(max) devuelve la propia función «**máximo**»
+  y la expresión !PYTHON(max(4, 8)) devuelve el valor !PYTHON(8).
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~
