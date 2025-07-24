@@ -41,17 +41,18 @@ title: Objetivos generales
      función de las cargas de trabajo y el plan de mantenimiento.
 
 3. Las líneas de actuación en el proceso de enseñanza-aprendizaje que permiten
-alcanzar los objetivos del módulo, versarán sobre:
+   alcanzar los objetivos del módulo, versarán sobre:
 
-- La interpretación y aplicación de los principios de la programación orientada
-  a objetos.
-- La evaluación, selección y utilización de herramientas y lenguajes de
-  programación orientados a objetos.
-- La utilización de las características específicas de lenguajes y entornos de
-  programación en el desarrollo de aplicaciones informáticas.
-- La identificación de las funcionalidades aportadas por los sistemas gestores
-  de bases de datos y su incorporación a las aplicaciones desarrolladas.
-- La prueba, depuración y documentación de las aplicaciones desarrolladas.
+  - La interpretación y aplicación de los principios de la programación
+    orientada a objetos.
+  - La evaluación, selección y utilización de herramientas y lenguajes de
+    programación orientados a objetos.
+  - La utilización de las características específicas de lenguajes y entornos
+    de programación en el desarrollo de aplicaciones informáticas.
+  - La identificación de las funcionalidades aportadas por los sistemas
+    gestores de bases de datos y su incorporación a las aplicaciones
+    desarrolladas.
+  - La prueba, depuración y documentación de las aplicaciones desarrolladas.
 
 Este módulo profesional contiene parte de la formación necesaria para
 desempeñar la función de programación de aplicaciones de propósito general en
