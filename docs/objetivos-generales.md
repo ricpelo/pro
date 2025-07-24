@@ -52,3 +52,23 @@ alcanzar los objetivos del módulo, versarán sobre:
 - La identificación de las funcionalidades aportadas por los sistemas gestores
   de bases de datos y su incorporación a las aplicaciones desarrolladas.
 - La prueba, depuración y documentación de las aplicaciones desarrolladas.
+
+Este módulo profesional contiene parte de la formación necesaria para
+desempeñar la función de programación de aplicaciones de propósito general en
+lenguajes orientados a objetos.
+
+La función de programación de aplicaciones de propósito general en lenguajes
+orientados a objetos incluye aspectos como:
+
+- El desarrollo de programas organizados en clases aplicando los principios de
+  la programación orientada a objetos.
+- La utilización de interfaces para la interacción de la aplicación con el
+  usuario.
+- La identificación, análisis e integración de librerías para incorporar
+  funcionalidades específicas a los programas desarrollados.
+- El almacenamiento y recuperación de información en sistemas gestores de bases
+  de datos.
+
+Las actividades profesionales asociadas a esta función se aplican en el
+desarrollo y la adaptación de programas informáticos de propósito general en
+lenguajes orientados a objetos.
