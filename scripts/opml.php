@@ -88,6 +88,7 @@ class Esquema
         return preg_match('/^ce\d+[a-z]$/', $tag) === 1 ||
                preg_match('/^ra\d+$/', $tag) === 1 ||
                preg_match('/^ev\d+$/', $tag) === 1 ||
+               preg_match('/^dual$/', $tag) === 1 ||
                preg_match('/^opcional$/', $tag) === 1;
     }
 
@@ -170,7 +171,7 @@ class Resumen extends Esquema
     protected function ev($tags)
     {
         $ret = '';
-        $regexes = ['/ev\d+/', '/opcional/'];
+        $regexes = ['/ev\d+/', '/opcional/', '/dual/'];
         $matches = [];
         foreach ($regexes as $regex) {
             if (preg_match($regex, $tags, $matches)) {
