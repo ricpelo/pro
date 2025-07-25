@@ -2056,6 +2056,170 @@ construir un programa a base de ir ensamblando módulos reusables como si
 fueran las piezas del engranaje de una máquina.</p></li>
 </ul>
 </section>
+<section id="diseño-ascendente" class="title-slide slide level3"
+data-number="4.6.1">
+<h3 data-number="4.6.1"><span class="header-section-number">4.6.1</span>
+Diseño ascendente</h3>
+<ul>
+<li><p>Cuando hablamos de la programación procedimental, dijimos que el
+diseño descendente tiene ventajas pero también inconvenientes, entre los
+cuales teníamos:</p>
+<ul>
+<li><p>Hasta que no se ha llegado al nivel más bajo, no se tiene algo
+que pueda probarse, ensamblarse y ejecutarse.</p></li>
+<li><p>Por tanto, es un enfoque más difícil de aplicar si no se
+entienden bien los detalles prácticos ni se conocen perfectamente desde
+el principio los requisitos del programa que hay que constuir.</p></li>
+<li><p>Puede ignorar la reutilización de componentes ya
+existentes.</p></li>
+<li><p>Resulta fácil obtener procedimientos que sólo sean útiles para el
+programa actual y no se puedan generalizar para su reutilización en
+otras situaciones.</p></li>
+</ul></li>
+<li><p>Por tanto, con el diseño descendente a veces cuesta conseguir la
+programación de procedimientos o módulos reutilizables.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.1">
+
+<ul>
+<li><p>Frente al diseño descendente, tenemos también el llamado
+<strong>diseño ascendente</strong> o
+<strong><em>bottom-up</em></strong>.</p></li>
+<li><p>Como su nombre indica, consiste en ir de abajo arriba,
+construyendo módulos o componentes básicos (en nuestro caso serían
+procedimientos) que se van combinando y ensamblando poco a poco hasta
+obtener el programa completo.</p></li>
+<li><p>Además, en todo momento se busca que esos procedimientos sean
+reutilizables, es decir, aprovechables en otros programas.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.2">
+
+<ul>
+<li><p>Cómo se aplica el diseño ascendente:</p>
+<ol>
+<li><p>Se diseñan ladrillos básicos de construcción en forma de pequeños
+procedimientos independientes y genéricos.</p></li>
+<li><p>Se combinan esos procedimientos para crear otros cada vez más
+complejos, integrándolos unos con otros.</p>
+<p>En la práctica, consiste en hacer que el procedimiento que estamos
+programando ahora, llame a otros que ya hemos programado (nosotros u
+otros programadores).</p></li>
+<li><p>Finalmente, se integran todos los procedimientos para formar el
+sistema completo.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.3">
+
+<ul>
+<li><p>El diseño ascendente tiene <strong>ventajas</strong>:</p>
+<ul>
+<li><p>Favorece la reutilización de código ya existente, en forma de
+módulos o librerías de procedimientos.</p></li>
+<li><p>Permite programar y verificar partes funcionales del programa
+<em>antes de tener el programa completo</em>, ya que se pueden ir
+ensamblando esas partes unas con otras a medida que se van programando y
+sin tener que esperar a tenerlas todas.</p>
+<p>Esas partes se hacen cada vez más complejas conforme se van
+ensamblando entre sí los distintos procedimientos que las forman y, con
+ello, se va construyendo el programa <em>de abajo arriba</em>.</p></li>
+<li><p>El diseño global del programa puede cambiar a medida que se van
+conectando los procedimientos unos con otros, por lo que el diseño
+ascendente es menos sensible a cambios en la arquitectura del
+programa.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.1.0.4">
+
+<ul>
+<li><p>Pero también tiene <strong>inconvenientes</strong>:</p>
+<ul>
+<li><p>Puede ser difícil garantizar que al final todos los
+procedimientos encajarán juntos perfectamente en un sistema
+coherente.</p></li>
+<li><p>Se necesita experiencia para construir procedimientos lo
+suficientemente genéricos como para resultar reutilizables.</p></li>
+</ul></li>
+<li><p>La opción que generalmente resulta más conveniente es la de
+combinar ambos enfoques en una única estrategia.</p></li>
+</ul>
+</section>
+
+<section id="estrategia-sándwich" class="title-slide slide level3"
+data-number="4.6.2">
+<h3 data-number="4.6.2"><span class="header-section-number">4.6.2</span>
+Estrategia sándwich</h3>
+<ul>
+<li><p>En la práctica, el diseño descendente y el ascendente se combinan
+en un único enfoque llamado habitualmente <strong>estrategia
+sándiwch</strong>.</p></li>
+<li><p>Este enfoque consiste en lo siguiente:</p>
+<ol>
+<li><p><strong>Diseño <em>top-down</em></strong>: Definir la
+arquitectura general y los grandes módulos según los requisitos del
+sistema, empezando por una visión a vista de pájaro de la solución que
+se debe construir.</p></li>
+<li><p><strong>Diseño <em>bottom-up</em></strong>: Diseñar y programar
+componentes básicos (módulos y procedimientos) que se sabe que se
+necesitarán (por experiencia previa o por requisitos funcionales claros)
+y que se van a tener que combinar entre sí.</p></li>
+<li><p><strong>Integración en el medio (<em>sándwich</em>)</strong>: Los
+módulos grandes (<em>top-down</em>) se implementan usando los
+componentes pequeños (<em>bottom-up</em>), asegurando coherencia entre
+la visión global que ofrece el <em>top-down</em> y detalles prácticos
+que ofrece el <em>bottom-up</em>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.2.0.1">
+
+<div class="caja">
+<p>En resumen, se diseña la arquitectura desde arriba y se construyen
+módulos reutilizables desde abajo, encontrándose ambos en el desarrollo
+de los módulos intermedios.</p>
+</div>
+</section>
+<section class="slide level5" data-number="4.6.2.0.2">
+
+<ul>
+<li><p>En la práctica, podemos decir que:</p>
+<ol>
+<li><p>El enfoque <em>top-down</em> se puede usar para identificar qué
+módulos principales van a formar parte del programa.</p></li>
+<li><p>También se puede usar el enfoque <em>top-down</em> para programar
+los procedimientos y los detalles algorítmicos que formen cada módulo,
+aplicando el refinamiento sucesivo pero sin bajar a un nivel de detalle
+muy alto (o sea, dejándolos a medio terminar).</p></li>
+<li><p>Se puede aplicar el enfoque <em>bottom-up</em> para construir
+procedimientos y módulos que se puedan reutilizar en varias partes del
+programa y que no requieran de otras partes, de forma que se puedan
+escribir y probar ya, sin esperar a tener más partes
+funcionando.</p></li>
+<li><p>Estos módulos y procedimientos se usan para terminar de programas
+los algoritmos que se concretaron <em>a medias</em> en el paso 2
+anterior, de forma que los del paso 2 llaman o usan a los del paso
+3.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.6.2.0.3">
+
+<ul>
+<li><p>La estrategia sándwich tiene las siguientes
+<strong>ventajas</strong>:</p>
+<ul>
+<li><p>Combina lo mejor de ambos enfoques.</p></li>
+<li><p>Garantiza visión global y cohesión (<em>top-down</em>).</p></li>
+<li><p>Permite reutilización y validación temprana de módulos
+(<em>bottom-up</em>).</p></li>
+<li><p>Facilita la integración progresiva del sistema.</p></li>
+</ul></li>
+</ul>
+</section>
+
 </section>
 <section id="bibliografía"
 class="title-slide slide level1 unnumbered unlisted">

@@ -208,6 +208,23 @@ nocite: |
   procedimientos, lo que a veces lleva a la confusión de creer que la
   programación estructurada y la procedimental son el mismo paradigma.
 
+---
+
+- El diseño descendente también tiene **inconvenientes**:
+
+  - Hasta que no se ha llegado al nivel más bajo, no se tiene algo que pueda
+    probarse, ensamblarse y ejecutarse.
+
+  - Por tanto, es un enfoque más difícil de aplicar si no se entienden bien los
+    detalles prácticos ni se conocen perfectamente desde el principio los
+    requisitos del programa que hay que constuir.
+
+  - Puede ignorar la reutilización de componentes ya existentes.
+
+  - Resulta fácil obtener procedimientos que sólo sean útiles para el programa
+    actual y no se puedan generalizar para su reutilización en otras
+    situaciones.
+
 # Funciones imperativas
 
 ## Introducción
