@@ -590,7 +590,10 @@ sea, que pueden estar contenidos unos dentro de otros.</p></li>
 tiempo (anidados unos dentro de otros).</p></li>
 <li><p>De todos ellos, el <strong>ámbito más interno</strong> es el que
 no contiene, a su vez, a ningún otro ámbito.</p></li>
-<li><p>En un momento dado, el <strong>ámbito actual</strong> es el
+<li><p>El <strong>ámbito de una instrucción</strong> es el ámbito más
+interno en el que se encuentra dicha instrucción.</p></li>
+<li><p>Según lo anterior, en un momento dado, el <strong>ámbito
+actual</strong> es el ámbito de la instrucción actual, es decir, el
 ámbito más interno en el que se encuentra la instrucción que se está
 ejecutando actualmente (es decir, la <strong>instrucción
 actual</strong>).</p></li>
@@ -674,7 +677,7 @@ esa definición) es <strong>global</strong>.</p></li>
 <ul>
 <li><p>Por ejemplo, en el siguiente <em>script</em> se ejecutan cuatro
 definiciones.</p></li>
-<li><p>El ámbito actual de cada una de las instrucciones es el ámbito
+<li><p>El ámbito de cada una de las instrucciones es el ámbito
 <em>global</em>, que es el único ámbito que existe en el
 <em>script</em>:</p>
 <div class="centered">
@@ -1233,12 +1236,20 @@ partes suficientemente independientes entre sí (que es la base de la
 <li><p>Por ejemplo, nos permite crear funciones sin preocuparnos de si
 los nombres de los parámetros ya han sido utilizados en otras partes del
 programa.</p></li>
+<li><p>Igualmente, nos permite crear programas sin preocuparnos de si
+estamos usando nombres que ya han sido usadas en el interior de alguna
+de las funciones del programa.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.0.0.8">
+
+<ul>
 <li><p>De lo contrario, se podría provocar lo que se conoce como
-<em>name clash</em> (<em>conflicto de nombres</em> o _choque de
-<em>nombres</em>), que es el problema que se produce cuando usamos el
-mismo nombre para varias cosas diferentes y que impide que se puedan
-usar todas al mismo tiempo.</p></li>
-<li><p>Entonces,¿qué impide el <em>name clash</em>? Dos cosas:</p>
+<strong><em>name clash</em></strong> (<em>conflicto de nombres</em> o
+<em>choque de nombres</em>), que es el problema que se produce cuando
+usamos el mismo nombre para varias cosas diferentes y que impide que se
+puedan usar todas al mismo tiempo.</p></li>
+<li><p>Entonces, ¿qué impide el <em>name clash</em>? Dos cosas:</p>
 <ul>
 <li><p>Los ámbitos hacen que los nombres sólo sean visibles en ciertas
 zonas.</p></li>
@@ -1310,23 +1321,24 @@ class="sourceCode numberSource python number-lines"><code class="sourceCode pyth
 <span id="cb31-3"><a href="#cb31-3"></a>y <span class="op">=</span> producto(<span class="dv">3</span>)</span>
 <span id="cb31-4"><a href="#cb31-4"></a>z <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span>       <span class="co"># da error</span></span></code></pre></div></li>
 <li><p>Hay dos ámbitos: el ámbito global y el ámbito local definido por
-el cuerpo de la expresión lambda (la expresión <code
+el cuerpo de la expresión lambda (o sea, la expresión <code
 class="sourceCode python">x <span class="op">*</span> x</code>).</p></li>
-<li><p>La expresión lambda de la línea 2 tiene un parámetro (<code
+<li><p>Esa expresión lambda tiene un parámetro (<code
 class="sourceCode python">x</code>) que aparece como el identificador
 cuantificado <code class="sourceCode python">x</code> en el cuerpo de la
 expresión lambda.</p></li>
-<li><p>El ámbito del identificador cuantificado <code
-class="sourceCode python">x</code> es el <strong>cuerpo</strong> de la
+<li><p>El ámbito del parámetro <code class="sourceCode python">x</code>
+(o, lo que es lo mismo, el identificador cuantificado <code
+class="sourceCode python">x</code>) es el <strong>cuerpo</strong> de la
 expresión lambda.</p></li>
-<li><p>Por tanto, fuera del cuerpo de la expresión lambda, no es posible
-acceder al valor del identificador cuantificado <code
-class="sourceCode python">x</code>, al encontrarnos <strong>fuera de su
-ámbito</strong> (la ligadura <strong>sólo es visible dentro del
-cuerpo</strong> de la expresión lambda).</p></li>
+<li><p>Por tanto, fuera de ese cuerpo, no es posible acceder al valor
+del identificador cuantificado <code class="sourceCode python">x</code>,
+al encontrarnos <strong>fuera de su ámbito</strong> (la ligadura
+<strong>sólo es visible dentro del cuerpo</strong> de la expresión
+lambda).</p></li>
 <li><p>Por eso, la línea 4 dará un error al intentar acceder al valor
-del identificador <code class="sourceCode python">x</code>, cuya
-ligadura no es visible fuera de la expresión lambda.</p></li>
+<code class="sourceCode python">x</code>, cuya ligadura no es visible
+fuera de la expresión lambda.</p></li>
 </ul>
 </section>
 
@@ -1343,10 +1355,13 @@ decimos directamente que esos identificadores o ligaduras son
 <strong>globales</strong>.</p></li>
 <li><p>Por ejemplo, los <strong>identificadores libres</strong> que
 aparecen en una expresión lambda no son locales a dicha expresión (ya
-que no representan parámetros de la expresión) y, por tanto, tienen un
-ámbito más global que el cuerpo de dicha expresión lambda y se
-almacenarán en otro espacio de nombres distinto al marco que se crea al
-llamar a la expresión lambda.</p></li>
+que no representan parámetros de la expresión) y, por tanto:</p>
+<ol>
+<li><p>Tienen un ámbito más global que el cuerpo de dicha expresión
+lambda.</p></li>
+<li><p>Se almacenarán en otro espacio de nombres distinto al marco que
+se crea al llamar a la expresión lambda.</p></li>
+</ol></li>
 </ul>
 </section>
 </section>

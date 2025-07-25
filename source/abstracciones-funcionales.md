@@ -363,9 +363,13 @@ nocite: |
 - De todos ellos, el **ámbito más interno** es el que no contiene, a su vez, a
   ningún otro ámbito.
 
-- En un momento dado, el **ámbito actual** es el ámbito más interno en el que
-  se encuentra la instrucción que se está ejecutando actualmente (es decir, la
-  **instrucción actual**).
+- El **ámbito de una instrucción** es el ámbito más interno en el que se
+  encuentra dicha instrucción.
+
+- Según lo anterior, en un momento dado, el **ámbito actual** es el ámbito de
+  la instrucción actual, es decir, el ámbito más interno en el que se encuentra
+  la instrucción que se está ejecutando actualmente (es decir, la **instrucción
+  actual**).
 
 ---
 
@@ -433,8 +437,8 @@ nocite: |
 
 - Por ejemplo, en el siguiente _script_ se ejecutan cuatro definiciones.
 
-- El ámbito actual de cada una de las instrucciones es el ámbito _global_, que
-  es el único ámbito que existe en el _script_:
+- El ámbito de cada una de las instrucciones es el ámbito _global_, que es el
+  único ámbito que existe en el _script_:
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
 
@@ -985,12 +989,18 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - Por ejemplo, nos permite crear funciones sin preocuparnos de si los nombres
   de los parámetros ya han sido utilizados en otras partes del programa.
 
-- De lo contrario, se podría provocar lo que se conoce como _name clash_
-  (_conflicto de nombres_ o _choque de _nombres_), que es el problema que se
+- Igualmente, nos permite crear programas sin preocuparnos de si estamos usando
+  nombres que ya han sido usadas en el interior de alguna de las funciones del
+  programa.
+
+---
+
+- De lo contrario, se podría provocar lo que se conoce como **_name clash_**
+  (_conflicto de nombres_ o _choque de nombres_), que es el problema que se
   produce cuando usamos el mismo nombre para varias cosas diferentes y que
   impide que se puedan usar todas al mismo tiempo.
 
-- Entonces,¿qué impide el _name clash_? Dos cosas:
+- Entonces, ¿qué impide el _name clash_? Dos cosas:
 
   - Los ámbitos hacen que los nombres sólo sean visibles en ciertas zonas.
 
@@ -1054,23 +1064,20 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   ```
 
 - Hay dos ámbitos: el ámbito global y el ámbito local definido por el cuerpo de
-  la expresión lambda (la expresión !PYTHON(x * x)).
+  la expresión lambda (o sea, la expresión !PYTHON(x * x)).
 
-- La expresión lambda de la línea 2 tiene un parámetro (!PYTHON(x)) que aparece
-  como el identificador cuantificado !PYTHON(x) en el cuerpo de la expresión
-  lambda.
+- Esa expresión lambda tiene un parámetro (!PYTHON(x)) que aparece como el
+  identificador cuantificado !PYTHON(x) en el cuerpo de la expresión lambda.
 
-- El ámbito del identificador cuantificado !PYTHON(x) es el **cuerpo** de la
-  expresión lambda.
+- El ámbito del parámetro !PYTHON{x} (o, lo que es lo mismo, el identificador
+  cuantificado !PYTHON(x)) es el **cuerpo** de la expresión lambda.
 
-- Por tanto, fuera del cuerpo de la expresión lambda, no es posible acceder al
-  valor del identificador cuantificado !PYTHON(x), al encontrarnos **fuera de
-  su ámbito** (la ligadura **sólo es visible dentro del cuerpo** de la
-  expresión lambda).
+- Por tanto, fuera de ese cuerpo, no es posible acceder al valor del
+  identificador cuantificado !PYTHON(x), al encontrarnos **fuera de su ámbito**
+  (la ligadura **sólo es visible dentro del cuerpo** de la expresión lambda).
 
-- Por eso, la línea 4 dará un error al intentar acceder al valor del
-  identificador !PYTHON(x), cuya ligadura no es visible fuera de la expresión
-  lambda.
+- Por eso, la línea 4 dará un error al intentar acceder al valor !PYTHON(x),
+  cuya ligadura no es visible fuera de la expresión lambda.
 
 ## Ámbito de un identificador libre
 
@@ -1082,9 +1089,12 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 - Por ejemplo, los **identificadores libres** que aparecen en una expresión
   lambda no son locales a dicha expresión (ya que no representan parámetros de
-  la expresión) y, por tanto, tienen un ámbito más global que el cuerpo de
-  dicha expresión lambda y se almacenarán en otro espacio de nombres distinto
-  al marco que se crea al llamar a la expresión lambda.
+  la expresión) y, por tanto:
+
+  #. Tienen un ámbito más global que el cuerpo de dicha expresión lambda.
+
+  #. Se almacenarán en otro espacio de nombres distinto al marco que se crea al
+     llamar a la expresión lambda.
 
 # Funciones recursivas
 
