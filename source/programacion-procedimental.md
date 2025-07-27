@@ -219,7 +219,7 @@ nocite: |
     detalles prácticos ni se conocen perfectamente desde el principio los
     requisitos del programa que hay que constuir.
 
-  - Puede ignorar la reutilización de componentes ya existentes.
+  - Puede ignorar la reutilización de procedimientos ya existentes.
 
   - Resulta fácil obtener procedimientos que sólo sean útiles para el programa
     actual y no se puedan generalizar para su reutilización en otras
@@ -234,14 +234,7 @@ nocite: |
 
 - En Python, los procedimientos son las denominadas **funciones imperativas**.
 
-- En los lenguajes orientados a objetos, los procedimientos serían los
-  **métodos**, que son funciones imperativas que se ejecutan sobre objetos.
-
 - Estudiaremos ahora cómo crear y usar funciones imperativas en Python.
-
-- Al ser Python un lenguaje orientado a objetos además de procedimental, en su
-  momento veremos también cómo crear métodos haciendo uso de funciones
-  imperativas.
 
 ## Definición de funciones imperativas
 
@@ -314,8 +307,9 @@ nocite: |
 
 - La definición de una función es una sentencia ejecutable que, como cualquier
   otra definición, **crea una ligadura** entre un identificador (el nombre de
-  la función) y **una variable que almacenará una referencia a la función**
-  dentro del montículo.
+  la función) y una variable que almacenará **una referencia a la función**.
+
+- Esta función, como cualquier otro valor, se guardará en el montículo.
 
 - La definición de una función **no ejecuta el cuerpo de la función**. El
   cuerpo se ejecutará únicamente cuando se llame a la función, al igual que
