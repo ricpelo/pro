@@ -400,8 +400,21 @@ nocite: |
 
 ## Llamadas a funciones imperativas
 
-- Cuando se llama a una función imperativa, ocurre lo siguiente (en este
-  orden):
+- Sabemos que una llamada a cualquier función es una expresión que, como
+  cualquier otra expresión, se evalúa en busca de su valor.
+
+- De la misma forma, una llamada a una función imperativa es una expresión que
+  se evalúa para determinar su valor, pero, al hacerlo, se provoca la ejecución
+  de las sentencias que forman el cuerpo de la misma.
+
+- Por eso, cuando llamamos a la función también decimos que estamos
+  _ejecutando_ la función, ya que estamos provocando la ejecución de las
+  sentencias que contiene.
+
+---
+
+- En concreto, cuando se llama a una función imperativa, ocurre lo siguiente
+  (en este orden):
 
   1. Como siempre que se llama a una función, se crea un nuevo marco en el
      entorno (que contiene las ligaduras y variables locales a su ámbito,
@@ -435,9 +448,31 @@ nocite: |
 
   5. Se continúa la ejecución del programa desde ese punto.
 
-- En consecuencia, podemos considerar que la llamada a una función es una
-  sentencia simple que, en realidad, actúa como una sentencia compuesta, una
-  estructura secuencial (o bloque), que es el cuerpo de la función.
+---
+
+- Como una expresión, por sí sola, es también una sentencia válida según la
+  sintaxis de Python, podemos usar una llamada a una función como una sentencia
+  simple allí donde se espera una sentencia cualquiera.
+
+- En consecuencia, podemos considerar que una sentencia formada únicamente por
+  una llamada a una función es una sentencia simple que, en realidad, actúa
+  como una sentencia compuesta: una estructura secuencial (o bloque), que es el
+  cuerpo de la función y que se ejecuta cuando se llama a ésta.
+
+- Debemos tener en cuenta que, en ese caso, el valor de retorno se perdería ya
+  que no se usaría.
+
+- Por ejemplo, si la función `saluda` que vimos antes devolviera el número de
+  caracteres que tiene el nombre que recibe como argumento, al llamar a la
+  función como una sentencia propia:
+
+  ```python
+  saluda('Manuel', 'González')
+  ```
+
+  esa llamada devolvería el valor `6` (la longitud de la cadena
+  !PYTHON('Manuel')) pero dicho valor se perdería ya que nunca se usa dentro de
+  ninguna expresión ni como parte de otra sentencia.
 
 ---
 
@@ -714,6 +749,11 @@ Una función puede llamar a otra.
 
   y la ejecución del programa continuaría ejecutando la sentencia tal y como
   está ahora.
+
+- En resumen: la llamada a una función imperativa es una expresión que se
+  evalúa ejecutando el cuerpo de la función (sustituyendo previamente los
+  parámetros por los argumentos de la llamada), de forma que el valor de la
+  expresión será el valor de retorno de la función llamada.
 
 ---
 
