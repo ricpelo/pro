@@ -398,7 +398,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Recordemos el ejemplo del programa anterior, donde veíamos que resultaba muy
   confuso entender qué hacía:
 
-!IMGP(confuso.!EXT)()(width=50%)(width=60%)
+!IMGP(confuso.!EXT)()(width=55%)(width=60%)
 
 ---
 
