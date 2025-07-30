@@ -247,7 +247,7 @@ fundamento teórico está basado en los trabajos de <strong>Böhm y
 Jacopini</strong> publicados en 1966.</p></li>
 </ul>
 <!--
-- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd para establecer una metodología disciplinada y sistemática de programación en la cual los programas se escriben al mismo tiempo que se va demostrando su corrección, en un estilo formal y riguroso.
+- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd para establecer una metodología disciplinada y sistemática de programación en la cual los programas se escriben al mismo tiempo que se va demostrando su corrección, en un estilo formal y riguroso, aprovechando que los programas estructurados son más fácilmente verificables por su composicionalidad.
 -->
 </section>
 <section class="slide level5" data-number="1.1.0.0.2">
@@ -260,7 +260,7 @@ marquen la creación de programas claros y correctos.</p></li>
 leer en los que resulta relativamente fácil demostrar su
 corrección.</p></li>
 <li><p>Por ejemplo, el siguiente programa que calcula el producto de dos
-números:</p></li>
+números resulta sencillo de entender:</p></li>
 </ul>
 <div class="centered">
 <p><img data-src="images/producto.svg" class="plain"
@@ -275,14 +275,19 @@ style="width:95.0%" /></p>
 <li><p>En cambio, un programador <em>indisciplinado</em> crearía
 programas más difíciles de leer y, por tanto, de demostrar que son
 correctos.</p></li>
-<li><p>Este programa resuelve el mismo problema que el anterior, pero
-mediante saltos contínuos y líneas que se cruzan, lo que resulta en un
-programa más complicado de seguir.</p></li>
+<li><p>Este programa es mucho más complicado de seguir debido a que
+tiene saltos continuos y líneas que se cruzan.</p></li>
+<li><p>Debido a ello, resulta mucho más difícil saber qué hace el
+programa y, por tanto, qué problema resuelve y, más importante, si lo
+resuelve <em>correctamente</em>.</p></li>
 </ul>
 </div><div class="column" style="width:55%;">
 <div class="centered">
-<p><img data-src="images/confuso.svg" class="plain"
-style="width:100.0%" /></p>
+<figure>
+<img data-src="images/confuso.svg" class="plain" style="width:100.0%"
+alt="¿Qué hace este programa?" />
+<figcaption aria-hidden="true">¿Qué hace este programa?</figcaption>
+</figure>
 </div>
 </div>
 </div>
@@ -290,12 +295,6 @@ style="width:100.0%" /></p>
 <section class="slide level5" data-number="1.1.0.0.4">
 
 <ul>
-<li><p>Esos dos programas son <strong>equivalentes</strong>, lo que
-significa que producen el mismo resultado y los mismos efectos ante los
-mismos datos de entrada, aunque lo hacen de distinta forma.</p></li>
-<li><p>Pero el primer programa es <strong>mucho más fácil de leer y
-modificar</strong> que el segundo, aunque los dos resuelvan el mismo
-problema.</p></li>
 <li><p>Si un programa se escribe de cualquier manera, aunque funcione
 correctamente, puede resultar engorroso, críptico, ilegible, casi
 imposible de modificar y de comprobar su corrección.</p></li>
@@ -317,14 +316,18 @@ Programa restringido</h2>
 <ul>
 <li><p>Un <strong>programa restringido</strong> es aquel que se
 construye combinando únicamente los tres siguientes componentes
-constructivos:</p></li>
+constructivos:</p>
+<ul>
 <li><p><strong>Sentencia</strong>, que sirve para representar una
-instrucción (por ejemplo: de lectura, escritura, asignación…).</p></li>
-<li><p><strong>Condición</strong>, que sirve para bifurcar el flujo del
-programa hacia un camino u otro dependiendo del valor de una expresión
-lógica.</p></li>
-<li><p><strong>Agrupamiento</strong>, que sirve para agrupar lı́neas de
-flujo que procedan de distintos caminos.</p></li>
+instrucción imperativa básica, principalmente <em>lectura</em>,
+<em>escritura</em> o <em>asignación</em>. A éstas tres se las denominan
+<strong>acciones primitivas</strong>.</p></li>
+<li><p><strong>Condición</strong>, que sirve para bifurcar el flujo de
+control del programa por un camino u otro dependiendo del valor de una
+expresión lógica.</p></li>
+<li><p><strong>Agrupamiento</strong>, que sirve para agrupar líneas del
+flujo de control que procedan de distintos caminos.</p></li>
+</ul></li>
 </ul>
 <div class="columns">
 <div class="column" style="width:33%;">
@@ -373,9 +376,11 @@ salida.</p></li>
 </ol></li>
 <li><p>Esto permite que <strong>un programa propio pueda formar parte de
 otro programa mayor</strong>, apareciendo allí donde pueda haber una
-sentencia.</p></li>
-<li><p>Cuando varios programas propios se combinan para formar uno solo,
-el resultado es también un programa propio.</p></li>
+sentencia.</p>
+<div class="caja">
+<p>Cuando varios programas propios <strong>se combinan</strong> para
+formar uno solo, el resultado es también un programa propio.</p>
+</div></li>
 <li><p>Estas condiciones <strong>restringen aún más el concepto de
 <em>programa</em></strong>, de modo que sólo serán válidos aquellos que
 estén diseñados mediante el uso apropiado del agrupamiento (con una sola
@@ -411,6 +416,14 @@ una sentencia y aparecer allí donde pueda haber una sentencia:</li>
 <p><img data-src="images/programa-propio-dentro-de-otro.svg"
 class="plain" style="width:90.0%" /></p>
 </div>
+<ul>
+<li>Este principio de <em>composicionalidad</em> nos va a ayudar a
+<strong>escribir programas más complejos</strong> a partir de otros más
+simples, y es una pieza clave en la programación estructurada. Además,
+nos va a permitir <strong>verificar la corrección de un
+programa</strong> comprobando previamente la corrección de los
+componentes que lo forman.</li>
+</ul>
 </section>
 <section class="slide level5" data-number="1.3.0.0.3">
 
@@ -439,14 +452,14 @@ style="width:50.0%" /></p>
 </div>
 </section>
 
-<section id="estructura" class="title-slide slide level2"
+<section id="estructuras-de-control" class="title-slide slide level2"
 data-number="1.4">
 <h2 data-number="1.4"><span class="header-section-number">1.4</span>
-Estructura</h2>
+Estructuras de control</h2>
 <ul>
-<li><p>Las <strong>estructuras</strong> son construcciones sintácticas
-que pueden <strong>anidarse completamente</strong> unas dentro de
-otras.</p></li>
+<li><p>Una <strong>estructura</strong> es una construcción sintáctica
+que puede <strong>anidarse completamente</strong> dentro de otras
+estructuras.</p></li>
 <li><p>Eso significa que, dadas dos estructuras cualesquiera, o una está
 incluida completamente dentro de la otra, o no se tocan en
 absoluto.</p></li>
@@ -476,15 +489,18 @@ style="width:20.0%" alt="Estas no son estructuras" />
 <section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
-<li><p>Las estructuras forman los componentes constructivos básicos de
-cualquier programa estructurado.</p></li>
+<li><p>Las <strong>estructuras de control</strong> son estructuras que
+permiten regular el flujo de control del programa, y constituyen los
+componentes constructivos básicos de cualquier programa
+estructurado.</p></li>
 <li><p>Por tanto, un programa estructurado se crea combinando entre sí
-varias estructuras.</p></li>
-<li><p>Sintácticamente, una estructura es una unidad compuesta por
-varias sentencias que actúan como una sola.</p></li>
-<li><p>Toda estructura, por tanto, representa una <strong>sentencia
-compuesta</strong> que actúa como un miniprograma propio y, por tanto,
-con un único punto de entrada y un único punto de salida.</p></li>
+varias estructuras de control.</p></li>
+<li><p>Sintácticamente, una estructura de control es una unidad
+compuesta por varias sentencias que actúan como una sola.</p></li>
+<li><p>Toda estructura de control, por tanto, representa una
+<strong>sentencia compuesta</strong> que actúa como un <em>miniprograma
+propio</em> (y, por tanto, con un único punto de entrada y un único
+punto de salida) que puede formar parte de otro programa mayor.</p></li>
 </ul>
 </section>
 
@@ -494,22 +510,22 @@ data-number="1.5">
 Programa estructurado</h2>
 <ul>
 <li><p>Un <strong>programa estructurado</strong> es un programa
-construido combinando las siguientes estructuras (llamadas
-<strong>estructuras de control</strong>):</p>
-<ol>
+construido combinando las siguientes <strong>estructuras de
+control</strong>:</p>
+<ul>
 <li><p>La <strong>estructura secuencial</strong>,
 <strong><em>secuencia</em></strong> o <strong>bloque</strong> de una,
 dos o más sentencias <em>A</em>, <em>B</em>, <em>C</em>, etcétera.</p>
-<p>Los lenguajes que permiten la creación de bloques, incluyendo bloques
-dentro de otros bloques, se denominan <strong>lenguajes estructurados en
-bloques</strong>.</p></li>
+<p>Los lenguajes de programación que permiten la creación de bloques
+(incluyendo bloques dentro de otros bloques) se denominan
+<strong>lenguajes estructurados en bloques</strong>.</p></li>
 <li><p>La <strong>estructura alternativa</strong> o
 <strong><em>selección</em></strong> entre dos sentencias <em>A</em> y
 <em>B</em> dependiendo de un predicado <em>p</em>.</p></li>
 <li><p>La <strong>estructura repetitiva</strong> o
 <strong><em>iteración</em></strong>, que repite una sentencia <em>A</em>
 dependiendo del valor lógico de un predicado <em>p</em>.</p></li>
-</ol></li>
+</ul></li>
 <li><p>Las estructuras de control son <strong>sentencias
 compuestas</strong> que contienen, a su vez, otras sentencias.</p></li>
 </ul>
@@ -568,15 +584,16 @@ class="math inline">p</span> <strong>hacer</strong><br />
 <section class="slide level5" data-number="1.5.0.0.2">
 
 <ul>
-<li><p>Cada una de las sentencias que aparecen en una estructura (las
-indicadas anteriormente como <em>A</em> y <em>B</em>) pueden ser, a su
-vez, estructuras.</p>
+<li><p>Cada una de las sentencias que aparecen en una estructura de
+control (las indicadas anteriormente como <em>A</em> y <em>B</em>)
+pueden ser, a su vez, otras estructuras de control.</p>
 <ul>
-<li><p>Esto es así porque una estructura también es una sentencia (que
-en este caso sería una sentencia <em>compuesta</em> en lugar de una
-sentencia <em>simple</em>).</p></li>
-<li><p>Por tanto, una estructura puede aparecer en cualquier lugar donde
-se espere una sentencia.</p></li>
+<li><p>Esto es así porque una estructura de control también es una
+sentencia (en este caso, sería una <strong>sentencia
+<em>compuesta</em></strong> y no una <strong>sentencia
+<em>simple</em></strong>).</p></li>
+<li><p>Por tanto, una estructura de control puede aparecer en cualquier
+lugar donde se espere una sentencia.</p></li>
 </ul></li>
 <li><p>Resumiendo, en un programa podemos tener <strong>dos tipos de
 sentencias</strong>:</p>
@@ -584,7 +601,7 @@ sentencias</strong>:</p>
 <li><p><strong>Sentencias <em>simples</em></strong>.</p></li>
 <li><p><strong>Estructuras de control</strong>, que son sentencias
 <strong><em>compuestas</em></strong> formadas a su vez por otras
-sentencias (que podrán ser, a su vez, simples o compuestas,
+sentencias (que podrán ser, a su vez, simples o compuestas, y así
 recursivamente).</p></li>
 </ul></li>
 <li><p>Por consiguiente, <strong>todo programa puede verse como una
@@ -602,7 +619,7 @@ en sí mismo.</p></li>
 dentro del programa</strong>.</p></li>
 <li><p>Ese miniprograma debe cumplir las propiedades de los programas
 propios (los programas que no son propios no nos interesan).</p></li>
-<li><p>Por eso, las estructuras:</p>
+<li><p>Por eso, las estructuras de control:</p>
 <ol>
 <li><p>Siempre tienen un único punto de entrada y un único punto de
 salida.</p></li>
@@ -616,8 +633,19 @@ salida.</p></li>
 <section class="slide level5" data-number="1.5.0.0.4">
 
 <ul>
-<li>Un programa estructurado equivalente al del ejemplo anterior, pero
-mucho más claro, sería:</li>
+<li>Recordemos el ejemplo del programa anterior, donde veíamos que
+resultaba muy confuso entender qué hacía:</li>
+</ul>
+<div class="centered">
+<p><img data-src="images/confuso.svg" class="plain"
+style="width:50.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="1.5.0.0.5">
+
+<ul>
+<li>En cambio, un <strong>programa estructurado equivalente</strong> al
+anterior, pero mucho más claro y fácil de entender, sería:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:65%;">
@@ -626,8 +654,8 @@ mucho más claro, sería:</li>
 style="width:90.0%" /></p>
 </div>
 </div><div class="column" style="width:35%;">
-<p>Los cuadrados de trazo discontinuo representan las estructuras que
-forman el programa.</p>
+<p>Los cuadrados de trazo discontinuo representan las estructuras de
+control que forman el programa.</p>
 <p><br></p>
 <div class="line-block"><strong>leer</strong> <span
 class="math inline">a</span><br />
@@ -644,6 +672,35 @@ b</span><br />
 <strong>escribir</strong> <span class="math inline">a</span></div>
 </div>
 </div>
+</section>
+<section class="slide level5" data-number="1.5.0.0.6">
+
+<ul>
+<li><p>Esos dos programas son <strong>equivalentes</strong>, lo que
+significa que producen el mismo resultado y los mismos efectos ante los
+mismos datos de entrada, aunque lo hacen de distinta forma:</p>
+<ul>
+<li><p>El primer programa se compone de saltos contínuos y líneas que se
+cruzan, lo que lo hace mucho más complicado de seguir.</p></li>
+<li><p>En cambio, el segundo programa es <strong>mucho más fácil de leer
+y modificar</strong> que el primero, aunque los dos resuelvan el mismo
+problema.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.7">
+
+<ul>
+<li><p>Todo programa estructurado presenta una descomposición
+arborescente en la que cada nodo se corresponde directamente con una
+sentencia simple o compuesta.</p></li>
+<li><p>Cualquier sentencia compuesta puede ser sustituida por su
+descomposición arborescente y viceversa.</p></li>
+<li><p>Esta propiedad simplifica el razonamiento sobre el programa al
+hacerlo mucho más legible, además de facilitar su mantenimiento, ya que
+lo más probable es que sólo haya que realizar modificaciones en
+subárboles de la estructura general.</p></li>
+</ul>
 </section>
 <section id="ventajas-de-los-programas-estructurados"
 class="title-slide slide level3" data-number="1.5.1">
@@ -687,6 +744,20 @@ expresivos como para expresar cualquier programa razonable.</p></li>
 sencillos, claros y fáciles de entender, mantener y verificar.</p></li>
 <li><p>En consecuencia, no hay excusa para no estructurar nuestros
 programas.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.6.0.0.1">
+
+<ul>
+<li><p>No todos los programas estructurados son programas propios, ya
+que podemos escribir programas estructurados que tengan varias salidas o
+bucles infinitos.</p></li>
+<li><p>Lo que demuestra el teorema es que, si tenemos un programa
+propio, lo podemos escribir como programa estructurado.</p></li>
+<li><p>Por tanto, todo programa propio se puede estructurar, pero no
+todos los programas estructurados son propios.</p></li>
+<li><p>Pero es evidente que los programas estructurados que nos
+interesan son, precisamente, los que también son propios.</p></li>
 </ul>
 </section>
 </section>
@@ -745,8 +816,8 @@ bloque.</p></li>
 <p>En Python, la <strong>estructura</strong> del programa viene definida
 por la <strong>indentación</strong> del código.</p>
 <p>Por tanto, las instrucciones que aparecen consecutivamente una tras
-otra en el mismo nivel de indentación (es decir, las que empiezan en la
-misma columna en el archivo fuente) pertenecen a la misma
+otra en el mismo nivel de indentación (es decir, las que empiezan juntas
+en la misma columna en el archivo fuente) pertenecen a la misma
 estructura.</p>
 </div>
 </section>
@@ -758,7 +829,7 @@ estructura.</p>
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> a, b: a <span class="op">+</span> b</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> f(x <span class="op">+</span> y)</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> f(x <span class="op">*</span> y)</span></code></pre></div>
 <p>Estas cuatro sentencias, al estar todas consecutivas en el mismo
 nivel de indentación, actúan como una sola sentencia en bloque (forman
 una estructura <em>secuencial</em>) y se ejecutan en orden de arriba

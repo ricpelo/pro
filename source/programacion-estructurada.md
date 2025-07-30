@@ -45,7 +45,7 @@ nocite: |
   los trabajos de **Böhm y Jacopini** publicados en 1966.
 
 <!--
-- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd para establecer una metodología disciplinada y sistemática de programación en la cual los programas se escriben al mismo tiempo que se va demostrando su corrección, en un estilo formal y riguroso.
+- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd para establecer una metodología disciplinada y sistemática de programación en la cual los programas se escriben al mismo tiempo que se va demostrando su corrección, en un estilo formal y riguroso, aprovechando que los programas estructurados son más fácilmente verificables por su composicionalidad.
 -->
 
 ---
@@ -57,7 +57,8 @@ nocite: |
 - Un programador _disciplinado_ crearía programas fáciles de leer en los que
   resulta relativamente fácil demostrar su corrección.
 
-- Por ejemplo, el siguiente programa que calcula el producto de dos números:
+- Por ejemplo, el siguiente programa que calcula el producto de dos números
+  resulta sencillo de entender:
 
 !IMGP(producto.!EXT)()(width=95%)(width=100%)
 
@@ -70,28 +71,24 @@ nocite: |
 - En cambio, un programador _indisciplinado_ crearía programas más difíciles de
   leer y, por tanto, de demostrar que son correctos.
 
-- Este programa resuelve el mismo problema que el anterior, pero mediante
-  saltos contínuos y líneas que se cruzan, lo que resulta en un programa más
-  complicado de seguir.
+- Este programa es mucho más complicado de seguir debido a que tiene saltos
+  continuos y líneas que se cruzan.
+
+- Debido a ello, resulta mucho más difícil saber qué hace el programa y, por
+  tanto, qué problema resuelve y, más importante, si lo resuelve
+  _correctamente_.
 
 :::
 
 ::: {.column width=55%}
 
-!IMGP(confuso.!EXT)()(width=100%)(width=70%)
+!IMGP(confuso.!EXT)(¿Qué hace este programa?)(width=100%)(width=70%)
 
 :::
 
 ::::
 
 ---
-
-- Esos dos programas son **equivalentes**, lo que significa que producen el
-  mismo resultado y los mismos efectos ante los mismos datos de entrada, aunque
-  lo hacen de distinta forma.
-
-- Pero el primer programa es **mucho más fácil de leer y modificar** que el
-  segundo, aunque los dos resuelvan el mismo problema.
 
 - Si un programa se escribe de cualquier manera, aunque funcione correctamente,
   puede resultar engorroso, críptico, ilegible, casi imposible de modificar y
@@ -110,14 +107,15 @@ nocite: |
 - Un **programa restringido** es aquel que se construye combinando únicamente
   los tres siguientes componentes constructivos:
 
-- **Sentencia**, que sirve para representar una instrucción (por ejemplo: de
-  lectura, escritura, asignación...).
+  - **Sentencia**, que sirve para representar una instrucción imperativa
+    básica, principalmente _lectura_, _escritura_ o _asignación_. A éstas tres
+    se las denominan **acciones primitivas**.
 
-- **Condición**, que sirve para bifurcar el flujo del programa hacia un camino
-  u otro dependiendo del valor de una expresión lógica.
+  - **Condición**, que sirve para bifurcar el flujo de control del programa
+    por un camino u otro dependiendo del valor de una expresión lógica.
 
-- **Agrupamiento**, que sirve para agrupar lı́neas de flujo que procedan de
-  distintos caminos.
+  - **Agrupamiento**, que sirve para agrupar líneas del flujo de control que
+    procedan de distintos caminos.
 
 :::: columns
 
@@ -156,8 +154,11 @@ nocite: |
 - Esto permite que **un programa propio pueda formar parte de otro programa
   mayor**, apareciendo allí donde pueda haber una sentencia.
 
-- Cuando varios programas propios se combinan para formar uno solo, el
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Cuando varios programas propios **se combinan** para formar uno solo, el
   resultado es también un programa propio.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Estas condiciones **restringen aún más el concepto de _programa_**, de modo
   que sólo serán válidos aquellos que estén diseñados mediante el uso apropiado
@@ -183,6 +184,12 @@ nocite: |
 
 !IMGP(programa-propio-dentro-de-otro.!EXT)()(width=90%)(width=70%)
 
+- Este principio de _composicionalidad_ nos va a ayudar a **escribir programas
+  más complejos** a partir de otros más simples, y es una pieza clave en la
+  programación estructurada. Además, nos va a permitir **verificar la
+  corrección de un programa** comprobando previamente la corrección de los
+  componentes que lo forman.
+
 ---
 
 - Aquí se observa otro programa que no es propio, ya que **existen componentes
@@ -199,10 +206,10 @@ nocite: |
 
 !IMGP(diagrama-inaccesibles.!EXT)()(width=50%)(width=40%)
 
-## Estructura
+## Estructuras de control
 
-- Las **estructuras** son construcciones sintácticas que pueden **anidarse
-completamente** unas dentro de otras.
+- Una **estructura** es una construcción sintáctica que puede **anidarse
+  completamente** dentro de otras estructuras.
 
 - Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
   completamente dentro de la otra, o no se tocan en absoluto.
@@ -250,36 +257,38 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ---
 
-- Las estructuras forman los componentes constructivos básicos de cualquier
-  programa estructurado.
+- Las **estructuras de control** son estructuras que permiten regular el flujo
+  de control del programa, y constituyen los componentes constructivos básicos
+  de cualquier programa estructurado.
 
 - Por tanto, un programa estructurado se crea combinando entre sí varias
-  estructuras.
+  estructuras de control.
 
-- Sintácticamente, una estructura es una unidad compuesta por varias sentencias
-  que actúan como una sola.
+- Sintácticamente, una estructura de control es una unidad compuesta por varias
+  sentencias que actúan como una sola.
 
-- Toda estructura, por tanto, representa una **sentencia compuesta** que actúa
-  como un miniprograma propio y, por tanto, con un único punto de entrada y un
-  único punto de salida.
+- Toda estructura de control, por tanto, representa una **sentencia compuesta**
+  que actúa como un _miniprograma propio_ (y, por tanto, con un único punto de
+  entrada y un único punto de salida) que puede formar parte de otro programa
+  mayor.
 
 ## Programa estructurado
 
 - Un **programa estructurado** es un programa construido combinando las
-  siguientes estructuras (llamadas **estructuras de control**):
+  siguientes **estructuras de control**:
 
-  #. La **estructura secuencial**, **_secuencia_** o **bloque** de una, dos o
-  más sentencias *A*, *B*, *C*, etcétera.
+  - La **estructura secuencial**, **_secuencia_** o **bloque** de una, dos o
+    más sentencias *A*, *B*, *C*, etcétera.
 
-     Los lenguajes que permiten la creación de bloques, incluyendo bloques
-     dentro de otros bloques, se denominan **lenguajes estructurados en
-     bloques**.
+    Los lenguajes de programación que permiten la creación de bloques
+    (incluyendo bloques dentro de otros bloques) se denominan **lenguajes
+    estructurados en bloques**.
 
-  #. La **estructura alternativa** o **_selección_** entre dos sentencias *A* y
-     *B* dependiendo de un predicado *p*.
+  - La **estructura alternativa** o **_selección_** entre dos sentencias *A* y
+    *B* dependiendo de un predicado *p*.
 
-  #. La **estructura repetitiva** o **_iteración_**, que repite una sentencia
-     *A* dependiendo del valor lógico de un predicado *p*.
+  - La **estructura repetitiva** o **_iteración_**, que repite una sentencia
+    *A* dependiendo del valor lógico de un predicado *p*.
 
 - Las estructuras de control son **sentencias compuestas** que contienen, a su
   vez, otras sentencias.
@@ -342,14 +351,16 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ---
 
-- Cada una de las sentencias que aparecen en una estructura (las indicadas
-  anteriormente como _A_ y _B_) pueden ser, a su vez, estructuras.
+- Cada una de las sentencias que aparecen en una estructura de control (las
+  indicadas anteriormente como _A_ y _B_) pueden ser, a su vez, otras
+  estructuras de control.
 
-  - Esto es así porque una estructura también es una sentencia (que en este
-    caso sería una sentencia *compuesta* en lugar de una sentencia *simple*).
+  - Esto es así porque una estructura de control también es una sentencia (en
+    este caso, sería una **sentencia _compuesta_** y no una **sentencia
+    _simple_**).
 
-  - Por tanto, una estructura puede aparecer en cualquier lugar donde se espere
-    una sentencia.
+  - Por tanto, una estructura de control puede aparecer en cualquier lugar
+    donde se espere una sentencia.
 
 - Resumiendo, en un programa podemos tener **dos tipos de sentencias**:
 
@@ -357,7 +368,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
   - **Estructuras de control**, que son sentencias **_compuestas_** formadas a
     su vez por otras sentencias (que podrán ser, a su vez, simples o
-    compuestas, recursivamente).
+    compuestas, y así recursivamente).
 
 - Por consiguiente, **todo programa puede verse como una única sentencia**,
   simple o compuesta por otras.
@@ -373,7 +384,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Ese miniprograma debe cumplir las propiedades de los programas propios (los
   programas que no son propios no nos interesan).
 
-- Por eso, las estructuras:
+- Por eso, las estructuras de control:
 
   #. Siempre tienen un único punto de entrada y un único punto de salida.
 
@@ -384,8 +395,15 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ---
 
-- Un programa estructurado equivalente al del ejemplo anterior, pero mucho más
-  claro, sería:
+- Recordemos el ejemplo del programa anterior, donde veíamos que resultaba muy
+  confuso entender qué hacía:
+
+!IMGP(confuso.!EXT)()(width=50%)(width=50%)
+
+---
+
+- En cambio, un **programa estructurado equivalente** al anterior, pero mucho
+  más claro y fácil de entender, sería:
 
 :::: columns
 
@@ -397,8 +415,8 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ::: {.column width=35%}
 
-Los cuadrados de trazo discontinuo representan las estructuras que forman el
-programa.
+Los cuadrados de trazo discontinuo representan las estructuras de control que
+forman el programa.
 
 !SALTO
 
@@ -417,6 +435,31 @@ programa.
 :::
 
 ::::
+
+---
+
+- Esos dos programas son **equivalentes**, lo que significa que producen el
+  mismo resultado y los mismos efectos ante los mismos datos de entrada, aunque
+  lo hacen de distinta forma:
+
+  - El primer programa se compone de saltos contínuos y líneas que se cruzan,
+    lo que lo hace mucho más complicado de seguir.
+
+  - En cambio, el segundo programa es **mucho más fácil de leer y modificar**
+    que el primero, aunque los dos resuelvan el mismo problema.
+
+---
+
+- Todo programa estructurado presenta una descomposición arborescente en la que
+  cada nodo se corresponde directamente con una sentencia simple o compuesta.
+
+- Cualquier sentencia compuesta puede ser sustituida por su descomposición
+  arborescente y viceversa.
+
+- Esta propiedad simplifica el razonamiento sobre el programa al hacerlo mucho
+  más legible, además de facilitar su mantenimiento, ya que lo más probable es
+  que sólo haya que realizar modificaciones en subárboles de la estructura
+  general.
 
 ### Ventajas de los programas estructurados
 
@@ -458,6 +501,21 @@ programa.
   claros y fáciles de entender, mantener y verificar.
 
 - En consecuencia, no hay excusa para no estructurar nuestros programas.
+
+---
+
+- No todos los programas estructurados son programas propios, ya que podemos
+  escribir programas estructurados que tengan varias salidas o bucles
+  infinitos.
+
+- Lo que demuestra el teorema es que, si tenemos un programa propio, lo podemos
+  escribir como programa estructurado.
+
+- Por tanto, todo programa propio se puede estructurar, pero no todos los
+  programas estructurados son propios.
+
+- Pero es evidente que los programas estructurados que nos interesan son,
+  precisamente, los que también son propios.
 
 # Estructuras básicas de control en Python
 
@@ -518,8 +576,8 @@ En Python, la **estructura** del programa viene definida por la **indentación**
 del código.
 
 Por tanto, las instrucciones que aparecen consecutivamente una tras otra en el
-mismo nivel de indentación (es decir, las que empiezan en la misma columna en
-el archivo fuente) pertenecen a la misma estructura.
+mismo nivel de indentación (es decir, las que empiezan juntas en la misma
+columna en el archivo fuente) pertenecen a la misma estructura.
 ~~~~~~~~~~~~~~~~~
 
 ---
@@ -530,7 +588,7 @@ el archivo fuente) pertenecen a la misma estructura.
   x = 1
   y = 2
   f = lambda a, b: a + b
-  z = f(x + y)
+  z = f(x * y)
   ```
 
   Estas cuatro sentencias, al estar todas consecutivas en el mismo nivel de
