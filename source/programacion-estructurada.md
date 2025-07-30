@@ -398,7 +398,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 - Recordemos el ejemplo del programa anterior, donde veíamos que resultaba muy
   confuso entender qué hacía:
 
-!IMGP(confuso.!EXT)()(width=50%)(width=50%)
+!IMGP(confuso.!EXT)()(width=50%)(width=60%)
 
 ---
 
@@ -409,7 +409,7 @@ B [pos="0.0,-0.2!", fillcolor = transparent]
 
 ::: {.column width=65%}
 
-!IMGP(claro.!EXT)()(width=90%)(width=80%)
+!IMGP(claro.!EXT)()(width=90%)(width=60%)
 
 :::
 
@@ -464,6 +464,10 @@ forman el programa.
   más legible, además de facilitar su mantenimiento, ya que lo más probable es
   que sólo haya que realizar modificaciones en subárboles de la estructura
   general.
+
+---
+
+!IMGP(arbol-estructurado.!EXT)(Árbol estructurado equivalente al programa anterior)(width=80%)(width=60%)
 
 ### Ventajas de los programas estructurados
 
@@ -838,8 +842,6 @@ columna en el archivo fuente) pertenecen a la misma estructura.
 
 ---
 
-!ifdef(LATEX)(\newpage)
-
 ```python
 salida = False
 while not salida:
@@ -890,8 +892,6 @@ while not salida:
   !T(while) !NT(condición)!T(:)
   !SPC(6)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
-
-!ifdef(LATEX)(\newpage)
 
 ## Otras sentencias de control
 
