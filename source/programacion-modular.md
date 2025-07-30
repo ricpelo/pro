@@ -249,12 +249,10 @@ nocite: |
 
 ---
 
-- Los módulos **_exportan_ su interfaz** al resto de los módulos.
+- Por tanto, decimos que los módulos **_exportan_ su interfaz** al resto de los
+  módulos.
 
-- Los módulos usuarios deben **importar** un módulo para poder usarlo. Al
-  hacerlo, tienen acceso a los elementos exportados por el módulo a través de
-  su interfaz, lo que le permite al _módulo usuario_ consumir los servicios que
-  proporciona el _módulo importado_.
+- Por otra parte, un módulo debe **importar** a otro módulo para poder usarlo.
 
 - En terminología de programación modular, hablamos entonces de la existencia
   de dos tipos de módulos:
@@ -264,6 +262,10 @@ nocite: |
 
   - El que es usado por otro módulo es el módulo «_usado_», «_servidor_»,
     «_consumido_» o «_importado_».
+
+- Cuando el _módulo usuario_ importa al _módulo importado_, tiene acceso a los
+  elementos exportados por este último a través de su interfaz, lo que le
+  permite consumir los servicios que ese módulo importado proporciona.
 
 ---
 
