@@ -1171,7 +1171,10 @@ La respuesta es que **NO**.
 
 ## Programa
 
-- Definición:
+- Un **programa** es una secuencia de instrucciones que le dicen a un ordenador
+  lo que tiene que hacer para realizar una tarea o resolver un problema.
+
+- Una definición más precisa sería:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1181,12 +1184,26 @@ La respuesta es que **NO**.
   programación.
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Si el algoritmo está bien definido, *traducir* ese algoritmo en un programa
-  equivalente puede resultar trivial.
+---
 
 - El texto del programa escrito en ese lenguaje de programación se denomina
-  **código fuente**. Programar, al final, consiste en escribir (*codificar*) el
-  código fuente de nuestro programa.
+  **programa fuente** o **código fuente**.
+
+- «_Programar_», muy resumidamente, consiste en escribir el código fuente de un
+  programa (proceso que se denomina _codificación_), y es lo que producen los
+  _programadores_ (o sea, nosotros) como resultado de su trabajo, aunque en
+  realidad es una tarea mucho más compleja que consta de más pasos que veremos
+  posteriormente.
+
+- «_Codificar_» consiste en _reescribir_ un algoritmo en un programa escrito en
+  un determinado lenguaje de programación.
+
+---
+
+- Por ello, a veces se usa el término _codificar_ como sinónimo de _programar_,
+  si bien no son exactamente lo mismo.
+
+- Si el algoritmo está bien definido, la codificación puede resultar trivial.
 
 - Los algoritmos están pensados para ser entendidos por un ser humano, mientras
   que los programas se escriben para ser interpretados y ejecutados por un
