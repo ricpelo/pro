@@ -448,6 +448,10 @@ forman el programa.
   - En cambio, el segundo programa es **mucho más fácil de leer y modificar**
     que el primero, aunque los dos resuelvan el mismo problema.
 
+!EJERCICIO
+
+@. ¿Qué hace ese programa?
+
 ---
 
 - Todo programa estructurado presenta una descomposición arborescente en la que
@@ -509,13 +513,23 @@ forman el programa.
   infinitos.
 
 - Lo que demuestra el teorema es que, si tenemos un programa propio, lo podemos
-  escribir como programa estructurado.
+  reescribir como programa estructurado.
 
 - Por tanto, todo programa propio se puede estructurar, pero no todos los
   programas estructurados son propios.
 
 - Pero es evidente que los programas estructurados que nos interesan son,
   precisamente, los que también son propios.
+
+!EJERCICIOS
+
+@. Escribir un programa propio que no sea estructurado.
+
+@. Escribir un programa estructurado equivalente al programa propio del
+   ejercicio anterior.
+
+@. ¿El programa estructurado anterior también es propio? En caso negativo,
+   reescribirlo para que además de estructurado sea propio.
 
 # Estructuras básicas de control en Python
 
