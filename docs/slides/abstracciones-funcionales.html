@@ -547,9 +547,9 @@ programa.</p></li>
 sintaxis del lenguaje establece dónde empieza y acaba</strong> ese
 ámbito léxico en el código fuente.</p></li>
 <li><p>Por tanto, siempre se puede determinar sin ambigüedad si
-<strong>una instrucción está dentro de un determinado ámbito
-léxico</strong>, tan sólo leyendo el código fuente del programa y sin
-necesidad de ejecutarlo.</p></li>
+<strong>una instrucción situada en un punto concreto del programa está
+dentro de un determinado ámbito léxico</strong>, tan sólo leyendo el
+código fuente del programa y sin necesidad de ejecutarlo.</p></li>
 <li><p>Eso significa que el concepto de <em>ámbito léxico</em> es un
 concepto <strong>estático</strong>.</p></li>
 </ul>
@@ -560,7 +560,7 @@ concepto <strong>estático</strong>.</p></li>
 <li><p>Por ejemplo: en el lenguaje de programación Java, los
 <em>bloques</em> son estructuras sintácticas delimitadas por llaves
 <code>{</code> y <code>}</code> que contienen instrucciones.</p></li>
-<li><p>Los bloques de Java definen ámbitos léxicos; por tanto, si una
+<li><p>Los bloques de Java determinan ámbitos léxicos; por tanto, si una
 instrucción está dentro de un bloque (es decir, si está situada entre
 las llaves <code>{</code> y <code>}</code> que delimitan el bloque),
 entonces esa instrucción se encuentra dentro del ámbito léxico que
@@ -590,13 +590,12 @@ sea, que pueden estar contenidos unos dentro de otros.</p></li>
 tiempo (anidados unos dentro de otros).</p></li>
 <li><p>De todos ellos, el <strong>ámbito más interno</strong> es el que
 no contiene, a su vez, a ningún otro ámbito.</p></li>
-<li><p>El <strong>ámbito de una instrucción</strong> es el ámbito más
-interno en el que se encuentra dicha instrucción.</p></li>
+<li><p>Definimos el <strong>ámbito de una instrucción</strong> como el
+ámbito más interno en el que se encuentra dicha instrucción.</p></li>
 <li><p>Según lo anterior, en un momento dado, el <strong>ámbito
 actual</strong> es el ámbito de la instrucción actual, es decir, el
 ámbito más interno en el que se encuentra la instrucción que se está
-ejecutando actualmente (es decir, la <strong>instrucción
-actual</strong>).</p></li>
+ejecutando actualmente.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.4">
@@ -620,33 +619,13 @@ finalizamos la misma.</p></li>
 <li><p>Por tanto:</p>
 <ul>
 <li><p>En el momento en que se empieza a ejecutar un <em>script</em> o
-se arranca una sesión con el intérprete interactivo, se entra en el
-<em>ámbito global</em>.</p></li>
-<li><p>Del ámbito global sólo se sale cuando se finaliza la ejecución
-del <em>script</em> o se cierra el intérprete interactivo.</p></li>
+se arranca una sesión con el intérprete interactivo, <strong>se
+entra</strong> en el <em>ámbito global</em>.</p></li>
+<li><p>Del ámbito global sólo <strong>se sale</strong> cuando se
+finaliza la ejecución del <em>script</em> o se cierra el intérprete
+interactivo.</p></li>
 </ul></li>
 </ul>
-<!--
-
----
-
-- Se denominan **definiciones globales** a las definiciones que se ejecutan
-  cuando el ámbito actual es el ámbito global.
-
-- Las ligaduras que crean las definiciones globales se denominan **ligaduras
-  globales** o **ligaduras de ámbito global**.
-
-- Por ejemplo, en el siguiente _script_ se ejecutan cuatro instrucciones. El
-  ámbito actual de cada una de las instrucciones es el ámbito global, que es el
-  único ámbito que existe en el _script_:
-
-  ::: centered
-  ![](images/ambito-global.png){width=40% .plain width=80%}
-:::
-
-
-
--->
 </section>
 
 <section id="ámbito-de-una-definición-y-de-una-ligadura"
@@ -655,8 +634,8 @@ class="title-slide slide level2" data-number="2.2">
 Ámbito de una definición y de una ligadura</h2>
 <ul>
 <li><p>El <strong>ámbito de una definición</strong> es el ámbito actual
-de esa definición (es decir, el ámbito más interno donde aparece esa
-definición).</p></li>
+de esa definición, es decir, el ámbito más interno donde aparece esa
+definición.</p></li>
 <li><p>Por extensión, llamamos <strong>ámbito de una ligadura</strong>
 al ámbito de la definición que, al ejecutarse, creará la ligadura (es
 decir, el ámbito más interno donde aparece la definición que, al
@@ -676,14 +655,14 @@ esa definición) es <strong>global</strong>.</p></li>
 
 <ul>
 <li><p>Por ejemplo, en el siguiente <em>script</em> se ejecutan cuatro
-definiciones.</p></li>
-<li><p>El ámbito de cada una de las instrucciones es el ámbito
-<em>global</em>, que es el único ámbito que existe en el
-<em>script</em>:</p>
+definiciones:</p>
 <div class="centered">
 <p><img data-src="images/ambito-global.png" class="plain"
 style="width:40.0%" /></p>
 </div></li>
+<li><p>El ámbito de cada una de las instrucciones es el ámbito
+<em>global</em>, que es el único ámbito que existe en el
+<em>script</em>.</p></li>
 <li><p>En consecuencia:</p>
 <ul>
 <li><p>Las cuatro definiciones tienen <strong>ámbito global</strong> (y
@@ -721,13 +700,13 @@ Almacenamiento</h3>
 <li><p>Sabemos que las ligaduras se almacenan en <em>espacios de
 nombres</em>.</p></li>
 <li><p>En Python, hay dos lugares donde se pueden almacenar ligaduras y,
-por tanto, hay dos posibles espacios de nombres: los objetos y los
-marcos.</p></li>
+por tanto, <strong>hay dos posibles espacios de nombres: los
+<em>objetos</em> y los <em>marcos</em></strong>.</p></li>
 <li><p>Así que tenemos dos posibilidades:</p>
 <ol>
 <li><p>Si el identificador que se está ligando es un <em>atributo</em>
 de un objeto, entonces la ligadura se almacenará en el objeto.</p></li>
-<li><p>En caso contrario, la ligadura se almacenará en un marco que
+<li><p>En caso contrario, la ligadura se almacenará en un marco, el cual
 depende del <em>ámbito actual</em>.</p></li>
 </ol></li>
 <li><p>Veamos cada caso con más detalle.</p></li>
@@ -737,10 +716,10 @@ depende del <em>ámbito actual</em>.</p></li>
 
 <ol type="1">
 <li><p>Cuando se crea una ligadura dentro de un objeto en Python usando
-el operador punto (<code>.</code>), el espacio de nombres será el propio
-objeto, ya que los objetos son espacios de nombres en Python. En tal
-caso, la ligadura asocia un <em>atributo</em> del objeto con un
-valor.</p>
+el operador punto (<code>.</code>), <strong>el espacio de nombres será
+el propio objeto</strong>, ya que los objetos son espacios de nombres en
+Python. En tal caso, la ligadura asocia un valor con un
+<em>atributo</em> del objeto.</p>
 <p>Por ejemplo, si en Python hacemos:</p>
 <div class="sourceCode" id="cb19"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
@@ -751,7 +730,8 @@ es un objeto en Python y, por tanto, es quien almacena la ligadura.</p>
 <p>Así que el espacio de nombres ha sido seleccionado a través del
 operador punto (<code>.</code>) para resolver el atributo dentro del
 objeto, y no depende del ámbito donde se encuentre la sentencia <code
-class="sourceCode python">math.x <span class="op">=</span> <span class="dv">75</span></code>.</p></li>
+class="sourceCode python">math.x <span class="op">=</span> <span class="dv">75</span></code>.</p>
+<p>Diremos que la ligadura es <strong>local</strong> al objeto.</p></li>
 </ol>
 </section>
 <section class="slide level5" data-number="2.2.1.0.2">
@@ -759,15 +739,16 @@ class="sourceCode python">math.x <span class="op">=</span> <span class="dv">75</
 <ol start="2" type="1">
 <li><p>Si la ligadura no se crea dentro de un objeto usando el operador
 punto (<code>.</code>), entonces el espacio de nombres irá asociado al
-ámbito.</p>
-<p>En este caso, este espacio de nombres siempre será un marco.</p>
+ámbito y, en este caso, <strong>ese espacio de nombres siempre será un
+marco</strong>.</p>
 <p>Ese marco será el que corresponda al <em>ámbito actual</em>, es
-decir, el marco del ámbito más interno en el que se encuentra la
-instrucción que crea la ligadura.</p>
-<p>Cuando la ligadura se almacena en el marco global, se dice que tiene
-<strong>almacenamiento global</strong>.</p>
-<p>En caso contrario, decimos que tiene <strong>almacenamiento
-local</strong> al ámbito correspondiente a ese marco.</p></li>
+decir, el ámbito más interno en el que se encuentra la instrucción que
+crea la ligadura.</p>
+<p>Cuando el ámbito es el <em>ámbito global</em> (y, por tanto, la
+ligadura se almacena en el marco global), se dice que la ligadura es
+<strong>global</strong>.</p>
+<p>En caso contrario, decimos que es <strong>local</strong> al ámbito, y
+se almacenará en el marco correspondiente a ese ámbito.</p></li>
 </ol>
 </section>
 
@@ -776,9 +757,17 @@ data-number="2.2.2">
 <h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
 Visibilidad</h3>
 <ul>
-<li>La visibilidad de una ligadura indica cuándo y de qué manera es
-visible esa ligadura.</li>
+<li><p>La visibilidad de una ligadura indica en qué lugares del programa
+es visible y accesible esa ligadura.</p></li>
+<li><p>Es decir: la visibilidad determina dónde en el programa puede
+usarse un determinado identificador para acceder al valor al que está
+ligado.</p></li>
+<li><p>Al igual que antes, tenemos dos posibilidades, dependiendo de si
+estamos ligando un atributo de un objeto, o no.</p></li>
 </ul>
+</section>
+<section class="slide level5" data-number="2.2.2.0.1">
+
 <ol type="1">
 <li><p>Si el identificador ligado es un <strong>atributo de un
 objeto</strong>, la ligadura sólo será visible dentro del objeto.</p>
@@ -791,19 +780,21 @@ acceder a ella, lo que significa que también debemos tener acceso al
 propio objeto que la contiene.</p></li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.2.2.0.1">
+<section class="slide level5" data-number="2.2.2.0.2">
 
 <ol start="2" type="1">
 <li><p>Si el identificador ligado <strong>NO es un atributo de un
-objeto</strong>, la ligadura sólo será visible en el ámbito donde se
-definió la ligadura, el cual va asociado al marco donde se almacena la
-ligadura.</p>
+objeto</strong>, la ligadura sólo será visible dentro del ámbito donde
+se definió la ligadura.</p>
 <p>Ese ámbito representa una «región» cuyas fronteras limitan la porción
 del código fuente en la que es visible esa ligadura.</p>
 <p>En tal caso, decimos que la <strong>visibilidad</strong> de la
 ligadura es <strong>local a su ámbito</strong>.</p>
 <p>Eso significa que <strong>no es posible acceder a esa ligadura fuera
 de su ámbito</strong>; sólo es visible dentro de él.</p>
+<p>En cambio, si el ámbito de la ligadura contiene dentro otro ámbito
+anidado, sí que podremos acceder a la ligadura dentro de ese ámbito más
+interno, ya que técnicamente seguiría estando dentro de su ámbito.</p>
 <p>Si el ámbito es el global, decimos que la ligadura tiene
 <strong>visibilidad global</strong>.</p></li>
 </ol>
@@ -819,11 +810,16 @@ periodo de tiempo durante el cual <em>existe</em> esa ligadura, es
 decir, el periodo comprendido desde su creación y almacenamiento en la
 memoria hasta su posterior destrucción.</p></li>
 <li><p>En la mayoría de los lenguajes (incluyendo Python y Java), una
-ligadura <strong>empieza a existir</strong> justo donde se crea, es
+ligadura <strong>empieza a existir</strong> justo cuando se crea, es
 decir, en el punto donde se ejecuta la instrucción que define la
 ligadura.</p>
 <p>Por tanto, no es posible <em>acceder</em> a esa ligadura
 <em>antes</em> de ese punto, ya que no existe hasta entonces.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.3.0.1">
+
+<ul>
 <li><p>Por otra parte, el momento en que una ligadura <strong>deja de
 existir</strong> depende su almacenamiento:</p>
 <ul>
@@ -831,8 +827,9 @@ existir</strong> depende su almacenamiento:</p>
 un atributo de ese objeto a un determinado valor. En tal caso, la
 ligadura dejará de existir cuando se elimine el objeto de la memoria, o
 bien, cuando se elimine el atributo ligado.</p></li>
-<li><p>En caso contrario, la ligadura dejará de existir allí donde
-termine su ámbito.</p></li>
+<li><p>En caso contrario, la ligadura estará almacenada en un marco y,
+por tanto, dejará de existir allí donde termine el ámbito de la
+ligadura.</p></li>
 </ul></li>
 </ul>
 <!--
@@ -850,7 +847,7 @@ termine su ámbito.</p></li>
 
 -->
 </section>
-<section class="slide level5" data-number="2.2.3.0.1">
+<section class="slide level5" data-number="2.2.3.0.2">
 
 <ul>
 <li><p>En el siguiente ejemplo vemos cómo hay varias definiciones que,
@@ -873,7 +870,7 @@ tiempo de vida de las ligaduras vendrán determinadas por sus
 <strong>visibilidad</strong> es <strong>global</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.2">
+<section class="slide level5" data-number="2.2.3.0.3">
 
 <ul>
 <li><p>Por otra parte, como esas ligaduras no se crean sobre atributos
@@ -888,7 +885,7 @@ ligadura será el periodo comprendido desde su creación (en la línea 2)
 hasta el final de su ámbito.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.3">
+<section class="slide level5" data-number="2.2.3.0.4">
 
 <ul>
 <li><p>Cuando la ligadura se crea sobre un <strong>atributo</strong> de
@@ -915,7 +912,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a h
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;pi&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.4">
+<section class="slide level5" data-number="2.2.3.0.5">
 
 <ul>
 <li><p>Igualmente, si creamos un nuevo atributo dentro del objeto, la
@@ -933,7 +930,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.5">
+<section class="slide level5" data-number="2.2.3.0.6">
 
 <ul>
 <li><p>En resumen:</p>

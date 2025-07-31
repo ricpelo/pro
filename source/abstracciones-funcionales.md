@@ -324,8 +324,9 @@ nocite: |
   fuente.
 
 - Por tanto, siempre se puede determinar sin ambigüedad si **una instrucción
-  está dentro de un determinado ámbito léxico**, tan sólo leyendo el código
-  fuente del programa y sin necesidad de ejecutarlo.
+  situada en un punto concreto del programa está dentro de un determinado
+  ámbito léxico**, tan sólo leyendo el código fuente del programa y sin
+  necesidad de ejecutarlo.
 
 - Eso significa que el concepto de _ámbito léxico_ es un concepto **estático**.
 
@@ -335,7 +336,7 @@ nocite: |
   estructuras sintácticas delimitadas por llaves `{` y `}` que contienen
   instrucciones.
 
-- Los bloques de Java definen ámbitos léxicos; por tanto, si una instrucción
+- Los bloques de Java determinan ámbitos léxicos; por tanto, si una instrucción
   está dentro de un bloque (es decir, si está situada entre las llaves `{` y
   `}` que delimitan el bloque), entonces esa instrucción se encuentra dentro
   del ámbito léxico que define el bloque.
@@ -363,13 +364,12 @@ nocite: |
 - De todos ellos, el **ámbito más interno** es el que no contiene, a su vez, a
   ningún otro ámbito.
 
-- El **ámbito de una instrucción** es el ámbito más interno en el que se
-  encuentra dicha instrucción.
+- Definimos el **ámbito de una instrucción** como el ámbito más interno en el
+  que se encuentra dicha instrucción.
 
 - Según lo anterior, en un momento dado, el **ámbito actual** es el ámbito de
   la instrucción actual, es decir, el ámbito más interno en el que se encuentra
-  la instrucción que se está ejecutando actualmente (es decir, la **instrucción
-  actual**).
+  la instrucción que se está ejecutando actualmente.
 
 ---
 
@@ -390,33 +390,15 @@ nocite: |
 - Por tanto:
 
   - En el momento en que se empieza a ejecutar un _script_ o se arranca una
-    sesión con el intérprete interactivo, se entra en el _ámbito global_.
+    sesión con el intérprete interactivo, **se entra** en el _ámbito global_.
 
-  - Del ámbito global sólo se sale cuando se finaliza la ejecución del _script_
-    o se cierra el intérprete interactivo.
-
-<!--
-
----
-
-- Se denominan **definiciones globales** a las definiciones que se ejecutan
-  cuando el ámbito actual es el ámbito global.
-
-- Las ligaduras que crean las definiciones globales se denominan **ligaduras
-  globales** o **ligaduras de ámbito global**.
-
-- Por ejemplo, en el siguiente _script_ se ejecutan cuatro instrucciones. El
-  ámbito actual de cada una de las instrucciones es el ámbito global, que es el
-  único ámbito que existe en el _script_:
-
-  !IMGP(ambito-global.png)()(width=40%)(width=40%)
-
--->
+  - Del ámbito global sólo **se sale** cuando se finaliza la ejecución del
+    _script_ o se cierra el intérprete interactivo.
 
 ## Ámbito de una definición y de una ligadura
 
-- El **ámbito de una definición** es el ámbito actual de esa definición (es
-  decir, el ámbito más interno donde aparece esa definición).
+- El **ámbito de una definición** es el ámbito actual de esa definición, es
+  decir, el ámbito más interno donde aparece esa definición.
 
 - Por extensión, llamamos **ámbito de una ligadura** al ámbito de la definición
   que, al ejecutarse, creará la ligadura (es decir, el ámbito más interno donde
@@ -435,12 +417,12 @@ nocite: |
 
 ---
 
-- Por ejemplo, en el siguiente _script_ se ejecutan cuatro definiciones.
-
-- El ámbito de cada una de las instrucciones es el ámbito _global_, que es el
-  único ámbito que existe en el _script_:
+- Por ejemplo, en el siguiente _script_ se ejecutan cuatro definiciones:
 
   !IMGP(ambito-global.png)()(width=40%)(width=40%)
+
+- El ámbito de cada una de las instrucciones es el ámbito _global_, que es el
+  único ámbito que existe en el _script_.
 
 - En consecuencia:
 
@@ -471,24 +453,24 @@ nocite: |
 - Sabemos que las ligaduras se almacenan en _espacios de nombres_.
 
 - En Python, hay dos lugares donde se pueden almacenar ligaduras y, por tanto,
-  hay dos posibles espacios de nombres: los objetos y los marcos.
+  **hay dos posibles espacios de nombres: los _objetos_ y los _marcos_**.
 
 - Así que tenemos dos posibilidades:
 
   #. Si el identificador que se está ligando es un _atributo_ de un objeto,
      entonces la ligadura se almacenará en el objeto.
 
-  #. En caso contrario, la ligadura se almacenará en un marco que depende del
-     _ámbito actual_.
+  #. En caso contrario, la ligadura se almacenará en un marco, el cual depende
+     del _ámbito actual_.
 
 - Veamos cada caso con más detalle.
 
 ---
 
-1. Cuando se crea una ligadura dentro de un objeto en Python usando el
-   operador punto (`.`), el espacio de nombres será el propio objeto, ya que
-   los objetos son espacios de nombres en Python. En tal caso, la ligadura
-   asocia un _atributo_ del objeto con un valor.
+1. Cuando se crea una ligadura dentro de un objeto en Python usando el operador
+   punto (`.`), **el espacio de nombres será el propio objeto**, ya que los
+   objetos son espacios de nombres en Python. En tal caso, la ligadura asocia
+   un valor con un _atributo_ del objeto.
 
    Por ejemplo, si en Python hacemos:
 
@@ -505,27 +487,35 @@ nocite: |
    punto (`.`) para resolver el atributo dentro del objeto, y no depende del
    ámbito donde se encuentre la sentencia !PYTHON(math.x = 75).
 
+   Diremos que la ligadura es **local** al objeto.
+
 ---
 
 2. Si la ligadura no se crea dentro de un objeto usando el operador punto
-   (`.`), entonces el espacio de nombres irá asociado al ámbito.
+   (`.`), entonces el espacio de nombres irá asociado al ámbito y, en este
+   caso, **ese espacio de nombres siempre será un marco**.
 
-   En este caso, este espacio de nombres siempre será un marco.
+   Ese marco será el que corresponda al _ámbito actual_, es decir, el ámbito
+   más interno en el que se encuentra la instrucción que crea la ligadura.
 
-   Ese marco será el que corresponda al _ámbito actual_, es decir, el marco del
-   ámbito más interno en el que se encuentra la instrucción que crea la
-   ligadura.
+   Cuando el ámbito es el _ámbito global_ (y, por tanto, la ligadura se
+   almacena en el marco global), se dice que la ligadura es **global**.
 
-   Cuando la ligadura se almacena en el marco global, se dice que tiene
-   **almacenamiento global**.
-
-   En caso contrario, decimos que tiene **almacenamiento local** al ámbito
-   correspondiente a ese marco.
+   En caso contrario, decimos que es **local** al ámbito, y se almacenará en el
+   marco correspondiente a ese ámbito.
 
 ### Visibilidad
 
-- La visibilidad de una ligadura indica cuándo y de qué manera es visible esa
-  ligadura.
+- La visibilidad de una ligadura indica en qué lugares del programa es visible
+  y accesible esa ligadura.
+
+- Es decir: la visibilidad determina dónde en el programa puede usarse un
+  determinado identificador para acceder al valor al que está ligado.
+
+- Al igual que antes, tenemos dos posibilidades, dependiendo de si estamos
+  ligando un atributo de un objeto, o no.
+
+---
 
 1. Si el identificador ligado es un **atributo de un objeto**, la ligadura sólo
    será visible dentro del objeto.
@@ -541,8 +531,7 @@ nocite: |
 ---
 
 2. Si el identificador ligado **NO es un atributo de un objeto**, la ligadura
-   sólo será visible en el ámbito donde se definió la ligadura, el cual va
-   asociado al marco donde se almacena la ligadura.
+   sólo será visible dentro del ámbito donde se definió la ligadura.
 
    Ese ámbito representa una «región» cuyas fronteras limitan la porción del
    código fuente en la que es visible esa ligadura.
@@ -552,6 +541,10 @@ nocite: |
 
    Eso significa que **no es posible acceder a esa ligadura fuera de su
    ámbito**; sólo es visible dentro de él.
+
+   En cambio, si el ámbito de la ligadura contiene dentro otro ámbito anidado,
+   sí que podremos acceder a la ligadura dentro de ese ámbito más interno, ya
+   que técnicamente seguiría estando dentro de su ámbito. 
 
    Si el ámbito es el global, decimos que la ligadura tiene **visibilidad
    global**.
@@ -563,11 +556,13 @@ nocite: |
   creación y almacenamiento en la memoria hasta su posterior destrucción.
 
 - En la mayoría de los lenguajes (incluyendo Python y Java), una ligadura
-  **empieza a existir** justo donde se crea, es decir, en el punto donde se
+  **empieza a existir** justo cuando se crea, es decir, en el punto donde se
   ejecuta la instrucción que define la ligadura.
 
   Por tanto, no es posible _acceder_ a esa ligadura _antes_ de ese punto, ya
   que no existe hasta entonces.
+
+---
 
 - Por otra parte, el momento en que una ligadura **deja de existir** depende su
   almacenamiento:
@@ -577,8 +572,8 @@ nocite: |
     existir cuando se elimine el objeto de la memoria, o bien, cuando se
     elimine el atributo ligado.
 
-  - En caso contrario, la ligadura dejará de existir allí donde termine su
-    ámbito.
+  - En caso contrario, la ligadura estará almacenada en un marco y, por tanto,
+    dejará de existir allí donde termine el ámbito de la ligadura.
 
 <!--
 
