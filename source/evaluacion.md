@@ -1003,7 +1003,7 @@ E -> w [lhead = cluster1]
   estén ligados esos identificadores libres en el momento de evaluar la
   aplicación de la expresión lambda.
 
-- Es el caso del ejemplo anterior, donde tenemos una expresión lambda que
+- Es el caso del siguiente ejemplo, donde tenemos una expresión lambda que
   contiene un identificador libre (!PYTHON{z}) y, por tanto, cuando la
   aplicamos a los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que
   depende no sólo de los valores de !PYTHON(x) e !PYTHON(y) sino también del
@@ -1018,7 +1018,7 @@ E -> w [lhead = cluster1]
 
 ---
 
-- En este otro ejemplo, escribimos una expresión lambda que calcula la suma de
+- En este otro ejemplo, tenemos una expresión lambda que calcula la suma de
   tres números a partir de otra expresión lambda que calcula la suma de dos
   números:
 
