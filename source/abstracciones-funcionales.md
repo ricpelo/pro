@@ -938,6 +938,8 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   - El **espacio de nombres** que almacena las ligaduras entre parámetros y
     argumentos es el **marco** que se crea al llamar a la expresión lambda.
 
+---
+
 - Esto se resume diciendo que «el **ámbito de un parámetro** es el **cuerpo**
   de su expresión lambda».
 
