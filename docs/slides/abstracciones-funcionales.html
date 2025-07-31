@@ -2198,119 +2198,16 @@ data-number="4">
 Abstracciones funcionales</h1>
 
 </section>
-<section id="pureza" class="title-slide slide level2" data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span>
-Pureza</h2>
-<ul>
-<li><p>Si una expresión lambda no contiene identificadores libres, el
-valor que obtendremos al aplicarla a unos argumentos dependerá
-únicamente del valor que tengan esos argumentos (no dependerá de nada
-más que sea «<em>exterior</em>» a la expresión lambda).</p></li>
-<li><p>En cambio, si el cuerpo de una expresión lambda contiene
-identificadores libres, el valor que obtendremos al aplicarla a unos
-argumentos no sólo dependerá del valor de los argumentos, sino también
-de los valores a los que estén ligados esos identificadores libres en el
-momento de evaluar la aplicación de la expresión lambda.</p></li>
-<li><p>Es el caso del ejemplo anterior, donde tenemos una expresión
-lambda que contiene un identificador libre (<code
-class="sourceCode python">z</code>) y, por tanto, cuando la aplicamos a
-los argumentos <code
-class="sourceCode python"><span class="dv">4</span></code> y <code
-class="sourceCode python"><span class="dv">3</span></code> obtenemos un
-valor que depende no sólo de los valores de <code
-class="sourceCode python">x</code> e <code
-class="sourceCode python">y</code> sino también del valor de <code
-class="sourceCode python">z</code> en el entorno:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.1">
-
-<ul>
-<li><p>En este otro ejemplo, escribimos una expresión lambda que calcula
-la suma de tres números a partir de otra expresión lambda que calcula la
-suma de dos números:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
-<p>En este caso, hay un identificador (<code
-class="sourceCode python">suma</code>) que no aparece en la lista de
-parámetros de la expresión lambda ligada a <code
-class="sourceCode python">suma3</code>.</p>
-<p>En consecuencia, el valor de dicha expresión lambda dependerá de lo
-que valga <code class="sourceCode python">suma</code> en el entorno
-actual.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.2">
-
-<ul>
-<li><p>Se dice que una expresión lambda es <strong>pura</strong> si,
-siempre que la apliquemos a unos argumentos, el valor obtenido va a
-depender únicamente del valor de esos argumentos o, lo que es lo mismo,
-del valor de sus parámetros en la llamada.</p></li>
-<li><p>Podemos decir que hay distintos <strong>grados de
-pureza</strong>:</p>
-<ul>
-<li><p>Una expresión lambda en cuyo cuerpo no hay ningún identificador
-libre es <strong>más pura</strong> que otra que contiene identificadores
-libres.</p></li>
-<li><p>Una expresión lambda cuyos <strong>identificadores
-libres</strong> representan <strong>funciones</strong> que se usan en el
-cuerpo de la expresión lambda, es <strong>más pura</strong> que otra
-cuyos identificadores libres representan cualquier otro tipo de
-valor.</p></li>
-</ul>
-<p>En el ejemplo anterior, tenemos que la expresión lambda de <code
-class="sourceCode python">suma3</code>, sin ser <em>totalmente
-pura</em>, a efectos prácticos se la puede considerar
-<strong>pura</strong>, ya que su único identificador libre (<code
-class="sourceCode python">suma</code>) se usa como una
-<strong>función</strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.3">
-
-<ul>
-<li><p>Por ejemplo, las siguientes expresiones lambda están ordenadas de
-mayor a menor pureza, siendo la primera totalmente
-<strong>pura</strong>:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus identificadores libres (en este</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su identificador libre (z) no es una función:</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
-<li><p><strong>La pureza de una función es un rasgo deseado y que hay
-que tratar de alcanzar siempre que sea posible</strong>, ya que facilita
-el desarrollo y mantenimiento de los programas, además de simplificar el
-razonamiento sobre los mismos, permitiendo aplicar directamente nuestro
-modelo de sustitución.</p></li>
-<li><p>Es más incómodo trabajar con <code
-class="sourceCode python">suma</code> porque hay que <em>recordar</em>
-que depende de un valor que está <em>fuera</em> de la expresión lambda,
-cosa que no resulta evidente a no ser que mires en el cuerpo de la
-expresión lambda.</p></li>
-</ul>
-</section>
-
 <section id="las-funciones-como-abstracciones"
-class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span> Las
+class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> Las
 funciones como abstracciones</h2>
 <ul>
 <li><p>Recordemos la definición de la función <code
 class="sourceCode python">area</code>:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
 <li><p>Aunque es muy sencilla, la función <code
 class="sourceCode python">area</code> ejemplifica la propiedad más
 potente de las funciones definidas por el programador: la
@@ -2333,7 +2230,7 @@ class="sourceCode python">area</code>, para considerarlos más tarde si
 hiciera falta.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.1">
+<section class="slide level5" data-number="4.1.0.0.1">
 
 <ul>
 <li><p>De hecho, por lo que respecta a <code
@@ -2347,17 +2244,17 @@ función que calcule el cuadrado de un número.</p></li>
 las tres funciones siguientes son indistinguibles e igual de válidas
 para <code class="sourceCode python">area</code>. Ambas reciben un
 argumento numérico y devuelven el cuadrado de ese número:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
 <li><p>En otras palabras: la definición de una función debe ser capaz de
 <strong>ocultar sus detalles internos de funcionamiento</strong>, ya que
 para usar la función no debe ser necesario conocer esos
 detalles.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.2">
+<section class="slide level5" data-number="4.1.0.0.2">
 
 <ul>
 <li><p>«<em>Abstraer</em>» es centrarse en lo importante en un
@@ -2379,7 +2276,7 @@ actúe (a ojos del programador que la utilice) como si fuera un elemento
 <em>predefinido</em> del lenguaje.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.3">
+<section class="slide level5" data-number="4.1.0.0.3">
 
 <ul>
 <li><p><strong>Las funciones son</strong>, por tanto,
@@ -2389,10 +2286,10 @@ conocer los detalles internos del procesamiento que realizan.</p></li>
 class="sourceCode python">cubo</code> (que calcula el cubo de un
 número), nos da igual que dicha función esté implementada de cualquiera
 de las siguientes maneras:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Para <strong>usar</strong> la función, nos basta con saber que
 calcula el cubo de un número, sin necesidad de saber qué cálculo
 concreto realiza para obtener el resultado.</p></li>
@@ -2401,7 +2298,7 @@ decimos que <code class="sourceCode python">cubo</code> es una
 abstracción.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.4">
+<section class="slide level5" data-number="4.1.0.0.4">
 
 <ul>
 <li><p>Las funciones también son abstracciones porque describen
@@ -2410,8 +2307,8 @@ cuáles sean esos valores en concreto (son
 <strong><em>generalizaciones</em></strong> de casos
 particulares).</p></li>
 <li><p>Por ejemplo, cuando definimos:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
 <p>no estamos hablando del cubo de un número en particular, sino más
 bien de un <strong>método</strong> para calcular el cubo de cualquier
 número.</p></li>
@@ -2428,7 +2325,7 @@ número, pero no tendrían la habilidad de expresar el concepto de
 <em>elevar al cubo</em></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.5">
+<section class="slide level5" data-number="4.1.0.0.5">
 
 <ul>
 <li><p>Una de las habilidades que deberíamos pedir a un lenguaje potente
@@ -2446,7 +2343,7 @@ patrón (<em>elevar al cubo</em>).</p></li>
 <em>regla</em> necesaria para elevar algo al cubo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.6">
+<section class="slide level5" data-number="4.1.0.0.6">
 
 <ul>
 <li><p>Por tanto, algunas veces, analizando ciertos <em>casos
@@ -2469,7 +2366,7 @@ concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.7">
+<section class="slide level5" data-number="4.1.0.0.7">
 
 <ul>
 <li><p>Por ejemplo, cuando vemos que en nuestros programas es frecuente
@@ -2483,7 +2380,7 @@ le llamamos «<em>elevar al cubo</em>»:</p></li>
 style="width:80.0%" /></p>
 </div>
 </section>
-<section class="slide level5" data-number="4.2.0.0.8">
+<section class="slide level5" data-number="4.1.0.0.8">
 
 <ul>
 <li><p>La <strong>especificación de una <em>función</em></strong> es la
@@ -2507,10 +2404,11 @@ una «<strong>caja negra</strong>», que tiene unas entradas y una salida
 pero no se sabe cómo funciona por dentro.</p></li>
 </ul>
 </section>
+
 <section id="especificaciones-de-funciones"
-class="title-slide slide level3" data-number="4.2.1">
-<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span>
-Especificaciones de funciones</h3>
+class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span>
+Especificaciones de funciones</h2>
 <ul>
 <li><p>Para poder <strong>usar una abstracción funcional</strong>
 <em>nos basta</em> con conocer su <em>especificación</em>, porque es la
@@ -2532,7 +2430,7 @@ relación entre su entrada y su salida.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.1">
+<section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
 <li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos
@@ -2557,7 +2455,7 @@ programas, y se podría seguir usando para especificar funciones, ya que
 de otros programas más grandes).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.2">
+<section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
 <li><p>Pero para especificar funciones resulta más adecuado usar el
@@ -2583,7 +2481,7 @@ función respetando su signatura y cumpliendo su precondición, la llamada
 termina cumpliendo su postcondición</em></strong>».</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.3">
+<section class="slide level5" data-number="4.2.0.0.3">
 
 <ul>
 <li><p>En este caso, la <strong>precondición</strong> es <code
@@ -2608,7 +2506,7 @@ lenguaje de programación que se vaya a usar para implementar la función
 (Python, en este caso).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.4">
+<section class="slide level5" data-number="4.2.0.0.4">
 
 <ul>
 <li><p>Recordemos la diferencia entre:</p>
@@ -2632,7 +2530,7 @@ del conjunto imagen que cumplen la
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.5">
+<section class="slide level5" data-number="4.2.0.0.5">
 
 <ul>
 <li><p>En el caso de la función <code
@@ -2658,7 +2556,7 @@ así está declarado el tipo de retorno de la función.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.6">
+<section class="slide level5" data-number="4.2.0.0.6">
 
 <ul>
 <li><p>Las pre y postcondiciones no es necesario escribirlas de una
@@ -2681,7 +2579,7 @@ especiales que no se tienen en cuenta.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.7">
+<section class="slide level5" data-number="4.2.0.0.7">
 
 <ul>
 <li><p>En este otro ejemplo, más completo, se especifica una función
@@ -2709,7 +2607,7 @@ coinciden</strong> (no todos los valores pertenecientes al conjunto
 origen sirven como datos de entrada válidos para la función).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.8">
+<section class="slide level5" data-number="4.2.0.0.8">
 
 <ul>
 <li><p>En esta especificación, <code
@@ -2732,7 +2630,7 @@ la cadena <span
 class="math inline">\underline{\textbf{\textit{cadena}}}</span></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.1.0.9">
+<section class="slide level5" data-number="4.2.0.0.9">
 
 <ul>
 <li><p>En realidad, las condiciones de la especificación anterior se
@@ -2753,7 +2651,7 @@ cadena\texttt{.count(\(car\))}
 <li>¿Por qué?</li>
 </ol>
 </section>
-<section class="slide level5" data-number="4.2.1.0.10">
+<section class="slide level5" data-number="4.2.0.0.10">
 
 <ul>
 <li><p>Finalmente, podríamos escribir la misma especificación en
@@ -2803,7 +2701,6 @@ jurídico.</p></li>
   - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
 -->
 </section>
-
 </section>
 <section id="bibliografía"
 class="title-slide slide level1 unnumbered unlisted">

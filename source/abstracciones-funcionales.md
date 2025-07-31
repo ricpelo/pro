@@ -1841,95 +1841,6 @@ fib1_5 -> u5
 
 # Abstracciones funcionales
 
-## Pureza
-
-- Si una expresión lambda no contiene identificadores libres, el valor que
-  obtendremos al aplicarla a unos argumentos dependerá únicamente del valor que
-  tengan esos argumentos (no dependerá de nada más que sea «*exterior*» a la
-  expresión lambda).
-
-- En cambio, si el cuerpo de una expresión lambda contiene identificadores
-  libres, el valor que obtendremos al aplicarla a unos argumentos no sólo
-  dependerá del valor de los argumentos, sino también de los valores a los que
-  estén ligados esos identificadores libres en el momento de evaluar la
-  aplicación de la expresión lambda.
-
-- Es el caso del ejemplo anterior, donde tenemos una expresión lambda que
-  contiene un identificador libre (!PYTHON{z}) y, por tanto, cuando la
-  aplicamos a los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que
-  depende no sólo de los valores de !PYTHON(x) e !PYTHON(y) sino también del
-  valor de !PYTHON(z) en el entorno:
-
-  ```python
-  >>> prueba = lambda x, y: x + y + z
-  >>> z = 9
-  >>> prueba(4, 3)
-  16
-  ```
-
----
-
-- En este otro ejemplo, escribimos una expresión lambda que calcula la suma de
-  tres números a partir de otra expresión lambda que calcula la suma de dos
-  números:
-
-  ```python
-  suma = lambda x, y: x + y
-  suma3 = lambda x, y, z: suma(x, y) + z
-  ```
-
-  En este caso, hay un identificador (!PYTHON(suma)) que no aparece en la lista
-  de parámetros de la expresión lambda ligada a !PYTHON(suma3).
-
-  En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
-  !PYTHON(suma) en el entorno actual.
-
----
-
-- Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
-  unos argumentos, el valor obtenido va a depender únicamente del valor de esos
-  argumentos o, lo que es lo mismo, del valor de sus parámetros en la llamada.
-
-- Podemos decir que hay distintos **grados de pureza**:
-
-  - Una expresión lambda en cuyo cuerpo no hay ningún identificador libre es
-    **más pura** que otra que contiene identificadores libres.
-
-  - Una expresión lambda cuyos **identificadores libres** representan
-    **funciones** que se usan en el cuerpo de la expresión lambda, es **más
-    pura** que otra cuyos identificadores libres representan cualquier otro
-    tipo de valor.
-
-  En el ejemplo anterior, tenemos que la expresión lambda de !PYTHON(suma3),
-  sin ser *totalmente pura*, a efectos prácticos se la puede considerar
-  **pura**, ya que su único identificador libre (!PYTHON(suma)) se usa como una
-  **función**.
-
----
-
-- Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a
-  menor pureza, siendo la primera totalmente **pura**:
-
-  ```python
-  # producto es una expresión lambda totalmente pura:
-  producto = lambda x, y: x * y
-  # cuadrado es casi pura; a efectos prácticos se la puede
-  # considerar pura ya que sus identificadores libres (en este
-  # caso, sólo una: producto) son funciones:
-  cuadrado = lambda x: producto(x, x)
-  # suma es impura, porque su identificador libre (z) no es una función:
-  suma = lambda x, y: x + y + z
-  ```
-
-- **La pureza de una función es un rasgo deseado y que hay que tratar de
-  alcanzar siempre que sea posible**, ya que facilita el desarrollo y
-  mantenimiento de los programas, además de simplificar el razonamiento sobre
-  los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
-
-- Es más incómodo trabajar con !PYTHON(suma) porque hay que *recordar* que
-  depende de un valor que está *fuera* de la expresión lambda, cosa que no
-  resulta evidente a no ser que mires en el cuerpo de la expresión lambda.
-
 ## Las funciones como abstracciones
 
 - Recordemos la definición de la función !PYTHON(area):
@@ -2133,7 +2044,7 @@ cg [label = "(caso general)"]
   «**caja negra**», que tiene unas entradas y una salida pero no se sabe cómo
   funciona por dentro.
 
-### Especificaciones de funciones
+## Especificaciones de funciones
 
 - Para poder **usar una abstracción funcional** _nos basta_ con conocer su
   _especificación_, porque es la descripción de qué hace esa función.
