@@ -1198,10 +1198,10 @@ La respuesta es que **NO**.
 - «_Codificar_» consiste en _reescribir_ un algoritmo en un programa escrito en
   un determinado lenguaje de programación.
 
----
-
 - Por ello, a veces se usa el término _codificar_ como sinónimo de _programar_,
   si bien no son exactamente lo mismo.
+
+---
 
 - Si el algoritmo está bien definido, la codificación puede resultar trivial.
 
