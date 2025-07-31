@@ -864,11 +864,11 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   ```
 
 - Las ligaduras que crean esas definiciones **se almacenan en el marco de la
-  expresión lambda**.
+  llamada a la expresión lambda**.
 
 - Ese marco se eliminará de la memoria al salir del ámbito de la expresión
   lambda, es decir, cuando se termine de ejecutar el cuerpo de la expresión
-  lambda.
+  lambda al finalizar la llamada a la misma.
 
   Por tanto, las ligaduras se destruyen de la memoria al eliminarse el marco
   que las almacena.
@@ -931,8 +931,9 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
     (y de la ligadura) es ese cuerpo.
 
   - Esa ligadura se crea justo después de entrar en ese ámbito, así que se
-    puede **acceder** a ella en cualquier parte del cuerpo de la expresión
-    lambda.
+    puede acceder a ella en cualquier parte del cuerpo de la expresión
+    lambda, por lo que su **tiempo de vida** va desde el principio hasta el
+    final de la llamada.
 
   - El **espacio de nombres** que almacena las ligaduras entre parámetros y
     argumentos es el **marco** que se crea al llamar a la expresión lambda.

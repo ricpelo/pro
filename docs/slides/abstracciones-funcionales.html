@@ -1111,10 +1111,10 @@ siguientes definiciones dentro del ámbito de la expresión lambda:</p>
 class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">3</span></span></code></pre></div></li>
 <li><p>Las ligaduras que crean esas definiciones <strong>se almacenan en
-el marco de la expresión lambda</strong>.</p></li>
+el marco de la llamada a la expresión lambda</strong>.</p></li>
 <li><p>Ese marco se eliminará de la memoria al salir del ámbito de la
 expresión lambda, es decir, cuando se termine de ejecutar el cuerpo de
-la expresión lambda.</p>
+la expresión lambda al finalizar la llamada a la misma.</p>
 <p>Por tanto, las ligaduras se destruyen de la memoria al eliminarse el
 marco que las almacena.</p></li>
 </ul>
@@ -1172,8 +1172,9 @@ argumento es el <strong>cuerpo</strong> de la expresión lambda, así que
 la <strong>visibilidad</strong> del parámetro (y de la ligadura) es ese
 cuerpo.</p></li>
 <li><p>Esa ligadura se crea justo después de entrar en ese ámbito, así
-que se puede <strong>acceder</strong> a ella en cualquier parte del
-cuerpo de la expresión lambda.</p></li>
+que se puede acceder a ella en cualquier parte del cuerpo de la
+expresión lambda, por lo que su <strong>tiempo de vida</strong> va desde
+el principio hasta el final de la llamada.</p></li>
 <li><p>El <strong>espacio de nombres</strong> que almacena las ligaduras
 entre parámetros y argumentos es el <strong>marco</strong> que se crea
 al llamar a la expresión lambda.</p></li>
