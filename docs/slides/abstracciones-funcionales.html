@@ -831,6 +831,11 @@ bien, cuando se elimine el atributo ligado.</p></li>
 por tanto, dejará de existir allí donde termine el ámbito de la
 ligadura.</p></li>
 </ul></li>
+<li><p>Es importante hacer notar que, en un momento dado, una ligadura
+puede existir pero no ser visible.</p></li>
+<li><p>Por ejemplo, si una ligadura local y una global vinculan el mismo
+identificador, la local «hace sombra» a la global, cosa que estudiaremos
+con más profundidad posteriormente.</p></li>
 </ul>
 <!--
 
@@ -847,8 +852,8 @@ ligadura.</p></li>
 
 -->
 </section>
-<section class="slide level5" data-number="2.2.3.0.2">
-
+<section id="ejemplo-1" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo</h5>
 <ul>
 <li><p>En el siguiente ejemplo vemos cómo hay varias definiciones que,
 al ejecutarse, crearán ligaduras en un determinado ámbito, pero no en un
@@ -862,15 +867,14 @@ class="sourceCode numberSource python number-lines"><code class="sourceCode pyth
 <li><p>Todas esas definiciones son globales y, por tanto, las ligaduras
 que crean al ejecutarse son ligaduras globales o de ámbito global, y se
 almacenan en el marco global.</p></li>
-<li><p>Al no tratarse de atributos de objetos, la visibilidad y el
-tiempo de vida de las ligaduras vendrán determinadas por sus
-ámbitos.</p></li>
+<li><p>Al no tratarse de atributos de objetos, la visibilidad vendrá
+determinada por sus ámbitos.</p></li>
 <li><p>En consecuencia, la visibilidad de todas esas ligaduras será el
 ámbito global, ya que son ligaduras globales. Por tanto, decimos que su
 <strong>visibilidad</strong> es <strong>global</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.3">
+<section class="slide level5" data-number="2.2.3.0.2">
 
 <ul>
 <li><p>Por otra parte, como esas ligaduras no se crean sobre atributos
@@ -885,7 +889,7 @@ ligadura será el periodo comprendido desde su creación (en la línea 2)
 hasta el final de su ámbito.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.4">
+<section class="slide level5" data-number="2.2.3.0.3">
 
 <ul>
 <li><p>Cuando la ligadura se crea sobre un <strong>atributo</strong> de
@@ -900,8 +904,14 @@ permite acceder a sus atributos y crear otros nuevos.</p></li>
 cuando accedemos a ellos usando el operador punto (<code>.</code>) a
 través del objeto que lo contiene.</p></li>
 <li><p>Por tanto, los atributos no son visibles fuera del objeto, y
-debemos usar el operador punto (<code>.</code>) para acceder a
-ellos:</p>
+debemos usar el operador punto (<code>.</code>) para acceder a ellos (su
+visibilidad es local al objeto que los contiene).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.3.0.4">
+
+<ul>
+<li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.pi</span>
@@ -910,11 +920,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a h
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;pi&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.2.3.0.5">
-
-<ul>
 <li><p>Igualmente, si creamos un nuevo atributo dentro del objeto, la
 ligadura entre el atributo y su valor sólo existirá en el propio objeto
 y, por tanto, sólo será visible cuando accedamos al atributo a través
@@ -930,17 +935,22 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.6">
+<section class="slide level5" data-number="2.2.3.0.5">
 
 <ul>
-<li><p>En resumen:</p>
+<li><p>Resumiendo:</p>
 <ul>
-<li><p>Para poder acceder a un atributo de un objeto debemos indicar
-éste y usar el operador punto (<code>.</code>).</p></li>
+<li><p>Para poder acceder a un atributo de un objeto, debemos acceder
+primero al objeto y usar el operador punto (<code>.</code>).</p></li>
 <li><p>Por tanto, la <strong>visibilidad</strong> de su ligadura
 correspondiente no vendrá determinada por un ámbito, sino por el objeto
 que contiene al atributo (y que, por consiguiente, también contiene a su
-ligadura).</p></li>
+ligadura).</p>
+<p>En tal caso, diremos que la visibilidad es local al objeto que
+contiene el atributo.</p></li>
+<li><p>Por otra parte, el <strong>tiempo de vida</strong> de la ligadura
+será el tiempo que permanezca el atributo en el objeto, ligado a algún
+valor.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -974,9 +984,9 @@ corresponde con el ámbito de la definición.</p>
 <p>Esa visibilidad depende de si el identificador ligado es un atributo
 de un objeto o no:</p>
 <ol type="a">
-<li><p>Si es un atributo de un objeto, la visibilidad será el objeto que
-contiene la ligadura.</p></li>
-<li><p>En caso contrario, la visibilidad será el ámbito de la
+<li><p>Si es un atributo de un objeto, la visibilidad lo determina el
+objeto que contiene la ligadura.</p></li>
+<li><p>En caso contrario, la visibilidad lo determina el ámbito de la
 ligadura.</p></li>
 </ol>
 </div>
@@ -999,13 +1009,13 @@ ligado).</p></li>
 de la ligadura.</p></li>
 </ol>
 </div>
+</section>
+<section class="slide level5" data-number="2.2.3.1.3">
+
 <div class="caja">
 <p><strong>Almacenamiento de una ligadura:</strong></p>
-<ul>
-<li><p>Determina el <strong>espacio de nombres</strong> donde se
-almacenará la ligadura.</p></li>
-<li><p>En Python:</p></li>
-</ul>
+<p>Determina el <strong>espacio de nombres</strong> donde se almacenará
+la ligadura:</p>
 <ol type="a">
 <li><p>Si el identificador ligado es un atributo de un objeto, el
 espacio de nombres será el objeto que lo contiene.</p></li>
@@ -1308,7 +1318,7 @@ hecho, <strong>un parámetro y un identificador cuantificado son la misma
 cosa</strong>, como ya hemos visto.</li>
 </ul>
 </section>
-<section id="ejemplo-1" class="slide level5 unnumbered unlisted">
+<section id="ejemplo-2" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplo</h5>
 <ul>
 <li><p>En el siguiente <em>script</em>:</p>

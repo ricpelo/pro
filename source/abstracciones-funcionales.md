@@ -575,6 +575,13 @@ nocite: |
   - En caso contrario, la ligadura estará almacenada en un marco y, por tanto,
     dejará de existir allí donde termine el ámbito de la ligadura.
 
+- Es importante hacer notar que, en un momento dado, una ligadura puede existir
+  pero no ser visible.
+
+- Por ejemplo, si una ligadura local y una global vinculan el mismo
+  identificador, la local «hace sombra» a la global, cosa que estudiaremos con
+  más profundidad posteriormente.
+
 <!--
 
 - Eso significa que la **visibilidad** de una ligadura y el **acceso** a una
@@ -590,7 +597,7 @@ nocite: |
 
 -->
 
----
+!EJEMPLO
 
 - En el siguiente ejemplo vemos cómo hay varias definiciones que, al
   ejecutarse, crearán ligaduras en un determinado ámbito, pero no en un objeto
@@ -607,8 +614,8 @@ nocite: |
   ejecutarse son ligaduras globales o de ámbito global, y se almacenan en el
   marco global.
 
-- Al no tratarse de atributos de objetos, la visibilidad y el tiempo de vida de
-  las ligaduras vendrán determinadas por sus ámbitos.
+- Al no tratarse de atributos de objetos, la visibilidad vendrá determinada
+  por sus ámbitos.
 
 - En consecuencia, la visibilidad de todas esas ligaduras será el ámbito
   global, ya que son ligaduras globales. Por tanto, decimos que su
@@ -642,7 +649,12 @@ nocite: |
   contiene.
 
 - Por tanto, los atributos no son visibles fuera del objeto, y debemos usar el
-  operador punto (`.`) para acceder a ellos:
+  operador punto (`.`) para acceder a ellos (su visibilidad es local al objeto
+  que los contiene).
+
+---
+
+- Por ejemplo:
 
   ```python
   >>> import math
@@ -653,8 +665,6 @@ nocite: |
     File "<stdin>", line 1, in <module>
   NameError: name 'pi' is not defined
   ```
-
----
 
 - Igualmente, si creamos un nuevo atributo dentro del objeto, la ligadura entre
   el atributo y su valor sólo existirá en el propio objeto y, por tanto, sólo
@@ -674,14 +684,20 @@ nocite: |
 
 ---
 
-- En resumen:
+- Resumiendo:
 
-  - Para poder acceder a un atributo de un objeto debemos indicar éste y usar
-    el operador punto (`.`).
+  - Para poder acceder a un atributo de un objeto, debemos acceder primero al
+    objeto y usar el operador punto (`.`).
 
   - Por tanto, la **visibilidad** de su ligadura correspondiente no vendrá
     determinada por un ámbito, sino por el objeto que contiene al atributo (y
     que, por consiguiente, también contiene a su ligadura).
+
+    En tal caso, diremos que la visibilidad es local al objeto que contiene el
+    atributo.
+
+  - Por otra parte, el **tiempo de vida** de la ligadura será el tiempo que
+    permanezca el atributo en el objeto, ligado a algún valor.
 
 #### Resumen
 
@@ -722,10 +738,10 @@ Determina dónde es visible una ligadura dentro del programa.
 Esa visibilidad depende de si el identificador ligado es un atributo de un
 objeto o no:
 
-a. Si es un atributo de un objeto, la visibilidad será el objeto que contiene
-   la ligadura.
+a. Si es un atributo de un objeto, la visibilidad lo determina el objeto que
+   contiene la ligadura.
 
-b. En caso contrario, la visibilidad será el ámbito de la ligadura.
+b. En caso contrario, la visibilidad lo determina el ámbito de la ligadura.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -751,13 +767,13 @@ b. En caso contrario, el tiempo de vida acabará al final del ámbito de la
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Almacenamiento de una ligadura:**
 
-- Determina el **espacio de nombres** donde se almacenará la ligadura.
-
-- En Python:
+Determina el **espacio de nombres** donde se almacenará la ligadura:
 
 a. Si el identificador ligado es un atributo de un objeto, el espacio de
    nombres será el objeto que lo contiene.
