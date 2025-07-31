@@ -998,7 +998,9 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 - Los ámbitos léxicos permiten ligaduras locales a ciertas construcciones
   sintácticas, lo cual nos permite programar definiendo partes suficientemente
-  independientes entre sí (que es la base de la _programación modular_).
+  independientes entre sí.
+
+- Esto es la base de la llamada _programación modular_.
 
 - Por ejemplo, nos permite crear funciones sin preocuparnos de si los nombres
   de los parámetros ya han sido utilizados en otras partes del programa.
@@ -1012,13 +1014,13 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - De lo contrario, se podría provocar lo que se conoce como **_name clash_**
   (_conflicto de nombres_ o _choque de nombres_), que es el problema que se
   produce cuando usamos el mismo nombre para varias cosas diferentes y que
-  impide que se puedan usar todas al mismo tiempo.
+  impide que se puedan acceder a todas al mismo tiempo.
 
-- Entonces, ¿qué impide el _name clash_? Dos cosas:
+- Lo que impide el _name clash_ son dos cosas:
 
-  - Los ámbitos hacen que los nombres sólo sean visibles en ciertas zonas.
+  - Los _ámbitos_ hacen que los nombres sólo sean visibles en ciertas zonas.
 
-  - Los espacios de nombres permiten que un mismo nombre pueda ligarse a
+  - Los _espacios de nombres_ permiten que un mismo nombre pueda ligarse a
     diferentes nombres simultáneamente.
 
 ## Ámbito de un identificador cuantificado
