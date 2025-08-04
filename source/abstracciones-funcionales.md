@@ -1948,7 +1948,7 @@ fib1_5 -> u5
 
 - Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
   escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
-  !PYTHON(y*y*y), etc.) sin usar la palabra «cubo», pero eso nos obligaría
+  !PYTHON(5*5*5), etc.) sin usar la palabra «cubo», pero eso nos obligaría
   siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje
   (como `*`), en vez de poder usar términos de más alto nivel.
 
@@ -2012,7 +2012,7 @@ node [shape = plaintext, fillcolor = transparent]
 rankdir = BT
 c [label = "«elevar al cubo»"]
 3 [label = "3 * 3 * 3", fontname = "monospace"]
-y [label = "y * y * y", fontname = "monospace"]
+y [label = "5 * 5 * 5", fontname = "monospace"]
 radio [label = "radio * radio * radio", fontname = "monospace"]
 3 -> c [minlen = 2]
 y -> c [minlen = 2]
@@ -2039,6 +2039,55 @@ cg [label = "(caso general)"]
 
 - Al invocar a la función, se ligan sus parámetros con los argumentos de la
   llamada, lo que produce un caso particular a partir del caso general.
+
+---
+
+- El proceso conceptual sería el siguiente:
+
+  1. Partimos de casos particulares que comparten un patrón que se repite:
+
+     ```python
+     3 * 3 * 3
+     5 * 5 * 5
+     ```
+
+  2. Generalizamos estos casos particulares, convirtiendo los elementos que
+     diferencian esos casos particulares en identificadores libres:
+
+     ```python
+     x * x * x
+     ```
+
+     El valor de esta expresión actualmente depende del valor al que esté
+     ligado el identificador `x`.
+
+---
+
+3. Abstraemos dándole un nombre a toda la expresión:
+
+   ```python
+   cubo = x * x * x
+   ```
+
+   El valor de `cubo` sigue dependiendo del valor ligado a `x`, ya que es
+   libre.
+
+4. Generalizamos aún más parametrizando los identificadores libres utilizando
+   el cuantificador !PYTHON(lambda) y creando, así, una abstracción lambda:
+
+   ```python
+   cubo = lambda x: x * x * x
+   ```
+
+   Ahora hemos _cerrado_ la expresión creando una función en la que los
+   identificadores libres ya no son libres sino parámetros de la expresión
+   lambda, así que no depende de nada del exterior, y al invocarla con un
+   determinado argumento, se obtienen los casos particulares deseados:
+
+     ```python
+     cubo(3) → 3 * 3 * 3
+     cubo(5) → 5 * 5 * 5
+     ```
 
 ## Especificaciones de funciones
 
