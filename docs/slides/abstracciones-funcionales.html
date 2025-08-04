@@ -2198,10 +2198,10 @@ data-number="4">
 Abstracciones funcionales</h1>
 
 </section>
-<section id="las-funciones-como-abstracciones"
+<section id="las-funciones-como-abstracciones-y-generalizaciones"
 class="title-slide slide level2" data-number="4.1">
 <h2 data-number="4.1"><span class="header-section-number">4.1</span> Las
-funciones como abstracciones</h2>
+funciones como abstracciones y generalizaciones</h2>
 <ul>
 <li><p>Recordemos la definición de la función <code
 class="sourceCode python">area</code>:</p>
@@ -2349,20 +2349,21 @@ patrón (<em>elevar al cubo</em>).</p></li>
 <li><p>Por tanto, algunas veces, analizando ciertos <em>casos
 particulares</em>, observamos que se repite el mismo patrón en todos
 ellos, y de ahí extraemos un <em>caso general</em> que agrupa a todos
-los posibles casos particulares que cumplen el mismo patrón.</p></li>
+los posibles casos particulares que cumplen el mismo patrón (es decir,
+hacemos una <strong>generalización</strong>).</p></li>
 <li><p>A ese caso general le damos un nombre y ocultamos sus detalles
-internos en una «caja negra».</p></li>
-<li><p>Eso es una <strong>abstracción</strong>.</p></li>
+internos en una «caja negra», y con esto creamos una
+<strong>abstracción</strong>.</p></li>
 <li><p>En resumen, creamos abstracciones:</p>
 <ul>
-<li><p>Cuando creamos <strong>casos generales a partir de patrones que
-se repiten</strong> en varios casos particulares.</p></li>
 <li><p>Cuando queremos <strong>reducir la complejidad</strong>, dándole
 un nombre a un mecanismo complejo para poder referirnos a todo el
 conjunto a través de su nombre sin tener que recordar continuamente qué
 piezas contiene el mecanismo o cómo funciona éste por dentro.</p></li>
 <li><p>Cuando queremos que nuestro programa pueda <strong>expresar un
 concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
+<li><p>Cuando creamos <strong>casos generales a partir de patrones que
+se repiten</strong> en varios casos particulares.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -2382,6 +2383,30 @@ style="width:80.0%" /></p>
 </section>
 <section class="slide level5" data-number="4.1.0.0.8">
 
+<ul>
+<li><p>Ese patrón general representa a cada miembro del grupo formado
+por sus casos particulares, y se construye colocando un
+<em>parámetro</em> allí donde los casos particulares se diferencian
+entre sí (es decir, hacemos una
+<strong>parametrización</strong>).</p></li>
+<li><p>La función resultante es, al mismo tiempo:</p>
+<ul>
+<li><p>una <strong>abstracción</strong> (porque se puede invocar usando
+su nombre sin necesidad de conocer su interior), y</p></li>
+<li><p>una <strong>generalización</strong> (porque, al estar
+parametrizada, representa muchos casos particulares con un único caso
+general).</p></li>
+</ul></li>
+<li><p>Al invocar a la función, se ligan sus parámetros con los
+argumentos de la llamada, lo que produce un caso particular a partir del
+caso general.</p></li>
+</ul>
+</section>
+
+<section id="especificaciones-de-funciones"
+class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span>
+Especificaciones de funciones</h2>
 <ul>
 <li><p>La <strong>especificación de una <em>función</em></strong> es la
 descripción de <strong>qué</strong> hace la función sin entrar a
@@ -2404,11 +2429,8 @@ una «<strong>caja negra</strong>», que tiene unas entradas y una salida
 pero no se sabe cómo funciona por dentro.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="4.2.0.0.1">
 
-<section id="especificaciones-de-funciones"
-class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span>
-Especificaciones de funciones</h2>
 <ul>
 <li><p>Para poder <strong>usar una abstracción funcional</strong>
 <em>nos basta</em> con conocer su <em>especificación</em>, porque es la
@@ -2430,7 +2452,7 @@ relación entre su entrada y su salida.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.1">
+<section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
 <li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos
@@ -2455,7 +2477,7 @@ programas, y se podría seguir usando para especificar funciones, ya que
 de otros programas más grandes).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.2">
+<section class="slide level5" data-number="4.2.0.0.3">
 
 <ul>
 <li><p>Pero para especificar funciones resulta más adecuado usar el
@@ -2481,7 +2503,7 @@ función respetando su signatura y cumpliendo su precondición, la llamada
 termina cumpliendo su postcondición</em></strong>».</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.3">
+<section class="slide level5" data-number="4.2.0.0.4">
 
 <ul>
 <li><p>En este caso, la <strong>precondición</strong> es <code
@@ -2506,7 +2528,7 @@ lenguaje de programación que se vaya a usar para implementar la función
 (Python, en este caso).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.4">
+<section class="slide level5" data-number="4.2.0.0.5">
 
 <ul>
 <li><p>Recordemos la diferencia entre:</p>
@@ -2530,7 +2552,7 @@ del conjunto imagen que cumplen la
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.5">
+<section class="slide level5" data-number="4.2.0.0.6">
 
 <ul>
 <li><p>En el caso de la función <code
@@ -2556,7 +2578,7 @@ así está declarado el tipo de retorno de la función.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.6">
+<section class="slide level5" data-number="4.2.0.0.7">
 
 <ul>
 <li><p>Las pre y postcondiciones no es necesario escribirlas de una
@@ -2579,7 +2601,7 @@ especiales que no se tienen en cuenta.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.7">
+<section class="slide level5" data-number="4.2.0.0.8">
 
 <ul>
 <li><p>En este otro ejemplo, más completo, se especifica una función
@@ -2607,7 +2629,7 @@ coinciden</strong> (no todos los valores pertenecientes al conjunto
 origen sirven como datos de entrada válidos para la función).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.8">
+<section class="slide level5" data-number="4.2.0.0.9">
 
 <ul>
 <li><p>En esta especificación, <code
@@ -2630,7 +2652,7 @@ la cadena <span
 class="math inline">\underline{\textbf{\textit{cadena}}}</span></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.9">
+<section class="slide level5" data-number="4.2.0.0.10">
 
 <ul>
 <li><p>En realidad, las condiciones de la especificación anterior se
@@ -2651,7 +2673,7 @@ cadena\texttt{.count(\(car\))}
 <li>¿Por qué?</li>
 </ol>
 </section>
-<section class="slide level5" data-number="4.2.0.0.10">
+<section class="slide level5" data-number="4.2.0.0.11">
 
 <ul>
 <li><p>Finalmente, podríamos escribir la misma especificación en

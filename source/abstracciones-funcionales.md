@@ -1841,7 +1841,7 @@ fib1_5 -> u5
 
 # Abstracciones funcionales
 
-## Las funciones como abstracciones
+## Las funciones como abstracciones y generalizaciones
 
 - Recordemos la definición de la función !PYTHON(area):
 
@@ -1978,17 +1978,12 @@ fib1_5 -> u5
 - Por tanto, algunas veces, analizando ciertos _casos particulares_, observamos
   que se repite el mismo patrón en todos ellos, y de ahí extraemos un _caso
   general_ que agrupa a todos los posibles casos particulares que cumplen el
-  mismo patrón.
+  mismo patrón (es decir, hacemos una **generalización**).
 
 - A ese caso general le damos un nombre y ocultamos sus detalles internos en
-  una «caja negra».
-
-- Eso es una **abstracción**.
+  una «caja negra», y con esto creamos una **abstracción**.
 
 - En resumen, creamos abstracciones:
-
-  - Cuando creamos **casos generales a partir de patrones que se repiten** en
-    varios casos particulares.
 
   - Cuando queremos **reducir la complejidad**, dándole un nombre a un
     mecanismo complejo para poder referirnos a todo el conjunto a través de su
@@ -1997,6 +1992,9 @@ fib1_5 -> u5
 
   - Cuando queremos que nuestro programa pueda **expresar un concepto
     abstracto**, como el de «elevar al cubo».
+
+  - Cuando creamos **casos generales a partir de patrones que se repiten** en
+    varios casos particulares.
 
 ---
 
@@ -2026,6 +2024,24 @@ cg [label = "(caso general)"]
 
 ---
 
+- Ese patrón general representa a cada miembro del grupo formado por sus casos
+  particulares, y se construye colocando un _parámetro_ allí donde los casos
+  particulares se diferencian entre sí (es decir, hacemos una
+  **parametrización**).
+
+- La función resultante es, al mismo tiempo:
+
+  - una **abstracción** (porque se puede invocar usando su nombre sin necesidad
+    de conocer su interior), y
+
+  - una **generalización** (porque, al estar parametrizada, representa muchos
+    casos particulares con un único caso general).
+
+- Al invocar a la función, se ligan sus parámetros con los argumentos de la
+  llamada, lo que produce un caso particular a partir del caso general.
+
+## Especificaciones de funciones
+
 - La **especificación de una _función_** es la descripción de **qué** hace la
   función sin entrar a detallar **cómo** lo hace.
 
@@ -2044,7 +2060,7 @@ cg [label = "(caso general)"]
   «**caja negra**», que tiene unas entradas y una salida pero no se sabe cómo
   funciona por dentro.
 
-## Especificaciones de funciones
+---
 
 - Para poder **usar una abstracción funcional** _nos basta_ con conocer su
   _especificación_, porque es la descripción de qué hace esa función.
