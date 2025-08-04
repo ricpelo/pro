@@ -239,6 +239,29 @@ nocite: |
 - Es probable que sea reutilizable (pueda incorporarse a muchos programas) y
   modificable sin forzar cambios en otros módulos.
 
+---
+
+- Todo es un camino hacia la obtención de bloques constructivos cada vez más
+  grandes y abstractos.
+
+- En orden, de menor a mayor nivel de abstracción y complejidad, tendríamos:
+
+  - Expresiones, abstracciones lambda y sentencias.
+
+  - Estructuras de control.
+
+  - Funciones imperativas o procedimientos.
+
+  - Módulos.
+
+- Cada ladrillo constructivo puede contener elementos del mismo nivel o
+  inferior, pero no de un nivel superior.
+
+- Estos bloques constructivos ayudan a organizar el programa por niveles de
+  abstracción y complejidad, y nos permiten escribir programas cada vez más
+  grandes y complejos porque nos permite aislar y estudiar cada parte por
+  separado (ya sea pequeña, mediana o grande).
+
 ## Beneficios de la programación modular
 
 - El tiempo de desarrollo se reduce porque grupos separados de programadores

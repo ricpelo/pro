@@ -2103,23 +2103,27 @@ cg [label = "(caso general)"]
 
    Cuando una parte de un programa está _abierta_ resulta más difícil de
    programar y de razonar sobre ella, ya que su comportamiento depende del
-   resto del programa. Lo que nos interesa (siempre que sea posible) es que sea
-   una abstracción _cerrada_.
+   resto del programa. Lo que nos interesa (siempre que sea posible) es que la
+   abstracción esté _cerrada_.
 
 ---
 
-4. Generalizamos aún más parametrizando los identificadores libres utilizando
-   el cuantificador !PYTHON(lambda) y creando, así, una **abstracción lambda**:
+4. Generalizamos aún más, _parametrizando_ los identificadores libres
+   utilizando el cuantificador !PYTHON(lambda), creando así una
+   **_abstracción lambda_**:
 
    ```python
    cubo = lambda x: x * x * x
    ```
 
-   Un _cuantificador_ es un símbolo que convierte constantes en variables. En
-   este caso, las constantes `3`, `5` o `x` (y cualquier otra posible) se han
-   convertido en un parámetro. Los **parámetros** son nombres cuyo valor cambia
-   dependiendo de los argumentos de la llamada. Por eso se pueden considerar
-   _variables_ en el sentido matemático del término.
+   Un **_cuantificador_** es un símbolo que _cierra_ expresiones convirtiendo
+   constantes en variables. En este caso, las constantes `3` o `5` (o cualquier
+   otra posible, como la `x` libre) se han convertido en un parámetro.
+
+   Los
+   **parámetros** son nombres cuyo valor cambia dependiendo de los argumentos
+   de la llamada. Por eso se pueden considerar _variables_ en el sentido
+   matemático del término.
 
    Ahora hemos _cerrado_ la expresión creando una función en la que los
    identificadores libres ya no son libres sino _parámetros_ de la expresión
@@ -2136,33 +2140,35 @@ cg [label = "(caso general)"]
 
 ---
 
-- La importancia de la abstracción reside en su capacidad para ocultar detalles
-  irrelevantes y en el uso de nombres para referenciar objetos.
+- La importancia de la **abstracción** reside en su capacidad para ocultar
+  detalles irrelevantes y en el uso de nombres para referenciar objetos.
 
-  Los lenguajes de programación proporcionan abstracción mediante funciones (y
+- Los lenguajes de programación proporcionan abstracción mediante funciones (y
   otros elementos como procedimientos y módulos, que veremos posteriormente)
   que permiten al programador distinguir entre lo que hace una parte del
-  programa y cómo se implementa esa parte. La principal preocupación del
-  usuario de un programa reside en lo que hace. Esto contrasta con la del
-  programador, cuya principal preocupación es cómo se implementa.
+  programa y cómo se implementa esa parte.
 
-  La abstracción es esencial en la construcción de programas. Pone el énfasis
+- La principal preocupación del usuario de un programa (o de cada una de sus
+  partes) es _qué_ hace. Esto contrasta con la del programador de esa parte del
+  programa, cuya principal preocupación es _cómo_ se implementa.
+
+- La abstracción es esencial en la construcción de programas. Pone el énfasis
   en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
   lo tanto, es el principal medio para gestionar la complejidad en programas
   grandes.
 
 ---
 
-- De igual importancia es la generalización.
+- De igual importancia es la **generalización**.
 
-  Mientras que la abstracción reduce la complejidad al ocultar detalles
-  irrelevantes, la generalización la reduce al reemplazar múltiples elementos
-  que realizan tareas similares con una sola construcción.
+- Mientras que la abstracción reduce la complejidad al ocultar detalles
+  irrelevantes, la generalización la reduce al sustituir, con una sola
+  construcción, varios elementos que realizan una funcionalidad similar.
 
-  Los lenguajes de programación permiten la generalización mediante variables,
+- Los lenguajes de programación permiten la generalización mediante variables,
   parametrización, genéricos y polimorfismo.
 
-  La generalización es esencial en la construcción de programas. Pone el
+- La generalización es esencial en la construcción de programas. Pone el
   énfasis en las similitudes entre elementos. Por lo tanto, ayuda a gestionar
   la complejidad al agrupar individuos y proporcionar un representante que
   puede utilizarse para especificar cualquier individuo del grupo.
