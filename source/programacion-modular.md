@@ -112,10 +112,10 @@ nocite: |
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
   y programar por separado con relativa independencia del resto del programa.
 
-- Por tanto, podría decirse que **una función es un ejemplo de módulo**, ya que
-  se ajusta a esa definición (salvo quizás que no habría *descomposición
-  física*, aunque se podría colocar cada función en un archivo separado y
-  entonces sí).
+- Por tanto, podría decirse que **una función (imperativa o no) es un ejemplo
+  de módulo**, ya que se ajusta a esa definición (salvo quizás que no habría
+  *descomposición física*, aunque se podría colocar cada función en un archivo
+  separado y entonces sí).
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
   criterio la descomposición en funciones no resulta adecuado en general, ya
@@ -123,10 +123,10 @@ nocite: |
   separado, sino de forma conjunta entre ellas formando un todo
   interrelacionado.
 
-- Además, un módulo no tiene por qué ser simplemente una abstracción funcional,
-  sino que también puede tener su propio estado interno en forma de datos
-  almacenados en variables y constantes, manipulables desde dentro del módulo y
-  posiblemente también desde fuera.
+- Además, un módulo no tiene por qué ser simplemente una abstracción funcional
+  o un procedimiento, sino que también puede tener su propio estado interno y
+  definiciones locales en forma de datos almacenados en variables y constantes,
+  manipulables desde dentro del módulo y posiblemente también desde fuera.
 
 ---
 
@@ -208,11 +208,42 @@ nocite: |
     estos dos módulos, por las mismas razones.
 -->
 
+---
+
+- La programación estructurada y la programación procedimental son suficientes
+  para la denominada **programación a pequeña escala (_Programming In The
+  Small_, o _PITS_)**.
+
+- Se trata de programas que un programador individual puede comprender en su
+  totalidad.
+
+- Sin embargo, no son lo suficientemente generales para programas muy grandes.
+
+- Estos programas, escritos por muchas personas, deben constar de módulos que
+  puedan desarrollarse y probarse independientemente de otros módulos.
+
+- Este tipo de programación se denomina **programación a gran escala
+  (_Programming In The Large_, o _PITL_)**.
+
+---
+
+- La programación a gran escala se centra en programas que no son comprensibles
+  para una sola persona y que son desarrollados por equipos de programadores.
+
+- En este nivel, los programas deben constar de módulos que puedan escribirse,
+  compilarse y probarse independientemente de otros módulos (o lo más posible,
+  al menos).
+
+- Un módulo tiene un único propósito y una interfaz estrecha con otros módulos.
+
+- Es probable que sea reutilizable (pueda incorporarse a muchos programas) y
+  modificable sin forzar cambios en otros módulos.
+
 ## Beneficios de la programación modular
 
 - El tiempo de desarrollo se reduce porque grupos separados de programadores
-  pueden trabajar cada uno en un módulo con poca necesidad de comunicación
-  entre ellos.
+  pueden trabajar cada uno en un módulo distinto al mismo tiempo con poca
+  necesidad de comunicación entre ellos.
 
 - Se mejora la productividad del producto resultante, porque los cambios
   (pequeños o grandes) realizados en un módulo no afectarían demasiado a los
@@ -221,6 +252,9 @@ nocite: |
 - Comprensibilidad, porque se puede entender mejor el sistema completo cuando
   se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la
   vez.
+
+- Reusabilidad, porque facilita el que un módulo de un programa pueda ser
+  aprovechado (con poca o ninguna alteración) en otros programas.
 
 # Diseño modular
 
