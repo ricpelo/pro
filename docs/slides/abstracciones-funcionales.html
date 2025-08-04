@@ -2405,46 +2405,128 @@ caso general.</p></li>
 <section class="slide level5" data-number="4.1.0.0.9">
 
 <ul>
-<li><p>El proceso conceptual sería el siguiente:</p>
+<li><p>El proceso conceptual detallado sería el siguiente:</p>
 <ol type="1">
 <li><p>Partimos de casos particulares que comparten un patrón que se
 repite:</p>
 <div class="sourceCode" id="cb47"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div></li>
-<li><p>Generalizamos estos casos particulares, convirtiendo los
-elementos que diferencian esos casos particulares en identificadores
-libres:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
-<p>El valor de esta expresión actualmente depende del valor al que esté
-ligado el identificador <code>x</code>.</p></li>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
+<p>En este caso, el patrón es el de «algo» que se multiplica por sí
+mismo tres veces.</p>
+<p>En todos los casos particulares de ese patrón repetido vemos que hay
+elementos que se son iguales y otros que son diferentes.</p>
+<p>Por ejemplo, los <code
+class="sourceCode python"><span class="op">*</span></code> son iguales y
+lo que varía es el «objeto» que se multiplica.</p></li>
 </ol></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.10">
 
+<ol start="2" type="1">
+<li><p>Generalizamos estos casos particulares, convirtiendo en
+identificadores libres aquellas partes en las que los casos particulares
+se diferencian, es decir, las partes que no son comunes:</p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<p>El valor de esta expresión actualmente depende del valor al que esté
+ligado el identificador <code>x</code>, y decimos que ese identificador
+es <em>libre</em>.</p>
+<p>Los <strong>identificadores libres</strong> son nombres que no se
+sabe de antemano a qué valores van a estar ligados, ya que dependen del
+<em>contexto</em>, es decir, de lo que hay fuera de la expresión cuando
+se va a evaluar. En todo caso, un identificador libre estará ligado
+siempre a un mismo valor y, en ese sentido, se pueden considerar
+constantes.</p>
+<p>Se dice que una expresión con identificadores libres está
+<em>abierta</em>, porque su valor depende de elementos externos a
+ella.</p></li>
+</ol>
+</section>
+<section class="slide level5" data-number="4.1.0.0.11">
+
 <ol start="3" type="1">
-<li><p>Abstraemos dándole un nombre a toda la expresión:</p>
+<li><p>Abstraemos dándole un nombre a toda la expresión, de forma que
+ahora podríamos usar el nombre en lugar de la expresión:</p>
 <div class="sourceCode" id="cb49"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
 <p>El valor de <code>cubo</code> sigue dependiendo del valor ligado a
-<code>x</code>, ya que es libre.</p></li>
+<code>x</code>, ya que esta <code>x</code> es libre.</p>
+<p>Por tanto, para deducir qué valor tendrá <code>cubo</code> tendremos
+que seguir conociendo su interior: tenemos que saber que su valor se
+calcula a partir del valor que tiene la variable libre
+<code>x</code>.</p>
+<p>Esto hace que <code>cubo</code> no sea una buena abstracción, ya que
+no funciona como una <em>caja negra</em>. Esto se debe a que la
+abstracción está <em>abierta</em>.</p>
+<p>Cuando una parte de un programa está <em>abierta</em> resulta más
+difícil de programar y de razonar sobre ella, ya que su comportamiento
+depende del resto del programa. Lo que nos interesa (siempre que sea
+posible) es que sea una abstracción <em>cerrada</em>.</p></li>
+</ol>
+</section>
+<section class="slide level5" data-number="4.1.0.0.12">
+
+<ol start="4" type="1">
 <li><p>Generalizamos aún más parametrizando los identificadores libres
 utilizando el cuantificador <code
 class="sourceCode python"><span class="kw">lambda</span></code> y
-creando, así, una abstracción lambda:</p>
+creando, así, una <strong>abstracción lambda</strong>:</p>
 <div class="sourceCode" id="cb50"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<p>Un <em>cuantificador</em> es un símbolo que convierte constantes en
+variables. En este caso, las constantes <code>3</code>, <code>5</code> o
+<code>x</code> (y cualquier otra posible) se han convertido en un
+parámetro. Los <strong>parámetros</strong> son nombres cuyo valor cambia
+dependiendo de los argumentos de la llamada. Por eso se pueden
+considerar <em>variables</em> en el sentido matemático del término.</p>
 <p>Ahora hemos <em>cerrado</em> la expresión creando una función en la
-que los identificadores libres ya no son libres sino parámetros de la
-expresión lambda, así que no depende de nada del exterior, y al
-invocarla con un determinado argumento, se obtienen los casos
-particulares deseados:</p>
+que los identificadores libres ya no son libres sino <em>parámetros</em>
+de la expresión lambda, así que la expresión ya no depende de nada que
+haya en el exterior de la misma.</p>
+<p>Al invocarla con un argumento concreto, el parámetro toma el valor de
+ese argumento y así se van obteniendo los casos particulares
+deseados:</p>
 <div class="sourceCode" id="cb51"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>cubo(<span class="dv">3</span>) → <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>cubo(<span class="dv">5</span>) → <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div></li>
 </ol>
+</section>
+<section class="slide level5" data-number="4.1.0.0.13">
+
+<ul>
+<li><p>La importancia de la abstracción reside en su capacidad para
+ocultar detalles irrelevantes y en el uso de nombres para referenciar
+objetos.</p>
+<p>Los lenguajes de programación proporcionan abstracción mediante
+funciones (y otros elementos como procedimientos y módulos, que veremos
+posteriormente) que permiten al programador distinguir entre lo que hace
+una parte del programa y cómo se implementa esa parte. La principal
+preocupación del usuario de un programa reside en lo que hace. Esto
+contrasta con la del programador, cuya principal preocupación es cómo se
+implementa.</p>
+<p>La abstracción es esencial en la construcción de programas. Pone el
+énfasis en lo que algo es o hace, más que en cómo se representa o cómo
+funciona. Por lo tanto, es el principal medio para gestionar la
+complejidad en programas grandes.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.14">
+
+<ul>
+<li><p>De igual importancia es la generalización.</p>
+<p>Mientras que la abstracción reduce la complejidad al ocultar detalles
+irrelevantes, la generalización la reduce al reemplazar múltiples
+elementos que realizan tareas similares con una sola construcción.</p>
+<p>Los lenguajes de programación permiten la generalización mediante
+variables, parametrización, genéricos y polimorfismo.</p>
+<p>La generalización es esencial en la construcción de programas. Pone
+el énfasis en las similitudes entre elementos. Por lo tanto, ayuda a
+gestionar la complejidad al agrupar individuos y proporcionar un
+representante que puede utilizarse para especificar cualquier individuo
+del grupo.</p></li>
+</ul>
 </section>
 
 <section id="especificaciones-de-funciones"

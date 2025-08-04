@@ -2042,7 +2042,7 @@ cg [label = "(caso general)"]
 
 ---
 
-- El proceso conceptual sería el siguiente:
+- El proceso conceptual detallado sería el siguiente:
 
   1. Partimos de casos particulares que comparten un patrón que se repite:
 
@@ -2051,43 +2051,121 @@ cg [label = "(caso general)"]
      5 * 5 * 5
      ```
 
-  2. Generalizamos estos casos particulares, convirtiendo los elementos que
-     diferencian esos casos particulares en identificadores libres:
+     En este caso, el patrón es el de «algo» que se multiplica por sí mismo
+     tres veces.
 
-     ```python
-     x * x * x
-     ```
+     En todos los casos particulares de ese patrón repetido vemos que hay
+     elementos que se son iguales y otros que son diferentes.
 
-     El valor de esta expresión actualmente depende del valor al que esté
-     ligado el identificador `x`.
+     Por ejemplo, los !PYTHON(*) son iguales y lo que varía es el «objeto» que
+     se multiplica.
 
 ---
 
-3. Abstraemos dándole un nombre a toda la expresión:
+2. Generalizamos estos casos particulares, convirtiendo en identificadores
+   libres aquellas partes en las que los casos particulares se diferencian,
+   es decir, las partes que no son comunes:
+
+   ```python
+   x * x * x
+   ```
+
+   El valor de esta expresión actualmente depende del valor al que esté
+   ligado el identificador `x`, y decimos que ese identificador es _libre_.
+
+   Los **identificadores libres** son nombres que no se sabe de antemano a
+   qué valores van a estar ligados, ya que dependen del _contexto_, es decir,
+   de lo que hay fuera de la expresión cuando se va a evaluar. En todo caso,
+   un identificador libre estará ligado siempre a un mismo valor y, en ese
+   sentido, se pueden considerar constantes.
+
+   Se dice que una expresión con identificadores libres está _abierta_,
+   porque su valor depende de elementos externos a ella.
+
+---
+
+3. Abstraemos dándole un nombre a toda la expresión, de forma que ahora
+   podríamos usar el nombre en lugar de la expresión:
 
    ```python
    cubo = x * x * x
    ```
 
-   El valor de `cubo` sigue dependiendo del valor ligado a `x`, ya que es
-   libre.
+   El valor de `cubo` sigue dependiendo del valor ligado a `x`, ya que esta `x`
+   es libre.
+
+   Por tanto, para deducir qué valor tendrá `cubo` tendremos que seguir
+   conociendo su interior: tenemos que saber que su valor se calcula a partir
+   del valor que tiene la variable libre `x`.
+
+   Esto hace que `cubo` no sea una buena abstracción, ya que no funciona como
+   una _caja negra_. Esto se debe a que la abstracción está _abierta_.
+
+   Cuando una parte de un programa está _abierta_ resulta más difícil de
+   programar y de razonar sobre ella, ya que su comportamiento depende del
+   resto del programa. Lo que nos interesa (siempre que sea posible) es que sea
+   una abstracción _cerrada_.
+
+---
 
 4. Generalizamos aún más parametrizando los identificadores libres utilizando
-   el cuantificador !PYTHON(lambda) y creando, así, una abstracción lambda:
+   el cuantificador !PYTHON(lambda) y creando, así, una **abstracción lambda**:
 
    ```python
    cubo = lambda x: x * x * x
    ```
 
+   Un _cuantificador_ es un símbolo que convierte constantes en variables. En
+   este caso, las constantes `3`, `5` o `x` (y cualquier otra posible) se han
+   convertido en un parámetro. Los **parámetros** son nombres cuyo valor cambia
+   dependiendo de los argumentos de la llamada. Por eso se pueden considerar
+   _variables_ en el sentido matemático del término.
+
    Ahora hemos _cerrado_ la expresión creando una función en la que los
-   identificadores libres ya no son libres sino parámetros de la expresión
-   lambda, así que no depende de nada del exterior, y al invocarla con un
-   determinado argumento, se obtienen los casos particulares deseados:
+   identificadores libres ya no son libres sino _parámetros_ de la expresión
+   lambda, así que la expresión ya no depende de nada que haya en el exterior
+   de la misma.
+
+   Al invocarla con un argumento concreto, el parámetro toma el valor de ese
+   argumento y así se van obteniendo los casos particulares deseados:
 
      ```python
      cubo(3) → 3 * 3 * 3
      cubo(5) → 5 * 5 * 5
      ```
+
+---
+
+- La importancia de la abstracción reside en su capacidad para ocultar detalles
+  irrelevantes y en el uso de nombres para referenciar objetos.
+
+  Los lenguajes de programación proporcionan abstracción mediante funciones (y
+  otros elementos como procedimientos y módulos, que veremos posteriormente)
+  que permiten al programador distinguir entre lo que hace una parte del
+  programa y cómo se implementa esa parte. La principal preocupación del
+  usuario de un programa reside en lo que hace. Esto contrasta con la del
+  programador, cuya principal preocupación es cómo se implementa.
+
+  La abstracción es esencial en la construcción de programas. Pone el énfasis
+  en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
+  lo tanto, es el principal medio para gestionar la complejidad en programas
+  grandes.
+
+---
+
+- De igual importancia es la generalización.
+
+  Mientras que la abstracción reduce la complejidad al ocultar detalles
+  irrelevantes, la generalización la reduce al reemplazar múltiples elementos
+  que realizan tareas similares con una sola construcción.
+
+  Los lenguajes de programación permiten la generalización mediante variables,
+  parametrización, genéricos y polimorfismo.
+
+  La generalización es esencial en la construcción de programas. Pone el
+  énfasis en las similitudes entre elementos. Por lo tanto, ayuda a gestionar
+  la complejidad al agrupar individuos y proporcionar un representante que
+  puede utilizarse para especificar cualquier individuo del grupo.
 
 ## Especificaciones de funciones
 
