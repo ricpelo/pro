@@ -246,13 +246,13 @@ nocite: |
 
 - En orden, de menor a mayor nivel de abstracción y complejidad, tendríamos:
 
-  - Expresiones, abstracciones lambda y sentencias.
+  #. Expresiones, abstracciones lambda y sentencias.
 
-  - Estructuras de control.
+  #. Estructuras de control.
 
-  - Funciones imperativas o procedimientos.
+  #. Funciones imperativas o procedimientos.
 
-  - Módulos.
+  #. Módulos.
 
 - Cada ladrillo constructivo puede contener elementos del mismo nivel o
   inferior, pero no de un nivel superior.
