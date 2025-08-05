@@ -208,48 +208,28 @@ nocite: |
 
 ## Estructuras de control
 
-- Una **estructura** es una construcción sintáctica que puede **anidarse
-  completamente** dentro de otras estructuras.
+- Como ya vimos al estudiar los ámbitos léxicos, una **estructura** es una
+  construcción sintáctica que puede **anidarse completamente** dentro de otras
+  estructuras.
 
 - Eso significa que, dadas dos estructuras cualesquiera, o una está incluida
   completamente dentro de la otra, o no se tocan en absoluto.
 
-- Por tanto, los bordes de dos estructuras nunca pueden cruzarse:
+- Por tanto, los bordes de dos estructuras nunca pueden cruzarse.
 
-!SALTOLARGOBEAMER
+---
 
 :::: columns
 
 ::: column
 
-!DOT(estructura-si.svg)(Estructuras)(width=90%)(width=60%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fillcolor = transparent]
-rankdir = "TB"
-A
-subgraph cluster0 {
-    C
-    B
-    subgraph cluster1 {
-        D
-        subgraph cluster2 {
-            E
-        }
-    }
-}
-F
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(estructuras-anidadas.!EXT)(Estructuras)(width=45%)(width=45%)
 
 :::
 
 ::: column
 
-!DOT(estructura-no.svg)(Estas no son estructuras)(width=20%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-graph [layout = neato]
-A [pos="-0.5,0.0!", fillcolor = transparent]
-B [pos="0.0,-0.2!", fillcolor = transparent]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!IMGP(estructuras-que-se-cruzan.!EXT)(Estructuras que se cruzan y que, por tanto, no son estructuras)(width=45%)(width=45%)
 
 :::
 

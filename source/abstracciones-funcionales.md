@@ -298,8 +298,8 @@ nocite: |
   puedan tomar los parámetros de la expresión lambda en cada llamada a la
   misma.
 
-- Dicho valor además vendrá determinado automáticamente por la ligadura que crea el
-  intérprete durante la llamada a la expresión lambda.
+- Dicho valor además vendrá determinado automáticamente por la ligadura que
+  crea el intérprete durante la llamada a la expresión lambda.
 
   Es decir: el intérprete liga automáticamente el identificador cuantificado
   al valor del correspondiente argumento durante la llamada a la expresión
@@ -370,6 +370,48 @@ nocite: |
 - Según lo anterior, en un momento dado, el **ámbito actual** es el ámbito de
   la instrucción actual, es decir, el ámbito más interno en el que se encuentra
   la instrucción que se está ejecutando actualmente.
+
+---
+
+- Decimos que los ámbitos léxicos cumplen la **propiedad de la estructura**.
+
+- Una **estructura** es una construcción sintáctica que puede **anidarse
+  completamente** dentro de otras estructuras, de forma que, dadas dos
+  estructuras cualesquiera, o una está incluida completamente dentro de la
+  otra, o no se tocan en absoluto.
+
+- Por tanto, los bordes de dos ámbitos léxicos nunca pueden cruzarse:
+
+:::: columns
+
+::: {.column width=40%}
+
+!IMGP(estructuras-anidadas.!EXT)(Ámbitos léxicos anidados)(width=45%)(width=22%)
+
+:::
+
+::: {.column width=60%}
+
+- A puede ver los nombres definidos en A, pero no los definidos en B, C o D.
+
+- B puede ver los nombres definidos en A y B, pero no los definidos en C o D.
+
+- C puede ver los nombres definidos en A, B y C, pero no los definidos en D.
+
+- D puede ver los nombres definidos en A y D, pero no los definidos en B o C.
+
+:::
+
+::::
+
+---
+
+- En cambio, los bordes de los siguientes «ámbitos» se cruzan y, por
+  consiguiente, no poseen la propiedad de la estructura:
+
+  !IMGP(estructuras-que-se-cruzan.!EXT)(Estructuras que se cruzan)(width=20%)(width=22%)
+
+- Por esta razón, estas estructuras no podrían ser nunca ámbitos léxicos.
 
 ---
 
