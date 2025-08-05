@@ -341,6 +341,10 @@ nocite: |
   `}` que delimitan el bloque), entonces esa instrucción se encuentra dentro
   del ámbito léxico que define el bloque.
 
+- En Python, veremos en breve que las expresiones lambda determinan ámbitos
+  léxicos, así que, cada vez que creamos una expresión lambda, estamos
+  introduciendo un nuevo ámbito en el código fuente de nuestro programa.
+
 ---
 
 - Además de los ámbitos léxicos, existen también los llamados **ámbitos
@@ -384,49 +388,39 @@ nocite: |
 
 :::: columns
 
-::: {.column width=40%}
+::: column
 
-!IMGP(estructuras-anidadas.!EXT)(Ámbitos léxicos anidados)(width=45%)(width=22%)
+!IMGP(estructuras-anidadas.!EXT)(Ámbitos léxicos anidados)(width=35%)(width=25%)
 
 :::
 
-::: {.column width=60%}
+::: column
 
-- A puede ver los nombres definidos en A, pero no los definidos en B, C o D.
-
-- B puede ver los nombres definidos en A y B, pero no los definidos en C o D.
-
-- C puede ver los nombres definidos en A, B y C, pero no los definidos en D.
-
-- D puede ver los nombres definidos en A y D, pero no los definidos en B o C.
+!IMGP(estructuras-que-se-cruzan.!EXT)(Estas no son estructuras)(width=35%)(width=25%)
 
 :::
 
 ::::
 
----
+### Ámbito global
 
-- En cambio, los bordes de los siguientes «ámbitos» se cruzan y, por
-  consiguiente, no poseen la propiedad de la estructura:
-
-  !IMGP(estructuras-que-se-cruzan.!EXT)(Estructuras que se cruzan)(width=20%)(width=22%)
-
-- Por esta razón, estas estructuras no podrían ser nunca ámbitos léxicos.
-
----
+<!--
 
 - El concepto de _ámbito_ no es nada trivial y, a medida que vayamos
   incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
   tener en cuenta más condicionantes.
 
-- Hasta ahora sólo hemos tenido un ámbito, llamado **ámbito global**:
+-->
+
+- Un ámbito que siempre existe en cualquier programa es el llamado **ámbito
+  global**:
 
   - Si se está ejecutando un _script_ en el intérprete por lotes (con
-    `python script.py`), el _ámbito global_ abarca todo el _script_, desde la
-    primera instrucción hasta la última.
+    `python script.py`), **el _ámbito global_ abarca todo el _script_**, desde
+    la primera instrucción hasta la última.
 
   - Si estamos en el intérprete interactivo (con `python` o `ipython3`), el
-    _ámbito global_ abarca toda nuestra sesión con el intérprete, desde que
+    _ámbito global_ abarca **toda nuestra sesión con el intérprete**, desde que
     arrancamos la sesión hasta que finalizamos la misma.
 
 - Por tanto:
@@ -490,72 +484,19 @@ nocite: |
 
     Es decir, que se puede determinar de forma _estática_.
 
-### Almacenamiento
-
-- Sabemos que las ligaduras se almacenan en _espacios de nombres_.
-
-- En Python, hay dos lugares donde se pueden almacenar ligaduras y, por tanto,
-  **hay dos posibles espacios de nombres: los _objetos_ y los _marcos_**.
-
-- Así que tenemos dos posibilidades:
-
-  #. Si el identificador que se está ligando es un _atributo_ de un objeto,
-     entonces la ligadura se almacenará en el objeto.
-
-  #. En caso contrario, la ligadura se almacenará en un marco, el cual depende
-     del _ámbito actual_.
-
-- Veamos cada caso con más detalle.
-
----
-
-1. Cuando se crea una ligadura dentro de un objeto en Python usando el operador
-   punto (`.`), **el espacio de nombres será el propio objeto**, ya que los
-   objetos son espacios de nombres en Python. En tal caso, la ligadura asocia
-   un valor con un _atributo_ del objeto.
-
-   Por ejemplo, si en Python hacemos:
-
-   ```python
-   import math
-   math.x = 75
-   ```
-
-   estamos creando la ligadura `x` → `75` en el espacio de nombres que
-   representa el módulo `math`, el cual es un objeto en Python y, por tanto, es
-   quien almacena la ligadura.
-
-   Así que el espacio de nombres ha sido seleccionado a través del operador
-   punto (`.`) para resolver el atributo dentro del objeto, y no depende del
-   ámbito donde se encuentre la sentencia !PYTHON(math.x = 75).
-
-   Diremos que la ligadura es **local** al objeto.
-
----
-
-2. Si la ligadura no se crea dentro de un objeto usando el operador punto
-   (`.`), entonces el espacio de nombres irá asociado al ámbito y, en este
-   caso, **ese espacio de nombres siempre será un marco**.
-
-   Ese marco será el que corresponda al _ámbito actual_, es decir, el ámbito
-   más interno en el que se encuentra la instrucción que crea la ligadura.
-
-   Cuando el ámbito es el _ámbito global_ (y, por tanto, la ligadura se
-   almacena en el marco global), se dice que la ligadura es **global**.
-
-   En caso contrario, decimos que es **local** al ámbito, y se almacenará en el
-   marco correspondiente a ese ámbito.
-
 ### Visibilidad
 
-- La visibilidad de una ligadura indica en qué lugares del programa es visible
-  y accesible esa ligadura.
+- La visibilidad de una ligadura indica en qué lugares del código fuente del
+  programa es visible y accesible esa ligadura.
 
-- Es decir: la visibilidad determina dónde en el programa puede usarse un
-  determinado identificador para acceder al valor al que está ligado.
+- Una ligadura puede existir en un punto concreto del programa, pero en cambio
+  no ser accesible en ese mismo punto.
 
-- Al igual que antes, tenemos dos posibilidades, dependiendo de si estamos
-  ligando un atributo de un objeto, o no.
+- Para determinar las reglas de visibilidad de una ligadura, existen dos
+  posibilidades, dependiendo de si la ligadura está ligando un atributo de un
+  objeto, o no.
+
+- Veamos cada caso con detalle.
 
 ---
 
@@ -591,6 +532,33 @@ nocite: |
    Si el ámbito es el global, decimos que la ligadura tiene **visibilidad
    global**.
 
+---
+
+- Suponiendo que tenemos los siguientes cuatro ámbitos, identificados con las
+  letras A, B, C y D:
+
+  :::: columns
+
+  ::: {.column width=40%}
+
+  !IMGP(estructuras-anidadas.!EXT)(Ámbitos léxicos anidados)(width=45%)(width=22%)
+
+  :::
+
+  ::: {.column width=60%}
+
+  - A puede ver los nombres definidos en A, pero no los definidos en B, C o D.
+
+  - B puede ver los nombres definidos en A y B, pero no los definidos en C o D.
+
+  - C puede ver los nombres definidos en A, B y C, pero no los definidos en D.
+
+  - D puede ver los nombres definidos en A y D, pero no los definidos en B o C.
+
+  :::
+
+  ::::
+
 ### Tiempo de vida
 
 - El **tiempo de vida** de una ligadura representa el periodo de tiempo durante
@@ -606,16 +574,15 @@ nocite: |
 
 ---
 
-- Por otra parte, el momento en que una ligadura **deja de existir** depende su
-  almacenamiento:
+- Por otra parte, el momento en que una ligadura **deja de existir** depende si
+  el identificador ligado es un atributo de un objeto, o no:
 
-  - Si se almacena en un objeto, es porque la ligadura está ligando un atributo
-    de ese objeto a un determinado valor. En tal caso, la ligadura dejará de
-    existir cuando se elimine el objeto de la memoria, o bien, cuando se
-    elimine el atributo ligado.
+  - Si el identificador ligado es un atributo de un objeto, la ligadura dejará
+    de existir cuando se elimine el objeto de la memoria, o bien, cuando se
+    elimine el propio atributo ligado.
 
-  - En caso contrario, la ligadura estará almacenada en un marco y, por tanto,
-    dejará de existir allí donde termine el ámbito de la ligadura.
+  - En caso contrario, la ligadura dejará de existir allí donde termine el
+    ámbito de la ligadura.
 
 - Es importante hacer notar que, en un momento dado, una ligadura puede existir
   pero no ser visible.
@@ -638,6 +605,65 @@ nocite: |
     o **_dinámico_** si es interpretado.
 
 -->
+
+### Almacenamiento
+
+- Sabemos que las ligaduras se almacenan en _espacios de nombres_.
+
+- En Python, hay dos lugares donde se pueden almacenar ligaduras y, por tanto,
+  **hay dos posibles espacios de nombres: los _objetos_ y los _marcos_**.
+
+- Así que tenemos dos posibilidades:
+
+  #. Si el identificador que se está ligando es un _atributo_ de un objeto,
+     entonces la ligadura se almacenará en el objeto, junto con el propio
+     atributo.
+
+  #. En caso contrario, la ligadura se almacenará en un marco, el cual depende
+     del _ámbito actual_.
+
+- Veamos cada caso con más detalle.
+
+---
+
+1. Cuando se crea una ligadura dentro de un objeto en Python usando el operador
+   punto (`.`), **el espacio de nombres será el propio objeto**, ya que los
+   objetos son espacios de nombres en Python.
+
+   En tal caso, la ligadura asocia un valor con un _atributo_ del objeto, y
+   tanto el atributo como la ligadura se almacenan dentro del objeto.
+
+   Por ejemplo, si en Python hacemos:
+
+   ```python
+   import math
+   math.x = 75
+   ```
+
+   estamos creando la ligadura `x` → `75` en el espacio de nombres que
+   representa el módulo `math`, el cual es un objeto en Python y, por tanto, es
+   quien almacena la ligadura.
+
+   Así que el espacio de nombres ha sido seleccionado a través del operador
+   punto (`.`) para resolver el atributo dentro del objeto, y no depende del
+   ámbito donde se encuentre la sentencia !PYTHON(math.x = 75).
+
+   Diremos que la ligadura es **local** al objeto.
+
+---
+
+2. Si la ligadura no se crea dentro de un objeto usando el operador punto
+   (`.`), entonces el espacio de nombres irá asociado al ámbito y, en este
+   caso, **ese espacio de nombres siempre será un marco**.
+
+   Ese marco será el que corresponda al _ámbito actual_, es decir, el ámbito
+   más interno en el que se encuentra la instrucción que crea la ligadura.
+
+   Cuando el ámbito es el _ámbito global_ (y, por tanto, la ligadura se
+   almacena en el marco global), se dice que la ligadura es **global**.
+
+   En caso contrario, decimos que es **local** al ámbito, y se almacenará en el
+   marco correspondiente a ese ámbito.
 
 !EJEMPLO
 

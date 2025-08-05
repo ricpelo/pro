@@ -565,6 +565,10 @@ instrucción está dentro de un bloque (es decir, si está situada entre
 las llaves <code>{</code> y <code>}</code> que delimitan el bloque),
 entonces esa instrucción se encuentra dentro del ámbito léxico que
 define el bloque.</p></li>
+<li><p>En Python, veremos en breve que las expresiones lambda determinan
+ámbitos léxicos, así que, cada vez que creamos una expresión lambda,
+estamos introduciendo un nuevo ámbito en el código fuente de nuestro
+programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.2">
@@ -612,61 +616,48 @@ absoluto.</p></li>
 cruzarse:</p></li>
 </ul>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column">
 <div class="centered">
 <figure>
 <img data-src="images/estructuras-anidadas.svg" class="plain"
-style="width:45.0%" alt="Ámbitos léxicos anidados" />
+style="width:35.0%" alt="Ámbitos léxicos anidados" />
 <figcaption aria-hidden="true">Ámbitos léxicos anidados</figcaption>
 </figure>
 </div>
-</div><div class="column" style="width:60%;">
-<ul>
-<li><p>A puede ver los nombres definidos en A, pero no los definidos en
-B, C o D.</p></li>
-<li><p>B puede ver los nombres definidos en A y B, pero no los definidos
-en C o D.</p></li>
-<li><p>C puede ver los nombres definidos en A, B y C, pero no los
-definidos en D.</p></li>
-<li><p>D puede ver los nombres definidos en A y D, pero no los definidos
-en B o C.</p></li>
-</ul>
-</div>
-</div>
-</section>
-<section class="slide level5" data-number="2.1.0.0.5">
-
-<ul>
-<li><p>En cambio, los bordes de los siguientes «ámbitos» se cruzan y,
-por consiguiente, no poseen la propiedad de la estructura:</p>
+</div><div class="column">
 <div class="centered">
 <figure>
 <img data-src="images/estructuras-que-se-cruzan.svg" class="plain"
-style="width:20.0%" alt="Estructuras que se cruzan" />
-<figcaption aria-hidden="true">Estructuras que se cruzan</figcaption>
+style="width:35.0%" alt="Estas no son estructuras" />
+<figcaption aria-hidden="true">Estas no son estructuras</figcaption>
 </figure>
-</div></li>
-<li><p>Por esta razón, estas estructuras no podrían ser nunca ámbitos
-léxicos.</p></li>
-</ul>
+</div>
+</div>
+</div>
 </section>
-<section class="slide level5" data-number="2.1.0.0.6">
+<section id="ámbito-global" class="title-slide slide level3"
+data-number="2.1.1">
+<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span>
+Ámbito global</h3>
+<!--
 
+- El concepto de _ámbito_ no es nada trivial y, a medida que vayamos
+  incorporando nuevos elementos al lenguaje, tendremos que ir adaptándolo para
+  tener en cuenta más condicionantes.
+
+-->
 <ul>
-<li><p>El concepto de <em>ámbito</em> no es nada trivial y, a medida que
-vayamos incorporando nuevos elementos al lenguaje, tendremos que ir
-adaptándolo para tener en cuenta más condicionantes.</p></li>
-<li><p>Hasta ahora sólo hemos tenido un ámbito, llamado <strong>ámbito
-global</strong>:</p>
+<li><p>Un ámbito que siempre existe en cualquier programa es el llamado
+<strong>ámbito global</strong>:</p>
 <ul>
 <li><p>Si se está ejecutando un <em>script</em> en el intérprete por
-lotes (con <code>python script.py</code>), el <em>ámbito global</em>
-abarca todo el <em>script</em>, desde la primera instrucción hasta la
-última.</p></li>
+lotes (con <code>python script.py</code>), <strong>el <em>ámbito
+global</em> abarca todo el <em>script</em></strong>, desde la primera
+instrucción hasta la última.</p></li>
 <li><p>Si estamos en el intérprete interactivo (con <code>python</code>
-o <code>ipython3</code>), el <em>ámbito global</em> abarca toda nuestra
-sesión con el intérprete, desde que arrancamos la sesión hasta que
-finalizamos la misma.</p></li>
+o <code>ipython3</code>), el <em>ámbito global</em> abarca <strong>toda
+nuestra sesión con el intérprete</strong>, desde que arrancamos la
+sesión hasta que finalizamos la misma.</p></li>
 </ul></li>
 <li><p>Por tanto:</p>
 <ul>
@@ -679,6 +670,7 @@ interactivo.</p></li>
 </ul></li>
 </ul>
 </section>
+
 
 <section id="ámbito-de-una-definición-y-de-una-ligadura"
 class="title-slide slide level2" data-number="2.2">
@@ -744,81 +736,22 @@ acaba esa construcción, sin tener que ejecutarlo.</p>
 </ul></li>
 </ul>
 </section>
-<section id="almacenamiento" class="title-slide slide level3"
+<section id="visibilidad" class="title-slide slide level3"
 data-number="2.2.1">
 <h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
-Almacenamiento</h3>
+Visibilidad</h3>
 <ul>
-<li><p>Sabemos que las ligaduras se almacenan en <em>espacios de
-nombres</em>.</p></li>
-<li><p>En Python, hay dos lugares donde se pueden almacenar ligaduras y,
-por tanto, <strong>hay dos posibles espacios de nombres: los
-<em>objetos</em> y los <em>marcos</em></strong>.</p></li>
-<li><p>Así que tenemos dos posibilidades:</p>
-<ol>
-<li><p>Si el identificador que se está ligando es un <em>atributo</em>
-de un objeto, entonces la ligadura se almacenará en el objeto.</p></li>
-<li><p>En caso contrario, la ligadura se almacenará en un marco, el cual
-depende del <em>ámbito actual</em>.</p></li>
-</ol></li>
-<li><p>Veamos cada caso con más detalle.</p></li>
+<li><p>La visibilidad de una ligadura indica en qué lugares del código
+fuente del programa es visible y accesible esa ligadura.</p></li>
+<li><p>Una ligadura puede existir en un punto concreto del programa,
+pero en cambio no ser accesible en ese mismo punto.</p></li>
+<li><p>Para determinar las reglas de visibilidad de una ligadura,
+existen dos posibilidades, dependiendo de si la ligadura está ligando un
+atributo de un objeto, o no.</p></li>
+<li><p>Veamos cada caso con detalle.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.1.0.1">
-
-<ol type="1">
-<li><p>Cuando se crea una ligadura dentro de un objeto en Python usando
-el operador punto (<code>.</code>), <strong>el espacio de nombres será
-el propio objeto</strong>, ya que los objetos son espacios de nombres en
-Python. En tal caso, la ligadura asocia un valor con un
-<em>atributo</em> del objeto.</p>
-<p>Por ejemplo, si en Python hacemos:</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>math.x <span class="op">=</span> <span class="dv">75</span></span></code></pre></div>
-<p>estamos creando la ligadura <code>x</code> → <code>75</code> en el
-espacio de nombres que representa el módulo <code>math</code>, el cual
-es un objeto en Python y, por tanto, es quien almacena la ligadura.</p>
-<p>Así que el espacio de nombres ha sido seleccionado a través del
-operador punto (<code>.</code>) para resolver el atributo dentro del
-objeto, y no depende del ámbito donde se encuentre la sentencia <code
-class="sourceCode python">math.x <span class="op">=</span> <span class="dv">75</span></code>.</p>
-<p>Diremos que la ligadura es <strong>local</strong> al objeto.</p></li>
-</ol>
-</section>
-<section class="slide level5" data-number="2.2.1.0.2">
-
-<ol start="2" type="1">
-<li><p>Si la ligadura no se crea dentro de un objeto usando el operador
-punto (<code>.</code>), entonces el espacio de nombres irá asociado al
-ámbito y, en este caso, <strong>ese espacio de nombres siempre será un
-marco</strong>.</p>
-<p>Ese marco será el que corresponda al <em>ámbito actual</em>, es
-decir, el ámbito más interno en el que se encuentra la instrucción que
-crea la ligadura.</p>
-<p>Cuando el ámbito es el <em>ámbito global</em> (y, por tanto, la
-ligadura se almacena en el marco global), se dice que la ligadura es
-<strong>global</strong>.</p>
-<p>En caso contrario, decimos que es <strong>local</strong> al ámbito, y
-se almacenará en el marco correspondiente a ese ámbito.</p></li>
-</ol>
-</section>
-
-<section id="visibilidad" class="title-slide slide level3"
-data-number="2.2.2">
-<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
-Visibilidad</h3>
-<ul>
-<li><p>La visibilidad de una ligadura indica en qué lugares del programa
-es visible y accesible esa ligadura.</p></li>
-<li><p>Es decir: la visibilidad determina dónde en el programa puede
-usarse un determinado identificador para acceder al valor al que está
-ligado.</p></li>
-<li><p>Al igual que antes, tenemos dos posibilidades, dependiendo de si
-estamos ligando un atributo de un objeto, o no.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.2.2.0.1">
 
 <ol type="1">
 <li><p>Si el identificador ligado es un <strong>atributo de un
@@ -832,7 +765,7 @@ acceder a ella, lo que significa que también debemos tener acceso al
 propio objeto que la contiene.</p></li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.2.2.0.2">
+<section class="slide level5" data-number="2.2.1.0.2">
 
 <ol start="2" type="1">
 <li><p>Si el identificador ligado <strong>NO es un atributo de un
@@ -851,10 +784,39 @@ interno, ya que técnicamente seguiría estando dentro de su ámbito.</p>
 <strong>visibilidad global</strong>.</p></li>
 </ol>
 </section>
+<section class="slide level5" data-number="2.2.1.0.3">
+
+<ul>
+<li><p>Suponiendo que tenemos los siguientes cuatro ámbitos,
+identificados con las letras A, B, C y D:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="centered">
+<figure>
+<img data-src="images/estructuras-anidadas.svg" class="plain"
+style="width:45.0%" alt="Ámbitos léxicos anidados" />
+<figcaption aria-hidden="true">Ámbitos léxicos anidados</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
+<ul>
+<li><p>A puede ver los nombres definidos en A, pero no los definidos en
+B, C o D.</p></li>
+<li><p>B puede ver los nombres definidos en A y B, pero no los definidos
+en C o D.</p></li>
+<li><p>C puede ver los nombres definidos en A, B y C, pero no los
+definidos en D.</p></li>
+<li><p>D puede ver los nombres definidos en A y D, pero no los definidos
+en B o C.</p></li>
+</ul>
+</div>
+</div></li>
+</ul>
+</section>
 
 <section id="tiempo-de-vida" class="title-slide slide level3"
-data-number="2.2.3">
-<h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span>
+data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
 Tiempo de vida</h3>
 <ul>
 <li><p>El <strong>tiempo de vida</strong> de una ligadura representa el
@@ -869,19 +831,18 @@ ligadura.</p>
 <em>antes</em> de ese punto, ya que no existe hasta entonces.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.1">
+<section class="slide level5" data-number="2.2.2.0.1">
 
 <ul>
 <li><p>Por otra parte, el momento en que una ligadura <strong>deja de
-existir</strong> depende su almacenamiento:</p>
+existir</strong> depende si el identificador ligado es un atributo de un
+objeto, o no:</p>
 <ul>
-<li><p>Si se almacena en un objeto, es porque la ligadura está ligando
-un atributo de ese objeto a un determinado valor. En tal caso, la
+<li><p>Si el identificador ligado es un atributo de un objeto, la
 ligadura dejará de existir cuando se elimine el objeto de la memoria, o
-bien, cuando se elimine el atributo ligado.</p></li>
-<li><p>En caso contrario, la ligadura estará almacenada en un marco y,
-por tanto, dejará de existir allí donde termine el ámbito de la
-ligadura.</p></li>
+bien, cuando se elimine el propio atributo ligado.</p></li>
+<li><p>En caso contrario, la ligadura dejará de existir allí donde
+termine el ámbito de la ligadura.</p></li>
 </ul></li>
 <li><p>Es importante hacer notar que, en un momento dado, una ligadura
 puede existir pero no ser visible.</p></li>
@@ -903,6 +864,69 @@ con más profundidad posteriormente.</p></li>
     o **_dinámico_** si es interpretado.
 
 -->
+</section>
+
+<section id="almacenamiento" class="title-slide slide level3"
+data-number="2.2.3">
+<h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span>
+Almacenamiento</h3>
+<ul>
+<li><p>Sabemos que las ligaduras se almacenan en <em>espacios de
+nombres</em>.</p></li>
+<li><p>En Python, hay dos lugares donde se pueden almacenar ligaduras y,
+por tanto, <strong>hay dos posibles espacios de nombres: los
+<em>objetos</em> y los <em>marcos</em></strong>.</p></li>
+<li><p>Así que tenemos dos posibilidades:</p>
+<ol>
+<li><p>Si el identificador que se está ligando es un <em>atributo</em>
+de un objeto, entonces la ligadura se almacenará en el objeto, junto con
+el propio atributo.</p></li>
+<li><p>En caso contrario, la ligadura se almacenará en un marco, el cual
+depende del <em>ámbito actual</em>.</p></li>
+</ol></li>
+<li><p>Veamos cada caso con más detalle.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.3.0.1">
+
+<ol type="1">
+<li><p>Cuando se crea una ligadura dentro de un objeto en Python usando
+el operador punto (<code>.</code>), <strong>el espacio de nombres será
+el propio objeto</strong>, ya que los objetos son espacios de nombres en
+Python.</p>
+<p>En tal caso, la ligadura asocia un valor con un <em>atributo</em> del
+objeto, y tanto el atributo como la ligadura se almacenan dentro del
+objeto.</p>
+<p>Por ejemplo, si en Python hacemos:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>math.x <span class="op">=</span> <span class="dv">75</span></span></code></pre></div>
+<p>estamos creando la ligadura <code>x</code> → <code>75</code> en el
+espacio de nombres que representa el módulo <code>math</code>, el cual
+es un objeto en Python y, por tanto, es quien almacena la ligadura.</p>
+<p>Así que el espacio de nombres ha sido seleccionado a través del
+operador punto (<code>.</code>) para resolver el atributo dentro del
+objeto, y no depende del ámbito donde se encuentre la sentencia <code
+class="sourceCode python">math.x <span class="op">=</span> <span class="dv">75</span></code>.</p>
+<p>Diremos que la ligadura es <strong>local</strong> al objeto.</p></li>
+</ol>
+</section>
+<section class="slide level5" data-number="2.2.3.0.2">
+
+<ol start="2" type="1">
+<li><p>Si la ligadura no se crea dentro de un objeto usando el operador
+punto (<code>.</code>), entonces el espacio de nombres irá asociado al
+ámbito y, en este caso, <strong>ese espacio de nombres siempre será un
+marco</strong>.</p>
+<p>Ese marco será el que corresponda al <em>ámbito actual</em>, es
+decir, el ámbito más interno en el que se encuentra la instrucción que
+crea la ligadura.</p>
+<p>Cuando el ámbito es el <em>ámbito global</em> (y, por tanto, la
+ligadura se almacena en el marco global), se dice que la ligadura es
+<strong>global</strong>.</p>
+<p>En caso contrario, decimos que es <strong>local</strong> al ámbito, y
+se almacenará en el marco correspondiente a ese ámbito.</p></li>
+</ol>
 </section>
 <section id="ejemplo-1" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplo</h5>
@@ -926,7 +950,7 @@ determinada por sus ámbitos.</p></li>
 <strong>visibilidad</strong> es <strong>global</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.2">
+<section class="slide level5" data-number="2.2.3.0.3">
 
 <ul>
 <li><p>Por otra parte, como esas ligaduras no se crean sobre atributos
@@ -941,7 +965,7 @@ ligadura será el periodo comprendido desde su creación (en la línea 2)
 hasta el final de su ámbito.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.3">
+<section class="slide level5" data-number="2.2.3.0.4">
 
 <ul>
 <li><p>Cuando la ligadura se crea sobre un <strong>atributo</strong> de
@@ -960,7 +984,7 @@ debemos usar el operador punto (<code>.</code>) para acceder a ellos (su
 visibilidad es local al objeto que los contiene).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.4">
+<section class="slide level5" data-number="2.2.3.0.5">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -987,7 +1011,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.3.0.5">
+<section class="slide level5" data-number="2.2.3.0.6">
 
 <ul>
 <li><p>Resumiendo:</p>
