@@ -386,27 +386,105 @@ abstracto, al que denominamos el **valor** de la expresión.
 - Los valores se agrupan en **tipos**, que son conjuntos de valores que
   comparten características comunes.
 
-  Entre esas características comunes destacan, principalmente, las
-  **operaciones** que se pueden realizar con esos valores.
+- Entre esas características comunes destacan, principalmente:
 
-- En consecuencia, el tipo al que pertenece un valor determina también el
-  conjunto de operaciones que se pueden realizar sobre ese valor.
+  - La **codificación** usada para representar esos valores dentro del
+    ordenador.
 
-- Por tanto, **cada _valor_ pertenece a un _tipo_**. <!-- (y, a veces, a más de
+  - Las **operaciones** que se pueden realizar con esos valores.
+
+- **Cada _valor_ pertenece a un _tipo_**. <!-- (y, a veces, a más de
   uno) -->
+
+- Como cada tipo es un conjunto de valores, decimos que «_un valor
+  pertenece a un tipo_» cuando pertenece a ese conjunto (es decir, cuando
+  es uno de los elementos de ese conjunto).
+
+  Por ejemplo, el tipo _entero_ representa el conjunto de los números
+  enteros. Todos los números enteros pertenecen al tipo _entero_.
+
+---
+
+- Cada tipo, además, determina qué operaciones se pueden realizar sobre valores
+  de ese tipo.
+
+- En general, las **operaciones** sólo pueden actuar sobre valores de
+  determinados tipos.
+
+  O dicho de otra forma: esas son las operaciones que tiene sentido realizar
+  sobre esos valores.
+
+  Esto es así porque recordemos que las operaciones actúan como funciones que
+  están definidas sobre un **dominio**, que es un subconjunto del **conjunto
+  origen**. Ese conjunto origen sería, a grandes rasgos, el tipo de los valores
+  sobre los que puede actuar.
+
+  Por ejemplo: sobre un valor de tipo _cadena_ se puede realizar la operación
+  _longitud_ (pero no la _raíz cuadrada_), y sobre dos _enteros_ se pueden
+  realizar las operaciones de _suma_ y _producto_. No tiene sentido sumar dos
+  cadenas.
+
+---
 
 - Igualmente, también decimos que **los datos tienen un _tipo_**, que es el
   tipo de los valores que puede tener el dato. Por eso, a los tipos también se
   les llama **tipos de datos**.
 
+  En cierta forma, el tipo de un dato es como una etiqueta, característica o
+  atributo que va asociado al dato y que define una cualidad muy importante del
+  mismo.
+
+  Se dice que «_un dato **es de** un tipo_», o que «_un dato **tiene** un
+  tipo_» o que «_un dato **pertenece a** un tipo_» cuando ese dato tiene (o
+  puede tener) un valor de ese tipo.
+
+- Dependiendo del lenguaje de programación utilizado, el tipo de un dato puede
+  venir definido:
+
+  - _Implícitamente_, como **el tipo del valor que tiene actualmente** el dato.
+
+  - _Explícitamente_, asociando el tipo al dato mediante una instrucción
+    especial llamada **declaración**.
+
+---
+
+- Como los datos tienen (o representan) valores, **las operaciones también
+  pueden actuar sobre datos**.
+
+  En realidad, lo que hacen las operaciones es actuar sobre los valores que
+  tienen esos datos.
+
+- Por tanto, también se puede decir que **las operaciones que se pueden
+  realizar sobre un dato dependen del _tipo_ de ese dato**.
+
+- Y, por extensión, podemos decir que **un tipo de datos**:
+
+  - es el conjunto de **valores** que puede tomar un dato de ese tipo, y
+
+  - define también el conjunto de **operaciones** válidas
+    que se pueden realizar sobre datos de ese tipo.
+
 ---
 
 !CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-El **tipo de un dato** determina el conjunto de **_valores_** que puede tomar
-un dato de ese tipo y, por tanto, también las **_operaciones_** que se pueden
-realizar con ese dato.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Tipo (o tipo de datos):**
+
+Es un conjunto de **valores** que, indirectamente, define también el conjunto
+de **operaciones** que se pueden realizar sobre esos valores.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Tipo de un dato:**
+
+Es el tipo que tiene ese dato, es decir, una característica o atributo del
+dato que define el conjunto de **valores** que puede tomar ese dato y, en
+consecuencia, también las **operaciones** que se pueden realizar sobre ese
+dato.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
 
 - Los datos se pueden manipular dentro de un programa haciendo que formen parte
   de **expresiones** y evaluando dichas expresiones.
@@ -414,6 +492,15 @@ realizar con ese dato.
 - El **_valor_ de una expresión** se obtiene a través del valor de los datos
   que contiene, y podemos manipular esos datos a través de las **operaciones**
   que actúan sobre ellos dentro de la expresión.
+
+- Por extensión, el **_tipo_ de una expresión** es el tipo al que pertenece el valor de esa expresión.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Tipo de una expresión:**
+
+Es **el tipo del valor** resultante de **evaluar** dicha expresión.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -475,15 +562,24 @@ T -> O [label = "Determina un conjunto de"]
 
 ---
 
+- Los tipos de un lenguaje de programación tienen un nombre (un
+  _identificador_) que los representa.
+
 - En Python, los **tipos de datos básicos** son los siguientes (entre
   paréntesis va el nombre que tienen cada uno de esos tipos en Python):
 
   - **Números enteros (!PYTHON(int))**: los números (positivos o negativos) que
     sólo tienen parte entera, como el **cuatro** o el **menos tres**.
 
+    Se corresponde *más o menos* con el símbolo matemático $\mathbb{Z}$,
+    que representa el conjunto de los números enteros en Matemáticas.
+
   - **Números reales (!PYTHON(float))**: los números (positivos o negativos)
     que tienen parte entera y parte fraccionaria, como el **siete con cuatro**
     o el **menos ocho con diecisiete**.
+
+    Se corresponde *más o menos* con el símbolo matemático $\mathbb{R}$, que
+    representa el conjunto de los números reales en Matemáticas.
 
   - **Cadenas de caracteres (!PYTHON(str))**: secuencias de caracteres (letras,
     dígitos, símbolos, etc.), como nombres de personas, direcciones, o

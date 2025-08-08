@@ -6,172 +6,12 @@ nocite: |
   @blanco_calculo_2009, @abelson_structure_1996, @van-roy_concepts_2004
 ---
 
-# Tipos de datos
+# Sistemas de tipos
 
 ## Concepto
 
-- Los **valores** que comparten características y propiedades comunes se
-  agrupan en **conjuntos** llamados **tipos de datos** o, simplemente,
-  **tipos**.
-
-- Por tanto, un **tipo** (o **tipo de datos**) es un conjunto de valores:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Tipo (de datos):**
-
-  Es un conjunto de **valores**.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Se dice que «_un valor pertenece a un tipo_» cuando pertenece a ese conjunto
-  (es decir, cuando es uno de los elementos de ese conjunto).
-
-  Por ejemplo, el tipo _entero_ representa el conjunto de los números enteros.
-  Los diferentes números enteros pertenecen al tipo _entero_.
-
----
-
-- En general, las **operaciones** se definen de forma que sólo pueden actuar
-  sobre valores de determinados tipos.
-
-  O dicho de otra forma: esas son las operaciones que tiene sentido realizar
-  sobre esos valores.
-
-  Esto es así porque recordemos que las operaciones actúan como funciones que
-  están definidas sobre un **dominio**, que es un subconjunto del **conjunto
-  origen**. Ese conjunto origen sería, a grandes rasgos, el tipo de los valores
-  sobre los que puede actuar.
-
-  Por ejemplo: sobre un valor de tipo _cadena_ se puede realizar la operación
-  _longitud_ (pero no la _raíz cuadrada_), y sobre dos _enteros_ se pueden
-  realizar las operaciones de _suma_ y _producto_.
-
-- En resumen, podemos decir que **un tipo**:
-
-  - Es un conjunto de **valores**.
-
-  - Que, indirectamente, define también el conjunto de **operaciones** válidas
-    que se pueden realizar sobre dichos valores.
-
-## Tipo de un dato
-
-- Recordemos que un dato puede tomar valores.
-
-- Por extensión, el **tipo de un dato** es el conjunto de los posibles valores
-  que puede tomar ese dato.
-
-  En cierta forma, el tipo de un dato es como una etiqueta, característica o
-  atributo que va asociado al dato y que define una cualidad muy importante del
-  mismo.
-
-  Se dice que «_un dato **es de** un tipo_», o que «_un dato **tiene** un
-  tipo_» o que «_un dato **pertenece a** un tipo_» cuando ese dato tiene (o
-  puede tener) un valor de ese tipo.
-
-- Dependiendo del lenguaje de programación utilizado, el tipo de un dato puede
-  venir definido:
-
-  - _Implícitamente_, como **el tipo del valor que tiene actualmente** el dato.
-
-  - _Explícitamente_, asociando el tipo al dato mediante una instrucción
-    especial llamada **declaración**.
-
----
-
-- Como los datos tienen (o representan) valores, **las operaciones también
-  pueden actuar sobre datos**.
-
-  En realidad, lo que hacen las operaciones es actuar sobre los valores que
-  tienen esos datos.
-
-- Por tanto, también se puede decir que **las operaciones que se pueden
-  realizar sobre un dato dependen del _tipo_ de ese dato**.
-
-- Y, por extensión, podemos decir que **un tipo de datos**:
-
-  - Es el conjunto de **valores** que puede tomar un dato de ese tipo.
-
-  - Que, indirectamente, define también el conjunto de **operaciones** válidas
-    que se pueden realizar sobre datos de ese tipo.
-
----
-
-- Definiciónes ampliadas:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Tipo (o tipo de datos):**
-
-  Es un conjunto de **valores** que, indirectamente, define también el conjunto
-  de **operaciones** que se pueden realizar sobre esos valores.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Tipo de un dato:**
-
-  Es el tipo que tiene ese dato, es decir, una característica o atributo del
-  dato que define el conjunto de **valores** que puede tomar ese dato y, en
-  consecuencia, también las **operaciones** que se pueden realizar sobre ese
-  dato.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Igualmente, por extensión podemos definir también el **tipo de una
-  expresión** como el tipo al que pertenece el valor de la expresión:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Tipo de una expresión:**
-
-  Es **el tipo del valor** resultante de **evaluar** dicha expresión.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Los tipos de un lenguaje de programación tienen un nombre (un
-  _identificador_) que los representa.
-
-- Ejemplos en Python:
-
-  - El tipo `int` define el conjunto de los **números enteros**, sobre los que
-    se pueden realizar, entre otras, las operaciones aritméticas.
-
-    Se corresponde *más o menos* con el símbolo matemático $\mathbb{Z}$, que ya
-    hemos usado antes y que representa el conjunto de los números enteros en
-    Matemáticas.
-
-  - El tipo `float` define el conjunto de los **números reales**, sobre los que
-    se pueden realizar también operaciones aritméticas.
-
-    Se corresponde *más o menos* con el símbolo matemático $\mathbb{R}$, que
-    representa el conjunto de los números reales en Matemáticas.
-
-  - El tipo `str` define el conjunto de las **cadenas**, sobre las que se
-    pueden realizar otras operaciones (*concatenación*, *repetición*, etc.).
-
-¿Por qué decimos «*más o menos*»?
-
-## `type`
-
-- La función `type` devuelve el tipo de un valor:
-
-  ```python
-  >>> type(3)
-  <class 'int'>
-  >>> type(3.0)
-  <class 'float'>
-  >>> type('hola')
-  <class 'str'>
-  ```
-
-- Es muy útil para saber el tipo de una expresión compleja:
-
-  ```python
-  >>> type(3 + 4.5 ** 2)
-  <class 'float'>
-  ```
-
-## Sistema de tipos
+- Un **tipo (o tipo de datos)** es un conjunto de **valores** y de
+  **operaciones** que se pueden realizar sobre esos valores.
 
 - El **sistema de tipos** de un lenguaje es el conjunto de reglas que asigna un
   tipo a cada elemento del programa.
@@ -185,7 +25,7 @@ nocite: |
   **orientados a objetos**, el sistema de tipos se construye a partir de los
   conceptos propios de la orientación a objetos (*clases*, *interfaces*...).
 
-### Errores de tipos
+## Errores de tipos
 
 - Cuando se intenta realizar una operación sobre un dato cuyo tipo no admite
   esa operación, se produce un **error de tipos**.
@@ -225,7 +65,7 @@ nocite: |
     de ejecutarlo. En tal caso, se abortará la compilación para impedir la
     generación de código objeto erróneo.
 
-### Tipado fuerte vs. débil
+## Tipado fuerte vs. débil
 
 - Un lenguaje de programación es **fuertemente tipado** (o de **tipado
   fuerte**) si no se permiten violaciones de los tipos de datos.
@@ -281,6 +121,26 @@ nocite: |
 - Es importante entender que **la conversión de tipos no modifica el dato
   original**, sino que devuelve un nuevo dato a partir del dato original pero
   con el tipo cambiado.
+
+## `type`
+
+- La función `type` devuelve el tipo de un valor:
+
+  ```python
+  >>> type(3)
+  <class 'int'>
+  >>> type(3.0)
+  <class 'float'>
+  >>> type('hola')
+  <class 'str'>
+  ```
+
+- Es muy útil para saber el tipo de una expresión compleja:
+
+  ```python
+  >>> type(3 + 4.5 ** 2)
+  <class 'float'>
+  ```
 
 ## Tipos de datos básicos
 
