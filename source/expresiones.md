@@ -56,7 +56,7 @@ nocite: |
   referencia a los módulos de Python.
 
 - Es administrado por la **Python Software Foundation** y posee una licencia de
-  **código abierto**.
+  **software libre**.
 
 - La estructura de un programa se define por su anidamiento.
 
@@ -393,12 +393,14 @@ abstracto, al que denominamos el **valor** de la expresión.
 
   - Las **operaciones** que se pueden realizar con esos valores.
 
-- **Cada _valor_ pertenece a un _tipo_**. <!-- (y, a veces, a más de
+  - El hecho de que representan el mismo **concepto** genérico.
+
+- **Todo _valor_ pertenece a un _tipo_**. <!-- (y, a veces, a más de
   uno) -->
 
-- Como cada tipo es un conjunto de valores, decimos que «_un valor
-  pertenece a un tipo_» cuando pertenece a ese conjunto (es decir, cuando
-  es uno de los elementos de ese conjunto).
+- Como cada tipo es un conjunto de valores, decimos que «_un valor pertenece a
+  un tipo_» cuando pertenece a ese conjunto (o sea, cuando es uno de los
+  elementos de ese conjunto).
 
   Por ejemplo, el tipo _entero_ representa el conjunto de los números
   enteros. Todos los números enteros pertenecen al tipo _entero_.

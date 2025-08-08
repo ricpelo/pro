@@ -78,10 +78,30 @@ nocite: |
 - Pero en este módulo, cuando hablemos de *software* en general, nos estaremos
   refiriendo a **programas**.
 
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Nuestra tarea como programadores es la de escribir programas que resuelvan los problemas de los usuarios.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ### Procesamiento automático
 
-- El procesamiento automático de la información siempre tiene el mismo
-  esquema de funcionamiento:
+- La Informática es la ciencia que estudia los sistemas de procesamiento
+  automático de la información, también llamados _sistemas informáticos_.
+
+- Esos sistemas procesan la información de forma automática siguiendo las
+  instrucciones de un programa.
+
+- Las instrucciones que forman el programa son las que dictan qué operaciones
+  hay que realizar con la información.
+
+- Esa información se codifica, almacena y manipula en forma de **datos**.
+
+- Los datos, por tanto, son información codificada y almacenada en un formato y
+  en un soporte adecuados para ser manipulados por un sistema informático.
+
+---
+
+- El procesamiento automático de la información siempre sigue el mismo esquema:
 
 !DOT(procesamiento-automatico.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
