@@ -1,5 +1,5 @@
 ---
-title: Tipos de datos y operaciones predefinidas
+title: Tipos y operaciones
 author: Ricardo Pérez López
 !DATE
 nocite: |
