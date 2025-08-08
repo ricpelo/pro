@@ -269,76 +269,34 @@ nocite: |
   - **Línea 1**: Se evalúa !PYTHON(area), que devuelve su definición (una
     expresión lambda).
 
-  - **Líneas 2--4**: Lo siguiente a evaluar es la aplicación de !PYTHON(area)
-    sobre su argumento, por lo que primero evaluamos éste (es el _redex_ más
-    interno).
+  - **Líneas 2--4**: Lo siguiente a evaluar es la aplicación de la expresión
+    lambda de !PYTHON(area) sobre su argumento, por lo que primero evaluamos
+    éste.
 
   - **Línea 5**: Ahora se aplica la expresión lambda a su argumento
     !PYTHON(12).
 
-  - **Línea 6**: El _redex_ más interno y a la izquierda es el !PYTHON(3.1416),
-    que ya está evaluado.
+  - **Línea 6**: Lo siguiente que toca evaluar es el !PYTHON(3.1416), que ya
+    está evaluado.
 
-  - **Línea 7**: El *redex* más interno que queda por evaluar es la aplicación
-    de !PYTHON(cuadrado) sobre !PYTHON(12). Primero se evalúa
-    !PYTHON(cuadrado), sustituyéndose por su definición...
+  - **Línea 7**: A continuación hay que evaluar la aplicación de
+    !PYTHON(cuadrado) sobre !PYTHON(12). Primero se evalúa !PYTHON(cuadrado),
+    sustituyéndose por su definición...
 
   - **Línea 8**: ... y ahora se aplica la expresión lambda a su argumento
     !PYTHON(12).
 
-  - Lo que queda es todo aritmética.
+  - Lo que queda ya por evaluar es todo aritmética.
 
 ---
 
-- La expresión !PYTHON(area(11 + 1)) se evaluaría así según el *orden normal*:
-
-  ```{.python .number-lines}
-  area(11 + 1)                                # definición de area
-  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # aplicación a (11 + 1)
-  = (3.1416 * cuadrado(11 + 1))               # evalúa 3.1416 y devuelve 3.1416
-  = (3.1416 * cuadrado(11 + 1))               # definición de cuadrado
-  = (3.1416 * (lambda x: x * x)(11 + 1))      # aplicación a (11 + 1)
-  = (3.1416 * ((11 + 1) * (11 + 1)))          # evalúa (11 + 1) y devuelve 12
-  = (3.1416 * (12 * (11 + 1)))                # evalúa (11 + 1) y devuelve 12
-  = (3.1416 * (12 * 12))                      # evalúa (12 * 12) y devuelve 144
-  = (3.1416 * 144)                            # evalúa (3.1416 * 144) y...
-  = 452.3904                                  # ... devuelve 452.3904
-  ```
-
-- En ambos casos (orden aplicativo y orden normal) se obtiene el mismo
-  resultado.
-
----
-
-- En detalle:
-
-  - **Línea 1**: Se evalúa el *redex* más externo, que es
-    !PYTHON(area(11 + 1)). Para ello, se reescribe la definición de
-    !PYTHON(area)...
-
-  - **Línea 2**: ... y se aplica la expresión lambda al argumento
-    !PYTHON(11 + 1).
-
-  - **Línea 3**: El _redex_ más externo es el `*`, pero para evaluarlo hay que
-    evaluar primero todos sus argumentos, por lo que primero se evalúa el
-    izquierdo, que es !PYTHON(3.1416).
-
-  - **Línea 4**: Ahora hay que evaluar el derecho (!PYTHON(cuadrado(11 + 1))),
-    por lo que se reescribe la definición de !PYTHON(cuadrado)...
-
-  - **Línea 5**: ... y se aplica la expresión lambda al argumento
-    !PYTHON(11 + 1).
-
-  - Lo que queda es todo aritmética.
-
----
-
-- A veces no resulta fácil determinar si un *redex* es más interno o externo
-  que otro, sobre todo cuando se mezclan funciones y operadores en una misma
-  expresión.
+- A veces no resulta fácil determinar el orden en el que hay que evaluar las
+  subexpresiones que forman una expresión, sobre todo cuando se mezclan
+  funciones y operadores en una misma expresión.
 
 - En ese caso, puede resultar útil reescribir los operadores como funciones,
-  cuando sea posible.
+  cuando sea posible, y luego dibujar el árbol sintático correspondiente a esa
+  expresión, para ver a qué profundidad quedan los nodos.
 
 - Por ejemplo, la siguiente expresión:
 
@@ -353,8 +311,9 @@ nocite: |
   add(abs(-12), max(13, 28))
   ```
 
-  lo que muestra claramente que la suma es más externa que el valor absoluto y
-  el máximo (que están, a su vez, al mismo nivel de profundidad).
+  y si dibujáramos el árbol sintáctico veríamos que la suma está más arriba que
+  el valor absoluto y el máximo (que están, a su vez, al mismo nivel de
+  profundidad).
 
 ---
 
@@ -390,6 +349,8 @@ nocite: |
 
 - En caso contrario, le llamamos **identificador libre** de la expresión
   lambda.
+
+---
 
 - En el ejemplo anterior:
 
@@ -478,21 +439,6 @@ nocite: |
 
 ---
 
-- Por ejemplo: en el lenguaje de programación Java, los _bloques_ son
-  estructuras sintácticas delimitadas por llaves `{` y `}` que contienen
-  instrucciones.
-
-- Los bloques de Java determinan ámbitos léxicos; por tanto, si una instrucción
-  está dentro de un bloque (es decir, si está situada entre las llaves `{` y
-  `}` que delimitan el bloque), entonces esa instrucción se encuentra dentro
-  del ámbito léxico que define el bloque.
-
-- En Python, veremos en breve que las expresiones lambda determinan ámbitos
-  léxicos, así que, cada vez que creamos una expresión lambda, estamos
-  introduciendo un nuevo ámbito en el código fuente de nuestro programa.
-
----
-
 - Además de los ámbitos léxicos, existen también los llamados **ámbitos
   dinámicos**, que funcionan de otra forma y que no estudiaremos en este curso.
 
@@ -502,6 +448,24 @@ nocite: |
 - Por esa razón, a partir de ahora, cuando hablemos de «ámbitos» sin
   especificar de qué tipo, nos estaremos siempre refiriendo a «ámbitos
   léxicos».
+
+---
+
+- Por ejemplo: en el lenguaje de programación Java, los _bloques_ son
+  estructuras sintácticas delimitadas por llaves `{` y `}` que contienen
+  instrucciones.
+
+- Los bloques de Java determinan ámbitos léxicos; por tanto, si una instrucción
+  está dentro de un bloque (es decir, si está situada entre las llaves `{` y
+  `}` que delimitan el bloque), entonces esa instrucción se encuentra dentro
+  del ámbito léxico que define el bloque.
+
+- En Python, **las expresiones lambda determinan ámbitos léxicos**, así
+  que, cada vez que creamos una expresión lambda, estamos introduciendo un
+  nuevo ámbito en el código fuente de nuestro programa.
+
+- En concreto, el ámbito que determina una expresión lambda viene
+  delimitado por su **cuerpo**.
 
 ---
 
@@ -576,6 +540,37 @@ nocite: |
 
   - Del ámbito global sólo **se sale** cuando se finaliza la ejecución del
     _script_ o se cierra el intérprete interactivo.
+
+!EJEMPLOS
+
+- Por ejemplo, en la siguiente línea de código:
+
+  ```python
+  suma = lambda x, y: x + y
+  ```
+
+  el cuerpo de la función !PYTHON(suma) determina un ámbito.
+
+- Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
+  externo) y el ámbito del cuerpo de la expresión lambda (más interno y
+  anidado dentro del ámbito global):
+
+  !IMGP(ambitos-anidados.png)()(width=60%)
+
+---
+
+- En este otro ejemplo más complicado, tenemos el siguiente _script_:
+
+  ```{.python .number-lines}
+  w = 2
+  f = lambda x, y: 5 + (lambda z: z + 3)(x + y)
+  r = f(2, 4)
+  m = (lambda x: x ** 2)(3)
+  ```
+
+  donde existen cuatro ámbitos:
+
+  !IMGP(cuatro-ambitos.png)()(width=100%)
 
 ## Ámbito de una definición y de una ligadura
 

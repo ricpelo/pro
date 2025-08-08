@@ -206,7 +206,7 @@ nocite: |
   suma = lambda x, y: x + y
   ```
 
-  el cuerpo de la función !PYTHON(suma) define un nuevo ámbito.
+  el cuerpo de la función !PYTHON(suma) determina un ámbito.
 
 - Por tanto, en el siguiente código tenemos dos ámbitos: el ámbito global (más
   externo) y el ámbito del cuerpo de la expresión lambda (más interno y
