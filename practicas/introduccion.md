@@ -37,7 +37,8 @@ problemas usando un lenguaje similar al lenguaje Ensamblador.
        velocidad**.
 
        #. Un _reto de extensión_ consiste en escribir un programa que resuelva
-          el problema y que esté formado por número máximo de instrucciones.
+          el problema y que esté formado por un número máximo de líneas de
+          código.
 
        #. Un _reto de velocidad_ consiste en escribir un programa que resuelva
           el problema ejecutando un número máximo de instrucciones.
