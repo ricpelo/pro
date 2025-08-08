@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ricardo Pérez López">
-  <title>Programación funcional (II)</title>
+  <title>Programación funcional</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -115,6 +115,24 @@
     }  </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -155,34 +173,303 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Programación funcional (II)</h1>
+  <h1 class="title">Programación funcional</h1>
   <p class="author">Ricardo Pérez López</p>
   <p class="date">IES Doñana, curso 2025/2026</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
 <ul>
+<li><a href="#/introducción" id="/toc-introducción"><span
+class="toc-section-number">1</span> Introducción</a></li>
 <li><a href="#/definiciones" id="/toc-definiciones"><span
-class="toc-section-number">1</span> Definiciones</a></li>
+class="toc-section-number">2</span> Definiciones</a></li>
 <li><a href="#/scripts" id="/toc-scripts"><span
-class="toc-section-number">2</span> <em>Scripts</em></a></li>
+class="toc-section-number">3</span> <em>Scripts</em></a></li>
 <li><a href="#/documentación-interna"
 id="/toc-documentación-interna"><span
-class="toc-section-number">3</span> Documentación interna</a></li>
+class="toc-section-number">4</span> Documentación interna</a></li>
 </ul>
 </nav>
 </section>
 
 <section>
-<section id="definiciones" class="title-slide slide level1"
+<section id="introducción" class="title-slide slide level1"
 data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span>
+Introducción</h1>
+
+</section>
+<section id="concepto" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Concepto</h2>
+<ul>
+<li><p>La <strong>programación funcional</strong> es un paradigma de
+programación declarativa basado en el uso de
+<strong>definiciones</strong>, <strong>expresiones</strong> y
+<strong>funciones matemáticas</strong>.</p></li>
+<li><p>Tiene su origen teórico en el <strong>cálculo lambda</strong>, un
+sistema matemático creado en 1930 por Alonzo Church.</p></li>
+<li><p>Los lenguajes funcionales se pueden considerar <em>azúcar
+sintáctico</em> (es decir, una forma equivalente pero sintácticamente
+más sencilla) del cálculo lambda.</p></li>
+<li><p>En programación funcional, una función define un cálculo a
+realizar a partir de unos datos de entrada, con la propiedad de que el
+resultado de la función sólo puede depender de esos datos de
+entrada.</p></li>
+<li><p>Eso significa que una función no puede tener estado interno ni su
+resultado puede depender del estado del programa.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>Además, una función no puede producir ningún efecto observable
+fuera de ella (los llamados <strong>efectos laterales</strong>), salvo
+calcular y devolver su resultado.</p></li>
+<li><p>Esto quiere decir que en programación funcional no existen los
+efectos laterales, o se dan de forma muy localizada en partes muy
+concretas e imprescindibles del programa.</p></li>
+<li><p>Por todo lo expuesto anteriormente, se dice que las funciones en
+programación funcional son <strong>funciones puras</strong>, es decir,
+funciones que lo único que hacen es calcular su resultado (sin ningún
+otro efecto) y en las que ese resultado sólo depende de los datos de
+entrada.</p></li>
+<li><p>Además, los valores nunca cambian porque no tienen estado interno
+que se pueda alterar con el tiempo.</p></li>
+<li><p>Como consecuencia de todo lo anterior, en programación funcional
+es posible sustituir cualquier expresión por su valor, propiedad que se
+denomina <strong>transparencia referencial</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.2">
+
+<ul>
+<li><p>En programación funcional, las funciones también son valores, por
+lo que se consideran a éstas como <strong>ciudadanas de primera
+clase</strong>.</p></li>
+<li><p>Un programa funcional está formado únicamente por definiciones de
+valores y por expresiones que hacen uso de los valores
+definidos.</p></li>
+<li><p>Por tanto, en programación funcional, ejecutar un programa
+equivale a evaluar una expresión.</p></li>
+<li><p>Para describir el proceso llevado a cabo por el programa no es
+necesario bajar al nivel de la máquina, sino que basta con interpretarlo
+como un <strong>sistema de evaluación de expresiones</strong>.</p></li>
+<li><p>Esa evaluación de expresiones se lleva a cabo mediante
+<strong>reescrituras</strong> que usan las definiciones para tratar de
+alcanzar la forma normal de la expresión.</p></li>
+</ul>
+</section>
+
+<section id="transparencia-referencial" class="title-slide slide level2"
+data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+Transparencia referencial</h2>
+<ul>
+<li><p>En programación funcional, <strong>el valor de una expresión
+depende, exclusivamente, de los valores de las subexpresiones que la
+forman</strong>.</p></li>
+<li><p>Dichas subexpresiones, además, pueden ser sustituidas libremente
+por otras que tengan el mismo valor.</p></li>
+<li><p>A esta propiedad se la denomina <strong>transparencia
+referencial</strong>.</p></li>
+<li><p>Formalmente, se puede definir así:</p>
+<div class="caja">
+<p><strong>Transparencia referencial:</strong></p>
+<p>Si <span class="math inline">p = q</span>, entonces <span
+class="math inline">f(p) = f(q)</span>.</p>
+</div></li>
+<li><p>En la práctica, eso significa que la evaluación de una expresión
+no puede provocar <strong>efectos laterales</strong> y que su valor no
+puede depender del momento en el que se evalúe la expresión (<strong>la
+expresión siempre va a valer lo mismo</strong>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.1">
+
+<ul>
+<li><p>En consecuencia, un requisito para conseguir la transparencia
+referencial es que las expresiones no cambien de valor dependiendo de
+cuándo se evalúen.</p></li>
+<li><p>Es decir: una expresión en programación funcional siempre debe
+tener el mismo valor.</p></li>
+<li><p>Por tanto, en programación funcional no se permite que la misma
+expresión, evaluada en dos momentos diferentes, devuelva como resultado
+dos valores diferentes.</p></li>
+<li><p>Asimismo, el valor de una expresión tampoco debe depender del
+orden en el que se evalúen sus subexpresiones.</p></li>
+</ul>
+</section>
+<section id="efectos-laterales" class="title-slide slide level3"
+data-number="1.2.1">
+<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span>
+Efectos laterales</h3>
+<ul>
+<li><p>Los <strong>efectos laterales</strong> son aquellos que provocan
+un cambio de estado irremediable en el sistema, que además son
+observables fuera del contexto donde se producen y que puede dar lugar a
+que una misma expresión tenga dos valores según el momento en el que se
+evalúe.</p></li>
+<li><p>Por ejemplo, las <strong>instrucciones de E/S</strong> (entrada y
+salida) provocan efectos laterales, ya que:</p>
+<ul>
+<li><p>Al <strong>leer un dato</strong> de la entrada (ya sea el
+teclado, un archivo del disco, una base de datos…) estamos afectando al
+estado del dispositivo de entrada, y además no se sabe de antemano qué
+valor se va a recibir, ya que éste proviene del exterior y no lo
+controlamos.</p></li>
+<li><p>Al <strong>escribir un dato</strong> en la salida (ya sea la
+pantalla, un archivo, una base de datos…) estamos realizando un cambio
+que afecta irremediablemente al estado del dispositivo de
+salida.</p></li>
+</ul></li>
+<li><p>En posteriores temas veremos que existe un paradigma (el
+<strong>paradigma imperativo</strong>) que se basa principalmente en
+provocar efectos laterales.</p></li>
+</ul>
+<!-- sobre todo mediante una instrucción llamada _asignación destructiva_. -->
+</section>
+<section class="slide level5" data-number="1.2.1.0.1">
+
+<ul>
+<li><p>Uno de los requisitos para alcanzar la transparencia referencial
+es que no existan efectos laterales.</p></li>
+<li><p>Por tanto, en programación funcional no están permitidos los
+efectos laterales.</p></li>
+<li><p>Eso significa que:</p>
+<ul>
+<li><p>Al evaluar una expresión no se pueden provocar efectos
+laterales.</p>
+<p>Si esto ocurriera, no podríamos sustituir una expresión por su
+valor.</p></li>
+<li><p>El valor de una expresión no puede depender de un efecto lateral
+ni verse afectado por la existencia de efectos laterales.</p>
+<p>Si esto ocurriera, la expresión podría tener valores distintos en
+momentos distintos.</p></li>
+</ul></li>
+<li><p>En cualquiera de los dos casos, se rompería la transparencia
+referencial.</p></li>
+</ul>
+</section>
+
+
+<section id="modelo-de-ejecución" class="title-slide slide level2"
+data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span>
+Modelo de ejecución</h2>
+<ul>
+<li><p>Cuando escribimos programas (y algoritmos) nos interesa
+abstraernos del funcionamiento detallado de la máquina que va a ejecutar
+esos programas.</p></li>
+<li><p>Nos interesa buscar una <em>metáfora</em>, un símil de lo que
+significa ejecutar el programa.</p></li>
+<li><p>De la misma forma que un arquitecto crea modelos de los edificios
+que se pretenden construir, los programadores podemos usar modelos que
+<em>simulan</em> en esencia el comportamiento de nuestros
+programas.</p></li>
+<li><p>Esos modelos se denominan <strong>modelos
+computacionales</strong> o <strong>modelos de
+ejecución</strong>.</p></li>
+<li><p>Los modelos de ejecución nos permiten <strong>razonar</strong>
+sobre los programas sin tener que ejecutarlos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.0.0.1">
+
+<ul>
+<li><p>Definición:</p>
+<div class="caja">
+<p><strong>Modelo de ejecución:</strong></p>
+<p>Es una herramienta conceptual que permite a los programadores razonar
+sobre el funcionamiento de un programa sin tener que ejecutarlo
+directamente en el ordenador.</p>
+</div></li>
+<li><p>Podemos definir diferentes modelos de ejecución dependiendo,
+principalmente, de:</p>
+<ul>
+<li><p>El paradigma de programación utilizado (ésto sobre
+todo).</p></li>
+<li><p>El lenguaje de programación con el que escribamos el
+programa.</p></li>
+<li><p>Los aspectos que queramos estudiar de nuestro programa.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="modelo-de-sustitución" class="title-slide slide level3"
+data-number="1.3.1">
+<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span>
+Modelo de sustitución</h3>
+<ul>
+<li><p>En programación funcional, <strong>un programa es una
+expresión</strong> y lo que hacemos al ejecutarlo es <strong>evaluar
+dicha expresión</strong>, usando para ello las definiciones de
+operadores y funciones predefinidas por el lenguaje, así como las
+definidas por el programador en el código fuente del programa.</p></li>
+<li><p>Recordemos que la <strong>evaluación de una expresión</strong>,
+en esencia, es el proceso de <strong>sustituir</strong>, dentro de ella,
+unas <em>subexpresiones</em> por otras que, de alguna manera bien
+definida, estén <em>más cerca</em> del valor a calcular, y así hasta
+calcular el valor de la expresión al completo.</p></li>
+<li><p>Por ello, la ejecución de un programa funcional se puede modelar
+como un <strong>sistema de reescritura</strong> al que llamaremos
+<strong>modelo de sustitución</strong>.</p></li>
+<li><p>El modelo de sustitución es un buen modelo de ejecución para la
+programación funcional gracias a que se cumple la <em>transparencia
+referencial</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.1.0.1">
+
+<ul>
+<li><p>La ventaja del modelo de sustitución es que no necesitamos
+recurrir a pensar que debajo de todo esto hay un ordenador con una
+determinada arquitectura <em>hardware</em>, que almacena los datos en
+celdas de la memoria principal, que ejecuta ciclos de instrucción en la
+CPU, que las instrucciones modifican los datos de la memoria…</p></li>
+<li><p>Todo resulta mucho más fácil que eso, ya que <strong>todo se
+reduce a evaluar expresiones</strong>, reescribiendo unas subexpresiones
+por otras, sin importar aspectos secundarios como la tecnología, el
+momento en el que se evalúan, el orden en el que se evalúan,
+etc.</p></li>
+<li><p>Y la evaluación de expresiones no requiere pensar que hay un
+ordenador que lleva a cabo el proceso de evaluación.</p></li>
+<li><p>Esto se debe a que la programación funcional se basa en el
+<strong>cálculo lambda</strong>, que es un modelo teórico
+matemático.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.1.0.2">
+
+<ul>
+<li><p>Ya estudiamos que evaluar una expresión consiste en encontrar su
+forma normal.</p></li>
+<li><p>En programación funcional:</p>
+<ul>
+<li><p>Los intérpretes alcanzan este objetivo a través de múltiples
+pasos de <strong>reducción</strong> de las expresiones para obtener otra
+equivalente más simple.</p></li>
+<li><p>Toda expresión posee un valor definido, y ese valor <strong>no
+depende del orden ni el momento</strong> en el que se evalúe.</p></li>
+<li><p>El significado de una expresión es su valor, y <strong>no puede
+ocurrir ningún otro efecto</strong>, ya sea oculto o no, en ninguna
+operación que se utilice para calcularlo.</p></li>
+</ul></li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="definiciones" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
 Definiciones</h1>
 
 </section>
 <section id="definiciones-1" class="title-slide slide level2"
-data-number="1.1">
-<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
 Definiciones</h2>
 <ul>
 <li><p>Introduciremos ahora en nuestro lenguaje una nueva instrucción
@@ -212,8 +499,8 @@ class="sourceCode python"><span class="dv">77</span></code>.</p></li>
 </section>
 
 <section id="identificadores-y-ligaduras-binding"
-class="title-slide slide level2" data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
 Identificadores y ligaduras (<em>binding</em> )</h2>
 <ul>
 <li><p>Los <strong>identificadores</strong> son los nombres o símbolos
@@ -237,8 +524,8 @@ momento en que se ejecuta su definición, no antes.</p></li>
 </ul>
 </section>
 <section id="ligaduras-irrompibles" class="title-slide slide level3"
-data-number="1.2.1">
-<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span>
+data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
 Ligaduras irrompibles</h3>
 <ul>
 <li><p>En un <strong>lenguaje funcional <em>puro</em></strong>, un
@@ -262,7 +549,7 @@ conoce como <em>rebinding</em>).</p></li>
 <strong>dato <em>constante</em></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.1.0.1">
+<section class="slide level5" data-number="2.2.1.0.1">
 
 <ul>
 <li><p>Que las ligaduras sean irrompibles son un requisito necesario
@@ -286,7 +573,7 @@ nosotros (<strong>no lo hagamos</strong>).</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.1.0.2">
+<section class="slide level5" data-number="2.2.1.0.2">
 
 <ul>
 <li><p>Lo que sí se puede hacer es:</p>
@@ -316,7 +603,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a hr
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.1.0.3">
+<section class="slide level5" data-number="2.2.1.0.3">
 
 <ul>
 <li><p>El <strong>nombre</strong> de una <strong>función</strong> es un
@@ -350,8 +637,8 @@ style="width:55.0%" /></p>
 </section>
 
 <section id="inmutabilidad" class="title-slide slide level3"
-data-number="1.2.2">
-<h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span>
+data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
 Inmutabilidad</h3>
 <ul>
 <li><p>Para alcanzar la transparencia referencial, también es necesario
@@ -374,7 +661,7 @@ tendría distintos valores dependiendo del momento en el que se evalúe,
 lo que va en contra de la transparencia referencial.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.2.0.1">
+<section class="slide level5" data-number="2.2.2.0.1">
 
 <ul>
 <li><p>Eso significa que en programación funcional tampoco estaría
@@ -399,8 +686,8 @@ valor.</p></li>
 </section>
 
 <section id="reglas-léxicas" class="title-slide slide level3"
-data-number="1.2.3">
-<h3 data-number="1.2.3"><span class="header-section-number">1.2.3</span>
+data-number="2.2.3">
+<h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span>
 Reglas léxicas</h3>
 <ul>
 <li><p>Cuando hacemos una definición debemos tener en cuenta ciertas
@@ -427,8 +714,8 @@ con una palabra reservada y pueden tener cualquier longitud.</p></li>
 </section>
 
 <section id="tipo-de-un-identificador" class="title-slide slide level3"
-data-number="1.2.4">
-<h3 data-number="1.2.4"><span class="header-section-number">1.2.4</span>
+data-number="2.2.4">
+<h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span>
 Tipo de un identificador</h3>
 <ul>
 <li><p>Cuando un identificador está ligado a un valor, a efectos
@@ -445,8 +732,8 @@ qué tipo tiene.</p></li>
 </section>
 
 <section id="anotaciones-de-tipo-en-definiciones"
-class="title-slide slide level3" data-number="1.2.5">
-<h3 data-number="1.2.5"><span class="header-section-number">1.2.5</span>
+class="title-slide slide level3" data-number="2.2.5">
+<h3 data-number="2.2.5"><span class="header-section-number">2.2.5</span>
 Anotaciones de tipo en definiciones</h3>
 <ul>
 <li><p>Las <strong>anotaciones de tipo</strong> (en inglés, <em>type
@@ -472,7 +759,7 @@ style="color:teal">⟨<em>expresión</em>⟩</span></div>
 que represente un tipo del lenguaje.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.5.0.1">
+<section class="slide level5" data-number="2.2.5.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -496,8 +783,8 @@ análisis estático (sin ejecutar) del código.</p></li>
 </section>
 
 <section id="otras-formas-de-crear-ligaduras"
-class="title-slide slide level3" data-number="1.2.6">
-<h3 data-number="1.2.6"><span class="header-section-number">1.2.6</span>
+class="title-slide slide level3" data-number="2.2.6">
+<h3 data-number="2.2.6"><span class="header-section-number">2.2.6</span>
 Otras formas de crear ligaduras</h3>
 <ul>
 <li><p>Las definiciones no son las únicas construcciones del lenguaje
@@ -525,8 +812,8 @@ comprensión.</p></li>
 
 
 <section id="espacios-de-nombres" class="title-slide slide level2"
-data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span>
+data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
 Espacios de nombres</h2>
 <ul>
 <li><p>Ciertas estructuras o construcciones sintácticas del programa
@@ -551,7 +838,7 @@ de nombres dentro de otros espacios de nombres, ya que también pueden
 estarlo las estructuras sintácticas que los definen.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.3.0.0.1">
+<section class="slide level5" data-number="2.3.0.0.1">
 
 <ul>
 <li><p>Durante la ejecución de un programa se pueden ir creando ciertas
@@ -571,7 +858,7 @@ programador.</p></li>
 existen en Python.</p>
 </div>
 </section>
-<section class="slide level5" data-number="1.3.0.0.2">
+<section class="slide level5" data-number="2.3.0.0.2">
 
 <ul>
 <li><p>Un espacio de nombres muy importante en Python es el que incluye
@@ -598,8 +885,8 @@ como si así fuera, por simplicidad.</p></li>
 </section>
 
 <section id="marcos-frames" class="title-slide slide level2"
-data-number="1.4">
-<h2 data-number="1.4"><span class="header-section-number">1.4</span>
+data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span>
 Marcos (<em>frames</em> )</h2>
 <ul>
 <li><p>Un <strong>marco</strong> (del inglés, <em>frame</em>) es una
@@ -618,7 +905,7 @@ nuevas instrucciones que crean las ligaduras.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.1">
+<section class="slide level5" data-number="2.4.0.0.1">
 
 <ul>
 <li><p>Por ahora, el único marco que existe en nuestros programas es el
@@ -637,7 +924,7 @@ sesión interactiva con el intérprete, crean ligaduras que se almacenan
 en el marco global.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.2">
+<section class="slide level5" data-number="2.4.0.0.2">
 
 <ul>
 <li><p>Por ejemplo, si iniciamos una sesión con el intérprete
@@ -664,7 +951,7 @@ el valor 25).</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.3">
+<section class="slide level5" data-number="2.4.0.0.3">
 
 <ul>
 <li><p>Los marcos son espacios de nombres dinámicos, que se van creando
@@ -703,7 +990,7 @@ style="width:40.0%" alt="Marco global en la línea 3" />
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="1.4.0.0.4">
+<section class="slide level5" data-number="2.4.0.0.4">
 
 <div class="columns">
 <div class="column">
@@ -725,7 +1012,7 @@ style="width:40.0%" alt="Marco global en la línea 5" />
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="1.4.0.0.5">
+<section class="slide level5" data-number="2.4.0.0.5">
 
 <ul>
 <li><p>Hemos visto que una ligadura es una asociación entre un
@@ -761,8 +1048,8 @@ mejor más adelante.</p></li>
 </section>
 
 <section id="evaluación-de-expresiones-con-identificadores"
-class="title-slide slide level2" data-number="1.5">
-<h2 data-number="1.5"><span class="header-section-number">1.5</span>
+class="title-slide slide level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span>
 Evaluación de expresiones con identificadores</h2>
 <ul>
 <li><p>Podemos usar un identificador ligado dentro de una expresión,
@@ -786,8 +1073,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a h
 </ul>
 </section>
 <section id="resolución-de-identificadores"
-class="title-slide slide level3" data-number="1.5.1">
-<h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span>
+class="title-slide slide level3" data-number="2.5.1">
+<h3 data-number="2.5.1"><span class="header-section-number">2.5.1</span>
 Resolución de identificadores</h3>
 <ul>
 <li><p>Durante la evaluación de una expresión, para cada uno de los
@@ -811,7 +1098,7 @@ ligados los identificadores de un programa se le denomina
 nombres</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.5.1.0.1">
+<section class="slide level5" data-number="2.5.1.0.1">
 
 <ul>
 <li><p>Los espacios de nombres donde se buscan las ligaduras para ese
@@ -834,7 +1121,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a h
 asociado al módulo <code>math</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.5.1.0.2">
+<section class="slide level5" data-number="2.5.1.0.2">
 
 <ul>
 <li><p>La resolución de identificadores es un proceso que usa mecanismos
@@ -861,14 +1148,14 @@ sobrecargas… muchos de los cuales aún no hemos estudiado.</p></li>
 
 </section>
 <section>
-<section id="scripts" class="title-slide slide level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span>
+<section id="scripts" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span>
 <em>Scripts</em></h1>
 
 </section>
 <section id="scripts-1" class="title-slide slide level2"
-data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
 <em>Scripts</em></h2>
 <ul>
 <li><p>Cuando tenemos muchas definiciones o muy largas, resulta tedioso
@@ -888,7 +1175,7 @@ fuente de nuestros programas y los ejecutaremos desde el intérprete por
 lotes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
 <li><p>Los nombres de archivo de los <em>scripts</em> en Python llevan
@@ -918,7 +1205,7 @@ script, <strong>con la extensión <code>.py</code></strong>.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>A partir de ese momento, en el intérprete interactivo podremos
@@ -944,7 +1231,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
 <li><p>Una limitación importante que hay que tener en cuenta es que
@@ -975,14 +1262,14 @@ qué.</p></li>
 </section>
 <section>
 <section id="documentación-interna" class="title-slide slide level1"
-data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span>
+data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span>
 Documentación interna</h1>
 
 </section>
-<section id="concepto" class="title-slide slide level2"
-data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+<section id="concepto-1" class="title-slide slide level2"
+data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span>
 Concepto</h2>
 <ul>
 <li><p>El uso apropiado de una clara disposición del texto, la inclusión
@@ -996,8 +1283,8 @@ desarrollar programas claros y bien autodocumentados.</p></li>
 </section>
 
 <section id="comentarios" class="title-slide slide level2"
-data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span>
 Comentarios</h2>
 <ul>
 <li><p>Los comentarios en Python empiezan con el carácter <code>#</code>
@@ -1015,7 +1302,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a h
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>texto <span class="op">=</span> <span class="st">&quot;# Esto no es un comentario porque va entre comillas.&quot;</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.1">
+<section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
 <li><p>Cuando un comentario ocupa varias líneas, se puede usar el
@@ -1033,7 +1320,7 @@ expresión ni ligarse a ningún identificador, simplementa la ignorará
 (como un comentario).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.2">
+<section class="slide level5" data-number="4.2.0.0.2">
 
 <ul>
 <li><p>Los comentarios:</p>
@@ -1051,8 +1338,8 @@ necesarios.</p></li>
 </section>
 
 <section id="identificadores-significativos"
-class="title-slide slide level2" data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+class="title-slide slide level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span>
 Identificadores significativos</h2>
 <ul>
 <li><p>Se recomienda usar identificadores descriptivos.</p>
@@ -1077,8 +1364,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a h
 </section>
 
 <section id="estándares-de-codificación"
-class="title-slide slide level2" data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span>
+class="title-slide slide level2" data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span>
 Estándares de codificación</h2>
 <ul>
 <li><p>Un estándar de codificación (o estándar de programación) es un
@@ -1099,7 +1386,7 @@ personas contribuyen.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.4.0.0.1">
+<section class="slide level5" data-number="4.4.0.0.1">
 
 <ul>
 <li><p>Qué suele incluir un estándar de codificación:</p>
@@ -1120,8 +1407,8 @@ ejemplo, evitar funciones demasiado largas o complejas).</p></li>
 </ul>
 </section>
 <section id="pep-8" class="title-slide slide level3"
-data-number="3.4.1">
-<h3 data-number="3.4.1"><span class="header-section-number">3.4.1</span>
+data-number="4.4.1">
+<h3 data-number="4.4.1"><span class="header-section-number">4.4.1</span>
 PEP 8</h3>
 <ul>
 <li><p>En Python, el estándar de codificación más utilizado es PEP 8,
@@ -1138,8 +1425,8 @@ variables.</p></li>
 </section>
 
 <section id="pylint" class="title-slide slide level3"
-data-number="3.4.2">
-<h3 data-number="3.4.2"><span class="header-section-number">3.4.2</span>
+data-number="4.4.2">
+<h3 data-number="4.4.2"><span class="header-section-number">4.4.2</span>
 <code>pylint</code></h3>
 <ul>
 <li><p><code>pylint</code> es una herramienta que comprueba determinado
@@ -1155,7 +1442,7 @@ ofrece detalles sobre la complejidad del código.</p></li>
 class="sourceCode console"><code class="sourceCode console"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>pip install pylint</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.4.2.0.1">
+<section class="slide level5" data-number="4.4.2.0.1">
 
 <ul>
 <li><p>Desde la consola, <code>pylint</code> se ejecuta directamente
@@ -1211,7 +1498,7 @@ expresión.</li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.4.2.0.2">
+<section class="slide level5" data-number="4.4.2.0.2">
 
 <ul>
 <li><p>Y otros dos conceptos fundamentales que aún no hemos estudiado

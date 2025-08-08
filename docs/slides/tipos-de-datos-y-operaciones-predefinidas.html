@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ricardo Pérez López">
-  <title>Programación funcional (I)</title>
+  <title>Tipos de datos y operaciones predefinidas</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -173,307 +173,38 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Programación funcional (I)</h1>
+  <h1 class="title">Tipos de datos y operaciones predefinidas</h1>
   <p class="author">Ricardo Pérez López</p>
   <p class="date">IES Doñana, curso 2025/2026</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
 <ul>
-<li><a href="#/introducción" id="/toc-introducción"><span
-class="toc-section-number">1</span> Introducción</a></li>
 <li><a href="#/tipos-de-datos" id="/toc-tipos-de-datos"><span
-class="toc-section-number">2</span> Tipos de datos</a></li>
+class="toc-section-number">1</span> Tipos de datos</a></li>
 <li><a href="#/operaciones-predefinidas"
 id="/toc-operaciones-predefinidas"><span
-class="toc-section-number">3</span> Operaciones predefinidas</a></li>
+class="toc-section-number">2</span> Operaciones predefinidas</a></li>
 <li><a href="#/álgebra-de-boole" id="/toc-álgebra-de-boole"><span
-class="toc-section-number">4</span> Álgebra de Boole</a></li>
+class="toc-section-number">3</span> Álgebra de Boole</a></li>
 <li><a href="#/otros-conceptos-sobre-operaciones"
 id="/toc-otros-conceptos-sobre-operaciones"><span
-class="toc-section-number">5</span> Otros conceptos sobre
+class="toc-section-number">4</span> Otros conceptos sobre
 operaciones</a></li>
 </ul>
 </nav>
 </section>
 
 <section>
-<section id="introducción" class="title-slide slide level1"
+<section id="tipos-de-datos" class="title-slide slide level1"
 data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span>
-Introducción</h1>
+<h1 data-number="1"><span class="header-section-number">1</span> Tipos
+de datos</h1>
 
 </section>
 <section id="concepto" class="title-slide slide level2"
 data-number="1.1">
 <h2 data-number="1.1"><span class="header-section-number">1.1</span>
-Concepto</h2>
-<ul>
-<li><p>La <strong>programación funcional</strong> es un paradigma de
-programación declarativa basado en el uso de
-<strong>definiciones</strong>, <strong>expresiones</strong> y
-<strong>funciones matemáticas</strong>.</p></li>
-<li><p>Tiene su origen teórico en el <strong>cálculo lambda</strong>, un
-sistema matemático creado en 1930 por Alonzo Church.</p></li>
-<li><p>Los lenguajes funcionales se pueden considerar <em>azúcar
-sintáctico</em> (es decir, una forma equivalente pero sintácticamente
-más sencilla) del cálculo lambda.</p></li>
-<li><p>En programación funcional, una función define un cálculo a
-realizar a partir de unos datos de entrada, con la propiedad de que el
-resultado de la función sólo puede depender de esos datos de
-entrada.</p></li>
-<li><p>Eso significa que una función no puede tener estado interno ni su
-resultado puede depender del estado del programa.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.1">
-
-<ul>
-<li><p>Además, una función no puede producir ningún efecto observable
-fuera de ella (los llamados <strong>efectos laterales</strong>), salvo
-calcular y devolver su resultado.</p></li>
-<li><p>Esto quiere decir que en programación funcional no existen los
-efectos laterales, o se dan de forma muy localizada en partes muy
-concretas e imprescindibles del programa.</p></li>
-<li><p>Por todo lo expuesto anteriormente, se dice que las funciones en
-programación funcional son <strong>funciones puras</strong>, es decir,
-funciones que lo único que hacen es calcular su resultado (sin ningún
-otro efecto) y en las que ese resultado sólo depende de los datos de
-entrada.</p></li>
-<li><p>Además, los valores nunca cambian porque no tienen estado interno
-que se pueda alterar con el tiempo.</p></li>
-<li><p>Como consecuencia de todo lo anterior, en programación funcional
-es posible sustituir cualquier expresión por su valor, propiedad que se
-denomina <strong>transparencia referencial</strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.2">
-
-<ul>
-<li><p>En programación funcional, las funciones también son valores, por
-lo que se consideran a éstas como <strong>ciudadanas de primera
-clase</strong>.</p></li>
-<li><p>Un programa funcional está formado únicamente por definiciones de
-valores y por expresiones que hacen uso de los valores
-definidos.</p></li>
-<li><p>Por tanto, en programación funcional, ejecutar un programa
-equivale a evaluar una expresión.</p></li>
-<li><p>Para describir el proceso llevado a cabo por el programa no es
-necesario bajar al nivel de la máquina, sino que basta con interpretarlo
-como un <strong>sistema de evaluación de expresiones</strong>.</p></li>
-<li><p>Esa evaluación de expresiones se lleva a cabo mediante
-<strong>reescrituras</strong> que usan las definiciones para tratar de
-alcanzar la forma normal de la expresión.</p></li>
-</ul>
-</section>
-
-<section id="transparencia-referencial" class="title-slide slide level2"
-data-number="1.2">
-<h2 data-number="1.2"><span class="header-section-number">1.2</span>
-Transparencia referencial</h2>
-<ul>
-<li><p>En programación funcional, <strong>el valor de una expresión
-depende, exclusivamente, de los valores de las subexpresiones que la
-forman</strong>.</p></li>
-<li><p>Dichas subexpresiones, además, pueden ser sustituidas libremente
-por otras que tengan el mismo valor.</p></li>
-<li><p>A esta propiedad se la denomina <strong>transparencia
-referencial</strong>.</p></li>
-<li><p>Formalmente, se puede definir así:</p>
-<div class="caja">
-<p><strong>Transparencia referencial:</strong></p>
-<p>Si <span class="math inline">p = q</span>, entonces <span
-class="math inline">f(p) = f(q)</span>.</p>
-</div></li>
-<li><p>En la práctica, eso significa que la evaluación de una expresión
-no puede provocar <strong>efectos laterales</strong> y que su valor no
-puede depender del momento en el que se evalúe la expresión (<strong>la
-expresión siempre va a valer lo mismo</strong>).</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.2.0.0.1">
-
-<ul>
-<li><p>En consecuencia, un requisito para conseguir la transparencia
-referencial es que las expresiones no cambien de valor dependiendo de
-cuándo se evalúen.</p></li>
-<li><p>Es decir: una expresión en programación funcional siempre debe
-tener el mismo valor.</p></li>
-<li><p>Por tanto, en programación funcional no se permite que la misma
-expresión, evaluada en dos momentos diferentes, devuelva como resultado
-dos valores diferentes.</p></li>
-<li><p>Asimismo, el valor de una expresión tampoco debe depender del
-orden en el que se evalúen sus subexpresiones.</p></li>
-</ul>
-</section>
-<section id="efectos-laterales" class="title-slide slide level3"
-data-number="1.2.1">
-<h3 data-number="1.2.1"><span class="header-section-number">1.2.1</span>
-Efectos laterales</h3>
-<ul>
-<li><p>Los <strong>efectos laterales</strong> son aquellos que provocan
-un cambio de estado irremediable en el sistema, que además son
-observables fuera del contexto donde se producen y que puede dar lugar a
-que una misma expresión tenga dos valores según el momento en el que se
-evalúe.</p></li>
-<li><p>Por ejemplo, las <strong>instrucciones de E/S</strong> (entrada y
-salida) provocan efectos laterales, ya que:</p>
-<ul>
-<li><p>Al <strong>leer un dato</strong> de la entrada (ya sea el
-teclado, un archivo del disco, una base de datos…) estamos afectando al
-estado del dispositivo de entrada, y además no se sabe de antemano qué
-valor se va a recibir, ya que éste proviene del exterior y no lo
-controlamos.</p></li>
-<li><p>Al <strong>escribir un dato</strong> en la salida (ya sea la
-pantalla, un archivo, una base de datos…) estamos realizando un cambio
-que afecta irremediablemente al estado del dispositivo de
-salida.</p></li>
-</ul></li>
-<li><p>En posteriores temas veremos que existe un paradigma (el
-<strong>paradigma imperativo</strong>) que se basa principalmente en
-provocar efectos laterales.</p></li>
-</ul>
-<!-- sobre todo mediante una instrucción llamada _asignación destructiva_. -->
-</section>
-<section class="slide level5" data-number="1.2.1.0.1">
-
-<ul>
-<li><p>Uno de los requisitos para alcanzar la transparencia referencial
-es que no existan efectos laterales.</p></li>
-<li><p>Por tanto, en programación funcional no están permitidos los
-efectos laterales.</p></li>
-<li><p>Eso significa que:</p>
-<ul>
-<li><p>Al evaluar una expresión no se pueden provocar efectos
-laterales.</p>
-<p>Si esto ocurriera, no podríamos sustituir una expresión por su
-valor.</p></li>
-<li><p>El valor de una expresión no puede depender de un efecto lateral
-ni verse afectado por la existencia de efectos laterales.</p>
-<p>Si esto ocurriera, la expresión podría tener valores distintos en
-momentos distintos.</p></li>
-</ul></li>
-<li><p>En cualquiera de los dos casos, se rompería la transparencia
-referencial.</p></li>
-</ul>
-</section>
-
-
-<section id="modelo-de-ejecución" class="title-slide slide level2"
-data-number="1.3">
-<h2 data-number="1.3"><span class="header-section-number">1.3</span>
-Modelo de ejecución</h2>
-<ul>
-<li><p>Cuando escribimos programas (y algoritmos) nos interesa
-abstraernos del funcionamiento detallado de la máquina que va a ejecutar
-esos programas.</p></li>
-<li><p>Nos interesa buscar una <em>metáfora</em>, un símil de lo que
-significa ejecutar el programa.</p></li>
-<li><p>De la misma forma que un arquitecto crea modelos de los edificios
-que se pretenden construir, los programadores podemos usar modelos que
-<em>simulan</em> en esencia el comportamiento de nuestros
-programas.</p></li>
-<li><p>Esos modelos se denominan <strong>modelos
-computacionales</strong> o <strong>modelos de
-ejecución</strong>.</p></li>
-<li><p>Los modelos de ejecución nos permiten <strong>razonar</strong>
-sobre los programas sin tener que ejecutarlos.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.3.0.0.1">
-
-<ul>
-<li><p>Definición:</p>
-<div class="caja">
-<p><strong>Modelo de ejecución:</strong></p>
-<p>Es una herramienta conceptual que permite a los programadores razonar
-sobre el funcionamiento de un programa sin tener que ejecutarlo
-directamente en el ordenador.</p>
-</div></li>
-<li><p>Podemos definir diferentes modelos de ejecución dependiendo,
-principalmente, de:</p>
-<ul>
-<li><p>El paradigma de programación utilizado (ésto sobre
-todo).</p></li>
-<li><p>El lenguaje de programación con el que escribamos el
-programa.</p></li>
-<li><p>Los aspectos que queramos estudiar de nuestro programa.</p></li>
-</ul></li>
-</ul>
-</section>
-<section id="modelo-de-sustitución" class="title-slide slide level3"
-data-number="1.3.1">
-<h3 data-number="1.3.1"><span class="header-section-number">1.3.1</span>
-Modelo de sustitución</h3>
-<ul>
-<li><p>En programación funcional, <strong>un programa es una
-expresión</strong> y lo que hacemos al ejecutarlo es <strong>evaluar
-dicha expresión</strong>, usando para ello las definiciones de
-operadores y funciones predefinidas por el lenguaje, así como las
-definidas por el programador en el código fuente del programa.</p></li>
-<li><p>Recordemos que la <strong>evaluación de una expresión</strong>,
-en esencia, es el proceso de <strong>sustituir</strong>, dentro de ella,
-unas <em>subexpresiones</em> por otras que, de alguna manera bien
-definida, estén <em>más cerca</em> del valor a calcular, y así hasta
-calcular el valor de la expresión al completo.</p></li>
-<li><p>Por ello, la ejecución de un programa funcional se puede modelar
-como un <strong>sistema de reescritura</strong> al que llamaremos
-<strong>modelo de sustitución</strong>.</p></li>
-<li><p>El modelo de sustitución es un buen modelo de ejecución para la
-programación funcional gracias a que se cumple la <em>transparencia
-referencial</em>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.3.1.0.1">
-
-<ul>
-<li><p>La ventaja del modelo de sustitución es que no necesitamos
-recurrir a pensar que debajo de todo esto hay un ordenador con una
-determinada arquitectura <em>hardware</em>, que almacena los datos en
-celdas de la memoria principal, que ejecuta ciclos de instrucción en la
-CPU, que las instrucciones modifican los datos de la memoria…</p></li>
-<li><p>Todo resulta mucho más fácil que eso, ya que <strong>todo se
-reduce a evaluar expresiones</strong>, reescribiendo unas subexpresiones
-por otras, sin importar aspectos secundarios como la tecnología, el
-momento en el que se evalúan, el orden en el que se evalúan,
-etc.</p></li>
-<li><p>Y la evaluación de expresiones no requiere pensar que hay un
-ordenador que lleva a cabo el proceso de evaluación.</p></li>
-<li><p>Esto se debe a que la programación funcional se basa en el
-<strong>cálculo lambda</strong>, que es un modelo teórico
-matemático.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.3.1.0.2">
-
-<ul>
-<li><p>Ya estudiamos que evaluar una expresión consiste en encontrar su
-forma normal.</p></li>
-<li><p>En programación funcional:</p>
-<ul>
-<li><p>Los intérpretes alcanzan este objetivo a través de múltiples
-pasos de <strong>reducción</strong> de las expresiones para obtener otra
-equivalente más simple.</p></li>
-<li><p>Toda expresión posee un valor definido, y ese valor <strong>no
-depende del orden ni el momento</strong> en el que se evalúe.</p></li>
-<li><p>El significado de una expresión es su valor, y <strong>no puede
-ocurrir ningún otro efecto</strong>, ya sea oculto o no, en ninguna
-operación que se utilice para calcularlo.</p></li>
-</ul></li>
-</ul>
-</section>
-
-</section>
-<section>
-<section id="tipos-de-datos" class="title-slide slide level1"
-data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Tipos
-de datos</h1>
-
-</section>
-<section id="concepto-1" class="title-slide slide level2"
-data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span>
 Concepto</h2>
 <ul>
 <li><p>Los <strong>valores</strong> que comparten características y
@@ -494,7 +225,7 @@ números enteros. Los diferentes números enteros pertenecen al tipo
 <em>entero</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.1">
+<section class="slide level5" data-number="1.1.0.0.1">
 
 <ul>
 <li><p>En general, las <strong>operaciones</strong> se definen de forma
@@ -521,8 +252,8 @@ valores.</p></li>
 </section>
 
 <section id="tipo-de-un-dato" class="title-slide slide level2"
-data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
 Tipo de un dato</h2>
 <ul>
 <li><p>Recordemos que un dato puede tomar valores.</p></li>
@@ -545,7 +276,7 @@ instrucción especial llamada <strong>declaración</strong>.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.1">
+<section class="slide level5" data-number="1.2.0.0.1">
 
 <ul>
 <li><p>Como los datos tienen (o representan) valores, <strong>las
@@ -566,7 +297,7 @@ de ese tipo.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="1.2.0.0.2">
 
 <ul>
 <li><p>Definiciónes ampliadas:</p>
@@ -593,7 +324,7 @@ expresión:</p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.3">
+<section class="slide level5" data-number="1.2.0.0.3">
 
 <ul>
 <li><p>Los tipos de un lenguaje de programación tienen un nombre (un
@@ -621,8 +352,8 @@ etc.).</p></li>
 <p>¿Por qué decimos «<em>más o menos</em>»?</p>
 </section>
 
-<section id="type" class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+<section id="type" class="title-slide slide level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span>
 <code>type</code></h2>
 <ul>
 <li><p>La función <code>type</code> devuelve el tipo de un valor:</p>
@@ -641,8 +372,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 </section>
 
 <section id="sistema-de-tipos" class="title-slide slide level2"
-data-number="2.4">
-<h2 data-number="2.4"><span class="header-section-number">2.4</span>
+data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span>
 Sistema de tipos</h2>
 <ul>
 <li><p>El <strong>sistema de tipos</strong> de un lenguaje es el
@@ -659,8 +390,8 @@ a partir de los conceptos propios de la orientación a objetos
 </ul>
 </section>
 <section id="errores-de-tipos" class="title-slide slide level3"
-data-number="2.4.1">
-<h3 data-number="2.4.1"><span class="header-section-number">2.4.1</span>
+data-number="1.4.1">
+<h3 data-number="1.4.1"><span class="header-section-number">1.4.1</span>
 Errores de tipos</h3>
 <ul>
 <li><p>Cuando se intenta realizar una operación sobre un dato cuyo tipo
@@ -682,7 +413,7 @@ sobre un entero y una cadena (no se pueden sumar un número y una
 cadena).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.1.0.1">
+<section class="slide level5" data-number="1.4.1.0.1">
 
 <ul>
 <li><p>En caso de que exista un error de tipos, lo que ocurre dependerá
@@ -704,8 +435,8 @@ erróneo.</p></li>
 </section>
 
 <section id="tipado-fuerte-vs.-débil" class="title-slide slide level3"
-data-number="2.4.2">
-<h3 data-number="2.4.2"><span class="header-section-number">2.4.2</span>
+data-number="1.4.2">
+<h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span>
 Tipado fuerte vs. débil</h3>
 <ul>
 <li><p>Un lenguaje de programación es <strong>fuertemente
@@ -721,7 +452,7 @@ entre datos cuyo tipos no son los que espera la operación, gracias al
 mecanismo de <em>conversión implícita</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.2.0.1">
+<section class="slide level5" data-number="1.4.2.0.1">
 
 <ul>
 <li><p>Existen dos mecanismos de conversión de tipos:</p>
@@ -743,7 +474,7 @@ realizar conversiones implícitas cuando, en una expresión, el tipo de un
 valor no se corresponde con el tipo necesario.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.2.0.2">
+<section class="slide level5" data-number="1.4.2.0.2">
 
 <ul>
 <li><p>Ejemplo:</p>
@@ -770,8 +501,8 @@ partir del dato original pero con el tipo cambiado.</p></li>
 
 
 <section id="tipos-de-datos-básicos" class="title-slide slide level2"
-data-number="2.5">
-<h2 data-number="2.5"><span class="header-section-number">2.5</span>
+data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span>
 Tipos de datos básicos</h2>
 <ul>
 <li>Los tipos de datos básicos que empezaremos a estudiar en Python
@@ -789,8 +520,8 @@ son:</li>
   \end{cases}</span></p>
 </section>
 <section id="números" class="title-slide slide level3"
-data-number="2.5.1">
-<h3 data-number="2.5.1"><span class="header-section-number">2.5.1</span>
+data-number="1.5.1">
+<h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span>
 Números</h3>
 <ul>
 <li><p>Hay dos tipos numéricos básicos en Python: los enteros y los
@@ -816,7 +547,7 @@ números son los que cabría esperar (aritméticas, trigonométricas,
 matemáticas en general).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.1.0.1">
+<section class="slide level5" data-number="1.5.1.0.1">
 
 <ul>
 <li><p>Los enteros y los reales generalmente se pueden combinar en una
@@ -844,8 +575,8 @@ class="sourceCode python"><span class="fl">7.5</span></code>).</p></li>
 </section>
 
 <section id="cadenas" class="title-slide slide level3"
-data-number="2.5.2">
-<h3 data-number="2.5.2"><span class="header-section-number">2.5.2</span>
+data-number="1.5.2">
+<h3 data-number="1.5.2"><span class="header-section-number">1.5.2</span>
 Cadenas</h3>
 <ul>
 <li><p>Las <strong>cadenas</strong> son secuencias de cero o más
@@ -871,7 +602,7 @@ class="sourceCode python"><span class="st">&#39;Manolo&#39;</span></code></p>
 class="sourceCode python"><span class="st">&quot;27&quot;</span></code></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.2.0.1">
+<section class="slide level5" data-number="1.5.2.0.1">
 
 <ul>
 <li><p>También se pueden escribir literales de tipo cadena encerrándolos
@@ -899,7 +630,7 @@ ningún carácter. Se representa con los literales <code>''</code>,
 <code>""</code>, <code>''''''</code> o <code>""""""</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.2.0.2">
+<section class="slide level5" data-number="1.5.2.0.2">
 
 <ul>
 <li><p>Si necesitamos meter el carácter de la comilla simple
@@ -927,8 +658,8 @@ class="sourceCode python"><span class="st">&#39;Bienvenido, Señor O</span><span
 </section>
 
 <section id="tuplas" class="title-slide slide level3"
-data-number="2.5.3">
-<h3 data-number="2.5.3"><span class="header-section-number">2.5.3</span>
+data-number="1.5.3">
+<h3 data-number="1.5.3"><span class="header-section-number">1.5.3</span>
 Tuplas</h3>
 <ul>
 <li><p>Las <strong>tuplas</strong> (datos de tipo <code
@@ -948,7 +679,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a hr
 class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">35</span>,)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.5.3.0.1">
+<section class="slide level5" data-number="1.5.3.0.1">
 
 <ul>
 <li><p>Al igual que ocurre con las cadenas, tenemos las operaciones
@@ -970,8 +701,8 @@ cumple en las cadenas no vacías.</p></li>
 </section>
 
 <section id="funciones" class="title-slide slide level3"
-data-number="2.5.4">
-<h3 data-number="2.5.4"><span class="header-section-number">2.5.4</span>
+data-number="1.5.4">
+<h3 data-number="1.5.4"><span class="header-section-number">1.5.4</span>
 Funciones</h3>
 <ul>
 <li><p>En programación funcional, <strong>las funciones también son
@@ -1009,8 +740,8 @@ visualizar un valor de tipo función.</p></li>
 
 
 <section id="conversión-de-tipos" class="title-slide slide level2"
-data-number="2.6">
-<h2 data-number="2.6"><span class="header-section-number">2.6</span>
+data-number="1.6">
+<h2 data-number="1.6"><span class="header-section-number">1.6</span>
 Conversión de tipos</h2>
 <ul>
 <li><p>Hemos visto que en Python las conversiones de tipos deben ser
@@ -1036,7 +767,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a h
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: invalid literal <span class="cf">for</span> <span class="bu">int</span>() <span class="cf">with</span> base <span class="dv">10</span>: <span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.6.0.0.1">
+<section class="slide level5" data-number="1.6.0.0.1">
 
 <ul>
 <li><p>Recordando lo que dijimos anteriormente, la conversión de tipos
@@ -1057,20 +788,20 @@ que ha recibido como argumento.</p></li>
 </section>
 <section>
 <section id="operaciones-predefinidas" class="title-slide slide level1"
-data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span>
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
 Operaciones predefinidas</h1>
 
 </section>
 <section id="operadores-predefinidos" class="title-slide slide level2"
-data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
 Operadores predefinidos</h2>
 
 </section>
 <section id="operadores-aritméticos" class="title-slide slide level3"
-data-number="3.1.1">
-<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span>
+data-number="2.1.1">
+<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span>
 Operadores aritméticos</h3>
 <table>
 <colgroup>
@@ -1168,8 +899,8 @@ class="sourceCode python"><span class="op">-</span><span class="dv">2</span></co
 </section>
 
 <section id="operadores-de-cadenas" class="title-slide slide level3"
-data-number="3.1.2">
-<h3 data-number="3.1.2"><span class="header-section-number">3.1.2</span>
+data-number="2.1.2">
+<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span>
 Operadores de cadenas</h3>
 <table>
 <colgroup>
@@ -1233,8 +964,8 @@ class="sourceCode python"><span class="st">&#39;ola&#39;</span></code></td>
 
 
 <section id="funciones-predefinidas" class="title-slide slide level2"
-data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
 Funciones predefinidas</h2>
 <table>
 <colgroup>
@@ -1318,8 +1049,8 @@ class="sourceCode python"><span class="st">&#39;float&#39;</span><span class="op
 </table>
 </section>
 <section id="funciones-matemáticas-y-módulos"
-class="title-slide slide level3" data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span>
+class="title-slide slide level3" data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
 Funciones matemáticas y módulos</h3>
 <ul>
 <li><p>Python incluye una gran cantidad de funciones matemáticas
@@ -1344,7 +1075,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a h
 cualquier otra.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.1">
+<section class="slide level5" data-number="2.2.1.0.1">
 
 <ul>
 <li><p>También se puede <strong>importar directamente el módulo en
@@ -1371,7 +1102,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a h
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a> └── módulo</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.2">
+<section class="slide level5" data-number="2.2.1.0.2">
 
 <ul>
 <li><p>Eso significa que podríamos ampliar nuestra gramática para
@@ -1404,7 +1135,7 @@ métodos (de hecho, los métodos son funciones que se invocan de una forma
 especial).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.3">
+<section class="slide level5" data-number="2.2.1.0.3">
 
 <ul>
 <li><p>De hecho, cuando el objeto es un módulo, no hablamos de métodos
@@ -1437,7 +1168,7 @@ documentación:</p>
 target="_blank">https://docs.python.org/3/library/math.html</a></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.4">
+<section class="slide level5" data-number="2.2.1.0.4">
 
 <ul>
 <li><p>El lenguaje Python es, principalmente, un lenguaje
@@ -1462,9 +1193,9 @@ veamos la <strong>programación orientada a objetos</strong>.</p></li>
 </ul>
 </section>
 <section id="el-módulo-operator" class="title-slide slide level4"
-data-number="3.2.1.1">
-<h4 data-number="3.2.1.1"><span
-class="header-section-number">3.2.1.1</span> El módulo
+data-number="2.2.1.1">
+<h4 data-number="2.2.1.1"><span
+class="header-section-number">2.2.1.1</span> El módulo
 <code>operator</code></h4>
 <ul>
 <li><p>El módulo <code class="sourceCode python">operator</code>
@@ -1537,7 +1268,7 @@ class="sourceCode python">floordiv</code></td>
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.1.1">
+<section class="slide level5" data-number="2.2.1.1.1">
 
 <ul>
 <li><p>Gracias al módulo <code
@@ -1559,7 +1290,7 @@ subexpresiones y por qué.</p></li>
 siempre antes que la propia llamada (y de izquierda a derecha).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.1.2">
+<section class="slide level5" data-number="2.2.1.1.2">
 
 <ul>
 <li><p>La expresión <code
@@ -1594,8 +1325,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a h
 
 
 <section id="métodos-predefinidos" class="title-slide slide level2"
-data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
 Métodos predefinidos</h2>
 <ul>
 <li><p>Igualmente, en la documentación podemos encontrar una lista de
@@ -1608,14 +1339,14 @@ target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</
 </section>
 <section>
 <section id="álgebra-de-boole" class="title-slide slide level1"
-data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Álgebra
+data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Álgebra
 de Boole</h1>
 
 </section>
 <section id="el-tipo-de-dato-booleano" class="title-slide slide level2"
-data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span> El
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> El
 tipo de dato <em>booleano</em></h2>
 <ul>
 <li><p>Un dato <strong>lógico</strong> o <em>booleano</em> es aquel que
@@ -1640,8 +1371,8 @@ respectivamente.</p></li>
 </section>
 
 <section id="operadores-relacionales" class="title-slide slide level2"
-data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span>
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
 Operadores relacionales</h2>
 <ul>
 <li><p>Los <strong>operadores relacionales</strong> son operadores que
@@ -1678,8 +1409,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a h
 </section>
 
 <section id="operadores-lógicos" class="title-slide slide level2"
-data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span>
+data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span>
 Operadores lógicos</h2>
 <ul>
 <li><p>Las <strong>operaciones lógicas</strong> se representan mediante
@@ -1724,8 +1455,8 @@ respectivamente.</p></li>
 </ul>
 </section>
 <section id="tablas-de-verdad" class="title-slide slide level3"
-data-number="4.3.1">
-<h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span>
+data-number="3.3.1">
+<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span>
 Tablas de verdad</h3>
 <ul>
 <li><p>Una <strong>tabla de verdad</strong> es una tabla que muestra el
@@ -1825,7 +1556,7 @@ class="math inline">\neg{}A</span></th>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="4.3.1.0.1">
+<section class="slide level5" data-number="3.3.1.0.1">
 
 <p>Que traducido a Python sería:</p>
 <p><br></p>
@@ -1955,8 +1686,8 @@ class="sourceCode python"><span class="va">False</span></code></td>
 
 
 <section id="axiomas" class="title-slide slide level2"
-data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span>
+data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span>
 Axiomas</h2>
 <ol type="1">
 <li><p>Ley asociativa: <span class="math inline">\begin{cases}
@@ -1987,10 +1718,9 @@ a = F
 <p>Si <span class="math inline">(\mathbb{B},\lnot,\lor,\land)</span>
 cumple lo anterior, entonces es un álgebra de Boole.</p>
 </section>
-<section id="traducción-a-python" class="title-slide slide level4"
-data-number="4.4.0.1">
-<h4 data-number="4.4.0.1"><span
-class="header-section-number">4.4.0.1</span> Traducción a Python</h4>
+<section id="traducción-a-python"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Traducción a Python</h5>
 <div class="columns">
 <div class="column" style="width:60%;">
 <ol type="1">
@@ -2022,10 +1752,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a h
 </div>
 </section>
 
-
 <section id="teoremas-fundamentales" class="title-slide slide level2"
-data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span>
+data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span>
 Teoremas fundamentales</h2>
 <ol start="6" type="1">
 <li><p>Ley de idempotencia: <span class="math inline">\begin{cases}
@@ -2058,10 +1787,9 @@ class="math inline">\begin{cases}
 \end{cases}</span></p></li>
 </ol>
 </section>
-<section id="traducción-a-python-1" class="title-slide slide level4"
-data-number="4.5.0.1">
-<h4 data-number="4.5.0.1"><span
-class="header-section-number">4.5.0.1</span> Traducción a Python</h4>
+<section id="traducción-a-python-1"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Traducción a Python</h5>
 <div class="columns">
 <div class="column" style="width:40%;">
 <ol start="6" type="1">
@@ -2099,11 +1827,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a h
 </div>
 </div>
 </section>
-
 <section id="lógica-binaria" class="title-slide slide level4"
-data-number="4.5.0.2">
-<h4 data-number="4.5.0.2"><span
-class="header-section-number">4.5.0.2</span> Lógica binaria</h4>
+data-number="3.5.0.1">
+<h4 data-number="3.5.0.1"><span
+class="header-section-number">3.5.0.1</span> Lógica binaria</h4>
 <ul>
 <li><p>Otra forma de representar los operadores y los valores del
 álgebra de Boole es mediante la notación de la <strong>lógica
@@ -2154,7 +1881,7 @@ class="math inline">\overline{A}</span></td>
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.5.0.2.1">
+<section class="slide level5" data-number="3.5.0.1.1">
 
 <ul>
 <li><p>Por ejemplo, las leyes de DeMorgan, que en Python se escriben
@@ -2173,8 +1900,8 @@ digitales.</p></li>
 
 
 <section id="equivalencia-lógica" class="title-slide slide level2"
-data-number="4.6">
-<h2 data-number="4.6"><span class="header-section-number">4.6</span>
+data-number="3.6">
+<h2 data-number="3.6"><span class="header-section-number">3.6</span>
 Equivalencia lógica</h2>
 <ul>
 <li><p>Decimos que dos expresiones lógicas <span
@@ -2196,7 +1923,7 @@ class="math inline">Q</span> coinciden exactamente.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.0.0.1">
+<section class="slide level5" data-number="3.6.0.0.1">
 
 <ul>
 <li><p>Por ejemplo, supongamos que queremos demostrar la siguiente
@@ -2214,7 +1941,7 @@ razonamientos:</p>
 \end{array}</span></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.6.0.0.2">
+<section class="slide level5" data-number="3.6.0.0.2">
 
 <ul>
 <li><p>También podemos obtener sus tablas de verdad y comprobar que son
@@ -2272,8 +1999,8 @@ equivalentes.</p></li>
 </section>
 
 <section id="el-operador-ternario" class="title-slide slide level2"
-data-number="4.7">
-<h2 data-number="4.7"><span class="header-section-number">4.7</span> El
+data-number="3.7">
+<h2 data-number="3.7"><span class="header-section-number">3.7</span> El
 operador ternario</h2>
 <ul>
 <li><p>Las expresiones lógicas (o <em>booleanas</em>) se pueden usar
@@ -2292,7 +2019,7 @@ Python que actúa sobre tres operandos.</p></li>
 <strong>expresión condicional</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.1">
+<section class="slide level5" data-number="3.7.0.0.1">
 
 <ul>
 <li><p>Su sintaxis es:</p>
@@ -2323,7 +2050,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a h
 class="sourceCode python"><span class="dv">25</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.2">
+<section class="slide level5" data-number="3.7.0.0.2">
 
 <ul>
 <li><p>El operador ternario, así como los operadores lógicos <code
@@ -2355,7 +2082,7 @@ operandos, sino sólo los estrictamente necesarios.</p></li>
 normal.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.7.0.0.3">
+<section class="slide level5" data-number="3.7.0.0.3">
 
 <ul>
 <li><p>La evaluación de los operadores <code
@@ -2396,14 +2123,14 @@ class="math inline">\underline{x}</span>.</p></li>
 </section>
 <section>
 <section id="otros-conceptos-sobre-operaciones"
-class="title-slide slide level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Otros
+class="title-slide slide level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Otros
 conceptos sobre operaciones</h1>
 
 </section>
 <section id="árboles-sintácticos-y-evaluación"
-class="title-slide slide level2" data-number="5.1">
-<h2 data-number="5.1"><span class="header-section-number">5.1</span>
+class="title-slide slide level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span>
 Árboles sintácticos y evaluación</h2>
 <ul>
 <li><p>Durante la fase de análisis sintáctico, el compilador o el
@@ -2422,7 +2149,7 @@ correcta, o bien que la gramática del lenguaje no está bien
 diseñada.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.1">
+<section class="slide level5" data-number="4.1.0.0.1">
 
 <ul>
 <li>Por ejemplo, tenemos las siguientes expresiones y sus árboles
@@ -2458,7 +2185,7 @@ style="width:30.0%" /></p>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="5.1.0.0.2">
+<section class="slide level5" data-number="4.1.0.0.2">
 
 <ul>
 <li><p>Si la expresión contiene llamadas a funciones, se haría:</p>
@@ -2475,7 +2202,7 @@ por el resto de sus hijos.</p>
 uno (la propia función).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.3">
+<section class="slide level5" data-number="4.1.0.0.3">
 
 <ul>
 <li><p>Para evaluar una expresión representada por su árbol sintáctico,
@@ -2496,7 +2223,7 @@ otros más reducidos hasta acabar teniendo un árbol que represente la
 forma normal de la expresión a evaluar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.4">
+<section class="slide level5" data-number="4.1.0.0.4">
 
 <ul>
 <li><p>Por ejemplo, en la expresión <code
@@ -2512,7 +2239,7 @@ siguiente:</p></li>
 <p><code>2</code>, <code>3</code>, <code>5</code>, <code>*</code>,
 <code>+</code></p>
 </section>
-<section class="slide level5" data-number="5.1.0.0.5">
+<section class="slide level5" data-number="4.1.0.0.5">
 
 <ul>
 <li><p>La evaluación se realizaría de la siguiente forma, donde en azul
@@ -2534,7 +2261,7 @@ class="plain" style="width:12.0%" /></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.6">
+<section class="slide level5" data-number="4.1.0.0.6">
 
 <ul>
 <li><p><strong>Paso 3</strong>: Volvemos al padre del nodo
@@ -2550,7 +2277,7 @@ class="plain" style="width:12.0%" /></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.7">
+<section class="slide level5" data-number="4.1.0.0.7">
 
 <ul>
 <li><p><strong>Paso 4</strong>: Volvemos al padre del nodo
@@ -2577,7 +2304,7 @@ style="width:12.0%" /></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.8">
+<section class="slide level5" data-number="4.1.0.0.8">
 
 <ul>
 <li><p><strong>Paso 6</strong>: Volvemos al padre del que ahora es el
@@ -2599,9 +2326,9 @@ la forma normal de la expresión inicial.</p></li>
 </ul>
 </section>
 <section id="importante" class="title-slide slide level4"
-data-number="5.1.0.1">
-<h4 data-number="5.1.0.1"><span
-class="header-section-number">5.1.0.1</span> Importante</h4>
+data-number="4.1.0.1">
+<h4 data-number="4.1.0.1"><span
+class="header-section-number">4.1.0.1</span> Importante</h4>
 <ul>
 <li><p>Recordar que este orden concreto de evaluación (<em>primero en
 profundidad</em>, donde se evalúan primero todos los nodos hijos antes
@@ -2620,8 +2347,8 @@ veremos más adelante.</p></li>
 
 
 <section id="tipos-polimórficos-y-operaciones-polimórficas"
-class="title-slide slide level2" data-number="5.2">
-<h2 data-number="5.2"><span class="header-section-number">5.2</span>
+class="title-slide slide level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span>
 Tipos polimórficos y operaciones polimórficas</h2>
 <ul>
 <li><p>Hasta ahora, hemos visto que la función <code
@@ -2644,7 +2371,7 @@ class="sourceCode python"><span class="bu">int</span></code> o <code
 class="sourceCode python"><span class="bu">float</span></code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.2.0.0.1">
+<section class="slide level5" data-number="4.2.0.0.1">
 
 <ul>
 <li><p>Eso quiere decir que el parámetro <span
@@ -2673,8 +2400,8 @@ polimórfico.</p></li>
 </section>
 
 <section id="sobrecarga-de-operaciones" class="title-slide slide level2"
-data-number="5.3">
-<h2 data-number="5.3"><span class="header-section-number">5.3</span>
+data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span>
 Sobrecarga de operaciones</h2>
 <ul>
 <li><p>Un <strong>mismo operador, nombre de función o nombre de
@@ -2697,7 +2424,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a h
 método) está <strong>sobrecargado</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.3.0.0.1">
+<section class="slide level5" data-number="4.3.0.0.1">
 
 <ul>
 <li><p>Es decir, es como si el operador <code>+</code> representara dos
@@ -2734,8 +2461,8 @@ class="math inline">b</span> representarían a la vez a
 </section>
 
 <section id="equivalencia-entre-formas-de-operaciones"
-class="title-slide slide level2" data-number="5.4">
-<h2 data-number="5.4"><span class="header-section-number">5.4</span>
+class="title-slide slide level2" data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span>
 Equivalencia entre formas de operaciones</h2>
 <ul>
 <li><p>Una operación puede tener <em>forma</em> de
@@ -2762,7 +2489,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.4.0.0.1">
+<section class="slide level5" data-number="4.4.0.0.1">
 
 <ul>
 <li><p>De hecho, en Python hay operaciones que tienen <strong>las tres
@@ -2847,7 +2574,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a h
 
 -->
 </section>
-<section class="slide level5" data-number="5.4.0.0.2">
+<section class="slide level5" data-number="4.4.0.0.2">
 
 <ul>
 <li><p>La forma <strong>más general</strong> de representar una
@@ -2870,7 +2597,7 @@ operadores y los métodos.</p></li>
 operación, da igual la forma que tenga esta.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.4.0.0.3">
+<section class="slide level5" data-number="4.4.0.0.3">
 
 <ul>
 <li><p>Muchos lenguajes de programación no permiten definir nuevos
@@ -2884,8 +2611,8 @@ funciones (o métodos).</p></li>
 </section>
 
 <section id="igualdad-de-operaciones" class="title-slide slide level2"
-data-number="5.5">
-<h2 data-number="5.5"><span class="header-section-number">5.5</span>
+data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span>
 Igualdad de operaciones</h2>
 <ul>
 <li><p>Dos operaciones son <strong>iguales</strong> si devuelven

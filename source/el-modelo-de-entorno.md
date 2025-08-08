@@ -1,17 +1,18 @@
 ---
-title: Evaluación
+title: El modelo de entorno
 author: Ricardo Pérez López
 !DATE
 nocite: |
   @abelson_structure_1996
 ---
 
-# El modelo de entorno
+# Entorno
 
-## Entorno (*environment*!ifdef(HTML)(&nbsp;)())
+## Definición
 
-- El **entorno** es una extensión del concepto de _marco_, usado por los
-  lenguajes interpretados en la **resolución de identificadores**, ya que:
+- El **entorno** (del inglés, _environment_) es una extensión del concepto de
+  _marco_, usado por los lenguajes interpretados en la **resolución de
+  identificadores**, ya que:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,7 +124,7 @@ nocite: |
   - A su vez, el marco global sólo se eliminará de la memoria cuando se
     finalice la ejecución del _script_.
 
-### Ámbitos, marcos y entornos
+## Ámbitos, marcos y entornos
 
 - Hagamos un resumen rápido de todo lo visto hasta ahora.
 
@@ -285,7 +286,9 @@ nocite: |
 
   - De hecho, está ejecutando la llamada !PYTHON(suma(3, 5)).
 
-### Evaluación de expresiones con entornos
+# Evaluación con entornos
+
+## Evaluación de expresiones con entornos
 
 - Al evaluar una expresión, el intérprete **buscará en el entorno el valor al
   que está ligado cada identificador** que aparezca en la expresión.
@@ -484,7 +487,7 @@ E -> z [lhead = cluster0]
 
 ::::
 
-### Evaluación de expresiones lambda con entornos
+## Evaluación de expresiones lambda con entornos
 
 - Para que una expresión lambda funcione, todos los identificadores que
   aparezcan en el cuerpo deben estar ligados a algún valor en el entorno **en
@@ -746,7 +749,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> f [lhead = cluster0]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Ligaduras *sombreadas*
+### Ligaduras *sombreadas*
 
 - Recordemos que la **resolución de identificadores** es el proceso por el cual
   el compilador o el intérprete determinan qué ligadura se corresponde con una
@@ -913,7 +916,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> w [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Renombrado de parámetros
+### Renombrado de parámetros
 
 - Los parámetros se pueden *renombrar* sin que se altere el significado de la
   expresión lambda, siempre que ese renombrado se haga de forma adecuada.
@@ -938,7 +941,7 @@ E -> w [lhead = cluster1]
   lo que es claramente incorrecto. A este fenómeno indeseable se le denomina
   **captura de identificadores**.
 
-#### Visualización en *Pythontutor*
+### Visualización en *Pythontutor*
 
 - **Pythontutor** es una herramienta online muy interesante y práctica que nos
   permite ejecutar un _script_ paso a paso y visualizar sus efectos.
@@ -989,99 +992,6 @@ E -> w [lhead = cluster1]
     a. Los ámbitos de cada aparición de cada identificador.
     a. Las ligaduras sombreadas y los identificadores sombreados.
     a. Los identificadores y ligaduras que hacen sombra.
-
-## Pureza
-
-- Si una expresión lambda no contiene identificadores libres, el valor que
-  obtendremos al aplicarla a unos argumentos dependerá únicamente del valor que
-  tengan esos argumentos (no dependerá de nada que sea «_exterior_» a la
-  expresión lambda).
-
-- En cambio, si el cuerpo de una expresión lambda contiene identificadores
-  libres, el valor que obtendremos al aplicarla a unos argumentos no sólo
-  dependerá del valor de los argumentos, sino también de los valores a los que
-  estén ligados esos identificadores libres en el momento de evaluar la
-  aplicación de la expresión lambda.
-
-- Es el caso del siguiente ejemplo, donde tenemos una expresión lambda que
-  contiene un identificador libre (!PYTHON{z}) y, por tanto, cuando la
-  aplicamos a los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que
-  depende no sólo de los valores de !PYTHON(x) e !PYTHON(y) sino también del
-  valor de !PYTHON(z) en el entorno:
-
-  ```python
-  >>> prueba = lambda x, y: x + y + z
-  >>> z = 9
-  >>> prueba(4, 3)
-  16
-  ```
-
----
-
-- En este otro ejemplo, tenemos una expresión lambda que calcula la suma de
-  tres números a partir de otra expresión lambda que calcula la suma de dos
-  números:
-
-  ```python
-  suma = lambda x, y: x + y
-  suma3 = lambda x, y, z: suma(x, y) + z
-  ```
-
-  En este caso, hay un identificador (!PYTHON(suma)) que no aparece en la lista
-  de parámetros de la expresión lambda ligada a !PYTHON(suma3).
-
-  En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
-  !PYTHON(suma) en el entorno actual.
-
----
-
-- Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
-  unos argumentos, el valor obtenido va a depender únicamente del valor de esos
-  argumentos o, lo que es lo mismo, del valor de sus parámetros en la llamada.
-
-- Podemos decir que hay distintos **grados de pureza**:
-
-  - Una expresión lambda en cuyo cuerpo no hay ningún identificador libre es
-    **más pura** que otra que contiene identificadores libres.
-
-  - Una expresión lambda cuyos **identificadores libres** representan
-    **funciones** que se usan en el cuerpo de la expresión lambda, es **más
-    pura** que otra cuyos identificadores libres representan cualquier otro
-    tipo de valor.
-
-  En el ejemplo anterior, tenemos que la expresión lambda de !PYTHON(suma3),
-  sin ser *totalmente pura*, a efectos prácticos se la puede considerar
-  **pura**, ya que su único identificador libre (!PYTHON(suma)) se usa como una
-  **función**.
-
----
-
-- Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a
-  menor pureza, siendo la primera totalmente **pura**:
-
-  ```python
-  # producto es una expresión lambda totalmente pura:
-  producto = lambda x, y: x * y
-  # cuadrado es casi pura; a efectos prácticos se la puede
-  # considerar pura ya que sus identificadores libres (en este
-  # caso, sólo una: producto) son funciones:
-  cuadrado = lambda x: producto(x, x)
-  # suma es impura, porque su identificador libre (z) no es una función:
-  suma = lambda x, y: x + y + z
-  ```
-
-- **La pureza de una función es un rasgo deseado y que hay que tratar de
-  alcanzar siempre que sea posible**, ya que facilita el desarrollo y
-  mantenimiento de los programas, además de simplificar el razonamiento sobre
-  los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
-
-- Es más incómodo trabajar con !PYTHON(suma) porque hay que *recordar* que
-  depende de un valor que está *fuera* de la expresión lambda, cosa que no
-  resulta evidente a no ser que mires en el cuerpo de la expresión lambda.
-
-
-
-# Resolución de atributos de objetos
 
 ## Resolución de atributos de objetos
 
@@ -1590,153 +1500,6 @@ n2 -> dummy [lhead = cluster0, ltail = cluster3]
   = 7 * 7                       # evalúa 7 * 7 y devuelve 49
   = 49
   ```
-
-### Composición de funciones
-
-- Podemos crear una función que use otra función. Por ejemplo, para calcular el
-  área de un círculo usamos otra función que calcule el cuadrado de un número:
-
-  ```python
-  cuadrado = lambda x: x * x
-  area = lambda r: 3.1416 * cuadrado(r)
-  ```
-
-- La expresión !PYTHON(area(11 + 1)) se evaluaría así según el *orden
-  aplicativo*:
-
-  ```{.python .number-lines}
-  area(11 + 1)                                # definición de area
-  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # evalúa 11 y devuelve 11
-  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # evalúa 1 y devuelve 1
-  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # evalúa 11 + 1 y devuelve 12
-  = (lambda r: 3.1416 * cuadrado(r))(12)      # aplicación a 12
-  = (3.1416 * cuadrado(12))                   # evalúa 3.1416 y devuelve 3.1416
-  = (3.1416 * cuadrado(12))                   # definición de cuadrado
-  = (3.1416 * (lambda x: x * x)(12))          # aplicación a 12
-  = (3.1416 * (12 * 12))                      # evalúa (12 * 12) y devuelve 144
-  = (3.1416 * 144)                            # evalúa (3.1416 * 11) y...
-  = 452.3904                                  # ... devuelve 452.3904
-  ```
-
----
-
-- En detalle:
-
-  - **Línea 1**: Se evalúa !PYTHON(area), que devuelve su definición (una
-    expresión lambda).
-
-  - **Líneas 2--4**: Lo siguiente a evaluar es la aplicación de !PYTHON(area)
-    sobre su argumento, por lo que primero evaluamos éste (es el _redex_ más
-    interno).
-
-  - **Línea 5**: Ahora se aplica la expresión lambda a su argumento
-    !PYTHON(12).
-
-  - **Línea 6**: El _redex_ más interno y a la izquierda es el !PYTHON(3.1416),
-    que ya está evaluado.
-
-  - **Línea 7**: El *redex* más interno que queda por evaluar es la aplicación
-    de !PYTHON(cuadrado) sobre !PYTHON(12). Primero se evalúa
-    !PYTHON(cuadrado), sustituyéndose por su definición...
-
-  - **Línea 8**: ... y ahora se aplica la expresión lambda a su argumento
-    !PYTHON(12).
-
-  - Lo que queda es todo aritmética.
-
----
-
-- La expresión !PYTHON(area(11 + 1)) se evaluaría así según el *orden normal*:
-
-  ```{.python .number-lines}
-  area(11 + 1)                                # definición de area
-  = (lambda r: 3.1416 * cuadrado(r))(11 + 1)  # aplicación a (11 + 1)
-  = (3.1416 * cuadrado(11 + 1))               # evalúa 3.1416 y devuelve 3.1416
-  = (3.1416 * cuadrado(11 + 1))               # definición de cuadrado
-  = (3.1416 * (lambda x: x * x)(11 + 1))      # aplicación a (11 + 1)
-  = (3.1416 * ((11 + 1) * (11 + 1)))          # evalúa (11 + 1) y devuelve 12
-  = (3.1416 * (12 * (11 + 1)))                # evalúa (11 + 1) y devuelve 12
-  = (3.1416 * (12 * 12))                      # evalúa (12 * 12) y devuelve 144
-  = (3.1416 * 144)                            # evalúa (3.1416 * 144) y...
-  = 452.3904                                  # ... devuelve 452.3904
-  ```
-
-- En ambos casos (orden aplicativo y orden normal) se obtiene el mismo
-  resultado.
-
----
-
-- En detalle:
-
-  - **Línea 1**: Se evalúa el *redex* más externo, que es
-    !PYTHON(area(11 + 1)). Para ello, se reescribe la definición de
-    !PYTHON(area)...
-
-  - **Línea 2**: ... y se aplica la expresión lambda al argumento
-    !PYTHON(11 + 1).
-
-  - **Línea 3**: El _redex_ más externo es el `*`, pero para evaluarlo hay que
-    evaluar primero todos sus argumentos, por lo que primero se evalúa el
-    izquierdo, que es !PYTHON(3.1416).
-
-  - **Línea 4**: Ahora hay que evaluar el derecho (!PYTHON(cuadrado(11 + 1))),
-    por lo que se reescribe la definición de !PYTHON(cuadrado)...
-
-  - **Línea 5**: ... y se aplica la expresión lambda al argumento
-    !PYTHON(11 + 1).
-
-  - Lo que queda es todo aritmética.
-
----
-
-- A veces no resulta fácil determinar si un *redex* es más interno o externo
-  que otro, sobre todo cuando se mezclan funciones y operadores en una misma
-  expresión.
-
-- En ese caso, puede resultar útil reescribir los operadores como funciones,
-  cuando sea posible.
-
-- Por ejemplo, la siguiente expresión:
-
-  ```python
-  abs(-12) + max(13, 28)
-  ```
-
-  se puede reescribir como:
-
-  ```python
-  from operator import add
-  add(abs(-12), max(13, 28))
-  ```
-
-  lo que muestra claramente que la suma es más externa que el valor absoluto y
-  el máximo (que están, a su vez, al mismo nivel de profundidad).
-
----
-
-- Un ejemplo más complicado:
-
-  ```python
-  abs(-12) * max((2 + 3) ** 5), 37)
-  ```
-
-  se reescribiría como:
-
-  ```python
-  from operator import add, mul
-  mul(abs(-12), max(pow(add(2, 3), 5), 37))
-  ```
-
-  donde se aprecia claramente que el orden de las operaciones, de más interna a
-  más externa, sería:
-
-  1. Suma (`+` o !PYTHON(add)).
-
-  2. Potencia (`**` o !PYTHON(pow)).
-
-  3. Valor absoluto (!PYTHON(abs)) y máximo (!PYTHON(max)) al mismo nivel.
-
-  4. Producto (`*` o !PYTHON(mul)).
 
 ### Evaluación estricta y no estricta
 
