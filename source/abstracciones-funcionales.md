@@ -2114,6 +2114,11 @@ fib1_5 -> u5
   el conjunto simplemente usando su nombre sin tener que conocer su composición
   interna ni sus detalles internos de funcionamiento.
 
+- Es importante entender que no todas las cajas negras son abstracciones. Una
+  caja negra sólo es una abstracción cuando la encapsulación se hace de forma
+  que deja visible sólo lo necesario para usar la abstracción y oculta lo demás
+  (es decir, lo que no es necesario).
+
 ---
 
 - Por tanto, para usar la abstracción nos bastará con conocer su _nombre_ y
