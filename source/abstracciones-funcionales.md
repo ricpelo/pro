@@ -2100,31 +2100,45 @@ fib1_5 -> u5
 
 ---
 
-- «_Abstraer_» es centrarse en lo importante en un determinado momento e
+- **Encapsular** es el acto de encerrar algo dentro una _cápsula_, de forma que
+  parte de lo que hay dentro queda visible y accesible desde el exterior,
+  mientras que el resto queda oculto e inaccesible en el interior.
+
+  El resultado de la encapsulación se denomina una «**_caja negra_**».
+
+- **Abstraer** es centrarse en lo importante en un determinado momento e
   ignorar lo que en ese momento no resulta importante.
 
-- «_Crear una abstracción_» es meter un mecanismo más o menos complejo dentro
-  de una caja negra (proceso denominado **encapsulación**) y darle un nombre,
-  de forma que podamos referirnos a todo el conjunto simplemente usando su
-  nombre sin tener que conocer su composición interna ni sus detalles internos
-  de funcionamiento.
+- **Crear una abstracción** es meter un mecanismo más o menos complejo dentro
+  de una caja negra y darle un nombre, de forma que podamos referirnos a todo
+  el conjunto simplemente usando su nombre sin tener que conocer su composición
+  interna ni sus detalles internos de funcionamiento.
 
-- Por eso decimos que las abstracciones están _encapsuladas_.
+---
 
 - Por tanto, para usar la abstracción nos bastará con conocer su _nombre_ y
   saber _qué hace_, sin necesidad de saber _cómo lo hace_ ni qué elementos la
   forman _internamente_.
 
+- En consecuencia, las abstracciones están _encapsuladas_, pero no de cualquier
+  manera, sino de forma que:
+
+  - lo que queda visible desde el exterior de la cápsula es _qué hace la
+    abstracción_, y
+
+  - lo que se oculta en el interior es _cómo lo hace_.
+
 - **La abstracción es el principal instrumento de control de la complejidad**,
   ya que nos permite ocultar detrás de un nombre los detalles que componen una
   parte del programa, haciendo que esa parte actúe (a ojos del programador que
-  la utilice) como si fuera un elemento _predefinido_ del lenguaje.
+  la utilice) como si fuera un elemento _predefinido_ del lenguaje, de forma
+  que el programador lo puede usar sin tener que saber cómo funciona por
+  dentro.
 
 ---
 
-- **Las funciones son**, por tanto, **abstracciones** porque nos permiten
-  usarlas sin tener que conocer los detalles internos del procesamiento que
-  realizan.
+- Por tanto, **las funciones son abstracciones** porque nos permiten usarlas
+  sin tener que conocer los detalles internos del procesamiento que realizan.
 
 - Por ejemplo, si queremos usar la función !PYTHON{cubo} (que calcula el cubo
   de un número), nos da igual que dicha función esté implementada de cualquiera
@@ -2195,9 +2209,9 @@ fib1_5 -> u5
   general_ (es decir, hacemos una **generalización**) que agrupa a todos los
   posibles casos particulares que cumplen ese patrón.
 
-- Luego, ese caso general lo metemos en una «_caja negra_» ocultando sus
-  detalles internos (es decir, hacemos una **encapsulación**) y le damos un
-  nombre, con lo que acabamos creando una **abstracción**.
+- Luego, hacemos una **encapsulación**, metiendo ese caso general en una «_caja
+  negra_» que oculte sus detalles internos, y finalmente le damos un nombre a
+  la «caja», con lo que acabamos creando una **abstracción**.
 
 - En resumen, creamos abstracciones:
 
@@ -2365,7 +2379,7 @@ cg [label = "(caso general)"]
 
 - La principal preocupación del usuario de un programa (o de cada una de sus
   partes) es _qué_ hace. Esto contrasta con la del programador de esa parte del
-  programa, cuya principal preocupación es _cómo_ se implementa.
+  programa, cuya principal preocupación es _cómo_ lo hace.
 
 - Los lenguajes de programación proporcionan abstracción mediante funciones (y
   otros elementos como procedimientos y módulos, que veremos posteriormente)
