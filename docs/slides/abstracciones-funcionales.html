@@ -2485,13 +2485,16 @@ detalles.</p></li>
 determinado momento e ignorar lo que en ese momento no resulta
 importante.</p></li>
 <li><p>«<em>Crear una abstracción</em>» es meter un mecanismo más o
-menos complejo dentro de una caja negra y darle un nombre, de forma que
-podamos referirnos a todo el conjunto simplemente usando su nombre y sin
-tener que conocer su composición interna ni sus detalles internos de
+menos complejo dentro de una caja negra (proceso denominado
+<strong>encapsulación</strong>) y darle un nombre, de forma que podamos
+referirnos a todo el conjunto simplemente usando su nombre sin tener que
+conocer su composición interna ni sus detalles internos de
 funcionamiento.</p></li>
+<li><p>Por eso decimos que las abstracciones están
+<em>encapsuladas</em>.</p></li>
 <li><p>Por tanto, para usar la abstracción nos bastará con conocer su
-<em>nombre</em> y <em>lo que hace</em>, sin necesidad de saber <em>cómo
-lo hace</em> ni de qué elementos está formada
+<em>nombre</em> y saber <em>qué hace</em>, sin necesidad de saber
+<em>cómo lo hace</em> ni qué elementos la forman
 <em>internamente</em>.</p></li>
 <li><p><strong>La abstracción es el principal instrumento de control de
 la complejidad</strong>, ya que nos permite ocultar detrás de un nombre
@@ -2535,15 +2538,18 @@ particulares).</p></li>
 class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
 <p>no estamos hablando del cubo de un número en particular, sino más
 bien de un <strong>método</strong> para calcular el cubo de cualquier
-número.</p></li>
+número.</p>
+<p>Es decir: <strong>estamos definiendo en qué consiste <em>elevar
+«algo» al cubo</em>, en general</strong>.</p></li>
 <li><p>Por supuesto, nos las podemos arreglar sin definir el concepto de
 <em>cubo</em>, escribiendo siempre expresiones explícitas (como <code
 class="sourceCode python"><span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span></code>,
 <code
 class="sourceCode python"><span class="dv">5</span><span class="op">*</span><span class="dv">5</span><span class="op">*</span><span class="dv">5</span></code>,
-etc.) sin usar la palabra «cubo», pero eso nos obligaría siempre a
-expresarnos usando las operaciones primitivas de nuestro lenguaje (como
-<code>*</code>), en vez de poder usar términos de más alto nivel.</p>
+etc.) sin usar la palabra «<code>cubo</code>», pero eso nos obligaría
+siempre a expresarnos usando las operaciones primitivas de nuestro
+lenguaje (como <code>*</code>), en vez de poder usar términos de más
+alto nivel.</p>
 <p>Es decir: <strong>nuestros programas podrían calcular el cubo de un
 número, pero no tendrían la habilidad de expresar el concepto de
 <em>elevar al cubo</em></strong>.</p></li>
@@ -2572,12 +2578,13 @@ patrón (<em>elevar al cubo</em>).</p></li>
 <ul>
 <li><p>Por tanto, algunas veces, analizando ciertos <em>casos
 particulares</em>, observamos que se repite el mismo patrón en todos
-ellos, y de ahí extraemos un <em>caso general</em> que agrupa a todos
-los posibles casos particulares que cumplen el mismo patrón (es decir,
-hacemos una <strong>generalización</strong>).</p></li>
-<li><p>A ese caso general le damos un nombre y ocultamos sus detalles
-internos en una «caja negra», y con esto creamos una
-<strong>abstracción</strong>.</p></li>
+ellos, y de ahí extraemos un <em>caso general</em> (es decir, hacemos
+una <strong>generalización</strong>) que agrupa a todos los posibles
+casos particulares que cumplen ese patrón.</p></li>
+<li><p>Luego, ese caso general lo metemos en una «<em>caja negra</em>»
+ocultando sus detalles internos (es decir, hacemos una
+<strong>encapsulación</strong>) y le damos un nombre, con lo que
+acabamos creando una <strong>abstracción</strong>.</p></li>
 <li><p>En resumen, creamos abstracciones:</p>
 <ul>
 <li><p>Cuando queremos <strong>reducir la complejidad</strong>, dándole
@@ -2615,8 +2622,13 @@ entre sí (es decir, hacemos una
 <strong>parametrización</strong>).</p></li>
 <li><p>La función resultante es, al mismo tiempo:</p>
 <ul>
-<li><p>una <strong>abstracción</strong> (porque se puede invocar usando
-su nombre sin necesidad de conocer su interior), y</p></li>
+<li><p>una <strong>encapsulación</strong> (porque los detalles internos
+de la función quedan ocultos dentro del cuerpo de la expresión lambda
+como si fuera una caja negra),</p></li>
+<li><p>una <strong>abstracción</strong> (porque se puede invocar a la
+función usando simplemente su nombre sin necesidad de saber cómo está
+hecha por dentro y, por tanto, sabiendo <em>qué</em> sin tener que saber
+<em>cómo</em> lo hace), y</p></li>
 <li><p>una <strong>generalización</strong> (porque, al estar
 parametrizada, representa muchos casos particulares con un único caso
 general).</p></li>
@@ -2636,7 +2648,7 @@ repite:</p>
 <div class="sourceCode" id="cb55"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
-<p>En este caso, el patrón es el de «algo» que se multiplica por sí
+<p>En este caso, el patrón es que hay «algo» que se multiplica por sí
 mismo tres veces.</p>
 <p>En todos los casos particulares de ese patrón repetido vemos que hay
 elementos que se son iguales y otros que son diferentes.</p>
@@ -2679,11 +2691,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a h
 <code>x</code>, ya que esta <code>x</code> es libre.</p>
 <p>Por tanto, para deducir qué valor tendrá <code>cubo</code> tendremos
 que seguir conociendo su interior: tenemos que saber que su valor se
-calcula a partir del valor que tiene la variable libre
+calcula a partir del valor que tiene el identificador libre
 <code>x</code>.</p>
 <p>Esto hace que <code>cubo</code> no sea una buena abstracción, ya que
 no funciona como una <em>caja negra</em>. Esto se debe a que la
-abstracción está <em>abierta</em>.</p>
+expresión está <em>abierta</em>.</p>
 <p>Cuando una parte de un programa está <em>abierta</em> resulta más
 difícil de programar y de razonar sobre ella, ya que su comportamiento
 depende del resto del programa. Lo que nos interesa (siempre que sea
@@ -2725,14 +2737,18 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a h
 <li><p>La importancia de la <strong>abstracción</strong> reside en su
 capacidad para ocultar detalles irrelevantes y en el uso de nombres para
 referenciar objetos.</p></li>
-<li><p>Los lenguajes de programación proporcionan abstracción mediante
-funciones (y otros elementos como procedimientos y módulos, que veremos
-posteriormente) que permiten al programador distinguir entre lo que hace
-una parte del programa y cómo se implementa esa parte.</p></li>
 <li><p>La principal preocupación del usuario de un programa (o de cada
 una de sus partes) es <em>qué</em> hace. Esto contrasta con la del
 programador de esa parte del programa, cuya principal preocupación es
 <em>cómo</em> se implementa.</p></li>
+<li><p>Los lenguajes de programación proporcionan abstracción mediante
+funciones (y otros elementos como procedimientos y módulos, que veremos
+posteriormente) que permiten al programador distinguir entre lo que hace
+una parte del programa y cómo se implementa esa parte.</p></li>
+<li><p>Una función, además, <strong>encapsula</strong> porque crea una
+<em>cápsula</em> alrededor de ella que sólo deja pasar fuera lo
+necesario para poder usar la función, y oculta dentro todo lo demás, es
+decir, lo que no es necesario conocer ni manipular para usarla.</p></li>
 <li><p>La abstracción es esencial en la construcción de programas. Pone
 el énfasis en lo que algo es o hace, más que en cómo se representa o
 cómo funciona. Por lo tanto, es el principal medio para gestionar la

@@ -2104,13 +2104,16 @@ fib1_5 -> u5
   ignorar lo que en ese momento no resulta importante.
 
 - «_Crear una abstracción_» es meter un mecanismo más o menos complejo dentro
-  de una caja negra y darle un nombre, de forma que podamos referirnos a todo
-  el conjunto simplemente usando su nombre y sin tener que conocer su
-  composición interna ni sus detalles internos de funcionamiento.
+  de una caja negra (proceso denominado **encapsulación**) y darle un nombre,
+  de forma que podamos referirnos a todo el conjunto simplemente usando su
+  nombre sin tener que conocer su composición interna ni sus detalles internos
+  de funcionamiento.
 
-- Por tanto, para usar la abstracción nos bastará con conocer su _nombre_ y _lo
-  que hace_, sin necesidad de saber _cómo lo hace_ ni de qué elementos está
-  formada _internamente_.
+- Por eso decimos que las abstracciones están _encapsuladas_.
+
+- Por tanto, para usar la abstracción nos bastará con conocer su _nombre_ y
+  saber _qué hace_, sin necesidad de saber _cómo lo hace_ ni qué elementos la
+  forman _internamente_.
 
 - **La abstracción es el principal instrumento de control de la complejidad**,
   ya que nos permite ocultar detrás de un nombre los detalles que componen una
@@ -2155,9 +2158,12 @@ fib1_5 -> u5
   no estamos hablando del cubo de un número en particular, sino más bien de un
   **método** para calcular el cubo de cualquier número.
 
+  Es decir: **estamos definiendo en qué consiste _elevar «algo» al cubo_, en
+  general**.
+
 - Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
   escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
-  !PYTHON(5*5*5), etc.) sin usar la palabra «cubo», pero eso nos obligaría
+  !PYTHON(5*5*5), etc.) sin usar la palabra «`cubo`», pero eso nos obligaría
   siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje
   (como `*`), en vez de poder usar términos de más alto nivel.
 
@@ -2186,11 +2192,12 @@ fib1_5 -> u5
 
 - Por tanto, algunas veces, analizando ciertos _casos particulares_, observamos
   que se repite el mismo patrón en todos ellos, y de ahí extraemos un _caso
-  general_ que agrupa a todos los posibles casos particulares que cumplen el
-  mismo patrón (es decir, hacemos una **generalización**).
+  general_ (es decir, hacemos una **generalización**) que agrupa a todos los
+  posibles casos particulares que cumplen ese patrón.
 
-- A ese caso general le damos un nombre y ocultamos sus detalles internos en
-  una «caja negra», y con esto creamos una **abstracción**.
+- Luego, ese caso general lo metemos en una «_caja negra_» ocultando sus
+  detalles internos (es decir, hacemos una **encapsulación**) y le damos un
+  nombre, con lo que acabamos creando una **abstracción**.
 
 - En resumen, creamos abstracciones:
 
@@ -2240,8 +2247,13 @@ cg [label = "(caso general)"]
 
 - La función resultante es, al mismo tiempo:
 
-  - una **abstracción** (porque se puede invocar usando su nombre sin necesidad
-    de conocer su interior), y
+  - una **encapsulación** (porque los detalles internos de la función quedan
+    ocultos dentro del cuerpo de la expresión lambda como si fuera una caja
+    negra),
+
+  - una **abstracción** (porque se puede invocar a la función usando
+    simplemente su nombre sin necesidad de saber cómo está hecha por dentro y,
+    por tanto, sabiendo _qué_ sin tener que saber _cómo_ lo hace), y
 
   - una **generalización** (porque, al estar parametrizada, representa muchos
     casos particulares con un único caso general).
@@ -2260,7 +2272,7 @@ cg [label = "(caso general)"]
      5 * 5 * 5
      ```
 
-     En este caso, el patrón es el de «algo» que se multiplica por sí mismo
+     En este caso, el patrón es que hay «algo» que se multiplica por sí mismo
      tres veces.
 
      En todos los casos particulares de ese patrón repetido vemos que hay
@@ -2305,10 +2317,10 @@ cg [label = "(caso general)"]
 
    Por tanto, para deducir qué valor tendrá `cubo` tendremos que seguir
    conociendo su interior: tenemos que saber que su valor se calcula a partir
-   del valor que tiene la variable libre `x`.
+   del valor que tiene el identificador libre `x`.
 
    Esto hace que `cubo` no sea una buena abstracción, ya que no funciona como
-   una _caja negra_. Esto se debe a que la abstracción está _abierta_.
+   una _caja negra_. Esto se debe a que la expresión está _abierta_.
 
    Cuando una parte de un programa está _abierta_ resulta más difícil de
    programar y de razonar sobre ella, ya que su comportamiento depende del
@@ -2329,10 +2341,9 @@ cg [label = "(caso general)"]
    constantes en variables. En este caso, las constantes `3` o `5` (o cualquier
    otra posible, como la `x` libre) se han convertido en un parámetro.
 
-   Los
-   **parámetros** son nombres cuyo valor cambia dependiendo de los argumentos
-   de la llamada. Por eso se pueden considerar _variables_ en el sentido
-   matemático del término.
+   Los **parámetros** son nombres cuyo valor cambia dependiendo de los
+   argumentos de la llamada. Por eso se pueden considerar _variables_ en el
+   sentido matemático del término.
 
    Ahora hemos _cerrado_ la expresión creando una función en la que los
    identificadores libres ya no son libres sino _parámetros_ de la expresión
@@ -2352,14 +2363,19 @@ cg [label = "(caso general)"]
 - La importancia de la **abstracción** reside en su capacidad para ocultar
   detalles irrelevantes y en el uso de nombres para referenciar objetos.
 
+- La principal preocupación del usuario de un programa (o de cada una de sus
+  partes) es _qué_ hace. Esto contrasta con la del programador de esa parte del
+  programa, cuya principal preocupación es _cómo_ se implementa.
+
 - Los lenguajes de programación proporcionan abstracción mediante funciones (y
   otros elementos como procedimientos y módulos, que veremos posteriormente)
   que permiten al programador distinguir entre lo que hace una parte del
   programa y cómo se implementa esa parte.
 
-- La principal preocupación del usuario de un programa (o de cada una de sus
-  partes) es _qué_ hace. Esto contrasta con la del programador de esa parte del
-  programa, cuya principal preocupación es _cómo_ se implementa.
+- Una función, además, **encapsula** porque crea una _cápsula_ alrededor de
+  ella que sólo deja pasar fuera lo necesario para poder usar la función, y
+  oculta dentro todo lo demás, es decir, lo que no es necesario conocer ni
+  manipular para usarla.
 
 - La abstracción es esencial en la construcción de programas. Pone el énfasis
   en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
