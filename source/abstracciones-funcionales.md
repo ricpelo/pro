@@ -1811,9 +1811,9 @@ Iterativo lineal          Linealmente \
 
 ## Recursividad múltiple
 
-- Una función tiene **recursividad múltiple** cuando la misma llamada a la
-  función recursiva puede generar más de una llamada recursiva a la misma
-  función.
+- Una función tiene **recursividad múltiple** cuando, durante la misma
+  activación o llamada a la función, se puede generar más de una llamada
+  recursiva a la misma función.
 
 - El ejemplo clásico es la función que calcula los términos de la **sucesión de
   Fibonacci**.
