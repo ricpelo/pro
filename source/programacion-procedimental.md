@@ -1487,7 +1487,7 @@ E -> suma [lhead = cluster0]
 
 ## Definición y uso
 
-- Las funciones genéricas se definen de la siguiente forma:
+- Esquemáticamente, las **funciones genéricas** tienen la siguiente forma:
 
   ```python
   def func[T](arg: T): ...
@@ -1497,12 +1497,10 @@ E -> suma [lhead = cluster0]
   identificador que representa a un _tipo_ cualquiera que en este momento no
   está determinado.
 
-- Las variables de tipo sirven, por ejemplo, para indicar que todos los
-  elementos de una colección son del mismo tipo.
-
-- Por otra parte, `[T]` representa un **parámetro de tipo**, que sirve para
-  expresar el hecho de que la función que estamos definiendo es genérica y
-  funciona con valores de muchos tipos distintos.
+- Al usar la sintaxis `[T]`, expresamos el hecho de que `T` representa un
+  **parámetro de tipo** para la función, y sirve para expresar el hecho de que
+  la función que estamos definiendo es genérica y funciona con valores de
+  muchos tipos distintos (uno por cada posible valor de `T`).
 
 - Esta forma de expresar funciones describe un cierto tipo de polimorfismo
   llamado **polimorfismo paramétrico**, donde la misma función puede actuar
@@ -1511,15 +1509,16 @@ E -> suma [lhead = cluster0]
 
 ---
 
-- Por ejemplo, la función que devuelve el máximo elemento de una lista, se
-  puede anotar de la siguiente forma:
+- Por ejemplo, la función que devuelve el máximo elemento de una lista donde
+  todos sus elementos son del mismo tipo, se puede anotar de la siguiente
+  forma:
 
   ```python
   def maximo[T](l: list[T]) -> T:
-    ...
+      ...
   ```
 
-  y podríamos llamarla con cualquier tipo de lista, siempre que todos los
+  y podríamos llamarla pasándole cualquier tipo de lista, siempre que todos los
   elementos de la lista sean del mismo tipo:
 
   ```python
@@ -1539,6 +1538,30 @@ E -> suma [lhead = cluster0]
   >>> maximo([1, 'a', True, 2.5])  # Incorrecto si se comprueban los tipos
   ???                              # No se sabe cómo se comportará la función en este caso
   ```
+
+---
+
+- Una función genérica puede tener **más de un parámetro de tipo** en caso
+  necesario.
+
+- Por ejemplo:
+
+  ```python
+  def combinar_listas[T, U](lista1: list[T], lista2: list[U]) -> list[tuple[T, U]]:
+      """Combina dos listas en una lista de tuplas."""
+      return list(zip(lista1, lista2))
+  ```
+
+- Un ejemplo de uso:
+
+  ```python
+  >>> combinar_listas([1, 2, 3], ['a', 'b', 'c'])
+  [(1, 'a'), (2, 'b'), (3, 'c')]
+  ```
+
+  Aquí, mandamos a la función una lista de tipo !PYTHON(list[int]) y otra de
+  tipo !PYTHON(list[str]), y la función produce como resultado una lista de
+  tipo !PYTHON(list[tuple[int, str]]).
 
 # Calidad
 

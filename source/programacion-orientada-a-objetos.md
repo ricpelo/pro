@@ -291,6 +291,41 @@ def deposito(fondos):
 
 ---
 
+- Podemos usar _docstrings_ para documentar tanto la propia clase como los
+  métodos de la misma:
+
+  ```python
+  class Deposito:
+      """
+      Un depósito del banco.
+      """
+
+      def __init__(self, fondos):
+          """Crea un depósito con una cantidad de fondos."""
+          self.fondos = fondos
+
+      def retirar(self, cantidad):
+          """Retira una cantidad de dinero del depósito."""
+          if cantidad > self.fondos:
+              return 'Fondos insuficientes'
+          self.fondos -= cantidad
+          return self.fondos
+
+      def ingresar(self, cantidad):
+          """Ingresa una cantidad de dinero en el depósito."""
+          self.fondos += cantidad
+          return self.fondos
+
+      def saldo(self):
+          """Devuelve el saldo del depósito."""
+          return self.fondos
+  ```
+
+  - Por convenio, el _docstring_ de una clase siempre se escribe usando el
+    estilo _multilínea_, al igual que pasa con los módulos.
+
+---
+
 - La **definición de una clase** es una estructura sintáctica que crea un
   **espacio de nombres** y determina su propio **ámbito**.
 
@@ -4000,5 +4035,106 @@ m = Numero.mult_es(7, 8)
 :::
 
 ::::
+
+# Clases genéricas y métodos genéricos
+
+## Definición y uso
+
+- Al igual que existen _funciones genéricas_, también existen clases genéricas
+  y métodos genéricos.
+
+- Esquemáticamente, las **clases genéricas** tienen la siguiente forma:
+
+  ```python
+  class Pila[T]: ...
+  ```
+
+- Aquí, `T` es una **variable de tipo** que representa a un tipo cualquiera.
+
+- Al usar la sintaxis `[T]`, expresamos el hecho de que `T` representa un
+  **parámetro de tipo** para la clase, y sirve para expresar el hecho de que la
+  clase que estamos definiendo es genérica.
+
+- Las clases genéricas pueden contener _métodos genéricos_ y _métodos no
+  genéricos_.
+
+---
+
+
+- Los **métodos genéricos** son métodos en cuya definición aparecen, como
+  variables de tipo, algunos o todos los parámetros de tipo de la clase en la
+  que se está definiendo el método.
+
+  Esas variables de tipo no se escriben en la definición del método usando la
+  sintaxis `[T]`, ya que no son parámetros de tipo del método, sino de la
+  clase.
+
+- Los métodos genéricos pueden tener, además, sus propios parámetros de tipo
+  que sí aparecerían entre corchetes.
+
+- En definitiva, las clases genéricas y los métodos genéricos van de la mano y
+  se definen de forma coordinada.
+
+---
+
+- Un ejemplo de pila genérica podría ser la siguiente:
+
+  ```python
+  class Pila[T]:
+      """
+      Una pila de elementos de tipo T.
+      """
+    
+      def __init__(self) -> None:
+          self.__items: list[T] = []
+    
+      def apilar(self, item: T) -> None:
+          """Añade un elemento a la pila."""
+          self.__items.append(item)
+    
+      def desapilar(self) -> T | None:
+          """Saca y devuelve el último elemento de la pila."""
+          if self.esta_vacia():
+              return None
+          return self.__items.pop()
+    
+      def cima(self) -> T | None:
+          """Devuelve el elemento en la cima sin quitarlo."""
+          if self.esta_vacia():
+              return None
+          return self.__items[-1]
+    
+      def esta_vacia(self) -> bool:
+          """Indica si la pila está vacía."""
+          return len(self.__items) == 0
+  ```
+
+---
+
+- Ejemplo de uso:
+
+  ```python
+  # Pila de enteros
+  pila_enteros = Pila[int]()
+  pila_enteros.apilar(10)
+  pila_enteros.apilar(20)
+  print(pila_enteros.cima())      # 20
+  print(pila_enteros.desapilar()) # 20
+  print(pila_enteros.desapilar()) # 10
+  print(pila_enteros.desapilar()) # None
+
+  # Pila de cadenas
+  pila_cadenas = Pila[str]()
+  pila_cadenas.apilar("hola")
+  pila_cadenas.apilar("mundo")
+  print(pila_cadenas.cima())      # "mundo"
+  ```
+
+- Ventajas de hacer que la clase sea genérica:
+
+  - Puedes crear `Pila[int]`, `Pila[str]`, `Pila[float]`, etc.
+
+  - El verificador de tipos (`mypy`, `pyright`) sabrá qué tipo de dato se
+    espera en cada instancia y marcará errores si se intenta usar otro.
 
 !BIBLIOGRAFIA
