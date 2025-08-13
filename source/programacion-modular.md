@@ -254,8 +254,10 @@ nocite: |
 
   #. Módulos.
 
-- Cada ladrillo constructivo puede contener elementos del mismo nivel o
-  inferior, pero no de un nivel superior.
+  #. Paquetes.
+
+- Cada ladrillo constructivo puede contener, recursivamente, elementos del
+  mismo nivel o inferior, pero no de un nivel superior.
 
 - Estos bloques constructivos ayudan a organizar el programa por niveles de
   abstracción y complejidad, y nos permiten escribir programas cada vez más
