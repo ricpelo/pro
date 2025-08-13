@@ -2282,23 +2282,35 @@ cg [label = "(caso general)"]
 
 ---
 
-- El proceso conceptual detallado sería el siguiente:
+- En resumen, el proceso conceptual sería el siguiente:
 
-  1. Partimos de casos particulares que comparten un patrón que se repite:
+  1. Observar que hay varios casos particulares que se parecen.
 
-     ```python
-     3 * 3 * 3
-     5 * 5 * 5
-     ```
+  2. Generalizar esos casos particulares creando un patrón.
 
-     En este caso, el patrón es que hay «algo» que se multiplica por sí mismo
+  3. Parametrizar el patrón creando una abstracción lambda.
+
+  4. Abstraer el patrón dándole un nombre.
+
+- Veamos cada paso por separado con detalle.
+
+---
+
+1. Partimos de casos particulares que comparten un patrón que se repite:
+
+   ```python
+   3 * 3 * 3
+   5 * 5 * 5
+   ```
+
+   - En este caso, el patrón es que hay «algo» que se multiplica por sí mismo
      tres veces.
 
-     En todos los casos particulares de ese patrón repetido vemos que hay
+   - En todos los casos particulares de ese patrón repetido vemos que hay
      elementos que se son iguales y otros que son diferentes.
 
-     Por ejemplo, los !PYTHON(*) son iguales y lo que varía es el «objeto» que
-     se multiplica.
+   - Por ejemplo, los `*` son iguales, y lo que varía es el «objeto» que se
+      multiplica (el `3`, el `5`, etcétera).
 
 ---
 
@@ -2310,72 +2322,113 @@ cg [label = "(caso general)"]
    x * x * x
    ```
 
-   El valor de esta expresión actualmente depende del valor al que esté
-   ligado el identificador `x`, y decimos que ese identificador es _libre_.
-
-   Los **identificadores libres** son nombres que no se sabe de antemano a
-   qué valores van a estar ligados, ya que dependen del _contexto_, es decir,
-   de lo que hay fuera de la expresión cuando se va a evaluar. En todo caso,
-   un identificador libre estará ligado siempre a un mismo valor y, en ese
-   sentido, se pueden considerar constantes.
-
-   Se dice que una expresión con identificadores libres está _abierta_,
-   porque su valor depende de elementos externos a ella.
-
----
-
-3. Abstraemos dándole un nombre a toda la expresión, de forma que ahora
-   podríamos usar el nombre en lugar de la expresión:
-
-   ```python
-   cubo = x * x * x
-   ```
-
-   El valor de `cubo` sigue dependiendo del valor ligado a `x`, ya que esta `x`
-   es libre.
-
-   Por tanto, para deducir qué valor tendrá `cubo` tendremos que seguir
-   conociendo su interior: tenemos que saber que su valor se calcula a partir
-   del valor que tiene el identificador libre `x`.
-
-   Esto hace que `cubo` no sea una buena abstracción, ya que no funciona como
-   una _caja negra_. Esto se debe a que la expresión está _abierta_.
-
-   Cuando una parte de un programa está _abierta_ resulta más difícil de
-   programar y de razonar sobre ella, ya que su comportamiento depende del
-   resto del programa. Lo que nos interesa (siempre que sea posible) es que la
-   abstracción esté _cerrada_.
+   - El valor de esta expresión actualmente depende del valor al que esté ligado
+     el identificador `x`, y decimos que ese identificador es _libre_.
+   
+   - Los **identificadores libres** son nombres que no se sabe de antemano a qué
+     valores van a estar ligados, ya que dependen del _contexto_, es decir, de lo
+     que hay fuera de la expresión cuando se va a evaluar.
+   
+   - En todo caso, un identificador libre estará ligado siempre a un mismo valor
+     (de lo contrario, sería un _rebinding_, cosa que está prohibida) y, en ese
+     sentido, se pueden considerar constantes.
+   
+   - Se dice que una expresión con identificadores libres está _abierta_, porque
+     su valor depende de elementos externos a ella.
 
 ---
 
-4. Generalizamos aún más, _parametrizando_ los identificadores libres
-   utilizando el cuantificador !PYTHON(lambda), creando así una
-   **_abstracción lambda_**:
+- El valor de la expresión !PYTHON(x * x * x) sigue dependiendo del valor
+  ligado a `x`, ya que esta `x` es libre.
+
+- Por tanto, para deducir qué valor tendrá la expresión tendremos que seguir
+  conociendo su interior: tenemos que saber que su valor se calcula a partir
+  del valor que tiene el identificador libre `x`.
+
+- Esto hace que la expresión !PYTHON(x * x * x) no sea una buena abstracción,
+  ya que no funciona como una _caja negra_. Esto se debe, principalmente, a
+  que la expresión está _abierta_.
+
+- Cuando una parte de un programa está _abierta_ resulta más difícil de
+  programar y de razonar sobre ella, ya que su comportamiento depende del
+  resto del programa. Lo que nos interesa (siempre que sea posible) es que la
+  expresión esté _cerrada_.
+
+---
+
+3. Generalizamos aún más, _parametrizando_ los identificadores libres obtenidos
+   en el paso anterior (y sólo éstos) utilizando el cuantificador
+   !PYTHON(lambda), creando así una **_abstracción lambda_**:
 
    ```python
    cubo = lambda x: x * x * x
    ```
 
    Un **_cuantificador_** es un símbolo que _cierra_ expresiones convirtiendo
-   constantes en variables. En este caso, las constantes `3` o `5` (o cualquier
-   otra posible, como la `x` libre) se han convertido en un parámetro.
+   los elementos que son externos a la expresión (los identificadores libres)
+   en elementos propios de la expresión (_parámetros_).
 
    Los **parámetros** son nombres cuyo valor cambia dependiendo de los
    argumentos de la llamada. Por eso se pueden considerar _variables_ en el
    sentido matemático del término.
 
-   Ahora hemos _cerrado_ la expresión creando una función en la que los
-   identificadores libres ya no son libres sino _parámetros_ de la expresión
-   lambda, así que la expresión ya no depende de nada que haya en el exterior
-   de la misma.
+   Visto así, podemos interpretar que un cuantificador es un símbolo que
+   convierte constantes en variables.
 
-   Al invocarla con un argumento concreto, el parámetro toma el valor de ese
-   argumento y así se van obteniendo los casos particulares deseados:
+---
 
-     ```python
-     cubo(3) → 3 * 3 * 3
-     cubo(5) → 5 * 5 * 5
-     ```
+- Ahora hemos _cerrado_ la expresión creando una función en la que los
+  identificadores libres ya no son libres sino _parámetros_ de la expresión
+  lambda, así que la expresión ya no depende de nada que haya en el exterior de
+  la misma.
+
+- Al invocarla con un argumento concreto, el parámetro toma el valor de ese
+  argumento y así se van obteniendo los casos particulares deseados:
+
+  ```python
+  (lambda x: x * x * x)(3) → 3 * 3 * 3
+  (lambda x: x * x * x)(5) → 5 * 5 * 5
+  ```
+
+- La expresión lambda es una expresión cerrada que puede usarse simplemente
+  pasándole los argumentos necesarios en cada llamada, sin necesidad de
+  manipular directamente la expresión que forma su cuerpo y que es la que lleva
+  a cabo el procesamiento y el cálculo del resultado.
+
+- Por eso podemos decir que el cuerpo está _encapsulado_ dentro de la expresión
+  lambda, la cual forma una **caja negra** con una parte visible y manipulable
+  desde el exterior (sus parámetros) y otra parte que «vive» dentro de la
+  cápsula (su cuerpo).
+
+---
+
+4. Abstraemos dándole un nombre a toda la expresión, de forma que ahora podemos
+   usar su nombre en lugar de la expresión lambda:
+
+   ```python
+   cubo = lambda x: x * x * x
+   ```
+
+   - Por tanto, de ahora en adelante podemos llamar a la función usando su
+     nombre:
+
+      ```python
+      cubo(3) → 3 * 3 * 3
+      cubo(5) → 5 * 5 * 5
+      ```
+
+   - La función `cubo` así creada **es una abstracción** porque:
+
+     - Para usarla sólo basta con saber su nombre y _qué_ hace.
+
+     - No es necesario saber _cómo_ lo hace.
+
+     - Es una caja negra que expone el _qué_ y oculta el _cómo_.
+
+   - Además, una expresión lambda sin nombre es como una función de «usar y
+     tirar» que vive y muere en la misma expresión donde se la utiliza. En
+     cambio, cuando le damos un nombre, ya puede reutilizarse en muchas
+     expresiones.
 
 ---
 
@@ -2392,9 +2445,10 @@ cg [label = "(caso general)"]
   programa y cómo se implementa esa parte.
 
 - Una función, además, **encapsula** porque crea una _cápsula_ alrededor de
-  ella que sólo deja pasar fuera lo necesario para poder usar la función, y
-  oculta dentro todo lo demás, es decir, lo que no es necesario conocer ni
-  manipular para usarla.
+  ella que sólo deja visible al exterior parte de su contenido; en particular,
+  la cápsula de una función sólo deja pasar fuera lo necesario para poder usar
+  la función, y oculta dentro todo lo demás, es decir, lo que no es necesario
+  conocer ni manipular para usarla.
 
 - La abstracción es esencial en la construcción de programas. Pone el énfasis
   en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
