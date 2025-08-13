@@ -2396,9 +2396,9 @@ cg [label = "(caso general)"]
   a cabo el procesamiento y el cálculo del resultado.
 
 - Por eso podemos decir que el cuerpo está _encapsulado_ dentro de la expresión
-  lambda, la cual forma una **caja negra** con una parte visible y manipulable
-  desde el exterior (sus parámetros) y otra parte que «vive» dentro de la
-  cápsula (su cuerpo).
+  lambda, la cual forma una **caja negra** con una parte expuesta, visible y
+  manipulable desde el exterior (sus parámetros) y otra parte oculta dentro de
+  la cápsula (su cuerpo).
 
 ---
 
@@ -2470,6 +2470,40 @@ cg [label = "(caso general)"]
   énfasis en las similitudes entre elementos. Por lo tanto, ayuda a gestionar
   la complejidad al agrupar individuos y proporcionar un representante que
   puede utilizarse para especificar cualquier individuo del grupo.
+
+#### Resumen {.unnumbered .unlisted}
+
+- **Encapsulación**: Es agrupar varios elementos juntos formando una sola
+  unidad, ocultando algunos y exponiendo otros.
+
+- **Caja negra**: Es el resultado de la encapsulación. La «tapa» de la caja
+  negra es la _cápsula_ que separa lo que se expone de lo que se oculta al
+  exterior. En ese sentido, la tapa deja ver alguna cosas y otras no.
+
+- **Abstracción**: Conceptualmente, es el proceso de simplificar algo
+  resaltando solo sus características esenciales y ocultando los detalles
+  irrelevantes para el contexto en que se usa.
+
+  En la práctica, también es el producto resultante de ese proceso. En tal
+  caso, una abstracción consiste en darle un nombre a una caja negra, pero no
+  cualquier caja negra, sino una donde lo que se expone es la información
+  necesaria para saber _qué_ hace la abstracción, y lo que se oculta son los
+  detalles necesarios para saber _cómo_ lo hace.
+
+  En la abstracción, por tanto, la cápsula separa el qué del cómo.
+
+---
+
+- **Generalización**: Es el proceso de identificar un patrón común entre varios
+  casos particulares y crear un modelo más general que los abarque a todos.
+
+- **Parametrización**: Es el proceso de definir un elemento que representa un
+  caso general utilizando _parámetros_ que permiten obtener los casos
+  particulares del caso general sin tener que reescribirlo, ligando valores
+  concretos a los parámetros.
+
+- **Parámetro**: Es una parte que cambia en cada caso particular de un patrón
+  común.
 
 ## Pureza
 
