@@ -30,7 +30,7 @@ nocite: |
 
 ---
 
-- La **abstracción** y la **composición** son dos conceptos relacionados:
+- La **composición** y la **abstracción** son dos conceptos relacionados:
 
   - _Componer_ consiste en combinar elementos entre sí para formar otros más
     complejos.
@@ -39,12 +39,14 @@ nocite: |
     nombre y ocultar sus detalles internos (es decir, los elementos que lo
     componen) dentro de una caja negra.
 
-- Lo interesante es que la combinación y la abstracción son dos mecanismos
+- Lo interesante es que la composición y la abstracción son dos mecanismos
   _recursivos_:
 
-  - Podemos crear elementos complejos a partir de otros elementos complejos.
+  - Podemos aplicar la composición para crear nuevos elementos complejos a
+    partir de otros elementos complejos.
 
-  - Podemos crear abstracciones a partir de otras abstracciones.
+  - Podemos aplicar la abstracción para crear nuevas abstracciones a partir de
+    otras abstracciones.
 
 - Además, por supuesto, podemos crear abstracciones a partir de composiciones y
   composiciones a partir de abstracciones.
