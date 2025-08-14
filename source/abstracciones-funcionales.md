@@ -1321,9 +1321,11 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   #. Se almacenarán en otro espacio de nombres distinto al marco que se crea al
      llamar a la expresión lambda.
 
-# Funciones recursivas
+# Recursividad
 
-## Definición
+## Funciones recursivas
+
+### Definición
 
 - Una **función recursiva** es aquella que se define en términos de sí misma.
 
@@ -1369,7 +1371,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 @. Desde el principio del curso ya hemos estado trabajando con estructuras que
 pueden tener una definición recursiva. ¿Cuáles son?
 
-## Casos base y casos recursivos
+### Casos base y casos recursivos
 
 - Resulta importante que una definición recursiva se detenga alguna vez y
   proporcione un resultado, ya que si no, no sería útil (tendríamos lo que se
@@ -1394,7 +1396,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
 - Los demás casos, que sí provocan llamadas recursivas, se denominan **casos
   recursivos**.
 
-## El factorial
+### El factorial
 
 - El ejemplo más típico de función recursiva es el **factorial**.
 
@@ -1449,7 +1451,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
   que sería prácticamente una traducción literal de la definición recursiva de
   factorial que acabamos de obtener.
 
-## Diseño de funciones recursivas
+### Diseño de funciones recursivas
 
 - El diseño de funciones recursivas se basa en:
 
@@ -1459,7 +1461,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
 
   #. Pensamiento optimista
 
-### Identificación de casos base
+#### Identificación de casos base
 
 - Debemos identificar los ejemplares para los cuales hay una solución directa
   que no necesita recursividad.
@@ -1480,7 +1482,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
   - Por tanto, el caso base del factorial es el cálculo del factorial de 0:
     $$fact(0) = 1$$
 
-### Descomposición (reducción) del problema
+#### Descomposición (reducción) del problema
 
 - Reducimos el problema de forma que así tendremos un ejemplar _más pequeño_
   del problema.
@@ -1514,7 +1516,7 @@ pueden tener una definición recursiva. ¿Cuáles son?
     del 0. Así, cada vez estaremos más cerca del caso base y, al final, siempre
     lo acabaremos alcanzando.
 
-### Pensamiento optimista
+#### Pensamiento optimista
 
 - Consiste en suponer que la función deseada ya existe y que, aunque no sabe
   resolver el ejemplar original del problema, sí que es capaz de resolver
@@ -1599,7 +1601,7 @@ $$fact(n) = \begin{cases}
          n\cdot fact(n-1) & \text{si } n > 0 \text{\quad(caso recursivo)}
        \end{cases}$$
 
-## Recursividad lineal
+### Recursividad lineal
 
 - Una función tiene **recursividad lineal** si cada llamada a la función
   recursiva genera, como mucho, otra llamada recursiva a la misma función.
@@ -1613,7 +1615,7 @@ $$fact(n) = \begin{cases}
 
 $$fact(n) = n\cdot fact(n-1)\quad \text{si } n > 0\quad \text{(caso recursivo)}$$
 
-### Procesos recursivos lineales
+#### Procesos recursivos lineales
 
 - La forma más directa y sencilla de definir una función que calcule el
   factorial de un número a partir de su definición recursiva podría ser la
@@ -1667,7 +1669,7 @@ $$fact(n) = n\cdot fact(n-1)\quad \text{si } n > 0\quad \text{(caso recursivo)}$
 
   A este tipo de procesos lo llamaremos **proceso recursivo _lineal_**.
 
-### Procesos iterativos lineales
+#### Procesos iterativos lineales
 
 - A continuación adoptaremos un enfoque diferente.
 
@@ -1809,7 +1811,7 @@ Iterativo lineal          Linealmente \
   exactamente los mismos valores), lo hacen de una forma muy diferente,
   generando incluso procesos de distinto tipo.
 
-## Recursividad múltiple
+### Recursividad múltiple
 
 - Una función tiene **recursividad múltiple** cuando, durante la misma
   activación o llamada a la función, se puede generar más de una llamada
@@ -1971,7 +1973,7 @@ fib1_5 -> u5
 - Esta función genera un proceso iterativo lineal, por lo que es mucho más
   eficiente.
 
-## Recursividad final y no final
+### Recursividad final y no final
 
 - Lo que diferencia al !PYTHON(fact_iter) que genera un proceso iterativo del
   !PYTHON(factorial) que genera un proceso recursivo, es el hecho de que
@@ -2047,6 +2049,283 @@ fib1_5 -> u5
 
 - Por tanto, en estos dos lenguajes, las funciones recursivas finales consumen
   tanta memoria como las no finales.
+
+## Tipos de datos recursivos
+
+### Concepto
+
+- Un **tipo de dato recursivo** es aquel que puede definirse en términos de sí
+  mismo.
+
+- Un **dato recursivo** es un dato que pertenece a un tipo recursivo. Por
+  tanto, es un dato que se construye sobre otros datos del mismo tipo.
+
+- Como toda estructura recursiva, un tipo de dato recursivo tiene casos base y
+  casos recursivos:
+
+  - En los casos base, el tipo recursivo se define directamente, sin referirse
+    a sí mismo.
+
+  - En los casos recursivos, el tipo recursivo se define sobre sí mismo.
+
+- La forma más natural de manipular un dato recursivo es usando funciones
+  recursivas.
+
+### Cadenas
+
+- Las **cadenas** se pueden considerar **tipos de datos recursivos**, ya
+  que podemos decir que toda cadena !PYTHON(c):
+
+  - o bien es la cadena vacía !PYTHON{''} (_caso base_),
+  
+  - o bien está formada por dos partes:
+
+    - El **primer carácter** de la cadena, al que se accede mediante
+      !PYTHON(c[0]) (y que es en Python es una cadena de longitud 1).
+
+    - El **resto** de la cadena (al que se accede mediante !PYTHON(c[1:])), que
+      también es una cadena (*caso recursivo*).
+
+    En tal caso, se cumple que !PYTHON(c == c[0] + c[1:]).
+
+- Eso significa que podemos acceder al segundo carácter de la cadena
+  (suponiendo que exista) mediante !PYTHON(c[1:][0]).
+
+  ```python
+  cadena = 'hola'
+  cadena[0]       # devuelve 'h'
+  cadena[1:]      # devuelve 'ola'
+  cadena[1:][0]   # devuelve 'o'
+  ```
+
+### Tuplas
+
+- Las **tuplas** (datos de tipo !PYTHON(tuple)) son una generalización de las
+  cadenas.
+
+- Una tupla es una **secuencia de elementos** que no tienen por qué ser
+  caracteres, sino que cada uno de ellos pueden ser **de cualquier tipo**
+  (números, cadenas, booleanos, ..., incluso otras tuplas).
+
+- Los literales de tipo tupla se representan enumerando sus elementos separados
+  por comas y encerrados entre paréntesis.
+
+- Por ejemplo:
+
+  ```python
+  tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
+  ```
+
+- Si sólo tiene un elemento, hay que poner una coma detrás:
+    
+  ```python
+  tupla = (35,)
+  ```
+
+---
+
+- Las tuplas también pueden verse como un **tipo de datos recursivo**, ya que
+  toda tupla !PYTHON(t):
+
+  - o bien es la tupla vacía, representada mediante !PYTHON{()} (_caso base_),
+
+  - o bien está formada por dos partes:
+
+    - El **primer elemento** de la tupla (al que se accede mediante
+      !PYTHON(t[0])), que hemos visto que puede ser de cualquier tipo.
+
+    - El **resto** de la tupla (al que se accede mediante !PYTHON(t[1:])), que
+      también es una tupla (*caso recursivo*).
+
+- Según el ejemplo anterior:
+
+  ```python
+  >>> tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
+  >>> tupla[0]
+  27
+  >>> tupla[1:]
+  ('hola', True, 73.4, ('a', 'b', 'c'), 99)
+  >>> tupla[1:][0]
+  'hola'
+  ```
+
+---
+
+- Junto a las operaciones !PYTHON(t[0]) (primer elemento de la tupla) y
+  !PYTHON(t[1:]) (resto de la tupla), tenemos también la operación `+`
+  (**concatenación**), al igual que ocurre con las cadenas.
+
+- Con la concatenación se pueden crear nuevas tuplas a partir de otras tuplas.
+
+- Por ejemplo:
+
+  ```python
+  >>> (1, 2, 3) + (4, 5, 6)
+  (1, 2, 3, 4, 5, 6)
+  ```
+
+- Eso significa que, si !PYTHON(t) es una tupla no vacía, se cumple que !SALTO
+  !PYTHON(t == (t[0],) + t[1:]).
+
+  Esta propiedad es similar (aunque no exactamente igual) a la que se cumple en
+  las cadenas no vacías.
+
+### Rangos
+
+- Los rangos (datos de tipo !PYTHON(range)) son valores que representan
+  **sencuencias de números enteros**.
+
+- Los rangos se crean con la función !PYTHON(range), cuya signatura es:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $\texttt{range(!VAR([)!VAR(start):\,int,!VAR(])\;!VAR(stop):\,int\;!VAR([),\;!VAR(step):\,int!VAR(]))\;->\;range}$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Cuando se omite _start_, se entiende que es !PYTHON(0).
+
+- Cuando se omite _step_, se entiende que es !PYTHON(1).
+
+- El valor de _stop_ no se alcanza nunca.
+
+- Cuando _start_ y _stop_ son iguales, representa el *rango vacío*.
+
+- _step_ debe ser siempre distinto de cero.
+
+- Cuando _start_ es mayor que _stop_, el valor de _step_ debería ser negativo.
+  En caso contrario, también representaría el rango vacío.
+
+!EJEMPLOS
+
+- !PYTHON(range(10)) representa la secuencia $0, 1, 2, \ldots, 9$.
+
+- !PYTHON(range(3, 10)) representa la secuencia $3, 4, 5, \ldots, 9$.
+
+- !PYTHON(range(0, 10, 2)) representa la secuencia $0, 2, 4, 6, 8$.
+
+- !PYTHON(range(4, 0, -1)) representa la secuencia $4, 3, 2, 1$.
+
+- !PYTHON(range(3, 3)) representa el rango vacío.
+
+- !PYTHON(range(4, 3)) también representa el rango vacío.
+
+---
+
+- La **forma normal** de un rango es una expresión en la que se llama a la
+  función !PYTHON(range) con los argumentos necesarios para construir el rango:
+
+:::: columns
+
+::: column
+
+```python
+>>> range(2, 3)
+range(2, 3)
+>>> range(4)
+range(0, 4)
+```
+
+:::
+
+::: column
+
+```python
+>>> range(2, 5, 1)
+range(2, 5)
+>>> range(2, 5, 2)
+range(2, 5, 2)
+```
+
+:::
+
+::::
+
+- El **rango vacío** es un valor que no tiene expresión canónica, ya que
+  cualquiera de las siguientes expresiones representan al rango vacío tan bien
+  como cualquier otra:
+
+  - !PYTHON(range(0)).
+
+  - !PYTHON(range)`(`$a$`, `$\;a$`)`, donde _a_ es cualquier entero.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \geq b$ y $c > 0$.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \leq b$ y $c < 0$.
+
+```python
+>>> range(3, 3) == range(4, 4)
+True
+>>> range(4, 3) == range(3, 4, -1)
+True
+```
+
+---
+
+- Los rangos también pueden verse como un **tipo de datos recursivo**, ya que
+  todo rango !PYTHON(r):
+
+  - o bien es el rango vacío (*caso base*),
+
+  - o bien está formado por dos partes:
+
+    - El **primer elemento** del rango (al que se accede mediante
+      !PYTHON(r[0])), que hemos visto que tiene que ser un número entero.
+
+    - El **resto** del rango (al que se accede mediante !PYTHON(r[1:])), que
+      también es un rango (*caso recursivo*).
+
+- Según el ejemplo anterior:
+
+  ```python
+  >>> rango = range(4, 7)
+  >>> rango[0]
+  4
+  >>> rango[1:]
+  range(5, 7)
+  >>> rango[1:][0]
+  5
+  ```
+
+### Conversión a tupla
+
+- Las cadenas y los rangos se pueden convertir fácilmente a tuplas usando la
+  función !PYTHON(tuple):
+
+:::: columns
+
+::: {.column width=40%}
+
+```python
+>>> tuple('hola')
+('h', 'o', 'l', 'a')
+>>> tuple('')
+()
+```
+
+:::
+
+::: {.column width=60%}
+
+```python
+>>> tuple(range(10))
+(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+>>> tuple(range(1, 11))
+(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+>>> tuple(range(0, 30, 5))
+(0, 5, 10, 15, 20, 25)
+>>> tuple(range(0, 10, 3))
+(0, 3, 6, 9)
+>>> tuple(range(0, -10, -1))
+(0, -1, -2, -3, -4, -5, -6, -7, -8, -9)
+>>> tuple(range(0))
+()
+>>> tuple(range(1, 0))
+()
+```
+
+:::
+
+::::
 
 # Abstracciones funcionales
 
