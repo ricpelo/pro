@@ -1321,6 +1321,828 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   #. Se almacenarán en otro espacio de nombres distinto al marco que se crea al
      llamar a la expresión lambda.
 
+# Abstracciones funcionales
+
+## Las funciones como abstracciones y generalizaciones
+
+- Recordemos la definición de la función !PYTHON(area):
+
+  ```python
+  cuadrado = lambda x: x * x
+  area = lambda r: 3.1416 * cuadrado(r)
+  ```
+
+- Aunque es muy sencilla, la función !PYTHON(area) ejemplifica la propiedad más
+  potente de las funciones definidas por el programador: la **abstracción**.
+
+- La función !PYTHON(area) está definida sobre la función !PYTHON(cuadrado),
+  pero sólo necesita saber de ella qué resultados de salida devuelve a partir
+  de sus argumentos de entrada (o sea, **_qué_** calcula y no **_cómo_** lo
+  calcula).
+
+- Podemos escribir la función !PYTHON(area) sin preocuparnos de cómo calcular
+  el cuadrado de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
+
+- **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
+  la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en este
+  momento** al diseñar !PYTHON(area), para considerarlos más tarde si hiciera
+  falta.
+
+---
+
+- De hecho, por lo que respecta a !PYTHON(area), !PYTHON(cuadrado) no
+  representa una definición concreta de función, sino más bien la abstracción
+  de una función, lo que se denomina una **abstracción funcional**, ya que a
+  !PYTHON(area) le sirve igual de bien cualquier función que calcule el
+  cuadrado de un número.
+
+- Por tanto, si consideramos únicamente los valores que devuelven, las tres
+  funciones siguientes son indistinguibles e igual de válidas para
+  !PYTHON(area). Ambas reciben un argumento numérico y devuelven el cuadrado de
+  ese número:
+
+  ```python
+  cuadrado = lambda x: x * x
+  cuadrado = lambda x: x ** 2
+  cuadrado = lambda x: x * (x - 1) + x
+  ```
+
+- En otras palabras: la definición de una función debe ser capaz de **ocultar
+  sus detalles internos de funcionamiento**, ya que para usar la función no
+  debe ser necesario conocer esos detalles.
+
+---
+
+- **Encapsular** es el acto de encerrar algo dentro una _cápsula_, de forma que
+  parte de lo que hay dentro queda visible y accesible desde el exterior,
+  mientras que el resto queda oculto e inaccesible en el interior.
+
+  El resultado de la encapsulación se denomina una «**_caja negra_**».
+
+- **Abstraer** es centrarse en lo importante en un determinado momento e
+  ignorar lo que en ese momento no resulta importante.
+
+- **Crear una abstracción** es meter un mecanismo más o menos complejo dentro
+  de una caja negra y darle un nombre, de forma que podamos referirnos a todo
+  el conjunto simplemente usando su nombre sin tener que conocer su composición
+  interna ni sus detalles internos de funcionamiento.
+
+- Es importante entender que no todas las cajas negras son abstracciones. Una
+  caja negra sólo es una abstracción cuando la encapsulación se hace de forma
+  que deja visible sólo lo necesario para usar la abstracción y oculta lo demás
+  (es decir, lo que no es necesario).
+
+---
+
+- Por tanto, para usar la abstracción nos bastará con conocer su _nombre_ y
+  saber _qué hace_, sin necesidad de saber _cómo lo hace_ ni qué elementos la
+  forman _internamente_.
+
+- En consecuencia, las abstracciones están _encapsuladas_, pero no de cualquier
+  manera, sino de forma que:
+
+  - lo que queda visible desde el exterior de la cápsula es _qué hace la
+    abstracción_, y
+
+  - lo que se oculta en el interior es _cómo lo hace_.
+
+- **La abstracción es el principal instrumento de control de la complejidad**,
+  ya que nos permite ocultar detrás de un nombre los detalles que componen una
+  parte del programa, haciendo que esa parte actúe (a ojos del programador que
+  la utilice) como si fuera un elemento _predefinido_ del lenguaje, de forma
+  que el programador lo puede usar sin tener que saber cómo funciona por
+  dentro.
+
+---
+
+- Por tanto, **las funciones son abstracciones** porque nos permiten usarlas
+  sin tener que conocer los detalles internos del procesamiento que realizan.
+
+- Por ejemplo, si queremos usar la función !PYTHON{cubo} (que calcula el cubo
+  de un número), nos da igual que dicha función esté implementada de cualquiera
+  de las siguientes maneras:
+
+  ```python
+  cubo = lambda x: x * x * x
+  cubo = lambda x: x ** 3
+  cubo = lambda x: x * x ** 2
+  ```
+
+- Para **usar** la función, nos basta con saber que calcula el cubo de un
+  número, sin necesidad de saber qué cálculo concreto realiza para obtener el
+  resultado.
+
+- Los detalles de implementación quedan ocultos y por eso también decimos que
+  !PYTHON(cubo) es una abstracción.
+
+---
+
+- Las funciones también son abstracciones porque describen operaciones
+  compuestas a realizar sobre ciertos valores sin importar cuáles sean esos
+  valores en concreto (son **_generalizaciones_** de casos particulares).
+
+- Por ejemplo, cuando definimos:
+
+  ```python
+  cubo = lambda x: x * x * x
+  ```
+
+  no estamos hablando del cubo de un número en particular, sino más bien de un
+  **método** para calcular el cubo de cualquier número.
+
+  Es decir: **estamos definiendo en qué consiste _elevar «algo» al cubo_, en
+  general**.
+
+- Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
+  escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
+  !PYTHON(5*5*5), etc.) sin usar la palabra «`cubo`», pero eso nos obligaría
+  siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje
+  (como `*`), en vez de poder usar términos de más alto nivel.
+
+  Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
+  tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
+
+---
+
+- Una de las habilidades que deberíamos pedir a un lenguaje potente es la
+  posibilidad de **construir abstracciones** asignando nombres a los patrones
+  más comunes, y luego trabajar directamente usando dichas abstracciones.
+
+- Las funciones nos permiten esta habilidad, y esa es la razón de que todos los
+  lenguajes (salvo los más primitivos) incluyan mecanismos para definir
+  funciones.
+
+- Por ejemplo: en el caso anterior, vemos que hay un patrón (multiplicar algo
+  por sí mismo tres veces) que se repite con frecuencia, y a partir de él
+  construimos una abstracción que asigna un nombre a ese patrón (*elevar al
+  cubo*).
+
+- Esa abstracción la definimos como una función que describe la *regla*
+  necesaria para elevar algo al cubo.
+
+---
+
+- Por tanto, algunas veces, analizando ciertos _casos particulares_, observamos
+  que se repite el mismo patrón en todos ellos, y de ahí extraemos un _caso
+  general_ (es decir, hacemos una **generalización**) que agrupa a todos los
+  posibles casos particulares que cumplen ese patrón.
+
+- Luego, hacemos una **encapsulación**, metiendo ese caso general en una «_caja
+  negra_» que oculte sus detalles internos, y finalmente le damos un nombre a
+  la «caja», con lo que acabamos creando una **abstracción**.
+
+- En resumen, creamos abstracciones:
+
+  - Cuando queremos **reducir la complejidad**, dándole un nombre a un
+    mecanismo complejo para poder referirnos a todo el conjunto a través de su
+    nombre sin tener que recordar continuamente qué piezas contiene el
+    mecanismo o cómo funciona éste por dentro.
+
+  - Cuando queremos que nuestro programa pueda **expresar un concepto
+    abstracto**, como el de «elevar al cubo».
+
+  - Cuando creamos **casos generales a partir de patrones que se repiten** en
+    varios casos particulares.
+
+---
+
+- Por ejemplo, cuando vemos que en nuestros programas es frecuente tener que
+  multiplicar una cosa por sí misma tres veces, deducimos que ahí hay un patrón
+  común que se repite en todos los casos.
+
+- De ahí, creamos la abstracción que describe ese patrón general y le llamamos
+  «_elevar al cubo_»:
+
+!DOT(de-particular-a-general.svg)()(width=80%)(width=90%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+node [shape = plaintext, fillcolor = transparent]
+rankdir = BT
+c [label = "«elevar al cubo»"]
+3 [label = "3 * 3 * 3", fontname = "monospace"]
+y [label = "5 * 5 * 5", fontname = "monospace"]
+radio [label = "radio * radio * radio", fontname = "monospace"]
+3 -> c [minlen = 2]
+y -> c [minlen = 2]
+radio -> c [minlen = 2]
+cp [label = "(casos particulares)"]
+cg [label = "(caso general)"]
+{ rank = same; cg; c }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Ese patrón general representa a cada miembro del grupo formado por sus casos
+  particulares, y se construye colocando un _parámetro_ allí donde los casos
+  particulares se diferencian entre sí (es decir, hacemos una
+  **parametrización**).
+
+- La función resultante es, al mismo tiempo:
+
+  - una **encapsulación** (porque los detalles internos de la función quedan
+    ocultos dentro del cuerpo de la expresión lambda como si fuera una caja
+    negra),
+
+  - una **abstracción** (porque se puede invocar a la función usando
+    simplemente su nombre sin necesidad de saber cómo está hecha por dentro y,
+    por tanto, sabiendo _qué_ sin tener que saber _cómo_ lo hace), y
+
+  - una **generalización** (porque, al estar parametrizada, representa muchos
+    casos particulares con un único caso general).
+
+- Al invocar a la función, se ligan sus parámetros con los argumentos de la
+  llamada, lo que produce un caso particular a partir del caso general.
+
+---
+
+- En resumen, el proceso conceptual sería el siguiente:
+
+  1. Observar que hay varios casos particulares que se parecen.
+
+  2. Generalizar esos casos particulares creando un patrón.
+
+  3. Parametrizar el patrón creando una abstracción lambda.
+
+  4. Abstraer el patrón dándole un nombre.
+
+- Veamos cada paso por separado con detalle.
+
+---
+
+1. Partimos de casos particulares que comparten un patrón que se repite:
+
+   ```python
+   3 * 3 * 3
+   5 * 5 * 5
+   ```
+
+   - En este caso, el patrón es que hay «algo» que se multiplica por sí mismo
+     tres veces.
+
+   - En todos los casos particulares de ese patrón repetido vemos que hay
+     elementos que se son iguales y otros que son diferentes.
+
+   - Por ejemplo, los `*` son iguales, y lo que varía es el «objeto» que se
+      multiplica (el `3`, el `5`, etcétera).
+
+---
+
+2. Generalizamos estos casos particulares, convirtiendo en identificadores
+   libres aquellas partes en las que los casos particulares se diferencian,
+   es decir, las partes que no son comunes:
+
+   ```python
+   x * x * x
+   ```
+
+   - El valor de esta expresión actualmente depende del valor al que esté ligado
+     el identificador `x`, y decimos que ese identificador es _libre_.
+   
+   - Los **identificadores libres** son nombres que no se sabe de antemano a qué
+     valores van a estar ligados, ya que dependen del _contexto_, es decir, de lo
+     que hay fuera de la expresión cuando se va a evaluar.
+   
+   - En todo caso, un identificador libre estará ligado siempre a un mismo valor
+     (de lo contrario, sería un _rebinding_, cosa que está prohibida) y, en ese
+     sentido, se pueden considerar constantes.
+   
+   - Se dice que una expresión con identificadores libres está _abierta_, porque
+     su valor depende de elementos externos a ella.
+
+---
+
+- El valor de la expresión !PYTHON(x * x * x) sigue dependiendo del valor
+  ligado a `x`, ya que esta `x` es libre.
+
+- Por tanto, para deducir qué valor tendrá la expresión tendremos que seguir
+  conociendo su interior: tenemos que saber que su valor se calcula a partir
+  del valor que tiene el identificador libre `x`.
+
+- Esto hace que la expresión !PYTHON(x * x * x) no sea una buena abstracción,
+  ya que no funciona como una _caja negra_. Esto se debe, principalmente, a
+  que la expresión está _abierta_.
+
+- Cuando una parte de un programa está _abierta_ resulta más difícil de
+  programar y de razonar sobre ella, ya que su comportamiento depende del
+  resto del programa. Lo que nos interesa (siempre que sea posible) es que la
+  expresión esté _cerrada_.
+
+---
+
+3. Generalizamos aún más, _parametrizando_ los identificadores libres obtenidos
+   en el paso anterior (y sólo éstos) utilizando el cuantificador
+   !PYTHON(lambda), creando así una **_abstracción lambda_**:
+
+   ```python
+   cubo = lambda x: x * x * x
+   ```
+
+   Un **_cuantificador_** es un símbolo que _cierra_ expresiones convirtiendo
+   los elementos que son externos a la expresión (los identificadores libres)
+   en elementos propios de la expresión (_parámetros_).
+
+   Los **parámetros** son nombres cuyo valor cambia dependiendo de los
+   argumentos de la llamada. Por eso se pueden considerar _variables_ en el
+   sentido matemático del término.
+
+   Visto así, podemos interpretar que un cuantificador es un símbolo que
+   convierte constantes en variables.
+
+---
+
+- Ahora hemos _cerrado_ la expresión creando una función en la que los
+  identificadores libres ya no son libres sino _parámetros_ de la expresión
+  lambda, así que la expresión ya no depende de nada que haya en el exterior de
+  la misma.
+
+- Al invocarla con un argumento concreto, el parámetro toma el valor de ese
+  argumento y así se van obteniendo los casos particulares deseados:
+
+  ```python
+  (lambda x: x * x * x)(3) → 3 * 3 * 3
+  (lambda x: x * x * x)(5) → 5 * 5 * 5
+  ```
+
+- La expresión lambda es una expresión cerrada que puede usarse simplemente
+  pasándole los argumentos necesarios en cada llamada, sin necesidad de
+  manipular directamente la expresión que forma su cuerpo y que es la que lleva
+  a cabo el procesamiento y el cálculo del resultado.
+
+- Por eso podemos decir que el cuerpo está _encapsulado_ dentro de la expresión
+  lambda, la cual forma una **caja negra** con una parte expuesta, visible y
+  manipulable desde el exterior (sus parámetros) y otra parte oculta dentro de
+  la cápsula (su cuerpo).
+
+---
+
+4. Abstraemos dándole un nombre a toda la expresión, de forma que ahora podemos
+   usar su nombre en lugar de la expresión lambda:
+
+   ```python
+   cubo = lambda x: x * x * x
+   ```
+
+   - Por tanto, de ahora en adelante podemos llamar a la función usando su
+     nombre:
+
+      ```python
+      cubo(3) → 3 * 3 * 3
+      cubo(5) → 5 * 5 * 5
+      ```
+
+   - La función `cubo` así creada **es una abstracción** porque:
+
+     - Para usarla sólo basta con saber su nombre y _qué_ hace.
+
+     - No es necesario saber _cómo_ lo hace.
+
+     - Es una caja negra que expone el _qué_ y oculta el _cómo_.
+
+   - Además, una expresión lambda sin nombre es como una función de «usar y
+     tirar» que vive y muere en la misma expresión donde se la utiliza. En
+     cambio, cuando le damos un nombre, ya puede reutilizarse en muchas
+     expresiones.
+
+---
+
+- La importancia de la **abstracción** reside en su capacidad para ocultar
+  detalles irrelevantes y en el uso de nombres para referenciar objetos.
+
+- La principal preocupación del usuario de un programa (o de cada una de sus
+  partes) es _qué_ hace. Esto contrasta con la del programador de esa parte del
+  programa, cuya principal preocupación es _cómo_ lo hace.
+
+- Los lenguajes de programación proporcionan abstracción mediante funciones (y
+  otros elementos como procedimientos y módulos, que veremos posteriormente)
+  que permiten al programador distinguir entre lo que hace una parte del
+  programa y cómo se implementa esa parte.
+
+- Una función, además, **encapsula** porque crea una _cápsula_ alrededor de
+  ella que sólo deja visible al exterior parte de su contenido; en particular,
+  la cápsula de una función sólo deja pasar fuera lo necesario para poder usar
+  la función, y oculta dentro todo lo demás, es decir, lo que no es necesario
+  conocer ni manipular para usarla.
+
+- La abstracción es esencial en la construcción de programas. Pone el énfasis
+  en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
+  lo tanto, es el principal medio para gestionar la complejidad en programas
+  grandes.
+
+---
+
+- De igual importancia es la **generalización**.
+
+- Mientras que la abstracción reduce la complejidad al ocultar detalles
+  irrelevantes, la generalización la reduce al sustituir, con una sola
+  construcción, varios elementos que realizan una funcionalidad similar.
+
+- Los lenguajes de programación permiten la generalización mediante variables,
+  parametrización, genéricos y polimorfismo.
+
+- La generalización es esencial en la construcción de programas. Pone el
+  énfasis en las similitudes entre elementos. Por lo tanto, ayuda a gestionar
+  la complejidad al agrupar individuos y proporcionar un representante que
+  puede utilizarse para especificar cualquier individuo del grupo.
+
+#### Resumen {.unnumbered .unlisted}
+
+- **Encapsulación**: Es agrupar varios elementos juntos formando una sola
+  unidad, ocultando algunos y exponiendo otros.
+
+- **Caja negra**: Es el resultado de la encapsulación. La «tapa» de la caja
+  negra es la _cápsula_ que separa lo que se expone de lo que se oculta al
+  exterior. En ese sentido, la tapa deja ver alguna cosas y otras no.
+
+- **Abstracción**: Conceptualmente, es el proceso de simplificar algo
+  resaltando solo sus características esenciales y ocultando los detalles
+  irrelevantes para el contexto en que se usa.
+
+  En la práctica, también es el producto resultante de ese proceso. En tal
+  caso, una abstracción consiste en darle un nombre a una caja negra, pero no
+  cualquier caja negra, sino una donde lo que se expone es la información
+  necesaria para saber _qué_ hace la abstracción, y lo que se oculta son los
+  detalles necesarios para saber _cómo_ lo hace.
+
+  En la abstracción, por tanto, la cápsula separa el qué del cómo.
+
+---
+
+- **Generalización**: Es el proceso de identificar un patrón común entre varios
+  casos particulares y crear un modelo más general que los abarque a todos.
+
+- **Parametrización**: Es el proceso de definir un elemento que representa un
+  caso general utilizando _parámetros_ que permiten obtener los casos
+  particulares del caso general sin tener que reescribirlo, ligando valores
+  concretos a los parámetros.
+
+- **Parámetro**: Es una parte que cambia en cada caso particular de un patrón
+  común.
+
+## Pureza
+
+- Si una expresión lambda no contiene identificadores libres, el valor que
+  obtendremos al aplicarla a unos argumentos dependerá únicamente del valor que
+  tengan esos argumentos (no dependerá de nada que sea «_exterior_» a la
+  expresión lambda).
+
+- En cambio, si el cuerpo de una expresión lambda contiene identificadores
+  libres, el valor que obtendremos al aplicarla a unos argumentos no sólo
+  dependerá del valor de los argumentos, sino también de los valores a los que
+  estén ligados esos identificadores libres en el momento de evaluar la
+  aplicación de la expresión lambda.
+
+- Es el caso del siguiente ejemplo, donde tenemos una expresión lambda que
+  contiene un identificador libre (!PYTHON{z}) y, por tanto, cuando la
+  aplicamos a los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que
+  depende no sólo de los valores de !PYTHON(x) e !PYTHON(y) sino también del
+  valor de !PYTHON(z) en el entorno:
+
+  ```python
+  >>> prueba = lambda x, y: x + y + z
+  >>> z = 9
+  >>> prueba(4, 3)
+  16
+  ```
+
+---
+
+- En este otro ejemplo, tenemos una expresión lambda que calcula la suma de
+  tres números a partir de otra expresión lambda que calcula la suma de dos
+  números:
+
+  ```python
+  suma = lambda x, y: x + y
+  suma3 = lambda x, y, z: suma(x, y) + z
+  ```
+
+  En este caso, hay un identificador (!PYTHON(suma)) que no aparece en la lista
+  de parámetros de la expresión lambda ligada a !PYTHON(suma3).
+
+  En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
+  !PYTHON(suma) en el entorno actual.
+
+---
+
+- Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
+  unos argumentos, el valor obtenido va a depender únicamente del valor de esos
+  argumentos o, lo que es lo mismo, del valor de sus parámetros en la llamada.
+
+- Podemos decir que hay distintos **grados de pureza**:
+
+  - Una expresión lambda en cuyo cuerpo no hay ningún identificador libre es
+    **más pura** que otra que contiene identificadores libres.
+
+  - Una expresión lambda cuyos **identificadores libres** representan
+    **funciones** que se usan en el cuerpo de la expresión lambda, es **más
+    pura** que otra cuyos identificadores libres representan cualquier otro
+    tipo de valor.
+
+  En el ejemplo anterior, tenemos que la expresión lambda de !PYTHON(suma3),
+  sin ser *totalmente pura*, a efectos prácticos se la puede considerar
+  **pura**, ya que su único identificador libre (!PYTHON(suma)) se usa como una
+  **función**.
+
+---
+
+- Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a
+  menor pureza, siendo la primera totalmente **pura**:
+
+  ```python
+  # producto es una expresión lambda totalmente pura:
+  producto = lambda x, y: x * y
+  # cuadrado es casi pura; a efectos prácticos se la puede
+  # considerar pura ya que sus identificadores libres (en este
+  # caso, sólo una: producto) son funciones:
+  cuadrado = lambda x: producto(x, x)
+  # suma es impura, porque su identificador libre (z) no es una función:
+  suma = lambda x, y: x + y + z
+  ```
+
+- **La pureza de una función es un rasgo deseado y que hay que tratar de
+  alcanzar siempre que sea posible**, ya que facilita el desarrollo y
+  mantenimiento de los programas, además de simplificar el razonamiento sobre
+  los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
+
+- Es más incómodo trabajar con !PYTHON(suma) porque hay que *recordar* que
+  depende de un valor que está *fuera* de la expresión lambda, cosa que no
+  resulta evidente a no ser que mires en el cuerpo de la expresión lambda.
+
+## Especificaciones de funciones
+
+- La **especificación de una _función_** es la descripción de **qué** hace la
+  función sin entrar a detallar **cómo** lo hace.
+
+- La **implementación de una _función_** es la descripción de **cómo** hace lo
+  que hace, es decir, los detalles de su algoritmo interno.
+
+- **Para poder usar una función, un programador no debe necesitar saber cómo
+  está implementada**.
+
+- Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del
+  lenguaje (como !PYTHON(max), !PYTHON(abs) o !PYTHON(len)): sabemos *qué*
+  hacen pero no necesitamos saber *cómo* lo hacen.
+
+- Incluso puede que el usuario de una función no sea el mismo que la ha
+  escrito, sino que la puede haber recibido de otro programador como una
+  «**caja negra**», que tiene unas entradas y una salida pero no se sabe cómo
+  funciona por dentro.
+
+---
+
+- Para poder **usar una abstracción funcional** _nos basta_ con conocer su
+  _especificación_, porque es la descripción de qué hace esa función.
+
+- Igualmente, para poder **implementar una abstracción funcional**
+  _necesitamos_ conocer su _especificación_, ya que necesitamos saber _qué
+  tiene que hacer_ la función antes de diseñar _cómo va a hacerlo_.
+
+- La especificación de una abstracción funcional describe tres características
+  fundamentales de dicha función:
+
+  - El **dominio**: el conjunto de datos de entrada válidos.
+
+  - El **rango** o **codominio**: el conjunto de posibles valores que devuelve.
+
+  - El **propósito**: qué hace la función, es decir, la relación entre su
+    entrada y su salida.
+
+---
+
+- Hasta ahora, al especificar **programas**, hemos llamado «**entrada**» al
+  dominio, y hemos agrupado el rango y el propósito en una sola propiedad que
+  llamamos «**salida**».
+
+- Por ejemplo, cualquier función !PYTHON(cuadrado) que usemos para implementar
+  !PYTHON(area) debe satisfacer esta especificación:
+
+  $$\begin{cases}
+    \text{\textbf{Entrada}}: n \in \mathbb{R} \\
+    \texttt{cuadrado} \\
+    \text{\textbf{Salida}}: n^2
+  \end{cases}$$
+
+- La especificación **no concreta cómo** se debe llevar a cabo el propósito.
+  Esos son **detalles de implementación** que se abstraen a este nivel.
+
+- Este esquema es el que hemos usado hasta ahora para especificar programas, y
+  se podría seguir usando para especificar funciones, ya que éstas son
+  consideradas _subprogramas_ (programas que forman parte de otros programas
+  más grandes).
+
+---
+
+- Pero para especificar funciones resulta más adecuado usar el siguiente
+  esquema, al que llamaremos **especificación funcional**:
+
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(\texttt{True})
+  !SIGNAT(\texttt{cuadrado(!VAR(n):\,float)\;->\;float})
+  !POST(\texttt{cuadrado(!VAR(n))} = n^2)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- «**Pre**» representa la **precondición**: la propiedad que debe cumplirse
+  justo _en el momento_ de llamar a la función.
+
+- «**Post**» representa la **postcondición**: la propiedad que debe cumplirse
+  justo *después* de que la función haya terminado de ejecutarse.
+
+- Lo que hay en medio es la **signatura**: el nombre de la función, el nombre y
+  tipo de sus parámetros y el tipo del valor de retorno.
+
+- La especificación se lee así: «**_Si se llama a la función respetando su
+  signatura y cumpliendo su precondición, la llamada termina cumpliendo su
+  postcondición_**».
+
+---
+
+- En este caso, la **precondición** es !PYTHON(True), que equivale a decir que
+  cualquier condición de entrada es buena para usar la función.
+
+- Dicho de otra forma: no hace falta que se dé ninguna condición especial para
+  usar la función. Siempre que la llamada respete la signatura de la función,
+  el parámetro $n$ puede tomar cualquier valor de tipo !PYTHON(float) y no hay
+  ninguna restricción adicional.
+
+- Por otro lado, la **postcondición** dice que al llamar a la función
+  !PYTHON(cuadrado) con el argumento $n$ se debe devolver $n^2$.
+
+- Tanto la precondición como la postcondición son **predicados**, es decir,
+  expresiones lógicas que se escriben usando el lenguaje de las matemáticas y
+  la lógica.
+
+- La **signatura** se escribe usando la sintaxis del lenguaje de programación
+  que se vaya a usar para implementar la función (Python, en este caso).
+
+---
+
+- Recordemos la diferencia entre:
+
+  - **Dominio** y **conjunto origen** de una función.
+
+  - **Rango** (o **codominio**) y **conjunto imagen** de una función.
+
+- ¿Cómo recoge la especificación esas cuatro características de la función?
+
+  - La **signatura** expresa el **conjunto origen** y el **conjunto imagen** de
+    la función.
+
+  - El **dominio** viene determinado por los valores del conjunto origen que
+    cumplen la **precondición**.
+
+  - El **codominio** viene determinado por los valores del conjunto imagen que
+    cumplen la **postcondición**.
+
+---
+
+- En el caso de la función !PYTHON(cuadrado) tenemos que:
+
+  - El conjunto origen es !PYTHON(float), ya que su parámetro $n$ está
+    declarado de tipo !PYTHON(float) en la signatura de la función.
+
+    Por tanto, los datos de entrada a la función deberán pertenecer al tipo
+    !PYTHON(float).
+
+  - El dominio coincide con el conjunto origen, ya que su precondición es
+    !PYTHON(True). Eso quiere decir que cualquier dato de entrada es válido
+    siempre que pertenezca al dominio (en este caso, el tipo !PYTHON(float)).
+
+  - El conjunto imagen también es !PYTHON(float), ya que así está declarado el
+    tipo de retorno de la función.
+
+---
+
+- Las pre y postcondiciones no es necesario escribirlas de una manera **formal
+  y rigurosa**, usando el lenguaje de las Matemáticas o la Lógica.
+
+- Si la especificación se escribe en *lenguaje natural* y se entiende bien,
+  completamente y sin ambigüedades, no hay problema.
+
+- El motivo de usar un lenguaje formal es que, normalmente, resulta **mucho más
+  conciso y preciso que el lenguaje natural**.
+
+- El lenguaje natural suele ser:
+
+  - **Más prolijo**: necesita más palabras para decir lo mismo que diríamos
+    matemáticamente usando menos caracteres.
+
+  - **Más ambiguo**: lo que se dice en lenguaje natural se puede interpretar de
+    distintas formas.
+
+  - **Menos completo**: quedan flecos y situaciones especiales que no se tienen
+    en cuenta.
+
+---
+
+- En este otro ejemplo, más completo, se especifica una función llamada
+  !PYTHON(cuenta):
+
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(car !NEQ \text{\texttt{""}} \land \texttt{len(}car\texttt{)} = 1)
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
+  !POST
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    \texttt{cuenta(!VAR(cadena),\;!VAR(car))} \geq 0\ \land
+  & \texttt{cuenta(!VAR(cadena),\;!VAR(car))} = cadena\texttt{.count(!VAR(car))}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Con esta especificación, estamos diciendo que !PYTHON(cuenta) es una función
+  que recibe una cadena y un carácter (otra cadena con un único carácter
+  dentro).
+
+- Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera, sino que
+  tienen que cumplir la _precondición_.
+
+- Eso significa, entre otras cosas, que aquí **el _dominio_ y el _conjunto
+  origen_ de la función no coinciden** (no todos los valores pertenecientes al
+  conjunto origen sirven como datos de entrada válidos para la función).
+
+---
+
+- En esta especificación, !PYTHON(count) se usa como un **método auxiliar**.
+
+  Las _operaciones auxiliares_ se puede usar en una especificación siempre que
+  estén perfectamente especificadas, aunque no estén implementadas.
+
+- En este caso, se usa en la _postcondición_ para decir que la función
+  !PYTHON(cuenta), la que se está especificando, debe devolver el mismo
+  resultado que devuelve el método !PYTHON{count} (el cual ya conocemos
+  perfectamente y sabemos qué hace, puesto que es un método que ya existe en
+  Python).
+
+- Es decir: la especificación anterior describe con total precisión que la
+  función !PYTHON(cuenta) **cuenta el número de veces que el carácter
+  $\underline{\textbf{\textit{car}}}$ aparece en la cadena
+  $\underline{\textbf{\textit{cadena}}}$**.
+
+---
+
+- En realidad, las condiciones de la especificación anterior se podrían
+  simplificar aprovechando las propiedades de las expresiones lógicas, quedando
+  así:
+
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(\texttt{len(!VAR(car))} = 1)
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
+  !POST(\texttt{cuenta(!VAR(cadena),\;!VAR(car))} = cadena\texttt{.count(!VAR(car))})
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!EJERCICIO
+
+@. ¿Por qué?
+
+---
+
+- Finalmente, podríamos escribir la misma especificación en lenguaje natural:
+
+  !ESPEC
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PRE(car \text{ debe ser un único carácter})
+  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
+  !POST
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+    \texttt{cuenta(!VAR(cadena),\;!VAR(car))} \text{ devuelve el número de veces}
+  & \text{que aparece el carácter } car \text{ en la cadena } cadena.
+  & \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la}
+  & \text{cadena } cadena \text{, debe devolver } 0.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Probablemente resulta más fácil de leer (sobre todo para los novatos), pero
+  también es más largo y prolijo.
+
+- Es como un contrato escrito por un abogado en lenguaje jurídico.
+
+<!--
+
+- Un ejemplo mucho más avanzado para los curiosos:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: lista !NEQ \texttt{[]} \\
+    suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -> } T \\
+    \text{\textbf{Post}}: suma(lista) = sum(lista)
+  \end{cases}$$
+
+- $sum$ es una función auxiliar.
+
+- `List[`$T$`]` es un tipo genérico que pertenece al módulo `typing` y que se
+  puede utilizar para indicar el tipo de una lista cuyos elementos son todos
+  del tipo $T$.
+
+- Con esto estamos diciendo que `suma` es una función que recibe una lista no
+  vacía de elementos de un determinado tipo y que devuelve un resultado de ese
+  mismo tipo.
+
+- Para más información, consultar:
+
+  - [https://docs.python.org/3/library/typing.html](https://docs.python.org/3/library/typing.html)
+
+  - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
+-->
+
 # Recursividad
 
 ## Funciones y procesos
@@ -2434,827 +3256,5 @@ True
 :::
 
 ::::
-
-# Abstracciones funcionales
-
-## Las funciones como abstracciones y generalizaciones
-
-- Recordemos la definición de la función !PYTHON(area):
-
-  ```python
-  cuadrado = lambda x: x * x
-  area = lambda r: 3.1416 * cuadrado(r)
-  ```
-
-- Aunque es muy sencilla, la función !PYTHON(area) ejemplifica la propiedad más
-  potente de las funciones definidas por el programador: la **abstracción**.
-
-- La función !PYTHON(area) está definida sobre la función !PYTHON(cuadrado),
-  pero sólo necesita saber de ella qué resultados de salida devuelve a partir
-  de sus argumentos de entrada (o sea, **_qué_** calcula y no **_cómo_** lo
-  calcula).
-
-- Podemos escribir la función !PYTHON(area) sin preocuparnos de cómo calcular
-  el cuadrado de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
-
-- **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
-  la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en este
-  momento** al diseñar !PYTHON(area), para considerarlos más tarde si hiciera
-  falta.
-
----
-
-- De hecho, por lo que respecta a !PYTHON(area), !PYTHON(cuadrado) no
-  representa una definición concreta de función, sino más bien la abstracción
-  de una función, lo que se denomina una **abstracción funcional**, ya que a
-  !PYTHON(area) le sirve igual de bien cualquier función que calcule el
-  cuadrado de un número.
-
-- Por tanto, si consideramos únicamente los valores que devuelven, las tres
-  funciones siguientes son indistinguibles e igual de válidas para
-  !PYTHON(area). Ambas reciben un argumento numérico y devuelven el cuadrado de
-  ese número:
-
-  ```python
-  cuadrado = lambda x: x * x
-  cuadrado = lambda x: x ** 2
-  cuadrado = lambda x: x * (x - 1) + x
-  ```
-
-- En otras palabras: la definición de una función debe ser capaz de **ocultar
-  sus detalles internos de funcionamiento**, ya que para usar la función no
-  debe ser necesario conocer esos detalles.
-
----
-
-- **Encapsular** es el acto de encerrar algo dentro una _cápsula_, de forma que
-  parte de lo que hay dentro queda visible y accesible desde el exterior,
-  mientras que el resto queda oculto e inaccesible en el interior.
-
-  El resultado de la encapsulación se denomina una «**_caja negra_**».
-
-- **Abstraer** es centrarse en lo importante en un determinado momento e
-  ignorar lo que en ese momento no resulta importante.
-
-- **Crear una abstracción** es meter un mecanismo más o menos complejo dentro
-  de una caja negra y darle un nombre, de forma que podamos referirnos a todo
-  el conjunto simplemente usando su nombre sin tener que conocer su composición
-  interna ni sus detalles internos de funcionamiento.
-
-- Es importante entender que no todas las cajas negras son abstracciones. Una
-  caja negra sólo es una abstracción cuando la encapsulación se hace de forma
-  que deja visible sólo lo necesario para usar la abstracción y oculta lo demás
-  (es decir, lo que no es necesario).
-
----
-
-- Por tanto, para usar la abstracción nos bastará con conocer su _nombre_ y
-  saber _qué hace_, sin necesidad de saber _cómo lo hace_ ni qué elementos la
-  forman _internamente_.
-
-- En consecuencia, las abstracciones están _encapsuladas_, pero no de cualquier
-  manera, sino de forma que:
-
-  - lo que queda visible desde el exterior de la cápsula es _qué hace la
-    abstracción_, y
-
-  - lo que se oculta en el interior es _cómo lo hace_.
-
-- **La abstracción es el principal instrumento de control de la complejidad**,
-  ya que nos permite ocultar detrás de un nombre los detalles que componen una
-  parte del programa, haciendo que esa parte actúe (a ojos del programador que
-  la utilice) como si fuera un elemento _predefinido_ del lenguaje, de forma
-  que el programador lo puede usar sin tener que saber cómo funciona por
-  dentro.
-
----
-
-- Por tanto, **las funciones son abstracciones** porque nos permiten usarlas
-  sin tener que conocer los detalles internos del procesamiento que realizan.
-
-- Por ejemplo, si queremos usar la función !PYTHON{cubo} (que calcula el cubo
-  de un número), nos da igual que dicha función esté implementada de cualquiera
-  de las siguientes maneras:
-
-  ```python
-  cubo = lambda x: x * x * x
-  cubo = lambda x: x ** 3
-  cubo = lambda x: x * x ** 2
-  ```
-
-- Para **usar** la función, nos basta con saber que calcula el cubo de un
-  número, sin necesidad de saber qué cálculo concreto realiza para obtener el
-  resultado.
-
-- Los detalles de implementación quedan ocultos y por eso también decimos que
-  !PYTHON(cubo) es una abstracción.
-
----
-
-- Las funciones también son abstracciones porque describen operaciones
-  compuestas a realizar sobre ciertos valores sin importar cuáles sean esos
-  valores en concreto (son **_generalizaciones_** de casos particulares).
-
-- Por ejemplo, cuando definimos:
-
-  ```python
-  cubo = lambda x: x * x * x
-  ```
-
-  no estamos hablando del cubo de un número en particular, sino más bien de un
-  **método** para calcular el cubo de cualquier número.
-
-  Es decir: **estamos definiendo en qué consiste _elevar «algo» al cubo_, en
-  general**.
-
-- Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
-  escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
-  !PYTHON(5*5*5), etc.) sin usar la palabra «`cubo`», pero eso nos obligaría
-  siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje
-  (como `*`), en vez de poder usar términos de más alto nivel.
-
-  Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
-  tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
-
----
-
-- Una de las habilidades que deberíamos pedir a un lenguaje potente es la
-  posibilidad de **construir abstracciones** asignando nombres a los patrones
-  más comunes, y luego trabajar directamente usando dichas abstracciones.
-
-- Las funciones nos permiten esta habilidad, y esa es la razón de que todos los
-  lenguajes (salvo los más primitivos) incluyan mecanismos para definir
-  funciones.
-
-- Por ejemplo: en el caso anterior, vemos que hay un patrón (multiplicar algo
-  por sí mismo tres veces) que se repite con frecuencia, y a partir de él
-  construimos una abstracción que asigna un nombre a ese patrón (*elevar al
-  cubo*).
-
-- Esa abstracción la definimos como una función que describe la *regla*
-  necesaria para elevar algo al cubo.
-
----
-
-- Por tanto, algunas veces, analizando ciertos _casos particulares_, observamos
-  que se repite el mismo patrón en todos ellos, y de ahí extraemos un _caso
-  general_ (es decir, hacemos una **generalización**) que agrupa a todos los
-  posibles casos particulares que cumplen ese patrón.
-
-- Luego, hacemos una **encapsulación**, metiendo ese caso general en una «_caja
-  negra_» que oculte sus detalles internos, y finalmente le damos un nombre a
-  la «caja», con lo que acabamos creando una **abstracción**.
-
-- En resumen, creamos abstracciones:
-
-  - Cuando queremos **reducir la complejidad**, dándole un nombre a un
-    mecanismo complejo para poder referirnos a todo el conjunto a través de su
-    nombre sin tener que recordar continuamente qué piezas contiene el
-    mecanismo o cómo funciona éste por dentro.
-
-  - Cuando queremos que nuestro programa pueda **expresar un concepto
-    abstracto**, como el de «elevar al cubo».
-
-  - Cuando creamos **casos generales a partir de patrones que se repiten** en
-    varios casos particulares.
-
----
-
-- Por ejemplo, cuando vemos que en nuestros programas es frecuente tener que
-  multiplicar una cosa por sí misma tres veces, deducimos que ahí hay un patrón
-  común que se repite en todos los casos.
-
-- De ahí, creamos la abstracción que describe ese patrón general y le llamamos
-  «_elevar al cubo_»:
-
-!DOT(de-particular-a-general.svg)()(width=80%)(width=90%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compound = true
-node [shape = plaintext, fillcolor = transparent]
-rankdir = BT
-c [label = "«elevar al cubo»"]
-3 [label = "3 * 3 * 3", fontname = "monospace"]
-y [label = "5 * 5 * 5", fontname = "monospace"]
-radio [label = "radio * radio * radio", fontname = "monospace"]
-3 -> c [minlen = 2]
-y -> c [minlen = 2]
-radio -> c [minlen = 2]
-cp [label = "(casos particulares)"]
-cg [label = "(caso general)"]
-{ rank = same; cg; c }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Ese patrón general representa a cada miembro del grupo formado por sus casos
-  particulares, y se construye colocando un _parámetro_ allí donde los casos
-  particulares se diferencian entre sí (es decir, hacemos una
-  **parametrización**).
-
-- La función resultante es, al mismo tiempo:
-
-  - una **encapsulación** (porque los detalles internos de la función quedan
-    ocultos dentro del cuerpo de la expresión lambda como si fuera una caja
-    negra),
-
-  - una **abstracción** (porque se puede invocar a la función usando
-    simplemente su nombre sin necesidad de saber cómo está hecha por dentro y,
-    por tanto, sabiendo _qué_ sin tener que saber _cómo_ lo hace), y
-
-  - una **generalización** (porque, al estar parametrizada, representa muchos
-    casos particulares con un único caso general).
-
-- Al invocar a la función, se ligan sus parámetros con los argumentos de la
-  llamada, lo que produce un caso particular a partir del caso general.
-
----
-
-- En resumen, el proceso conceptual sería el siguiente:
-
-  1. Observar que hay varios casos particulares que se parecen.
-
-  2. Generalizar esos casos particulares creando un patrón.
-
-  3. Parametrizar el patrón creando una abstracción lambda.
-
-  4. Abstraer el patrón dándole un nombre.
-
-- Veamos cada paso por separado con detalle.
-
----
-
-1. Partimos de casos particulares que comparten un patrón que se repite:
-
-   ```python
-   3 * 3 * 3
-   5 * 5 * 5
-   ```
-
-   - En este caso, el patrón es que hay «algo» que se multiplica por sí mismo
-     tres veces.
-
-   - En todos los casos particulares de ese patrón repetido vemos que hay
-     elementos que se son iguales y otros que son diferentes.
-
-   - Por ejemplo, los `*` son iguales, y lo que varía es el «objeto» que se
-      multiplica (el `3`, el `5`, etcétera).
-
----
-
-2. Generalizamos estos casos particulares, convirtiendo en identificadores
-   libres aquellas partes en las que los casos particulares se diferencian,
-   es decir, las partes que no son comunes:
-
-   ```python
-   x * x * x
-   ```
-
-   - El valor de esta expresión actualmente depende del valor al que esté ligado
-     el identificador `x`, y decimos que ese identificador es _libre_.
-   
-   - Los **identificadores libres** son nombres que no se sabe de antemano a qué
-     valores van a estar ligados, ya que dependen del _contexto_, es decir, de lo
-     que hay fuera de la expresión cuando se va a evaluar.
-   
-   - En todo caso, un identificador libre estará ligado siempre a un mismo valor
-     (de lo contrario, sería un _rebinding_, cosa que está prohibida) y, en ese
-     sentido, se pueden considerar constantes.
-   
-   - Se dice que una expresión con identificadores libres está _abierta_, porque
-     su valor depende de elementos externos a ella.
-
----
-
-- El valor de la expresión !PYTHON(x * x * x) sigue dependiendo del valor
-  ligado a `x`, ya que esta `x` es libre.
-
-- Por tanto, para deducir qué valor tendrá la expresión tendremos que seguir
-  conociendo su interior: tenemos que saber que su valor se calcula a partir
-  del valor que tiene el identificador libre `x`.
-
-- Esto hace que la expresión !PYTHON(x * x * x) no sea una buena abstracción,
-  ya que no funciona como una _caja negra_. Esto se debe, principalmente, a
-  que la expresión está _abierta_.
-
-- Cuando una parte de un programa está _abierta_ resulta más difícil de
-  programar y de razonar sobre ella, ya que su comportamiento depende del
-  resto del programa. Lo que nos interesa (siempre que sea posible) es que la
-  expresión esté _cerrada_.
-
----
-
-3. Generalizamos aún más, _parametrizando_ los identificadores libres obtenidos
-   en el paso anterior (y sólo éstos) utilizando el cuantificador
-   !PYTHON(lambda), creando así una **_abstracción lambda_**:
-
-   ```python
-   cubo = lambda x: x * x * x
-   ```
-
-   Un **_cuantificador_** es un símbolo que _cierra_ expresiones convirtiendo
-   los elementos que son externos a la expresión (los identificadores libres)
-   en elementos propios de la expresión (_parámetros_).
-
-   Los **parámetros** son nombres cuyo valor cambia dependiendo de los
-   argumentos de la llamada. Por eso se pueden considerar _variables_ en el
-   sentido matemático del término.
-
-   Visto así, podemos interpretar que un cuantificador es un símbolo que
-   convierte constantes en variables.
-
----
-
-- Ahora hemos _cerrado_ la expresión creando una función en la que los
-  identificadores libres ya no son libres sino _parámetros_ de la expresión
-  lambda, así que la expresión ya no depende de nada que haya en el exterior de
-  la misma.
-
-- Al invocarla con un argumento concreto, el parámetro toma el valor de ese
-  argumento y así se van obteniendo los casos particulares deseados:
-
-  ```python
-  (lambda x: x * x * x)(3) → 3 * 3 * 3
-  (lambda x: x * x * x)(5) → 5 * 5 * 5
-  ```
-
-- La expresión lambda es una expresión cerrada que puede usarse simplemente
-  pasándole los argumentos necesarios en cada llamada, sin necesidad de
-  manipular directamente la expresión que forma su cuerpo y que es la que lleva
-  a cabo el procesamiento y el cálculo del resultado.
-
-- Por eso podemos decir que el cuerpo está _encapsulado_ dentro de la expresión
-  lambda, la cual forma una **caja negra** con una parte expuesta, visible y
-  manipulable desde el exterior (sus parámetros) y otra parte oculta dentro de
-  la cápsula (su cuerpo).
-
----
-
-4. Abstraemos dándole un nombre a toda la expresión, de forma que ahora podemos
-   usar su nombre en lugar de la expresión lambda:
-
-   ```python
-   cubo = lambda x: x * x * x
-   ```
-
-   - Por tanto, de ahora en adelante podemos llamar a la función usando su
-     nombre:
-
-      ```python
-      cubo(3) → 3 * 3 * 3
-      cubo(5) → 5 * 5 * 5
-      ```
-
-   - La función `cubo` así creada **es una abstracción** porque:
-
-     - Para usarla sólo basta con saber su nombre y _qué_ hace.
-
-     - No es necesario saber _cómo_ lo hace.
-
-     - Es una caja negra que expone el _qué_ y oculta el _cómo_.
-
-   - Además, una expresión lambda sin nombre es como una función de «usar y
-     tirar» que vive y muere en la misma expresión donde se la utiliza. En
-     cambio, cuando le damos un nombre, ya puede reutilizarse en muchas
-     expresiones.
-
----
-
-- La importancia de la **abstracción** reside en su capacidad para ocultar
-  detalles irrelevantes y en el uso de nombres para referenciar objetos.
-
-- La principal preocupación del usuario de un programa (o de cada una de sus
-  partes) es _qué_ hace. Esto contrasta con la del programador de esa parte del
-  programa, cuya principal preocupación es _cómo_ lo hace.
-
-- Los lenguajes de programación proporcionan abstracción mediante funciones (y
-  otros elementos como procedimientos y módulos, que veremos posteriormente)
-  que permiten al programador distinguir entre lo que hace una parte del
-  programa y cómo se implementa esa parte.
-
-- Una función, además, **encapsula** porque crea una _cápsula_ alrededor de
-  ella que sólo deja visible al exterior parte de su contenido; en particular,
-  la cápsula de una función sólo deja pasar fuera lo necesario para poder usar
-  la función, y oculta dentro todo lo demás, es decir, lo que no es necesario
-  conocer ni manipular para usarla.
-
-- La abstracción es esencial en la construcción de programas. Pone el énfasis
-  en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
-  lo tanto, es el principal medio para gestionar la complejidad en programas
-  grandes.
-
----
-
-- De igual importancia es la **generalización**.
-
-- Mientras que la abstracción reduce la complejidad al ocultar detalles
-  irrelevantes, la generalización la reduce al sustituir, con una sola
-  construcción, varios elementos que realizan una funcionalidad similar.
-
-- Los lenguajes de programación permiten la generalización mediante variables,
-  parametrización, genéricos y polimorfismo.
-
-- La generalización es esencial en la construcción de programas. Pone el
-  énfasis en las similitudes entre elementos. Por lo tanto, ayuda a gestionar
-  la complejidad al agrupar individuos y proporcionar un representante que
-  puede utilizarse para especificar cualquier individuo del grupo.
-
-#### Resumen {.unnumbered .unlisted}
-
-- **Encapsulación**: Es agrupar varios elementos juntos formando una sola
-  unidad, ocultando algunos y exponiendo otros.
-
-- **Caja negra**: Es el resultado de la encapsulación. La «tapa» de la caja
-  negra es la _cápsula_ que separa lo que se expone de lo que se oculta al
-  exterior. En ese sentido, la tapa deja ver alguna cosas y otras no.
-
-- **Abstracción**: Conceptualmente, es el proceso de simplificar algo
-  resaltando solo sus características esenciales y ocultando los detalles
-  irrelevantes para el contexto en que se usa.
-
-  En la práctica, también es el producto resultante de ese proceso. En tal
-  caso, una abstracción consiste en darle un nombre a una caja negra, pero no
-  cualquier caja negra, sino una donde lo que se expone es la información
-  necesaria para saber _qué_ hace la abstracción, y lo que se oculta son los
-  detalles necesarios para saber _cómo_ lo hace.
-
-  En la abstracción, por tanto, la cápsula separa el qué del cómo.
-
----
-
-- **Generalización**: Es el proceso de identificar un patrón común entre varios
-  casos particulares y crear un modelo más general que los abarque a todos.
-
-- **Parametrización**: Es el proceso de definir un elemento que representa un
-  caso general utilizando _parámetros_ que permiten obtener los casos
-  particulares del caso general sin tener que reescribirlo, ligando valores
-  concretos a los parámetros.
-
-- **Parámetro**: Es una parte que cambia en cada caso particular de un patrón
-  común.
-
-## Pureza
-
-- Si una expresión lambda no contiene identificadores libres, el valor que
-  obtendremos al aplicarla a unos argumentos dependerá únicamente del valor que
-  tengan esos argumentos (no dependerá de nada que sea «_exterior_» a la
-  expresión lambda).
-
-- En cambio, si el cuerpo de una expresión lambda contiene identificadores
-  libres, el valor que obtendremos al aplicarla a unos argumentos no sólo
-  dependerá del valor de los argumentos, sino también de los valores a los que
-  estén ligados esos identificadores libres en el momento de evaluar la
-  aplicación de la expresión lambda.
-
-- Es el caso del siguiente ejemplo, donde tenemos una expresión lambda que
-  contiene un identificador libre (!PYTHON{z}) y, por tanto, cuando la
-  aplicamos a los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que
-  depende no sólo de los valores de !PYTHON(x) e !PYTHON(y) sino también del
-  valor de !PYTHON(z) en el entorno:
-
-  ```python
-  >>> prueba = lambda x, y: x + y + z
-  >>> z = 9
-  >>> prueba(4, 3)
-  16
-  ```
-
----
-
-- En este otro ejemplo, tenemos una expresión lambda que calcula la suma de
-  tres números a partir de otra expresión lambda que calcula la suma de dos
-  números:
-
-  ```python
-  suma = lambda x, y: x + y
-  suma3 = lambda x, y, z: suma(x, y) + z
-  ```
-
-  En este caso, hay un identificador (!PYTHON(suma)) que no aparece en la lista
-  de parámetros de la expresión lambda ligada a !PYTHON(suma3).
-
-  En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
-  !PYTHON(suma) en el entorno actual.
-
----
-
-- Se dice que una expresión lambda es **pura** si, siempre que la apliquemos a
-  unos argumentos, el valor obtenido va a depender únicamente del valor de esos
-  argumentos o, lo que es lo mismo, del valor de sus parámetros en la llamada.
-
-- Podemos decir que hay distintos **grados de pureza**:
-
-  - Una expresión lambda en cuyo cuerpo no hay ningún identificador libre es
-    **más pura** que otra que contiene identificadores libres.
-
-  - Una expresión lambda cuyos **identificadores libres** representan
-    **funciones** que se usan en el cuerpo de la expresión lambda, es **más
-    pura** que otra cuyos identificadores libres representan cualquier otro
-    tipo de valor.
-
-  En el ejemplo anterior, tenemos que la expresión lambda de !PYTHON(suma3),
-  sin ser *totalmente pura*, a efectos prácticos se la puede considerar
-  **pura**, ya que su único identificador libre (!PYTHON(suma)) se usa como una
-  **función**.
-
----
-
-- Por ejemplo, las siguientes expresiones lambda están ordenadas de mayor a
-  menor pureza, siendo la primera totalmente **pura**:
-
-  ```python
-  # producto es una expresión lambda totalmente pura:
-  producto = lambda x, y: x * y
-  # cuadrado es casi pura; a efectos prácticos se la puede
-  # considerar pura ya que sus identificadores libres (en este
-  # caso, sólo una: producto) son funciones:
-  cuadrado = lambda x: producto(x, x)
-  # suma es impura, porque su identificador libre (z) no es una función:
-  suma = lambda x, y: x + y + z
-  ```
-
-- **La pureza de una función es un rasgo deseado y que hay que tratar de
-  alcanzar siempre que sea posible**, ya que facilita el desarrollo y
-  mantenimiento de los programas, además de simplificar el razonamiento sobre
-  los mismos, permitiendo aplicar directamente nuestro modelo de sustitución.
-
-- Es más incómodo trabajar con !PYTHON(suma) porque hay que *recordar* que
-  depende de un valor que está *fuera* de la expresión lambda, cosa que no
-  resulta evidente a no ser que mires en el cuerpo de la expresión lambda.
-
-## Especificaciones de funciones
-
-- La **especificación de una _función_** es la descripción de **qué** hace la
-  función sin entrar a detallar **cómo** lo hace.
-
-- La **implementación de una _función_** es la descripción de **cómo** hace lo
-  que hace, es decir, los detalles de su algoritmo interno.
-
-- **Para poder usar una función, un programador no debe necesitar saber cómo
-  está implementada**.
-
-- Eso es lo que ocurre, por ejemplo, con las funciones predefinidas del
-  lenguaje (como !PYTHON(max), !PYTHON(abs) o !PYTHON(len)): sabemos *qué*
-  hacen pero no necesitamos saber *cómo* lo hacen.
-
-- Incluso puede que el usuario de una función no sea el mismo que la ha
-  escrito, sino que la puede haber recibido de otro programador como una
-  «**caja negra**», que tiene unas entradas y una salida pero no se sabe cómo
-  funciona por dentro.
-
----
-
-- Para poder **usar una abstracción funcional** _nos basta_ con conocer su
-  _especificación_, porque es la descripción de qué hace esa función.
-
-- Igualmente, para poder **implementar una abstracción funcional**
-  _necesitamos_ conocer su _especificación_, ya que necesitamos saber _qué
-  tiene que hacer_ la función antes de diseñar _cómo va a hacerlo_.
-
-- La especificación de una abstracción funcional describe tres características
-  fundamentales de dicha función:
-
-  - El **dominio**: el conjunto de datos de entrada válidos.
-
-  - El **rango** o **codominio**: el conjunto de posibles valores que devuelve.
-
-  - El **propósito**: qué hace la función, es decir, la relación entre su
-    entrada y su salida.
-
----
-
-- Hasta ahora, al especificar **programas**, hemos llamado «**entrada**» al
-  dominio, y hemos agrupado el rango y el propósito en una sola propiedad que
-  llamamos «**salida**».
-
-- Por ejemplo, cualquier función !PYTHON(cuadrado) que usemos para implementar
-  !PYTHON(area) debe satisfacer esta especificación:
-
-  $$\begin{cases}
-    \text{\textbf{Entrada}}: n \in \mathbb{R} \\
-    \texttt{cuadrado} \\
-    \text{\textbf{Salida}}: n^2
-  \end{cases}$$
-
-- La especificación **no concreta cómo** se debe llevar a cabo el propósito.
-  Esos son **detalles de implementación** que se abstraen a este nivel.
-
-- Este esquema es el que hemos usado hasta ahora para especificar programas, y
-  se podría seguir usando para especificar funciones, ya que éstas son
-  consideradas _subprogramas_ (programas que forman parte de otros programas
-  más grandes).
-
----
-
-- Pero para especificar funciones resulta más adecuado usar el siguiente
-  esquema, al que llamaremos **especificación funcional**:
-
-  !ESPEC
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PRE(\texttt{True})
-  !SIGNAT(\texttt{cuadrado(!VAR(n):\,float)\;->\;float})
-  !POST(\texttt{cuadrado(!VAR(n))} = n^2)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- «**Pre**» representa la **precondición**: la propiedad que debe cumplirse
-  justo _en el momento_ de llamar a la función.
-
-- «**Post**» representa la **postcondición**: la propiedad que debe cumplirse
-  justo *después* de que la función haya terminado de ejecutarse.
-
-- Lo que hay en medio es la **signatura**: el nombre de la función, el nombre y
-  tipo de sus parámetros y el tipo del valor de retorno.
-
-- La especificación se lee así: «**_Si se llama a la función respetando su
-  signatura y cumpliendo su precondición, la llamada termina cumpliendo su
-  postcondición_**».
-
----
-
-- En este caso, la **precondición** es !PYTHON(True), que equivale a decir que
-  cualquier condición de entrada es buena para usar la función.
-
-- Dicho de otra forma: no hace falta que se dé ninguna condición especial para
-  usar la función. Siempre que la llamada respete la signatura de la función,
-  el parámetro $n$ puede tomar cualquier valor de tipo !PYTHON(float) y no hay
-  ninguna restricción adicional.
-
-- Por otro lado, la **postcondición** dice que al llamar a la función
-  !PYTHON(cuadrado) con el argumento $n$ se debe devolver $n^2$.
-
-- Tanto la precondición como la postcondición son **predicados**, es decir,
-  expresiones lógicas que se escriben usando el lenguaje de las matemáticas y
-  la lógica.
-
-- La **signatura** se escribe usando la sintaxis del lenguaje de programación
-  que se vaya a usar para implementar la función (Python, en este caso).
-
----
-
-- Recordemos la diferencia entre:
-
-  - **Dominio** y **conjunto origen** de una función.
-
-  - **Rango** (o **codominio**) y **conjunto imagen** de una función.
-
-- ¿Cómo recoge la especificación esas cuatro características de la función?
-
-  - La **signatura** expresa el **conjunto origen** y el **conjunto imagen** de
-    la función.
-
-  - El **dominio** viene determinado por los valores del conjunto origen que
-    cumplen la **precondición**.
-
-  - El **codominio** viene determinado por los valores del conjunto imagen que
-    cumplen la **postcondición**.
-
----
-
-- En el caso de la función !PYTHON(cuadrado) tenemos que:
-
-  - El conjunto origen es !PYTHON(float), ya que su parámetro $n$ está
-    declarado de tipo !PYTHON(float) en la signatura de la función.
-
-    Por tanto, los datos de entrada a la función deberán pertenecer al tipo
-    !PYTHON(float).
-
-  - El dominio coincide con el conjunto origen, ya que su precondición es
-    !PYTHON(True). Eso quiere decir que cualquier dato de entrada es válido
-    siempre que pertenezca al dominio (en este caso, el tipo !PYTHON(float)).
-
-  - El conjunto imagen también es !PYTHON(float), ya que así está declarado el
-    tipo de retorno de la función.
-
----
-
-- Las pre y postcondiciones no es necesario escribirlas de una manera **formal
-  y rigurosa**, usando el lenguaje de las Matemáticas o la Lógica.
-
-- Si la especificación se escribe en *lenguaje natural* y se entiende bien,
-  completamente y sin ambigüedades, no hay problema.
-
-- El motivo de usar un lenguaje formal es que, normalmente, resulta **mucho más
-  conciso y preciso que el lenguaje natural**.
-
-- El lenguaje natural suele ser:
-
-  - **Más prolijo**: necesita más palabras para decir lo mismo que diríamos
-    matemáticamente usando menos caracteres.
-
-  - **Más ambiguo**: lo que se dice en lenguaje natural se puede interpretar de
-    distintas formas.
-
-  - **Menos completo**: quedan flecos y situaciones especiales que no se tienen
-    en cuenta.
-
----
-
-- En este otro ejemplo, más completo, se especifica una función llamada
-  !PYTHON(cuenta):
-
-  !ESPEC
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PRE(car !NEQ \text{\texttt{""}} \land \texttt{len(}car\texttt{)} = 1)
-  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
-  !POST
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    \texttt{cuenta(!VAR(cadena),\;!VAR(car))} \geq 0\ \land
-  & \texttt{cuenta(!VAR(cadena),\;!VAR(car))} = cadena\texttt{.count(!VAR(car))}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Con esta especificación, estamos diciendo que !PYTHON(cuenta) es una función
-  que recibe una cadena y un carácter (otra cadena con un único carácter
-  dentro).
-
-- Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera, sino que
-  tienen que cumplir la _precondición_.
-
-- Eso significa, entre otras cosas, que aquí **el _dominio_ y el _conjunto
-  origen_ de la función no coinciden** (no todos los valores pertenecientes al
-  conjunto origen sirven como datos de entrada válidos para la función).
-
----
-
-- En esta especificación, !PYTHON(count) se usa como un **método auxiliar**.
-
-  Las _operaciones auxiliares_ se puede usar en una especificación siempre que
-  estén perfectamente especificadas, aunque no estén implementadas.
-
-- En este caso, se usa en la _postcondición_ para decir que la función
-  !PYTHON(cuenta), la que se está especificando, debe devolver el mismo
-  resultado que devuelve el método !PYTHON{count} (el cual ya conocemos
-  perfectamente y sabemos qué hace, puesto que es un método que ya existe en
-  Python).
-
-- Es decir: la especificación anterior describe con total precisión que la
-  función !PYTHON(cuenta) **cuenta el número de veces que el carácter
-  $\underline{\textbf{\textit{car}}}$ aparece en la cadena
-  $\underline{\textbf{\textit{cadena}}}$**.
-
----
-
-- En realidad, las condiciones de la especificación anterior se podrían
-  simplificar aprovechando las propiedades de las expresiones lógicas, quedando
-  así:
-
-  !ESPEC
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PRE(\texttt{len(!VAR(car))} = 1)
-  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
-  !POST(\texttt{cuenta(!VAR(cadena),\;!VAR(car))} = cadena\texttt{.count(!VAR(car))})
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-!EJERCICIO
-
-@. ¿Por qué?
-
----
-
-- Finalmente, podríamos escribir la misma especificación en lenguaje natural:
-
-  !ESPEC
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PRE(car \text{ debe ser un único carácter})
-  !SIGNAT(\texttt{cuenta(!VAR(cadena):\,str,\;!VAR(car):\,str)\;->\;int})
-  !POST
-  ~~~~~~~~~~~~~~~~~~~~~~~~~
-    \texttt{cuenta(!VAR(cadena),\;!VAR(car))} \text{ devuelve el número de veces}
-  & \text{que aparece el carácter } car \text{ en la cadena } cadena.
-  & \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca en la}
-  & \text{cadena } cadena \text{, debe devolver } 0.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Probablemente resulta más fácil de leer (sobre todo para los novatos), pero
-  también es más largo y prolijo.
-
-- Es como un contrato escrito por un abogado en lenguaje jurídico.
-
-<!--
-
-- Un ejemplo mucho más avanzado para los curiosos:
-
-  $$\begin{cases}
-    \text{\textbf{Pre}}: lista !NEQ \texttt{[]} \\
-    suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -> } T \\
-    \text{\textbf{Post}}: suma(lista) = sum(lista)
-  \end{cases}$$
-
-- $sum$ es una función auxiliar.
-
-- `List[`$T$`]` es un tipo genérico que pertenece al módulo `typing` y que se
-  puede utilizar para indicar el tipo de una lista cuyos elementos son todos
-  del tipo $T$.
-
-- Con esto estamos diciendo que `suma` es una función que recibe una lista no
-  vacía de elementos de un determinado tipo y que devuelve un resultado de ese
-  mismo tipo.
-
-- Para más información, consultar:
-
-  - [https://docs.python.org/3/library/typing.html](https://docs.python.org/3/library/typing.html)
-
-  - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
--->
 
 !BIBLIOGRAFIA

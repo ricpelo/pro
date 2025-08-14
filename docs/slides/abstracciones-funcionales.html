@@ -185,11 +185,11 @@ id="/toc-abstracciones-lambda"><span class="toc-section-number">1</span>
 Abstracciones lambda</a></li>
 <li><a href="#/ámbitos" id="/toc-ámbitos"><span
 class="toc-section-number">2</span> Ámbitos</a></li>
-<li><a href="#/recursividad" id="/toc-recursividad"><span
-class="toc-section-number">3</span> Recursividad</a></li>
 <li><a href="#/abstracciones-funcionales"
 id="/toc-abstracciones-funcionales"><span
-class="toc-section-number">4</span> Abstracciones funcionales</a></li>
+class="toc-section-number">3</span> Abstracciones funcionales</a></li>
+<li><a href="#/recursividad" id="/toc-recursividad"><span
+class="toc-section-number">4</span> Recursividad</a></li>
 </ul>
 </nav>
 </section>
@@ -1603,15 +1603,923 @@ se crea al llamar a la expresión lambda.</p></li>
 </section>
 </section>
 <section>
-<section id="recursividad" class="title-slide slide level1"
+<section id="abstracciones-funcionales" class="title-slide slide level1"
 data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span>
+Abstracciones funcionales</h1>
+
+</section>
+<section id="las-funciones-como-abstracciones-y-generalizaciones"
+class="title-slide slide level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> Las
+funciones como abstracciones y generalizaciones</h2>
+<ul>
+<li><p>Recordemos la definición de la función <code
+class="sourceCode python">area</code>:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
+<li><p>Aunque es muy sencilla, la función <code
+class="sourceCode python">area</code> ejemplifica la propiedad más
+potente de las funciones definidas por el programador: la
+<strong>abstracción</strong>.</p></li>
+<li><p>La función <code class="sourceCode python">area</code> está
+definida sobre la función <code
+class="sourceCode python">cuadrado</code>, pero sólo necesita saber de
+ella qué resultados de salida devuelve a partir de sus argumentos de
+entrada (o sea, <strong><em>qué</em></strong> calcula y no
+<strong><em>cómo</em></strong> lo calcula).</p></li>
+<li><p>Podemos escribir la función <code
+class="sourceCode python">area</code> sin preocuparnos de cómo calcular
+el cuadrado de un número, porque eso ya lo hace la función <code
+class="sourceCode python">cuadrado</code>.</p></li>
+<li><p><strong>Los detalles</strong> sobre cómo se calcula el cuadrado
+están <strong>ocultos dentro de la definición</strong> de <code
+class="sourceCode python">cuadrado</code>. Esos detalles <strong>se
+ignoran en este momento</strong> al diseñar <code
+class="sourceCode python">area</code>, para considerarlos más tarde si
+hiciera falta.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>De hecho, por lo que respecta a <code
+class="sourceCode python">area</code>, <code
+class="sourceCode python">cuadrado</code> no representa una definición
+concreta de función, sino más bien la abstracción de una función, lo que
+se denomina una <strong>abstracción funcional</strong>, ya que a <code
+class="sourceCode python">area</code> le sirve igual de bien cualquier
+función que calcule el cuadrado de un número.</p></li>
+<li><p>Por tanto, si consideramos únicamente los valores que devuelven,
+las tres funciones siguientes son indistinguibles e igual de válidas
+para <code class="sourceCode python">area</code>. Ambas reciben un
+argumento numérico y devuelven el cuadrado de ese número:</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
+<li><p>En otras palabras: la definición de una función debe ser capaz de
+<strong>ocultar sus detalles internos de funcionamiento</strong>, ya que
+para usar la función no debe ser necesario conocer esos
+detalles.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<ul>
+<li><p><strong>Encapsular</strong> es el acto de encerrar algo dentro
+una <em>cápsula</em>, de forma que parte de lo que hay dentro queda
+visible y accesible desde el exterior, mientras que el resto queda
+oculto e inaccesible en el interior.</p>
+<p>El resultado de la encapsulación se denomina una «<strong><em>caja
+negra</em></strong>».</p></li>
+<li><p><strong>Abstraer</strong> es centrarse en lo importante en un
+determinado momento e ignorar lo que en ese momento no resulta
+importante.</p></li>
+<li><p><strong>Crear una abstracción</strong> es meter un mecanismo más
+o menos complejo dentro de una caja negra y darle un nombre, de forma
+que podamos referirnos a todo el conjunto simplemente usando su nombre
+sin tener que conocer su composición interna ni sus detalles internos de
+funcionamiento.</p></li>
+<li><p>Es importante entender que no todas las cajas negras son
+abstracciones. Una caja negra sólo es una abstracción cuando la
+encapsulación se hace de forma que deja visible sólo lo necesario para
+usar la abstracción y oculta lo demás (es decir, lo que no es
+necesario).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.3">
+
+<ul>
+<li><p>Por tanto, para usar la abstracción nos bastará con conocer su
+<em>nombre</em> y saber <em>qué hace</em>, sin necesidad de saber
+<em>cómo lo hace</em> ni qué elementos la forman
+<em>internamente</em>.</p></li>
+<li><p>En consecuencia, las abstracciones están <em>encapsuladas</em>,
+pero no de cualquier manera, sino de forma que:</p>
+<ul>
+<li><p>lo que queda visible desde el exterior de la cápsula es <em>qué
+hace la abstracción</em>, y</p></li>
+<li><p>lo que se oculta en el interior es <em>cómo lo
+hace</em>.</p></li>
+</ul></li>
+<li><p><strong>La abstracción es el principal instrumento de control de
+la complejidad</strong>, ya que nos permite ocultar detrás de un nombre
+los detalles que componen una parte del programa, haciendo que esa parte
+actúe (a ojos del programador que la utilice) como si fuera un elemento
+<em>predefinido</em> del lenguaje, de forma que el programador lo puede
+usar sin tener que saber cómo funciona por dentro.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.4">
+
+<ul>
+<li><p>Por tanto, <strong>las funciones son abstracciones</strong>
+porque nos permiten usarlas sin tener que conocer los detalles internos
+del procesamiento que realizan.</p></li>
+<li><p>Por ejemplo, si queremos usar la función <code
+class="sourceCode python">cubo</code> (que calcula el cubo de un
+número), nos da igual que dicha función esté implementada de cualquiera
+de las siguientes maneras:</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
+<li><p>Para <strong>usar</strong> la función, nos basta con saber que
+calcula el cubo de un número, sin necesidad de saber qué cálculo
+concreto realiza para obtener el resultado.</p></li>
+<li><p>Los detalles de implementación quedan ocultos y por eso también
+decimos que <code class="sourceCode python">cubo</code> es una
+abstracción.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.5">
+
+<ul>
+<li><p>Las funciones también son abstracciones porque describen
+operaciones compuestas a realizar sobre ciertos valores sin importar
+cuáles sean esos valores en concreto (son
+<strong><em>generalizaciones</em></strong> de casos
+particulares).</p></li>
+<li><p>Por ejemplo, cuando definimos:</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<p>no estamos hablando del cubo de un número en particular, sino más
+bien de un <strong>método</strong> para calcular el cubo de cualquier
+número.</p>
+<p>Es decir: <strong>estamos definiendo en qué consiste <em>elevar
+«algo» al cubo</em>, en general</strong>.</p></li>
+<li><p>Por supuesto, nos las podemos arreglar sin definir el concepto de
+<em>cubo</em>, escribiendo siempre expresiones explícitas (como <code
+class="sourceCode python"><span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span></code>,
+<code
+class="sourceCode python"><span class="dv">5</span><span class="op">*</span><span class="dv">5</span><span class="op">*</span><span class="dv">5</span></code>,
+etc.) sin usar la palabra «<code>cubo</code>», pero eso nos obligaría
+siempre a expresarnos usando las operaciones primitivas de nuestro
+lenguaje (como <code>*</code>), en vez de poder usar términos de más
+alto nivel.</p>
+<p>Es decir: <strong>nuestros programas podrían calcular el cubo de un
+número, pero no tendrían la habilidad de expresar el concepto de
+<em>elevar al cubo</em></strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.6">
+
+<ul>
+<li><p>Una de las habilidades que deberíamos pedir a un lenguaje potente
+es la posibilidad de <strong>construir abstracciones</strong> asignando
+nombres a los patrones más comunes, y luego trabajar directamente usando
+dichas abstracciones.</p></li>
+<li><p>Las funciones nos permiten esta habilidad, y esa es la razón de
+que todos los lenguajes (salvo los más primitivos) incluyan mecanismos
+para definir funciones.</p></li>
+<li><p>Por ejemplo: en el caso anterior, vemos que hay un patrón
+(multiplicar algo por sí mismo tres veces) que se repite con frecuencia,
+y a partir de él construimos una abstracción que asigna un nombre a ese
+patrón (<em>elevar al cubo</em>).</p></li>
+<li><p>Esa abstracción la definimos como una función que describe la
+<em>regla</em> necesaria para elevar algo al cubo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.7">
+
+<ul>
+<li><p>Por tanto, algunas veces, analizando ciertos <em>casos
+particulares</em>, observamos que se repite el mismo patrón en todos
+ellos, y de ahí extraemos un <em>caso general</em> (es decir, hacemos
+una <strong>generalización</strong>) que agrupa a todos los posibles
+casos particulares que cumplen ese patrón.</p></li>
+<li><p>Luego, hacemos una <strong>encapsulación</strong>, metiendo ese
+caso general en una «<em>caja negra</em>» que oculte sus detalles
+internos, y finalmente le damos un nombre a la «caja», con lo que
+acabamos creando una <strong>abstracción</strong>.</p></li>
+<li><p>En resumen, creamos abstracciones:</p>
+<ul>
+<li><p>Cuando queremos <strong>reducir la complejidad</strong>, dándole
+un nombre a un mecanismo complejo para poder referirnos a todo el
+conjunto a través de su nombre sin tener que recordar continuamente qué
+piezas contiene el mecanismo o cómo funciona éste por dentro.</p></li>
+<li><p>Cuando queremos que nuestro programa pueda <strong>expresar un
+concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
+<li><p>Cuando creamos <strong>casos generales a partir de patrones que
+se repiten</strong> en varios casos particulares.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.8">
+
+<ul>
+<li><p>Por ejemplo, cuando vemos que en nuestros programas es frecuente
+tener que multiplicar una cosa por sí misma tres veces, deducimos que
+ahí hay un patrón común que se repite en todos los casos.</p></li>
+<li><p>De ahí, creamos la abstracción que describe ese patrón general y
+le llamamos «<em>elevar al cubo</em>»:</p></li>
+</ul>
+<div class="centered">
+<p><img data-src="images/de-particular-a-general.svg" class="plain"
+style="width:80.0%" /></p>
+</div>
+</section>
+<section class="slide level5" data-number="3.1.0.0.9">
+
+<ul>
+<li><p>Ese patrón general representa a cada miembro del grupo formado
+por sus casos particulares, y se construye colocando un
+<em>parámetro</em> allí donde los casos particulares se diferencian
+entre sí (es decir, hacemos una
+<strong>parametrización</strong>).</p></li>
+<li><p>La función resultante es, al mismo tiempo:</p>
+<ul>
+<li><p>una <strong>encapsulación</strong> (porque los detalles internos
+de la función quedan ocultos dentro del cuerpo de la expresión lambda
+como si fuera una caja negra),</p></li>
+<li><p>una <strong>abstracción</strong> (porque se puede invocar a la
+función usando simplemente su nombre sin necesidad de saber cómo está
+hecha por dentro y, por tanto, sabiendo <em>qué</em> sin tener que saber
+<em>cómo</em> lo hace), y</p></li>
+<li><p>una <strong>generalización</strong> (porque, al estar
+parametrizada, representa muchos casos particulares con un único caso
+general).</p></li>
+</ul></li>
+<li><p>Al invocar a la función, se ligan sus parámetros con los
+argumentos de la llamada, lo que produce un caso particular a partir del
+caso general.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.10">
+
+<ul>
+<li><p>En resumen, el proceso conceptual sería el siguiente:</p>
+<ol type="1">
+<li><p>Observar que hay varios casos particulares que se
+parecen.</p></li>
+<li><p>Generalizar esos casos particulares creando un patrón.</p></li>
+<li><p>Parametrizar el patrón creando una abstracción lambda.</p></li>
+<li><p>Abstraer el patrón dándole un nombre.</p></li>
+</ol></li>
+<li><p>Veamos cada paso por separado con detalle.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.11">
+
+<ol type="1">
+<li><p>Partimos de casos particulares que comparten un patrón que se
+repite:</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
+<ul>
+<li><p>En este caso, el patrón es que hay «algo» que se multiplica por
+sí mismo tres veces.</p></li>
+<li><p>En todos los casos particulares de ese patrón repetido vemos que
+hay elementos que se son iguales y otros que son diferentes.</p></li>
+<li><p>Por ejemplo, los <code>*</code> son iguales, y lo que varía es el
+«objeto» que se multiplica (el <code>3</code>, el <code>5</code>,
+etcétera).</p></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.1.0.0.12">
+
+<ol start="2" type="1">
+<li><p>Generalizamos estos casos particulares, convirtiendo en
+identificadores libres aquellas partes en las que los casos particulares
+se diferencian, es decir, las partes que no son comunes:</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<ul>
+<li><p>El valor de esta expresión actualmente depende del valor al que
+esté ligado el identificador <code>x</code>, y decimos que ese
+identificador es <em>libre</em>.</p></li>
+<li><p>Los <strong>identificadores libres</strong> son nombres que no se
+sabe de antemano a qué valores van a estar ligados, ya que dependen del
+<em>contexto</em>, es decir, de lo que hay fuera de la expresión cuando
+se va a evaluar.</p></li>
+<li><p>En todo caso, un identificador libre estará ligado siempre a un
+mismo valor (de lo contrario, sería un <em>rebinding</em>, cosa que está
+prohibida) y, en ese sentido, se pueden considerar constantes.</p></li>
+<li><p>Se dice que una expresión con identificadores libres está
+<em>abierta</em>, porque su valor depende de elementos externos a
+ella.</p></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.1.0.0.13">
+
+<ul>
+<li><p>El valor de la expresión <code
+class="sourceCode python">x <span class="op">*</span> x <span class="op">*</span> x</code>
+sigue dependiendo del valor ligado a <code>x</code>, ya que esta
+<code>x</code> es libre.</p></li>
+<li><p>Por tanto, para deducir qué valor tendrá la expresión tendremos
+que seguir conociendo su interior: tenemos que saber que su valor se
+calcula a partir del valor que tiene el identificador libre
+<code>x</code>.</p></li>
+<li><p>Esto hace que la expresión <code
+class="sourceCode python">x <span class="op">*</span> x <span class="op">*</span> x</code>
+no sea una buena abstracción, ya que no funciona como una <em>caja
+negra</em>. Esto se debe, principalmente, a que la expresión está
+<em>abierta</em>.</p></li>
+<li><p>Cuando una parte de un programa está <em>abierta</em> resulta más
+difícil de programar y de razonar sobre ella, ya que su comportamiento
+depende del resto del programa. Lo que nos interesa (siempre que sea
+posible) es que la expresión esté <em>cerrada</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.14">
+
+<ol start="3" type="1">
+<li><p>Generalizamos aún más, <em>parametrizando</em> los
+identificadores libres obtenidos en el paso anterior (y sólo éstos)
+utilizando el cuantificador <code
+class="sourceCode python"><span class="kw">lambda</span></code>, creando
+así una <strong><em>abstracción lambda</em></strong>:</p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<p>Un <strong><em>cuantificador</em></strong> es un símbolo que
+<em>cierra</em> expresiones convirtiendo los elementos que son externos
+a la expresión (los identificadores libres) en elementos propios de la
+expresión (<em>parámetros</em>).</p>
+<p>Los <strong>parámetros</strong> son nombres cuyo valor cambia
+dependiendo de los argumentos de la llamada. Por eso se pueden
+considerar <em>variables</em> en el sentido matemático del término.</p>
+<p>Visto así, podemos interpretar que un cuantificador es un símbolo que
+convierte constantes en variables.</p></li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.1.0.0.15">
+
+<ul>
+<li><p>Ahora hemos <em>cerrado</em> la expresión creando una función en
+la que los identificadores libres ya no son libres sino
+<em>parámetros</em> de la expresión lambda, así que la expresión ya no
+depende de nada que haya en el exterior de la misma.</p></li>
+<li><p>Al invocarla con un argumento concreto, el parámetro toma el
+valor de ese argumento y así se van obteniendo los casos particulares
+deseados:</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x)(<span class="dv">3</span>) → <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x)(<span class="dv">5</span>) → <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div></li>
+<li><p>La expresión lambda es una expresión cerrada que puede usarse
+simplemente pasándole los argumentos necesarios en cada llamada, sin
+necesidad de manipular directamente la expresión que forma su cuerpo y
+que es la que lleva a cabo el procesamiento y el cálculo del
+resultado.</p></li>
+<li><p>Por eso podemos decir que el cuerpo está <em>encapsulado</em>
+dentro de la expresión lambda, la cual forma una <strong>caja
+negra</strong> con una parte expuesta, visible y manipulable desde el
+exterior (sus parámetros) y otra parte oculta dentro de la cápsula (su
+cuerpo).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.16">
+
+<ol start="4" type="1">
+<li><p>Abstraemos dándole un nombre a toda la expresión, de forma que
+ahora podemos usar su nombre en lugar de la expresión lambda:</p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<ul>
+<li><p>Por tanto, de ahora en adelante podemos llamar a la función
+usando su nombre:</p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>cubo(<span class="dv">3</span>) → <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>cubo(<span class="dv">5</span>) → <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div></li>
+<li><p>La función <code>cubo</code> así creada <strong>es una
+abstracción</strong> porque:</p>
+<ul>
+<li><p>Para usarla sólo basta con saber su nombre y <em>qué</em>
+hace.</p></li>
+<li><p>No es necesario saber <em>cómo</em> lo hace.</p></li>
+<li><p>Es una caja negra que expone el <em>qué</em> y oculta el
+<em>cómo</em>.</p></li>
+</ul></li>
+<li><p>Además, una expresión lambda sin nombre es como una función de
+«usar y tirar» que vive y muere en la misma expresión donde se la
+utiliza. En cambio, cuando le damos un nombre, ya puede reutilizarse en
+muchas expresiones.</p></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.1.0.0.17">
+
+<ul>
+<li><p>La importancia de la <strong>abstracción</strong> reside en su
+capacidad para ocultar detalles irrelevantes y en el uso de nombres para
+referenciar objetos.</p></li>
+<li><p>La principal preocupación del usuario de un programa (o de cada
+una de sus partes) es <em>qué</em> hace. Esto contrasta con la del
+programador de esa parte del programa, cuya principal preocupación es
+<em>cómo</em> lo hace.</p></li>
+<li><p>Los lenguajes de programación proporcionan abstracción mediante
+funciones (y otros elementos como procedimientos y módulos, que veremos
+posteriormente) que permiten al programador distinguir entre lo que hace
+una parte del programa y cómo se implementa esa parte.</p></li>
+<li><p>Una función, además, <strong>encapsula</strong> porque crea una
+<em>cápsula</em> alrededor de ella que sólo deja visible al exterior
+parte de su contenido; en particular, la cápsula de una función sólo
+deja pasar fuera lo necesario para poder usar la función, y oculta
+dentro todo lo demás, es decir, lo que no es necesario conocer ni
+manipular para usarla.</p></li>
+<li><p>La abstracción es esencial en la construcción de programas. Pone
+el énfasis en lo que algo es o hace, más que en cómo se representa o
+cómo funciona. Por lo tanto, es el principal medio para gestionar la
+complejidad en programas grandes.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.18">
+
+<ul>
+<li><p>De igual importancia es la
+<strong>generalización</strong>.</p></li>
+<li><p>Mientras que la abstracción reduce la complejidad al ocultar
+detalles irrelevantes, la generalización la reduce al sustituir, con una
+sola construcción, varios elementos que realizan una funcionalidad
+similar.</p></li>
+<li><p>Los lenguajes de programación permiten la generalización mediante
+variables, parametrización, genéricos y polimorfismo.</p></li>
+<li><p>La generalización es esencial en la construcción de programas.
+Pone el énfasis en las similitudes entre elementos. Por lo tanto, ayuda
+a gestionar la complejidad al agrupar individuos y proporcionar un
+representante que puede utilizarse para especificar cualquier individuo
+del grupo.</p></li>
+</ul>
+</section>
+<section id="resumen-1"
+class="title-slide slide level4 unnumbered unlisted">
+<h4 class="unnumbered unlisted">Resumen</h4>
+<ul>
+<li><p><strong>Encapsulación</strong>: Es agrupar varios elementos
+juntos formando una sola unidad, ocultando algunos y exponiendo
+otros.</p></li>
+<li><p><strong>Caja negra</strong>: Es el resultado de la encapsulación.
+La «tapa» de la caja negra es la <em>cápsula</em> que separa lo que se
+expone de lo que se oculta al exterior. En ese sentido, la tapa deja ver
+alguna cosas y otras no.</p></li>
+<li><p><strong>Abstracción</strong>: Conceptualmente, es el proceso de
+simplificar algo resaltando solo sus características esenciales y
+ocultando los detalles irrelevantes para el contexto en que se usa.</p>
+<p>En la práctica, también es el producto resultante de ese proceso. En
+tal caso, una abstracción consiste en darle un nombre a una caja negra,
+pero no cualquier caja negra, sino una donde lo que se expone es la
+información necesaria para saber <em>qué</em> hace la abstracción, y lo
+que se oculta son los detalles necesarios para saber <em>cómo</em> lo
+hace.</p>
+<p>En la abstracción, por tanto, la cápsula separa el qué del
+cómo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.19">
+
+<ul>
+<li><p><strong>Generalización</strong>: Es el proceso de identificar un
+patrón común entre varios casos particulares y crear un modelo más
+general que los abarque a todos.</p></li>
+<li><p><strong>Parametrización</strong>: Es el proceso de definir un
+elemento que representa un caso general utilizando <em>parámetros</em>
+que permiten obtener los casos particulares del caso general sin tener
+que reescribirlo, ligando valores concretos a los parámetros.</p></li>
+<li><p><strong>Parámetro</strong>: Es una parte que cambia en cada caso
+particular de un patrón común.</p></li>
+</ul>
+</section>
+
+
+<section id="pureza" class="title-slide slide level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+Pureza</h2>
+<ul>
+<li><p>Si una expresión lambda no contiene identificadores libres, el
+valor que obtendremos al aplicarla a unos argumentos dependerá
+únicamente del valor que tengan esos argumentos (no dependerá de nada
+que sea «<em>exterior</em>» a la expresión lambda).</p></li>
+<li><p>En cambio, si el cuerpo de una expresión lambda contiene
+identificadores libres, el valor que obtendremos al aplicarla a unos
+argumentos no sólo dependerá del valor de los argumentos, sino también
+de los valores a los que estén ligados esos identificadores libres en el
+momento de evaluar la aplicación de la expresión lambda.</p></li>
+<li><p>Es el caso del siguiente ejemplo, donde tenemos una expresión
+lambda que contiene un identificador libre (<code
+class="sourceCode python">z</code>) y, por tanto, cuando la aplicamos a
+los argumentos <code
+class="sourceCode python"><span class="dv">4</span></code> y <code
+class="sourceCode python"><span class="dv">3</span></code> obtenemos un
+valor que depende no sólo de los valores de <code
+class="sourceCode python">x</code> e <code
+class="sourceCode python">y</code> sino también del valor de <code
+class="sourceCode python">z</code> en el entorno:</p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.1">
+
+<ul>
+<li><p>En este otro ejemplo, tenemos una expresión lambda que calcula la
+suma de tres números a partir de otra expresión lambda que calcula la
+suma de dos números:</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
+<p>En este caso, hay un identificador (<code
+class="sourceCode python">suma</code>) que no aparece en la lista de
+parámetros de la expresión lambda ligada a <code
+class="sourceCode python">suma3</code>.</p>
+<p>En consecuencia, el valor de dicha expresión lambda dependerá de lo
+que valga <code class="sourceCode python">suma</code> en el entorno
+actual.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.2">
+
+<ul>
+<li><p>Se dice que una expresión lambda es <strong>pura</strong> si,
+siempre que la apliquemos a unos argumentos, el valor obtenido va a
+depender únicamente del valor de esos argumentos o, lo que es lo mismo,
+del valor de sus parámetros en la llamada.</p></li>
+<li><p>Podemos decir que hay distintos <strong>grados de
+pureza</strong>:</p>
+<ul>
+<li><p>Una expresión lambda en cuyo cuerpo no hay ningún identificador
+libre es <strong>más pura</strong> que otra que contiene identificadores
+libres.</p></li>
+<li><p>Una expresión lambda cuyos <strong>identificadores
+libres</strong> representan <strong>funciones</strong> que se usan en el
+cuerpo de la expresión lambda, es <strong>más pura</strong> que otra
+cuyos identificadores libres representan cualquier otro tipo de
+valor.</p></li>
+</ul>
+<p>En el ejemplo anterior, tenemos que la expresión lambda de <code
+class="sourceCode python">suma3</code>, sin ser <em>totalmente
+pura</em>, a efectos prácticos se la puede considerar
+<strong>pura</strong>, ya que su único identificador libre (<code
+class="sourceCode python">suma</code>) se usa como una
+<strong>función</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.3">
+
+<ul>
+<li><p>Por ejemplo, las siguientes expresiones lambda están ordenadas de
+mayor a menor pureza, siendo la primera totalmente
+<strong>pura</strong>:</p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus identificadores libres (en este</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su identificador libre (z) no es una función:</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
+<li><p><strong>La pureza de una función es un rasgo deseado y que hay
+que tratar de alcanzar siempre que sea posible</strong>, ya que facilita
+el desarrollo y mantenimiento de los programas, además de simplificar el
+razonamiento sobre los mismos, permitiendo aplicar directamente nuestro
+modelo de sustitución.</p></li>
+<li><p>Es más incómodo trabajar con <code
+class="sourceCode python">suma</code> porque hay que <em>recordar</em>
+que depende de un valor que está <em>fuera</em> de la expresión lambda,
+cosa que no resulta evidente a no ser que mires en el cuerpo de la
+expresión lambda.</p></li>
+</ul>
+</section>
+
+<section id="especificaciones-de-funciones"
+class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+Especificaciones de funciones</h2>
+<ul>
+<li><p>La <strong>especificación de una <em>función</em></strong> es la
+descripción de <strong>qué</strong> hace la función sin entrar a
+detallar <strong>cómo</strong> lo hace.</p></li>
+<li><p>La <strong>implementación de una <em>función</em></strong> es la
+descripción de <strong>cómo</strong> hace lo que hace, es decir, los
+detalles de su algoritmo interno.</p></li>
+<li><p><strong>Para poder usar una función, un programador no debe
+necesitar saber cómo está implementada</strong>.</p></li>
+<li><p>Eso es lo que ocurre, por ejemplo, con las funciones predefinidas
+del lenguaje (como <code
+class="sourceCode python"><span class="bu">max</span></code>, <code
+class="sourceCode python"><span class="bu">abs</span></code> o <code
+class="sourceCode python"><span class="bu">len</span></code>): sabemos
+<em>qué</em> hacen pero no necesitamos saber <em>cómo</em> lo
+hacen.</p></li>
+<li><p>Incluso puede que el usuario de una función no sea el mismo que
+la ha escrito, sino que la puede haber recibido de otro programador como
+una «<strong>caja negra</strong>», que tiene unas entradas y una salida
+pero no se sabe cómo funciona por dentro.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.1">
+
+<ul>
+<li><p>Para poder <strong>usar una abstracción funcional</strong>
+<em>nos basta</em> con conocer su <em>especificación</em>, porque es la
+descripción de qué hace esa función.</p></li>
+<li><p>Igualmente, para poder <strong>implementar una abstracción
+funcional</strong> <em>necesitamos</em> conocer su
+<em>especificación</em>, ya que necesitamos saber <em>qué tiene que
+hacer</em> la función antes de diseñar <em>cómo va a
+hacerlo</em>.</p></li>
+<li><p>La especificación de una abstracción funcional describe tres
+características fundamentales de dicha función:</p>
+<ul>
+<li><p>El <strong>dominio</strong>: el conjunto de datos de entrada
+válidos.</p></li>
+<li><p>El <strong>rango</strong> o <strong>codominio</strong>: el
+conjunto de posibles valores que devuelve.</p></li>
+<li><p>El <strong>propósito</strong>: qué hace la función, es decir, la
+relación entre su entrada y su salida.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.2">
+
+<ul>
+<li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos
+llamado «<strong>entrada</strong>» al dominio, y hemos agrupado el rango
+y el propósito en una sola propiedad que llamamos
+«<strong>salida</strong>».</p></li>
+<li><p>Por ejemplo, cualquier función <code
+class="sourceCode python">cuadrado</code> que usemos para implementar
+<code class="sourceCode python">area</code> debe satisfacer esta
+especificación:</p>
+<p><span class="math display">\begin{cases}
+  \text{\textbf{Entrada}}: n \in \mathbb{R} \\
+  \texttt{cuadrado} \\
+  \text{\textbf{Salida}}: n^2
+\end{cases}</span></p></li>
+<li><p>La especificación <strong>no concreta cómo</strong> se debe
+llevar a cabo el propósito. Esos son <strong>detalles de
+implementación</strong> que se abstraen a este nivel.</p></li>
+<li><p>Este esquema es el que hemos usado hasta ahora para especificar
+programas, y se podría seguir usando para especificar funciones, ya que
+éstas son consideradas <em>subprogramas</em> (programas que forman parte
+de otros programas más grandes).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.3">
+
+<ul>
+<li><p>Pero para especificar funciones resulta más adecuado usar el
+siguiente esquema, al que llamaremos <strong>especificación
+funcional</strong>:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; \texttt{True} \\[0.5em]
+&amp; \texttt{cuadrado(\(n\):\,float)\;-&gt;\;float} \\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuadrado(\(n\))} = n^2
+\end{array}\right.</span></p></li>
+<li><p>«<strong>Pre</strong>» representa la
+<strong>precondición</strong>: la propiedad que debe cumplirse justo
+<em>en el momento</em> de llamar a la función.</p></li>
+<li><p>«<strong>Post</strong>» representa la
+<strong>postcondición</strong>: la propiedad que debe cumplirse justo
+<em>después</em> de que la función haya terminado de
+ejecutarse.</p></li>
+<li><p>Lo que hay en medio es la <strong>signatura</strong>: el nombre
+de la función, el nombre y tipo de sus parámetros y el tipo del valor de
+retorno.</p></li>
+<li><p>La especificación se lee así: «<strong><em>Si se llama a la
+función respetando su signatura y cumpliendo su precondición, la llamada
+termina cumpliendo su postcondición</em></strong>».</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.4">
+
+<ul>
+<li><p>En este caso, la <strong>precondición</strong> es <code
+class="sourceCode python"><span class="va">True</span></code>, que
+equivale a decir que cualquier condición de entrada es buena para usar
+la función.</p></li>
+<li><p>Dicho de otra forma: no hace falta que se dé ninguna condición
+especial para usar la función. Siempre que la llamada respete la
+signatura de la función, el parámetro <span class="math inline">n</span>
+puede tomar cualquier valor de tipo <code
+class="sourceCode python"><span class="bu">float</span></code> y no hay
+ninguna restricción adicional.</p></li>
+<li><p>Por otro lado, la <strong>postcondición</strong> dice que al
+llamar a la función <code class="sourceCode python">cuadrado</code> con
+el argumento <span class="math inline">n</span> se debe devolver <span
+class="math inline">n^2</span>.</p></li>
+<li><p>Tanto la precondición como la postcondición son
+<strong>predicados</strong>, es decir, expresiones lógicas que se
+escriben usando el lenguaje de las matemáticas y la lógica.</p></li>
+<li><p>La <strong>signatura</strong> se escribe usando la sintaxis del
+lenguaje de programación que se vaya a usar para implementar la función
+(Python, en este caso).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.5">
+
+<ul>
+<li><p>Recordemos la diferencia entre:</p>
+<ul>
+<li><p><strong>Dominio</strong> y <strong>conjunto origen</strong> de
+una función.</p></li>
+<li><p><strong>Rango</strong> (o <strong>codominio</strong>) y
+<strong>conjunto imagen</strong> de una función.</p></li>
+</ul></li>
+<li><p>¿Cómo recoge la especificación esas cuatro características de la
+función?</p>
+<ul>
+<li><p>La <strong>signatura</strong> expresa el <strong>conjunto
+origen</strong> y el <strong>conjunto imagen</strong> de la
+función.</p></li>
+<li><p>El <strong>dominio</strong> viene determinado por los valores del
+conjunto origen que cumplen la <strong>precondición</strong>.</p></li>
+<li><p>El <strong>codominio</strong> viene determinado por los valores
+del conjunto imagen que cumplen la
+<strong>postcondición</strong>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.6">
+
+<ul>
+<li><p>En el caso de la función <code
+class="sourceCode python">cuadrado</code> tenemos que:</p>
+<ul>
+<li><p>El conjunto origen es <code
+class="sourceCode python"><span class="bu">float</span></code>, ya que
+su parámetro <span class="math inline">n</span> está declarado de tipo
+<code class="sourceCode python"><span class="bu">float</span></code> en
+la signatura de la función.</p>
+<p>Por tanto, los datos de entrada a la función deberán pertenecer al
+tipo <code
+class="sourceCode python"><span class="bu">float</span></code>.</p></li>
+<li><p>El dominio coincide con el conjunto origen, ya que su
+precondición es <code
+class="sourceCode python"><span class="va">True</span></code>. Eso
+quiere decir que cualquier dato de entrada es válido siempre que
+pertenezca al dominio (en este caso, el tipo <code
+class="sourceCode python"><span class="bu">float</span></code>).</p></li>
+<li><p>El conjunto imagen también es <code
+class="sourceCode python"><span class="bu">float</span></code>, ya que
+así está declarado el tipo de retorno de la función.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.7">
+
+<ul>
+<li><p>Las pre y postcondiciones no es necesario escribirlas de una
+manera <strong>formal y rigurosa</strong>, usando el lenguaje de las
+Matemáticas o la Lógica.</p></li>
+<li><p>Si la especificación se escribe en <em>lenguaje natural</em> y se
+entiende bien, completamente y sin ambigüedades, no hay
+problema.</p></li>
+<li><p>El motivo de usar un lenguaje formal es que, normalmente, resulta
+<strong>mucho más conciso y preciso que el lenguaje
+natural</strong>.</p></li>
+<li><p>El lenguaje natural suele ser:</p>
+<ul>
+<li><p><strong>Más prolijo</strong>: necesita más palabras para decir lo
+mismo que diríamos matemáticamente usando menos caracteres.</p></li>
+<li><p><strong>Más ambiguo</strong>: lo que se dice en lenguaje natural
+se puede interpretar de distintas formas.</p></li>
+<li><p><strong>Menos completo</strong>: quedan flecos y situaciones
+especiales que no se tienen en cuenta.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.8">
+
+<ul>
+<li><p>En este otro ejemplo, más completo, se especifica una función
+llamada <code class="sourceCode python">cuenta</code>:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; car \mathrel{\char`≠}
+\text{\texttt{&quot;&quot;}} \land \texttt{len(}car\texttt{)} = 1
+\\[0.5em]
+&amp; \texttt{cuenta(\(cadena\):\,str,\;\(car\):\,str)\;-&gt;\;int}
+\\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\),\;\(car\))} \geq
+0\ \land\\[0.1em]
+&amp; \texttt{cuenta(\(cadena\),\;\(car\))} =
+cadena\texttt{.count(\(car\))}
+\end{array}\right.</span></p></li>
+<li><p>Con esta especificación, estamos diciendo que <code
+class="sourceCode python">cuenta</code> es una función que recibe una
+cadena y un carácter (otra cadena con un único carácter
+dentro).</p></li>
+<li><p>Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera,
+sino que tienen que cumplir la <em>precondición</em>.</p></li>
+<li><p>Eso significa, entre otras cosas, que aquí <strong>el
+<em>dominio</em> y el <em>conjunto origen</em> de la función no
+coinciden</strong> (no todos los valores pertenecientes al conjunto
+origen sirven como datos de entrada válidos para la función).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.9">
+
+<ul>
+<li><p>En esta especificación, <code
+class="sourceCode python">count</code> se usa como un <strong>método
+auxiliar</strong>.</p>
+<p>Las <em>operaciones auxiliares</em> se puede usar en una
+especificación siempre que estén perfectamente especificadas, aunque no
+estén implementadas.</p></li>
+<li><p>En este caso, se usa en la <em>postcondición</em> para decir que
+la función <code class="sourceCode python">cuenta</code>, la que se está
+especificando, debe devolver el mismo resultado que devuelve el método
+<code class="sourceCode python">count</code> (el cual ya conocemos
+perfectamente y sabemos qué hace, puesto que es un método que ya existe
+en Python).</p></li>
+<li><p>Es decir: la especificación anterior describe con total precisión
+que la función <code class="sourceCode python">cuenta</code>
+<strong>cuenta el número de veces que el carácter <span
+class="math inline">\underline{\textbf{\textit{car}}}</span> aparece en
+la cadena <span
+class="math inline">\underline{\textbf{\textit{cadena}}}</span></strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.10">
+
+<ul>
+<li><p>En realidad, las condiciones de la especificación anterior se
+podrían simplificar aprovechando las propiedades de las expresiones
+lógicas, quedando así:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; \texttt{len(\(car\))} = 1 \\[0.5em]
+&amp; \texttt{cuenta(\(cadena\):\,str,\;\(car\):\,str)\;-&gt;\;int}
+\\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\),\;\(car\))} =
+cadena\texttt{.count(\(car\))}
+\end{array}\right.</span></p></li>
+</ul>
+</section>
+<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol class="example" type="1">
+<li>¿Por qué?</li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.3.0.0.11">
+
+<ul>
+<li><p>Finalmente, podríamos escribir la misma especificación en
+lenguaje natural:</p>
+<p><span class="math display">\left\{\begin{array}{ll}
+  \text{\textbf{Pre}}: &amp; car \text{ debe ser un único carácter}
+\\[0.5em]
+&amp; \texttt{cuenta(\(cadena\):\,str,\;\(car\):\,str)\;-&gt;\;int}
+\\[0.5em]
+\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\),\;\(car\))} \text{
+devuelve el número de veces}\\[0.1em]
+&amp; \text{que aparece el carácter } car \text{ en la cadena }
+cadena.\\[0.1em]
+&amp; \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca
+en la}\\[0.1em]
+&amp; \text{cadena } cadena \text{, debe devolver } 0.
+\end{array}\right.</span></p></li>
+<li><p>Probablemente resulta más fácil de leer (sobre todo para los
+novatos), pero también es más largo y prolijo.</p></li>
+<li><p>Es como un contrato escrito por un abogado en lenguaje
+jurídico.</p></li>
+</ul>
+<!--
+
+- Un ejemplo mucho más avanzado para los curiosos:
+
+  $$\begin{cases}
+    \text{\textbf{Pre}}: lista \mathrel{\char`≠} \texttt{[]} \\
+    suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -> } T \\
+    \text{\textbf{Post}}: suma(lista) = sum(lista)
+  \end{cases}$$
+
+- $sum$ es una función auxiliar.
+
+- `List[`$T$`]` es un tipo genérico que pertenece al módulo `typing` y que se
+  puede utilizar para indicar el tipo de una lista cuyos elementos son todos
+  del tipo $T$.
+
+- Con esto estamos diciendo que `suma` es una función que recibe una lista no
+  vacía de elementos de un determinado tipo y que devuelve un resultado de ese
+  mismo tipo.
+
+- Para más información, consultar:
+
+  - [https://docs.python.org/3/library/typing.html](https://docs.python.org/3/library/typing.html)
+
+  - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
+-->
+</section>
+</section>
+<section>
+<section id="recursividad" class="title-slide slide level1"
+data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span>
 Recursividad</h1>
 
 </section>
 <section id="funciones-y-procesos" class="title-slide slide level2"
-data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span>
 Funciones y procesos</h2>
 <ul>
 <li><p>Los <strong>procesos</strong> son entidades abstractas que
@@ -1627,7 +2535,7 @@ espíritus del ordenador (los procesos) con sus conjuros (los programas)
 escritos en un lenguaje mágico (el lenguaje de programación).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="4.1.0.0.1">
 
 <ul>
 <li><p>Una <strong>función</strong> describe la <em>evolución local</em>
@@ -1644,8 +2552,8 @@ algunos de los modelos típicos de evolución de los procesos.</p></li>
 </ul>
 </section>
 <section id="funciones-ad-hoc" class="title-slide slide level3"
-data-number="3.1.1">
-<h3 data-number="3.1.1"><span class="header-section-number">3.1.1</span>
+data-number="4.1.1">
+<h3 data-number="4.1.1"><span class="header-section-number">4.1.1</span>
 Funciones <em>ad-hoc</em></h3>
 <ul>
 <li><p>Supongamos que queremos diseñar una función llamada <code
@@ -1664,7 +2572,7 @@ debe devolver <code
 class="sourceCode python"><span class="dv">6</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.1.0.1">
+<section class="slide level5" data-number="4.1.1.0.1">
 
 <ul>
 <li><p>La implementación de esa función deberá satisfacer la siguiente
@@ -1678,23 +2586,23 @@ de permutaciones que}\\[0.1em]
 \end{array}\right.</span></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.1.0.2">
+<section class="slide level5" data-number="4.1.1.0.2">
 
 <ul>
 <li><p>Un programador con poca idea de programación (o muy listillo) se
 podría plantear una implementación parecida a la siguiente:</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>permutas <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">2</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">2</span> <span class="cf">else</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>permutas <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">2</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">2</span> <span class="cf">else</span> ...</span></code></pre></div>
 <p>que se puede escribir mejor usando la barra invertida
 (<code>\</code>) para poder separar una instrucción en varias
 líneas:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>permutas <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">2</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">2</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">6</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">3</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">24</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">4</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>                     ...                    <span class="co"># sigue y sigue</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>permutas <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">2</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">2</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">6</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">3</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>                     <span class="dv">24</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">4</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>                     ...                    <span class="co"># sigue y sigue</span></span></code></pre></div></li>
 <li><p>Pero este algoritmo en realidad es <em>tramposo</em>, porque no
 calcula nada, sino que se limita a asociar el dato de entrada con el de
 salida, que se ha tenido que calcular previamente usando otro
@@ -1704,7 +2612,7 @@ procedimiento.</p></li>
 denominan <strong>funciones <em>ad-hoc</em></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.1.0.3">
+<section class="slide level5" data-number="4.1.1.0.3">
 
 <ul>
 <li><p>Las funciones <em>ad-hoc</em> <strong>no son
@@ -1728,14 +2636,14 @@ esta asignatura.</strong></p>
 
 
 <section id="funciones-recursivas" class="title-slide slide level2"
-data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span>
 Funciones recursivas</h2>
 
 </section>
 <section id="definición" class="title-slide slide level3"
-data-number="3.2.1">
-<h3 data-number="3.2.1"><span class="header-section-number">3.2.1</span>
+data-number="4.2.1">
+<h3 data-number="4.2.1"><span class="header-section-number">4.2.1</span>
 Definición</h3>
 <ul>
 <li><p>Una <strong>función recursiva</strong> es aquella que se define
@@ -1754,7 +2662,7 @@ función se llama a sí misma <em>directamente</em> o que hay una
 programación funcional.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.1">
+<section class="slide level5" data-number="4.2.1.0.1">
 
 <ul>
 <li><p>Por ejemplo: <span class="math display">f(n) = n + f(n +
@@ -1771,24 +2679,24 @@ realiza una <strong>llamada recursiva</strong> o <strong>paso
 recursivo</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.1.0.2">
+<section class="slide level5" data-number="4.2.1.0.2">
 
 <div class="centered">
 <p><img data-src="images/pintura-recursiva.jpg" class="plain"
 style="width:100.0%" /></p>
 </div>
 </section>
-<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<section id="ejercicio-1" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejercicio</h5>
-<ol class="example" type="1">
+<ol start="2" class="example" type="1">
 <li>Desde el principio del curso ya hemos estado trabajando con
 estructuras que pueden tener una definición recursiva. ¿Cuáles son?</li>
 </ol>
 </section>
 
 <section id="casos-base-y-casos-recursivos"
-class="title-slide slide level3" data-number="3.2.2">
-<h3 data-number="3.2.2"><span class="header-section-number">3.2.2</span>
+class="title-slide slide level3" data-number="4.2.2">
+<h3 data-number="4.2.2"><span class="header-section-number">4.2.2</span>
 Casos base y casos recursivos</h3>
 <ul>
 <li><p>Resulta importante que una definición recursiva se detenga alguna
@@ -1800,7 +2708,7 @@ en el que la función no se llame a sí misma y se detenga.</p></li>
 se vaya acercando cada vez más a ese punto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.2.0.1">
+<section class="slide level5" data-number="4.2.2.0.1">
 
 <ul>
 <li><p>Ese punto en el que la función recursiva <strong>no se llama a sí
@@ -1816,8 +2724,8 @@ denominan <strong>casos recursivos</strong>.</p></li>
 </section>
 
 <section id="el-factorial" class="title-slide slide level3"
-data-number="3.2.3">
-<h3 data-number="3.2.3"><span class="header-section-number">3.2.3</span>
+data-number="4.2.3">
+<h3 data-number="4.2.3"><span class="header-section-number">4.2.3</span>
 El factorial</h3>
 <ul>
 <li><p>El ejemplo más típico de función recursiva es el
@@ -1839,7 +2747,7 @@ class="math display">6! = 6\cdot5!</span></p></li>
 <strong>recursiva</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.3.0.1">
+<section class="slide level5" data-number="4.2.3.0.1">
 
 <ul>
 <li><p>Tenemos el <strong>caso recursivo</strong>, pero necesitamos al
@@ -1856,7 +2764,7 @@ recursivo)}
        \end{cases}</span></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.3.0.2">
+<section class="slide level5" data-number="4.2.3.0.2">
 
 <ul>
 <li><p>La <strong>especificación</strong> de una función que calcule el
@@ -1868,16 +2776,16 @@ factorial de un número sería:</p>
 \end{array}\right.</span></p></li>
 <li><p>Y su <strong>implementación</strong> en Python podría ser la
 siguiente:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>que sería prácticamente una traducción literal de la definición
 recursiva de factorial que acabamos de obtener.</p></li>
 </ul>
 </section>
 
 <section id="diseño-de-funciones-recursivas"
-class="title-slide slide level3" data-number="3.2.4">
-<h3 data-number="3.2.4"><span class="header-section-number">3.2.4</span>
+class="title-slide slide level3" data-number="4.2.4">
+<h3 data-number="4.2.4"><span class="header-section-number">4.2.4</span>
 Diseño de funciones recursivas</h3>
 <ul>
 <li><p>El diseño de funciones recursivas se basa en:</p>
@@ -1889,9 +2797,9 @@ Diseño de funciones recursivas</h3>
 </ul>
 </section>
 <section id="identificación-de-casos-base"
-class="title-slide slide level4" data-number="3.2.4.1">
-<h4 data-number="3.2.4.1"><span
-class="header-section-number">3.2.4.1</span> Identificación de casos
+class="title-slide slide level4" data-number="4.2.4.1">
+<h4 data-number="4.2.4.1"><span
+class="header-section-number">4.2.4.1</span> Identificación de casos
 base</h4>
 <ul>
 <li><p>Debemos identificar los ejemplares para los cuales hay una
@@ -1917,9 +2825,9 @@ de 0: <span class="math display">fact(0) = 1</span></p></li>
 </section>
 
 <section id="descomposición-reducción-del-problema"
-class="title-slide slide level4" data-number="3.2.4.2">
-<h4 data-number="3.2.4.2"><span
-class="header-section-number">3.2.4.2</span> Descomposición (reducción)
+class="title-slide slide level4" data-number="4.2.4.2">
+<h4 data-number="4.2.4.2"><span
+class="header-section-number">4.2.4.2</span> Descomposición (reducción)
 del problema</h4>
 <ul>
 <li><p>Reducimos el problema de forma que así tendremos un ejemplar
@@ -1935,7 +2843,7 @@ cerca del caso base, porque de lo contrario se produciría una
 <em>recursión infinita</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.2.1">
+<section class="slide level5" data-number="4.2.4.2.1">
 
 <ul>
 <li><p>En el ejemplo del factorial:</p>
@@ -1960,9 +2868,9 @@ final, siempre lo acabaremos alcanzando.</p></li>
 </section>
 
 <section id="pensamiento-optimista" class="title-slide slide level4"
-data-number="3.2.4.3">
-<h4 data-number="3.2.4.3"><span
-class="header-section-number">3.2.4.3</span> Pensamiento optimista</h4>
+data-number="4.2.4.3">
+<h4 data-number="4.2.4.3"><span
+class="header-section-number">4.2.4.3</span> Pensamiento optimista</h4>
 <ul>
 <li><p>Consiste en suponer que la función deseada ya existe y que,
 aunque no sabe resolver el ejemplar original del problema, sí que es
@@ -1986,7 +2894,7 @@ problema.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.3.1">
+<section class="slide level5" data-number="4.2.4.3.1">
 
 <ul>
 <li><p>En el ejemplo del factorial:</p>
@@ -2013,7 +2921,7 @@ y luego multiplicar el resultado por 6</em>.</p>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.3.2">
+<section class="slide level5" data-number="4.2.4.3.2">
 
 <ul>
 <li><p>Generalizando para cualquier número, no sólo para el 6:</p>
@@ -2048,7 +2956,7 @@ fact(n-1)</span></p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.4.3.3">
+<section class="slide level5" data-number="4.2.4.3.3">
 
 <ul>
 <li>Combinando todos los pasos, obtenemos la solución general:</li>
@@ -2062,8 +2970,8 @@ recursivo)}
 
 
 <section id="recursividad-lineal" class="title-slide slide level3"
-data-number="3.2.5">
-<h3 data-number="3.2.5"><span class="header-section-number">3.2.5</span>
+data-number="4.2.5">
+<h3 data-number="4.2.5"><span class="header-section-number">4.2.5</span>
 Recursividad lineal</h3>
 <ul>
 <li><p>Una función tiene <strong>recursividad lineal</strong> si cada
@@ -2081,37 +2989,37 @@ class="math inline">fact</span>:</p></li>
 n &gt; 0\quad \text{(caso recursivo)}</span></p>
 </section>
 <section id="procesos-recursivos-lineales"
-class="title-slide slide level4" data-number="3.2.5.1">
-<h4 data-number="3.2.5.1"><span
-class="header-section-number">3.2.5.1</span> Procesos recursivos
+class="title-slide slide level4" data-number="4.2.5.1">
+<h4 data-number="4.2.5.1"><span
+class="header-section-number">4.2.5.1</span> Procesos recursivos
 lineales</h4>
 <ul>
 <li><p>La forma más directa y sencilla de definir una función que
 calcule el factorial de un número a partir de su definición recursiva
 podría ser la siguiente:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div></li>
 <li><p>Utilizaremos el modelo de sustitución para observar el
 funcionamiento de esta función al calcular <span
 class="math inline">6!</span>:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>factorial(<span class="dv">6</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> factorial(<span class="dv">5</span>))</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> factorial(<span class="dv">4</span>)))</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> factorial(<span class="dv">3</span>))))</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> factorial(<span class="dv">2</span>)))))</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> factorial(<span class="dv">1</span>))))))</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> factorial(<span class="dv">0</span>)))))))</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> <span class="dv">1</span>))))))</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">1</span>)))))</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">2</span>))))</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span>)))</span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> <span class="dv">24</span>))</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> <span class="dv">120</span>)</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">720</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>factorial(<span class="dv">6</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> factorial(<span class="dv">5</span>))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> factorial(<span class="dv">4</span>)))</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> factorial(<span class="dv">3</span>))))</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> factorial(<span class="dv">2</span>)))))</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> factorial(<span class="dv">1</span>))))))</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> factorial(<span class="dv">0</span>)))))))</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">*</span> <span class="dv">1</span>))))))</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">1</span>)))))</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">2</span>))))</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> <span class="dv">6</span>)))</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> (<span class="dv">5</span> <span class="op">*</span> <span class="dv">24</span>))</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">6</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">720</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.5.1.1">
+<section class="slide level5" data-number="4.2.5.1.1">
 
 <ul>
 <li><p>Podemos observar un perfil de <strong>expansión</strong> seguido
@@ -2141,9 +3049,9 @@ reducción.</p>
 </section>
 
 <section id="procesos-iterativos-lineales"
-class="title-slide slide level4" data-number="3.2.5.2">
-<h4 data-number="3.2.5.2"><span
-class="header-section-number">3.2.5.2</span> Procesos iterativos
+class="title-slide slide level4" data-number="4.2.5.2">
+<h4 data-number="4.2.5.2"><span
+class="header-section-number">4.2.5.2</span> Procesos iterativos
 lineales</h4>
 <ul>
 <li><p>A continuación adoptaremos un enfoque diferente.</p></li>
@@ -2157,28 +3065,28 @@ producto cambien de un paso al siguiente según la siguiente regla:</p>
   \end{array}</span></p></li>
 <li><p>Su traducción a Python podría ser la siguiente, usando una
 función auxiliar <code>fact_iter</code>:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, cont <span class="op">*</span> acc)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, cont <span class="op">*</span> acc)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.5.2.1">
+<section class="slide level5" data-number="4.2.5.2.1">
 
 <ul>
 <li><p>Al igual que antes, usaremos el modelo de sustitución para
 visualizar el proceso del cálculo de <span
 class="math inline">6!</span>:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>factorial(<span class="dv">6</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">6</span>, <span class="dv">1</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">4</span>, <span class="dv">30</span>)</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">3</span>, <span class="dv">120</span>)</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">2</span>, <span class="dv">360</span>)</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">1</span>, <span class="dv">720</span>)</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">0</span>, <span class="dv">720</span>)</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">720</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>factorial(<span class="dv">6</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">6</span>, <span class="dv">1</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">4</span>, <span class="dv">30</span>)</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">3</span>, <span class="dv">120</span>)</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">2</span>, <span class="dv">360</span>)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">1</span>, <span class="dv">720</span>)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> fact_iter(<span class="dv">0</span>, <span class="dv">720</span>)</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">720</span></span></code></pre></div></li>
 <li><p>Este proceso no tiene expansiones ni contracciones ya que, en
 cada instante, toda la información que se necesita almacenar es el valor
 actual de los parámetros <code class="sourceCode python">cont</code> y
@@ -2193,7 +3101,7 @@ class="math inline">n!</span> usando esta función crece
 <em>lineal</em></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.5.2.2">
+<section class="slide level5" data-number="4.2.5.2.2">
 
 <table>
 <colgroup>
@@ -2255,7 +3163,7 @@ proporcional a <span class="math inline">\underline{n}</span></td>
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="3.2.5.2.3">
+<section class="slide level5" data-number="4.2.5.2.3">
 
 <ul>
 <li><p>En general, un <strong>proceso iterativo</strong> es aquel que
@@ -2278,7 +3186,7 @@ cuáles quedan pendientes por hacer.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.5.2.4">
+<section class="slide level5" data-number="4.2.5.2.4">
 
 <ul>
 <li><p>No debe confundirse un <strong>proceso recursivo</strong> con una
@@ -2299,7 +3207,7 @@ definido completamente por dos parámetros, y para ejecutar el proceso
 sólo se necesita almacenar el valor de esos dos parámetros.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.5.2.5">
+<section class="slide level5" data-number="4.2.5.2.5">
 
 <ul>
 <li><p>Aquí hemos visto un ejemplo donde se aprecia claramente que
@@ -2308,13 +3216,13 @@ sólo se necesita almacenar el valor de esos dos parámetros.</p></li>
 <li><p>Eso sí: todas las implementaciones de una función deben
 satisfacer su especificación.</p></li>
 <li><p>En este caso, las dos implementaciones son:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>y</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, cont <span class="op">*</span> acc)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, cont <span class="op">*</span> acc)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span></code></pre></div></li>
 <li><p>Y aunque las dos satisfacen la misma especificación (y, por
 tanto, calculan exactamente los mismos valores), lo hacen de una forma
 muy diferente, generando incluso procesos de distinto tipo.</p></li>
@@ -2323,8 +3231,8 @@ muy diferente, generando incluso procesos de distinto tipo.</p></li>
 
 
 <section id="recursividad-múltiple" class="title-slide slide level3"
-data-number="3.2.6">
-<h3 data-number="3.2.6"><span class="header-section-number">3.2.6</span>
+data-number="4.2.6">
+<h3 data-number="4.2.6"><span class="header-section-number">4.2.6</span>
 Recursividad múltiple</h3>
 <ul>
 <li><p>Una función tiene <strong>recursividad múltiple</strong> cuando,
@@ -2338,7 +3246,7 @@ cada término es la suma de los dos anteriores:</p>
 1597, …</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.6.0.1">
+<section class="slide level5" data-number="4.2.6.0.1">
 
 <ul>
 <li><p>Podemos definir una función recursiva que devuelva el <span
@@ -2352,7 +3260,7 @@ Fibonacci:</p>
            \end{cases}</span></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.6.0.2">
+<section class="slide level5" data-number="4.2.6.0.2">
 
 <ul>
 <li><p>La especificación de una función que devuelva el <span
@@ -2365,16 +3273,16 @@ sería:</p>
 término de la sucesión de Fibonacci}
 \end{array}\right.</span></p></li>
 <li><p>Y su implementación en Python podría ser:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>o bien, separando la definición en varias líneas:</p>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>                <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">0</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>                fib(n <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> fib(n <span class="op">-</span> <span class="dv">2</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.6.0.3">
+<section class="slide level5" data-number="4.2.6.0.3">
 
 <ul>
 <li><p>Si vemos el perfil de ejecución de <code
@@ -2401,14 +3309,14 @@ pueden calcular directamente (son los casos base).</p></li>
 generan <strong>procesos recursivos en árbol</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.6.0.4">
+<section class="slide level5" data-number="4.2.6.0.4">
 
 <div class="centered">
 <p><img data-src="images/arbol-fibonacci.svg" class="plain"
 style="width:80.0%" /></p>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.6.0.5">
+<section class="slide level5" data-number="4.2.6.0.5">
 
 <ul>
 <li><p>La función anterior es un buen ejemplo de recursión en árbol,
@@ -2431,7 +3339,7 @@ mientras que <strong>el espacio necesario crece con la <em>altura
 máxima</em> del árbol</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.6.0.6">
+<section class="slide level5" data-number="4.2.6.0.6">
 
 <ul>
 <li><p>Se puede construir un <strong>proceso iterativo</strong> para
@@ -2447,17 +3355,17 @@ repetidamente la siguiente transformación:</p>
 <em>b</em> contendrán <span class="math inline">fib(n)</span> y <span
 class="math inline">fib(n + 1)</span>, respectivamente.</p></li>
 <li><p>En Python sería:</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>fib_iter <span class="op">=</span> <span class="kw">lambda</span> cont, a, b: a <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> fib_iter(cont <span class="op">-</span> <span class="dv">1</span>, b, a <span class="op">+</span> b)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: fib_iter(n, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>fib_iter <span class="op">=</span> <span class="kw">lambda</span> cont, a, b: a <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> fib_iter(cont <span class="op">-</span> <span class="dv">1</span>, b, a <span class="op">+</span> b)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>fib <span class="op">=</span> <span class="kw">lambda</span> n: fib_iter(n, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div></li>
 <li><p>Esta función genera un proceso iterativo lineal, por lo que es
 mucho más eficiente.</p></li>
 </ul>
 </section>
 
 <section id="recursividad-final-y-no-final"
-class="title-slide slide level3" data-number="3.2.7">
-<h3 data-number="3.2.7"><span class="header-section-number">3.2.7</span>
+class="title-slide slide level3" data-number="4.2.7">
+<h3 data-number="4.2.7"><span class="header-section-number">4.2.7</span>
 Recursividad final y no final</h3>
 <ul>
 <li><p>Lo que diferencia al <code
@@ -2470,17 +3378,17 @@ sin hacer luego nada más.</p>
 <p>En cambio, <code class="sourceCode python">factorial</code> tiene que
 hacer una multiplicación después de llamarse a sí misma y antes de
 terminar de ejecutarse:</p>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Versión con recursividad final:</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> cont)</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>fact <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Versión con recursividad no final:</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Versión con recursividad final:</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>fact_iter <span class="op">=</span> <span class="kw">lambda</span> cont, acc: acc <span class="cf">if</span> cont <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">\</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>                              fact_iter(cont <span class="op">-</span> <span class="dv">1</span>, acc <span class="op">*</span> cont)</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>fact <span class="op">=</span> <span class="kw">lambda</span> n: fact_iter(n, <span class="dv">1</span>)</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Versión con recursividad no final:</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>factorial <span class="op">=</span> <span class="kw">lambda</span> n: <span class="dv">1</span> <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> n <span class="op">*</span> factorial(n <span class="op">-</span> <span class="dv">1</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.7.0.1">
+<section class="slide level5" data-number="4.2.7.0.1">
 
 <ul>
 <li><p>Es decir:</p>
@@ -2508,7 +3416,7 @@ porque tiene que hacer más operaciones (en este caso, la multiplicación)
 antes de devolver el resultado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.7.0.2">
+<section class="slide level5" data-number="4.2.7.0.2">
 
 <ul>
 <li><p>Cuando lo último que hace una función recursiva es llamarse a sí
@@ -2526,7 +3434,7 @@ genera un proceso iterativo.</p></li>
 final, y por eso genera un proceso recursivo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.7.0.3">
+<section class="slide level5" data-number="4.2.7.0.3">
 
 <ul>
 <li><p>En la práctica, para que un proceso iterativo consuma realmente
@@ -2544,14 +3452,14 @@ finales consumen tanta memoria como las no finales.</p></li>
 
 
 <section id="tipos-de-datos-recursivos" class="title-slide slide level2"
-data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span>
 Tipos de datos recursivos</h2>
 
 </section>
 <section id="concepto" class="title-slide slide level3"
-data-number="3.3.1">
-<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span>
+data-number="4.3.1">
+<h3 data-number="4.3.1"><span class="header-section-number">4.3.1</span>
 Concepto</h3>
 <ul>
 <li><p>Un <strong>tipo de dato recursivo</strong> es aquel que puede
@@ -2573,8 +3481,8 @@ funciones recursivas.</p></li>
 </section>
 
 <section id="cadenas" class="title-slide slide level3"
-data-number="3.3.2">
-<h3 data-number="3.3.2"><span class="header-section-number">3.3.2</span>
+data-number="4.3.2">
+<h3 data-number="4.3.2"><span class="header-section-number">4.3.2</span>
 Cadenas</h3>
 <ul>
 <li><p>Las <strong>cadenas</strong> se pueden considerar <strong>tipos
@@ -2599,17 +3507,17 @@ class="sourceCode python">c <span class="op">==</span> c[<span class="dv">0</spa
 <li><p>Eso significa que podemos acceder al segundo carácter de la
 cadena (suponiendo que exista) mediante <code
 class="sourceCode python">c[<span class="dv">1</span>:][<span class="dv">0</span>]</code>.</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>cadena <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>cadena[<span class="dv">0</span>]       <span class="co"># devuelve &#39;h&#39;</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>cadena[<span class="dv">1</span>:]      <span class="co"># devuelve &#39;ola&#39;</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>cadena[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;o&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb66"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>cadena <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>cadena[<span class="dv">0</span>]       <span class="co"># devuelve &#39;h&#39;</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>cadena[<span class="dv">1</span>:]      <span class="co"># devuelve &#39;ola&#39;</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>cadena[<span class="dv">1</span>:][<span class="dv">0</span>]   <span class="co"># devuelve &#39;o&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
 <section id="tuplas" class="title-slide slide level3"
-data-number="3.3.3">
-<h3 data-number="3.3.3"><span class="header-section-number">3.3.3</span>
+data-number="4.3.3">
+<h3 data-number="4.3.3"><span class="header-section-number">4.3.3</span>
 Tuplas</h3>
 <ul>
 <li><p>Las <strong>tuplas</strong> (datos de tipo <code
@@ -2622,14 +3530,14 @@ incluso otras tuplas).</p></li>
 <li><p>Los literales de tipo tupla se representan enumerando sus
 elementos separados por comas y encerrados entre paréntesis.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>), <span class="dv">99</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>), <span class="dv">99</span>)</span></code></pre></div></li>
 <li><p>Si sólo tiene un elemento, hay que poner una coma detrás:</p>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">35</span>,)</span></code></pre></div></li>
+<div class="sourceCode" id="cb68"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">35</span>,)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.3.0.1">
+<section class="slide level5" data-number="4.3.3.0.1">
 
 <ul>
 <li><p>Las tuplas también pueden verse como un <strong>tipo de datos
@@ -2650,17 +3558,17 @@ que también es una tupla (<em>caso recursivo</em>).</p></li>
 </ul></li>
 </ul></li>
 <li><p>Según el ejemplo anterior:</p>
-<div class="sourceCode" id="cb56"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla <span class="op">=</span> (<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>), <span class="dv">99</span>)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla[<span class="dv">0</span>]</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla[<span class="dv">1</span>:]</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>), <span class="dv">99</span>)</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla[<span class="dv">1</span>:][<span class="dv">0</span>]</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb69"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla <span class="op">=</span> (<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>), <span class="dv">99</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla[<span class="dv">0</span>]</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla[<span class="dv">1</span>:]</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>), <span class="dv">99</span>)</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tupla[<span class="dv">1</span>:][<span class="dv">0</span>]</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.3.0.2">
+<section class="slide level5" data-number="4.3.3.0.2">
 
 <ul>
 <li><p>Junto a las operaciones <code
@@ -2671,9 +3579,9 @@ igual que ocurre con las cadenas.</p></li>
 <li><p>Con la concatenación se pueden crear nuevas tuplas a partir de
 otras tuplas.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb57"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">+</span> (<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb70"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">+</span> (<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div></li>
 <li><p>Eso significa que, si <code class="sourceCode python">t</code> es
 una tupla no vacía, se cumple que <br> <code
 class="sourceCode python">t <span class="op">==</span> (t[<span class="dv">0</span>],) <span class="op">+</span> t[<span class="dv">1</span>:]</code>.</p>
@@ -2683,8 +3591,8 @@ cumple en las cadenas no vacías.</p></li>
 </section>
 
 <section id="rangos" class="title-slide slide level3"
-data-number="3.3.4">
-<h3 data-number="3.3.4"><span class="header-section-number">3.3.4</span>
+data-number="4.3.4">
+<h3 data-number="4.3.4"><span class="header-section-number">4.3.4</span>
 Rangos</h3>
 <ul>
 <li><p>Los rangos (datos de tipo <code
@@ -2738,7 +3646,7 @@ class="sourceCode python"><span class="bu">range</span>(<span class="dv">4</span
 también representa el rango vacío.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.4.0.1">
+<section class="slide level5" data-number="4.3.4.0.1">
 
 <ul>
 <li>La <strong>forma normal</strong> de un rango es una expresión en la
@@ -2748,17 +3656,17 @@ argumentos necesarios para construir el rango:</li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb58"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>)</span></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb59"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
 </div>
 </div>
 <ul>
@@ -2789,13 +3697,13 @@ class="math inline">a \leq b</span> y <span class="math inline">c &lt;
 0</span>.</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb60"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">4</span>)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </section>
-<section class="slide level5" data-number="3.3.4.0.2">
+<section class="slide level5" data-number="4.3.4.0.2">
 
 <ul>
 <li><p>Los rangos también pueden verse como un <strong>tipo de datos
@@ -2815,20 +3723,20 @@ que también es un rango (<em>caso recursivo</em>).</p></li>
 </ul></li>
 </ul></li>
 <li><p>Según el ejemplo anterior:</p>
-<div class="sourceCode" id="cb61"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango <span class="op">=</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">7</span>)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">0</span>]</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">1</span>:]</span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">1</span>:][<span class="dv">0</span>]</span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango <span class="op">=</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">7</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">0</span>]</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">1</span>:]</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">1</span>:][<span class="dv">0</span>]</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
 </ul>
 </section>
 
 <section id="conversión-a-tupla" class="title-slide slide level3"
-data-number="3.3.5">
-<h3 data-number="3.3.5"><span class="header-section-number">3.3.5</span>
+data-number="4.3.5">
+<h3 data-number="4.3.5"><span class="header-section-number">4.3.5</span>
 Conversión a tupla</h3>
 <ul>
 <li>Las cadenas y los rangos se pueden convertir fácilmente a tuplas
@@ -2837,939 +3745,31 @@ class="sourceCode python"><span class="bu">tuple</span></code>:</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb62"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;hola&#39;</span>)</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;&#39;</span>)</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>()</span></code></pre></div>
-</div><div class="column" style="width:60%;">
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">10</span>))</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>)</span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</span>
-<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)</span>
-<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">7</span>, <span class="op">-</span><span class="dv">8</span>, <span class="op">-</span><span class="dv">9</span>)</span>
-<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>))</span>
-<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>()</span>
-<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>()</span></code></pre></div>
-</div>
-</div>
-</section>
-
-</section>
-<section>
-<section id="abstracciones-funcionales" class="title-slide slide level1"
-data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span>
-Abstracciones funcionales</h1>
-
-</section>
-<section id="las-funciones-como-abstracciones-y-generalizaciones"
-class="title-slide slide level2" data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span> Las
-funciones como abstracciones y generalizaciones</h2>
-<ul>
-<li><p>Recordemos la definición de la función <code
-class="sourceCode python">area</code>:</p>
-<div class="sourceCode" id="cb64"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>area <span class="op">=</span> <span class="kw">lambda</span> r: <span class="fl">3.1416</span> <span class="op">*</span> cuadrado(r)</span></code></pre></div></li>
-<li><p>Aunque es muy sencilla, la función <code
-class="sourceCode python">area</code> ejemplifica la propiedad más
-potente de las funciones definidas por el programador: la
-<strong>abstracción</strong>.</p></li>
-<li><p>La función <code class="sourceCode python">area</code> está
-definida sobre la función <code
-class="sourceCode python">cuadrado</code>, pero sólo necesita saber de
-ella qué resultados de salida devuelve a partir de sus argumentos de
-entrada (o sea, <strong><em>qué</em></strong> calcula y no
-<strong><em>cómo</em></strong> lo calcula).</p></li>
-<li><p>Podemos escribir la función <code
-class="sourceCode python">area</code> sin preocuparnos de cómo calcular
-el cuadrado de un número, porque eso ya lo hace la función <code
-class="sourceCode python">cuadrado</code>.</p></li>
-<li><p><strong>Los detalles</strong> sobre cómo se calcula el cuadrado
-están <strong>ocultos dentro de la definición</strong> de <code
-class="sourceCode python">cuadrado</code>. Esos detalles <strong>se
-ignoran en este momento</strong> al diseñar <code
-class="sourceCode python">area</code>, para considerarlos más tarde si
-hiciera falta.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.1">
-
-<ul>
-<li><p>De hecho, por lo que respecta a <code
-class="sourceCode python">area</code>, <code
-class="sourceCode python">cuadrado</code> no representa una definición
-concreta de función, sino más bien la abstracción de una función, lo que
-se denomina una <strong>abstracción funcional</strong>, ya que a <code
-class="sourceCode python">area</code> le sirve igual de bien cualquier
-función que calcule el cuadrado de un número.</p></li>
-<li><p>Por tanto, si consideramos únicamente los valores que devuelven,
-las tres funciones siguientes son indistinguibles e igual de válidas
-para <code class="sourceCode python">area</code>. Ambas reciben un
-argumento numérico y devuelven el cuadrado de ese número:</p>
-<div class="sourceCode" id="cb65"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> (x <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> x</span></code></pre></div></li>
-<li><p>En otras palabras: la definición de una función debe ser capaz de
-<strong>ocultar sus detalles internos de funcionamiento</strong>, ya que
-para usar la función no debe ser necesario conocer esos
-detalles.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.2">
-
-<ul>
-<li><p><strong>Encapsular</strong> es el acto de encerrar algo dentro
-una <em>cápsula</em>, de forma que parte de lo que hay dentro queda
-visible y accesible desde el exterior, mientras que el resto queda
-oculto e inaccesible en el interior.</p>
-<p>El resultado de la encapsulación se denomina una «<strong><em>caja
-negra</em></strong>».</p></li>
-<li><p><strong>Abstraer</strong> es centrarse en lo importante en un
-determinado momento e ignorar lo que en ese momento no resulta
-importante.</p></li>
-<li><p><strong>Crear una abstracción</strong> es meter un mecanismo más
-o menos complejo dentro de una caja negra y darle un nombre, de forma
-que podamos referirnos a todo el conjunto simplemente usando su nombre
-sin tener que conocer su composición interna ni sus detalles internos de
-funcionamiento.</p></li>
-<li><p>Es importante entender que no todas las cajas negras son
-abstracciones. Una caja negra sólo es una abstracción cuando la
-encapsulación se hace de forma que deja visible sólo lo necesario para
-usar la abstracción y oculta lo demás (es decir, lo que no es
-necesario).</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.3">
-
-<ul>
-<li><p>Por tanto, para usar la abstracción nos bastará con conocer su
-<em>nombre</em> y saber <em>qué hace</em>, sin necesidad de saber
-<em>cómo lo hace</em> ni qué elementos la forman
-<em>internamente</em>.</p></li>
-<li><p>En consecuencia, las abstracciones están <em>encapsuladas</em>,
-pero no de cualquier manera, sino de forma que:</p>
-<ul>
-<li><p>lo que queda visible desde el exterior de la cápsula es <em>qué
-hace la abstracción</em>, y</p></li>
-<li><p>lo que se oculta en el interior es <em>cómo lo
-hace</em>.</p></li>
-</ul></li>
-<li><p><strong>La abstracción es el principal instrumento de control de
-la complejidad</strong>, ya que nos permite ocultar detrás de un nombre
-los detalles que componen una parte del programa, haciendo que esa parte
-actúe (a ojos del programador que la utilice) como si fuera un elemento
-<em>predefinido</em> del lenguaje, de forma que el programador lo puede
-usar sin tener que saber cómo funciona por dentro.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.4">
-
-<ul>
-<li><p>Por tanto, <strong>las funciones son abstracciones</strong>
-porque nos permiten usarlas sin tener que conocer los detalles internos
-del procesamiento que realizan.</p></li>
-<li><p>Por ejemplo, si queremos usar la función <code
-class="sourceCode python">cubo</code> (que calcula el cubo de un
-número), nos da igual que dicha función esté implementada de cualquiera
-de las siguientes maneras:</p>
-<div class="sourceCode" id="cb66"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
-<li><p>Para <strong>usar</strong> la función, nos basta con saber que
-calcula el cubo de un número, sin necesidad de saber qué cálculo
-concreto realiza para obtener el resultado.</p></li>
-<li><p>Los detalles de implementación quedan ocultos y por eso también
-decimos que <code class="sourceCode python">cubo</code> es una
-abstracción.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.5">
-
-<ul>
-<li><p>Las funciones también son abstracciones porque describen
-operaciones compuestas a realizar sobre ciertos valores sin importar
-cuáles sean esos valores en concreto (son
-<strong><em>generalizaciones</em></strong> de casos
-particulares).</p></li>
-<li><p>Por ejemplo, cuando definimos:</p>
-<div class="sourceCode" id="cb67"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
-<p>no estamos hablando del cubo de un número en particular, sino más
-bien de un <strong>método</strong> para calcular el cubo de cualquier
-número.</p>
-<p>Es decir: <strong>estamos definiendo en qué consiste <em>elevar
-«algo» al cubo</em>, en general</strong>.</p></li>
-<li><p>Por supuesto, nos las podemos arreglar sin definir el concepto de
-<em>cubo</em>, escribiendo siempre expresiones explícitas (como <code
-class="sourceCode python"><span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span></code>,
-<code
-class="sourceCode python"><span class="dv">5</span><span class="op">*</span><span class="dv">5</span><span class="op">*</span><span class="dv">5</span></code>,
-etc.) sin usar la palabra «<code>cubo</code>», pero eso nos obligaría
-siempre a expresarnos usando las operaciones primitivas de nuestro
-lenguaje (como <code>*</code>), en vez de poder usar términos de más
-alto nivel.</p>
-<p>Es decir: <strong>nuestros programas podrían calcular el cubo de un
-número, pero no tendrían la habilidad de expresar el concepto de
-<em>elevar al cubo</em></strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.6">
-
-<ul>
-<li><p>Una de las habilidades que deberíamos pedir a un lenguaje potente
-es la posibilidad de <strong>construir abstracciones</strong> asignando
-nombres a los patrones más comunes, y luego trabajar directamente usando
-dichas abstracciones.</p></li>
-<li><p>Las funciones nos permiten esta habilidad, y esa es la razón de
-que todos los lenguajes (salvo los más primitivos) incluyan mecanismos
-para definir funciones.</p></li>
-<li><p>Por ejemplo: en el caso anterior, vemos que hay un patrón
-(multiplicar algo por sí mismo tres veces) que se repite con frecuencia,
-y a partir de él construimos una abstracción que asigna un nombre a ese
-patrón (<em>elevar al cubo</em>).</p></li>
-<li><p>Esa abstracción la definimos como una función que describe la
-<em>regla</em> necesaria para elevar algo al cubo.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.7">
-
-<ul>
-<li><p>Por tanto, algunas veces, analizando ciertos <em>casos
-particulares</em>, observamos que se repite el mismo patrón en todos
-ellos, y de ahí extraemos un <em>caso general</em> (es decir, hacemos
-una <strong>generalización</strong>) que agrupa a todos los posibles
-casos particulares que cumplen ese patrón.</p></li>
-<li><p>Luego, hacemos una <strong>encapsulación</strong>, metiendo ese
-caso general en una «<em>caja negra</em>» que oculte sus detalles
-internos, y finalmente le damos un nombre a la «caja», con lo que
-acabamos creando una <strong>abstracción</strong>.</p></li>
-<li><p>En resumen, creamos abstracciones:</p>
-<ul>
-<li><p>Cuando queremos <strong>reducir la complejidad</strong>, dándole
-un nombre a un mecanismo complejo para poder referirnos a todo el
-conjunto a través de su nombre sin tener que recordar continuamente qué
-piezas contiene el mecanismo o cómo funciona éste por dentro.</p></li>
-<li><p>Cuando queremos que nuestro programa pueda <strong>expresar un
-concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
-<li><p>Cuando creamos <strong>casos generales a partir de patrones que
-se repiten</strong> en varios casos particulares.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.8">
-
-<ul>
-<li><p>Por ejemplo, cuando vemos que en nuestros programas es frecuente
-tener que multiplicar una cosa por sí misma tres veces, deducimos que
-ahí hay un patrón común que se repite en todos los casos.</p></li>
-<li><p>De ahí, creamos la abstracción que describe ese patrón general y
-le llamamos «<em>elevar al cubo</em>»:</p></li>
-</ul>
-<div class="centered">
-<p><img data-src="images/de-particular-a-general.svg" class="plain"
-style="width:80.0%" /></p>
-</div>
-</section>
-<section class="slide level5" data-number="4.1.0.0.9">
-
-<ul>
-<li><p>Ese patrón general representa a cada miembro del grupo formado
-por sus casos particulares, y se construye colocando un
-<em>parámetro</em> allí donde los casos particulares se diferencian
-entre sí (es decir, hacemos una
-<strong>parametrización</strong>).</p></li>
-<li><p>La función resultante es, al mismo tiempo:</p>
-<ul>
-<li><p>una <strong>encapsulación</strong> (porque los detalles internos
-de la función quedan ocultos dentro del cuerpo de la expresión lambda
-como si fuera una caja negra),</p></li>
-<li><p>una <strong>abstracción</strong> (porque se puede invocar a la
-función usando simplemente su nombre sin necesidad de saber cómo está
-hecha por dentro y, por tanto, sabiendo <em>qué</em> sin tener que saber
-<em>cómo</em> lo hace), y</p></li>
-<li><p>una <strong>generalización</strong> (porque, al estar
-parametrizada, representa muchos casos particulares con un único caso
-general).</p></li>
-</ul></li>
-<li><p>Al invocar a la función, se ligan sus parámetros con los
-argumentos de la llamada, lo que produce un caso particular a partir del
-caso general.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.10">
-
-<ul>
-<li><p>En resumen, el proceso conceptual sería el siguiente:</p>
-<ol type="1">
-<li><p>Observar que hay varios casos particulares que se
-parecen.</p></li>
-<li><p>Generalizar esos casos particulares creando un patrón.</p></li>
-<li><p>Parametrizar el patrón creando una abstracción lambda.</p></li>
-<li><p>Abstraer el patrón dándole un nombre.</p></li>
-</ol></li>
-<li><p>Veamos cada paso por separado con detalle.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.11">
-
-<ol type="1">
-<li><p>Partimos de casos particulares que comparten un patrón que se
-repite:</p>
-<div class="sourceCode" id="cb68"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
-<ul>
-<li><p>En este caso, el patrón es que hay «algo» que se multiplica por
-sí mismo tres veces.</p></li>
-<li><p>En todos los casos particulares de ese patrón repetido vemos que
-hay elementos que se son iguales y otros que son diferentes.</p></li>
-<li><p>Por ejemplo, los <code>*</code> son iguales, y lo que varía es el
-«objeto» que se multiplica (el <code>3</code>, el <code>5</code>,
-etcétera).</p></li>
-</ul></li>
-</ol>
-</section>
-<section class="slide level5" data-number="4.1.0.0.12">
-
-<ol start="2" type="1">
-<li><p>Generalizamos estos casos particulares, convirtiendo en
-identificadores libres aquellas partes en las que los casos particulares
-se diferencian, es decir, las partes que no son comunes:</p>
-<div class="sourceCode" id="cb69"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
-<ul>
-<li><p>El valor de esta expresión actualmente depende del valor al que
-esté ligado el identificador <code>x</code>, y decimos que ese
-identificador es <em>libre</em>.</p></li>
-<li><p>Los <strong>identificadores libres</strong> son nombres que no se
-sabe de antemano a qué valores van a estar ligados, ya que dependen del
-<em>contexto</em>, es decir, de lo que hay fuera de la expresión cuando
-se va a evaluar.</p></li>
-<li><p>En todo caso, un identificador libre estará ligado siempre a un
-mismo valor (de lo contrario, sería un <em>rebinding</em>, cosa que está
-prohibida) y, en ese sentido, se pueden considerar constantes.</p></li>
-<li><p>Se dice que una expresión con identificadores libres está
-<em>abierta</em>, porque su valor depende de elementos externos a
-ella.</p></li>
-</ul></li>
-</ol>
-</section>
-<section class="slide level5" data-number="4.1.0.0.13">
-
-<ul>
-<li><p>El valor de la expresión <code
-class="sourceCode python">x <span class="op">*</span> x <span class="op">*</span> x</code>
-sigue dependiendo del valor ligado a <code>x</code>, ya que esta
-<code>x</code> es libre.</p></li>
-<li><p>Por tanto, para deducir qué valor tendrá la expresión tendremos
-que seguir conociendo su interior: tenemos que saber que su valor se
-calcula a partir del valor que tiene el identificador libre
-<code>x</code>.</p></li>
-<li><p>Esto hace que la expresión <code
-class="sourceCode python">x <span class="op">*</span> x <span class="op">*</span> x</code>
-no sea una buena abstracción, ya que no funciona como una <em>caja
-negra</em>. Esto se debe, principalmente, a que la expresión está
-<em>abierta</em>.</p></li>
-<li><p>Cuando una parte de un programa está <em>abierta</em> resulta más
-difícil de programar y de razonar sobre ella, ya que su comportamiento
-depende del resto del programa. Lo que nos interesa (siempre que sea
-posible) es que la expresión esté <em>cerrada</em>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.14">
-
-<ol start="3" type="1">
-<li><p>Generalizamos aún más, <em>parametrizando</em> los
-identificadores libres obtenidos en el paso anterior (y sólo éstos)
-utilizando el cuantificador <code
-class="sourceCode python"><span class="kw">lambda</span></code>, creando
-así una <strong><em>abstracción lambda</em></strong>:</p>
-<div class="sourceCode" id="cb70"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
-<p>Un <strong><em>cuantificador</em></strong> es un símbolo que
-<em>cierra</em> expresiones convirtiendo los elementos que son externos
-a la expresión (los identificadores libres) en elementos propios de la
-expresión (<em>parámetros</em>).</p>
-<p>Los <strong>parámetros</strong> son nombres cuyo valor cambia
-dependiendo de los argumentos de la llamada. Por eso se pueden
-considerar <em>variables</em> en el sentido matemático del término.</p>
-<p>Visto así, podemos interpretar que un cuantificador es un símbolo que
-convierte constantes en variables.</p></li>
-</ol>
-</section>
-<section class="slide level5" data-number="4.1.0.0.15">
-
-<ul>
-<li><p>Ahora hemos <em>cerrado</em> la expresión creando una función en
-la que los identificadores libres ya no son libres sino
-<em>parámetros</em> de la expresión lambda, así que la expresión ya no
-depende de nada que haya en el exterior de la misma.</p></li>
-<li><p>Al invocarla con un argumento concreto, el parámetro toma el
-valor de ese argumento y así se van obteniendo los casos particulares
-deseados:</p>
-<div class="sourceCode" id="cb71"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x)(<span class="dv">3</span>) → <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x)(<span class="dv">5</span>) → <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div></li>
-<li><p>La expresión lambda es una expresión cerrada que puede usarse
-simplemente pasándole los argumentos necesarios en cada llamada, sin
-necesidad de manipular directamente la expresión que forma su cuerpo y
-que es la que lleva a cabo el procesamiento y el cálculo del
-resultado.</p></li>
-<li><p>Por eso podemos decir que el cuerpo está <em>encapsulado</em>
-dentro de la expresión lambda, la cual forma una <strong>caja
-negra</strong> con una parte expuesta, visible y manipulable desde el
-exterior (sus parámetros) y otra parte oculta dentro de la cápsula (su
-cuerpo).</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.16">
-
-<ol start="4" type="1">
-<li><p>Abstraemos dándole un nombre a toda la expresión, de forma que
-ahora podemos usar su nombre en lugar de la expresión lambda:</p>
-<div class="sourceCode" id="cb72"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
-<ul>
-<li><p>Por tanto, de ahora en adelante podemos llamar a la función
-usando su nombre:</p>
-<div class="sourceCode" id="cb73"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>cubo(<span class="dv">3</span>) → <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>cubo(<span class="dv">5</span>) → <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div></li>
-<li><p>La función <code>cubo</code> así creada <strong>es una
-abstracción</strong> porque:</p>
-<ul>
-<li><p>Para usarla sólo basta con saber su nombre y <em>qué</em>
-hace.</p></li>
-<li><p>No es necesario saber <em>cómo</em> lo hace.</p></li>
-<li><p>Es una caja negra que expone el <em>qué</em> y oculta el
-<em>cómo</em>.</p></li>
-</ul></li>
-<li><p>Además, una expresión lambda sin nombre es como una función de
-«usar y tirar» que vive y muere en la misma expresión donde se la
-utiliza. En cambio, cuando le damos un nombre, ya puede reutilizarse en
-muchas expresiones.</p></li>
-</ul></li>
-</ol>
-</section>
-<section class="slide level5" data-number="4.1.0.0.17">
-
-<ul>
-<li><p>La importancia de la <strong>abstracción</strong> reside en su
-capacidad para ocultar detalles irrelevantes y en el uso de nombres para
-referenciar objetos.</p></li>
-<li><p>La principal preocupación del usuario de un programa (o de cada
-una de sus partes) es <em>qué</em> hace. Esto contrasta con la del
-programador de esa parte del programa, cuya principal preocupación es
-<em>cómo</em> lo hace.</p></li>
-<li><p>Los lenguajes de programación proporcionan abstracción mediante
-funciones (y otros elementos como procedimientos y módulos, que veremos
-posteriormente) que permiten al programador distinguir entre lo que hace
-una parte del programa y cómo se implementa esa parte.</p></li>
-<li><p>Una función, además, <strong>encapsula</strong> porque crea una
-<em>cápsula</em> alrededor de ella que sólo deja visible al exterior
-parte de su contenido; en particular, la cápsula de una función sólo
-deja pasar fuera lo necesario para poder usar la función, y oculta
-dentro todo lo demás, es decir, lo que no es necesario conocer ni
-manipular para usarla.</p></li>
-<li><p>La abstracción es esencial en la construcción de programas. Pone
-el énfasis en lo que algo es o hace, más que en cómo se representa o
-cómo funciona. Por lo tanto, es el principal medio para gestionar la
-complejidad en programas grandes.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.18">
-
-<ul>
-<li><p>De igual importancia es la
-<strong>generalización</strong>.</p></li>
-<li><p>Mientras que la abstracción reduce la complejidad al ocultar
-detalles irrelevantes, la generalización la reduce al sustituir, con una
-sola construcción, varios elementos que realizan una funcionalidad
-similar.</p></li>
-<li><p>Los lenguajes de programación permiten la generalización mediante
-variables, parametrización, genéricos y polimorfismo.</p></li>
-<li><p>La generalización es esencial en la construcción de programas.
-Pone el énfasis en las similitudes entre elementos. Por lo tanto, ayuda
-a gestionar la complejidad al agrupar individuos y proporcionar un
-representante que puede utilizarse para especificar cualquier individuo
-del grupo.</p></li>
-</ul>
-</section>
-<section id="resumen-1"
-class="title-slide slide level4 unnumbered unlisted">
-<h4 class="unnumbered unlisted">Resumen</h4>
-<ul>
-<li><p><strong>Encapsulación</strong>: Es agrupar varios elementos
-juntos formando una sola unidad, ocultando algunos y exponiendo
-otros.</p></li>
-<li><p><strong>Caja negra</strong>: Es el resultado de la encapsulación.
-La «tapa» de la caja negra es la <em>cápsula</em> que separa lo que se
-expone de lo que se oculta al exterior. En ese sentido, la tapa deja ver
-alguna cosas y otras no.</p></li>
-<li><p><strong>Abstracción</strong>: Conceptualmente, es el proceso de
-simplificar algo resaltando solo sus características esenciales y
-ocultando los detalles irrelevantes para el contexto en que se usa.</p>
-<p>En la práctica, también es el producto resultante de ese proceso. En
-tal caso, una abstracción consiste en darle un nombre a una caja negra,
-pero no cualquier caja negra, sino una donde lo que se expone es la
-información necesaria para saber <em>qué</em> hace la abstracción, y lo
-que se oculta son los detalles necesarios para saber <em>cómo</em> lo
-hace.</p>
-<p>En la abstracción, por tanto, la cápsula separa el qué del
-cómo.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.19">
-
-<ul>
-<li><p><strong>Generalización</strong>: Es el proceso de identificar un
-patrón común entre varios casos particulares y crear un modelo más
-general que los abarque a todos.</p></li>
-<li><p><strong>Parametrización</strong>: Es el proceso de definir un
-elemento que representa un caso general utilizando <em>parámetros</em>
-que permiten obtener los casos particulares del caso general sin tener
-que reescribirlo, ligando valores concretos a los parámetros.</p></li>
-<li><p><strong>Parámetro</strong>: Es una parte que cambia en cada caso
-particular de un patrón común.</p></li>
-</ul>
-</section>
-
-
-<section id="pureza" class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span>
-Pureza</h2>
-<ul>
-<li><p>Si una expresión lambda no contiene identificadores libres, el
-valor que obtendremos al aplicarla a unos argumentos dependerá
-únicamente del valor que tengan esos argumentos (no dependerá de nada
-que sea «<em>exterior</em>» a la expresión lambda).</p></li>
-<li><p>En cambio, si el cuerpo de una expresión lambda contiene
-identificadores libres, el valor que obtendremos al aplicarla a unos
-argumentos no sólo dependerá del valor de los argumentos, sino también
-de los valores a los que estén ligados esos identificadores libres en el
-momento de evaluar la aplicación de la expresión lambda.</p></li>
-<li><p>Es el caso del siguiente ejemplo, donde tenemos una expresión
-lambda que contiene un identificador libre (<code
-class="sourceCode python">z</code>) y, por tanto, cuando la aplicamos a
-los argumentos <code
-class="sourceCode python"><span class="dv">4</span></code> y <code
-class="sourceCode python"><span class="dv">3</span></code> obtenemos un
-valor que depende no sólo de los valores de <code
-class="sourceCode python">x</code> e <code
-class="sourceCode python">y</code> sino también del valor de <code
-class="sourceCode python">z</code> en el entorno:</p>
-<div class="sourceCode" id="cb74"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba(<span class="dv">4</span>, <span class="dv">3</span>)</span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.2.0.0.1">
-
-<ul>
-<li><p>En este otro ejemplo, tenemos una expresión lambda que calcula la
-suma de tres números a partir de otra expresión lambda que calcula la
-suma de dos números:</p>
 <div class="sourceCode" id="cb75"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>suma3 <span class="op">=</span> <span class="kw">lambda</span> x, y, z: suma(x, y) <span class="op">+</span> z</span></code></pre></div>
-<p>En este caso, hay un identificador (<code
-class="sourceCode python">suma</code>) que no aparece en la lista de
-parámetros de la expresión lambda ligada a <code
-class="sourceCode python">suma3</code>.</p>
-<p>En consecuencia, el valor de dicha expresión lambda dependerá de lo
-que valga <code class="sourceCode python">suma</code> en el entorno
-actual.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.2.0.0.2">
-
-<ul>
-<li><p>Se dice que una expresión lambda es <strong>pura</strong> si,
-siempre que la apliquemos a unos argumentos, el valor obtenido va a
-depender únicamente del valor de esos argumentos o, lo que es lo mismo,
-del valor de sus parámetros en la llamada.</p></li>
-<li><p>Podemos decir que hay distintos <strong>grados de
-pureza</strong>:</p>
-<ul>
-<li><p>Una expresión lambda en cuyo cuerpo no hay ningún identificador
-libre es <strong>más pura</strong> que otra que contiene identificadores
-libres.</p></li>
-<li><p>Una expresión lambda cuyos <strong>identificadores
-libres</strong> representan <strong>funciones</strong> que se usan en el
-cuerpo de la expresión lambda, es <strong>más pura</strong> que otra
-cuyos identificadores libres representan cualquier otro tipo de
-valor.</p></li>
-</ul>
-<p>En el ejemplo anterior, tenemos que la expresión lambda de <code
-class="sourceCode python">suma3</code>, sin ser <em>totalmente
-pura</em>, a efectos prácticos se la puede considerar
-<strong>pura</strong>, ya que su único identificador libre (<code
-class="sourceCode python">suma</code>) se usa como una
-<strong>función</strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.2.0.0.3">
-
-<ul>
-<li><p>Por ejemplo, las siguientes expresiones lambda están ordenadas de
-mayor a menor pureza, siendo la primera totalmente
-<strong>pura</strong>:</p>
+class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;&#39;</span>)</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>()</span></code></pre></div>
+</div><div class="column" style="width:60%;">
 <div class="sourceCode" id="cb76"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># producto es una expresión lambda totalmente pura:</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>producto <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">*</span> y</span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cuadrado es casi pura; a efectos prácticos se la puede</span></span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="co"># considerar pura ya que sus identificadores libres (en este</span></span>
-<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="co"># caso, sólo una: producto) son funciones:</span></span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>cuadrado <span class="op">=</span> <span class="kw">lambda</span> x: producto(x, x)</span>
-<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="co"># suma es impura, porque su identificador libre (z) no es una función:</span></span>
-<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span></code></pre></div></li>
-<li><p><strong>La pureza de una función es un rasgo deseado y que hay
-que tratar de alcanzar siempre que sea posible</strong>, ya que facilita
-el desarrollo y mantenimiento de los programas, además de simplificar el
-razonamiento sobre los mismos, permitiendo aplicar directamente nuestro
-modelo de sustitución.</p></li>
-<li><p>Es más incómodo trabajar con <code
-class="sourceCode python">suma</code> porque hay que <em>recordar</em>
-que depende de un valor que está <em>fuera</em> de la expresión lambda,
-cosa que no resulta evidente a no ser que mires en el cuerpo de la
-expresión lambda.</p></li>
-</ul>
+class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">10</span>))</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>)</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">7</span>, <span class="op">-</span><span class="dv">8</span>, <span class="op">-</span><span class="dv">9</span>)</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>))</span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>()</span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a>()</span></code></pre></div>
+</div>
+</div>
 </section>
 
-<section id="especificaciones-de-funciones"
-class="title-slide slide level2" data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span>
-Especificaciones de funciones</h2>
-<ul>
-<li><p>La <strong>especificación de una <em>función</em></strong> es la
-descripción de <strong>qué</strong> hace la función sin entrar a
-detallar <strong>cómo</strong> lo hace.</p></li>
-<li><p>La <strong>implementación de una <em>función</em></strong> es la
-descripción de <strong>cómo</strong> hace lo que hace, es decir, los
-detalles de su algoritmo interno.</p></li>
-<li><p><strong>Para poder usar una función, un programador no debe
-necesitar saber cómo está implementada</strong>.</p></li>
-<li><p>Eso es lo que ocurre, por ejemplo, con las funciones predefinidas
-del lenguaje (como <code
-class="sourceCode python"><span class="bu">max</span></code>, <code
-class="sourceCode python"><span class="bu">abs</span></code> o <code
-class="sourceCode python"><span class="bu">len</span></code>): sabemos
-<em>qué</em> hacen pero no necesitamos saber <em>cómo</em> lo
-hacen.</p></li>
-<li><p>Incluso puede que el usuario de una función no sea el mismo que
-la ha escrito, sino que la puede haber recibido de otro programador como
-una «<strong>caja negra</strong>», que tiene unas entradas y una salida
-pero no se sabe cómo funciona por dentro.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.1">
-
-<ul>
-<li><p>Para poder <strong>usar una abstracción funcional</strong>
-<em>nos basta</em> con conocer su <em>especificación</em>, porque es la
-descripción de qué hace esa función.</p></li>
-<li><p>Igualmente, para poder <strong>implementar una abstracción
-funcional</strong> <em>necesitamos</em> conocer su
-<em>especificación</em>, ya que necesitamos saber <em>qué tiene que
-hacer</em> la función antes de diseñar <em>cómo va a
-hacerlo</em>.</p></li>
-<li><p>La especificación de una abstracción funcional describe tres
-características fundamentales de dicha función:</p>
-<ul>
-<li><p>El <strong>dominio</strong>: el conjunto de datos de entrada
-válidos.</p></li>
-<li><p>El <strong>rango</strong> o <strong>codominio</strong>: el
-conjunto de posibles valores que devuelve.</p></li>
-<li><p>El <strong>propósito</strong>: qué hace la función, es decir, la
-relación entre su entrada y su salida.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.2">
-
-<ul>
-<li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos
-llamado «<strong>entrada</strong>» al dominio, y hemos agrupado el rango
-y el propósito en una sola propiedad que llamamos
-«<strong>salida</strong>».</p></li>
-<li><p>Por ejemplo, cualquier función <code
-class="sourceCode python">cuadrado</code> que usemos para implementar
-<code class="sourceCode python">area</code> debe satisfacer esta
-especificación:</p>
-<p><span class="math display">\begin{cases}
-  \text{\textbf{Entrada}}: n \in \mathbb{R} \\
-  \texttt{cuadrado} \\
-  \text{\textbf{Salida}}: n^2
-\end{cases}</span></p></li>
-<li><p>La especificación <strong>no concreta cómo</strong> se debe
-llevar a cabo el propósito. Esos son <strong>detalles de
-implementación</strong> que se abstraen a este nivel.</p></li>
-<li><p>Este esquema es el que hemos usado hasta ahora para especificar
-programas, y se podría seguir usando para especificar funciones, ya que
-éstas son consideradas <em>subprogramas</em> (programas que forman parte
-de otros programas más grandes).</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.3">
-
-<ul>
-<li><p>Pero para especificar funciones resulta más adecuado usar el
-siguiente esquema, al que llamaremos <strong>especificación
-funcional</strong>:</p>
-<p><span class="math display">\left\{\begin{array}{ll}
-  \text{\textbf{Pre}}: &amp; \texttt{True} \\[0.5em]
-&amp; \texttt{cuadrado(\(n\):\,float)\;-&gt;\;float} \\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{cuadrado(\(n\))} = n^2
-\end{array}\right.</span></p></li>
-<li><p>«<strong>Pre</strong>» representa la
-<strong>precondición</strong>: la propiedad que debe cumplirse justo
-<em>en el momento</em> de llamar a la función.</p></li>
-<li><p>«<strong>Post</strong>» representa la
-<strong>postcondición</strong>: la propiedad que debe cumplirse justo
-<em>después</em> de que la función haya terminado de
-ejecutarse.</p></li>
-<li><p>Lo que hay en medio es la <strong>signatura</strong>: el nombre
-de la función, el nombre y tipo de sus parámetros y el tipo del valor de
-retorno.</p></li>
-<li><p>La especificación se lee así: «<strong><em>Si se llama a la
-función respetando su signatura y cumpliendo su precondición, la llamada
-termina cumpliendo su postcondición</em></strong>».</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.4">
-
-<ul>
-<li><p>En este caso, la <strong>precondición</strong> es <code
-class="sourceCode python"><span class="va">True</span></code>, que
-equivale a decir que cualquier condición de entrada es buena para usar
-la función.</p></li>
-<li><p>Dicho de otra forma: no hace falta que se dé ninguna condición
-especial para usar la función. Siempre que la llamada respete la
-signatura de la función, el parámetro <span class="math inline">n</span>
-puede tomar cualquier valor de tipo <code
-class="sourceCode python"><span class="bu">float</span></code> y no hay
-ninguna restricción adicional.</p></li>
-<li><p>Por otro lado, la <strong>postcondición</strong> dice que al
-llamar a la función <code class="sourceCode python">cuadrado</code> con
-el argumento <span class="math inline">n</span> se debe devolver <span
-class="math inline">n^2</span>.</p></li>
-<li><p>Tanto la precondición como la postcondición son
-<strong>predicados</strong>, es decir, expresiones lógicas que se
-escriben usando el lenguaje de las matemáticas y la lógica.</p></li>
-<li><p>La <strong>signatura</strong> se escribe usando la sintaxis del
-lenguaje de programación que se vaya a usar para implementar la función
-(Python, en este caso).</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.5">
-
-<ul>
-<li><p>Recordemos la diferencia entre:</p>
-<ul>
-<li><p><strong>Dominio</strong> y <strong>conjunto origen</strong> de
-una función.</p></li>
-<li><p><strong>Rango</strong> (o <strong>codominio</strong>) y
-<strong>conjunto imagen</strong> de una función.</p></li>
-</ul></li>
-<li><p>¿Cómo recoge la especificación esas cuatro características de la
-función?</p>
-<ul>
-<li><p>La <strong>signatura</strong> expresa el <strong>conjunto
-origen</strong> y el <strong>conjunto imagen</strong> de la
-función.</p></li>
-<li><p>El <strong>dominio</strong> viene determinado por los valores del
-conjunto origen que cumplen la <strong>precondición</strong>.</p></li>
-<li><p>El <strong>codominio</strong> viene determinado por los valores
-del conjunto imagen que cumplen la
-<strong>postcondición</strong>.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.6">
-
-<ul>
-<li><p>En el caso de la función <code
-class="sourceCode python">cuadrado</code> tenemos que:</p>
-<ul>
-<li><p>El conjunto origen es <code
-class="sourceCode python"><span class="bu">float</span></code>, ya que
-su parámetro <span class="math inline">n</span> está declarado de tipo
-<code class="sourceCode python"><span class="bu">float</span></code> en
-la signatura de la función.</p>
-<p>Por tanto, los datos de entrada a la función deberán pertenecer al
-tipo <code
-class="sourceCode python"><span class="bu">float</span></code>.</p></li>
-<li><p>El dominio coincide con el conjunto origen, ya que su
-precondición es <code
-class="sourceCode python"><span class="va">True</span></code>. Eso
-quiere decir que cualquier dato de entrada es válido siempre que
-pertenezca al dominio (en este caso, el tipo <code
-class="sourceCode python"><span class="bu">float</span></code>).</p></li>
-<li><p>El conjunto imagen también es <code
-class="sourceCode python"><span class="bu">float</span></code>, ya que
-así está declarado el tipo de retorno de la función.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.7">
-
-<ul>
-<li><p>Las pre y postcondiciones no es necesario escribirlas de una
-manera <strong>formal y rigurosa</strong>, usando el lenguaje de las
-Matemáticas o la Lógica.</p></li>
-<li><p>Si la especificación se escribe en <em>lenguaje natural</em> y se
-entiende bien, completamente y sin ambigüedades, no hay
-problema.</p></li>
-<li><p>El motivo de usar un lenguaje formal es que, normalmente, resulta
-<strong>mucho más conciso y preciso que el lenguaje
-natural</strong>.</p></li>
-<li><p>El lenguaje natural suele ser:</p>
-<ul>
-<li><p><strong>Más prolijo</strong>: necesita más palabras para decir lo
-mismo que diríamos matemáticamente usando menos caracteres.</p></li>
-<li><p><strong>Más ambiguo</strong>: lo que se dice en lenguaje natural
-se puede interpretar de distintas formas.</p></li>
-<li><p><strong>Menos completo</strong>: quedan flecos y situaciones
-especiales que no se tienen en cuenta.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.8">
-
-<ul>
-<li><p>En este otro ejemplo, más completo, se especifica una función
-llamada <code class="sourceCode python">cuenta</code>:</p>
-<p><span class="math display">\left\{\begin{array}{ll}
-  \text{\textbf{Pre}}: &amp; car \mathrel{\char`≠}
-\text{\texttt{&quot;&quot;}} \land \texttt{len(}car\texttt{)} = 1
-\\[0.5em]
-&amp; \texttt{cuenta(\(cadena\):\,str,\;\(car\):\,str)\;-&gt;\;int}
-\\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\),\;\(car\))} \geq
-0\ \land\\[0.1em]
-&amp; \texttt{cuenta(\(cadena\),\;\(car\))} =
-cadena\texttt{.count(\(car\))}
-\end{array}\right.</span></p></li>
-<li><p>Con esta especificación, estamos diciendo que <code
-class="sourceCode python">cuenta</code> es una función que recibe una
-cadena y un carácter (otra cadena con un único carácter
-dentro).</p></li>
-<li><p>Ahora bien: esa cadena y ese carácter no pueden ser cualesquiera,
-sino que tienen que cumplir la <em>precondición</em>.</p></li>
-<li><p>Eso significa, entre otras cosas, que aquí <strong>el
-<em>dominio</em> y el <em>conjunto origen</em> de la función no
-coinciden</strong> (no todos los valores pertenecientes al conjunto
-origen sirven como datos de entrada válidos para la función).</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.9">
-
-<ul>
-<li><p>En esta especificación, <code
-class="sourceCode python">count</code> se usa como un <strong>método
-auxiliar</strong>.</p>
-<p>Las <em>operaciones auxiliares</em> se puede usar en una
-especificación siempre que estén perfectamente especificadas, aunque no
-estén implementadas.</p></li>
-<li><p>En este caso, se usa en la <em>postcondición</em> para decir que
-la función <code class="sourceCode python">cuenta</code>, la que se está
-especificando, debe devolver el mismo resultado que devuelve el método
-<code class="sourceCode python">count</code> (el cual ya conocemos
-perfectamente y sabemos qué hace, puesto que es un método que ya existe
-en Python).</p></li>
-<li><p>Es decir: la especificación anterior describe con total precisión
-que la función <code class="sourceCode python">cuenta</code>
-<strong>cuenta el número de veces que el carácter <span
-class="math inline">\underline{\textbf{\textit{car}}}</span> aparece en
-la cadena <span
-class="math inline">\underline{\textbf{\textit{cadena}}}</span></strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.3.0.0.10">
-
-<ul>
-<li><p>En realidad, las condiciones de la especificación anterior se
-podrían simplificar aprovechando las propiedades de las expresiones
-lógicas, quedando así:</p>
-<p><span class="math display">\left\{\begin{array}{ll}
-  \text{\textbf{Pre}}: &amp; \texttt{len(\(car\))} = 1 \\[0.5em]
-&amp; \texttt{cuenta(\(cadena\):\,str,\;\(car\):\,str)\;-&gt;\;int}
-\\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\),\;\(car\))} =
-cadena\texttt{.count(\(car\))}
-\end{array}\right.</span></p></li>
-</ul>
-</section>
-<section id="ejercicio-1" class="slide level5 unnumbered unlisted">
-<h5 class="unnumbered unlisted">Ejercicio</h5>
-<ol start="2" class="example" type="1">
-<li>¿Por qué?</li>
-</ol>
-</section>
-<section class="slide level5" data-number="4.3.0.0.11">
-
-<ul>
-<li><p>Finalmente, podríamos escribir la misma especificación en
-lenguaje natural:</p>
-<p><span class="math display">\left\{\begin{array}{ll}
-  \text{\textbf{Pre}}: &amp; car \text{ debe ser un único carácter}
-\\[0.5em]
-&amp; \texttt{cuenta(\(cadena\):\,str,\;\(car\):\,str)\;-&gt;\;int}
-\\[0.5em]
-\text{\textbf{Post}}: &amp; \texttt{cuenta(\(cadena\),\;\(car\))} \text{
-devuelve el número de veces}\\[0.1em]
-&amp; \text{que aparece el carácter } car \text{ en la cadena }
-cadena.\\[0.1em]
-&amp; \text{Si } cadena \text{ es vacía o } car \text{ no aparece nunca
-en la}\\[0.1em]
-&amp; \text{cadena } cadena \text{, debe devolver } 0.
-\end{array}\right.</span></p></li>
-<li><p>Probablemente resulta más fácil de leer (sobre todo para los
-novatos), pero también es más largo y prolijo.</p></li>
-<li><p>Es como un contrato escrito por un abogado en lenguaje
-jurídico.</p></li>
-</ul>
-<!--
-
-- Un ejemplo mucho más avanzado para los curiosos:
-
-  $$\begin{cases}
-    \text{\textbf{Pre}}: lista \mathrel{\char`≠} \texttt{[]} \\
-    suma\ (lista: \texttt{List[}T\texttt{]}) \text{ -> } T \\
-    \text{\textbf{Post}}: suma(lista) = sum(lista)
-  \end{cases}$$
-
-- $sum$ es una función auxiliar.
-
-- `List[`$T$`]` es un tipo genérico que pertenece al módulo `typing` y que se
-  puede utilizar para indicar el tipo de una lista cuyos elementos son todos
-  del tipo $T$.
-
-- Con esto estamos diciendo que `suma` es una función que recibe una lista no
-  vacía de elementos de un determinado tipo y que devuelve un resultado de ese
-  mismo tipo.
-
-- Para más información, consultar:
-
-  - [https://docs.python.org/3/library/typing.html](https://docs.python.org/3/library/typing.html)
-
-  - [https://www.python.org/dev/peps/pep-0484/](https://www.python.org/dev/peps/pep-0484/)
--->
-</section>
 </section>
 <section id="bibliografía"
 class="title-slide slide level1 unnumbered unlisted">
