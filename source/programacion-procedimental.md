@@ -1547,21 +1547,21 @@ E -> suma [lhead = cluster0]
 - Por ejemplo:
 
   ```python
-  def combinar_listas[T, U](lista1: list[T], lista2: list[U]) -> list[tuple[T, U]]:
-      """Combina dos listas en una lista de tuplas."""
-      return list(zip(lista1, lista2))
+  def crear_tupla[T, U](elem1: T, elem2: U) -> tuple[T, U]:
+      """Crea una tupla con dos elementos."""
+      return (elem1, elem2)
   ```
 
 - Un ejemplo de uso:
 
   ```python
-  >>> combinar_listas([1, 2, 3], ['a', 'b', 'c'])
-  [(1, 'a'), (2, 'b'), (3, 'c')]
+  >>> crear_tupla(1, 'a')
+  (1, 'a')
   ```
 
-  Aquí, mandamos a la función una lista de tipo !PYTHON(list[int]) y otra de
-  tipo !PYTHON(list[str]), y la función produce como resultado una lista de
-  tipo !PYTHON(list[tuple[int, str]]).
+  Aquí, mandamos a la función un elemento de tipo !PYTHON(int) y otro de tipo
+  !PYTHON(str), y la función produce como resultado una tupla de tipo
+  !PYTHON(tuple[int, str]).
 
 # Calidad
 
