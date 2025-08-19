@@ -988,8 +988,182 @@ F -> Analizador
 - Es *software* libre, y por tanto podemos usarlo sin ningún tipo de
   restricción.
 
-- Además, está pensado para el principiante y proporciona una serie de ayudas pedagógicas muy interesantes para el que está aprendiendo Programación.
+- Además, está pensado para el principiante y proporciona una serie de ayudas
+  pedagógicas muy interesantes para el que está aprendiendo Programación.
 
-- Una vez estemos familiarizados con su entorno, podremos pasar a otras herramientas más usadas en la industria y más flexibles como Visual Studio Code, Spyder o PyCharm.
+- Una vez estemos familiarizados con su entorno, podremos pasar a otras
+  herramientas más usadas en la industria y más flexibles como Visual Studio
+  Code, Spyder o PyCharm.
+
+# El lenguaje de programación Python
+
+## Historia
+
+:::: columns
+
+::: {.column width=60%}
+
+- Python fue creado a finales de los ochenta por **Guido van Rossum** en el
+  Centro para las Matemáticas y la Informática (CWI, Centrum Wiskunde &
+  Informatica), en los Países Bajos, como un sucesor del lenguaje de
+  programación ABC.
+
+- El nombre del lenguaje proviene de la afición de su creador por los
+  humoristas británicos **Monty Python**.
+
+:::
+
+::: {.column width=40%}
+
+!IMGP(python.svg)(Logo de Python)(width=50%)(width=20%)
+
+:::
+
+::::
+
+- Python alcanzó la versión 1.0 en enero de 1994.
+
+- Python 2.0 se publicó en octubre de 2000 con muchas grandes mejoras.
+  Actualmente, Python 2 está obsoleto.
+
+- Python 3.0 se publicó en septiembre de 2008 y es una gran revisión del
+  lenguaje que no es totalmente retrocompatible con Python 2.
+
+## Características principales
+
+- Python es un lenguaje **interpretado**, de **tipado dinámico** y
+  **multiplataforma**, cuya filosofía hace hincapié en una sintaxis que
+  favorezca un **código legible**.
+
+- Es un lenguaje de programación **multiparadigma**. Esto significa que más que
+  forzar a los programadores a adoptar un estilo particular de programación,
+  permite varios estilos: **programación orientada a objetos**, **programación
+  estructurada** y **programación funcional**.
+
+- Es administrado por la **Python Software Foundation** y posee una licencia de
+  **software libre**.
+
+- La estructura de un programa se define por su anidamiento.
+
+---
+
+- Tiene una **gran biblioteca estándar**, usada para una diversidad de tareas.
+  Esto viene de la filosofía «pilas incluidas» (*batteries included*) en
+  referencia a los módulos de Python.
+
+- La biblioteca estándar de Python es el conjunto de módulos y paquetes que
+  vienen incluidos por defecto con la instalación de Python, sin necesidad de
+  instalar nada adicional.
+
+- Estos módulos proporcionan herramientas ya hechas para realizar tareas
+  comunes, de forma que no tengas que reescribirlas desde cero.
+
+---
+
+- Por ejemplo, en la biblioteca estándar podemos encontrar:
+
+  - Manipulación del sistema y del intérprete.
+
+  - Estructuras de datos y utilidades.
+
+  - Fechas, horas y calendarios.
+
+  - Archivos y directorios.
+
+  - Internet y protocolos.
+
+  - Compresión y formatos.
+
+  - Manejo de datos estructurados.
+
+  - Matemáticas y estadística.
+
+  - Seguridad y cifrado.
+
+- En resumen, la biblioteca estándar de Python es como una «caja de
+  herramientas oficial» que cubre la mayoría de las necesidades básicas y
+  medias de un programa. Gracias a ella, muchas veces podemos resolver
+  problemas sin instalar bibliotecas externas ni crear el código nosotros.
+
+## Instalación
+
+- **Instalación en Debian GNU/Linux:**
+
+  1. Python 3 ya viene instalado en Debian, pero es conveniente ejecutar los
+     siguientes comandos desde un terminal del sistema operativo:
+
+     ```console
+     $ sudo apt update
+     $ sudo apt install python-is-python3 python3-pip
+     $ mkdir -p ~/.local/bin
+     ```
+
+     Al acabar, cerrar la sesión con el sistema operativo y abrir una nueva
+     antes de continuar.
+
+  2. Asimismo, es conveniente instalar algunos paquetes adicionales, aunque no
+     son obligatorios:
+
+     ```console
+     $ sudo apt install pylint mypy
+     ```
+
+---
+
+- **Instalación en Windows:**
+
+  1. Visitar
+     [https://www.python.org/downloads/windows](https://www.python.org/downloads/windows)
+     y descargar desde ahí la última versión estable.
+
+  2. Durante la instalación, marcar la casilla que activa la opción de añadir
+     comandos al _PATH_.
+
+## Funcionamiento del intérprete
+
+- El intérprete de Python tiene dos **modos de funcionamiento**:
+
+  1. **Modo interactivo (_REPL_):** se abre una **sesión interactiva** con el
+     intérprete donde éste nos solicita que introduzcamos una instrucción
+     (sentencia o expresión) y, a continuación, la ejecuta inmediatamente, para
+     luego volver a solicitar una nueva instrucción, repitiendo este ciclo
+     indefinidamente en un **diálogo continuo entre el programador y el
+     intérprete**.
+
+     Es el modo más apropiado para aprender el lenguaje o hacer pruebas
+     rápidas, y el que empezaremos a usar nosotros.
+
+  2. **Modo por lotes:** el intérprete ejecuta un programa previamente escrito
+     por el programador y almacenado en archivos fuente (llamados _scripts_)
+     que contienen instrucciones que el intérprete va ejecutando una tras otra.
+
+     Es el modo que utilizan los usuarios para ejecutar los programas
+     previamente confeccionados por los programadores.
+
+### Entrar y salir del intérprete interactivo
+
+- Para entrar en el intérprete interactivo, se usa el comando `python` desde la
+  línea de órdenes del sistema operativo:
+
+  ```console
+  $ python
+  Python 3.13.3 (main, Apr 10 2025, 21:38:51) [GCC 14.2.0] on linux
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>>
+  ```
+
+  El mensaje que obtengamos puede que no sea exactamente igual, pero es
+  importante comprobar que estamos usando Python 3 y no 2.
+
+- Para salir, se pulsa `Ctrl+D` en Ubuntu o `Ctrl+Z` en Windows.
+
+- El `>>>` es el *prompt* del intérprete de Python, desde el que se ejecutan
+  las expresiones y sentencias que tecleemos:
+
+  ```python
+  >>> 4 + 3
+  7
+  >>>
+  ```
 
 !BIBLIOGRAFIA
