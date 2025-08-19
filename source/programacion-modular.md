@@ -109,6 +109,30 @@ nocite: |
 
 ---
 
+- Los módulos, además, introducen su propio **ámbito léxico**, por lo que las
+  definiciones que se realicen dentro del módulo serán locales a éste.
+
+- Esto ayuda a que el contenido de un módulo sea aún más independiente de los
+  demás módulos que forman el programa, ya que un elemento local al módulo sólo
+  será visibles directamente dentro de éste, y sólo se podrá ver desde fuera si
+  se **exporta**.
+
+- Asimismo, los módulos tienen su propio **espacio de nombres** separado del
+  resto, donde se almacenan las ligaduras creadas durante la ejecución de sus
+  definiciones locales.
+
+- Así, los elementos locales al módulo pertenecen al propio módulo, y puede
+  haber dos elementos distintos con el mismo nombre en diferentes módulos de un
+  mismo programa, lo que evita el _name clash_.
+
+- La combinación del ámbito léxico local más espacio de nombres independiente
+  la escritura de cada módulo por separado y su integración posterior en el
+  mismo programa, ya que el programador de un módulo no se tiene que preocupar
+  por si casualmente usa el mismo nombre que ha usado otro programador al
+  escribir su módulo.
+
+---
+
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
   y programar por separado con relativa independencia del resto del programa.
 
@@ -118,15 +142,78 @@ nocite: |
   separado y entonces sí).
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
-  criterio la descomposición en funciones no resulta adecuado en general, ya
-  que muchas veces nos encontramos con varias funciones que no actúan por
+  criterio la descomposición en funciones **no resulta adecuado en general**,
+  ya que muchas veces nos encontramos con varias funciones que no actúan por
   separado, sino de forma conjunta entre ellas formando un todo
   interrelacionado.
 
-- Además, un módulo no tiene por qué ser simplemente una abstracción funcional
-  o un procedimiento, sino que también puede tener su propio estado interno y
-  definiciones locales en forma de datos almacenados en variables y constantes,
-  manipulables desde dentro del módulo y posiblemente también desde fuera.
+---
+
+- De hecho, existen lenguajes procedimentales (como C) donde podemos encontrar
+  **bibliotecas de funciones**, que son colecciones de funciones agrupadas (y,
+  normalmente, ya compiladas) que se pueden invocar desde el código de nuestro
+  programa y que se enlazarían con el resto de nuestro código en tiempo de
+  compilación para formar el programa ejecutable final.
+
+- Pero además, un módulo no tiene por qué ser simplemente una o varias
+  funciones o procedimientos, sino que también puede tener su propio **estado
+  interno** y definiciones locales en forma de datos almacenados en variables y
+  constantes, manipulables desde dentro del módulo y posiblemente también desde
+  fuera.
+
+---
+
+- La programación estructurada y la programación procedimental son suficientes
+  para la denominada **programación a pequeña escala (_Programming In The
+  Small_, o _PITS_)**.
+
+- Se trata de programas que un programador individual puede comprender en su
+  totalidad.
+
+- Sin embargo, no son lo suficientemente generales para programas muy grandes.
+
+- Estos programas, escritos por muchas personas, deben constar de módulos que
+  puedan desarrollarse y probarse independientemente de otros módulos.
+
+- Este tipo de programación se denomina **programación a gran escala
+  (_Programming In The Large_, o _PITL_)**.
+
+---
+
+- La programación a gran escala se centra en programas que no son comprensibles
+  para una sola persona y que son desarrollados por equipos de programadores.
+
+- En este nivel, los programas deben constar de módulos que puedan escribirse,
+  compilarse y probarse independientemente de otros módulos (o lo más posible,
+  al menos).
+
+- Un módulo tiene un único propósito y una interfaz estrecha con otros módulos.
+
+- Es probable que sea reutilizable (pueda incorporarse a muchos programas) y
+  modificable sin forzar cambios en otros módulos.
+
+---
+
+- Todo es un camino hacia la obtención de ladrillos constructivos cada vez más
+  grandes y abstractos.
+
+- Por ejemplo, en Python tendríamos en orden de menor a mayor nivel de
+  abstracción y complejidad:
+
+  #. Expresiones y abstracciones lambda.
+  #. Sentencias.
+  #. Estructuras de control.
+  #. Funciones imperativas o procedimientos.
+  #. Módulos.
+  #. Paquetes.
+
+- Cada ladrillo constructivo puede contener, recursivamente, elementos del
+  mismo nivel o inferior, pero no de un nivel superior.
+
+- Estos ladrillos constructivos ayudan a organizar el programa en niveles de
+  abstracción y complejidad, y nos permiten escribir programas cada vez más
+  grandes y complejos porque nos permite aislar y estudiar cada parte y cada
+  nivel por separado.
 
 ---
 
@@ -167,6 +254,24 @@ nocite: |
 
 ---
 
+- En un hipotético programa que usara los dos módulos anteriores (de números
+  racionales y de ángulos), ambos serían independientes y estarían separados en
+  archivos distintos, lo que tendría estas ventajas, entre otras:
+
+  - Es más fácil localizar y corregir un fallo del programa. Por ejemplo, si se
+    encuentra un fallo en las operaciones con números racionales, sería más
+    fácil localizarlo, ya que el principal sospechoso sería el módulo de los
+    números racionales.
+
+  - Cada módulo se podría programar y poner a punto por separado, incluso al
+    mismo tiempo si ponemos a trabajar en cada uno a equipos distintos de
+    programadores.
+
+  - El desarrollo del resto del programa también podría ir en paralelo al de
+    estos dos módulos, por las mismas razones.
+
+---
+
 - De lo dicho hasta ahora se deducen varias **conclusiones importantes**:
 
   - Un módulo es **una _parte_ de un programa**.
@@ -187,82 +292,8 @@ nocite: |
 
   - Las variables del módulo constituyen el **estado interno** del módulo.
 
-  - A nivel práctico, los módulos se programan físicamente en **archivos
+  - En la práctica, los módulos se programan físicamente en **archivos
     separados** del resto del programa.
-
-<!--
-- En un hipotético programa que usara los dos módulos anteriores (de números
-  racionales y de ángulos), ambos serían independientes y estarían separados en
-  archivos distintos, lo que tendría estas ventajas, entre otras:
-
-  - Es más fácil localizar y corregir un fallo del programa. Por ejemplo, si se
-    encuentra un fallo en las operaciones con números racionales, sería más
-    fácil localizarlo, ya que el principal sospechoso sería el módulo de los
-    números racionales.
-
-  - Cada módulo se podría programar y poner a punto por separado, incluso al
-    mismo tiempo si ponemos a trabajar en cada uno a equipos distintos de
-    programadores.
-
-  - El desarrollo del resto del programa también podría ir en paralelo al de
-    estos dos módulos, por las mismas razones.
--->
-
----
-
-- La programación estructurada y la programación procedimental son suficientes
-  para la denominada **programación a pequeña escala (_Programming In The
-  Small_, o _PITS_)**.
-
-- Se trata de programas que un programador individual puede comprender en su
-  totalidad.
-
-- Sin embargo, no son lo suficientemente generales para programas muy grandes.
-
-- Estos programas, escritos por muchas personas, deben constar de módulos que
-  puedan desarrollarse y probarse independientemente de otros módulos.
-
-- Este tipo de programación se denomina **programación a gran escala
-  (_Programming In The Large_, o _PITL_)**.
-
----
-
-- La programación a gran escala se centra en programas que no son comprensibles
-  para una sola persona y que son desarrollados por equipos de programadores.
-
-- En este nivel, los programas deben constar de módulos que puedan escribirse,
-  compilarse y probarse independientemente de otros módulos (o lo más posible,
-  al menos).
-
-- Un módulo tiene un único propósito y una interfaz estrecha con otros módulos.
-
-- Es probable que sea reutilizable (pueda incorporarse a muchos programas) y
-  modificable sin forzar cambios en otros módulos.
-
----
-
-- Todo es un camino hacia la obtención de bloques constructivos cada vez más
-  grandes y abstractos.
-
-- En orden, de menor a mayor nivel de abstracción y complejidad, tendríamos:
-
-  #. Expresiones, abstracciones lambda y sentencias.
-
-  #. Estructuras de control.
-
-  #. Funciones imperativas o procedimientos.
-
-  #. Módulos.
-
-  #. Paquetes.
-
-- Cada ladrillo constructivo puede contener, recursivamente, elementos del
-  mismo nivel o inferior, pero no de un nivel superior.
-
-- Estos bloques constructivos ayudan a organizar el programa por niveles de
-  abstracción y complejidad, y nos permiten escribir programas cada vez más
-  grandes y complejos porque nos permite aislar y estudiar cada parte por
-  separado (ya sea pequeña, mediana o grande).
 
 ## Beneficios de la programación modular
 
@@ -271,8 +302,7 @@ nocite: |
   necesidad de comunicación entre ellos.
 
 - Se mejora la productividad del producto resultante, porque los cambios
-  (pequeños o grandes) realizados en un módulo no afectarían demasiado a los
-  demás.
+  realizados en un módulo no afectarían demasiado a los demás.
 
 - Comprensibilidad, porque se puede entender mejor el sistema completo cuando
   se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la
@@ -280,6 +310,12 @@ nocite: |
 
 - Reusabilidad, porque facilita el que un módulo de un programa pueda ser
   aprovechado (con poca o ninguna alteración) en otros programas.
+
+- En lenguajes compilados, la descomposición física del código del programa en
+  varios archivos permite la **compilación por separado**, lo que acelera
+  significativamente la compilación de programas grandes cuando hay cambios en
+  pocos módulos (los módulos que no han cambiado y que ya están compilados no
+  necesitan una recompilación).
 
 # Diseño modular
 

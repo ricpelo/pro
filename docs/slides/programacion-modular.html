@@ -322,6 +322,30 @@ que unos consumirán los servicios que proporcionan otros.</p></li>
 <section class="slide level5" data-number="1.1.0.0.5">
 
 <ul>
+<li><p>Los módulos, además, introducen su propio <strong>ámbito
+léxico</strong>, por lo que las definiciones que se realicen dentro del
+módulo serán locales a éste.</p></li>
+<li><p>Esto ayuda a que el contenido de un módulo sea aún más
+independiente de los demás módulos que forman el programa, ya que un
+elemento local al módulo sólo será visibles directamente dentro de éste,
+y sólo se podrá ver desde fuera si se <strong>exporta</strong>.</p></li>
+<li><p>Asimismo, los módulos tienen su propio <strong>espacio de
+nombres</strong> separado del resto, donde se almacenan las ligaduras
+creadas durante la ejecución de sus definiciones locales.</p></li>
+<li><p>Así, los elementos locales al módulo pertenecen al propio módulo,
+y puede haber dos elementos distintos con el mismo nombre en diferentes
+módulos de un mismo programa, lo que evita el <em>name
+clash</em>.</p></li>
+<li><p>La combinación del ámbito léxico local más espacio de nombres
+independiente la escritura de cada módulo por separado y su integración
+posterior en el mismo programa, ya que el programador de un módulo no se
+tiene que preocupar por si casualmente usa el mismo nombre que ha usado
+otro programador al escribir su módulo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.6">
+
+<ul>
 <li><p>Un módulo es, pues, una parte de un programa que se puede
 estudiar, entender y programar por separado con relativa independencia
 del resto del programa.</p></li>
@@ -331,18 +355,86 @@ no) es un ejemplo de módulo</strong>, ya que se ajusta a esa definición
 podría colocar cada función en un archivo separado y entonces
 sí).</p></li>
 <li><p>Sin embargo, descomponer un programa en partes usando únicamente
-como criterio la descomposición en funciones no resulta adecuado en
-general, ya que muchas veces nos encontramos con varias funciones que no
-actúan por separado, sino de forma conjunta entre ellas formando un todo
-interrelacionado.</p></li>
-<li><p>Además, un módulo no tiene por qué ser simplemente una
-abstracción funcional o un procedimiento, sino que también puede tener
-su propio estado interno y definiciones locales en forma de datos
-almacenados en variables y constantes, manipulables desde dentro del
-módulo y posiblemente también desde fuera.</p></li>
+como criterio la descomposición en funciones <strong>no resulta adecuado
+en general</strong>, ya que muchas veces nos encontramos con varias
+funciones que no actúan por separado, sino de forma conjunta entre ellas
+formando un todo interrelacionado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.6">
+<section class="slide level5" data-number="1.1.0.0.7">
+
+<ul>
+<li><p>De hecho, existen lenguajes procedimentales (como C) donde
+podemos encontrar <strong>bibliotecas de funciones</strong>, que son
+colecciones de funciones agrupadas (y, normalmente, ya compiladas) que
+se pueden invocar desde el código de nuestro programa y que se
+enlazarían con el resto de nuestro código en tiempo de compilación para
+formar el programa ejecutable final.</p></li>
+<li><p>Pero además, un módulo no tiene por qué ser simplemente una o
+varias funciones o procedimientos, sino que también puede tener su
+propio <strong>estado interno</strong> y definiciones locales en forma
+de datos almacenados en variables y constantes, manipulables desde
+dentro del módulo y posiblemente también desde fuera.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.8">
+
+<ul>
+<li><p>La programación estructurada y la programación procedimental son
+suficientes para la denominada <strong>programación a pequeña escala
+(<em>Programming In The Small</em>, o <em>PITS</em>)</strong>.</p></li>
+<li><p>Se trata de programas que un programador individual puede
+comprender en su totalidad.</p></li>
+<li><p>Sin embargo, no son lo suficientemente generales para programas
+muy grandes.</p></li>
+<li><p>Estos programas, escritos por muchas personas, deben constar de
+módulos que puedan desarrollarse y probarse independientemente de otros
+módulos.</p></li>
+<li><p>Este tipo de programación se denomina <strong>programación a gran
+escala (<em>Programming In The Large</em>, o
+<em>PITL</em>)</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.9">
+
+<ul>
+<li><p>La programación a gran escala se centra en programas que no son
+comprensibles para una sola persona y que son desarrollados por equipos
+de programadores.</p></li>
+<li><p>En este nivel, los programas deben constar de módulos que puedan
+escribirse, compilarse y probarse independientemente de otros módulos (o
+lo más posible, al menos).</p></li>
+<li><p>Un módulo tiene un único propósito y una interfaz estrecha con
+otros módulos.</p></li>
+<li><p>Es probable que sea reutilizable (pueda incorporarse a muchos
+programas) y modificable sin forzar cambios en otros módulos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.10">
+
+<ul>
+<li><p>Todo es un camino hacia la obtención de ladrillos constructivos
+cada vez más grandes y abstractos.</p></li>
+<li><p>Por ejemplo, en Python tendríamos en orden de menor a mayor nivel
+de abstracción y complejidad:</p>
+<ol>
+<li>Expresiones y abstracciones lambda.</li>
+<li>Sentencias.</li>
+<li>Estructuras de control.</li>
+<li>Funciones imperativas o procedimientos.</li>
+<li>Módulos.</li>
+<li>Paquetes.</li>
+</ol></li>
+<li><p>Cada ladrillo constructivo puede contener, recursivamente,
+elementos del mismo nivel o inferior, pero no de un nivel
+superior.</p></li>
+<li><p>Estos ladrillos constructivos ayudan a organizar el programa en
+niveles de abstracción y complejidad, y nos permiten escribir programas
+cada vez más grandes y complejos porque nos permite aislar y estudiar
+cada parte y cada nivel por separado.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.11">
 
 <ul>
 <li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan
@@ -357,7 +449,7 @@ función anterior por separado, es más conveniente considerarlas como un
 todo: el <em>módulo de manipulación de números racionales</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.7">
+<section class="slide level5" data-number="1.1.0.0.12">
 
 <ul>
 <li><p>Otro ejemplo: supongamos un módulo encargado de realizar
@@ -379,7 +471,27 @@ class="math inline">\pi</span>, que podría almacenar el módulo
 internamente como una constante.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.8">
+<section class="slide level5" data-number="1.1.0.0.13">
+
+<ul>
+<li><p>En un hipotético programa que usara los dos módulos anteriores
+(de números racionales y de ángulos), ambos serían independientes y
+estarían separados en archivos distintos, lo que tendría estas ventajas,
+entre otras:</p>
+<ul>
+<li><p>Es más fácil localizar y corregir un fallo del programa. Por
+ejemplo, si se encuentra un fallo en las operaciones con números
+racionales, sería más fácil localizarlo, ya que el principal sospechoso
+sería el módulo de los números racionales.</p></li>
+<li><p>Cada módulo se podría programar y poner a punto por separado,
+incluso al mismo tiempo si ponemos a trabajar en cada uno a equipos
+distintos de programadores.</p></li>
+<li><p>El desarrollo del resto del programa también podría ir en
+paralelo al de estos dos módulos, por las mismas razones.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.14">
 
 <ul>
 <li><p>De lo dicho hasta ahora se deducen varias <strong>conclusiones
@@ -401,82 +513,9 @@ manipulables desde el interior del módulo así como desde el exterior del
 mismo usando las funciones que forman el módulo.</p></li>
 <li><p>Las variables del módulo constituyen el <strong>estado
 interno</strong> del módulo.</p></li>
-<li><p>A nivel práctico, los módulos se programan físicamente en
+<li><p>En la práctica, los módulos se programan físicamente en
 <strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
-</ul>
-<!--
-- En un hipotético programa que usara los dos módulos anteriores (de números
-  racionales y de ángulos), ambos serían independientes y estarían separados en
-  archivos distintos, lo que tendría estas ventajas, entre otras:
-
-  - Es más fácil localizar y corregir un fallo del programa. Por ejemplo, si se
-    encuentra un fallo en las operaciones con números racionales, sería más
-    fácil localizarlo, ya que el principal sospechoso sería el módulo de los
-    números racionales.
-
-  - Cada módulo se podría programar y poner a punto por separado, incluso al
-    mismo tiempo si ponemos a trabajar en cada uno a equipos distintos de
-    programadores.
-
-  - El desarrollo del resto del programa también podría ir en paralelo al de
-    estos dos módulos, por las mismas razones.
--->
-</section>
-<section class="slide level5" data-number="1.1.0.0.9">
-
-<ul>
-<li><p>La programación estructurada y la programación procedimental son
-suficientes para la denominada <strong>programación a pequeña escala
-(<em>Programming In The Small</em>, o <em>PITS</em>)</strong>.</p></li>
-<li><p>Se trata de programas que un programador individual puede
-comprender en su totalidad.</p></li>
-<li><p>Sin embargo, no son lo suficientemente generales para programas
-muy grandes.</p></li>
-<li><p>Estos programas, escritos por muchas personas, deben constar de
-módulos que puedan desarrollarse y probarse independientemente de otros
-módulos.</p></li>
-<li><p>Este tipo de programación se denomina <strong>programación a gran
-escala (<em>Programming In The Large</em>, o
-<em>PITL</em>)</strong>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.10">
-
-<ul>
-<li><p>La programación a gran escala se centra en programas que no son
-comprensibles para una sola persona y que son desarrollados por equipos
-de programadores.</p></li>
-<li><p>En este nivel, los programas deben constar de módulos que puedan
-escribirse, compilarse y probarse independientemente de otros módulos (o
-lo más posible, al menos).</p></li>
-<li><p>Un módulo tiene un único propósito y una interfaz estrecha con
-otros módulos.</p></li>
-<li><p>Es probable que sea reutilizable (pueda incorporarse a muchos
-programas) y modificable sin forzar cambios en otros módulos.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.11">
-
-<ul>
-<li><p>Todo es un camino hacia la obtención de bloques constructivos
-cada vez más grandes y abstractos.</p></li>
-<li><p>En orden, de menor a mayor nivel de abstracción y complejidad,
-tendríamos:</p>
-<ol>
-<li><p>Expresiones, abstracciones lambda y sentencias.</p></li>
-<li><p>Estructuras de control.</p></li>
-<li><p>Funciones imperativas o procedimientos.</p></li>
-<li><p>Módulos.</p></li>
-<li><p>Paquetes.</p></li>
-</ol></li>
-<li><p>Cada ladrillo constructivo puede contener, recursivamente,
-elementos del mismo nivel o inferior, pero no de un nivel
-superior.</p></li>
-<li><p>Estos bloques constructivos ayudan a organizar el programa por
-niveles de abstracción y complejidad, y nos permiten escribir programas
-cada vez más grandes y complejos porque nos permite aislar y estudiar
-cada parte por separado (ya sea pequeña, mediana o grande).</p></li>
 </ul>
 </section>
 
@@ -489,14 +528,20 @@ Beneficios de la programación modular</h2>
 programadores pueden trabajar cada uno en un módulo distinto al mismo
 tiempo con poca necesidad de comunicación entre ellos.</p></li>
 <li><p>Se mejora la productividad del producto resultante, porque los
-cambios (pequeños o grandes) realizados en un módulo no afectarían
-demasiado a los demás.</p></li>
+cambios realizados en un módulo no afectarían demasiado a los
+demás.</p></li>
 <li><p>Comprensibilidad, porque se puede entender mejor el sistema
 completo cuando se puede estudiar módulo a módulo en lugar de tener que
 estudiarlo todo a la vez.</p></li>
 <li><p>Reusabilidad, porque facilita el que un módulo de un programa
 pueda ser aprovechado (con poca o ninguna alteración) en otros
 programas.</p></li>
+<li><p>En lenguajes compilados, la descomposición física del código del
+programa en varios archivos permite la <strong>compilación por
+separado</strong>, lo que acelera significativamente la compilación de
+programas grandes cuando hay cambios en pocos módulos (los módulos que
+no han cambiado y que ya están compilados no necesitan una
+recompilación).</p></li>
 </ul>
 </section>
 </section>
