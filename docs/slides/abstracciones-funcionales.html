@@ -1863,15 +1863,15 @@ lambda.</p></li>
 <li><p>Veamos cada paso por separado con detalle.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.11">
-
-<ol type="1">
+<section id="paso-1-abstracción"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Paso 1: Abstracción</h5>
+<ul>
 <li><p>Partimos de casos particulares que se parecen. Por ejemplo,
 supongamos las siguientes expresiones:</p>
 <div class="sourceCode" id="cb44"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
-<ul>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div></li>
 <li><p>Si las comparamos, vemos que tienen la misma forma y que
 contienen elementos que son iguales y otros que son diferentes.</p></li>
 <li><p>Por ejemplo, los operadores <code>*</code> son iguales, y lo que
@@ -1880,10 +1880,9 @@ varía es la cosa que se multiplica (el <code>3</code>, el
 <li><p>A partir de ahí, hacemos abstracción y nos centramos en estudiar
 aquello en lo que se parecen e ignoramos aquello en lo que se
 diferencian.</p></li>
-</ul></li>
-</ol>
+</ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.12">
+<section class="slide level5" data-number="3.1.0.0.11">
 
 <ul>
 <li><p>Haciendo eso, deducimos un patrón común que subyace a todas esas
@@ -1899,16 +1898,15 @@ cubo».</p></li>
 <li><p>Ahora bien: ¿cómo se materializa ese concepto?</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.13">
-
-<ol start="2" type="1">
-<li><p>Generalizamos estos casos particulares, convirtiendo en
-identificadores libres aquellas partes en las que los casos particulares
-se diferencian (es decir, las partes que no son comunes) y el resto se
-deja igual:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
+<section id="paso-2-generalización"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Paso 2: Generalización</h5>
 <ul>
+<li><p>Generalizamos estos casos particulares, convirtiendo en
+identificadores libres aquellas partes en las que se diferencian (es
+decir, las partes que no son comunes) y el resto se deja igual:</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div></li>
 <li><p>Esa expresión describe el patrón común como un <strong>caso
 general</strong> de las expresiones anteriores, ya que representa a
 todos los posibles casos particulares (potencialmente infinitos) que se
@@ -1925,10 +1923,9 @@ se va a evaluar.</p></li>
 <li><p>Se dice que una expresión con identificadores libres está
 <em>abierta</em>, porque su valor depende de elementos externos a
 ella.</p></li>
-</ul></li>
-</ol>
+</ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.14">
+<section class="slide level5" data-number="3.1.0.0.12">
 
 <ul>
 <li><p>El valor de la expresión <code
@@ -1950,25 +1947,26 @@ depende del resto del programa. Lo que nos interesa (siempre que sea
 posible) es que la expresión esté <em>cerrada</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.15">
-
-<ol start="3" type="1">
+<section id="paso-3-más-generalización"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Paso 3: Más generalización</h5>
+<ul>
 <li><p>Generalizamos aún más, <em>parametrizando</em> los
 identificadores libres obtenidos en el paso anterior (y sólo éstos)
 utilizando el cuantificador <code
 class="sourceCode python"><span class="kw">lambda</span></code>, creando
 así una <strong><em>abstracción lambda</em></strong>:</p>
 <div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
-<p>Un <strong><em>cuantificador</em></strong> es un símbolo que
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div></li>
+<li><p>Un <strong><em>cuantificador</em></strong> es un símbolo que
 <em>cierra</em> expresiones convirtiendo los elementos que son externos
 a la expresión (los identificadores libres) en elementos propios de la
-expresión (<em>parámetros</em>).</p>
-<p>Los <strong>parámetros</strong> son nombres cuyo valor cambia
+expresión (<em>parámetros</em>).</p></li>
+<li><p>Los <strong>parámetros</strong> son nombres cuyo valor cambia
 dependiendo de los argumentos de la llamada.</p></li>
-</ol>
+</ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.16">
+<section class="slide level5" data-number="3.1.0.0.13">
 
 <ul>
 <li><p>Ahora hemos <em>cerrado</em> la expresión creando una función en
@@ -1993,14 +1991,14 @@ exterior (sus parámetros) y otra parte oculta dentro de la cápsula (su
 cuerpo).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.17">
-
-<ol start="4" type="1">
+<section id="paso-4-más-abstracción"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Paso 4: Más abstracción</h5>
+<ul>
 <li><p>Abstraemos dándole un nombre a toda la expresión, de forma que
 ahora podemos usar su nombre en lugar de la expresión lambda:</p>
 <div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
-<ul>
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div></li>
 <li><p>Por tanto, de ahora en adelante podemos llamar a la función
 usando su nombre:</p>
 <div class="sourceCode" id="cb49"><pre
@@ -2019,10 +2017,9 @@ hace.</p></li>
 «usar y tirar» que vive y muere en la misma expresión donde se la
 utiliza. En cambio, cuando le damos un nombre, ya puede reutilizarse en
 muchas expresiones.</p></li>
-</ul></li>
-</ol>
+</ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.18">
+<section class="slide level5" data-number="3.1.0.0.14">
 
 <ul>
 <li><p>La importancia de la <strong>abstracción</strong> reside en su
@@ -2048,7 +2045,7 @@ cómo funciona. Por lo tanto, es el principal medio para gestionar la
 complejidad en programas grandes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.19">
+<section class="slide level5" data-number="3.1.0.0.15">
 
 <ul>
 <li><p>De igual importancia es la
@@ -2090,7 +2087,7 @@ hace.</p>
 cómo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.20">
+<section class="slide level5" data-number="3.1.0.0.16">
 
 <ul>
 <li><p><strong>Generalización</strong>: Es el proceso de identificar un

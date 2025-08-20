@@ -1567,24 +1567,24 @@ cg [label = "(caso general)"]
 
 - Veamos cada paso por separado con detalle.
 
----
+##### Paso 1: Abstracción {.unnumbered .unlisted}
 
-1. Partimos de casos particulares que se parecen. Por ejemplo, supongamos las
-   siguientes expresiones:
+- Partimos de casos particulares que se parecen. Por ejemplo, supongamos las
+  siguientes expresiones:
 
-   ```python
-   3 * 3 * 3
-   5 * 5 * 5
-   ```
+  ```python
+  3 * 3 * 3
+  5 * 5 * 5
+  ```
 
-   - Si las comparamos, vemos que tienen la misma forma y que contienen
-     elementos que son iguales y otros que son diferentes.
+- Si las comparamos, vemos que tienen la misma forma y que contienen elementos
+  que son iguales y otros que son diferentes.
 
-   - Por ejemplo, los operadores `*` son iguales, y lo que varía es la cosa que
-     se multiplica (el `3`, el `5`, etcétera).
+- Por ejemplo, los operadores `*` son iguales, y lo que varía es la cosa que se
+  multiplica (el `3`, el `5`, etcétera).
 
-   - A partir de ahí, hacemos abstracción y nos centramos en estudiar aquello
-     en lo que se parecen e ignoramos aquello en lo que se diferencian.
+- A partir de ahí, hacemos abstracción y nos centramos en estudiar aquello en
+  lo que se parecen e ignoramos aquello en lo que se diferencian.
 
 ---
 
@@ -1602,31 +1602,31 @@ cg [label = "(caso general)"]
 
 - Ahora bien: ¿cómo se materializa ese concepto?
 
----
+##### Paso 2: Generalización {.unnumbered .unlisted}
 
-2. Generalizamos estos casos particulares, convirtiendo en identificadores
-   libres aquellas partes en las que los casos particulares se diferencian
-   (es decir, las partes que no son comunes) y el resto se deja igual:
+- Generalizamos estos casos particulares, convirtiendo en identificadores
+  libres aquellas partes en las que se diferencian (es decir, las partes que no
+  son comunes) y el resto se deja igual:
 
-   ```python
-   x * x * x
-   ```
+  ```python
+  x * x * x
+  ```
 
-   - Esa expresión describe el patrón común como un **caso general** de las
-     expresiones anteriores, ya que representa a todos los posibles casos
-     particulares (potencialmente infinitos) que se ajustan a ese mismo patrón.
-     Por ese motivo decimos que es una **generalización**.
+- Esa expresión describe el patrón común como un **caso general** de las
+  expresiones anteriores, ya que representa a todos los posibles casos
+  particulares (potencialmente infinitos) que se ajustan a ese mismo patrón.
+  Por ese motivo decimos que es una **generalización**.
 
-   - El valor de esa expresión generalizada depende del valor al que esté
-     ligado el identificador `x` (el cual decimos que es un identificador
-     _libre_) en el momento de evaluar la expresión.
-   
-   - Los **identificadores libres** son nombres que no se sabe de antemano a
-     qué valores van a estar ligados, ya que dependen del _contexto_, es decir,
-     de lo que hay fuera de la expresión cuando se va a evaluar.
-   
-   - Se dice que una expresión con identificadores libres está _abierta_,
-     porque su valor depende de elementos externos a ella.
+- El valor de esa expresión generalizada depende del valor al que esté ligado
+  el identificador `x` (el cual decimos que es un identificador _libre_) en el
+  momento de evaluar la expresión.
+
+- Los **identificadores libres** son nombres que no se sabe de antemano a qué
+  valores van a estar ligados, ya que dependen del _contexto_, es decir, de lo
+  que hay fuera de la expresión cuando se va a evaluar.
+
+- Se dice que una expresión con identificadores libres está _abierta_, porque
+  su valor depende de elementos externos a ella.
 
 ---
 
@@ -1646,22 +1646,22 @@ cg [label = "(caso general)"]
   resto del programa. Lo que nos interesa (siempre que sea posible) es que la
   expresión esté _cerrada_.
 
----
+##### Paso 3: Más generalización {.unnumbered .unlisted}
 
-3. Generalizamos aún más, _parametrizando_ los identificadores libres obtenidos
-   en el paso anterior (y sólo éstos) utilizando el cuantificador
-   !PYTHON(lambda), creando así una **_abstracción lambda_**:
+- Generalizamos aún más, _parametrizando_ los identificadores libres obtenidos
+  en el paso anterior (y sólo éstos) utilizando el cuantificador
+  !PYTHON(lambda), creando así una **_abstracción lambda_**:
 
-   ```python
-   cubo = lambda x: x * x * x
-   ```
+  ```python
+  cubo = lambda x: x * x * x
+  ```
 
-   Un **_cuantificador_** es un símbolo que _cierra_ expresiones convirtiendo
-   los elementos que son externos a la expresión (los identificadores libres)
-   en elementos propios de la expresión (_parámetros_).
+- Un **_cuantificador_** es un símbolo que _cierra_ expresiones convirtiendo
+  los elementos que son externos a la expresión (los identificadores libres) en
+  elementos propios de la expresión (_parámetros_).
 
-   Los **parámetros** son nombres cuyo valor cambia dependiendo de los
-   argumentos de la llamada.
+- Los **parámetros** son nombres cuyo valor cambia dependiendo de los
+  argumentos de la llamada.
 
 ---
 
@@ -1688,35 +1688,33 @@ cg [label = "(caso general)"]
   manipulable desde el exterior (sus parámetros) y otra parte oculta dentro de
   la cápsula (su cuerpo).
 
----
+##### Paso 4: Más abstracción {.unnumbered .unlisted}
 
-4. Abstraemos dándole un nombre a toda la expresión, de forma que ahora podemos
-   usar su nombre en lugar de la expresión lambda:
+- Abstraemos dándole un nombre a toda la expresión, de forma que ahora podemos
+  usar su nombre en lugar de la expresión lambda:
 
-   ```python
-   cubo = lambda x: x * x * x
-   ```
+  ```python
+  cubo = lambda x: x * x * x
+  ```
 
-   - Por tanto, de ahora en adelante podemos llamar a la función usando su
-     nombre:
+- Por tanto, de ahora en adelante podemos llamar a la función usando su nombre:
 
-      ```python
-      cubo(3) → 3 * 3 * 3
-      cubo(5) → 5 * 5 * 5
-      ```
+  ```python
+  cubo(3) → 3 * 3 * 3
+  cubo(5) → 5 * 5 * 5
+  ```
 
-   - La función `cubo` así creada **es una abstracción** porque:
+- La función `cubo` así creada **es una abstracción** porque:
 
-     - Para usarla sólo basta con saber su nombre y _qué_ hace.
+  - Para usarla sólo basta con saber su nombre y _qué_ hace.
 
-     - No es necesario saber _cómo_ lo hace.
+  - No es necesario saber _cómo_ lo hace.
 
-     - Es una caja negra que expone el _qué_ y oculta el _cómo_.
+  - Es una caja negra que expone el _qué_ y oculta el _cómo_.
 
-   - Además, una expresión lambda sin nombre es como una función de «usar y
-     tirar» que vive y muere en la misma expresión donde se la utiliza. En
-     cambio, cuando le damos un nombre, ya puede reutilizarse en muchas
-     expresiones.
+- Además, una expresión lambda sin nombre es como una función de «usar y tirar»
+  que vive y muere en la misma expresión donde se la utiliza. En cambio, cuando
+  le damos un nombre, ya puede reutilizarse en muchas expresiones.
 
 ---
 
