@@ -1854,9 +1854,11 @@ caso general.</p></li>
 <ol type="1">
 <li><p>Observar que hay varios casos particulares que se
 parecen.</p></li>
-<li><p>Generalizar esos casos particulares creando un patrón.</p></li>
-<li><p>Parametrizar el patrón creando una abstracción lambda.</p></li>
-<li><p>Abstraer el patrón dándole un nombre.</p></li>
+<li><p>Generalizar esos casos particulares creando un caso
+general.</p></li>
+<li><p>Parametrizar el caso general creando una expresión
+lambda.</p></li>
+<li><p>Abstraer la expresión lambda dándole un nombre.</p></li>
 </ol></li>
 <li><p>Veamos cada paso por separado con detalle.</p></li>
 </ul>
@@ -1864,53 +1866,74 @@ parecen.</p></li>
 <section class="slide level5" data-number="3.1.0.0.11">
 
 <ol type="1">
-<li><p>Partimos de casos particulares que comparten un patrón que se
-repite:</p>
+<li><p>Partimos de casos particulares que se parecen. Por ejemplo,
+supongamos las siguientes expresiones:</p>
 <div class="sourceCode" id="cb44"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">3</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
 <ul>
-<li><p>En este caso, el patrón es que hay «algo» que se multiplica por
-sí mismo tres veces.</p></li>
-<li><p>En todos los casos particulares de ese patrón repetido vemos que
-hay elementos que se son iguales y otros que son diferentes.</p></li>
-<li><p>Por ejemplo, los <code>*</code> son iguales, y lo que varía es el
-«objeto» que se multiplica (el <code>3</code>, el <code>5</code>,
-etcétera).</p></li>
+<li><p>Si las comparamos, vemos que tienen la misma forma y que
+contienen elementos que son iguales y otros que son diferentes.</p></li>
+<li><p>Por ejemplo, los operadores <code>*</code> son iguales, y lo que
+varía es la cosa que se multiplica (el <code>3</code>, el
+<code>5</code>, etcétera).</p></li>
+<li><p>A partir de ahí, hacemos abstracción y nos centramos en estudiar
+aquello en lo que se parecen e ignoramos aquello en lo que se
+diferencian.</p></li>
 </ul></li>
 </ol>
 </section>
 <section class="slide level5" data-number="3.1.0.0.12">
 
+<ul>
+<li><p>Haciendo eso, deducimos un patrón común que subyace a todas esas
+expresiones.</p></li>
+<li><p>En este caso, el patrón es que en todas ellas hay «algo» que se
+multiplica por sí mismo tres veces.</p></li>
+<li><p>Al deducir ese patrón estamos realizando un proceso de
+abstracción, porque nos estamos centrando en lo que ahora mismo importa
+(es un producto de «cosas») e ignorando los detalles que ahora mismo no
+importan (qué son esas «cosas»).</p></li>
+<li><p>Ese patrón representa el concepto abstracto de «elevar al
+cubo».</p></li>
+<li><p>Ahora bien: ¿cómo se materializa ese concepto?</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.13">
+
 <ol start="2" type="1">
 <li><p>Generalizamos estos casos particulares, convirtiendo en
 identificadores libres aquellas partes en las que los casos particulares
-se diferencian, es decir, las partes que no son comunes:</p>
+se diferencian (es decir, las partes que no son comunes) y el resto se
+deja igual:</p>
 <div class="sourceCode" id="cb45"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
 <ul>
-<li><p>El valor de esta expresión actualmente depende del valor al que
-esté ligado el identificador <code>x</code>, y decimos que ese
-identificador es <em>libre</em>.</p></li>
+<li><p>Esa expresión describe el patrón común como un <strong>caso
+general</strong> de las expresiones anteriores, ya que representa a
+todos los posibles casos particulares (potencialmente infinitos) que se
+ajustan a ese mismo patrón. Por ese motivo decimos que es una
+<strong>generalización</strong>.</p></li>
+<li><p>El valor de esa expresión generalizada depende del valor al que
+esté ligado el identificador <code>x</code> (el cual decimos que es un
+identificador <em>libre</em>) en el momento de evaluar la
+expresión.</p></li>
 <li><p>Los <strong>identificadores libres</strong> son nombres que no se
 sabe de antemano a qué valores van a estar ligados, ya que dependen del
 <em>contexto</em>, es decir, de lo que hay fuera de la expresión cuando
 se va a evaluar.</p></li>
-<li><p>En todo caso, un identificador libre estará ligado siempre a un
-mismo valor (de lo contrario, sería un <em>rebinding</em>, cosa que está
-prohibida) y, en ese sentido, se pueden considerar constantes.</p></li>
 <li><p>Se dice que una expresión con identificadores libres está
 <em>abierta</em>, porque su valor depende de elementos externos a
 ella.</p></li>
 </ul></li>
 </ol>
 </section>
-<section class="slide level5" data-number="3.1.0.0.13">
+<section class="slide level5" data-number="3.1.0.0.14">
 
 <ul>
 <li><p>El valor de la expresión <code
 class="sourceCode python">x <span class="op">*</span> x <span class="op">*</span> x</code>
-sigue dependiendo del valor ligado a <code>x</code>, ya que esta
+sigue dependiendo del valor ligado a <code>x</code>, ya que esa
 <code>x</code> es libre.</p></li>
 <li><p>Por tanto, para deducir qué valor tendrá la expresión tendremos
 que seguir conociendo su interior: tenemos que saber que su valor se
@@ -1927,7 +1950,7 @@ depende del resto del programa. Lo que nos interesa (siempre que sea
 posible) es que la expresión esté <em>cerrada</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.14">
+<section class="slide level5" data-number="3.1.0.0.15">
 
 <ol start="3" type="1">
 <li><p>Generalizamos aún más, <em>parametrizando</em> los
@@ -1942,13 +1965,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 a la expresión (los identificadores libres) en elementos propios de la
 expresión (<em>parámetros</em>).</p>
 <p>Los <strong>parámetros</strong> son nombres cuyo valor cambia
-dependiendo de los argumentos de la llamada. Por eso se pueden
-considerar <em>variables</em> en el sentido matemático del término.</p>
-<p>Visto así, podemos interpretar que un cuantificador es un símbolo que
-convierte constantes en variables.</p></li>
+dependiendo de los argumentos de la llamada.</p></li>
 </ol>
 </section>
-<section class="slide level5" data-number="3.1.0.0.15">
+<section class="slide level5" data-number="3.1.0.0.16">
 
 <ul>
 <li><p>Ahora hemos <em>cerrado</em> la expresión creando una función en
@@ -1973,7 +1993,7 @@ exterior (sus parámetros) y otra parte oculta dentro de la cápsula (su
 cuerpo).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.16">
+<section class="slide level5" data-number="3.1.0.0.17">
 
 <ol start="4" type="1">
 <li><p>Abstraemos dándole un nombre a toda la expresión, de forma que
@@ -2002,7 +2022,7 @@ muchas expresiones.</p></li>
 </ul></li>
 </ol>
 </section>
-<section class="slide level5" data-number="3.1.0.0.17">
+<section class="slide level5" data-number="3.1.0.0.18">
 
 <ul>
 <li><p>La importancia de la <strong>abstracción</strong> reside en su
@@ -2028,7 +2048,7 @@ cómo funciona. Por lo tanto, es el principal medio para gestionar la
 complejidad en programas grandes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.18">
+<section class="slide level5" data-number="3.1.0.0.19">
 
 <ul>
 <li><p>De igual importancia es la
@@ -2070,7 +2090,7 @@ hace.</p>
 cómo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.19">
+<section class="slide level5" data-number="3.1.0.0.20">
 
 <ul>
 <li><p><strong>Generalización</strong>: Es el proceso de identificar un

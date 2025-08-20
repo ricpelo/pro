@@ -1559,60 +1559,79 @@ cg [label = "(caso general)"]
 
   1. Observar que hay varios casos particulares que se parecen.
 
-  2. Generalizar esos casos particulares creando un patrón.
+  2. Generalizar esos casos particulares creando un caso general.
 
-  3. Parametrizar el patrón creando una abstracción lambda.
+  3. Parametrizar el caso general creando una expresión lambda.
 
-  4. Abstraer el patrón dándole un nombre.
+  4. Abstraer la expresión lambda dándole un nombre.
 
 - Veamos cada paso por separado con detalle.
 
 ---
 
-1. Partimos de casos particulares que comparten un patrón que se repite:
+1. Partimos de casos particulares que se parecen. Por ejemplo, supongamos las
+   siguientes expresiones:
 
    ```python
    3 * 3 * 3
    5 * 5 * 5
    ```
 
-   - En este caso, el patrón es que hay «algo» que se multiplica por sí mismo
-     tres veces.
+   - Si las comparamos, vemos que tienen la misma forma y que contienen
+     elementos que son iguales y otros que son diferentes.
 
-   - En todos los casos particulares de ese patrón repetido vemos que hay
-     elementos que se son iguales y otros que son diferentes.
+   - Por ejemplo, los operadores `*` son iguales, y lo que varía es la cosa que
+     se multiplica (el `3`, el `5`, etcétera).
 
-   - Por ejemplo, los `*` son iguales, y lo que varía es el «objeto» que se
-      multiplica (el `3`, el `5`, etcétera).
+   - A partir de ahí, hacemos abstracción y nos centramos en estudiar aquello
+     en lo que se parecen e ignoramos aquello en lo que se diferencian.
+
+---
+
+- Haciendo eso, deducimos un patrón común que subyace a todas esas expresiones.
+
+- En este caso, el patrón es que en todas ellas hay «algo» que se multiplica
+  por sí mismo tres veces.
+
+- Al deducir ese patrón estamos realizando un proceso de abstracción, porque
+  nos estamos centrando en lo que ahora mismo importa (es un producto de
+  «cosas») e ignorando los detalles que ahora mismo no importan (qué son esas
+  «cosas»).
+
+- Ese patrón representa el concepto abstracto de «elevar al cubo».
+
+- Ahora bien: ¿cómo se materializa ese concepto?
 
 ---
 
 2. Generalizamos estos casos particulares, convirtiendo en identificadores
-   libres aquellas partes en las que los casos particulares se diferencian,
-   es decir, las partes que no son comunes:
+   libres aquellas partes en las que los casos particulares se diferencian
+   (es decir, las partes que no son comunes) y el resto se deja igual:
 
    ```python
    x * x * x
    ```
 
-   - El valor de esta expresión actualmente depende del valor al que esté ligado
-     el identificador `x`, y decimos que ese identificador es _libre_.
+   - Esa expresión describe el patrón común como un **caso general** de las
+     expresiones anteriores, ya que representa a todos los posibles casos
+     particulares (potencialmente infinitos) que se ajustan a ese mismo patrón.
+     Por ese motivo decimos que es una **generalización**.
+
+   - El valor de esa expresión generalizada depende del valor al que esté
+     ligado el identificador `x` (el cual decimos que es un identificador
+     _libre_) en el momento de evaluar la expresión.
    
-   - Los **identificadores libres** son nombres que no se sabe de antemano a qué
-     valores van a estar ligados, ya que dependen del _contexto_, es decir, de lo
-     que hay fuera de la expresión cuando se va a evaluar.
+   - Los **identificadores libres** son nombres que no se sabe de antemano a
+     qué valores van a estar ligados, ya que dependen del _contexto_, es decir,
+     de lo que hay fuera de la expresión cuando se va a evaluar.
    
-   - En todo caso, un identificador libre estará ligado siempre a un mismo valor
-     (de lo contrario, sería un _rebinding_, cosa que está prohibida) y, en ese
-     sentido, se pueden considerar constantes.
-   
-   - Se dice que una expresión con identificadores libres está _abierta_, porque
-     su valor depende de elementos externos a ella.
+   - Se dice que una expresión con identificadores libres está _abierta_,
+     porque su valor depende de elementos externos a ella.
 
 ---
 
 - El valor de la expresión !PYTHON(x * x * x) sigue dependiendo del valor
-  ligado a `x`, ya que esta `x` es libre.
+  ligado a `x`, ya que esa `x` es libre.
 
 - Por tanto, para deducir qué valor tendrá la expresión tendremos que seguir
   conociendo su interior: tenemos que saber que su valor se calcula a partir
@@ -1642,11 +1661,7 @@ cg [label = "(caso general)"]
    en elementos propios de la expresión (_parámetros_).
 
    Los **parámetros** son nombres cuyo valor cambia dependiendo de los
-   argumentos de la llamada. Por eso se pueden considerar _variables_ en el
-   sentido matemático del término.
-
-   Visto así, podemos interpretar que un cuantificador es un símbolo que
-   convierte constantes en variables.
+   argumentos de la llamada.
 
 ---
 
