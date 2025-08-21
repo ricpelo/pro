@@ -1323,7 +1323,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 # Abstracciones funcionales
 
-## Las funciones como abstracciones y generalizaciones
+## Las funciones como abstracciones
 
 - Recordemos la definición de la función !PYTHON(area):
 
@@ -1373,24 +1373,46 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 ---
 
-- **Encapsular** es el acto de encerrar algo dentro una _cápsula_, de forma que
-  parte de lo que hay dentro queda visible y accesible desde el exterior,
-  mientras que el resto queda oculto e inaccesible en el interior.
+- **Encapsular** es encerrar varios elementos juntos dentro una _cápsula_ que
+  se puede manipular como una sola unidad, de forma que parte de lo que hay
+  dentro queda visible y accesible desde el exterior, mientras que el resto
+  queda oculto e inaccesible en el interior.
 
-  El resultado de la encapsulación se denomina una «**_caja negra_**».
+- La **encapsulación** es el mecanismo que proporcionan los lenguajes de
+  programación para que el programador pueda encapsular elementos de un
+  programa.
 
-- **Abstraer** es centrarse en lo importante en un determinado momento e
-  ignorar lo que en ese momento no resulta importante.
+- La encapsulación puede verse al mismo tiempo como un mecanismo de
+  agrupamiento y como un mecanismo de de protección.
 
-- **Crear una abstracción** es meter un mecanismo más o menos complejo dentro
-  de una caja negra y darle un nombre, de forma que podamos referirnos a todo
-  el conjunto simplemente usando su nombre sin tener que conocer su composición
-  interna ni sus detalles internos de funcionamiento.
+- El producto resultante de la encapsulación se denomina «**_cápsula_**».
 
-- Es importante entender que no todas las cajas negras son abstracciones. Una
-  caja negra sólo es una abstracción cuando la encapsulación se hace de forma
-  que deja visible sólo lo necesario para usar la abstracción y oculta lo demás
-  (es decir, lo que no es necesario).
+- La membrana de la cápsula es la barrera que separa el exterior del interior
+  de la cápsula, y es una membrana _permeable_ porque permite exponer los
+  elementos de la cápsula que son visibles y accesibles desde fuera de ella.
+
+---
+
+- Una **caja negra** es una cápsula que expone justamente aquello que es
+  necesario conocer para poder usarla (el _qué_ hace) y oculta todos los demás
+  detalles internos de funcionamiento (el _cómo_ lo hace).
+
+- La «tapa» de la caja negra es precisamente la barrera de separación entre el
+  qué hace y el cómo lo hace.
+
+- **Abstraer** es quedarse con la idea esencial de aquello que se está
+  estudiando; el producto resultante de ese proceso se llama _abstracción_.
+
+- Por tanto, la **abstracción**:
+
+  - Como _acción_, es el proceso mental que consiste en centrarse en lo que es
+    importante y esencial en un determinado momento e ignorar los detalles que
+    en ese momento no resultan importantes.
+
+  - Como _producto_, es una caja negra que contiene un mecanismo más o menos
+    complejo y a la que se le da un nombre. De esta forma, podemos referirnos a
+    todo el mecanismo simplemente usando ese nombre sin tener que conocer su
+    composición interna ni sus detalles internos de funcionamiento.
 
 ---
 
@@ -1405,6 +1427,8 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
     abstracción_, y
 
   - lo que se oculta en el interior es _cómo lo hace_.
+
+- Es decir: las abstracciones son _cajas negras_.
 
 - **La abstracción es el principal instrumento de control de la complejidad**,
   ya que nos permite ocultar detrás de un nombre los detalles que componen una
@@ -1437,9 +1461,36 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 ---
 
-- Las funciones también son abstracciones porque describen operaciones
-  compuestas a realizar sobre ciertos valores sin importar cuáles sean esos
-  valores en concreto (son **_generalizaciones_** de casos particulares).
+- Las funciones también son abstracciones porque nos permiten definir conceptos
+  abstractos.
+
+- Por ejemplo, cuando definimos:
+
+  ```python
+  cubo = lambda x: x * x * x
+  ```
+
+  estamos definiendo en qué consiste _elevar «algo» al cubo_, es decir, estamos
+  creando un concepto que antes no existía, y se lo estamos enseñando a nuestro
+  lenguaje.
+
+- De esta forma, nuestro lenguaje ya sabrá qué es elevar algo al cubo, y
+  podremos usarlo en nuestros programas.
+
+- Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
+  escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
+  !PYTHON(5*5*5), etc.) sin usar la palabra «`cubo`», pero eso nos obligaría
+  siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje
+  (como `*`), en vez de poder usar términos de más alto nivel.
+
+  Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
+  tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
+
+---
+
+- Finalmente, las funciones también son **generalizaciones** de casos
+  particulares porque describen operaciones compuestas a realizar sobre ciertos
+  valores sin importar cuáles sean esos valores en concreto.
 
 - Por ejemplo, cuando definimos:
 
@@ -1450,17 +1501,14 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   no estamos hablando del cubo de un número en particular, sino más bien de un
   **método** para calcular el cubo de cualquier número.
 
-  Es decir: **estamos definiendo en qué consiste _elevar «algo» al cubo_, en
-  general**.
+- De esta forma, podemos usar la función para obtener los diferentes casos
+  particulares que obtendríamos si no tuviéramos la función.
 
-- Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
-  escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
-  !PYTHON(5*5*5), etc.) sin usar la palabra «`cubo`», pero eso nos obligaría
-  siempre a expresarnos usando las operaciones primitivas de nuestro lenguaje
-  (como `*`), en vez de poder usar términos de más alto nivel.
+- Por ejemplo, podremos usar !PYTHON(cubo(3)) en lugar de !PYTHON(3*3*3),
+  !PYTHON(cubo(5)) en lugar de !PYTHON(5*5*5), etc.
 
-  Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
-  tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
+- Es decir, estamos expresando cómo se calcula el cubo de cualquier número, en
+  general.
 
 ---
 
@@ -1480,12 +1528,15 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - Esa abstracción la definimos como una función que describe la *regla*
   necesaria para elevar algo al cubo.
 
+- Esa técnica combina la abstracción con la generalización.
+
 ---
 
-- Por tanto, algunas veces, analizando ciertos _casos particulares_, observamos
-  que se repite el mismo patrón en todos ellos, y de ahí extraemos un _caso
-  general_ (es decir, hacemos una **generalización**) que agrupa a todos los
-  posibles casos particulares que cumplen ese patrón.
+- De esta forma, analizando ciertos _casos particulares_, observamos que se
+  repite el mismo patrón en todos ellos (es decir, **abstraemos** el concepto
+  esencial), y de ahí extraemos un _caso general_ (es decir, hacemos una
+  **generalización**) que agrupa a todos los posibles casos particulares que
+  cumplen ese patrón.
 
 - Luego, hacemos una **encapsulación**, metiendo ese caso general en una «_caja
   negra_» que oculte sus detalles internos, y finalmente le damos un nombre a
