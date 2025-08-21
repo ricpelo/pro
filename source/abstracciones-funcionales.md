@@ -1373,8 +1373,8 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 ---
 
-- **Encapsular** es encerrar varios elementos juntos dentro una _cápsula_ que
-  se puede manipular como una sola unidad, de forma que parte de lo que hay
+- **Encapsular** es encerrar varios elementos juntos dentro una **_cápsula_**
+  que se puede manipular como una sola unidad, de forma que parte de lo que hay
   dentro queda visible y accesible desde el exterior, mientras que el resto
   queda oculto e inaccesible en el interior.
 
@@ -1385,11 +1385,14 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - La encapsulación puede verse al mismo tiempo como un mecanismo de
   agrupamiento y como un mecanismo de de protección.
 
-- El producto resultante de la encapsulación se denomina «**_cápsula_**».
-
 - La membrana de la cápsula es la barrera que separa el exterior del interior
   de la cápsula, y es una membrana _permeable_ porque permite exponer los
   elementos de la cápsula que son visibles y accesibles desde fuera de ella.
+
+- La cápsula tiene un espacio de nombres local que guarda las las ligaduras que
+  van dentro de la cápsula y que previenen el _name clash_, haciendo que varias
+  cápsulas puedan contener elementos internos con el mismo nombre sin que haya
+  conflictos.
 
 ---
 
