@@ -1659,29 +1659,81 @@ cg [label = "(caso general)"]
 
 ##### Paso 2: Generalización {.unnumbered .unlisted}
 
-- Generalizamos estos casos particulares, convirtiendo en identificadores
-  libres aquellas partes en las que se diferencian (es decir, las partes que no
-  son comunes) y el resto se deja igual:
+- Generalizamos estos casos particulares, _parametrizando_ los elementos en los
+  que se diferencian (es decir, las partes que no son comunes) y dejando el
+  resto igual.
+
+- En nuestro ejemplo, los casos particulares se distinguen en el número que se
+  multiplica para calcular el cubo. Por tanto, habrá un único parámetro que
+  representará dicho número.
+
+- Incorporamos el parámetro en la expresión sustituyendo, en uno cualquiera de
+  los casos particulares, el número que se multiplica por el nombre que
+  escojamos para el parámetro (el cual debe ser un identificador que no
+  aparezca ya en la expresión) y utilizamos el cuantificador !PYTHON(lambda),
+  creando así una **_expresión lambda_**:
 
   ```python
-  x * x * x
+  lambda x: x * x * x
   ```
+
+- Los **parámetros** son nombres que tomarán los valores de los argumentos
+  aplicados a la expresión lambda. En este caso, la `x` es el único parámetro
+  que tiene la expresión lambda anterior.
 
 - Esa expresión describe el patrón común como un **caso general** de las
   expresiones anteriores, ya que representa a todos los posibles casos
   particulares (potencialmente infinitos) que se ajustan a ese mismo patrón.
   Por ese motivo decimos que es una **generalización**.
 
-- El valor de esa expresión generalizada depende del valor al que esté ligado
-  el identificador `x` (el cual decimos que es un identificador _libre_) en el
-  momento de evaluar la expresión.
+- Un **_cuantificador_** es un símbolo que convirte constantes en variables. En
+  este caso, convierte las constantes `3`, `5`, etc. en el identificador `x`.
+
+- Ese identificador está cuantificado porque está afectado por el cuantificador
+  `lambda`. De lo contrario, sería un identificador _libre_.
 
 - Los **identificadores libres** son nombres que no se sabe de antemano a qué
   valores van a estar ligados, ya que dependen del _contexto_, es decir, de lo
   que hay fuera de la expresión cuando se va a evaluar.
 
 - Se dice que una expresión con identificadores libres está _abierta_, porque
-  su valor depende de elementos externos a ella.
+  su valor depende de elementos externos a ella, en el sentido de que son
+  elementos que no son creados dentro de la propia expresión, sino que se crean
+  fuera de ella.
+
+- Por ejemplo, sin el cuantificador `lambda`, la expresión quedaría:
+
+  ```python
+  x * x * x
+  ```
+
+  compuesta por identificadores libres, ya que no se crean en la propia
+  expresión, sino que son creados fuera de ella y luego la expresión los
+  utiliza durante la evaluación de la misma.
+
+- Cuando una parte de un programa (como, por ejemplo, una expresión) está
+  _abierta_ resulta más difícil de programar y de razonar sobre ella, ya que su
+  comportamiento depende del resto del programa.
+
+- Además, carece de una buena _encapsulación_ porque no contiene dentro todo lo
+  necesario para poder funcionar. Por tanto, tampoco funciona como una _caja
+  negra_ y, por tanto, no es una buena _abstracción_.
+
+- Lo que nos interesa (siempre que sea posible) es que la expresión esté
+  _cerrada_.
+
+- El cuantificador _cierra_ la expresión convirtiendo en parámetros lo que de
+  otra forma serían identificadores libres.
+
+- A diferencia de la expresión anterior, la expresión lambda:
+
+  ```python
+  lambda x: x * x * x
+  ```
+
+  está _encapsulada_, es autocontenida, lleva dentro todo lo necesario para
+  funcionar, no depende de nada externa a ella y podemos manipularla como una
+  sola unidad.
 
 ---
 
@@ -1695,11 +1747,6 @@ cg [label = "(caso general)"]
 - Esto hace que la expresión !PYTHON(x * x * x) no sea una buena abstracción,
   ya que no funciona como una _caja negra_. Esto se debe, principalmente, a
   que la expresión está _abierta_.
-
-- Cuando una parte de un programa está _abierta_ resulta más difícil de
-  programar y de razonar sobre ella, ya que su comportamiento depende del
-  resto del programa. Lo que nos interesa (siempre que sea posible) es que la
-  expresión esté _cerrada_.
 
 ##### Paso 3: Más generalización {.unnumbered .unlisted}
 
