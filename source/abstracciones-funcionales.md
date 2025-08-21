@@ -1431,7 +1431,8 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
   - lo que se oculta en el interior es _cómo lo hace_.
 
-- Es decir: las abstracciones son _cajas negras_.
+- Es decir: **las abstracciones son _cajas negras_**; por tanto, podemos
+  definir una caja negra como una cápsula que representa una abstracción.
 
 - **La abstracción es el principal instrumento de control de la complejidad**,
   ya que nos permite ocultar detrás de un nombre los detalles que componen una
