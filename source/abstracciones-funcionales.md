@@ -1612,13 +1612,13 @@ cg [label = "(caso general)"]
 
 - En resumen, el proceso conceptual sería el siguiente:
 
-  1. Observar que hay varios casos particulares que se parecen.
+  1. Observar que hay varios casos particulares que se parecen según un patrón
+     común y que representan el mismo concepto.
 
-  2. Generalizar esos casos particulares creando un caso general.
+  2. Generalizar esos casos particulares y parametrizar el caso general
+     creando una expresión lambda.
 
-  3. Parametrizar el caso general creando una expresión lambda.
-
-  4. Abstraer la expresión lambda dándole un nombre.
+  3. Abstraer la expresión lambda dándole un nombre.
 
 - Veamos cada paso por separado con detalle.
 
@@ -1692,86 +1692,6 @@ cg [label = "(caso general)"]
 - Ese identificador está cuantificado porque está afectado por el cuantificador
   `lambda`. De lo contrario, sería un identificador _libre_.
 
-- Los **identificadores libres** son nombres que no se sabe de antemano a qué
-  valores van a estar ligados, ya que dependen del _contexto_, es decir, de lo
-  que hay fuera de la expresión cuando se va a evaluar.
-
-- Se dice que una expresión con identificadores libres está _abierta_, porque
-  su valor depende de elementos externos a ella, en el sentido de que son
-  elementos que no son creados dentro de la propia expresión, sino que se crean
-  fuera de ella.
-
-- Por ejemplo, sin el cuantificador `lambda`, la expresión quedaría:
-
-  ```python
-  x * x * x
-  ```
-
-  compuesta por identificadores libres, ya que no se crean en la propia
-  expresión, sino que son creados fuera de ella y luego la expresión los
-  utiliza durante la evaluación de la misma.
-
-- Cuando una parte de un programa (como, por ejemplo, una expresión) está
-  _abierta_ resulta más difícil de programar y de razonar sobre ella, ya que su
-  comportamiento depende del resto del programa.
-
-- Además, carece de una buena _encapsulación_ porque no contiene dentro todo lo
-  necesario para poder funcionar. Por tanto, tampoco funciona como una _caja
-  negra_ y, por tanto, no es una buena _abstracción_.
-
-- Lo que nos interesa (siempre que sea posible) es que la expresión esté
-  _cerrada_.
-
-- El cuantificador _cierra_ la expresión convirtiendo en parámetros lo que de
-  otra forma serían identificadores libres.
-
-- A diferencia de la expresión anterior, la expresión lambda:
-
-  ```python
-  lambda x: x * x * x
-  ```
-
-  está _encapsulada_, es autocontenida, lleva dentro todo lo necesario para
-  funcionar, no depende de nada externa a ella y podemos manipularla como una
-  sola unidad.
-
----
-
-- El valor de la expresión !PYTHON(x * x * x) sigue dependiendo del valor
-  ligado a `x`, ya que esa `x` es libre.
-
-- Por tanto, para deducir qué valor tendrá la expresión tendremos que seguir
-  conociendo su interior: tenemos que saber que su valor se calcula a partir
-  del valor que tiene el identificador libre `x`.
-
-- Esto hace que la expresión !PYTHON(x * x * x) no sea una buena abstracción,
-  ya que no funciona como una _caja negra_. Esto se debe, principalmente, a
-  que la expresión está _abierta_.
-
-##### Paso 3: Más generalización {.unnumbered .unlisted}
-
-- Generalizamos aún más, _parametrizando_ los identificadores libres obtenidos
-  en el paso anterior (y sólo éstos) utilizando el cuantificador
-  !PYTHON(lambda), creando así una **_abstracción lambda_**:
-
-  ```python
-  cubo = lambda x: x * x * x
-  ```
-
-- Un **_cuantificador_** es un símbolo que _cierra_ expresiones convirtiendo
-  los elementos que son externos a la expresión (los identificadores libres) en
-  elementos propios de la expresión (_parámetros_).
-
-- Los **parámetros** son nombres cuyo valor cambia dependiendo de los
-  argumentos de la llamada.
-
----
-
-- Ahora hemos _cerrado_ la expresión creando una función en la que los
-  identificadores libres ya no son libres sino _parámetros_ de la expresión
-  lambda, así que la expresión ya no depende de nada que haya en el exterior de
-  la misma.
-
 - Al invocarla con un argumento concreto, el parámetro toma el valor de ese
   argumento y así se van obteniendo los casos particulares deseados:
 
@@ -1780,20 +1700,21 @@ cg [label = "(caso general)"]
   (lambda x: x * x * x)(5) → 5 * 5 * 5
   ```
 
-- La expresión lambda es una expresión cerrada que puede usarse simplemente
-  pasándole los argumentos necesarios en cada llamada, sin necesidad de
-  manipular directamente la expresión que forma su cuerpo y que es la que lleva
-  a cabo el procesamiento y el cálculo del resultado.
+- La expresión lambda es una expresión que puede usarse simplemente aplicando
+  los argumentos necesarios en cada llamada, sin necesidad de manipular
+  directamente la expresión que forma su cuerpo y que es la que lleva a cabo el
+  procesamiento y el cálculo del resultado.
 
-- Por eso podemos decir que el cuerpo está _encapsulado_ dentro de la expresión
-  lambda, la cual forma una **caja negra** con una parte expuesta, visible y
-  manipulable desde el exterior (sus parámetros) y otra parte oculta dentro de
-  la cápsula (su cuerpo).
+- Por eso podemos decir que la expresión lambda está _encapsulada_ formando una
+  **caja negra** con una parte expuesta, visible y manipulable desde el
+  exterior (sus parámetros) y otra parte oculta dentro de la cápsula (su
+  cuerpo).
 
-##### Paso 4: Más abstracción {.unnumbered .unlisted}
+##### Paso 3: Más abstracción {.unnumbered .unlisted}
 
 - Abstraemos dándole un nombre a toda la expresión, de forma que ahora podemos
-  usar su nombre en lugar de la expresión lambda:
+  usar su nombre en lugar de la expresión lambda y creando una **abstracción
+  lambda**:
 
   ```python
   cubo = lambda x: x * x * x
@@ -1817,6 +1738,13 @@ cg [label = "(caso general)"]
 - Además, una expresión lambda sin nombre es como una función de «usar y tirar»
   que vive y muere en la misma expresión donde se la utiliza. En cambio, cuando
   le damos un nombre, ya puede reutilizarse en muchas expresiones.
+
+- Las **abstracciones de usar y tirar** son aquellas que se crean para cumplir
+  una función concreta, en un punto específico del programa, y después no se
+  reutilizan ni se les da un nombre permanente.
+
+- Son abstracciones efímeras, que encapsulan algo pero sin la intención de
+  volver a usarlas más adelante.
 
 ---
 
@@ -1864,21 +1792,21 @@ cg [label = "(caso general)"]
 - **Encapsulación**: Es agrupar varios elementos juntos formando una sola
   unidad, ocultando algunos y exponiendo otros.
 
-- **Caja negra**: Es el resultado de la encapsulación. La «tapa» de la caja
-  negra es la _cápsula_ que separa lo que se expone de lo que se oculta al
-  exterior. En ese sentido, la tapa deja ver alguna cosas y otras no.
+- **Cápsula**: Es el resultado de la encapsulación. La membrana de la cápsula
+  separa lo que se expone de lo que se oculta al exterior.
+
+- **Caja negra**: Es una cápsula que expone sólo lo necesario para poder usarla
+  y oculta el resto de detalles innecesarios. La «tapa» de la caja negra separa
+  el _qué_ hace del _cómo_ lo hace.
 
 - **Abstracción**: Conceptualmente, es el proceso de simplificar algo
   resaltando solo sus características esenciales y ocultando los detalles
   irrelevantes para el contexto en que se usa.
 
   En la práctica, también es el producto resultante de ese proceso. En tal
-  caso, una abstracción consiste en darle un nombre a una caja negra, pero no
-  cualquier caja negra, sino una donde lo que se expone es la información
-  necesaria para saber _qué_ hace la abstracción, y lo que se oculta son los
-  detalles necesarios para saber _cómo_ lo hace.
-
-  En la abstracción, por tanto, la cápsula separa el qué del cómo.
+  caso, una abstracción consiste en darle un nombre a una caja negra que se
+  expone la información necesaria para saber _qué_ hace la abstracción y oculta
+  los detalles necesarios para saber _cómo_ lo hace.
 
 ---
 
