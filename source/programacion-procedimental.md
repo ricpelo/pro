@@ -776,9 +776,9 @@ Una función puede llamar a otra.
 
 ```python
 def hola():
-  print('Hola')
-  return
-  print('Adiós')  # aquí no llega
+    print('Hola')
+    return
+    print('Adiós')  # aquí no llega
 
 hola()
 ```
@@ -797,9 +797,9 @@ Hola
 
 ```python
 def hola():
-  print('Hola')
-  return
-  print('Adiós')
+    print('Hola')
+    return
+    print('Adiós')
 
 x = hola()  # devuelve None
 print(x)
@@ -842,6 +842,40 @@ None
 - Esa última sentencia !PYTHON(return) nunca es necesario ponerla, ya que la
   ejecución de una función termina automáticamente (y retorna al punto donde se
   la llamó) cuando ya no quedan más sentencias que ejecutar en su cuerpo.
+
+---
+
+- Siempre que tengamos una función definida mediante una expresión lambda,
+  podemos crear una función imperativa equivalente (en cambio, lo contrario no
+  siempre es cierto).
+
+- Por ejemplo, la función:
+
+  ```python
+  suma = lambda x, y: x + y
+  ```
+
+  se puede reescribir como la siguiente función imperativa:
+
+  ```python
+  def suma(x, y):
+      return x + y
+  ```
+
+- En general, toda función definida así:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(nombre) !T(=) !T(lambda) [!NT(lista_parámetros)]!T(:) !NT(expresión)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  se puede reescribir así:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
+  !SPC(6)      !T(return) !NT(expresión)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Ámbitos en funciones imperativas
 
