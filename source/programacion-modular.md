@@ -128,10 +128,27 @@ nocite: |
   haber dos elementos distintos con el mismo nombre en diferentes módulos de un
   mismo programa, lo que evita el _name clash_.
 
+---
+
 - El hecho de que los módulos estén encapsulados facilita la escritura de cada
   módulo por separado y su integración posterior en el mismo programa, ya que
   el programador de un módulo no se tiene que preocupar por si casualmente usa
   el mismo nombre que ha usado otro programador al escribir su módulo.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Los **módulos** son _cápsulas_ que:
+
+  - Permiten seleccionar qué se **exporta** al exterior (lo que constituye su
+    **_interfaz_**) y qué se **importa** del exterior (sus **_dependencias_**).
+
+  - Permiten la **descomposición física del código en archivos separados**,
+    para que se puedan escribir de forma más o menos independiente unos de
+    otros.
+
+  - Representan una **descomposición lógica** del programa.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -139,7 +156,7 @@ nocite: |
   y programar por separado con relativa independencia del resto del programa.
 
 - Según esa definición, podría decirse que **las funciones y procedimientos son
-  ejemplos de módulo**, ya que se ajustan a esa definición.
+  ejemplos de _módulo_**, ya que se ajustan a esa definición.
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
   criterio la descomposición en funciones **no resulta adecuado en general**,
@@ -154,17 +171,22 @@ nocite: |
 
 ---
 
-- De hecho, existen lenguajes procedimentales (como C) donde podemos encontrar
-  **bibliotecas de funciones**, que son colecciones de funciones agrupadas (y,
-  normalmente, ya compiladas) que se pueden invocar desde el código de nuestro
-  programa y que se enlazarían con el resto de nuestro código en tiempo de
-  compilación para formar el programa ejecutable final.
+- Por ejemplo, existen lenguajes procedimentales (como C) donde podemos usar y
+  crear **bibliotecas de funciones**, que son colecciones agrupadas de
+  funciones reutilizables (y, normalmente, ya compiladas) que se pueden invocar
+  desde el código de nuestro programa y que se distribuyen apropiadamente
+  empaquetadas de forma luego que se puedan enlazar en tiempo de compilación
+  con el resto de nuestro código para formar el programa ejecutable final.
 
-- Pero además, un módulo no tiene por qué ser simplemente una o varias
-  funciones o procedimientos, sino que también puede tener su propio **estado
-  interno** y definiciones locales en forma de datos almacenados en variables y
-  constantes, manipulables desde dentro del módulo y posiblemente también desde
-  fuera.
+- Pero aunque podamos encapsular varias funciones juntas, en general eso
+  todavía no resulta suficiente para llamar «_módulo_» a esa agrupación de
+  funciones.
+
+- Un módulo no tiene por qué ser simplemente una colección de funciones o
+  procedimientos, sino que también puede tener su propio **estado interno** así
+  como otras definiciones locales (p. ej. tipos, o datos almacenados en
+  variables y constantes), manipulables desde dentro del módulo y posiblemente
+  accesibles también desde fuera.
 
 ---
 
@@ -291,9 +313,9 @@ nocite: |
   - Los módulos, en general, agrupan colecciones de **funciones
     interrelacionadas**.
 
-  - Los módulos, **además de funciones, pueden contener datos** en forma de
-    **constantes y variables** manipulables desde el interior del módulo así
-    como desde el exterior del mismo usando las funciones que forman el módulo.
+  - Además, los módulos **pueden contener otros elementos**, como **datos** en
+    forma de **constantes y variables** manipulables desde el interior del
+    módulo así como desde el exterior del mismo.
 
   - Las variables del módulo constituyen el **estado interno** del módulo.
 
@@ -349,10 +371,10 @@ nocite: |
 
 ---
 
-- Por tanto, decimos que los módulos **_exportan_ su interfaz** al resto de los
-  módulos.
+- Decimos que los módulos **_exportan_ su interfaz** al resto de los módulos.
 
-- Por otra parte, un módulo debe **importar** a otro módulo para poder usarlo.
+- Por otra parte, un módulo puede hacer uso de otros módulos (que se denominan
+  sus **dependencias**) y para ello debe **importarlos** previamente.
 
 - En terminología de programación modular, hablamos entonces de la existencia
   de dos tipos de módulos:
@@ -381,9 +403,11 @@ nocite: |
 - Esos detalles internos forman la _implementación_ del módulo y sólo son
   interesantes para (y sólo deben ser conocidos por) el **creador** del módulo.
 
-- Por supuesto, un módulo puede usar a otros módulos y, al mismo tiempo, ser
-  usado por otros módulos. Por tanto, el mismo módulo puede ser importador e
-  importado simultáneamente.
+- Por tanto, nos interesa que los módulos actúen como **cajas negras**.
+
+- Por supuesto, un módulo puede usar a otros módulos y ser usado por otros
+  módulos, todo al mismo tiempo. Por tanto, el mismo módulo puede ser
+  importador e importado simultáneamente.
 
 ---
 
@@ -416,24 +440,20 @@ nocite: |
   - Una **interfaz**, formada por:
 
     - El **nombre** del módulo.
-
     - Las **signaturas de sus funciones _exportadas_** o **_públicas_** que
       permiten a los usuarios consumir sus servicios, así como manipular y
       acceder al estado interno del módulo desde fuera del mismo.
-
-    - Es posible que la interfaz también incluya **constantes públicas**.
+    - Es posible que la interfaz también incluya otros elementos, como
+      **constantes públicas**.
 
   - Una **implementación**, formada por:
 
     - Las **implementaciones** de sus **funciones públicas**.
-
     - Posibles **variables _locales_** al módulo (el _estado interno_ de éste).
-
     - Posibles **funciones _internas_** o **_privadas_**, que no aparecen en la
       interfaz porque están pensadas para ser usadas sólo por el propio módulo
       internamente, no por otras partes del programa.
-
-    - Otros miembros _privados_, como **constantes privadas**.
+    - Otros miembros públicos o privados, como **constantes**, etc.
 
 ---
 
