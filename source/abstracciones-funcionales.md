@@ -1371,7 +1371,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   sus detalles internos de funcionamiento**, ya que para usar la función no
   debe ser necesario conocer esos detalles.
 
----
+### Encapsulación y cajas negras
 
 - **Encapsular** es encerrar varios elementos juntos dentro una **_cápsula_**
   que se puede manipular como una sola unidad, de forma que parte de lo que hay
@@ -1380,14 +1380,12 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 - La **encapsulación** es el mecanismo que proporcionan los lenguajes de
   programación para que el programador pueda encapsular elementos de un
-  programa.
+  programa, y puede verse al mismo tiempo como un mecanismo de _agrupamiento_ y
+  como un mecanismo de de _protección_.
 
-- La encapsulación puede verse al mismo tiempo como un mecanismo de
-  agrupamiento y como un mecanismo de de protección.
-
-- La membrana de la cápsula es la barrera que separa el exterior del interior
-  de la cápsula, y es una membrana _permeable_ porque permite exponer los
-  elementos de la cápsula que son visibles y accesibles desde fuera de ella.
+- La membrana de la cápsula separa el exterior del interior de la misma, y es
+  una membrana _permeable_ porque permite exponer los elementos de la cápsula
+  que son visibles y accesibles desde fuera de ella.
 
 - La cápsula tiene un espacio de nombres local que guarda las las ligaduras que
   van dentro de la cápsula y que previenen el _name clash_, haciendo que varias
@@ -1431,8 +1429,12 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
   - lo que se oculta en el interior es _cómo lo hace_.
 
-- Es decir: **las abstracciones son _cajas negras_**; por tanto, podemos
-  definir una caja negra como una cápsula que representa una abstracción.
+- Es decir: **las abstracciones son _cajas negras_**.
+
+- Por tanto, podemos definir una caja negra como una cápsula que representa una
+  abstracción.
+
+---
 
 - **La abstracción es el principal instrumento de control de la complejidad**,
   ya que nos permite ocultar detrás de un nombre los detalles que componen una
@@ -1441,10 +1443,10 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   que el programador lo puede usar sin tener que saber cómo funciona por
   dentro.
 
----
-
 - Por tanto, **las funciones son abstracciones** porque nos permiten usarlas
   sin tener que conocer los detalles internos del procesamiento que realizan.
+
+---
 
 - Por ejemplo, si queremos usar la función !PYTHON{cubo} (que calcula el cubo
   de un número), nos da igual que dicha función esté implementada de cualquiera
@@ -1465,8 +1467,8 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 ---
 
-- Las funciones también son abstracciones porque nos permiten definir conceptos
-  abstractos.
+- Las funciones también son abstracciones porque nos permiten definir
+  **conceptos abstractos**.
 
 - Por ejemplo, cuando definimos:
 
@@ -1490,7 +1492,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
   tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
 
----
+### Generalización
 
 - Finalmente, las funciones también son **generalizaciones** de casos
   particulares porque describen operaciones compuestas a realizar sobre ciertos
@@ -1545,6 +1547,8 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - Luego, hacemos una **encapsulación**, metiendo ese caso general en una «_caja
   negra_» que oculte sus detalles internos, y finalmente le damos un nombre a
   la «caja», con lo que acabamos creando una **abstracción**.
+
+---
 
 - En resumen, creamos abstracciones:
 
@@ -1670,12 +1674,14 @@ cg [label = "(caso general)"]
 - Incorporamos el parámetro en la expresión sustituyendo, en uno cualquiera de
   los casos particulares, el número que se multiplica por el nombre que
   escojamos para el parámetro (el cual debe ser un identificador que no
-  aparezca ya en la expresión) y utilizamos el cuantificador !PYTHON(lambda),
+  estuviera ya en la expresión) y utilizamos el cuantificador !PYTHON(lambda),
   creando así una **_expresión lambda_**:
 
   ```python
   lambda x: x * x * x
   ```
+
+---
 
 - Los **parámetros** son nombres que tomarán los valores de los argumentos
   aplicados a la expresión lambda. En este caso, la `x` es el único parámetro
@@ -1685,6 +1691,8 @@ cg [label = "(caso general)"]
   expresiones anteriores, ya que representa a todos los posibles casos
   particulares (potencialmente infinitos) que se ajustan a ese mismo patrón.
   Por ese motivo decimos que es una **generalización**.
+
+---
 
 - Un **_cuantificador_** es un símbolo que convirte constantes en variables. En
   este caso, convierte las constantes `3`, `5`, etc. en el identificador `x`.
@@ -1708,19 +1716,44 @@ cg [label = "(caso general)"]
 - Por eso podemos decir que la expresión lambda está _encapsulada_ formando una
   **caja negra** con una parte expuesta, visible y manipulable desde el
   exterior (sus parámetros) y otra parte oculta dentro de la cápsula (su
-  cuerpo).
+  cuerpo), que no necesitaríamos manipular para poder usar la
+  expresión lambda.
 
 ##### Paso 3: Más abstracción {.unnumbered .unlisted}
 
-- Abstraemos dándole un nombre a toda la expresión, de forma que ahora podemos
-  usar su nombre en lugar de la expresión lambda y creando una **abstracción
-  lambda**:
+- Aunque para usar una expresión lambda no necesitamos conocer cómo es su
+  cuerpo, en la práctica sí que podemos verlo (aunque no podemos manipularlo
+  directamente):
+
+  ```python
+  (lambda x: x * x * x)(3) → 3 * 3 * 3
+  ```
+
+- Una expresión lambda sin nombre es como una función de «usar y tirar» que
+  vive y muere en la misma expresión donde se la utiliza.
+
+- En general, las **abstracciones de usar y tirar** son aquellas que se crean
+  para cumplir una función concreta, en un punto específico del programa, y
+  después no se reutilizan ni se les da un nombre permanente.
+
+- Son abstracciones efímeras, que encapsulan algo pero sin la intención de
+  volver a usarlas más adelante.
+
+- En cambio, cuando le damos un nombre, subimos más el nivel de abstracción ya
+  que puede reutilizarse en muchas expresiones y toda la expresión lambda queda
+  «oculta» bajo el nombre que le damos.
+
+---
+
+- Así, ahora podemos usar su nombre en lugar de la expresión lambda y con ello
+  creamos una **abstracción lambda**:
 
   ```python
   cubo = lambda x: x * x * x
   ```
 
-- Por tanto, de ahora en adelante podemos llamar a la función usando su nombre:
+- De ahora en adelante, podemos invocar a la función usando su nombre, sin
+  tener que recordar incluso que debajo hay una expresión lambda concreta:
 
   ```python
   cubo(3) → 3 * 3 * 3
@@ -1735,16 +1768,8 @@ cg [label = "(caso general)"]
 
   - Es una caja negra que expone el _qué_ y oculta el _cómo_.
 
-- Además, una expresión lambda sin nombre es como una función de «usar y tirar»
-  que vive y muere en la misma expresión donde se la utiliza. En cambio, cuando
-  le damos un nombre, ya puede reutilizarse en muchas expresiones.
-
-- Las **abstracciones de usar y tirar** son aquellas que se crean para cumplir
-  una función concreta, en un punto específico del programa, y después no se
-  reutilizan ni se les da un nombre permanente.
-
-- Son abstracciones efímeras, que encapsulan algo pero sin la intención de
-  volver a usarlas más adelante.
+- Ahora ya ni siquiera tenemos que saber cómo es la expresión lambda a la que
+  está ligada el nombre. Por tanto, trabajamos a un nivel mayor de abstracción.
 
 ---
 
