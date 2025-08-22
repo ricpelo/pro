@@ -214,15 +214,16 @@ llamadas <strong>módulos</strong> y escribir cada módulo por
 separado.</p>
 <ul>
 <li>El concepto de <em>módulo</em> hay que entenderlo en sentido amplio:
-cualquier parte de un programa se podría considerar «módulo».</li>
+cualquier parte de un programa se podría considerar «módulo» si cumple
+unas mínimas condiciones.</li>
 </ul></li>
 <li><p>Equivale a la técnica clásica de resolución de problemas basada
 en:</p>
 <ol type="1">
-<li>Descomponer un problema en subproblemas.</li>
-<li>Resolver cada subproblema por separado.</li>
-<li>Combinar las soluciones para así obtener la solución al problema
-original.</li>
+<li><p>Descomponer un problema en subproblemas.</p></li>
+<li><p>Resolver cada subproblema por separado.</p></li>
+<li><p>Combinar las soluciones para así obtener la solución al problema
+original.</p></li>
 </ol></li>
 <li><p>La <strong>modularidad</strong> es la propiedad que tienen los
 programas escritos siguiendo los principios de la programación
@@ -275,9 +276,9 @@ estudiar a nivel <em>metodológico</em> y a nivel
 
 <ul>
 <li><p><strong>A nivel metodológico</strong>, la modularidad nos
-proporciona una herramienta más para controlar la complejidad (como la
-<em>abstracción</em>, que de hecho puede servir como técnica que guíe la
-modularización).</p></li>
+proporciona una herramienta más para controlar la complejidad, como hace
+también la <em>abstracción</em> (que, de hecho, puede servir como guía
+para la modularización).</p></li>
 <li><p>Todos los mecanismos de control de la complejidad actúan de la
 misma forma: la mente humana es incapaz de mantener la atención en
 muchas cosas a la vez, así que lo que hacemos es centrarnos en una parte
@@ -325,22 +326,23 @@ que unos consumirán los servicios que proporcionan otros.</p></li>
 <li><p>Los módulos, además, introducen su propio <strong>ámbito
 léxico</strong>, por lo que las definiciones que se realicen dentro del
 módulo serán locales a éste.</p></li>
-<li><p>Esto ayuda a que el contenido de un módulo sea aún más
-independiente de los demás módulos que forman el programa, ya que un
-elemento local al módulo sólo será visibles directamente dentro de éste,
-y sólo se podrá ver desde fuera si se <strong>exporta</strong>.</p></li>
-<li><p>Asimismo, los módulos tienen su propio <strong>espacio de
+<li><p>Los módulos están <strong>encapsulados</strong>, lo que hace que
+sea aún más independiente de los demás módulos que forman el programa,
+ya que un elemento local al módulo sólo será visible directamente dentro
+de éste, y sólo se podrá ver desde fuera si se
+<strong>exporta</strong>.</p></li>
+<li><p>En consecuencia, los módulos tienen su propio <strong>espacio de
 nombres</strong> separado del resto, donde se almacenan las ligaduras
 creadas durante la ejecución de sus definiciones locales.</p></li>
 <li><p>Así, los elementos locales al módulo pertenecen al propio módulo,
 y puede haber dos elementos distintos con el mismo nombre en diferentes
 módulos de un mismo programa, lo que evita el <em>name
 clash</em>.</p></li>
-<li><p>La combinación del ámbito léxico local más espacio de nombres
-independiente la escritura de cada módulo por separado y su integración
-posterior en el mismo programa, ya que el programador de un módulo no se
-tiene que preocupar por si casualmente usa el mismo nombre que ha usado
-otro programador al escribir su módulo.</p></li>
+<li><p>El hecho de que los módulos estén encapsulados facilita la
+escritura de cada módulo por separado y su integración posterior en el
+mismo programa, ya que el programador de un módulo no se tiene que
+preocupar por si casualmente usa el mismo nombre que ha usado otro
+programador al escribir su módulo.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.6">
@@ -349,16 +351,20 @@ otro programador al escribir su módulo.</p></li>
 <li><p>Un módulo es, pues, una parte de un programa que se puede
 estudiar, entender y programar por separado con relativa independencia
 del resto del programa.</p></li>
-<li><p>Por tanto, podría decirse que <strong>una función (imperativa o
-no) es un ejemplo de módulo</strong>, ya que se ajusta a esa definición
-(salvo quizás que no habría <em>descomposición física</em>, aunque se
-podría colocar cada función en un archivo separado y entonces
-sí).</p></li>
+<li><p>Según esa definición, podría decirse que <strong>las funciones y
+procedimientos son ejemplos de módulo</strong>, ya que se ajustan a esa
+definición.</p></li>
 <li><p>Sin embargo, descomponer un programa en partes usando únicamente
 como criterio la descomposición en funciones <strong>no resulta adecuado
-en general</strong>, ya que muchas veces nos encontramos con varias
-funciones que no actúan por separado, sino de forma conjunta entre ellas
-formando un todo interrelacionado.</p></li>
+en general</strong>, ya que:</p>
+<ul>
+<li><p>No habría <em>descomposición física</em>, salvo que se coloque
+cada función en un archivo separado, lo que resulta poco
+práctico.</p></li>
+<li><p>En la mayoría de los casos, nos encontramos con varias funciones
+que no actúan por separado, sino de forma conjunta entre ellas formando
+un todo interrelacionado.</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.7">

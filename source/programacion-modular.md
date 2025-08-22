@@ -15,13 +15,16 @@ nocite: |
   módulo por separado.
 
   - El concepto de *módulo* hay que entenderlo en sentido amplio: cualquier
-    parte de un programa se podría considerar «módulo».
+    parte de un programa se podría considerar «módulo» si cumple unas mínimas
+    condiciones.
 
 - Equivale a la técnica clásica de resolución de problemas basada en:
 
-  1) Descomponer un problema en subproblemas.
-  2) Resolver cada subproblema por separado.
-  3) Combinar las soluciones para así obtener la solución al problema original.
+  1. Descomponer un problema en subproblemas.
+
+  2. Resolver cada subproblema por separado.
+
+  3. Combinar las soluciones para así obtener la solución al problema original.
 
 - La **modularidad** es la propiedad que tienen los programas escritos
   siguiendo los principios de la programación modular.
@@ -66,8 +69,8 @@ nocite: |
 ---
 
 - **A nivel metodológico**, la modularidad nos proporciona una herramienta más
-  para controlar la complejidad (como la *abstracción*, que de hecho puede
-  servir como técnica que guíe la modularización).
+  para controlar la complejidad, como hace también la _abstracción_ (que, de
+  hecho, puede servir como guía para la modularización).
 
 - Todos los mecanismos de control de la complejidad actúan de la misma forma:
   la mente humana es incapaz de mantener la atención en muchas cosas a la vez,
@@ -112,40 +115,42 @@ nocite: |
 - Los módulos, además, introducen su propio **ámbito léxico**, por lo que las
   definiciones que se realicen dentro del módulo serán locales a éste.
 
-- Esto ayuda a que el contenido de un módulo sea aún más independiente de los
-  demás módulos que forman el programa, ya que un elemento local al módulo sólo
-  será visibles directamente dentro de éste, y sólo se podrá ver desde fuera si
-  se **exporta**.
+- Los módulos están **encapsulados**, lo que hace que sea aún más independiente
+  de los demás módulos que forman el programa, ya que un elemento local al
+  módulo sólo será visible directamente dentro de éste, y sólo se podrá ver
+  desde fuera si se **exporta**.
 
-- Asimismo, los módulos tienen su propio **espacio de nombres** separado del
-  resto, donde se almacenan las ligaduras creadas durante la ejecución de sus
-  definiciones locales.
+- En consecuencia, los módulos tienen su propio **espacio de nombres** separado
+  del resto, donde se almacenan las ligaduras creadas durante la ejecución de
+  sus definiciones locales.
 
 - Así, los elementos locales al módulo pertenecen al propio módulo, y puede
   haber dos elementos distintos con el mismo nombre en diferentes módulos de un
   mismo programa, lo que evita el _name clash_.
 
-- La combinación del ámbito léxico local más espacio de nombres independiente
-  la escritura de cada módulo por separado y su integración posterior en el
-  mismo programa, ya que el programador de un módulo no se tiene que preocupar
-  por si casualmente usa el mismo nombre que ha usado otro programador al
-  escribir su módulo.
+- El hecho de que los módulos estén encapsulados facilita la escritura de cada
+  módulo por separado y su integración posterior en el mismo programa, ya que
+  el programador de un módulo no se tiene que preocupar por si casualmente usa
+  el mismo nombre que ha usado otro programador al escribir su módulo.
 
 ---
 
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
   y programar por separado con relativa independencia del resto del programa.
 
-- Por tanto, podría decirse que **una función (imperativa o no) es un ejemplo
-  de módulo**, ya que se ajusta a esa definición (salvo quizás que no habría
-  *descomposición física*, aunque se podría colocar cada función en un archivo
-  separado y entonces sí).
+- Según esa definición, podría decirse que **las funciones y procedimientos son
+  ejemplos de módulo**, ya que se ajustan a esa definición.
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
   criterio la descomposición en funciones **no resulta adecuado en general**,
-  ya que muchas veces nos encontramos con varias funciones que no actúan por
-  separado, sino de forma conjunta entre ellas formando un todo
-  interrelacionado.
+  ya que:
+
+  - No habría *descomposición física*, salvo que se coloque cada función en un
+    archivo separado, lo que resulta poco práctico.
+
+  - En la mayoría de los casos, nos encontramos con varias funciones que no
+    actúan por separado, sino de forma conjunta entre ellas formando un todo
+    interrelacionado.
 
 ---
 
