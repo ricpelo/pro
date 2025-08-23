@@ -1460,7 +1460,7 @@ False
 - Una función (que es un _subprograma_) puede comunicarse con su exterior
   principalmente mediante el paso de argumentos y la devolución de su valor de
   retorno, aunque sabemos que también puede interactuar con el exterior
-  mediante efectos laterales como el uso de variables globales, argumentos
+  mediante efectos laterales como el uso de variables no locales, argumentos
   mutables, etcétera.
 
   El exterior de una función es el resto del programa del que forma parte.

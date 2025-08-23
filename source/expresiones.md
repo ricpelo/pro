@@ -942,8 +942,9 @@ $$
   entrada y, por tanto, depende de la operación a realizar y de los datos
   recibidos por la entrada.
 
-- Visto así, las operaciones son **subprogramas**, es decir, pequeños programas
-  dentro de otros programas.
+- Visto así, las operaciones son **subprogramas**, es decir, porciones de
+  código que actúan como pequeños programas dentro de otros programas, ya que
+  siguen el esquema de «_entrada - proceso - salida_» como cualquier programa.
 
 ---
 

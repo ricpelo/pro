@@ -204,31 +204,52 @@ data-number="1">
 Conceptos básicos</h1>
 
 </section>
-<section id="procedimientos" class="title-slide slide level2"
+<section id="subprogramas" class="title-slide slide level2"
 data-number="1.1">
 <h2 data-number="1.1"><span class="header-section-number">1.1</span>
-Procedimientos</h2>
+Subprogramas</h2>
 <ul>
-<li><p>A un bloque de sentencias que realiza una tarea específica se le
-puede dar un <strong>nombre</strong>.</p></li>
-<li><p>De esta forma se crearía una única <strong>unidad de código
-empaquetado que actuaría bajo ese nombre como una caja negra</strong>,
-de manera que, para poder usarla, bastaría con <strong><em>llamarla</em>
-invocando su nombre</strong> sin tener que conocer sus detalles internos
-de funcionamiento.</p></li>
-<li><p>A este tipo de «<em>bloques con nombre</em>» se les denomina
-<strong>subrutinas</strong>, <strong>subprogramas</strong> o
-<strong>procedimientos</strong>.</p></li>
+<li><p>Un <strong>subprograma</strong> o <strong>subrutina</strong> es
+una porción de código que por sí solo no representa un programa, aunque
+sigue el mismo esquema de «<em>entrada - proceso - salida</em>» que
+sigue cualquier programa, por lo que funcionan «casi» como si fueran un
+pequeño programa.</p></li>
+<li><p>Como no es un programa, no puede funcionar por sí solo, sino que
+debe formar parte de un verdadero programa que lo ejecute las veces que
+sea necesario, indicando su nombre o su posición dentro del
+mismo.</p></li>
+<li><p>Visto de esta forma, actúan de manera similar a un virus: no
+pueden vivir por sí solos, sino que necesitan otro organismo mayor que
+lo hospede.</p></li>
+<li><p>El objetivo de los subprogramas es el de realizar una tarea
+específica dentro de un programa, y acudir a ellos cada vez que el
+programa lo necesite.</p></li>
+<li><p>Cuando creamos un subprograma y le damos un nombre, se crea una
+<strong>unidad de código empaquetado que actúa bajo ese nombre como una
+<em>caja negra</em></strong>, de manera que, para poder usarla, bastaría
+con <strong><em>llamarla</em> invocando su nombre</strong> sin tener que
+conocer sus detalles internos de funcionamiento.</p></li>
+<li><p>Las funciones que hemos creado hasta ahora con expresiones lambda
+son subprogramas formados por una expresión (el cuerpo de la expresión
+lambda).</p></li>
+<li><p>De hecho, en el paradigma funcional, las funciones son el único
+tipo de subprograma que existe.</p></li>
+<li><p>En el paradigma imperativo deberíamos poder crear subprogramas
+que estén basados en sentencias en lugar de expresiones, ya que las
+sentencias son la base de ese paradigma.</p></li>
+</ul>
+<!--
+- En el paradigma imperativo, a un bloque de sentencias que realiza una tarea
+  específica se le puede dar un **nombre**.
+
+- A este tipo de «_bloques con nombre_» se les denomina *procedimientos**.
+-->
+<ul>
 <li><p>Es el equivalente imperativo al concepto de <em>función</em> en
 programación funcional, solo que en lugar de estar formado por una
 expresión, está formado por una sentencia o bloque de
 sentencias.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.1">
-
-<ul>
-<li><p>Los procedimientos nos ayudan a:</p>
+<li><p>Los subprogramas nos ayudan a:</p>
 <ul>
 <li><p>Descomponer el problema principal en subproblemas más pequeños
 que se pueden resolver por separado de una forma más o menos
@@ -238,8 +259,41 @@ capas de abstracción con diferentes niveles de detalle.</p></li>
 <li><p>Desarrollar el programa mediante sucesivos refinamientos de cada
 nivel de abstracción.</p></li>
 </ul></li>
-<li><p>En definitiva, los procedimientos son
+<li><p>En definitiva, los subprogramas (bien definidos y usados) son
 <strong>abstracciones</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>Tradicionalmente, en el paradigma imperativo, los subprogramas
+han adoptado dos formas principales: <strong>funciones y
+procedimientos</strong>.</p>
+<ul>
+<li><p>Es importante resaltar que las funciones en el paradigma
+imperativo no son como las funciones del paradigma funcional.</p></li>
+<li><p>En concreto, las funciones imperativas están formadas por
+sentencias, no por expresiones.</p></li>
+</ul></li>
+<li><p>La diferencia entre una función y un procedimiento es que las
+funciones devuelven valores mientras que los procedimientos no.</p></li>
+<li><p>Por ejemplo, en el lenguaje Pascal se diferencian las
+<em>function</em> (funciones, que devuelven valores) de los
+<em>procedure</em> (procedimientos, que no devuelven valores).</p></li>
+<li><p>Pero hay lenguajes, como C o Python, que no tienen
+procedimientos, sino que todos los subprogramas son funciones.</p></li>
+<li><p>En estos lenguajes se puede definir un procedimiento como una
+función que devuelva un valor que represente «ningún valor» (como el
+<code class="sourceCode python"><span class="va">None</span></code> de
+Python).</p></li>
+<li><p>Así, podemos afirmar que, en Python:</p>
+<ul>
+<li><p>Existen dos tipos de funciones: expresiones lambda y funciones
+imperativas (que veremos posteriormente)</p></li>
+<li><p>Los procedimientos no son más que funciones imperativas que
+devuelven <code
+class="sourceCode python"><span class="va">None</span></code>.</p></li>
+</ul></li>
 <li><p>La <strong><em>llamada</em></strong> o
 <strong><em>invocación</em></strong> a un procedimiento es una sentencia
 simple pero que provoca la ejecución de un bloque de
@@ -249,6 +303,9 @@ una sentencia compuesta que actúa como una sentencia
 simple</strong>.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="1.1.0.0.2">
+
+</section>
 
 <section id="el-paradigma-de-programación-procedimental"
 class="title-slide slide level2" data-number="1.2">
@@ -257,29 +314,35 @@ paradigma de programación procedimental</h2>
 <ul>
 <li><p>La <strong>programación procedimental</strong> (<em>procedural
 programming</em>) es un paradigma de programación imperativa basada en
-los conceptos de <strong>procedimiento</strong> y <strong>llamada a
-procedimientos</strong>.</p></li>
+los conceptos de <strong>subprograma</strong> y <strong>llamada a
+subprogramas</strong>.</p>
+<ul>
+<li>El adjetivo de «procedimental» se mantiene más bien por motivos
+históricos, ya que el paradigma se refiere a cualquier tipo de
+subprograma. Visto así, debería llamarse «<em>programación con
+subprogramas</em>».</li>
+</ul></li>
 <li><p>En este paradigma, un programa imperativo está compuesto
-principalmente por procedimientos (bloques de sentencias con nombre) que
+principalmente por subprogramas (bloques de sentencias con nombre) que
 se llaman entre sí.</p></li>
-<li><p>Los procedimientos pueden tener parámetros a través de los cuales
+<li><p>Los subprogramas pueden tener parámetros a través de los cuales
 reciben sus datos de entrada, caso de necesitarlos.</p></li>
-<li><p>A su vez, los procedimientos pueden devolver un resultado, de ser
-necesario.</p></li>
-<li><p>Los procedimientos, además, determinan su propio ámbito local y
+<li><p>A su vez, si los subprogramas son funciones, pueden devolver un
+resultado, de ser necesario.</p></li>
+<li><p>Los subprogramas, además, determinan su propio ámbito local y
 (dependiendo del lenguaje de programación usado) también podrían acceder
 a otros ámbitos no locales que contengan al suyo, como el ámbito
 global.</p></li>
 </ul>
 </section>
 
-<section id="procedimientos-y-refinamiento-sucesivo"
+<section id="subprogramas-y-refinamiento-sucesivo"
 class="title-slide slide level2" data-number="1.3">
 <h2 data-number="1.3"><span class="header-section-number">1.3</span>
-Procedimientos y refinamiento sucesivo</h2>
+Subprogramas y refinamiento sucesivo</h2>
 <ul>
 <li><p>Durante el proceso de refinamiento sucesivo que acabamos de
-estudiar, se pueden ir creando procedimientos que representen
+estudiar, se pueden ir creando subprogramas que representen
 <strong>diferentes niveles de detalle</strong> en el diseño
 descendente.</p></li>
 <li><p>Recordemos que una estructura de control es una sentencia
@@ -309,22 +372,22 @@ estructuras como una sola sentencia.</li>
 <section class="slide level5" data-number="1.3.0.0.2">
 
 <ul>
-<li><p>De igual forma, una llamada a un procedimiento es una sentencia
+<li><p>De igual forma, una llamada a un subprograma es una instrucción
 simple que actúa como una sentencia compuesta, formada por varias
-instrucciones (el <em>cuerpo</em> del procedimiento) que actúan como una
+instrucciones (el <em>cuerpo</em> del subprograma) que actúan como una
 sola.</p></li>
-<li><p>En ese caso, <strong>el procedimiento actúa como un recurso
+<li><p>En ese caso, <strong>el subprograma actúa como un recurso
 abstracto en un determinado nivel</strong> (en ese nivel, se invoca al
-procedimiento aunque aún no exista) que luego se implementa en un nivel
-de mayor refinamiento.</p></li>
-<li><p>El uso de procedimientos para escribir programas siguiendo un
+subprograma aunque aún no exista) que luego se implementa en un nivel de
+mayor refinamiento.</p></li>
+<li><p>El uso de subprogramas para escribir programas siguiendo un
 diseño descendente nos lleva a un <strong>código descompuesto en partes
 separadas</strong> en lugar de tener un único código enorme con todo el
 texto del programa escrito directamente al mismo nivel.</p></li>
 <li><p>Esta forma de refinamiento y de diseño descendente está ya más
 relacionado con el concepto de <strong>programación modular</strong>,
 que estudiaremos posteriormente.</p></li>
-<li><p>En un ordinograma, una llamada a un procedimiento se representa
+<li><p>En un ordinograma, una llamada a un subprograma se representa
 como un rectángulo con doble trazo superior.</p></li>
 </ul>
 </section>
@@ -334,16 +397,16 @@ como un rectángulo con doble trazo superior.</p></li>
 <figure>
 <img data-src="images/refinamiento.png" class="plain"
 style="width:60.0%"
-alt="Diseño descendente por refinamiento sucesivo usando procedimientos" />
+alt="Diseño descendente por refinamiento sucesivo usando subprogramas" />
 <figcaption aria-hidden="true">Diseño descendente por refinamiento
-sucesivo usando procedimientos</figcaption>
+sucesivo usando subprogramas</figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level5" data-number="1.3.0.0.4">
 
 <ul>
-<li><p>El ejemplo anterior descompuesto en procedimientos sería:</p>
+<li><p>El ejemplo anterior descompuesto en subprogramas sería:</p>
 <div class="line-block"><strong>Algoritmo:</strong> Tabla de multiplicar
 de <span class="math inline">n \times n</span><br />
 <strong>Entrada:</strong> El tamaño <span class="math inline">n</span>
@@ -400,14 +463,14 @@ t</span> <strong>hacer</strong><br />
 <section class="slide level5" data-number="1.3.0.0.5">
 
 <ul>
-<li><p>El código escrito mediante descomposición en procedimientos tiene
+<li><p>El código escrito mediante descomposición en subprogramas tiene
 dos grandes ventajas:</p>
 <ul>
 <li><p>Es más fácil de entender un código basado en abstracciones
 independientes y separadas que se llaman entre sí, antes que un código
 donde todo está en el mismo nivel de refinamiento formando un texto
 monolítico de principio a fin.</p></li>
-<li><p>Es probable que los procedimientos así obtenidos puedan
+<li><p>Es probable que los subprogramas así obtenidos puedan
 <em>reutilizarse</em> en otros programas con poca o ninguna variación,
 siempre y cuando sean lo suficientemente genéricos e independientes del
 resto del programa que los utiliza.</p></li>
@@ -463,9 +526,10 @@ data-number="2.1">
 Introducción</h2>
 <ul>
 <li><p>Cada lenguaje de programación procedimental establece sus propios
-mecanismos de creación de procedimientos.</p></li>
-<li><p>En Python, los procedimientos son las denominadas
-<strong>funciones imperativas</strong>.</p></li>
+mecanismos de creación de subprogramas.</p></li>
+<li><p>En Python, los subprogramas formados por sentencias se crean
+mediante las denominadas <strong>funciones
+imperativas</strong>.</p></li>
 <li><p>Estudiaremos ahora cómo crear y usar funciones imperativas en
 Python.</p></li>
 </ul>

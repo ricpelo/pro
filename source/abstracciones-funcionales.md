@@ -1994,8 +1994,9 @@ cg [label = "(caso general)"]
 
 - Este esquema es el que hemos usado hasta ahora para especificar programas, y
   se podría seguir usando para especificar funciones, ya que éstas son
-  consideradas _subprogramas_ (programas que forman parte de otros programas
-  más grandes).
+  consideradas **_subprogramas_** (porciones de código que forman parte de un
+  programa y que siguen el esquema de «_entrada - proceso - salida_» como
+  cualquier programa).
 
 ---
 
