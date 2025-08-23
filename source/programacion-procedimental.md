@@ -23,15 +23,15 @@ nocite: |
   sí solos, sino que necesitan otro organismo mayor que lo hospede.
 
 - El objetivo de los subprogramas es el de realizar una tarea específica dentro
-  de un programa, y acudir a ellos cada vez que el programa lo necesite.
+  de un programa, de manera que se pueda acudir a ellos cada vez que el
+  programa lo necesite.
 
 - Cuando creamos un subprograma y le damos un nombre, se crea una **unidad de
-  código empaquetado que actúa bajo ese nombre como una _caja negra_**, de
-  manera que, para poder usarla, bastaría con **_llamarla_ invocando su
-  nombre** sin tener que conocer sus detalles internos de funcionamiento.
+  código empaquetado que actúa bajo ese nombre**, de manera que, para poder
+  usarla, hay que **_llamarla_ invocando su nombre**.
 
 - Las funciones que hemos creado hasta ahora con expresiones lambda son
-  subprogramas formados por una expresión (el cuerpo de la expresión lambda).
+  subprogramas compuestos por una expresión (el cuerpo de la expresión lambda).
 
 - De hecho, en el paradigma funcional, las funciones son el único tipo de
   subprograma que existe.
@@ -45,11 +45,12 @@ nocite: |
   específica se le puede dar un **nombre**.
 
 - A este tipo de «_bloques con nombre_» se les denomina *procedimientos**.
--->
 
 - Es el equivalente imperativo al concepto de _función_ en programación
   funcional, solo que en lugar de estar formado por una expresión, está formado
   por una sentencia o bloque de sentencias.
+-->
+
 
 - Los subprogramas nos ayudan a:
 
@@ -94,16 +95,16 @@ nocite: |
 - Así, podemos afirmar que, en Python:
 
   - Existen dos tipos de funciones: expresiones lambda y funciones imperativas
-    (que veremos posteriormente) 
+    (que veremos posteriormente).
 
   - Los procedimientos no son más que funciones imperativas que devuelven
     !PYTHON(None).
 
-- La **_llamada_** o **_invocación_** a un procedimiento es una sentencia
-  simple pero que provoca la ejecución de un bloque de sentencias.
+- La **_llamada_** o **_invocación_** a un subprograma es una instrucción
+  simple que provoca la ejecución de un bloque de sentencias.
 
-- Por tanto, podría considerarse que **un procedimiento es una sentencia
-  compuesta que actúa como una sentencia simple**.
+- Por tanto, podría considerarse que **un subprograma es una sentencia
+  compuesta que actúa como una instrucción simple**.
 
 ---
 
@@ -115,10 +116,10 @@ nocite: |
 
   - El adjetivo de «procedimental» se mantiene más bien por motivos históricos,
     ya que el paradigma se refiere a cualquier tipo de subprograma. Visto así,
-    debería llamarse «_programación con subprogramas_».
+    mejor debería llamarse «_programación con subprogramas_».
 
 - En este paradigma, un programa imperativo está compuesto principalmente por
-  subprogramas (bloques de sentencias con nombre) que se llaman entre sí.
+  subprogramas que se llaman entre sí.
 
 - Los subprogramas pueden tener parámetros a través de los cuales reciben sus
   datos de entrada, caso de necesitarlos.
@@ -126,9 +127,9 @@ nocite: |
 - A su vez, si los subprogramas son funciones, pueden devolver un resultado, de
   ser necesario.
 
-- Los subprogramas, además, determinan su propio ámbito local y (dependiendo
-  del lenguaje de programación usado) también podrían acceder a otros ámbitos
-  no locales que contengan al suyo, como el ámbito global.
+- Los subprogramas (dependiendo del lenguaje de programación usado), introducen
+  su propio ámbito local y también podrían acceder a otros ámbitos no locales
+  que contengan al suyo, como el ámbito global.
 
 ## Subprogramas y refinamiento sucesivo
 
@@ -141,6 +142,7 @@ nocite: |
   salida), sin tener que conocer el detalle de cómo funciona por dentro, es
   decir, sin tener que conocer qué sentencias más simples contiene.
 
+<!--
 ---
 
 :::: columns
@@ -160,6 +162,7 @@ nocite: |
 :::
 
 ::::
+-->
 
 ---
 
@@ -208,7 +211,7 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Procedimiento:** construir_tabla($m$)
+  **Subprograma:** construir_tabla($m$)
   **Entrada:** El tamaño $m$
   **Salida:** La tabla de multiplicar de $m \times m$ (por la salida estándar)
   **inicio**
@@ -229,7 +232,7 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Procedimiento:** escribir_fila($f$, $t$)
+  **Subprograma:** escribir_fila($f$, $t$)
   **Entrada:** El número ($f$) de la fila a escribir y el tamaño ($t$) de la tabla
   **Salida:** La fila $f$ de la tabla de multiplicar (por la salida estándar)
   **inicio**
@@ -270,7 +273,7 @@ nocite: |
   modular, que son términos relacionados pero diferentes.
 
 - Asimismo, la mayoría de los lenguajes estructurados permiten la creación de
-  procedimientos, lo que a veces lleva a la confusión de creer que la
+  subprogramas, lo que a veces lleva a la confusión de creer que la
   programación estructurada y la procedimental son el mismo paradigma.
 
 ---
@@ -284,9 +287,9 @@ nocite: |
     detalles prácticos ni se conocen perfectamente desde el principio los
     requisitos del programa que hay que constuir.
 
-  - Puede ignorar la reutilización de procedimientos ya existentes.
+  - Puede ignorar la reutilización de subprogramas ya existentes.
 
-  - Resulta fácil obtener procedimientos que sólo sean útiles para el programa
+  - Resulta fácil obtener subprogramas que sólo sean útiles para el programa
     actual y no se puedan generalizar para su reutilización en otras
     situaciones.
 
