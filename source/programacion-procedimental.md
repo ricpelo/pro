@@ -12,45 +12,21 @@ nocite: |
 
 - Un **subprograma** o **subrutina** es una porción de código que por sí solo
   no representa un programa, aunque sigue el mismo esquema de «_entrada -
-  proceso - salida_» que sigue cualquier programa, por lo que funcionan «casi»
-  como si fueran un pequeño programa.
+  proceso - salida_» que sigue cualquier programa, por lo que funciona «casi»
+  como si lo fuera.
 
 - Como no es un programa, no puede funcionar por sí solo, sino que debe formar
   parte de un verdadero programa que lo ejecute las veces que sea necesario,
   indicando su nombre o su posición dentro del mismo.
 
-- Visto de esta forma, actúan de manera similar a un virus: no pueden vivir por
-  sí solos, sino que necesitan otro organismo mayor que lo hospede.
+- Visto de esta forma, actúa de manera similar a un virus: no puede vivir por
+  sí solo, sino que necesita otro organismo mayor que lo hospede.
 
-- El objetivo de los subprogramas es el de realizar una tarea específica dentro
-  de un programa, de manera que se pueda acudir a ellos cada vez que el
-  programa lo necesite.
+- El objetivo de un subprograma es el de realizar una tarea específica dentro
+  de un programa, de manera que se pueda acudir a él cada vez que el programa
+  lo necesite.
 
-- Cuando creamos un subprograma y le damos un nombre, se crea una **unidad de
-  código empaquetado que actúa bajo ese nombre**, de manera que, para poder
-  usarla, hay que **_llamarla_ invocando su nombre**.
-
-- Las funciones que hemos creado hasta ahora con expresiones lambda son
-  subprogramas compuestos por una expresión (el cuerpo de la expresión lambda).
-
-- De hecho, en el paradigma funcional, las funciones son el único tipo de
-  subprograma que existe.
-
-- En el paradigma imperativo deberíamos poder crear subprogramas que estén
-  basados en sentencias en lugar de expresiones, ya que las sentencias son la
-  base de ese paradigma.
-
-<!--
-- En el paradigma imperativo, a un bloque de sentencias que realiza una tarea
-  específica se le puede dar un **nombre**.
-
-- A este tipo de «_bloques con nombre_» se les denomina *procedimientos**.
-
-- Es el equivalente imperativo al concepto de _función_ en programación
-  funcional, solo que en lugar de estar formado por una expresión, está formado
-  por una sentencia o bloque de sentencias.
--->
-
+---
 
 - Los subprogramas nos ayudan a:
 
@@ -69,7 +45,37 @@ nocite: |
 
 ---
 
-- Tradicionalmente, en el paradigma imperativo, los subprogramas han adoptado
+- Cuando creamos un subprograma y le damos un nombre, se crea una **unidad de
+  código empaquetado que actúa bajo ese nombre**, de manera que, para poder
+  usarla, hay que **_llamarla_ invocando su nombre**.
+
+- Las funciones que hemos creado hasta ahora con abstracciones lambda son
+  subprogramas compuestos por una sola expresión (el cuerpo de la abstracción
+  lambda).
+
+- De hecho, en el paradigma funcional, las funciones son el único tipo de
+  subprograma que existe.
+
+- Un lenguaje de programación imperativo también debería permitir la creación
+  de subprogramas.
+
+- En ese caso, los subprogramas deberían estar basados en sentencias en lugar
+  de expresiones, ya que las sentencias son la base del paradigma imperativo.
+
+<!--
+- En el paradigma imperativo, a un bloque de sentencias que realiza una tarea
+  específica se le puede dar un **nombre**.
+
+- A este tipo de «_bloques con nombre_» se les denomina *procedimientos**.
+
+- Es el equivalente imperativo al concepto de _función_ en programación
+  funcional, solo que en lugar de estar formado por una expresión, está formado
+  por una sentencia o bloque de sentencias.
+-->
+
+---
+
+- Tradicionalmente, en los lenguajes imperativo, los subprogramas han adoptado
   dos formas principales: **funciones y procedimientos**.
 
   - Es importante resaltar que las funciones en el paradigma imperativo no son
@@ -81,15 +87,17 @@ nocite: |
 - La diferencia entre una función y un procedimiento es que las funciones
   devuelven valores mientras que los procedimientos no.
 
-- Por ejemplo, en el lenguaje Pascal se diferencian las _function_ (funciones,
-  que devuelven valores) de los _procedure_ (procedimientos, que no devuelven
-  valores).
+- Por ejemplo, en el lenguaje imperativo Pascal se diferencian las _function_
+  (funciones, que devuelven valores) de los _procedure_ (procedimientos, que no
+  devuelven valores).
 
-- Pero hay lenguajes, como C o Python, que no tienen procedimientos, sino que
-  todos los subprogramas son funciones.
+---
+
+- Pero hay lenguajes imperativos, como C o Python, que no tienen
+  procedimientos, sino que todos los subprogramas son funciones.
 
 - En estos lenguajes se puede definir un procedimiento como una función que
-  devuelva un valor que represente «ningún valor» (como el !PYTHON(None) de
+  devuelva un valor que represente «_ningún valor_» (como el !PYTHON(None) de
   Python).
 
 - Así, podemos afirmar que, en Python:
@@ -100,13 +108,16 @@ nocite: |
   - Los procedimientos no son más que funciones imperativas que devuelven
     !PYTHON(None).
 
+<!--
+
 - La **_llamada_** o **_invocación_** a un subprograma es una instrucción
   simple que provoca la ejecución de un bloque de sentencias.
 
 - Por tanto, podría considerarse que **un subprograma es una sentencia
   compuesta que actúa como una instrucción simple**.
 
----
+-->
+
 
 ## El paradigma de programación procedimental
 
@@ -121,13 +132,15 @@ nocite: |
 - En este paradigma, un programa imperativo está compuesto principalmente por
   subprogramas que se llaman entre sí.
 
+---
+
 - Los subprogramas pueden tener parámetros a través de los cuales reciben sus
   datos de entrada, caso de necesitarlos.
 
-- A su vez, si los subprogramas son funciones, pueden devolver un resultado, de
-  ser necesario.
+- A su vez (si los subprogramas son funciones), pueden devolver un resultado,
+  de ser necesario.
 
-- Los subprogramas (dependiendo del lenguaje de programación usado), introducen
+- Los subprogramas, dependiendo del lenguaje de programación usado, introducen
   su propio ámbito local y también podrían acceder a otros ámbitos no locales
   que contengan al suyo, como el ámbito global.
 
@@ -142,7 +155,6 @@ nocite: |
   salida), sin tener que conocer el detalle de cómo funciona por dentro, es
   decir, sin tener que conocer qué sentencias más simples contiene.
 
-<!--
 ---
 
 :::: columns
@@ -162,12 +174,11 @@ nocite: |
 :::
 
 ::::
--->
 
 ---
 
 - De igual forma, una llamada a un subprograma es una instrucción simple que
-  actúa como una sentencia compuesta, formada por varias instrucciones (el
+  actúa como una sentencia compuesta, formada por varias sentencias (el
   _cuerpo_ del subprograma) que actúan como una sola.
 
 - En ese caso, **el subprograma actúa como un recurso abstracto en un
