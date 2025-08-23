@@ -1403,7 +1403,7 @@ $$
 
 ---
 
-- Pero, ¿qué ocurre con expresión !PYTHON((2 + 3) * (4 + 5))?
+- Pero, ¿qué ocurre con la expresión !PYTHON((2 + 3) * (4 + 5))?
 
 - En un principio, ocurre algo parecido a lo de antes: para poder hacer el
   producto, primero hay que calcular las dos sumas, ya que los operandos del
@@ -1412,8 +1412,8 @@ $$
 - La cuestión es: ¿qué suma se hace primero? O dicho de otra forma: ¿en qué
   orden se evalúan los operandos del operador `*`?
 
-- Matemáticamente no hay ninguna diferencia entre calcular primero
-  !PYTHON(2 + 3) y luego !PYTHON(4 + 5) o hacerlo al revés.
+- Matemáticamente, no hay ninguna diferencia entre calcular primero el
+  resultado de !PYTHON(2 + 3) y luego hacer !PYTHON(4 + 5), o hacerlo al revés.
 
 - Pero ya sabemos que Python impone un orden de evaluación de izquierda a
   derecha al reducir las subexpresiones.
