@@ -372,19 +372,19 @@ programa.</p></li>
 <li><p>Un módulo es, pues, una parte de un programa que se puede
 estudiar, entender y programar por separado con relativa independencia
 del resto del programa.</p></li>
-<li><p>Según esa definición, podría decirse que <strong>las funciones y
-procedimientos son ejemplos de <em>módulo</em></strong>, ya que se
-ajustan a esa definición.</p></li>
+<li><p>Según esa definición, podría decirse que <strong>un subprograma
+es un ejemplo de <em>módulo</em></strong>, ya que se ajusta a esa
+definición.</p></li>
 <li><p>Sin embargo, descomponer un programa en partes usando únicamente
-como criterio la descomposición en funciones <strong>no resulta adecuado
-en general</strong>, ya que:</p>
+como criterio la descomposición en subprogramas <strong>no resulta
+adecuado en general</strong>, ya que:</p>
 <ul>
 <li><p>No habría <em>descomposición física</em>, salvo que se coloque
 cada función en un archivo separado, lo que resulta poco
 práctico.</p></li>
-<li><p>En la mayoría de los casos, nos encontramos con varias funciones
-que no actúan por separado, sino de forma conjunta entre ellas formando
-un todo interrelacionado.</p></li>
+<li><p>En la mayoría de los casos, nos encontramos con varios
+subprogramas que no actúan por separado, sino de forma conjunta entre
+ellas formando un todo interrelacionado.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -453,7 +453,7 @@ de abstracción y complejidad:</p>
 <li>Expresiones y abstracciones lambda.</li>
 <li>Sentencias.</li>
 <li>Estructuras de control.</li>
-<li>Funciones imperativas o procedimientos.</li>
+<li>Funciones imperativas.</li>
 <li>Módulos.</li>
 <li>Paquetes.</li>
 </ol></li>
@@ -2213,12 +2213,12 @@ entienden bien los detalles prácticos ni se conocen perfectamente desde
 el principio los requisitos del programa que hay que constuir.</p></li>
 <li><p>Puede ignorar la reutilización de componentes ya
 existentes.</p></li>
-<li><p>Resulta fácil obtener procedimientos que sólo sean útiles para el
+<li><p>Resulta fácil obtener subprogramas que sólo sean útiles para el
 programa actual y no se puedan generalizar para su reutilización en
 otras situaciones.</p></li>
 </ul></li>
 <li><p>Por tanto, con el diseño descendente a veces cuesta conseguir la
-programación de procedimientos o módulos reutilizables.</p></li>
+programación de subprogramas o módulos reutilizables.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.6.1.0.1">
@@ -2226,12 +2226,15 @@ programación de procedimientos o módulos reutilizables.</p></li>
 <ul>
 <li><p>Frente al diseño descendente, tenemos también el llamado
 <strong>diseño ascendente</strong> o
-<strong><em>bottom-up</em></strong>.</p></li>
+<strong><em>bottom-up</em></strong>, que es una técnica que se puede
+aplicar tanto en programación procedimental (con subprogramas) como en
+programación modular (con módulos).</p>
+<p>Por eso, a partir de ahora hablaremos de <em>componentes</em> para
+referirnos a módulos o subprogramas.</p></li>
 <li><p>Como su nombre indica, consiste en ir de abajo arriba,
-construyendo módulos o componentes básicos (en nuestro caso serían
-procedimientos) que se van combinando y ensamblando poco a poco hasta
-obtener el programa completo.</p></li>
-<li><p>Además, en todo momento se busca que esos procedimientos sean
+construyendo componentes básicos que se van combinando y ensamblando
+poco a poco hasta obtener el programa completo.</p></li>
+<li><p>Además, en todo momento se busca que esos componentes sean
 reutilizables, es decir, aprovechables en otros programas.</p></li>
 </ul>
 </section>
@@ -2241,13 +2244,13 @@ reutilizables, es decir, aprovechables en otros programas.</p></li>
 <li><p>Cómo se aplica el diseño ascendente:</p>
 <ol>
 <li><p>Se diseñan ladrillos básicos de construcción en forma de pequeños
-procedimientos independientes y genéricos.</p></li>
-<li><p>Se combinan esos procedimientos para crear otros cada vez más
+componentes independientes y genéricos.</p></li>
+<li><p>Se combinan esos componentes para crear otros cada vez más
 complejos, integrándolos unos con otros.</p>
-<p>En la práctica, consiste en hacer que el procedimiento que estamos
-programando ahora, llame a otros que ya hemos programado (nosotros u
+<p>En la práctica, consiste en hacer que el componente que estamos
+programando ahora, utilice a otros que ya hemos programado (nosotros u
 otros programadores).</p></li>
-<li><p>Finalmente, se integran todos los procedimientos para formar el
+<li><p>Finalmente, se integran todos los componentes para formar el
 sistema completo.</p></li>
 </ol></li>
 </ul>
@@ -2258,16 +2261,16 @@ sistema completo.</p></li>
 <li><p>El diseño ascendente tiene <strong>ventajas</strong>:</p>
 <ul>
 <li><p>Favorece la reutilización de código ya existente, en forma de
-módulos o librerías de procedimientos.</p></li>
+módulos o librerías de subprogramas.</p></li>
 <li><p>Permite programar y verificar partes funcionales del programa
 <em>antes de tener el programa completo</em>, ya que se pueden ir
 ensamblando esas partes unas con otras a medida que se van programando y
 sin tener que esperar a tenerlas todas.</p>
 <p>Esas partes se hacen cada vez más complejas conforme se van
-ensamblando entre sí los distintos procedimientos que las forman y, con
+ensamblando entre sí los distintos componentes que las forman y, con
 ello, se va construyendo el programa <em>de abajo arriba</em>.</p></li>
 <li><p>El diseño global del programa puede cambiar a medida que se van
-conectando los procedimientos unos con otros, por lo que el diseño
+conectando los componentes unos con otros, por lo que el diseño
 ascendente es menos sensible a cambios en la arquitectura del
 programa.</p></li>
 </ul></li>
@@ -2278,10 +2281,9 @@ programa.</p></li>
 <ul>
 <li><p>Pero también tiene <strong>inconvenientes</strong>:</p>
 <ul>
-<li><p>Puede ser difícil garantizar que al final todos los
-procedimientos encajarán juntos perfectamente en un sistema
-coherente.</p></li>
-<li><p>Se necesita experiencia para construir procedimientos lo
+<li><p>Puede ser difícil garantizar que al final todos los componentes
+encajarán juntos perfectamente en un sistema coherente.</p></li>
+<li><p>Se necesita experiencia para construir componentes lo
 suficientemente genéricos como para resultar reutilizables.</p></li>
 </ul></li>
 <li><p>La opción que generalmente resulta más conveniente es la de
@@ -2319,8 +2321,8 @@ que ofrece el <em>bottom-up</em>.</p></li>
 
 <div class="caja">
 <p>En resumen, se diseña la arquitectura desde arriba y se construyen
-módulos reutilizables desde abajo, encontrándose ambos en el desarrollo
-de los módulos intermedios.</p>
+componentes reutilizables desde abajo, encontrándose ambos en el
+desarrollo de los compontentes intermedios.</p>
 </div>
 </section>
 <section class="slide level5" data-number="4.6.2.0.2">
@@ -2331,18 +2333,16 @@ de los módulos intermedios.</p>
 <li><p>El enfoque <em>top-down</em> se puede usar para identificar qué
 módulos principales van a formar parte del programa.</p></li>
 <li><p>También se puede usar el enfoque <em>top-down</em> para programar
-los procedimientos y los detalles algorítmicos que formen cada módulo,
+los subprogramas y los detalles algorítmicos que formen cada módulo,
 aplicando el refinamiento sucesivo pero sin bajar a un nivel de detalle
 muy alto (o sea, dejándolos a medio terminar).</p></li>
 <li><p>Se puede aplicar el enfoque <em>bottom-up</em> para construir
-procedimientos y módulos que se puedan reutilizar en varias partes del
-programa y que no requieran de otras partes, de forma que se puedan
-escribir y probar ya, sin esperar a tener más partes
-funcionando.</p></li>
-<li><p>Estos módulos y procedimientos se usan para terminar de programas
-los algoritmos que se concretaron <em>a medias</em> en el paso 2
-anterior, de forma que los del paso 2 llaman o usan a los del paso
-3.</p></li>
+componentes que se puedan reutilizar en varias partes del programa y que
+no requieran de otras partes, de forma que se puedan escribir y probar
+ya, sin esperar a tener más partes funcionando.</p></li>
+<li><p>Estos componentes se usan para terminar de programas los
+algoritmos que se concretaron <em>a medias</em> en el paso 2 anterior,
+de forma que los del paso 2 llaman o usan a los del paso 3.</p></li>
 </ol></li>
 </ul>
 </section>
@@ -2354,7 +2354,7 @@ anterior, de forma que los del paso 2 llaman o usan a los del paso
 <ul>
 <li><p>Combina lo mejor de ambos enfoques.</p></li>
 <li><p>Garantiza visión global y cohesión (<em>top-down</em>).</p></li>
-<li><p>Permite reutilización y validación temprana de módulos
+<li><p>Permite reutilización y validación temprana de componentes
 (<em>bottom-up</em>).</p></li>
 <li><p>Facilita la integración progresiva del sistema.</p></li>
 </ul></li>

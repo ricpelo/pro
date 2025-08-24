@@ -155,17 +155,17 @@ nocite: |
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
   y programar por separado con relativa independencia del resto del programa.
 
-- Según esa definición, podría decirse que **las funciones y procedimientos son
-  ejemplos de _módulo_**, ya que se ajustan a esa definición.
+- Según esa definición, podría decirse que **un subprograma es un ejemplo de
+  _módulo_**, ya que se ajusta a esa definición.
 
 - Sin embargo, descomponer un programa en partes usando únicamente como
-  criterio la descomposición en funciones **no resulta adecuado en general**,
-  ya que:
+  criterio la descomposición en subprogramas **no resulta adecuado en
+  general**, ya que:
 
   - No habría *descomposición física*, salvo que se coloque cada función en un
     archivo separado, lo que resulta poco práctico.
 
-  - En la mayoría de los casos, nos encontramos con varias funciones que no
+  - En la mayoría de los casos, nos encontramos con varios subprogramas que no
     actúan por separado, sino de forma conjunta entre ellas formando un todo
     interrelacionado.
 
@@ -230,7 +230,7 @@ nocite: |
   #. Expresiones y abstracciones lambda.
   #. Sentencias.
   #. Estructuras de control.
-  #. Funciones imperativas o procedimientos.
+  #. Funciones imperativas.
   #. Módulos.
   #. Paquetes.
 
@@ -1978,40 +1978,45 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
 
   - Puede ignorar la reutilización de componentes ya existentes.
 
-  - Resulta fácil obtener procedimientos que sólo sean útiles para el programa
+  - Resulta fácil obtener subprogramas que sólo sean útiles para el programa
     actual y no se puedan generalizar para su reutilización en otras
     situaciones.
 
 - Por tanto, con el diseño descendente a veces cuesta conseguir la programación
-  de procedimientos o módulos reutilizables.
+  de subprogramas o módulos reutilizables.
 
 ---
 
 - Frente al diseño descendente, tenemos también el llamado **diseño
-  ascendente** o **_bottom-up_**.
+  ascendente** o **_bottom-up_**, que es una técnica que se puede aplicar tanto
+  en programación procedimental (con subprogramas) como en programación modular
+  (con módulos).
+
+  Por eso, a partir de ahora hablaremos de _componentes_ para referirnos a
+  módulos o subprogramas.
 
 - Como su nombre indica, consiste en ir de abajo arriba, construyendo
-  módulos o componentes básicos (en nuestro caso serían procedimientos) que se
-  van combinando y ensamblando poco a poco hasta obtener el programa completo.
+  componentes básicos que se van combinando y ensamblando poco a poco hasta
+  obtener el programa completo.
 
-- Además, en todo momento se busca que esos procedimientos sean reutilizables,
-  es decir, aprovechables en otros programas.
+- Además, en todo momento se busca que esos componentes sean reutilizables, es
+  decir, aprovechables en otros programas.
 
 ---
 
 - Cómo se aplica el diseño ascendente:
 
   #. Se diseñan ladrillos básicos de construcción en forma de pequeños
-     procedimientos independientes y genéricos.
+     componentes independientes y genéricos.
 
-  #. Se combinan esos procedimientos para crear otros cada vez más complejos,
+  #. Se combinan esos componentes para crear otros cada vez más complejos,
      integrándolos unos con otros.
 
-     En la práctica, consiste en hacer que el procedimiento que estamos
-     programando ahora, llame a otros que ya hemos programado (nosotros u otros
-     programadores).
+     En la práctica, consiste en hacer que el componente que estamos
+     programando ahora, utilice a otros que ya hemos programado (nosotros u
+     otros programadores).
 
-  #. Finalmente, se integran todos los procedimientos para formar el sistema
+  #. Finalmente, se integran todos los componentes para formar el sistema
      completo.
 
 ---
@@ -2019,7 +2024,7 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
 - El diseño ascendente tiene **ventajas**:
 
    - Favorece la reutilización de código ya existente, en forma de módulos o
-     librerías de procedimientos.
+     librerías de subprogramas.
 
    - Permite programar y verificar partes funcionales del programa _antes de
      tener el programa completo_, ya que se pueden ir ensamblando esas partes
@@ -2027,21 +2032,21 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
      tenerlas todas.
 
      Esas partes se hacen cada vez más complejas conforme se van ensamblando
-     entre sí los distintos procedimientos que las forman y, con ello, se va
+     entre sí los distintos componentes que las forman y, con ello, se va
      construyendo el programa _de abajo arriba_.
 
    - El diseño global del programa puede cambiar a medida que se van conectando
-     los procedimientos unos con otros, por lo que el diseño ascendente es
-     menos sensible a cambios en la arquitectura del programa.
+     los componentes unos con otros, por lo que el diseño ascendente es menos
+     sensible a cambios en la arquitectura del programa.
 
 ---
 
 - Pero también tiene **inconvenientes**:
 
-  - Puede ser difícil garantizar que al final todos los procedimientos
-    encajarán juntos perfectamente en un sistema coherente.
+  - Puede ser difícil garantizar que al final todos los componentes encajarán
+    juntos perfectamente en un sistema coherente.
 
-  - Se necesita experiencia para construir procedimientos lo suficientemente
+  - Se necesita experiencia para construir componentes lo suficientemente
     genéricos como para resultar reutilizables.
 
 - La opción que generalmente resulta más conveniente es la de combinar ambos
@@ -2072,9 +2077,9 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-En resumen, se diseña la arquitectura desde arriba y se construyen módulos
-reutilizables desde abajo, encontrándose ambos en el desarrollo de los módulos
-intermedios.
+En resumen, se diseña la arquitectura desde arriba y se construyen componentes
+reutilizables desde abajo, encontrándose ambos en el desarrollo de los
+compontentes intermedios.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2085,18 +2090,18 @@ intermedios.
      principales van a formar parte del programa.
 
   #. También se puede usar el enfoque _top-down_ para programar los
-     procedimientos y los detalles algorítmicos que formen cada módulo,
+     subprogramas y los detalles algorítmicos que formen cada módulo,
      aplicando el refinamiento sucesivo pero sin bajar a un nivel de detalle
      muy alto (o sea, dejándolos a medio terminar).
 
-  #. Se puede aplicar el enfoque _bottom-up_ para construir procedimientos y
-     módulos que se puedan reutilizar en varias partes del programa y que no
-     requieran de otras partes, de forma que se puedan escribir y probar ya,
-     sin esperar a tener más partes funcionando.
+  #. Se puede aplicar el enfoque _bottom-up_ para construir componentes que se
+     puedan reutilizar en varias partes del programa y que no requieran de
+     otras partes, de forma que se puedan escribir y probar ya, sin esperar a
+     tener más partes funcionando.
 
-  #. Estos módulos y procedimientos se usan para terminar de programas los
-     algoritmos que se concretaron _a medias_ en el paso 2 anterior, de forma
-     que los del paso 2 llaman o usan a los del paso 3.
+  #. Estos componentes se usan para terminar de programas los algoritmos que se
+     concretaron _a medias_ en el paso 2 anterior, de forma que los del paso 2
+     llaman o usan a los del paso 3.
 
 ---
 
@@ -2106,7 +2111,7 @@ intermedios.
 
   - Garantiza visión global y cohesión (_top-down_).
 
-  - Permite reutilización y validación temprana de módulos (_bottom-up_).
+  - Permite reutilización y validación temprana de componentes (_bottom-up_).
 
   - Facilita la integración progresiva del sistema.
 

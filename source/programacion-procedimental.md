@@ -40,6 +40,9 @@ nocite: |
   - Desarrollar el programa mediante sucesivos refinamientos de cada nivel de
     abstracción.
 
+  - Evitar repeticiones del mismo código al realizar tareas rutinarias que se
+    van a ejecutar varias veces en diferentes puntos del programa.
+
 - En definitiva, los subprogramas (bien definidos y usados) son
   **abstracciones**.
 
@@ -75,11 +78,12 @@ nocite: |
 
 ---
 
-- Tradicionalmente, en los lenguajes imperativo, los subprogramas han adoptado
+- Tradicionalmente, en los lenguajes imperativos, los subprogramas han adoptado
   dos formas principales: **funciones y procedimientos**.
 
-  - Es importante resaltar que las funciones en el paradigma imperativo no son
-    como las funciones del paradigma funcional.
+  - Es importante resaltar que las funciones en el paradigma imperativo (las
+    así llamadas **funciones _imperativas_**) no son como las funciones del
+    paradigma funcional.
 
   - En concreto, las funciones imperativas están formadas por sentencias, no
     por expresiones.
@@ -143,6 +147,9 @@ nocite: |
 - Los subprogramas, dependiendo del lenguaje de programación usado, introducen
   su propio ámbito local y también podrían acceder a otros ámbitos no locales
   que contengan al suyo, como el ámbito global.
+
+- Asimismo, los subprogramas suelen contar con un espacio de nombres propio que
+  almacena sus nombres locales para evitar el _name clash_.
 
 ## Subprogramas y refinamiento sucesivo
 
