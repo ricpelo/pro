@@ -153,9 +153,9 @@ nocite: |
 
 ## Subprogramas y refinamiento sucesivo
 
-- Durante el proceso de refinamiento sucesivo que acabamos de estudiar, se
-  pueden ir creando subprogramas que representen **diferentes niveles de
-  detalle** en el diseño descendente.
+- Durante el proceso de diseño descendente por refinamiento sucesivo que
+  estudiamos en programación estructurada, se pueden ir creando subprogramas
+  que representen **diferentes niveles de detalle** en el diseño descendente.
 
 - Recordemos que una estructura de control es una sentencia compuesta y, como
   tal, podemos estudiarla como si fuera una sola sentencia (con su entrada y su
