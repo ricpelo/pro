@@ -209,7 +209,30 @@ nocite: |
 
 ---
 
-- El ejemplo anterior descompuesto en subprogramas sería:
+- Por ejemplo, en programación estructurada, diseñamos el siguiente algoritmo
+  que imprime la tabla de multiplicar de $n \times n$:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Algoritmo:** Tabla de multiplicar de $n \times n$
+  **Entrada:** El tamaño $n$ (por la entrada estándar)
+  **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
+  **inicio**
+  !SPC(6)      **leer $n$**
+  !SPC(6)      $i \longleftarrow 1$
+  !SPC(6)      **mientras** $i \leq n$ **hacer**
+  !SPC(12)              $j \longleftarrow 1$
+  !SPC(12)              **mientras** $j \leq n$ **hacer**
+  !SPC(18)                      **escribir** $i \times j$ sin salto de línea
+  !SPC(18)                      $j \longleftarrow j + 1$
+  !SPC(12)              **escribir** un salto de línea
+  !SPC(12)              $i \longleftarrow i + 1$
+  **fin**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- El ejemplo anterior, descompuesto en subprogramas, podría ser así:
 
 
   !ALGO
