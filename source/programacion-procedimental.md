@@ -291,6 +291,25 @@ nocite: |
 
 ---
 
+- Aquí se puede apreciar que existe un algoritmo o **programa principal** y
+  unos subprogramas (que aquí podríamos llamar también _subalgoritmos_) que son
+  usados desde el programa principal o desde otros subprogramas.
+
+- Dependiendo del lenguaje de programación usado, ese programa principal podrá
+  ser:
+
+  - otro subprograma «destacado», con un nombre o una marca especial, desde el
+    cual se iniciaría la ejecución del programa (como la función `main` de C o
+    el método `main` de Java), o bien
+
+  - un bloque de código independiente que no pertenece a ningún subprograma
+    (caso de los lenguajes Pascal o Python).
+
+- Ejercicio: dibujar los ordinogramas del programa principal y de los
+  subprogramas del ejemplo anterior.
+
+---
+
 - El código escrito mediante descomposición en subprogramas tiene dos grandes
   ventajas:
 
