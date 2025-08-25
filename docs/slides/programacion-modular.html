@@ -445,25 +445,26 @@ programas) y modificable sin forzar cambios en otros módulos.</p></li>
 <section class="slide level5" data-number="1.1.0.0.11">
 
 <ul>
-<li><p>Todo es un camino hacia la obtención de ladrillos constructivos
+<li><p>Todo es un camino hacia la obtención de componentes constructivos
 cada vez más grandes y abstractos.</p></li>
-<li><p>Por ejemplo, en Python tendríamos en orden de menor a mayor nivel
-de abstracción y complejidad:</p>
+<li><p>Por ejemplo, en Python tendríamos (en orden de menor a mayor
+nivel de abstracción y complejidad):</p>
 <ol>
 <li>Expresiones y abstracciones lambda.</li>
 <li>Sentencias.</li>
 <li>Estructuras de control.</li>
 <li>Funciones imperativas.</li>
+<li>Clases.</li>
 <li>Módulos.</li>
 <li>Paquetes.</li>
 </ol></li>
-<li><p>Cada ladrillo constructivo puede contener, recursivamente,
+<li><p>Cada componente constructivo puede contener, recursivamente,
 elementos del mismo nivel o inferior, pero no de un nivel
 superior.</p></li>
-<li><p>Estos ladrillos constructivos ayudan a organizar el programa en
-niveles de abstracción y complejidad, y nos permiten escribir programas
-cada vez más grandes y complejos porque nos permite aislar y estudiar
-cada parte y cada nivel por separado.</p></li>
+<li><p>Estos componentes constructivos ayudan a organizar el programa en
+varios niveles de abstracción y complejidad, y nos permiten escribir
+programas cada vez más grandes y complejos porque nos permite aislar y
+estudiar cada parte y cada nivel por separado.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.12">
@@ -511,15 +512,16 @@ internamente como una constante.</p></li>
 estarían separados en archivos distintos, lo que tendría estas ventajas,
 entre otras:</p>
 <ul>
-<li><p>Es más fácil localizar y corregir un fallo del programa. Por
-ejemplo, si se encuentra un fallo en las operaciones con números
-racionales, sería más fácil localizarlo, ya que el principal sospechoso
-sería el módulo de los números racionales.</p></li>
-<li><p>Cada módulo se podría programar y poner a punto por separado,
-incluso al mismo tiempo si ponemos a trabajar en cada uno a equipos
-distintos de programadores.</p></li>
-<li><p>El desarrollo del resto del programa también podría ir en
-paralelo al de estos dos módulos, por las mismas razones.</p></li>
+<li><p>Es <strong>más fácil localizar y corregir un fallo</strong> del
+programa. Por ejemplo, si se encuentra un fallo en las operaciones con
+números racionales, sería más fácil localizarlo, ya que el principal
+sospechoso sería el módulo de los números racionales.</p></li>
+<li><p>Cada módulo se podría <strong>programar y poner a punto por
+separado</strong>, incluso al mismo tiempo si ponemos a trabajar en cada
+uno a equipos distintos de programadores.</p></li>
+<li><p>El desarrollo del resto del programa también podría ir <strong>en
+paralelo</strong> al de estos dos módulos, por las mismas razones, lo
+que reduce el tiempo de desarrollo.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -537,14 +539,17 @@ separado</strong>.</p></li>
 <li><p>Una <strong>función</strong> cumple con la definición de «módulo»
 pero, en general, <strong>en la práctica no es una buena
 candidata</strong> para ser considerada un módulo por sí sola.</p></li>
-<li><p>Los módulos, en general, agrupan colecciones de <strong>funciones
-interrelacionadas</strong>.</p></li>
-<li><p>Además, los módulos <strong>pueden contener otros
-elementos</strong>, como <strong>datos</strong> en forma de
-<strong>constantes y variables</strong> manipulables desde el interior
-del módulo así como desde el exterior del mismo.</p></li>
+<li><p>Los módulos, contienen colecciones de <strong>funciones
+interrelacionadas</strong> y otros posibles elementos, como
+<strong>datos</strong> en forma de <strong>constantes y
+variables</strong> manipulables desde el interior del módulo y
+(posiblemente) también desde el exterior del mismo.</p></li>
 <li><p>Las variables del módulo constituyen el <strong>estado
 interno</strong> del módulo.</p></li>
+<li><p>Se puede controlar qué elementos se
+<strong><em>exportan</em></strong> al exterior del módulo, y qué
+elementos se <strong><em>importan</em></strong> de otros
+módulos.</p></li>
 <li><p>En la práctica, los módulos se programan físicamente en
 <strong>archivos separados</strong> del resto del programa.</p></li>
 </ul></li>
@@ -556,18 +561,19 @@ class="title-slide slide level2" data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span>
 Beneficios de la programación modular</h2>
 <ul>
-<li><p>El tiempo de desarrollo se reduce porque grupos separados de
-programadores pueden trabajar cada uno en un módulo distinto al mismo
-tiempo con poca necesidad de comunicación entre ellos.</p></li>
-<li><p>Se mejora la productividad del producto resultante, porque los
-cambios realizados en un módulo no afectarían demasiado a los
-demás.</p></li>
-<li><p>Comprensibilidad, porque se puede entender mejor el sistema
-completo cuando se puede estudiar módulo a módulo en lugar de tener que
-estudiarlo todo a la vez.</p></li>
-<li><p>Reusabilidad, porque facilita el que un módulo de un programa
-pueda ser aprovechado (con poca o ninguna alteración) en otros
-programas.</p></li>
+<li><p><strong>El tiempo de desarrollo se reduce</strong> porque grupos
+separados de programadores pueden trabajar cada uno en un módulo
+distinto al mismo tiempo con poca necesidad de comunicación entre
+ellos.</p></li>
+<li><p>Se <strong>mejora la fiabilidad y robustez</strong> del producto
+resultante, porque los cambios realizados en un módulo no afectarían
+demasiado a los demás.</p></li>
+<li><p><strong>Comprensibilidad</strong>, porque se puede entender mejor
+el sistema completo cuando se puede estudiar módulo a módulo en lugar de
+tener que estudiarlo todo a la vez.</p></li>
+<li><p><strong>Reusabilidad</strong>, porque facilita el que un módulo
+de un programa pueda ser aprovechado (con poca o ninguna alteración) en
+otros programas.</p></li>
 <li><p>En lenguajes compilados, la descomposición física del código del
 programa en varios archivos permite la <strong>compilación por
 separado</strong>, lo que acelera significativamente la compilación de

@@ -221,26 +221,27 @@ nocite: |
 
 ---
 
-- Todo es un camino hacia la obtención de ladrillos constructivos cada vez más
-  grandes y abstractos.
+- Todo es un camino hacia la obtención de componentes constructivos cada vez
+  más grandes y abstractos.
 
-- Por ejemplo, en Python tendríamos en orden de menor a mayor nivel de
-  abstracción y complejidad:
+- Por ejemplo, en Python tendríamos (en orden de menor a mayor nivel de
+  abstracción y complejidad):
 
   #. Expresiones y abstracciones lambda.
   #. Sentencias.
   #. Estructuras de control.
   #. Funciones imperativas.
+  #. Clases.
   #. Módulos.
   #. Paquetes.
 
-- Cada ladrillo constructivo puede contener, recursivamente, elementos del
+- Cada componente constructivo puede contener, recursivamente, elementos del
   mismo nivel o inferior, pero no de un nivel superior.
 
-- Estos ladrillos constructivos ayudan a organizar el programa en niveles de
-  abstracción y complejidad, y nos permiten escribir programas cada vez más
-  grandes y complejos porque nos permite aislar y estudiar cada parte y cada
-  nivel por separado.
+- Estos componentes constructivos ayudan a organizar el programa en varios
+  niveles de abstracción y complejidad, y nos permiten escribir programas cada
+  vez más grandes y complejos porque nos permite aislar y estudiar cada parte y
+  cada nivel por separado.
 
 ---
 
@@ -285,17 +286,18 @@ nocite: |
   racionales y de ángulos), ambos serían independientes y estarían separados en
   archivos distintos, lo que tendría estas ventajas, entre otras:
 
-  - Es más fácil localizar y corregir un fallo del programa. Por ejemplo, si se
-    encuentra un fallo en las operaciones con números racionales, sería más
-    fácil localizarlo, ya que el principal sospechoso sería el módulo de los
-    números racionales.
+  - Es **más fácil localizar y corregir un fallo** del programa. Por ejemplo,
+    si se encuentra un fallo en las operaciones con números racionales, sería
+    más fácil localizarlo, ya que el principal sospechoso sería el módulo de
+    los números racionales.
 
-  - Cada módulo se podría programar y poner a punto por separado, incluso al
-    mismo tiempo si ponemos a trabajar en cada uno a equipos distintos de
+  - Cada módulo se podría **programar y poner a punto por separado**, incluso
+    al mismo tiempo si ponemos a trabajar en cada uno a equipos distintos de
     programadores.
 
-  - El desarrollo del resto del programa también podría ir en paralelo al de
-    estos dos módulos, por las mismas razones.
+  - El desarrollo del resto del programa también podría ir **en paralelo** al
+    de estos dos módulos, por las mismas razones, lo que reduce el tiempo de
+    desarrollo.
 
 ---
 
@@ -310,32 +312,33 @@ nocite: |
     la práctica no es una buena candidata** para ser considerada un módulo por
     sí sola.
 
-  - Los módulos, en general, agrupan colecciones de **funciones
-    interrelacionadas**.
-
-  - Además, los módulos **pueden contener otros elementos**, como **datos** en
-    forma de **constantes y variables** manipulables desde el interior del
-    módulo así como desde el exterior del mismo.
+  - Los módulos, contienen colecciones de **funciones interrelacionadas** y
+    otros posibles elementos, como **datos** en forma de **constantes y
+    variables** manipulables desde el interior del módulo y (posiblemente)
+    también desde el exterior del mismo.
 
   - Las variables del módulo constituyen el **estado interno** del módulo.
+
+  - Se puede controlar qué elementos se **_exportan_** al exterior del módulo,
+    y qué elementos se **_importan_** de otros módulos.
 
   - En la práctica, los módulos se programan físicamente en **archivos
     separados** del resto del programa.
 
 ## Beneficios de la programación modular
 
-- El tiempo de desarrollo se reduce porque grupos separados de programadores
-  pueden trabajar cada uno en un módulo distinto al mismo tiempo con poca
-  necesidad de comunicación entre ellos.
+- **El tiempo de desarrollo se reduce** porque grupos separados de
+  programadores pueden trabajar cada uno en un módulo distinto al mismo tiempo
+  con poca necesidad de comunicación entre ellos.
 
-- Se mejora la productividad del producto resultante, porque los cambios
-  realizados en un módulo no afectarían demasiado a los demás.
+- Se **mejora la fiabilidad y robustez** del producto resultante, porque los
+  cambios realizados en un módulo no afectarían demasiado a los demás.
 
-- Comprensibilidad, porque se puede entender mejor el sistema completo cuando
-  se puede estudiar módulo a módulo en lugar de tener que estudiarlo todo a la
-  vez.
+- **Comprensibilidad**, porque se puede entender mejor el sistema completo
+  cuando se puede estudiar módulo a módulo en lugar de tener que estudiarlo
+  todo a la vez.
 
-- Reusabilidad, porque facilita el que un módulo de un programa pueda ser
+- **Reusabilidad**, porque facilita el que un módulo de un programa pueda ser
   aprovechado (con poca o ninguna alteración) en otros programas.
 
 - En lenguajes compilados, la descomposición física del código del programa en
