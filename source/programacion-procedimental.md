@@ -28,6 +28,24 @@ nocite: |
 
 ---
 
+- Cuando creamos un subprograma y le damos un nombre, se crea una **unidad de
+  código empaquetado que actúa bajo ese nombre**, de manera que, para poder
+  usarla, hay que **_llamarla_ invocando su nombre**.
+
+- Cuando se llama al subprograma, la ejecución de la instrucción actual se
+  detiene y se transfiere el control al inicio del subprograma, que comienza su
+  ejecución.
+
+- Cuando finaliza la ejecución del subprograma, el control vuelve a la
+  instrucción siguiente a la que se había detenido, para continuar la ejecución
+  del programa desde ahí.
+
+- Naturalmente, un subprograma puede llamar a otro subprograma, lo que hace que
+  varias instrucciones puedan estar detenidas en un momento dado a la espera de
+  terminar la ejecución del subprograma que se llamó.
+
+---
+
 - Los subprogramas nos ayudan a:
 
   - Descomponer el problema principal en subproblemas más pequeños que se
@@ -47,10 +65,6 @@ nocite: |
   **abstracciones**.
 
 ---
-
-- Cuando creamos un subprograma y le damos un nombre, se crea una **unidad de
-  código empaquetado que actúa bajo ese nombre**, de manera que, para poder
-  usarla, hay que **_llamarla_ invocando su nombre**.
 
 - Las funciones que hemos creado hasta ahora con abstracciones lambda son
   subprogramas compuestos por una sola expresión (el cuerpo de la abstracción
@@ -121,7 +135,6 @@ nocite: |
   compuesta que actúa como una instrucción simple**.
 
 -->
-
 
 ## El paradigma de programación procedimental
 
