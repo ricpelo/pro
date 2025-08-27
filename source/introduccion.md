@@ -80,16 +80,15 @@ nocite: |
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Nuestra tarea como programadores es la de escribir programas que resuelvan los problemas de los usuarios.
+Nuestra tarea como programadores es la de escribir programas que resuelvan los
+problemas de los usuarios.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Procesamiento automático
 
-- La Informática es la ciencia que estudia los sistemas de procesamiento
-  automático de la información, también llamados _sistemas informáticos_.
-
-- Esos sistemas procesan la información de forma automática siguiendo las
-  instrucciones de un programa.
+- Los sistemas informáticos (en particular, los ordenadores que los forman)
+  procesan la información de forma automática siguiendo las instrucciones de un
+  programa.
 
 - Las instrucciones que forman el programa son las que dictan qué operaciones
   hay que realizar con la información.
