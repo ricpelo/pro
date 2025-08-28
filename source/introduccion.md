@@ -761,6 +761,8 @@ Un algoritmo es un método para resolver un problema.
 "Problema" -> "Diseño de algoritmo" -> "Programa informático"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+<!--
+
 ---
 
 !QUIZ
@@ -818,6 +820,8 @@ Un algoritmo es un método para resolver un problema.
    ]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+-->
 
 ### Características
 
@@ -1465,6 +1469,8 @@ $$\text{Paradigmas} \begin{cases}
   solución) y el SGBDR determina automáticamente el mejor camino para alcanzar
   dicho objetivo.
 
+<!--
+
 ---
 
 !QUIZ
@@ -1497,6 +1503,8 @@ $$\text{Paradigmas} \begin{cases}
    ]
 }
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+-->
 
 !EJERCICIOS
 
