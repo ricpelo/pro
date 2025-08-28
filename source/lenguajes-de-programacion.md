@@ -30,6 +30,20 @@ controlar el comportamiento físico y lógico de un ordenador.
   semánticas, que en conjunto definen las estructuras válidas en el lenguaje y
   su significado.
 
+---
+
+- Un lenguaje de programación viene definido por:
+
+  - **Sintaxis**: la forma visible del lenguaje.
+
+  - **Semántica estática**: las restricciones que tiene que cumplir un programa
+    para que sea correcto aunque sea sintácticamente válido. 
+
+  - **Semántica dinámica**: el significado de cada construcción del lenguaje.
+
+  - **Biblioteca estándar**: el conjunto de utilidades básicas que acompañan al
+    lenguaje.
+
 ### Sintaxis
 
 - A la forma visible de un lenguaje de programación se la conoce como
@@ -42,7 +56,8 @@ controlar el comportamiento físico y lógico de un ordenador.
 
   - Los **componentes léxicos**, es decir, los elementos mínimos que forman un
     programa (palabras clave, números, identificadores, caracteres de
-    puntuación como paréntesis o comas, etc...).
+    puntuación como paréntesis o comas, etc...) y que representa el _alfabeto_
+    de dicho lenguaje.
 
   - La **estructura gramatical**, es decir, cómo se pueden combinar los
     componentes léxicos para formar «frases» correctas según la sintaxis del
