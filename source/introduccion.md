@@ -914,7 +914,8 @@ Determinar cuál es el máximo de dos números
 - Es un **lenguaje _semi-formal_**, a medio camino entre el lenguaje natural y
   el lenguaje que entendería un ordenador (lenguaje de programación).
 
-- Está pensado para ser interpretado por una persona y no por un ordenador.
+- Está pensado para ser interpretado por una persona y no por un ordenador, así
+  que no hace falta que tenga una sintaxis muy estricta.
 
 - En general, no se tienen en cuenta las limitaciones impuestas por el
   *hardware* (CPU, memoria...) o el *software* (tamaño máximo de los datos,
@@ -1197,7 +1198,22 @@ La respuesta es que **NO**.
 - Un **programa** es una secuencia de instrucciones que le dicen a un ordenador
   lo que tiene que hacer para realizar una tarea o resolver un problema.
 
-- Una definición más precisa sería:
+- Esas instrucciones deben estar escritas en un lenguaje que sea entendible por
+  un ordenador, o bien que se pueda traducir de forma automática en algo que
+  pueda entender el ordenador.
+
+- Esos lenguajes son los llamados **lenguajes de programación**.
+
+---
+
+- Los algoritmos están pensados para ser entendidos por un ser humano, y se
+  representan mediante técnicas (como el _pseudocódigo_) que están pensadas
+  para ser entendidas por un humano, y no por un ordenador.
+
+- En cambio, los programas están escritos para que los entienda un ordenador,
+  para que los interprete y los ejecute.
+
+- Sabiendo eso, una definición más precisa de _programa_ sería:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1221,16 +1237,16 @@ La respuesta es que **NO**.
 - «_Codificar_» consiste en _reescribir_ un algoritmo en un programa escrito en
   un determinado lenguaje de programación.
 
-- Por ello, a veces se usa el término _codificar_ como sinónimo de _programar_,
+  Por ello, a veces se usa el término _codificar_ como sinónimo de _programar_,
   si bien no son exactamente lo mismo.
-
----
 
 - Si el algoritmo está bien definido, la codificación puede resultar trivial.
 
+<!--
 - Los algoritmos están pensados para ser entendidos por un ser humano, mientras
   que los programas se escriben para ser interpretados y ejecutados por un
   ordenador.
+-->
 
 - Por ello, toda posible ambigüedad que pudiera quedar en el algoritmo debe
   eliminarse al codificarlo en forma de programa.
@@ -1241,7 +1257,7 @@ La respuesta es que **NO**.
   elegido.
 
 - Lo ideal es usar un lenguaje que se parezca lo más posible al
-  *pseudolenguaje* utilizado para describir el correspondiente algoritmo.
+  _pseudocódigo_ utilizado para describir el correspondiente algoritmo.
 
 - En un programa también hay que considerar **aspectos y limitaciones** que
   no se suelen tener en cuenta en un algoritmo:
@@ -1298,6 +1314,7 @@ resolver problemas computacionales.
 $$\text{Paradigmas} \begin{cases}
 \text{Imperativo} \begin{cases}
                     \text{Estructurado} \\
+                    \text{Procedimental} \\
                     \text{Orientado a objetos}
                   \end{cases} \\
 \\
