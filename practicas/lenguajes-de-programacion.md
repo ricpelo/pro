@@ -2,7 +2,7 @@
 title:
 - |
   Prácticas de\
-  Introducción
+  Lenguajes de programación
 author:
 - |
   Ricardo Pérez López\
