@@ -223,12 +223,38 @@ acuerdo con un programa almacenado.
 
 - **Memoria principal** o central:
 
-  Almacena los datos y los programas que los manipulan.
+  - De menor capacidad pero mayor velocidad que la memoria secundaria.
 
-  Ambos (datos y programas) deben estar en la memoria principal para que la CPU
+  - La CPU puede acceder directamente a la información almacenada en la memoria
+    principal.
+
+- **Memoria secundaria**, externa o masiva:
+
+  - Más lenta que la memoria principal, pero de mucha más capacidad.
+
+  - La información debe pasar primero de la memoria secundaria a la principal
+    para que la CPU pueda trabajar con ella.
+
+##### Memoria principal {.unnumbered .unlisted}
+
+- Está formada por celdas o posiciones numeradas.
+
+- Cada celda almacena cierta cantidad de información (la misma cantidad todas
+  las celdas).
+
+- El número que identifica cada celda se denomina **dirección** de memoria.
+
+- Para acceder a la información almacenada en la memoria, la CPU debe indicar
+  la dirección de la celda a la que desea acceder.
+
+- La memoria principal almacena los datos y los programas que los manipulan.
+
+- Ambos (datos y programas) deben estar en la memoria principal para que la CPU
   pueda acceder a ellos.
 
-  Dos tipos:
+---
+
+- Dos tipos de memoria principal:
 
   - **Memoria de acceso aleatorio (RAM)**:
 
@@ -240,12 +266,6 @@ acuerdo con un programa almacenado.
 
     Contiene la información esencial (datos y software) para que el ordenador
     pueda arrancar.
-
-- **Memoria secundaria** o externa:
-
-  La información no se pierde al apagar el ordenador.
-
-  Más lenta que la memoria principal, pero de mucha más capacidad.
 
 #### Dispositivos de E/S
 
