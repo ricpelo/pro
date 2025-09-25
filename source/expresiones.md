@@ -425,26 +425,23 @@ T -> O [label = "Determina un conjunto de"]
   aritméticas sobre él. Por ejemplo, podemos restar la edad al año actual para
   averiguar el año de nacimiento de esa persona.
 
----
-
 - Los tipos de un lenguaje de programación tienen un nombre (un
   _identificador_) que los representa.
 
+---
+
 - En Python, los **tipos de datos básicos** son los siguientes (entre
   paréntesis va el nombre que tienen cada uno de esos tipos en Python):
+
+:::: columns
+
+::: column
 
   - **Números enteros (!PYTHON(int))**: los números (positivos o negativos) que
     sólo tienen parte entera, como el **cuatro** o el **menos tres**.
 
     Se corresponde *más o menos* con el símbolo matemático $\mathbb{Z}$,
     que representa el conjunto de los números enteros en Matemáticas.
-
-  - **Números reales (!PYTHON(float))**: los números (positivos o negativos)
-    que tienen parte entera y parte fraccionaria, como el **siete con cuatro**
-    o el **menos ocho con diecisiete**.
-
-    Se corresponde *más o menos* con el símbolo matemático $\mathbb{R}$, que
-    representa el conjunto de los números reales en Matemáticas.
 
   - **Cadenas de caracteres (!PYTHON(str))**: secuencias de caracteres (letras,
     dígitos, símbolos, etc.), como nombres de personas, direcciones, o
@@ -453,9 +450,24 @@ T -> O [label = "Determina un conjunto de"]
   - **Tuplas (!PYTHON(tuple))**: secuencias de valores que pueden pertenecer a
     distintos tipos.
 
+:::
+
+::: column
+
+  - **Números reales (!PYTHON(float))**: los números (positivos o negativos)
+    que tienen parte entera y parte fraccionaria, como el **siete con cuatro**
+    o el **menos ocho con diecisiete**.
+
+    Se corresponde *más o menos* con el símbolo matemático $\mathbb{R}$, que
+    representa el conjunto de los números reales en Matemáticas.
+
   - **Lógicos (!PYTHON(bool))**: sólo contiene dos valores que representan dos
     posibilidades contrarias, como **verdadero** o **falso**, **sí** o **no**,
     **encendido** o **apagado**, etc.
+
+:::
+
+::::
 
 ---
 
@@ -612,7 +624,7 @@ Se dice:
   cuando ya no es posible reducir más la expresión es porque se ha llegado a la
   forma normal.
 
-- Recordemos que no todos los valores tienen forma normal.
+- Recordemos que no todas las expresiones tienen forma normal.
 
 ---
 

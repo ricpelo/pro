@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,8 +32,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +45,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -516,7 +519,7 @@ genérico.</p></li>
 </ul></li>
 <li><p><strong>Todo <em>valor</em> pertenece a un
 <em>tipo</em></strong>. <!-- (y, a veces, a más de
-  uno) --></p></li>
+uno) --></p></li>
 <li><p>Como cada tipo es un conjunto de valores, decimos que «<em>un
 valor pertenece a un tipo</em>» cuando pertenece a ese conjunto (o sea,
 cuando es uno de los elementos de ese conjunto).</p>
@@ -676,16 +679,19 @@ tipo.</p></li>
 <li><p>Como el dato <em>edad</em> es un número entero, podemos realizar
 operaciones aritméticas sobre él. Por ejemplo, podemos restar la edad al
 año actual para averiguar el año de nacimiento de esa persona.</p></li>
+<li><p>Los tipos de un lenguaje de programación tienen un nombre (un
+<em>identificador</em>) que los representa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.10">
 
 <ul>
-<li><p>Los tipos de un lenguaje de programación tienen un nombre (un
-<em>identificador</em>) que los representa.</p></li>
-<li><p>En Python, los <strong>tipos de datos básicos</strong> son los
+<li>En Python, los <strong>tipos de datos básicos</strong> son los
 siguientes (entre paréntesis va el nombre que tienen cada uno de esos
-tipos en Python):</p>
+tipos en Python):</li>
+</ul>
+<div class="columns">
+<div class="column">
 <ul>
 <li><p><strong>Números enteros (<code
 class="sourceCode python"><span class="bu">int</span></code>)</strong>:
@@ -694,6 +700,16 @@ el <strong>cuatro</strong> o el <strong>menos tres</strong>.</p>
 <p>Se corresponde <em>más o menos</em> con el símbolo matemático <span
 class="math inline">\mathbb{Z}</span>, que representa el conjunto de los
 números enteros en Matemáticas.</p></li>
+<li><p><strong>Cadenas de caracteres (<code
+class="sourceCode python"><span class="bu">str</span></code>)</strong>:
+secuencias de caracteres (letras, dígitos, símbolos, etc.), como nombres
+de personas, direcciones, o cualquier texto en general.</p></li>
+<li><p><strong>Tuplas (<code
+class="sourceCode python"><span class="bu">tuple</span></code>)</strong>:
+secuencias de valores que pueden pertenecer a distintos tipos.</p></li>
+</ul>
+</div><div class="column">
+<ul>
 <li><p><strong>Números reales (<code
 class="sourceCode python"><span class="bu">float</span></code>)</strong>:
 los números (positivos o negativos) que tienen parte entera y parte
@@ -702,21 +718,15 @@ fraccionaria, como el <strong>siete con cuatro</strong> o el
 <p>Se corresponde <em>más o menos</em> con el símbolo matemático <span
 class="math inline">\mathbb{R}</span>, que representa el conjunto de los
 números reales en Matemáticas.</p></li>
-<li><p><strong>Cadenas de caracteres (<code
-class="sourceCode python"><span class="bu">str</span></code>)</strong>:
-secuencias de caracteres (letras, dígitos, símbolos, etc.), como nombres
-de personas, direcciones, o cualquier texto en general.</p></li>
-<li><p><strong>Tuplas (<code
-class="sourceCode python"><span class="bu">tuple</span></code>)</strong>:
-secuencias de valores que pueden pertenecer a distintos tipos.</p></li>
 <li><p><strong>Lógicos (<code
 class="sourceCode python"><span class="bu">bool</span></code>)</strong>:
 sólo contiene dos valores que representan dos posibilidades contrarias,
 como <strong>verdadero</strong> o <strong>falso</strong>,
 <strong>sí</strong> o <strong>no</strong>, <strong>encendido</strong> o
 <strong>apagado</strong>, etc.</p></li>
-</ul></li>
 </ul>
+</div>
+</div>
 </section>
 <section class="slide level5" data-number="2.1.0.0.11">
 
@@ -891,7 +901,8 @@ aparecen en ellas, buscando su forma normal.</p></li>
 <li><p>El sistema de evaluación dentro del intérprete está hecho de tal
 forma que cuando ya no es posible reducir más la expresión es porque se
 ha llegado a la forma normal.</p></li>
-<li><p>Recordemos que no todos los valores tienen forma normal.</p></li>
+<li><p>Recordemos que no todas las expresiones tienen forma
+normal.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.4.0.0.1">
@@ -2710,25 +2721,25 @@ y no existe fuera de las cadenas.</p></li>
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
 Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
-<em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
-Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
+<em>Structure and Interpretation of Computer Programs</em>. 2nd ed. MIT
+Press ; McGraw-Hill.
 </div>
 <div id="ref-blanco_calculo_2009" class="csl-entry" role="listitem">
 Blanco, Javier, Silvina Smith, and Damián Barsotti. 2009. <em>Cálculo de
-Programas</em>. Córdoba, Argentina: Universidad Nacional de Córdoba.
+Programas</em>. Universidad Nacional de Córdoba.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 <div id="ref-van-roy_concepts_2004" class="csl-entry" role="listitem">
 Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and
-Models of Computer Programming</em>. Cambridge, Mass: MIT Press.
+Models of Computer Programming</em>. MIT Press.
 </div>
 </div>
 </section>
