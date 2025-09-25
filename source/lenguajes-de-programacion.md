@@ -85,7 +85,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 :::: columns
 
-::: {.column width=50%}
+::: {.column width=51%}
 
 - Ejemplo:
 
@@ -113,7 +113,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 
 :::
 
-::: {.column width=47%}
+::: {.column width=46%}
 
 \begingroup
 \setlist[itemize,1]{label=--}
