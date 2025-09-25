@@ -45,6 +45,8 @@ for f in $FILES; do
         FECHA=$(date +'%Y-%m-%d %H:%M:%S%:z' --date @$(stat -c %Y $EJERCICIOS/$f))
         echo -n " | [Ejercicios]($EJER){:target=\"_blank\"}<br>"
         echo -n    "<small class=\"fecha\" title=\"$ULTACT\">$FECHA</small>"
+    else
+        echo -n " | "
     fi
     if [ -f "$PRACTICAS/$f" ]; then
         PRAC="$PRACTICAS/${f%.md}-practicas.pdf"
