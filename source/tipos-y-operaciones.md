@@ -154,6 +154,7 @@ nocite: |
       \text{Reales}
     \end{cases} \\
     \text{Cadenas} \\
+    \text{Tuplas} \\
     \text{Funciones} \\
     \text{Lógicos (o \textit{booleanos})}
   \end{cases}$$
