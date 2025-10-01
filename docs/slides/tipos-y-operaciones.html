@@ -29,9 +29,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -42,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -183,14 +182,17 @@
 <ul>
 <li><a href="#/sistemas-de-tipos" id="/toc-sistemas-de-tipos"><span
 class="toc-section-number">1</span> Sistemas de tipos</a></li>
-<li><a href="#/operaciones-predefinidas"
-id="/toc-operaciones-predefinidas"><span
-class="toc-section-number">2</span> Operaciones predefinidas</a></li>
+<li><a href="#/números" id="/toc-números"><span
+class="toc-section-number">2</span> Números</a></li>
+<li><a href="#/cadenas" id="/toc-cadenas"><span
+class="toc-section-number">3</span> Cadenas</a></li>
+<li><a href="#/funciones" id="/toc-funciones"><span
+class="toc-section-number">4</span> Funciones</a></li>
 <li><a href="#/álgebra-de-boole" id="/toc-álgebra-de-boole"><span
-class="toc-section-number">3</span> Álgebra de Boole</a></li>
+class="toc-section-number">5</span> Álgebra de Boole</a></li>
 <li><a href="#/otros-conceptos-sobre-operaciones"
 id="/toc-otros-conceptos-sobre-operaciones"><span
-class="toc-section-number">4</span> Otros conceptos sobre
+class="toc-section-number">6</span> Otros conceptos sobre
 operaciones</a></li>
 </ul>
 </nav>
@@ -335,9 +337,10 @@ partir del dato original pero con el tipo cambiado.</p></li>
 </ul>
 </section>
 
-<section id="type" class="title-slide slide level2" data-number="1.4">
-<h2 data-number="1.4"><span class="header-section-number">1.4</span>
-<code>type</code></h2>
+<section id="la-función-type" class="title-slide slide level2"
+data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span> La
+función <code>type</code></h2>
 <ul>
 <li><p>La función <code>type</code> devuelve el tipo de un valor:</p>
 <div class="sourceCode" id="cb3"><pre
@@ -354,9 +357,56 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 </ul>
 </section>
 
-<section id="tipos-de-datos-básicos" class="title-slide slide level2"
+<section id="conversión-de-tipos" class="title-slide slide level2"
 data-number="1.5">
 <h2 data-number="1.5"><span class="header-section-number">1.5</span>
+Conversión de tipos</h2>
+<ul>
+<li><p>Hemos visto que en Python las conversiones de tipos deben ser
+<strong>explícitas</strong>, es decir, que debemos indicar en todo
+momento qué dato queremos convertir a qué tipo.</p></li>
+<li><p>Para ello existen funciones cuyo nombre coincide con el tipo al
+que queremos convertir el dato: <code>str</code>, <code>int</code> y
+<code>float</code>, entre otras.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> <span class="st">&#39;24&#39;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unsupported operand <span class="bu">type</span>(s) <span class="cf">for</span> <span class="op">+</span>: <span class="st">&#39;int&#39;</span> <span class="kw">and</span> <span class="st">&#39;str&#39;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> <span class="bu">int</span>(<span class="st">&#39;24&#39;</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span></span></code></pre></div></li>
+<li><p>Convertir un dato a cadena suele funcionar siempre, pero
+convertir una cadena a otro tipo de dato puede fallar dependiendo del
+contenido de la cadena:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">int</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: invalid literal <span class="cf">for</span> <span class="bu">int</span>() <span class="cf">with</span> base <span class="dv">10</span>: <span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.5.0.0.1">
+
+<ul>
+<li><p>Recordando lo que dijimos anteriormente, la conversión de tipos
+no modifica el dato original, sino que devuelve un nuevo dato a partir
+del dato original pero con el tipo cambiado.</p></li>
+<li><p>Las funciones de conversión de tipos hacen precisamente eso:
+devuelven un nuevo dato con un determinado tipo a partir del dato
+original que reciben como argumento.</p></li>
+<li><p>Por tanto, la expresión <code
+class="sourceCode python"><span class="bu">int</span>(<span class="st">&#39;24&#39;</span>)</code>
+devuelve el entero <code
+class="sourceCode python"><span class="dv">24</span></code> pero no
+cambia en modo alguno la cadena <code
+class="sourceCode python"><span class="st">&#39;24&#39;</span></code>
+que ha recibido como argumento.</p></li>
+</ul>
+</section>
+
+<section id="tipos-de-datos-básicos" class="title-slide slide level2"
+data-number="1.6">
+<h2 data-number="1.6"><span class="header-section-number">1.6</span>
 Tipos de datos básicos</h2>
 <ul>
 <li>Los tipos de datos básicos que empezaremos a estudiar en Python
@@ -369,15 +419,21 @@ son:</li>
       \text{Reales}
     \end{cases} \\
     \text{Cadenas} \\
-    \text{Tuplas} \\
     \text{Funciones} \\
     \text{Lógicos (o \textit{booleanos})}
   \end{cases}</span></p>
 </section>
-<section id="números" class="title-slide slide level3"
-data-number="1.5.1">
-<h3 data-number="1.5.1"><span class="header-section-number">1.5.1</span>
-Números</h3>
+</section>
+<section>
+<section id="números" class="title-slide slide level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Números</h1>
+
+</section>
+<section id="los-tipos-int-y-float" class="title-slide slide level2"
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> Los
+tipos <code>int</code> y <code>float</code></h2>
 <ul>
 <li><p>Hay dos tipos numéricos básicos en Python: los enteros y los
 reales.</p>
@@ -402,7 +458,7 @@ números son los que cabría esperar (aritméticas, trigonométricas,
 matemáticas en general).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.5.1.0.1">
+<section class="slide level5" data-number="2.1.0.0.1">
 
 <ul>
 <li><p>Los enteros y los reales generalmente se pueden combinar en una
@@ -427,232 +483,6 @@ class="sourceCode python"><span class="fl">3.5</span></code>).
 Finalmente, se obtiene un valor real (<code
 class="sourceCode python"><span class="fl">7.5</span></code>).</p></li>
 </ul>
-</section>
-
-<section id="cadenas" class="title-slide slide level3"
-data-number="1.5.2">
-<h3 data-number="1.5.2"><span class="header-section-number">1.5.2</span>
-Cadenas</h3>
-<ul>
-<li><p>Las <strong>cadenas</strong> son secuencias de cero o más
-caracteres codificados en Unicode.</p></li>
-<li><p>En Python se representan con el tipo <code>str</code>.</p>
-<ul>
-<li>No existe el tipo <em>carácter</em> en Python. Un carácter en Python
-es simplemente una cadena que contiene un solo carácter.</li>
-</ul></li>
-<li><p>Un literal de tipo cadena se escribe encerrando sus caracteres
-entre comillas simples (<code>'</code>) o dobles (<code>"</code>).</p>
-<ul>
-<li>No hay ninguna diferencia entre usar unas comillas u otras, pero si
-una cadena comienza con comillas simples, debe acabar también con
-comillas simples (y viceversa).</li>
-</ul></li>
-<li><p>Ejemplos:</p>
-<p><code
-class="sourceCode python"><span class="st">&quot;hola&quot;</span></code></p>
-<p><code
-class="sourceCode python"><span class="st">&#39;Manolo&#39;</span></code></p>
-<p><code
-class="sourceCode python"><span class="st">&quot;27&quot;</span></code></p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.5.2.0.1">
-
-<ul>
-<li><p>También se pueden escribir literales de tipo cadena encerrándolos
-entre triples comillas (<code>'''</code> o <code>"""</code>).</p>
-<p>Estos literales se usan para escribir cadenas formadas por varias
-líneas. La sintaxis de las triples comillas respeta los saltos de línea.
-Por ejemplo:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;&quot;&quot;Bienvenido</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">... a</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">... Python&quot;&quot;&quot;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Bienvenido</span><span class="ch">\n</span><span class="st">a</span><span class="ch">\n</span><span class="st">Python&#39;</span>  <span class="co"># el carácter \n representa un salto de línea</span></span></code></pre></div></li>
-<li><p>No es lo mismo <code
-class="sourceCode python"><span class="dv">27</span></code> que <code
-class="sourceCode python"><span class="st">&quot;27&quot;</span></code>.</p>
-<ul>
-<li><p><code class="sourceCode python"><span class="dv">27</span></code>
-es un número entero (un literal de tipo <code>int</code>).</p></li>
-<li><p><code
-class="sourceCode python"><span class="st">&quot;27&quot;</span></code>
-es una cadena (un literal de tipo <code>str</code>).</p></li>
-</ul></li>
-<li><p>Una <strong>cadena vacía</strong> es aquella que no contiene
-ningún carácter. Se representa con los literales <code>''</code>,
-<code>""</code>, <code>''''''</code> o <code>""""""</code>.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.5.2.0.2">
-
-<ul>
-<li><p>Si necesitamos meter el carácter de la comilla simple
-(<code>'</code>) o doble (<code>"</code>) en un literal de tipo cadena,
-tenemos dos opciones:</p>
-<ul>
-<li><p>Delimitar la cadena con el otro tipo de comillas. Por
-ejemplo:</p>
-<ul>
-<li><p><code
-class="sourceCode python"><span class="st">&#39;Pepe dijo: &quot;Yo no voy.&quot;, así que no fuimos.&#39;</span></code></p></li>
-<li><p><code
-class="sourceCode python"><span class="st">&quot;Bienvenido, Señor O&#39;Halloran.&quot;</span></code></p></li>
-</ul></li>
-<li><p>«<em>Escapar</em>» la comilla, poniéndole delante una barra
-inclinada hacia la izquierda (<code>\</code>):</p>
-<ul>
-<li><p><code
-class="sourceCode python"><span class="st">&quot;Pepe dijo: </span><span class="ch">\&quot;</span><span class="st">Yo no voy.</span><span class="ch">\&quot;</span><span class="st">, así que no fuimos.&quot;</span></code></p></li>
-<li><p><code
-class="sourceCode python"><span class="st">&#39;Bienvenido, Señor O</span><span class="ch">\&#39;</span><span class="st">Halloran.&#39;</span></code></p></li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-
-<section id="tuplas" class="title-slide slide level3"
-data-number="1.5.3">
-<h3 data-number="1.5.3"><span class="header-section-number">1.5.3</span>
-Tuplas</h3>
-<ul>
-<li><p>Las <strong>tuplas</strong> (datos de tipo <code
-class="sourceCode python"><span class="bu">tuple</span></code>) son una
-generalización de las cadenas.</p></li>
-<li><p>Una tupla es una <strong>secuencia de elementos</strong> que no
-tienen por qué ser caracteres, sino que cada uno de ellos pueden ser
-<strong>de cualquier tipo</strong> (números, cadenas, booleanos, …,
-incluso otras tuplas).</p></li>
-<li><p>Los literales de tipo tupla se representan enumerando sus
-elementos separados por comas y encerrados entre paréntesis.</p></li>
-<li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">27</span>, <span class="st">&#39;hola&#39;</span>, <span class="va">True</span>, <span class="fl">73.4</span>, (<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>), <span class="dv">99</span>)</span></code></pre></div></li>
-<li><p>Si sólo tiene un elemento, hay que poner una coma detrás:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tupla <span class="op">=</span> (<span class="dv">35</span>,)</span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.5.3.0.1">
-
-<ul>
-<li><p>Al igual que ocurre con las cadenas, tenemos las operaciones
-<code class="sourceCode python">t[<span class="dv">0</span>]</code>,
-<code class="sourceCode python">t[<span class="dv">1</span>:]</code> y
-<code>+</code> (<strong>concatenación</strong>).</p></li>
-<li><p>Con la concatenación se pueden crear nuevas tuplas a partir de
-otras tuplas.</p></li>
-<li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">+</span> (<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div></li>
-<li><p>Eso significa que, si <code class="sourceCode python">t</code> es
-una tupla no vacía, se cumple que <br> <code
-class="sourceCode python">t <span class="op">==</span> (t[<span class="dv">0</span>],) <span class="op">+</span> t[<span class="dv">1</span>:]</code>.</p>
-<p>Esta propiedad es similar (aunque no exactamente igual) a la que se
-cumple en las cadenas no vacías.</p></li>
-</ul>
-</section>
-
-<section id="funciones" class="title-slide slide level3"
-data-number="1.5.4">
-<h3 data-number="1.5.4"><span class="header-section-number">1.5.4</span>
-Funciones</h3>
-<ul>
-<li><p>En programación funcional, <strong>las funciones también son
-datos</strong>:</p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(<span class="bu">max</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;builtin_function_or_method&#39;</span><span class="op">&gt;</span></span></code></pre></div></li>
-<li><p>La <strong>única operación</strong> que se puede realizar sobre
-una función es <strong>llamarla</strong>, que sintácticamente se
-representa poniendo paréntesis <code>(</code> <code>)</code> justo a
-continuación de la función.</p>
-<p>Dentro de los paréntesis se ponen los <em>argumentos</em> que se
-aplican a la función en esa llamada (si es que los necesita), separados
-por comas.</p></li>
-<li><p>Por tanto, <code
-class="sourceCode python"><span class="bu">max</span></code> es la
-función en sí (un <strong>valor</strong> de tipo <em>función</em>) , y
-<code
-class="sourceCode python"><span class="bu">max</span>(<span class="dv">3</span>, <span class="dv">4</span>)</code>
-es una llamada a la función <code
-class="sourceCode python"><span class="bu">max</span></code> con los
-argumentos <code
-class="sourceCode python"><span class="dv">3</span></code> y <code
-class="sourceCode python"><span class="dv">4</span></code>.</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>                   <span class="co"># la función max</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function <span class="bu">max</span><span class="op">&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>(<span class="dv">3</span>, <span class="dv">4</span>)             <span class="co"># la llamada a max con los argumentos 3 y 4</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
-<li><p>Recordemos que <strong>las funciones no tienen expresión
-canónica</strong>, por lo que el intérprete no intentará nunca
-visualizar un valor de tipo función.</p></li>
-</ul>
-</section>
-
-
-<section id="conversión-de-tipos" class="title-slide slide level2"
-data-number="1.6">
-<h2 data-number="1.6"><span class="header-section-number">1.6</span>
-Conversión de tipos</h2>
-<ul>
-<li><p>Hemos visto que en Python las conversiones de tipos deben ser
-<strong>explícitas</strong>, es decir, que debemos indicar en todo
-momento qué dato queremos convertir a qué tipo.</p></li>
-<li><p>Para ello existen funciones cuyo nombre coincide con el tipo al
-que queremos convertir el dato: <code>str</code>, <code>int</code> y
-<code>float</code>, entre otras.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> <span class="st">&#39;24&#39;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unsupported operand <span class="bu">type</span>(s) <span class="cf">for</span> <span class="op">+</span>: <span class="st">&#39;int&#39;</span> <span class="kw">and</span> <span class="st">&#39;str&#39;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">+</span> <span class="bu">int</span>(<span class="st">&#39;24&#39;</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span></span></code></pre></div></li>
-<li><p>Convertir un dato a cadena suele funcionar siempre, pero
-convertir una cadena a otro tipo de dato puede fallar dependiendo del
-contenido de la cadena:</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">int</span>(<span class="st">&#39;hola&#39;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: invalid literal <span class="cf">for</span> <span class="bu">int</span>() <span class="cf">with</span> base <span class="dv">10</span>: <span class="st">&#39;hola&#39;</span></span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.6.0.0.1">
-
-<ul>
-<li><p>Recordando lo que dijimos anteriormente, la conversión de tipos
-no modifica el dato original, sino que devuelve un nuevo dato a partir
-del dato original pero con el tipo cambiado.</p></li>
-<li><p>Las funciones de conversión de tipos hacen precisamente eso:
-devuelven un nuevo dato con un determinado tipo a partir del dato
-original que reciben como argumento.</p></li>
-<li><p>Por tanto, la expresión <code
-class="sourceCode python"><span class="bu">int</span>(<span class="st">&#39;24&#39;</span>)</code>
-devuelve el entero <code
-class="sourceCode python"><span class="dv">24</span></code> pero no
-cambia en modo alguno la cadena <code
-class="sourceCode python"><span class="st">&#39;24&#39;</span></code>
-que ha recibido como argumento.</p></li>
-</ul>
-</section>
-</section>
-<section>
-<section id="operaciones-predefinidas" class="title-slide slide level1"
-data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span>
-Operaciones predefinidas</h1>
-
-</section>
-<section id="operadores-predefinidos" class="title-slide slide level2"
-data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span>
-Operadores predefinidos</h2>
-
 </section>
 <section id="operadores-aritméticos" class="title-slide slide level3"
 data-number="2.1.1">
@@ -753,81 +583,17 @@ class="sourceCode python"><span class="op">-</span><span class="dv">2</span></co
 </table>
 </section>
 
-<section id="operadores-de-cadenas" class="title-slide slide level3"
-data-number="2.1.2">
-<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span>
-Operadores de cadenas</h3>
-<table>
-<colgroup>
-<col style="width: 22%" />
-<col style="width: 22%" />
-<col style="width: 29%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: center;">Operador</th>
-<th style="text-align: left;">Descripción</th>
-<th style="text-align: center;">Ejemplo</th>
-<th style="text-align: center;">Resultado</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><code>+</code></td>
-<td style="text-align: left;">Concatenación</td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="op">+</span> <span class="st">&#39;cd&#39;</span></code>
-<code
-class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="st">&#39;cd&#39;</span></code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;abcd&#39;</span></code></td>
-</tr>
-<tr>
-<td style="text-align: center;"><code>*</code></td>
-<td style="text-align: left;">Repetición</td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="op">*</span> <span class="dv">3</span></code><br />
-<code
-class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> <span class="st">&#39;ab&#39;</span></code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;ababab&#39;</span></code><br />
-<code
-class="sourceCode python"><span class="st">&#39;ababab&#39;</span></code></td>
-</tr>
-<tr>
-<td style="text-align: center;"><code
-class="sourceCode python">[<span class="dv">0</span>]</code></td>
-<td style="text-align: left;">Primer carácter</td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;hola&#39;</span>[<span class="dv">0</span>]</code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;h&#39;</span></code></td>
-</tr>
-<tr>
-<td style="text-align: center;"><code
-class="sourceCode python">[<span class="dv">1</span>:]</code></td>
-<td style="text-align: left;">Resto de cadena</td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;hola&#39;</span>[<span class="dv">1</span>:]</code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="st">&#39;ola&#39;</span></code></td>
-</tr>
-</tbody>
-</table>
-</section>
 
-
-<section id="funciones-predefinidas" class="title-slide slide level2"
-data-number="2.2">
+<section id="funciones-numéricas-predefinidas"
+class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span>
-Funciones predefinidas</h2>
+Funciones numéricas predefinidas</h2>
 <table>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 22%" />
 <col style="width: 29%" />
-<col style="width: 18%" />
+<col style="width: 21%" />
+<col style="width: 33%" />
+<col style="width: 16%" />
 </colgroup>
 <thead>
 <tr>
@@ -846,15 +612,6 @@ class="math inline">n</span><code>)</code></td>
 class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">23</span>)</code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="dv">23</span></code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>len(</code><span
-class="math inline">cad</span><code>)</code></td>
-<td style="text-align: left;">Longitud de la cadena</td>
-<td style="text-align: left;"><code
-class="sourceCode python"><span class="bu">len</span>(<span class="st">&#39;hola&#39;</span>)</code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="dv">4</span></code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>max(</code><span
@@ -889,24 +646,14 @@ class="sourceCode python"><span class="bu">round</span>(<span class="fl">23.493<
 class="sourceCode python"><span class="dv">23</span></code><br />
 <code class="sourceCode python"><span class="fl">23.5</span></code></td>
 </tr>
-<tr>
-<td style="text-align: left;"><code>type(</code><span
-class="math inline">v</span><code>)</code></td>
-<td style="text-align: left;">Tipo del valor</td>
-<td style="text-align: left;"><code
-class="sourceCode python"><span class="bu">type</span>(<span class="fl">23.5</span>)</code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="op">&lt;</span><span class="kw">class</span></code><br />
-<code
-class="sourceCode python"><span class="st">&#39;float&#39;</span><span class="op">&gt;</span></code></td>
-</tr>
 </tbody>
 </table>
 </section>
+
 <section id="funciones-matemáticas-y-módulos"
-class="title-slide slide level3" data-number="2.2.1">
-<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
-Funciones matemáticas y módulos</h3>
+class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+Funciones matemáticas y módulos</h2>
 <ul>
 <li><p>Python incluye una gran cantidad de funciones matemáticas
 agrupadas dentro del módulo <code
@@ -922,22 +669,22 @@ class="sourceCode python"><span class="im">from</span></code>. Por
 ejemplo, para importar la función <code
 class="sourceCode python">gcd</code> del módulo <code
 class="sourceCode python">math</code> se haría:</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> math <span class="im">import</span> gcd  <span class="co"># importamos la función gcd que está en el módulo math</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> gcd(<span class="dv">16</span>, <span class="dv">6</span>)            <span class="co"># la función se usa como cualquier otra</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
 <li><p>Una vez importada, la función ya se puede usar directamente como
 cualquier otra.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.1">
+<section class="slide level5" data-number="2.3.0.0.1">
 
 <ul>
 <li><p>También se puede <strong>importar directamente el módulo en
 sí</strong> usando la orden <code
 class="sourceCode python"><span class="im">import</span></code>.</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span></code></pre></div></li>
 <li><p>Al importar el módulo, lo que se importan no son sus funciones,
 sino el propio módulo, el cual es un <strong>objeto</strong> (de tipo
 <code class="sourceCode python">module</code>) al que se accede a través
@@ -946,18 +693,18 @@ las funciones que están definidas dentro del módulo.</p></li>
 <li><p>Por eso, para poder llamar a una función del módulo usando esta
 técnica, debemos indicar el nombre del módulo, seguido de un punto
 (<code>.</code>) y el nombre de la función:</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>─┬── ─┬─</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a> │    └────── función</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a> └── módulo</span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math      <span class="co"># importamos el módulo math</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)  <span class="co"># la función gcd sigue estando dentro del módulo</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>─┬── ─┬─</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> │    └────── función</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a> └── módulo</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.2">
+<section class="slide level5" data-number="2.3.0.0.2">
 
 <ul>
 <li><p>Eso significa que podríamos ampliar nuestra gramática para
@@ -990,7 +737,7 @@ métodos (de hecho, los métodos son funciones que se invocan de una forma
 especial).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.3">
+<section class="slide level5" data-number="2.3.0.0.3">
 
 <ul>
 <li><p>De hecho, cuando el objeto es un módulo, no hablamos de métodos
@@ -1008,14 +755,14 @@ módulo).</p></li>
 class="sourceCode python">math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</code>
 es una <em>llamada a función</em>.</p></li>
 </ul>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>module <span class="st">&#39;math&#39;</span> (built<span class="op">-</span><span class="kw">in</span>)<span class="op">&gt;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function gcd<span class="op">&gt;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>module <span class="st">&#39;math&#39;</span> (built<span class="op">-</span><span class="kw">in</span>)<span class="op">&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function gcd<span class="op">&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.gcd(<span class="dv">16</span>, <span class="dv">6</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
 <li><p>La lista completa de funciones que incluye el módulo <code
 class="sourceCode python">math</code> se puede consultar en su
 documentación:</p>
@@ -1023,35 +770,10 @@ documentación:</p>
 target="_blank">https://docs.python.org/3/library/math.html</a></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.4">
-
-<ul>
-<li><p>El lenguaje Python es, principalmente, un lenguaje
-<strong>orientado a objetos</strong>.</p></li>
-<li><p>De hecho, <strong>todos los datos en Python son objetos</strong>
-que tienen sus propios atributos (métodos, entre otros) a los que se le
-puede acceder usando el operador punto (<code>.</code>).</p></li>
-<li><p>Por ello, en Python los términos «<em>dato</em>»,
-«<em>valor</em>» y «<em>objeto</em>» son sinónimos en la
-práctica.</p></li>
-<li><p>Los números, las cadenas, los módulos, las funciones… todos son
-objetos.</p></li>
-<li><p>Incluso los métodos son objetos, ya que, en realidad, son
-funciones contenidas dentro de otros objetos, y las funciones son
-objetos.</p></li>
-<li><p>Hasta los tipos (como <code
-class="sourceCode python"><span class="bu">int</span></code> o <code
-class="sourceCode python"><span class="bu">str</span></code>) son
-objetos que tienen sus propios atributos.</p></li>
-<li><p>Entraremos a estudiar más en detalle estas características cuando
-veamos la <strong>programación orientada a objetos</strong>.</p></li>
-</ul>
-</section>
-<section id="el-módulo-operator" class="title-slide slide level4"
-data-number="2.2.1.1">
-<h4 data-number="2.2.1.1"><span
-class="header-section-number">2.2.1.1</span> El módulo
-<code>operator</code></h4>
+<section id="el-módulo-operator" class="title-slide slide level3"
+data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span>
+El módulo <code>operator</code></h3>
 <ul>
 <li><p>El módulo <code class="sourceCode python">operator</code>
 contiene, en forma de funciones, las operaciones básicas que hasta ahora
@@ -1123,21 +845,21 @@ class="sourceCode python">floordiv</code></td>
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.1.1">
+<section class="slide level5" data-number="2.3.1.0.1">
 
 <ul>
 <li><p>Gracias al módulo <code
 class="sourceCode python">operator</code>, podemos reescribir con
 funciones las expresiones que utilizan operadores.</p></li>
 <li><p>Por ejemplo, la expresión:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div>
 <p>se puede reescribir como:</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> operator <span class="im">import</span> add, mul, sub</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> operator <span class="im">import</span> add, mul, sub</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span></span></code></pre></div></li>
 <li><p>Pasar los operadores de una expresión a funciones es un ejercicio
 muy interesante que ayuda a entender en qué orden se evalúan las
 subexpresiones y por qué.</p></li>
@@ -1145,47 +867,264 @@ subexpresiones y por qué.</p></li>
 siempre antes que la propia llamada (y de izquierda a derecha).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.1.2">
+<section class="slide level5" data-number="2.3.1.0.2">
 
 <ul>
 <li><p>La expresión <code
 class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span></code>
 se evalúa así:</p>
-<div class="sourceCode" id="cb20"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>          <span class="co"># se evalúa 3 (devuelve 3)</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 4 (devuelve 4)</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 5 (devuelve 5)</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa (4 + 5) (devuelve 9)</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">9</span> <span class="op">-</span> <span class="dv">10</span>              <span class="co"># se evalúa 3 * 9 (devuelve 27)</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">27</span> <span class="op">-</span> <span class="dv">10</span>                 <span class="co"># se evalúa 27 - 10 (devuelve 17)</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>          <span class="co"># se evalúa 3 (devuelve 3)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 4 (devuelve 4)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa 5 (devuelve 5)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> (<span class="dv">4</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">-</span> <span class="dv">10</span>        <span class="co"># se evalúa (4 + 5) (devuelve 9)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">9</span> <span class="op">-</span> <span class="dv">10</span>              <span class="co"># se evalúa 3 * 9 (devuelve 27)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">27</span> <span class="op">-</span> <span class="dv">10</span>                 <span class="co"># se evalúa 27 - 10 (devuelve 17)</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
 <li><p>Y la expresión <code
 class="sourceCode python">sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)</code>
 se evalúa así:</p>
-<div class="sourceCode" id="cb21"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)    <span class="co"># se evalúa sub (devuelve la función resta)</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa mul (devuelve la función multiplicación)</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 3 (devuelve 3)</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add (devuelve la función suma)</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 4 (devuelve 4)</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 5 (devuelve 5)</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add(4, 5) (devuelve 9)</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, <span class="dv">9</span>), <span class="dv">10</span>)          <span class="co"># se evalúa mul(3, 9) (devuelve 27)</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa 10 (devuelve 10)</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa sub(27, 10) (devuelve 17)</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)    <span class="co"># se evalúa sub (devuelve la función resta)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa mul (devuelve la función multiplicación)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 3 (devuelve 3)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add (devuelve la función suma)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 4 (devuelve 4)</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa 5 (devuelve 5)</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, add(<span class="dv">4</span>, <span class="dv">5</span>)), <span class="dv">10</span>)  <span class="co"># se evalúa add(4, 5) (devuelve 9)</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(mul(<span class="dv">3</span>, <span class="dv">9</span>), <span class="dv">10</span>)          <span class="co"># se evalúa mul(3, 9) (devuelve 27)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa 10 (devuelve 10)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> sub(<span class="dv">27</span>, <span class="dv">10</span>)                 <span class="co"># se evalúa sub(27, 10) (devuelve 17)</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
 </ul>
 </section>
 
+</section>
+<section>
+<section id="cadenas" class="title-slide slide level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span>
+Cadenas</h1>
 
-
-<section id="métodos-predefinidos" class="title-slide slide level2"
-data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span>
-Métodos predefinidos</h2>
+</section>
+<section id="el-tipo-str" class="title-slide slide level2"
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> El
+tipo <code>str</code></h2>
 <ul>
-<li><p>Igualmente, en la documentación podemos encontrar una lista de
-métodos interesantes que operan sobre cadenas:</p>
+<li><p>Las <strong>cadenas</strong> son secuencias de cero o más
+caracteres codificados en Unicode.</p></li>
+<li><p>En Python se representan con el tipo <code>str</code>.</p>
+<ul>
+<li>No existe el tipo <em>carácter</em> en Python. Un carácter en Python
+es simplemente una cadena que contiene un solo carácter.</li>
+</ul></li>
+<li><p>Un literal de tipo cadena se escribe encerrando sus caracteres
+entre comillas simples (<code>'</code>) o dobles (<code>"</code>).</p>
+<ul>
+<li>No hay ninguna diferencia entre usar unas comillas u otras, pero si
+una cadena comienza con comillas simples, debe acabar también con
+comillas simples (y viceversa).</li>
+</ul></li>
+<li><p>Ejemplos:</p>
+<div class="columns">
+<div class="column">
+<div class="centered">
+<p><code
+class="sourceCode python"><span class="st">&quot;hola&quot;</span></code></p>
+</div>
+</div><div class="column">
+<div class="centered">
+<p><code
+class="sourceCode python"><span class="st">&#39;Manolo&#39;</span></code></p>
+</div>
+</div><div class="column">
+<div class="centered">
+<p><code
+class="sourceCode python"><span class="st">&quot;27&quot;</span></code></p>
+</div>
+</div>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>También se pueden escribir literales de tipo cadena encerrándolos
+entre triples comillas (<code>'''</code> o <code>"""</code>).</p>
+<p>Estos literales se usan para escribir cadenas formadas por varias
+líneas. La sintaxis de las triples comillas respeta los saltos de línea.
+Por ejemplo:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;&quot;&quot;Bienvenido</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">... a</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">... Python&quot;&quot;&quot;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Bienvenido</span><span class="ch">\n</span><span class="st">a</span><span class="ch">\n</span><span class="st">Python&#39;</span>  <span class="co"># el carácter \n representa un salto de línea</span></span></code></pre></div></li>
+<li><p>No es lo mismo <code
+class="sourceCode python"><span class="dv">27</span></code> que <code
+class="sourceCode python"><span class="st">&quot;27&quot;</span></code>.</p>
+<ul>
+<li><p><code class="sourceCode python"><span class="dv">27</span></code>
+es un número entero (un literal de tipo <code>int</code>).</p></li>
+<li><p><code
+class="sourceCode python"><span class="st">&quot;27&quot;</span></code>
+es una cadena (un literal de tipo <code>str</code>).</p></li>
+</ul></li>
+<li><p>Una <strong>cadena vacía</strong> es aquella que no contiene
+ningún carácter. Se representa con los literales <code>''</code>,
+<code>""</code>, <code>''''''</code> o <code>""""""</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<ul>
+<li><p>Si necesitamos meter el carácter de la comilla simple
+(<code>'</code>) o doble (<code>"</code>) en un literal de tipo cadena,
+tenemos dos opciones:</p>
+<ul>
+<li><p>Delimitar la cadena con el otro tipo de comillas. Por
+ejemplo:</p>
+<ul>
+<li><p><code
+class="sourceCode python"><span class="st">&#39;Pepe dijo: &quot;Yo no voy.&quot;, así que no fuimos.&#39;</span></code></p></li>
+<li><p><code
+class="sourceCode python"><span class="st">&quot;Bienvenido, Señor O&#39;Halloran.&quot;</span></code></p></li>
+</ul></li>
+<li><p>«<em>Escapar</em>» la comilla, poniéndole delante una barra
+inclinada hacia la izquierda (<code>\</code>):</p>
+<ul>
+<li><p><code
+class="sourceCode python"><span class="st">&quot;Pepe dijo: </span><span class="ch">\&quot;</span><span class="st">Yo no voy.</span><span class="ch">\&quot;</span><span class="st">, así que no fuimos.&quot;</span></code></p></li>
+<li><p><code
+class="sourceCode python"><span class="st">&#39;Bienvenido, Señor O</span><span class="ch">\&#39;</span><span class="st">Halloran.&#39;</span></code></p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="operadores-de-cadenas" class="title-slide slide level2"
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+Operadores de cadenas</h2>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Operador</th>
+<th style="text-align: left;">Descripción</th>
+<th style="text-align: center;">Ejemplo</th>
+<th style="text-align: center;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>+</code></td>
+<td style="text-align: left;">Concatenación</td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="op">+</span> <span class="st">&#39;cd&#39;</span></code>
+<code
+class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="st">&#39;cd&#39;</span></code></td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;abcd&#39;</span></code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>*</code></td>
+<td style="text-align: left;">Repetición</td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;ab&#39;</span> <span class="op">*</span> <span class="dv">3</span></code><br />
+<code
+class="sourceCode python"><span class="dv">3</span> <span class="op">*</span> <span class="st">&#39;ab&#39;</span></code></td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;ababab&#39;</span></code><br />
+<code
+class="sourceCode python"><span class="st">&#39;ababab&#39;</span></code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code
+class="sourceCode python">[<span class="dv">0</span>]</code></td>
+<td style="text-align: left;">Primer carácter</td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;hola&#39;</span>[<span class="dv">0</span>]</code></td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;h&#39;</span></code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code
+class="sourceCode python">[<span class="dv">1</span>:]</code></td>
+<td style="text-align: left;">Resto de cadena</td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;hola&#39;</span>[<span class="dv">1</span>:]</code></td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="st">&#39;ola&#39;</span></code></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="funciones-predefinidas-de-cadenas"
+class="title-slide slide level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+Funciones predefinidas de cadenas</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Función</th>
+<th style="text-align: left;">Descripción</th>
+<th style="text-align: left;">Ejemplo</th>
+<th style="text-align: center;">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>len(</code><span
+class="math inline">cad</span><code>)</code></td>
+<td style="text-align: left;">Longitud de la cadena</td>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="bu">len</span>(<span class="st">&#39;hola&#39;</span>)</code></td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="dv">4</span></code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max(</code><span
+class="math inline">n_1(</span><code>,</code> <span
+class="math inline">n_2)^+</span><code>)</code></td>
+<td style="text-align: left;">Valor máximo</td>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="bu">max</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>)</code></td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="dv">5</span></code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>min(</code><span
+class="math inline">n_1(</span><code>,</code> <span
+class="math inline">n_2)^+</span><code>)</code></td>
+<td style="text-align: left;">Valor mínimo</td>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="bu">min</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>)</code></td>
+<td style="text-align: center;"><code
+class="sourceCode python"><span class="dv">2</span></code></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="métodos-predefinidos-de-cadenas"
+class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span>
+Métodos predefinidos de cadenas</h2>
+<ul>
+<li><p>En la documentación podemos encontrar una lista de métodos
+interesantes que operan sobre cadenas:</p>
 <p><a
 href="https://docs.python.org/3/library/stdtypes.html#string-methods"
 target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
@@ -1193,15 +1132,67 @@ target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</
 </section>
 </section>
 <section>
+<section id="funciones" class="title-slide slide level1"
+data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span>
+Funciones</h1>
+
+</section>
+<section id="el-tipo-función" class="title-slide slide level2"
+data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> El
+tipo <em>función</em></h2>
+<ul>
+<li><p>En programación funcional, <strong>las funciones también son
+datos</strong>:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(<span class="bu">max</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;builtin_function_or_method&#39;</span><span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>La <strong>única operación</strong> que se puede realizar sobre
+una función es <strong>llamarla</strong>, que sintácticamente se
+representa poniendo paréntesis <code>(</code> <code>)</code> justo a
+continuación de la función.</p>
+<p>Dentro de los paréntesis se ponen los <em>argumentos</em> que se
+aplican a la función en esa llamada (si es que los necesita), separados
+por comas.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.1.0.0.1">
+
+<ul>
+<li><p>Por tanto, <code
+class="sourceCode python"><span class="bu">max</span></code> es la
+función en sí (un <strong>valor</strong> de tipo <em>función</em>) ,
+y<br />
+<code
+class="sourceCode python"><span class="bu">max</span>(<span class="dv">3</span>, <span class="dv">4</span>)</code>
+es una llamada a la función <code
+class="sourceCode python"><span class="bu">max</span></code> con los
+argumentos <code
+class="sourceCode python"><span class="dv">3</span></code> y <code
+class="sourceCode python"><span class="dv">4</span></code> (una
+<strong>operación</strong> realizada sobre la función).</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>                   <span class="co"># la función max</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>built<span class="op">-</span><span class="kw">in</span> function <span class="bu">max</span><span class="op">&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">max</span>(<span class="dv">3</span>, <span class="dv">4</span>)             <span class="co"># la llamada a max con los argumentos 3 y 4</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<li><p>Recordemos que <strong>las funciones no tienen expresión
+canónica</strong>, por lo que el intérprete no intentará nunca
+visualizar un valor de tipo función.</p></li>
+</ul>
+</section>
+</section>
+<section>
 <section id="álgebra-de-boole" class="title-slide slide level1"
-data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Álgebra
+data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Álgebra
 de Boole</h1>
 
 </section>
 <section id="el-tipo-de-dato-booleano" class="title-slide slide level2"
-data-number="3.1">
-<h2 data-number="3.1"><span class="header-section-number">3.1</span> El
+data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> El
 tipo de dato <em>booleano</em></h2>
 <ul>
 <li><p>Un dato <strong>lógico</strong> o <em>booleano</em> es aquel que
@@ -1226,8 +1217,8 @@ respectivamente.</p></li>
 </section>
 
 <section id="operadores-relacionales" class="title-slide slide level2"
-data-number="3.2">
-<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span>
 Operadores relacionales</h2>
 <ul>
 <li><p>Los <strong>operadores relacionales</strong> son operadores que
@@ -1238,34 +1229,34 @@ comparación</strong>, que sirven para comprobar si un dato es menor,
 mayor o igual que otro, según un orden preestablecido.</p></li>
 <li><p>Los operadores de comparación que existen en Python son:</p>
 <div class="centered">
-<p><code>&lt;   &gt;   &lt;=   &gt;=   ==   !=</code></p>
+<p><code>&lt;</code>      <code>&gt;</code>      <code>&lt;=</code>      <code>&gt;=</code>      <code>==</code>      <code>!=</code></p>
 </div></li>
 <li><p>Por ejemplo:</p></li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">5</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">&lt;</span> <span class="dv">9</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">3</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">5</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">3</span> <span class="op">&lt;</span> <span class="dv">9</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </div><div class="column">
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">9</span> <span class="op">!=</span> <span class="dv">7</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">8</span> <span class="op">&lt;=</span> <span class="dv">8</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">9</span> <span class="op">!=</span> <span class="dv">7</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">8</span> <span class="op">&lt;=</span> <span class="dv">8</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
 </div>
 </div>
 </section>
 
 <section id="operadores-lógicos" class="title-slide slide level2"
-data-number="3.3">
-<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span>
 Operadores lógicos</h2>
 <ul>
 <li><p>Las <strong>operaciones lógicas</strong> se representan mediante
@@ -1310,8 +1301,8 @@ respectivamente.</p></li>
 </ul>
 </section>
 <section id="tablas-de-verdad" class="title-slide slide level3"
-data-number="3.3.1">
-<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span>
+data-number="5.3.1">
+<h3 data-number="5.3.1"><span class="header-section-number">5.3.1</span>
 Tablas de verdad</h3>
 <ul>
 <li><p>Una <strong>tabla de verdad</strong> es una tabla que muestra el
@@ -1411,7 +1402,7 @@ class="math inline">\neg{}A</span></th>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.3.1.0.1">
+<section class="slide level5" data-number="5.3.1.0.1">
 
 <p>Que traducido a Python sería:</p>
 <p><br></p>
@@ -1541,8 +1532,8 @@ class="sourceCode python"><span class="va">False</span></code></td>
 
 
 <section id="axiomas" class="title-slide slide level2"
-data-number="3.4">
-<h2 data-number="3.4"><span class="header-section-number">3.4</span>
+data-number="5.4">
+<h2 data-number="5.4"><span class="header-section-number">5.4</span>
 Axiomas</h2>
 <ol type="1">
 <li><p>Ley asociativa: <span class="math inline">\begin{cases}
@@ -1576,40 +1567,33 @@ cumple lo anterior, entonces es un álgebra de Boole.</p>
 <section id="traducción-a-python"
 class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Traducción a Python</h5>
-<div class="columns">
-<div class="column" style="width:60%;">
 <ol type="1">
 <li><p>Ley asociativa:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>(a <span class="kw">or</span> b) <span class="kw">or</span> c <span class="op">==</span> a <span class="kw">or</span> (b <span class="kw">or</span> c)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>(a <span class="kw">and</span> b) <span class="kw">and</span> c <span class="op">==</span> a <span class="kw">and</span> (b <span class="kw">and</span> c)</span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(a <span class="kw">or</span> b) <span class="kw">or</span> c <span class="op">==</span> a <span class="kw">or</span> (b <span class="kw">or</span> c)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>(a <span class="kw">and</span> b) <span class="kw">and</span> c <span class="op">==</span> a <span class="kw">and</span> (b <span class="kw">and</span> c)</span></code></pre></div></li>
 <li><p>Ley conmutativa:</p>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> b <span class="op">==</span> b <span class="kw">or</span> a</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> b <span class="op">==</span> b <span class="kw">and</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> b <span class="op">==</span> b <span class="kw">or</span> a</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> b <span class="op">==</span> b <span class="kw">and</span> a</span></code></pre></div></li>
 <li><p>Ley distributiva:</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (b <span class="kw">and</span> c) <span class="op">==</span> (a <span class="kw">or</span> b) <span class="kw">and</span> (a <span class="kw">or</span> c)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (b <span class="kw">or</span> c) <span class="op">==</span> (a <span class="kw">and</span> b) <span class="kw">or</span> (a <span class="kw">and</span> c)</span></code></pre></div></li>
-</ol>
-</div><div class="column" style="width:40%;">
-<ol start="4" type="1">
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (b <span class="kw">and</span> c) <span class="op">==</span> (a <span class="kw">or</span> b) <span class="kw">and</span> (a <span class="kw">or</span> c)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (b <span class="kw">or</span> c) <span class="op">==</span> (a <span class="kw">and</span> b) <span class="kw">or</span> (a <span class="kw">and</span> c)</span></code></pre></div></li>
 <li><p>Elemento neutro:</p>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
 <li><p>Elemento complementario:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">True</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
 </ol>
-</div>
-</div>
 </section>
 
 <section id="teoremas-fundamentales" class="title-slide slide level2"
-data-number="3.5">
-<h2 data-number="3.5"><span class="header-section-number">3.5</span>
+data-number="5.5">
+<h2 data-number="5.5"><span class="header-section-number">5.5</span>
 Teoremas fundamentales</h2>
 <ol start="6" type="1">
 <li><p>Ley de idempotencia: <span class="math inline">\begin{cases}
@@ -1646,46 +1630,49 @@ class="math inline">\begin{cases}
 class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Traducción a Python</h5>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <ol start="6" type="1">
 <li><p>Ley de idempotencia:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> a <span class="op">==</span> a</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> a <span class="op">==</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> a <span class="op">==</span> a</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> a <span class="op">==</span> a</span></code></pre></div></li>
 <li><p>Ley del elemento absorbente:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">True</span> <span class="op">==</span> <span class="va">True</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">False</span> <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">True</span> <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">False</span> <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
 <li><p>Ley de identidad:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
+</ol>
+</div><div class="column" style="width:50%;">
+<ol start="9" type="1">
 <li><p>Ley de absorción:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (a <span class="kw">and</span> b) <span class="op">==</span> a</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (a <span class="kw">or</span> b) <span class="op">==</span> a</span></code></pre></div></li>
-</ol>
-</div><div class="column" style="width:60%;">
-<ol start="10" type="1">
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (a <span class="kw">and</span> b) <span class="op">==</span> a</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (a <span class="kw">or</span> b) <span class="op">==</span> a</span></code></pre></div></li>
 <li><p>Ley de involución:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (<span class="kw">not</span> a) <span class="op">==</span> a</span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (<span class="kw">not</span> a) <span class="op">==</span> a</span></code></pre></div></li>
 <li><p>Ley del complemento:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> <span class="va">True</span> <span class="op">==</span> <span class="va">False</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span></code></pre></div></li>
-<li><p>Leyes de De Morgan:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">or</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">and</span> (<span class="kw">not</span> b)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">and</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">or</span> (<span class="kw">not</span> b)</span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> <span class="va">True</span> <span class="op">==</span> <span class="va">False</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span></code></pre></div></li>
 </ol>
 </div>
 </div>
+<ol start="12" type="1">
+<li><p>Leyes de De Morgan:</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">or</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">and</span> (<span class="kw">not</span> b)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">and</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">or</span> (<span class="kw">not</span> b)</span></code></pre></div></li>
+</ol>
 </section>
-<section id="lógica-binaria" class="title-slide slide level4"
-data-number="3.5.0.1">
-<h4 data-number="3.5.0.1"><span
-class="header-section-number">3.5.0.1</span> Lógica binaria</h4>
+
+<section id="lógica-binaria" class="title-slide slide level2"
+data-number="5.6">
+<h2 data-number="5.6"><span class="header-section-number">5.6</span>
+Lógica binaria</h2>
 <ul>
 <li><p>Otra forma de representar los operadores y los valores del
 álgebra de Boole es mediante la notación de la <strong>lógica
@@ -1736,14 +1723,14 @@ class="math inline">\overline{A}</span></td>
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.1.1">
+<section class="slide level5" data-number="5.6.0.0.1">
 
 <ul>
 <li><p>Por ejemplo, las leyes de DeMorgan, que en Python se escriben
 así:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">or</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">and</span> (<span class="kw">not</span> b)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">and</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">or</span> (<span class="kw">not</span> b)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">or</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">and</span> (<span class="kw">not</span> b)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">and</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">or</span> (<span class="kw">not</span> b)</span></code></pre></div>
 <p>se escribirían así según la notación de la lógica binaria:</p>
 <p><span class="math display">\overline{A + B} = \overline{A} \cdot
 \overline{B}</span> <span class="math display">\overline{AB} =
@@ -1753,10 +1740,9 @@ digitales.</p></li>
 </ul>
 </section>
 
-
 <section id="equivalencia-lógica" class="title-slide slide level2"
-data-number="3.6">
-<h2 data-number="3.6"><span class="header-section-number">3.6</span>
+data-number="5.7">
+<h2 data-number="5.7"><span class="header-section-number">5.7</span>
 Equivalencia lógica</h2>
 <ul>
 <li><p>Decimos que dos expresiones lógicas <span
@@ -1778,7 +1764,7 @@ class="math inline">Q</span> coinciden exactamente.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.6.0.0.1">
+<section class="slide level5" data-number="5.7.0.0.1">
 
 <ul>
 <li><p>Por ejemplo, supongamos que queremos demostrar la siguiente
@@ -1796,7 +1782,7 @@ razonamientos:</p>
 \end{array}</span></p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.6.0.0.2">
+<section class="slide level5" data-number="5.7.0.0.2">
 
 <ul>
 <li><p>También podemos obtener sus tablas de verdad y comprobar que son
@@ -1854,8 +1840,8 @@ equivalentes.</p></li>
 </section>
 
 <section id="el-operador-ternario" class="title-slide slide level2"
-data-number="3.7">
-<h2 data-number="3.7"><span class="header-section-number">3.7</span> El
+data-number="5.8">
+<h2 data-number="5.8"><span class="header-section-number">5.8</span> El
 operador ternario</h2>
 <ul>
 <li><p>Las expresiones lógicas (o <em>booleanas</em>) se pueden usar
@@ -1874,7 +1860,7 @@ Python que actúa sobre tres operandos.</p></li>
 <strong>expresión condicional</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.7.0.0.1">
+<section class="slide level5" data-number="5.8.0.0.1">
 
 <ul>
 <li><p>Su sintaxis es:</p>
@@ -1899,13 +1885,13 @@ style="color:teal">⟨<em>condición</em>⟩</span> es cierta; en caso
 contrario, su valor será <span
 style="color:teal">⟨<em>valor_si_falso</em>⟩</span>.</p></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="cf">if</span> <span class="dv">3</span> <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> <span class="dv">17</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> <span class="cf">if</span> <span class="dv">3</span> <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> <span class="dv">17</span></span></code></pre></div>
 <p>evalúa a <code
 class="sourceCode python"><span class="dv">25</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.7.0.0.2">
+<section class="slide level5" data-number="5.8.0.0.2">
 
 <ul>
 <li><p>El operador ternario, así como los operadores lógicos <code
@@ -1937,7 +1923,7 @@ operandos, sino sólo los estrictamente necesarios.</p></li>
 normal.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.7.0.0.3">
+<section class="slide level5" data-number="5.8.0.0.3">
 
 <ul>
 <li><p>La evaluación de los operadores <code
@@ -1978,14 +1964,14 @@ class="math inline">\underline{x}</span>.</p></li>
 </section>
 <section>
 <section id="otros-conceptos-sobre-operaciones"
-class="title-slide slide level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Otros
+class="title-slide slide level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Otros
 conceptos sobre operaciones</h1>
 
 </section>
 <section id="árboles-sintácticos-y-evaluación"
-class="title-slide slide level2" data-number="4.1">
-<h2 data-number="4.1"><span class="header-section-number">4.1</span>
+class="title-slide slide level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span>
 Árboles sintácticos y evaluación</h2>
 <ul>
 <li><p>Durante la fase de análisis sintáctico, el compilador o el
@@ -2004,7 +1990,7 @@ correcta, o bien que la gramática del lenguaje no está bien
 diseñada.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.1">
+<section class="slide level5" data-number="6.1.0.0.1">
 
 <ul>
 <li>Por ejemplo, tenemos las siguientes expresiones y sus árboles
@@ -2012,27 +1998,27 @@ sintácticos equivalentes:</li>
 </ul>
 <div class="columns">
 <div class="column">
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/arbol-dos.svg" class="plain"
 style="width:10.0%" /></p>
 </div>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/arbol-dos-mas-tres.svg" class="plain"
 style="width:22.0%" /></p>
 </div>
 </div><div class="column">
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span></span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/arbol-dos-mas-tres-por-cinco.svg" class="plain"
 style="width:30.0%" /></p>
 </div>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span></span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/arbol-dos-por-tres-mas-cinco.svg" class="plain"
 style="width:30.0%" /></p>
@@ -2040,12 +2026,12 @@ style="width:30.0%" /></p>
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="4.1.0.0.2">
+<section class="slide level5" data-number="6.1.0.0.2">
 
 <ul>
 <li><p>Si la expresión contiene llamadas a funciones, se haría:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">max</span>(<span class="dv">2</span>, <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">max</span>(<span class="dv">2</span>, <span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span>)</span></code></pre></div>
 <div class="centered">
 <p><img data-src="images/arbol-max-dos-tres-mas-cinco.svg" class="plain"
 style="width:25.0%" /></p>
@@ -2057,7 +2043,7 @@ por el resto de sus hijos.</p>
 uno (la propia función).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.3">
+<section class="slide level5" data-number="6.1.0.0.3">
 
 <ul>
 <li><p>Para evaluar una expresión representada por su árbol sintáctico,
@@ -2078,7 +2064,7 @@ otros más reducidos hasta acabar teniendo un árbol que represente la
 forma normal de la expresión a evaluar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.4">
+<section class="slide level5" data-number="6.1.0.0.4">
 
 <ul>
 <li><p>Por ejemplo, en la expresión <code
@@ -2094,7 +2080,7 @@ siguiente:</p></li>
 <p><code>2</code>, <code>3</code>, <code>5</code>, <code>*</code>,
 <code>+</code></p>
 </section>
-<section class="slide level5" data-number="4.1.0.0.5">
+<section class="slide level5" data-number="6.1.0.0.5">
 
 <ul>
 <li><p>La evaluación se realizaría de la siguiente forma, donde en azul
@@ -2116,7 +2102,7 @@ class="plain" style="width:12.0%" /></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.6">
+<section class="slide level5" data-number="6.1.0.0.6">
 
 <ul>
 <li><p><strong>Paso 3</strong>: Volvemos al padre del nodo
@@ -2132,7 +2118,7 @@ class="plain" style="width:12.0%" /></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.7">
+<section class="slide level5" data-number="6.1.0.0.7">
 
 <ul>
 <li><p><strong>Paso 4</strong>: Volvemos al padre del nodo
@@ -2159,7 +2145,7 @@ style="width:12.0%" /></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.8">
+<section class="slide level5" data-number="6.1.0.0.8">
 
 <ul>
 <li><p><strong>Paso 6</strong>: Volvemos al padre del que ahora es el
@@ -2180,10 +2166,8 @@ expresión ha terminado, dando como resultado un árbol que representa a
 la forma normal de la expresión inicial.</p></li>
 </ul>
 </section>
-<section id="importante" class="title-slide slide level4"
-data-number="4.1.0.1">
-<h4 data-number="4.1.0.1"><span
-class="header-section-number">4.1.0.1</span> Importante</h4>
+<section id="importante" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Importante</h5>
 <ul>
 <li><p>Recordar que este orden concreto de evaluación (<em>primero en
 profundidad</em>, donde se evalúan primero todos los nodos hijos antes
@@ -2200,10 +2184,9 @@ veremos más adelante.</p></li>
 </ul>
 </section>
 
-
 <section id="tipos-polimórficos-y-operaciones-polimórficas"
-class="title-slide slide level2" data-number="4.2">
-<h2 data-number="4.2"><span class="header-section-number">4.2</span>
+class="title-slide slide level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span>
 Tipos polimórficos y operaciones polimórficas</h2>
 <ul>
 <li><p>Hasta ahora, hemos visto que la función <code
@@ -2226,7 +2209,7 @@ class="sourceCode python"><span class="bu">int</span></code> o <code
 class="sourceCode python"><span class="bu">float</span></code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.2.0.0.1">
+<section class="slide level5" data-number="6.2.0.0.1">
 
 <ul>
 <li><p>Eso quiere decir que el parámetro <span
@@ -2255,8 +2238,8 @@ polimórfico.</p></li>
 </section>
 
 <section id="sobrecarga-de-operaciones" class="title-slide slide level2"
-data-number="4.3">
-<h2 data-number="4.3"><span class="header-section-number">4.3</span>
+data-number="6.3">
+<h2 data-number="6.3"><span class="header-section-number">6.3</span>
 Sobrecarga de operaciones</h2>
 <ul>
 <li><p>Un <strong>mismo operador, nombre de función o nombre de
@@ -2266,20 +2249,20 @@ sobre los que actúa.</p></li>
 <li><p>Un ejemplo sencillo en Python es el operador <code>+</code>:</p>
 <ul>
 <li><p>Cuando actúa sobre números, representa la operación de suma:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
 <li><p>Cuando actúa sobre cadenas, representa la <em>concatenación</em>
 de cadenas:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">+</span> <span class="st">&quot;pepe&quot;</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;holapepe&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">+</span> <span class="st">&quot;pepe&quot;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;holapepe&#39;</span></span></code></pre></div></li>
 </ul></li>
 <li><p>Cuando esto ocurre, decimos que el operador (o la función, o el
 método) está <strong>sobrecargado</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.3.0.0.1">
+<section class="slide level5" data-number="6.3.0.0.1">
 
 <ul>
 <li><p>Es decir, es como si el operador <code>+</code> representara dos
@@ -2316,8 +2299,8 @@ class="math inline">b</span> representarían a la vez a
 </section>
 
 <section id="equivalencia-entre-formas-de-operaciones"
-class="title-slide slide level2" data-number="4.4">
-<h2 data-number="4.4"><span class="header-section-number">4.4</span>
+class="title-slide slide level2" data-number="6.4">
+<h2 data-number="6.4"><span class="header-section-number">6.4</span>
 Equivalencia entre formas de operaciones</h2>
 <ul>
 <li><p>Una operación puede tener <em>forma</em> de
@@ -2332,19 +2315,19 @@ que tiene una cadena. Esta operación se puede hacer:</p>
 <li><p>Con la función <code
 class="sourceCode python"><span class="bu">len</span></code>, pasando la
 cadena como argumento:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 <li><p>Con el método <code
 class="sourceCode python"><span class="fu">__len__</span></code>
 ejecutado sobre la cadena:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.1">
+<section class="slide level5" data-number="6.4.0.0.1">
 
 <ul>
 <li><p>De hecho, en Python hay operaciones que tienen <strong>las tres
@@ -2354,19 +2337,19 @@ otro (<span class="math inline">x^y</span>). Esta operación se puede
 hacer:</p>
 <ul>
 <li><p>Con el operador <code>**</code>:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 <li><p>Con la función <code
 class="sourceCode python"><span class="bu">pow</span></code>:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 <li><p>Con el método <code
 class="sourceCode python"><span class="fu">__pow__</span></code>:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 <!--
@@ -2429,7 +2412,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a h
 
 -->
 </section>
-<section class="slide level5" data-number="4.4.0.0.2">
+<section class="slide level5" data-number="6.4.0.0.2">
 
 <ul>
 <li><p>La forma <strong>más general</strong> de representar una
@@ -2452,7 +2435,7 @@ operadores y los métodos.</p></li>
 operación, da igual la forma que tenga esta.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.4.0.0.3">
+<section class="slide level5" data-number="6.4.0.0.3">
 
 <ul>
 <li><p>Muchos lenguajes de programación no permiten definir nuevos
@@ -2466,8 +2449,8 @@ funciones (o métodos).</p></li>
 </section>
 
 <section id="igualdad-de-operaciones" class="title-slide slide level2"
-data-number="4.5">
-<h2 data-number="4.5"><span class="header-section-number">4.5</span>
+data-number="6.5">
+<h2 data-number="6.5"><span class="header-section-number">6.5</span>
 Igualdad de operaciones</h2>
 <ul>
 <li><p>Dos operaciones son <strong>iguales</strong> si devuelven

@@ -122,7 +122,7 @@ nocite: |
   original**, sino que devuelve un nuevo dato a partir del dato original pero
   con el tipo cambiado.
 
-## `type`
+## La función `type`
 
 - La función `type` devuelve el tipo de un valor:
 
@@ -141,202 +141,6 @@ nocite: |
   >>> type(3 + 4.5 ** 2)
   <class 'float'>
   ```
-
-## Tipos de datos básicos
-
-- Los tipos de datos básicos que empezaremos a estudiar en Python son:
-
-!SALTO
-
-  $$\text{Tipos básicos}\begin{cases}
-    \text{Números}\begin{cases}
-      \text{Enteros} \\
-      \text{Reales}
-    \end{cases} \\
-    \text{Cadenas} \\
-    \text{Tuplas} \\
-    \text{Funciones} \\
-    \text{Lógicos (o \textit{booleanos})}
-  \end{cases}$$
-
-### Números
-
-- Hay dos tipos numéricos básicos en Python: los enteros y los reales.
-
-  - Los **enteros** se representan con el tipo `int`.
-
-    Sólo contienen parte entera, y sus literales se escriben con dígitos sin
-    punto decimal (ej: !PYTHON(13)).
-
-  - Los **reales** se representan con el tipo `float`.
-
-    Contienen parte entera y parte fraccionaria, y sus literales se escriben
-    con dígitos y con punto decimal separando ambas partes (ej: !PYTHON(4.87)).
-    Los números en notación exponencial (!PYTHON(2e3)) también son reales ($2e3
-    = 2.0\times10^3$).
-
-- Las **operaciones** que se pueden realizar con los números son los que cabría
-  esperar (aritméticas, trigonométricas, matemáticas en general).
-
----
-
-- Los enteros y los reales generalmente se pueden combinar en una misma
-  expresión aritmética y suele resultar en un valor real, ya que se considera
-  que los reales *contienen* a los enteros.
-
-  - Ejemplo: !PYTHON(4 + 3.5) devuelve !PYTHON(7.5).
-
-- Por ello, y aunque el lenguaje sea de tipado fuerte, se permite la conversión
-  implícita entre datos de tipo `int` y `float` dentro de una misma expresión
-  para realizar las operaciones correspondientes.
-
-- En el ejemplo anterior, el valor entero !PYTHON(4) se convierte
-  implícitamente en el real !PYTHON(4.0) debido a que el otro operando de la
-  suma es un valor real (!PYTHON(3.5)). Finalmente, se obtiene un valor real
-  (!PYTHON(7.5)).
-
-### Cadenas
-
-- Las **cadenas** son secuencias de cero o más caracteres codificados en
-  Unicode.
-
-- En Python se representan con el tipo `str`.
-
-  - No existe el tipo *carácter* en Python. Un carácter en Python es
-    simplemente una cadena que contiene un solo carácter.
-
-- Un literal de tipo cadena se escribe encerrando sus caracteres entre comillas
-  simples (`'`) o dobles (`"`).
-
-  - No hay ninguna diferencia entre usar unas comillas u otras, pero si una
-    cadena comienza con comillas simples, debe acabar también con comillas
-    simples (y viceversa).
-
-- Ejemplos:
-
-  !PYTHON("hola")
-
-  !PYTHON('Manolo')
-
-  !PYTHON("27")
-
----
-
-- También se pueden escribir literales de tipo cadena encerrándolos entre
-  triples comillas (`'''` o `"""`).
-
-  Estos literales se usan para escribir cadenas formadas por varias líneas.
-  La sintaxis de las triples comillas respeta los saltos de línea. Por ejemplo:
-
-  ```python
-  >>> """Bienvenido
-  ... a
-  ... Python"""
-  'Bienvenido\na\nPython'  # el carácter \n representa un salto de línea
-  ```
-
-- No es lo mismo !PYTHON(27) que !PYTHON("27").
-
-  - !PYTHON(27) es un número entero (un literal de tipo `int`).
-
-  - !PYTHON("27") es una cadena (un literal de tipo `str`).
-
-- Una **cadena vacía** es aquella que no contiene ningún carácter. Se
-  representa con los literales `''`, `""`, `''''''` o `""""""`.
-
----
-
-- Si necesitamos meter el carácter de la comilla simple (`'`) o doble (`"`) en
-  un literal de tipo cadena, tenemos dos opciones:
-
-  - Delimitar la cadena con el otro tipo de comillas. Por ejemplo:
-
-    - !PYTHON('Pepe dijo: "Yo no voy.", así que no fuimos.')
-
-    - !PYTHON("Bienvenido, Señor O'Halloran.")
-
-  - «_Escapar_» la comilla, poniéndole delante una barra inclinada hacia la
-    izquierda (`\`):
-
-    - !PYTHON("Pepe dijo: \"Yo no voy.\", así que no fuimos.")
-
-    - !PYTHON('Bienvenido, Señor O\'Halloran.')
-
-### Tuplas
-
-- Las **tuplas** (datos de tipo !PYTHON(tuple)) son una generalización de las
-  cadenas.
-
-- Una tupla es una **secuencia de elementos** que no tienen por qué ser
-  caracteres, sino que cada uno de ellos pueden ser **de cualquier tipo**
-  (números, cadenas, booleanos, ..., incluso otras tuplas).
-
-- Los literales de tipo tupla se representan enumerando sus elementos separados
-  por comas y encerrados entre paréntesis.
-
-- Por ejemplo:
-
-  ```python
-  tupla = (27, 'hola', True, 73.4, ('a', 'b', 'c'), 99)
-  ```
-
-- Si sólo tiene un elemento, hay que poner una coma detrás:
-
-  ```python
-  tupla = (35,)
-  ```
-
----
-
-- Al igual que ocurre con las cadenas, tenemos las operaciones !PYTHON(t[0])
-  (primer elemento de la tupla), !PYTHON(t[1:]) (resto de la tupla) y `+`
-  (**concatenación**).
-
-- Con la concatenación se pueden crear nuevas tuplas a partir de otras tuplas.
-
-- Por ejemplo:
-
-  ```python
-  >>> (1, 2, 3) + (4, 5, 6)
-  (1, 2, 3, 4, 5, 6)
-  ```
-
-- Eso significa que, si !PYTHON(t) es una tupla no vacía, se cumple que !SALTO
-  !PYTHON(t == (t[0],) + t[1:]).
-
-  Esta propiedad es similar (aunque no exactamente igual) a la que se cumple en
-  las cadenas no vacías.
-
-### Funciones
-
-- En programación funcional, **las funciones también son datos**:
-
-  ```python
-  >>> type(max)
-  <class 'builtin_function_or_method'>
-  ```
-
-- La **única operación** que se puede realizar sobre una función es
-  **llamarla**, que sintácticamente se representa poniendo paréntesis `(` `)`
-  justo a continuación de la función.
-
-  Dentro de los paréntesis se ponen los _argumentos_ que se aplican a la
-  función en esa llamada (si es que los necesita), separados por comas.
-
-- Por tanto, !PYTHON(max) es la función en sí (un **valor** de tipo _función_)
-  , y !PYTHON(max(3, 4)) es una llamada a la función !PYTHON(max) con los
-  argumentos !PYTHON(3) y !PYTHON(4) (una **operación** realizada sobre la
-  función).
-
-  ```python
-  >>> max                   # la función max
-  <built-in function max>
-  >>> max(3, 4)             # la llamada a max con los argumentos 3 y 4
-  4
-  ```
-
-- Recordemos que **las funciones no tienen expresión canónica**, por lo que el
-  intérprete no intentará nunca visualizar un valor de tipo función.
 
 ## Conversión de tipos
 
@@ -380,9 +184,59 @@ nocite: |
   pero no cambia en modo alguno la cadena !PYTHON('24') que ha recibido como
   argumento.
 
-# Operaciones predefinidas
+## Tipos de datos básicos
 
-## Operadores predefinidos
+- Los tipos de datos básicos que empezaremos a estudiar en Python son:
+
+!SALTO
+
+  $$\text{Tipos básicos}\begin{cases}
+    \text{Números}\begin{cases}
+      \text{Enteros} \\
+      \text{Reales}
+    \end{cases} \\
+    \text{Cadenas} \\
+    \text{Funciones} \\
+    \text{Lógicos (o \textit{booleanos})}
+  \end{cases}$$
+
+# Números
+
+## Los tipos `int` y `float`
+
+- Hay dos tipos numéricos básicos en Python: los enteros y los reales.
+
+  - Los **enteros** se representan con el tipo `int`.
+
+    Sólo contienen parte entera, y sus literales se escriben con dígitos sin
+    punto decimal (ej: !PYTHON(13)).
+
+  - Los **reales** se representan con el tipo `float`.
+
+    Contienen parte entera y parte fraccionaria, y sus literales se escriben
+    con dígitos y con punto decimal separando ambas partes (ej: !PYTHON(4.87)).
+    Los números en notación exponencial (!PYTHON(2e3)) también son reales ($2e3
+    = 2.0\times10^3$).
+
+- Las **operaciones** que se pueden realizar con los números son los que cabría
+  esperar (aritméticas, trigonométricas, matemáticas en general).
+
+---
+
+- Los enteros y los reales generalmente se pueden combinar en una misma
+  expresión aritmética y suele resultar en un valor real, ya que se considera
+  que los reales *contienen* a los enteros.
+
+  - Ejemplo: !PYTHON(4 + 3.5) devuelve !PYTHON(7.5).
+
+- Por ello, y aunque el lenguaje sea de tipado fuerte, se permite la conversión
+  implícita entre datos de tipo `int` y `float` dentro de una misma expresión
+  para realizar las operaciones correspondientes.
+
+- En el ejemplo anterior, el valor entero !PYTHON(4) se convierte
+  implícitamente en el real !PYTHON(4.0) debido a que el otro operando de la
+  suma es un valor real (!PYTHON(3.5)). Finalmente, se obtiene un valor real
+  (!PYTHON(7.5)).
 
 ### Operadores aritméticos
 
@@ -407,43 +261,22 @@ nocite: |
            hacia abajo         !PYTHON(-4 // 3)    !PYTHON(-2)        ??
 --------------------------------------------------------------------------------------------
 
-### Operadores de cadenas
+## Funciones numéricas predefinidas
 
------------------------------------------------------------------------------------
-  Operador         Descripción           Ejemplo                Resultado
------------------- ------------------ ------------------------ --------------------
-   `+`             Concatenación       !PYTHON('ab' + 'cd')     !PYTHON('abcd')
-                                       !PYTHON('ab' 'cd')
+------------------------------------------------------------------------------------------------------
+Función                       Descripción           Ejemplo                            Resultado
+----------------------------- --------------------- --------------------------------- ----------------
+`abs(`$n$`)`                  Valor absoluto        !PYTHON(abs(-23))                  !PYTHON(23)
+                                                                                    
+`max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))              !PYTHON(5)
+                                                                                    
+`min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))              !PYTHON(2)
+                                                                                    
+`round(`$n$[`,` $p$]`)`       Redondeo              !PYTHON(round(23.493))  \          !PYTHON(23) \
+                                                    !PYTHON(round(23.493, 1))          !PYTHON(23.5)
+------------------------------------------------------------------------------------------------------
 
-   `*`             Repetición          !PYTHON('ab' * 3) \      !PYTHON('ababab') \
-                                       !PYTHON(3 * 'ab')        !PYTHON('ababab')
-
-   !PYTHON([0])    Primer carácter     !PYTHON('hola'[0])       !PYTHON('h')
-
-   !PYTHON([1:])   Resto de cadena     !PYTHON('hola'[1:])      !PYTHON('ola')
------------------------------------------------------------------------------------
-
-## Funciones predefinidas
-
---------------------------------------------------------------------------------------------------
-Función                       Descripción           Ejemplo                       Resultado
------------------------------ --------------------- ---------------------------- -----------------
-`abs(`$n$`)`                  Valor absoluto        !PYTHON(abs(-23))             !PYTHON(23)
-
-`len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))          !PYTHON(4)
-
-`max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))         !PYTHON(5)
-
-`min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))         !PYTHON(2)
-
-`round(`$n$[`,` $p$]`)`       Redondeo              !PYTHON(round(23.493))  \     !PYTHON(23) \
-                                                    !PYTHON(round(23.493, 1))     !PYTHON(23.5)
-
-`type(`$v$`)`                 Tipo del valor        !PYTHON(type(23.5))           !PYTHON(<class) \
-                                                                                  !PYTHON('float'>)
---------------------------------------------------------------------------------------------------
-
-### Funciones matemáticas y módulos
+## Funciones matemáticas y módulos
 
 - Python incluye una gran cantidad de funciones matemáticas agrupadas dentro
   del módulo !PYTHON(math).
@@ -555,29 +388,7 @@ Función                       Descripción           Ejemplo                   
 
   [https://docs.python.org/3/library/math.html](https://docs.python.org/3/library/math.html){target="\_blank"}
 
----
-
-- El lenguaje Python es, principalmente, un lenguaje **orientado a objetos**.
-
-- De hecho, **todos los datos en Python son objetos** que tienen sus propios
-  atributos (métodos, entre otros) a los que se le puede acceder usando el
-  operador punto (`.`).
-
-- Por ello, en Python los términos «_dato_», «_valor_» y «_objeto_» son
-  sinónimos en la práctica.
-
-- Los números, las cadenas, los módulos, las funciones... todos son objetos.
-
-- Incluso los métodos son objetos, ya que, en realidad, son funciones
-  contenidas dentro de otros objetos, y las funciones son objetos.
-
-- Hasta los tipos (como !PYTHON(int) o !PYTHON(str)) son objetos que tienen sus
-  propios atributos.
-
-- Entraremos a estudiar más en detalle estas características cuando veamos la
-  **programación orientada a objetos**.
-
-#### El módulo `operator`
+### El módulo `operator`
 
 - El módulo !PYTHON(operator) contiene, en forma de funciones, las operaciones
   básicas que hasta ahora hemos utilizado en forma de operadores:
@@ -661,12 +472,170 @@ Función                       Descripción           Ejemplo                   
   = 17
   ```
 
-## Métodos predefinidos
+# Cadenas
 
-- Igualmente, en la documentación podemos encontrar una lista de métodos
-  interesantes que operan sobre cadenas:
+## El tipo `str`
+
+- Las **cadenas** son secuencias de cero o más caracteres codificados en
+  Unicode.
+
+- En Python se representan con el tipo `str`.
+
+  - No existe el tipo *carácter* en Python. Un carácter en Python es
+    simplemente una cadena que contiene un solo carácter.
+
+- Un literal de tipo cadena se escribe encerrando sus caracteres entre comillas
+  simples (`'`) o dobles (`"`).
+
+  - No hay ninguna diferencia entre usar unas comillas u otras, pero si una
+    cadena comienza con comillas simples, debe acabar también con comillas
+    simples (y viceversa).
+
+- Ejemplos:
+
+  :::: columns
+
+  ::: column
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON("hola")
+  ~~~~~~~~~~~~~~~~~~~~~
+
+  :::
+
+  ::: column
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON('Manolo')
+  ~~~~~~~~~~~~~~~~~~~~~
+
+  :::
+
+  ::: column
+
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON("27")
+  ~~~~~~~~~~~~~~~~~~~~~
+
+  :::
+
+  ::::
+
+---
+
+- También se pueden escribir literales de tipo cadena encerrándolos entre
+  triples comillas (`'''` o `"""`).
+
+  Estos literales se usan para escribir cadenas formadas por varias líneas.
+  La sintaxis de las triples comillas respeta los saltos de línea. Por ejemplo:
+
+  ```python
+  >>> """Bienvenido
+  ... a
+  ... Python"""
+  'Bienvenido\na\nPython'  # el carácter \n representa un salto de línea
+  ```
+
+- No es lo mismo !PYTHON(27) que !PYTHON("27").
+
+  - !PYTHON(27) es un número entero (un literal de tipo `int`).
+
+  - !PYTHON("27") es una cadena (un literal de tipo `str`).
+
+- Una **cadena vacía** es aquella que no contiene ningún carácter. Se
+  representa con los literales `''`, `""`, `''''''` o `""""""`.
+
+---
+
+- Si necesitamos meter el carácter de la comilla simple (`'`) o doble (`"`) en
+  un literal de tipo cadena, tenemos dos opciones:
+
+  - Delimitar la cadena con el otro tipo de comillas. Por ejemplo:
+
+    - !PYTHON('Pepe dijo: "Yo no voy.", así que no fuimos.')
+
+    - !PYTHON("Bienvenido, Señor O'Halloran.")
+
+  - «_Escapar_» la comilla, poniéndole delante una barra inclinada hacia la
+    izquierda (`\`):
+
+    - !PYTHON("Pepe dijo: \"Yo no voy.\", así que no fuimos.")
+
+    - !PYTHON('Bienvenido, Señor O\'Halloran.')
+
+## Operadores de cadenas
+
+-----------------------------------------------------------------------------------
+  Operador         Descripción           Ejemplo                Resultado
+------------------ ------------------ ------------------------ --------------------
+   `+`             Concatenación       !PYTHON('ab' + 'cd')     !PYTHON('abcd')
+                                       !PYTHON('ab' 'cd')
+
+   `*`             Repetición          !PYTHON('ab' * 3) \      !PYTHON('ababab') \
+                                       !PYTHON(3 * 'ab')        !PYTHON('ababab')
+
+   !PYTHON([0])    Primer carácter     !PYTHON('hola'[0])       !PYTHON('h')
+
+   !PYTHON([1:])   Resto de cadena     !PYTHON('hola'[1:])      !PYTHON('ola')
+-----------------------------------------------------------------------------------
+
+## Funciones predefinidas de cadenas
+
+--------------------------------------------------------------------------------------------------
+Función                       Descripción           Ejemplo                       Resultado
+----------------------------- --------------------- ---------------------------- -----------------
+`len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))          !PYTHON(4)
+
+`max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))         !PYTHON(5)
+
+`min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))         !PYTHON(2)
+--------------------------------------------------------------------------------------------------
+
+## Métodos predefinidos de cadenas
+
+- En la documentación podemos encontrar una lista de métodos interesantes que
+  operan sobre cadenas:
 
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
+
+# Funciones
+
+## El tipo *función*
+
+- En programación funcional, **las funciones también son datos**:
+
+  ```python
+  >>> type(max)
+  <class 'builtin_function_or_method'>
+  ```
+
+- La **única operación** que se puede realizar sobre una función es
+  **llamarla**, que sintácticamente se representa poniendo paréntesis `(` `)`
+  justo a continuación de la función.
+
+  Dentro de los paréntesis se ponen los _argumentos_ que se aplican a la
+  función en esa llamada (si es que los necesita), separados por comas.
+
+---
+
+- Por tanto, !PYTHON(max) es la función en sí (un **valor** de tipo _función_)
+  , y \
+  !PYTHON(max(3, 4)) es una llamada a la función !PYTHON(max) con los
+  argumentos !PYTHON(3) y !PYTHON{4} (una **operación** realizada sobre la
+  función).
+
+  ```python
+  >>> max                   # la función max
+  <built-in function max>
+  >>> max(3, 4)             # la llamada a max con los argumentos 3 y 4
+  4
+  ```
+
+- Recordemos que **las funciones no tienen expresión canónica**, por lo que el
+  intérprete no intentará nunca visualizar un valor de tipo función.
 
 # Álgebra de Boole
 
@@ -700,9 +669,9 @@ Función                       Descripción           Ejemplo                   
 - Los operadores de comparación que existen en Python son:
 
   !CENTRAR
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `<   >   <=   >=   ==   !=`
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `<`\ \ \ \ \ \ `>`\ \ \ \ \ \ `<=`\ \ \ \ \ \ `>=`\ \ \ \ \ \ `==`\ \ \ \ \ \ `!=`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo:
 
@@ -909,10 +878,6 @@ de Boole.
 
 ##### Traducción a Python {.unnumbered .unlisted}
 
-:::: columns
-
-::: {.column width=60%}
-
 1. Ley asociativa:
    ```python
    (a or b) or c == a or (b or c)
@@ -930,11 +895,6 @@ de Boole.
    a or (b and c) == (a or b) and (a or c)
    a and (b or c) == (a and b) or (a and c)
    ```
-
-:::
-
-::: {.column width=40%}
-
 4. Elemento neutro:
    ```python
    a or False == a
@@ -946,10 +906,6 @@ de Boole.
    a or (not a) == True
    a and (not a) == False
    ```
-
-:::
-
-::::
 
 ## Teoremas fundamentales
 
@@ -996,7 +952,7 @@ de Boole.
 
 :::: columns
 
-::: {.column width=40%}
+::: {.column width=50%}
 
 6. Ley de idempotencia:
    ```python
@@ -1015,15 +971,15 @@ de Boole.
    a and True == a
    ```
 
+:::
+
+::: {.column width=50%}
+
 9. Ley de absorción:
    ```python
    a or (a and b) == a
    a and (a or b) == a
    ```
-
-:::
-
-::: {.column width=60%}
 
 10. Ley de involución:
 
@@ -1038,6 +994,10 @@ de Boole.
     not False == True
     ```
 
+:::
+
+::::
+
 12. Leyes de De Morgan:
 
     ```python
@@ -1045,11 +1005,7 @@ de Boole.
     not (a and b) == (not a) or (not b)
     ```
 
-:::
-
-::::
-
-#### Lógica binaria
+## Lógica binaria
 
 - Otra forma de representar los operadores y los valores del álgebra de Boole
   es mediante la notación de la **lógica binaria**.
@@ -1514,7 +1470,7 @@ mas -> por
   terminado, dando como resultado un árbol que representa a la forma normal de
   la expresión inicial.
 
-#### Importante
+##### Importante {.unnumbered .unlisted}
 
 - Recordar que este orden concreto de evaluación (_primero en profundidad_,
   donde se evalúan primero todos los nodos hijos antes de evaluar al nodo

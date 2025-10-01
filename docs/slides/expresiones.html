@@ -14,9 +14,6 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,9 +29,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -45,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -100,6 +96,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -519,7 +516,7 @@ genérico.</p></li>
 </ul></li>
 <li><p><strong>Todo <em>valor</em> pertenece a un
 <em>tipo</em></strong>. <!-- (y, a veces, a más de
-uno) --></p></li>
+  uno) --></p></li>
 <li><p>Como cada tipo es un conjunto de valores, decimos que «<em>un
 valor pertenece a un tipo</em>» cuando pertenece a ese conjunto (o sea,
 cuando es uno de los elementos de ese conjunto).</p>
@@ -704,9 +701,6 @@ números enteros en Matemáticas.</p></li>
 class="sourceCode python"><span class="bu">str</span></code>)</strong>:
 secuencias de caracteres (letras, dígitos, símbolos, etc.), como nombres
 de personas, direcciones, o cualquier texto en general.</p></li>
-<li><p><strong>Tuplas (<code
-class="sourceCode python"><span class="bu">tuple</span></code>)</strong>:
-secuencias de valores que pueden pertenecer a distintos tipos.</p></li>
 </ul>
 </div><div class="column">
 <ul>
@@ -743,17 +737,24 @@ empleado.</p></li>
 <li><p>Por ejemplo, si queremos indicar que el dato <em>edad</em> es un
 número entero (es decir, que es de tipo entero), se puede representar
 así:</p>
+<div class="columns">
+<div class="column">
 <ul>
 <li><p>En Matemáticas:</p>
 <p><span class="math inline">edad \in \mathbb{Z}</span></p></li>
 <li><p>En Teoría de tipos:</p>
 <p><span class="math inline">edad: \mathbb{Z}</span></p></li>
+</ul>
+</div><div class="column">
+<ul>
 <li><p>En Python:</p>
 <p><span class="math inline">edad</span><code>:</code>
 <code>int</code></p></li>
 <li><p>En Java:</p>
 <p><code>int</code> <span class="math inline">\,edad</span></p></li>
-</ul></li>
+</ul>
+</div>
+</div></li>
 </ul>
 </section>
 
@@ -2716,12 +2717,36 @@ class="sourceCode python"><span class="st">&#39;hola&#39;</span></code>
 y no existe fuera de las cadenas.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="3.4.0.0.8">
+
+<ul>
+<li><p>Aún siendo multiparadigma, el lenguaje Python es, principalmente,
+un lenguaje <strong>orientado a objetos</strong>.</p></li>
+<li><p>De hecho, <strong>todos los datos en Python son objetos</strong>
+que tienen sus propios atributos (métodos, entre otros) a los que se le
+puede acceder usando el operador punto (<code>.</code>).</p></li>
+<li><p>Por ello, en Python los términos «<em>dato</em>»,
+«<em>valor</em>» y «<em>objeto</em>» son sinónimos en la
+práctica.</p></li>
+<li><p>Los números, las cadenas, los módulos, las funciones… todos son
+objetos.</p></li>
+<li><p>Incluso los métodos son objetos, ya que, en realidad, son
+funciones contenidas dentro de otros objetos, y las funciones son
+objetos.</p></li>
+<li><p>Hasta los tipos (como <code
+class="sourceCode python"><span class="bu">int</span></code> o <code
+class="sourceCode python"><span class="bu">str</span></code>) son
+objetos que tienen sus propios atributos.</p></li>
+<li><p>Entraremos a estudiar más en detalle estas características cuando
+veamos la <strong>programación orientada a objetos</strong>.</p></li>
+</ul>
+</section>
 <section id="métodos-predefinidos-sobre-cadenas"
 class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Métodos predefinidos sobre cadenas</h5>
 <ul>
-<li><p>En la documentación podemos encontrar una lista de métodos
-interesantes que operan sobre cadenas:</p>
+<li><p>En la documentación de Python podemos encontrar una lista de
+métodos interesantes que operan sobre cadenas:</p>
 <p><a
 href="https://docs.python.org/3/library/stdtypes.html#string-methods"
 target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
@@ -2732,25 +2757,25 @@ target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
 Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
-<em>Structure and Interpretation of Computer Programs</em>. 2nd ed. MIT
-Press ; McGraw-Hill.
+<em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
+Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
 </div>
 <div id="ref-blanco_calculo_2009" class="csl-entry" role="listitem">
 Blanco, Javier, Silvina Smith, and Damián Barsotti. 2009. <em>Cálculo de
-Programas</em>. Universidad Nacional de Córdoba.
+Programas</em>. Córdoba, Argentina: Universidad Nacional de Córdoba.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <em>Sitio Web de Documentación de
-<span>Python</span></em>. <a
+Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
+<span>Python</span>.”</span> <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 <div id="ref-van-roy_concepts_2004" class="csl-entry" role="listitem">
 Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and
-Models of Computer Programming</em>. MIT Press.
+Models of Computer Programming</em>. Cambridge, Mass: MIT Press.
 </div>
 </div>
 </section>

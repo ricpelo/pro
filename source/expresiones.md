@@ -447,9 +447,6 @@ T -> O [label = "Determina un conjunto de"]
     dígitos, símbolos, etc.), como nombres de personas, direcciones, o
     cualquier texto en general.
 
-  - **Tuplas (!PYTHON(tuple))**: secuencias de valores que pueden pertenecer a
-    distintos tipos.
-
 :::
 
 ::: column
@@ -481,6 +478,10 @@ T -> O [label = "Determina un conjunto de"]
 - Por ejemplo, si queremos indicar que el dato _edad_ es un número entero (es
   decir, que es de tipo entero), se puede representar así:
 
+  ::: columns
+
+  ::: column
+
   - En Matemáticas:
 
     $edad \in \mathbb{Z}$
@@ -489,6 +490,10 @@ T -> O [label = "Determina un conjunto de"]
 
     $edad: \mathbb{Z}$
 
+  :::
+
+  ::: column
+
   - En Python:
 
     $edad$`:` `int`
@@ -496,6 +501,10 @@ T -> O [label = "Determina un conjunto de"]
   - En Java:
 
     `int` $\,edad$
+
+  :::
+
+  ::::
 
 ## Evaluación de expresiones
 
@@ -2163,10 +2172,33 @@ $$
   !PYTHON(count), ya que !PYTHON(count) es un atributo del objeto
   !PYTHON('hola') y no existe fuera de las cadenas.
 
+---
+
+- Aún siendo multiparadigma, el lenguaje Python es, principalmente, un
+  lenguaje **orientado a objetos**.
+
+- De hecho, **todos los datos en Python son objetos** que tienen sus propios
+  atributos (métodos, entre otros) a los que se le puede acceder usando el
+  operador punto (`.`).
+
+- Por ello, en Python los términos «_dato_», «_valor_» y «_objeto_» son
+  sinónimos en la práctica.
+
+- Los números, las cadenas, los módulos, las funciones... todos son objetos.
+
+- Incluso los métodos son objetos, ya que, en realidad, son funciones
+  contenidas dentro de otros objetos, y las funciones son objetos.
+
+- Hasta los tipos (como !PYTHON(int) o !PYTHON(str)) son objetos que tienen sus
+  propios atributos.
+
+- Entraremos a estudiar más en detalle estas características cuando veamos la
+  **programación orientada a objetos**.
+
 ##### Métodos predefinidos sobre cadenas {.unnumbered .unlisted}
 
-- En la documentación podemos encontrar una lista de métodos interesantes que
-  operan sobre cadenas:
+- En la documentación de Python podemos encontrar una lista de métodos
+  interesantes que operan sobre cadenas:
 
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
 
