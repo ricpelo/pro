@@ -2163,4 +2163,11 @@ $$
   !PYTHON(count), ya que !PYTHON(count) es un atributo del objeto
   !PYTHON('hola') y no existe fuera de las cadenas.
 
+##### Métodos predefinidos sobre cadenas {.unnumbered .unlisted}
+
+- En la documentación podemos encontrar una lista de métodos interesantes que
+  operan sobre cadenas:
+
+  [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods){target="\_blank"}
+
 !BIBLIOGRAFIA
