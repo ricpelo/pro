@@ -1071,17 +1071,17 @@ class="title-slide slide level2" data-number="3.3">
 Funciones predefinidas de cadenas</h2>
 <table>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 22%" />
-<col style="width: 29%" />
+<col style="width: 25%" />
 <col style="width: 18%" />
+<col style="width: 39%" />
+<col style="width: 15%" />
 </colgroup>
 <thead>
 <tr>
 <th style="text-align: left;">Función</th>
 <th style="text-align: left;">Descripción</th>
 <th style="text-align: left;">Ejemplo</th>
-<th style="text-align: center;">Resultado</th>
+<th style="text-align: left;">Resultado</th>
 </tr>
 </thead>
 <tbody>
@@ -1091,28 +1091,28 @@ class="math inline">cad</span><code>)</code></td>
 <td style="text-align: left;">Longitud de la cadena</td>
 <td style="text-align: left;"><code
 class="sourceCode python"><span class="bu">len</span>(<span class="st">&#39;hola&#39;</span>)</code></td>
-<td style="text-align: center;"><code
+<td style="text-align: left;"><code
 class="sourceCode python"><span class="dv">4</span></code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>max(</code><span
-class="math inline">n_1(</span><code>,</code> <span
-class="math inline">n_2)^+</span><code>)</code></td>
+class="math inline">s_1(</span><code>,</code> <span
+class="math inline">s_2)^+</span><code>)</code></td>
 <td style="text-align: left;">Valor máximo</td>
 <td style="text-align: left;"><code
-class="sourceCode python"><span class="bu">max</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>)</code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="dv">5</span></code></td>
+class="sourceCode python"><span class="bu">max</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>)</code></td>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="st">&#39;pepe&#39;</span></code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>min(</code><span
-class="math inline">n_1(</span><code>,</code> <span
-class="math inline">n_2)^+</span><code>)</code></td>
+class="math inline">s_1(</span><code>,</code> <span
+class="math inline">s_2)^+</span><code>)</code></td>
 <td style="text-align: left;">Valor mínimo</td>
 <td style="text-align: left;"><code
-class="sourceCode python"><span class="bu">min</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>)</code></td>
-<td style="text-align: center;"><code
-class="sourceCode python"><span class="dv">2</span></code></td>
+class="sourceCode python"><span class="bu">min</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>)</code></td>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="st">&#39;hola&#39;</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1582,8 +1582,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a h
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (b <span class="kw">or</span> c) <span class="op">==</span> (a <span class="kw">and</span> b) <span class="kw">or</span> (a <span class="kw">and</span> c)</span></code></pre></div></li>
 <li><p>Elemento neutro:</p>
 <div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">False</span> <span class="op">==</span> a  <span class="co"># False es el elemento neutro del or</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a  <span class="co"># False es el elemento neutro del and</span></span></code></pre></div></li>
 <li><p>Elemento complementario:</p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">True</span></span>
@@ -1595,13 +1595,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a h
 data-number="5.5">
 <h2 data-number="5.5"><span class="header-section-number">5.5</span>
 Teoremas fundamentales</h2>
-<ol start="6" type="1">
+<ol type="1">
 <li><p>Ley de idempotencia: <span class="math inline">\begin{cases}
 \forall a \in \mathbb{B}: a \lor a = a \\
 \forall a \in \mathbb{B}: a \land a = a
 \end{cases}</span></p></li>
-<li><p>Ley del elemento absorbente: <span
-class="math inline">\begin{cases}
+<li><p>Ley de dominación: <span class="math inline">\begin{cases}
 \forall a \in \mathbb{B}: a \lor V = V \\
 \forall a \in \mathbb{B}: a \land F = F
 \end{cases}</span></p></li>
@@ -1616,8 +1615,8 @@ class="math inline">\begin{cases}
 <li><p>Ley de involución: <span class="math inline">\forall a \in
 \mathbb{B}: \lnot \lnot a = a</span></p></li>
 <li><p>Ley del complemento: <span class="math inline">\begin{cases}
-\lnot V = F \\
-\lnot F = V
+\forall a \in \mathbb{B}: a \lor \lnot a = V \\
+\forall a \in \mathbb{B}: a \land \lnot a = F \\
 \end{cases}</span></p></li>
 <li><p>Leyes de De Morgan: <span class="math inline">\begin{cases}
 \forall a,b \in \mathbb{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b
@@ -1631,12 +1630,12 @@ class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Traducción a Python</h5>
 <div class="columns">
 <div class="column" style="width:50%;">
-<ol start="6" type="1">
+<ol type="1">
 <li><p>Ley de idempotencia:</p>
 <div class="sourceCode" id="cb26"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> a <span class="op">==</span> a</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> a <span class="op">==</span> a</span></code></pre></div></li>
-<li><p>Ley del elemento absorbente:</p>
+<li><p>Ley de dominación:</p>
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> <span class="va">True</span> <span class="op">==</span> <span class="va">True</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">False</span> <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
@@ -1646,7 +1645,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a h
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> <span class="va">True</span> <span class="op">==</span> a</span></code></pre></div></li>
 </ol>
 </div><div class="column" style="width:50%;">
-<ol start="9" type="1">
+<ol start="4" type="1">
 <li><p>Ley de absorción:</p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (a <span class="kw">and</span> b) <span class="op">==</span> a</span>
@@ -1656,12 +1655,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a h
 class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (<span class="kw">not</span> a) <span class="op">==</span> a</span></code></pre></div></li>
 <li><p>Ley del complemento:</p>
 <div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> <span class="va">True</span> <span class="op">==</span> <span class="va">False</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> <span class="va">False</span> <span class="op">==</span> <span class="va">True</span></span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>a <span class="kw">or</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>a <span class="kw">and</span> (<span class="kw">not</span> a) <span class="op">==</span> <span class="va">False</span></span></code></pre></div></li>
 </ol>
 </div>
 </div>
-<ol start="12" type="1">
+<ol start="7" type="1">
 <li><p>Leyes de De Morgan:</p>
 <div class="sourceCode" id="cb32"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (a <span class="kw">or</span> b) <span class="op">==</span> (<span class="kw">not</span> a) <span class="kw">and</span> (<span class="kw">not</span> b)</span>

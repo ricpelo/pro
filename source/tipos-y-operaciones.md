@@ -584,15 +584,15 @@ Función                       Descripción           Ejemplo                   
 
 ## Funciones predefinidas de cadenas
 
---------------------------------------------------------------------------------------------------
-Función                       Descripción           Ejemplo                       Resultado
------------------------------ --------------------- ---------------------------- -----------------
-`len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))          !PYTHON(4)
-
-`max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))         !PYTHON(5)
-
-`min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))         !PYTHON(2)
---------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+Función                       Descripción           Ejemplo                                       Resultado
+----------------------------- --------------------- --------------------------------------------- -----------------
+`len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))                          !PYTHON(4)
+                                                                                               
+`max(`$s_1($`,` $s_2)^+$`)`   Valor máximo          !PYTHON(max('hola', 'pepe'))                  !PYTHON('pepe')
+                                                                                               
+`min(`$s_1($`,` $s_2)^+$`)`   Valor mínimo          !PYTHON(min('hola', 'pepe'))                  !PYTHON('hola')
+-------------------------------------------------------------------------------------------------------------------
 
 ## Métodos predefinidos de cadenas
 
@@ -897,8 +897,8 @@ de Boole.
    ```
 4. Elemento neutro:
    ```python
-   a or False == a
-   a and True == a
+   a or False == a  # False es el elemento neutro del or
+   a and True == a  # False es el elemento neutro del and
    ```
 
 5. Elemento complementario:
@@ -909,44 +909,44 @@ de Boole.
 
 ## Teoremas fundamentales
 
-6. Ley de idempotencia:
+1. Ley de idempotencia:
    $\begin{cases}
     \forall a \in \mathbb{B}: a \lor a = a \\
     \forall a \in \mathbb{B}: a \land a = a
     \end{cases}$
 
-7. Ley del elemento absorbente:
+2. Ley de dominación:
    $\begin{cases}
     \forall a \in \mathbb{B}: a \lor V = V \\
     \forall a \in \mathbb{B}: a \land F = F
     \end{cases}$
 
-8. Ley de identidad:
+3. Ley de identidad:
    $\begin{cases}
     \forall a \in \mathbb{B}: a \lor F = a \\
     \forall a \in \mathbb{B}: a \land V = a
     \end{cases}$
 
-9. Ley de absorción:
+4. Ley de absorción:
    $\begin{cases}
     \forall a \in \mathbb{B}: a \lor (a \land b) = a \\
     \forall a \in \mathbb{B}: a \land (a \lor b) = a
     \end{cases}$
 
-10. Ley de involución:
-    $\forall a \in \mathbb{B}: \lnot \lnot a = a$
+5. Ley de involución:
+   $\forall a \in \mathbb{B}: \lnot \lnot a = a$
 
-11. Ley del complemento:
-    $\begin{cases}
-     \lnot V = F \\
-     \lnot F = V
-     \end{cases}$
+6. Ley del complemento:
+   $\begin{cases}
+    \forall a \in \mathbb{B}: a \lor \lnot a = V \\
+    \forall a \in \mathbb{B}: a \land \lnot a = F \\
+    \end{cases}$
 
-12. Leyes de De Morgan:
-    $\begin{cases}
-     \forall a,b \in \mathbb{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b \\
-     \forall a,b \in \mathbb{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
-     \end{cases}$
+7. Leyes de De Morgan:
+   $\begin{cases}
+    \forall a,b \in \mathbb{B}: \lnot ({a \lor b}) = \lnot a \land \lnot b \\
+    \forall a,b \in \mathbb{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
+    \end{cases}$
 
 ##### Traducción a Python {.unnumbered .unlisted}
 
@@ -954,18 +954,18 @@ de Boole.
 
 ::: {.column width=50%}
 
-6. Ley de idempotencia:
+1. Ley de idempotencia:
    ```python
    a or a == a
    a and a == a
    ```
 
-7. Ley del elemento absorbente:
+2. Ley de dominación:
    ```python
    a or True == True
    a and False == False
    ```
-8. Ley de identidad:
+3. Ley de identidad:
    ```python
    a or False == a
    a and True == a
@@ -975,35 +975,32 @@ de Boole.
 
 ::: {.column width=50%}
 
-9. Ley de absorción:
+4. Ley de absorción:
    ```python
    a or (a and b) == a
    a and (a or b) == a
    ```
 
-10. Ley de involución:
+5. Ley de involución:
+   ```python
+   not (not a) == a
+   ```
 
-    ```python
-    not (not a) == a
-    ```
-
-11. Ley del complemento:
-
-    ```python
-    not True == False
-    not False == True
-    ```
+6. Ley del complemento:
+   ```python
+   a or (not a) == True
+   a and (not a) == False
+   ```
 
 :::
 
 ::::
 
-12. Leyes de De Morgan:
-
-    ```python
-    not (a or b) == (not a) and (not b)
-    not (a and b) == (not a) or (not b)
-    ```
+7. Leyes de De Morgan:
+   ```python
+   not (a or b) == (not a) and (not b)
+   not (a and b) == (not a) or (not b)
+   ```
 
 ## Lógica binaria
 
