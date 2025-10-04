@@ -1002,13 +1002,13 @@ de Boole.
    not (a and b) == (not a) or (not b)
    ```
 
-## Lógica binaria
+## Notación algebraica
 
 - Otra forma de representar los operadores y los valores del álgebra de Boole
-  es mediante la notación de la **lógica binaria**.
+  es mediante la **notación algebraica**.
 
-- Según la notación de la lógica binaria, los diferentes valores y operaciones
-  del álgebra de Boole se representan de la siguiente forma:
+- Según la notación algebraica, los diferentes valores y operaciones del
+  álgebra de Boole se representan de la siguiente forma:
 
   ------------------------------------------------------
   Valor u operación                 Notación
@@ -1039,7 +1039,7 @@ de Boole.
   $$\overline{A + B} = \overline{A} \cdot \overline{B}$$
   $$\overline{AB} = \overline{A} + \overline{B}$$
 
-- Esta notación se emplea principalmente en el diseño de circuitos digitales.
+- Esta notación se emplea mucho en el diseño de circuitos digitales.
 
 ## Equivalencia lógica
 
