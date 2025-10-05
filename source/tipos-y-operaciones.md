@@ -605,7 +605,7 @@ Función                       Descripción           Ejemplo                   
 
 ## El tipo *función*
 
-- En programación funcional, **las funciones también son datos**:
+- En programación funcional, **las funciones también son valores**:
 
   ```python
   >>> type(max)
@@ -616,8 +616,10 @@ Función                       Descripción           Ejemplo                   
   **llamarla**, que sintácticamente se representa poniendo paréntesis `(` `)`
   justo a continuación de la función.
 
-  Dentro de los paréntesis se ponen los _argumentos_ que se aplican a la
+- Dentro de los paréntesis se ponen los _argumentos_ que se aplican a la
   función en esa llamada (si es que los necesita), separados por comas.
+
+- Si la función no tiene argumentos, se dejan los paréntesis vacíos: `()`.
 
 ---
 
