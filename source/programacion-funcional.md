@@ -603,30 +603,32 @@ maximo -> lambda
 
 ## Espacios de nombres
 
-- Ciertas estructuras o construcciones sintácticas del programa definen lo que
-  se denomina **espacios de nombres**.
+- Ciertas estructuras o construcciones sintácticas del programa definen
+  **espacios de nombres**.
 
 - Un **espacio de nombres** (del inglés, _namespace_) es una correspondencia
   entre nombres y valores; es decir, es un **conjunto de ligaduras**.
 
-- Su función es, por tanto, **almacenar ligaduras y permitir varias ligaduras
-  con el mismo nombre** en distintas partes del programa.
+- Su función es, por tanto, **almacenar ligaduras**.
 
 - En un espacio de nombres, **un identificador sólo puede tener como máximo una
   ligadura**. En cambio, el mismo identificador puede estar ligado a diferentes
   valores en diferentes espacios de nombres.
 
-- Por eso decimos que una ligadura es **local** al espacio de nombres donde se
-  almacena, o que tiene un **almacenamiento local** a ese espacio de nombres.
+- Como un programa puede tener varios espacios de nombres, es posible tener
+  varias ligaduras diferentes con el mismo nombre en distintas partes del
+  programa.
+
+- Decimos que una ligadura es **local** al espacio de nombres donde se
+  almacena, o que **su almacenamiento es local** a ese espacio de nombres.
 
 - Los espacios de nombres pueden estar **_anidados_**, es decir, que puede
-  haber espacios de nombres dentro de otros espacios de nombres, ya que también
-  pueden estarlo las estructuras sintácticas que los definen.
+  haber espacios de nombres dentro de otros espacios de nombres.
 
 ---
 
-- Durante la ejecución de un programa se pueden ir creando ciertas estructuras
-  en memoria que representan _espacios de nombres_.
+- Durante la ejecución de un programa se pueden ir creando en la memoria
+  ciertas estructuras de datos que representan _espacios de nombres_.
 
   En Python, estas estructuras pueden ser:
 
@@ -642,14 +644,14 @@ maximo -> lambda
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Los marcos y los objetos son los únicos espacios de nombres que existen en
-Python.
+En resumen: los **marcos** y los **objetos** son los únicos espacios de nombres
+que existen en Python.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - Un espacio de nombres muy importante en Python es el que incluye las
-  definiciones predefinidas del lenguaje (funciones !PYTHON(max) o
+  **definiciones predefinidas del lenguaje** (funciones como !PYTHON(max) o
   !PYTHON(sum), tipos como !PYTHON(str) o !PYTHON(int), etc.)
 
 - Ese espacio de nombres se denomina !PYTHON(__builtins__) y viene implementado
