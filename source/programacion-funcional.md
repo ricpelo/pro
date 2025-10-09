@@ -94,13 +94,13 @@ nocite: |
 ---
 
 - En consecuencia, un requisito para conseguir la transparencia referencial es
-  que las expresiones no cambien de valor dependiendo de cuándo se evalúen.
+  que el valor de una expresión no dependa de cuándo se evalúe.
 
-- Es decir: una expresión en programación funcional siempre debe tener el mismo
-  valor.
+- Es decir: **una expresión en programación funcional siempre debe tener el
+  mismo valor**.
 
 - Por tanto, en programación funcional no se permite que la misma expresión,
-  evaluada en dos momentos diferentes, devuelva como resultado dos valores
+  evaluada en dos momentos diferentes, dé como resultado dos valores
   diferentes.
 
 - Asimismo, el valor de una expresión tampoco debe depender del orden en el que
@@ -110,8 +110,8 @@ nocite: |
 
 - Los **efectos laterales** son aquellos que provocan un cambio de estado
   irremediable en el sistema, que además son observables fuera del contexto
-  donde se producen y que puede dar lugar a que una misma expresión tenga dos
-  valores según el momento en el que se evalúe.
+  donde se producen y que puede dar lugar a que una misma expresión tenga
+  valores diferentes según el momento en el que se evalúe.
 
 - Por ejemplo, las **instrucciones de E/S** (entrada y salida) provocan efectos
   laterales, ya que:
