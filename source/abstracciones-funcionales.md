@@ -423,8 +423,8 @@ nocite: |
 - Un **ámbito léxico** (también llamado **ámbito estático**) es una porción del
   código fuente de un programa.
 
-- Decimos que **ciertas construcciones sintácticas determinan ámbitos
-  léxicos**.
+- Decimos que **ciertas construcciones sintácticas _determinan_ ámbitos
+  léxicos**, o que **_introducen_ un nuevo ámbito léxico**.
 
 - Cuando una construcción determina un ámbito léxico, **la sintaxis del
   lenguaje establece dónde empieza y acaba** ese ámbito léxico en el código
@@ -506,7 +506,7 @@ nocite: |
 
 ::: column
 
-!IMGP(estructuras-que-se-cruzan.!EXT)(Estas no son estructuras)(width=35%)(width=25%)
+!IMGP(estructuras-que-se-cruzan.!EXT)(Estas no son estructuras, y por tanto no pueden ser ámbitos)(width=35%)(width=25%)
 
 :::
 
