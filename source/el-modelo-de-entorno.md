@@ -49,9 +49,6 @@ nocite: |
   momento en el que se calcule**, es decir, de por dónde va la ejecución del
   programa.
 
-- Más concretamente: depende de qué _scripts_, funciones, métodos y
-  definiciones se han ejecutado hasta ahora.
-
 - Por tanto, el entorno depende de qué partes del programa se han ido
   ejecutando hasta llegar a la instrucción actual.
 
@@ -137,10 +134,10 @@ nocite: |
   nombres_), y un entorno es una secuencia de marcos.
 
 - Los marcos se van creando y destruyendo a medida que se van ejecutando y
-  terminando de ejecutar ciertas partes del programa (_scripts_, funciones o
-  métodos).
+  terminando de ejecutar ciertas partes del programa: _scripts_, funciones o
+  métodos (que son un caso particular de función).
 
-- Una expresión lambda representa una función.
+- Una expresión lambda también es una función.
 
 - Cuando se llama a una función, se crea un nuevo marco que contiene las
   ligaduras que ligan a los parámetros con los valores de esos argumentos.
@@ -148,7 +145,7 @@ nocite: |
 ---
 
 - El cuerpo de una expresión lambda determina su propio ámbito, de forma que
-  las ligaduras que ligan a los parámetros con los argumentos se definen dentro
+  las ligaduras que ligan a los parámetros con los argumentos se crean dentro
   de ese ámbito y son, por tanto, _locales_ a ese ámbito.
 
 - Es decir: los parámetros (y las ligaduras entre los parámetros y los
@@ -179,9 +176,9 @@ nocite: |
 - Se va formando así una **secuencia de marcos** que representa el **entorno**
   del programa allí donde se está ejecutando la instrucción actual.
 
-- A partir de ahora ya no vamos a tener un único marco (el _marco global_) sino
-  que tendremos, además, al menos uno más cada vez que se llame a una expresión
-  lambda y mientras dure la ejecución de la misma.
+- Así que no tendremos un único marco (el _marco global_) sino que tendremos,
+  además, al menos uno más cada vez que se llame a una expresión lambda y
+  mientras dure la ejecución de la misma.
 
 - El **ámbito** es un concepto _estático_: es algo que existe y se reconoce
   simplemente leyendo el código del programa, sin tener que ejecutarlo.

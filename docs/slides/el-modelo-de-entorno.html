@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -246,8 +247,6 @@ momento.</p></li>
 <strong><em>dinámico</em></strong> que <strong>depende del momento en el
 que se calcule</strong>, es decir, de por dónde va la ejecución del
 programa.</p></li>
-<li><p>Más concretamente: depende de qué <em>scripts</em>, funciones,
-métodos y definiciones se han ejecutado hasta ahora.</p></li>
 <li><p>Por tanto, el entorno depende de qué partes del programa se han
 ido ejecutando hasta llegar a la instrucción actual.</p></li>
 <li><p>El entorno <strong>siempre contendrá</strong>, al menos, un
@@ -328,9 +327,10 @@ objetos).</p></li>
 <em>espacio de nombres</em>), y un entorno es una secuencia de
 marcos.</p></li>
 <li><p>Los marcos se van creando y destruyendo a medida que se van
-ejecutando y terminando de ejecutar ciertas partes del programa
-(<em>scripts</em>, funciones o métodos).</p></li>
-<li><p>Una expresión lambda representa una función.</p></li>
+ejecutando y terminando de ejecutar ciertas partes del programa:
+<em>scripts</em>, funciones o métodos (que son un caso particular de
+función).</p></li>
+<li><p>Una expresión lambda también es una función.</p></li>
 <li><p>Cuando se llama a una función, se crea un nuevo marco que
 contiene las ligaduras que ligan a los parámetros con los valores de
 esos argumentos.</p></li>
@@ -341,7 +341,7 @@ esos argumentos.</p></li>
 <ul>
 <li><p>El cuerpo de una expresión lambda determina su propio ámbito, de
 forma que las ligaduras que ligan a los parámetros con los argumentos se
-definen dentro de ese ámbito y son, por tanto, <em>locales</em> a ese
+crean dentro de ese ámbito y son, por tanto, <em>locales</em> a ese
 ámbito.</p></li>
 <li><p>Es decir: los parámetros (y las ligaduras entre los parámetros y
 los argumentos) tienen <strong>un ámbito local</strong> al cuerpo de la
@@ -374,10 +374,9 @@ hasta ese momento había sido el marco actual, en cadena.</p></li>
 <li><p>Se va formando así una <strong>secuencia de marcos</strong> que
 representa el <strong>entorno</strong> del programa allí donde se está
 ejecutando la instrucción actual.</p></li>
-<li><p>A partir de ahora ya no vamos a tener un único marco (el
-<em>marco global</em>) sino que tendremos, además, al menos uno más cada
-vez que se llame a una expresión lambda y mientras dure la ejecución de
-la misma.</p></li>
+<li><p>Así que no tendremos un único marco (el <em>marco global</em>)
+sino que tendremos, además, al menos uno más cada vez que se llame a una
+expresión lambda y mientras dure la ejecución de la misma.</p></li>
 <li><p>El <strong>ámbito</strong> es un concepto <em>estático</em>: es
 algo que existe y se reconoce simplemente leyendo el código del
 programa, sin tener que ejecutarlo.</p></li>
