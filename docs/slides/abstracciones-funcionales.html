@@ -823,27 +823,26 @@ style="width:100.0%" /></p>
 </section>
 
 
-<section id="ámbito-de-una-definición-y-de-una-ligadura"
+<section id="ámbito-de-una-instrucción-y-de-una-ligadura"
 class="title-slide slide level2" data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span>
-Ámbito de una definición y de una ligadura</h2>
+Ámbito de una instrucción y de una ligadura</h2>
 <ul>
-<li><p>El <strong>ámbito de una definición</strong> es el ámbito actual
-de esa definición, es decir, el ámbito más interno donde aparece esa
-definición.</p></li>
-<li><p>Por extensión, llamamos <strong>ámbito de una ligadura</strong>
-al ámbito de la definición que, al ejecutarse, creará la ligadura (es
-decir, el ámbito más interno donde aparece la definición que, al
-ejecutarse, creará la ligadura en tiempo de ejecución).</p></li>
-<li><p>En la práctica, es lo mismo hablar del «ámbito de una definición»
-que del «ámbito de la ligadura que se creará al ejecutar la definición»,
-ya que son la misma cosa.</p></li>
-<li><p>Decimos que la <em>definición</em> (y la <em>ligadura</em>
-correspondiente que se creará al ejecutar esa definición) es
+<li><p>El <strong>ámbito de una instrucción</strong> es el ámbito actual
+de esa instrucción, es decir, el ámbito más interno donde aparece esa
+instrucción.</p></li>
+<li><p>El <strong>ámbito de una ligadura</strong> es el ámbito de la
+instrucción que, al ejecutarse, creará la ligadura (es decir, el ámbito
+más interno donde aparece la instrucción que, al ejecutarse, creará la
+ligadura en tiempo de ejecución).</p></li>
+<li><p>Si la instrucción que crea la ligadura es una definición,
+hablamos de «ámbito de una definición».</p></li>
+<li><p>Decimos que la <em>instrucción</em> (y la <em>ligadura</em>
+correspondiente que se creará al ejecutar esa instrucción) es
 <strong>local</strong> a su ámbito.</p></li>
 <li><p>Si ese ámbito es el ámbito <em>global</em>, decimos que la
-<em>definición</em> (y la <em>ligadura</em> que se creará al ejecutar
-esa definición) es <strong>global</strong>.</p></li>
+<em>instrucción</em> (y la <em>ligadura</em> que se creará al ejecutar
+esa instrucción) es <strong>global</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.1">
@@ -871,7 +870,7 @@ globales</strong>.</p></li>
 
 <ul>
 <li><p>Como estamos usando un lenguaje de programación que trabaja con
-<em>ámbitos léxicos</em>, <strong>el ámbito de una definición siempre
+<em>ámbitos léxicos</em>, <strong>el ámbito de una instrucción siempre
 vendrá determinado por una <em>construcción sintáctica</em></strong> del
 lenguaje.</p></li>
 <li><p>Por tanto:</p>
@@ -879,7 +878,7 @@ lenguaje.</p></li>
 <li><p>Sus <em>límites</em> vienen marcados únicamente por la
 <em>sintaxis</em> de la construcción que determina el ámbito de esa
 definición.</p></li>
-<li><p>El ámbito de la definición se puede determinar simplemente
+<li><p>El ámbito de la instrucción se puede determinar simplemente
 leyendo el código fuente del programa, observando dónde empieza y dónde
 acaba esa construcción, sin tener que ejecutarlo.</p>
 <p>Es decir, que se puede determinar de forma
@@ -1192,15 +1191,14 @@ sólo vienen determinados por la sintaxis del lenguaje, ya que ciertas
 construcciones sintácticas determinan su propio ámbito.</p>
 </div>
 <div class="caja">
-<p><strong>Ámbito de una definición:</strong></p>
-<p>El ámbito actual de la definición; es decir: el ámbito más interno
-donde aparece la definición.</p>
+<p><strong>Ámbito de una instrucción:</strong></p>
+<p>El ámbito actual de la instrucción; es decir: el ámbito más interno
+donde aparece la instrucción.</p>
 </div>
 <div class="caja">
 <p><strong>Ámbito de una ligadura:</strong></p>
 <p>El ámbito de la instrucción que creará la ligadura en tiempo de
-ejecución. Por ejemplo, si la instrucción es una definición, se
-corresponde con el ámbito de la definición.</p>
+ejecución.</p>
 </div>
 </section>
 <section class="slide level5" data-number="2.2.3.1.1">
@@ -1311,8 +1309,8 @@ data-number="2.4">
 <h2 data-number="2.4"><span class="header-section-number">2.4</span>
 Ámbito de un parámetro</h2>
 <ul>
-<li><p><strong>El cuerpo de la expresión lambda determina un
-ámbito.</strong></p></li>
+<li><p>Sabemos que el cuerpo de la expresión lambda determina un
+ámbito.</p></li>
 <li><p>Por ejemplo, supongamos la siguiente llamada a una expresión
 lambda:</p>
 <div class="sourceCode" id="cb33"><pre
@@ -1337,8 +1335,8 @@ siguientes definiciones dentro del ámbito de la expresión lambda:</p>
 <div class="sourceCode" id="cb34"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">3</span></span></code></pre></div></li>
-<li><p>Las ligaduras que crean esas definiciones <strong>se almacenan en
-el marco de la llamada a la expresión lambda</strong>.</p></li>
+<li><p>Las ligaduras creadas por esas definiciones <strong>se almacenan
+en el marco de la llamada a la expresión lambda</strong>.</p></li>
 <li><p>Ese marco se eliminará de la memoria al salir del ámbito de la
 expresión lambda, es decir, cuando se termine de ejecutar el cuerpo de
 la expresión lambda al finalizar la llamada a la misma.</p>
@@ -1350,7 +1348,7 @@ marco que las almacena.</p></li>
 
 <ul>
 <li><p>La próxima vez que se llame a la expresión lambda, se volverán a
-ligar sus parámetros con los argumentos que haya en esa
+ligar sus parámetros, esta vez con los argumentos que haya en esa
 llamada.</p></li>
 <li><p>Por ejemplo, supongamos que tenemos esta situación:</p>
 <div class="sourceCode" id="cb35"><pre
@@ -1358,7 +1356,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a h
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> suma(<span class="dv">4</span>, <span class="dv">3</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> suma(<span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
 <li><p>En la primera llamada, se entrará en el ámbito determinado por el
-cuerpo la expresión lambda, se creará el marco que representa a esa
+cuerpo de la expresión lambda, se creará el marco que representa a esa
 llamada, y se ejecutarán las siguientes definiciones dentro del
 ámbito:</p>
 <div class="sourceCode" id="cb36"><pre
@@ -1478,7 +1476,7 @@ modular</em>.</p></li>
 los nombres de los parámetros ya han sido utilizados en otras partes del
 programa.</p></li>
 <li><p>Igualmente, nos permite crear programas sin preocuparnos de si
-estamos usando nombres que ya han sido usadas en el interior de alguna
+estamos usando nombres que ya han sido usados en el interior de alguna
 de las funciones del programa.</p></li>
 </ul>
 </section>
@@ -1489,7 +1487,7 @@ de las funciones del programa.</p></li>
 <strong><em>name clash</em></strong> (<em>conflicto de nombres</em> o
 <em>choque de nombres</em>), que es el problema que se produce cuando
 usamos el mismo nombre para varias cosas diferentes y que impide que se
-puedan acceder a todas al mismo tiempo.</p></li>
+puedan usar todas al mismo tiempo.</p></li>
 <li><p>Lo que impide el <em>name clash</em> son dos cosas:</p>
 <ul>
 <li><p>Los <em>ámbitos</em> hacen que los nombres sólo sean visibles en
@@ -2191,7 +2189,7 @@ class="sourceCode python"><span class="dv">3</span></code> obtenemos un
 valor que depende no sólo de los valores de <code
 class="sourceCode python">x</code> e <code
 class="sourceCode python">y</code> sino también del valor de <code
-class="sourceCode python">z</code> en el entorno:</p>
+class="sourceCode python">z</code> fuera de la función:</p>
 <div class="sourceCode" id="cb51"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> prueba <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">9</span></span>
@@ -2213,8 +2211,8 @@ class="sourceCode python">suma</code>) que no aparece en la lista de
 parámetros de la expresión lambda ligada a <code
 class="sourceCode python">suma3</code>.</p>
 <p>En consecuencia, el valor de dicha expresión lambda dependerá de lo
-que valga <code class="sourceCode python">suma</code> en el entorno
-actual.</p></li>
+que valga <code class="sourceCode python">suma</code> fuera de <code
+class="sourceCode python">suma3</code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.2">

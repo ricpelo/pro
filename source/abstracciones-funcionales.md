@@ -464,8 +464,8 @@ nocite: |
   que, cada vez que creamos una expresión lambda, estamos introduciendo un
   nuevo ámbito en el código fuente de nuestro programa.
 
-- En concreto, el ámbito que determina una expresión lambda viene
-  delimitado por su **cuerpo**.
+- En concreto, el ámbito que determina una expresión lambda viene delimitado
+  por su **cuerpo**.
 
 ---
 
@@ -572,25 +572,24 @@ nocite: |
 
   !IMGP(cuatro-ambitos.png)()(width=100%)
 
-## Ámbito de una definición y de una ligadura
+## Ámbito de una instrucción y de una ligadura
 
-- El **ámbito de una definición** es el ámbito actual de esa definición, es
-  decir, el ámbito más interno donde aparece esa definición.
+- El **ámbito de una instrucción** es el ámbito actual de esa instrucción, es
+  decir, el ámbito más interno donde aparece esa instrucción.
 
-- Por extensión, llamamos **ámbito de una ligadura** al ámbito de la definición
-  que, al ejecutarse, creará la ligadura (es decir, el ámbito más interno donde
-  aparece la definición que, al ejecutarse, creará la ligadura en tiempo de
+- El **ámbito de una ligadura** es el ámbito de la instrucción que, al
+  ejecutarse, creará la ligadura (es decir, el ámbito más interno donde aparece
+  la instrucción que, al ejecutarse, creará la ligadura en tiempo de
   ejecución).
 
-- En la práctica, es lo mismo hablar del «ámbito de una definición» que del
-  «ámbito de la ligadura que se creará al ejecutar la definición», ya que son
-  la misma cosa.
+- Si la instrucción que crea la ligadura es una definición, hablamos de «ámbito
+  de una definición».
 
-- Decimos que la _definición_ (y la _ligadura_ correspondiente que se creará al
-  ejecutar esa definición) es **local** a su ámbito.
+- Decimos que la _instrucción_ (y la _ligadura_ correspondiente que se creará
+  al ejecutar esa instrucción) es **local** a su ámbito.
 
-- Si ese ámbito es el ámbito _global_, decimos que la _definición_ (y la
-  _ligadura_ que se creará al ejecutar esa definición) es **global**.
+- Si ese ámbito es el ámbito _global_, decimos que la _instrucción_ (y la
+  _ligadura_ que se creará al ejecutar esa instrucción) es **global**.
 
 ---
 
@@ -611,7 +610,7 @@ nocite: |
 ---
 
 - Como estamos usando un lenguaje de programación que trabaja con _ámbitos
-  léxicos_, **el ámbito de una definición siempre vendrá determinado por una
+  léxicos_, **el ámbito de una instrucción siempre vendrá determinado por una
   _construcción sintáctica_** del lenguaje.
 
 - Por tanto:
@@ -619,7 +618,7 @@ nocite: |
   - Sus _límites_ vienen marcados únicamente por la _sintaxis_ de la
     construcción que determina el ámbito de esa definición.
 
-  - El ámbito de la definición se puede determinar simplemente leyendo el
+  - El ámbito de la instrucción se puede determinar simplemente leyendo el
     código fuente del programa, observando dónde empieza y dónde acaba esa
     construcción, sin tener que ejecutarlo.
 
@@ -921,19 +920,17 @@ construcciones sintácticas determinan su propio ámbito.
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Ámbito de una definición:**
+**Ámbito de una instrucción:**
 
-El ámbito actual de la definición; es decir: el ámbito más interno donde
-aparece la definición.
+El ámbito actual de la instrucción; es decir: el ámbito más interno donde
+aparece la instrucción.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Ámbito de una ligadura:**
 
-El ámbito de la instrucción que creará la ligadura en tiempo de ejecución. Por
-ejemplo, si la instrucción es una definición, se corresponde con el ámbito de
-la definición.
+El ámbito de la instrucción que creará la ligadura en tiempo de ejecución.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1042,7 +1039,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 ## Ámbito de un parámetro
 
-- **El cuerpo de la expresión lambda determina un ámbito.**
+- Sabemos que el cuerpo de la expresión lambda determina un ámbito.
 
 - Por ejemplo, supongamos la siguiente llamada a una expresión lambda:
 
@@ -1072,7 +1069,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   y = 3
   ```
 
-- Las ligaduras que crean esas definiciones **se almacenan en el marco de la
+- Las ligaduras creadas por esas definiciones **se almacenan en el marco de la
   llamada a la expresión lambda**.
 
 - Ese marco se eliminará de la memoria al salir del ámbito de la expresión
@@ -1085,7 +1082,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 ---
 
 - La próxima vez que se llame a la expresión lambda, se volverán a ligar sus
-  parámetros con los argumentos que haya en esa llamada.
+  parámetros, esta vez con los argumentos que haya en esa llamada.
 
 - Por ejemplo, supongamos que tenemos esta situación:
 
@@ -1095,8 +1092,8 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   b = suma(8, 9)
   ```
 
-- En la primera llamada, se entrará en el ámbito determinado por el cuerpo la
-  expresión lambda, se creará el marco que representa a esa llamada, y se
+- En la primera llamada, se entrará en el ámbito determinado por el cuerpo de
+  la expresión lambda, se creará el marco que representa a esa llamada, y se
   ejecutarán las siguientes definiciones dentro del ámbito:
 
   ```python
@@ -1215,7 +1212,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   de los parámetros ya han sido utilizados en otras partes del programa.
 
 - Igualmente, nos permite crear programas sin preocuparnos de si estamos usando
-  nombres que ya han sido usadas en el interior de alguna de las funciones del
+  nombres que ya han sido usados en el interior de alguna de las funciones del
   programa.
 
 ---
@@ -1223,7 +1220,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - De lo contrario, se podría provocar lo que se conoce como **_name clash_**
   (_conflicto de nombres_ o _choque de nombres_), que es el problema que se
   produce cuando usamos el mismo nombre para varias cosas diferentes y que
-  impide que se puedan acceder a todas al mismo tiempo.
+  impide que se puedan usar todas al mismo tiempo.
 
 - Lo que impide el _name clash_ son dos cosas:
 
@@ -1863,7 +1860,7 @@ cg [label = "(caso general)"]
   contiene un identificador libre (!PYTHON{z}) y, por tanto, cuando la
   aplicamos a los argumentos !PYTHON(4) y !PYTHON(3) obtenemos un valor que
   depende no sólo de los valores de !PYTHON(x) e !PYTHON(y) sino también del
-  valor de !PYTHON(z) en el entorno:
+  valor de !PYTHON(z) fuera de la función:
 
   ```python
   >>> prueba = lambda x, y: x + y + z
@@ -1887,7 +1884,7 @@ cg [label = "(caso general)"]
   de parámetros de la expresión lambda ligada a !PYTHON(suma3).
 
   En consecuencia, el valor de dicha expresión lambda dependerá de lo que valga
-  !PYTHON(suma) en el entorno actual.
+  !PYTHON(suma) fuera de !PYTHON(suma3).
 
 ---
 
