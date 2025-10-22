@@ -149,8 +149,6 @@ author:
    dígitos que tiene un entero. Usar además la indicación del ejercicio
    anterior.
 
-   \newpage
-
 #. La función `par_positivo` determina si un número entero positivo es
    par:
 
