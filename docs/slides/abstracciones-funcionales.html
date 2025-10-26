@@ -643,9 +643,95 @@ data-number="2">
 Abstracciones funcionales</h1>
 
 </section>
-<section id="las-funciones-como-abstracciones"
+<section id="encapsulación-y-cajas-negras"
 class="title-slide slide level2" data-number="2.1">
-<h2 data-number="2.1"><span class="header-section-number">2.1</span> Las
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+Encapsulación y cajas negras</h2>
+<ul>
+<li><p><strong>Encapsular</strong> es encerrar varios elementos juntos
+dentro una <strong><em>cápsula</em></strong> que se puede manipular como
+una sola unidad, de forma que parte de lo que hay dentro queda visible y
+accesible desde el exterior, mientras que el resto queda oculto e
+inaccesible en el interior.</p></li>
+<li><p>La <strong>encapsulación</strong> es el mecanismo que
+proporcionan los lenguajes de programación para que el programador pueda
+encapsular elementos de un programa, y puede verse al mismo tiempo como
+un mecanismo de <em>agrupamiento</em> y como un mecanismo de de
+<em>protección</em>.</p></li>
+<li><p>La membrana de la cápsula separa el exterior del interior de la
+misma, y es una membrana <em>permeable</em> porque permite exponer los
+elementos de la cápsula que son visibles y accesibles desde fuera de
+ella.</p></li>
+<li><p>La cápsula tiene un espacio de nombres local que guarda las las
+ligaduras que van dentro de la cápsula y que previenen el <em>name
+clash</em>, haciendo que varias cápsulas puedan contener elementos
+internos con el mismo nombre sin que haya conflictos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.1">
+
+<ul>
+<li><p>Una <strong>caja negra</strong> es una cápsula que expone
+justamente aquello que es necesario conocer para poder usarla (el
+<em>qué</em> hace) y oculta todos los demás detalles internos de
+funcionamiento (el <em>cómo</em> lo hace).</p></li>
+<li><p>La «tapa» de la caja negra es precisamente la barrera de
+separación entre el qué hace y el cómo lo hace.</p></li>
+<li><p><strong>Abstraer</strong> es quedarse con la idea esencial de
+aquello que se está estudiando; el producto resultante de ese proceso se
+llama <em>abstracción</em>.</p></li>
+<li><p>Por tanto, la <strong>abstracción</strong>:</p>
+<ul>
+<li><p>Como <em>acción</em>, es el proceso mental que consiste en
+centrarse en lo que es importante y esencial en un determinado momento e
+ignorar los detalles que en ese momento no resultan
+importantes.</p></li>
+<li><p>Como <em>producto</em>, es una caja negra que contiene un
+mecanismo más o menos complejo y a la que se le da un nombre. De esta
+forma, podemos referirnos a todo el mecanismo simplemente usando ese
+nombre sin tener que conocer su composición interna ni sus detalles
+internos de funcionamiento.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.2">
+
+<ul>
+<li><p>Por tanto, para usar la abstracción nos bastará con conocer su
+<em>nombre</em> y saber <em>qué hace</em>, sin necesidad de saber
+<em>cómo lo hace</em> ni qué elementos la forman
+<em>internamente</em>.</p></li>
+<li><p>En consecuencia, las abstracciones están <em>encapsuladas</em>,
+pero no de cualquier manera, sino de forma que:</p>
+<ul>
+<li><p>lo que queda visible desde el exterior de la cápsula es <em>qué
+hace la abstracción</em>, y</p></li>
+<li><p>lo que se oculta en el interior es <em>cómo lo
+hace</em>.</p></li>
+</ul></li>
+<li><p>Es decir: <strong>las abstracciones son <em>cajas
+negras</em></strong>.</p></li>
+<li><p>Por tanto, podemos definir una caja negra como una cápsula que
+representa una abstracción.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.3">
+
+<ul>
+<li><p>Creamos abstracciones para:</p>
+<ul>
+<li><p>Controlar la complejidad.</p></li>
+<li><p>Expresar conceptos abstractos.</p></li>
+<li><p>Evitar repeticiones de código.</p></li>
+<li><p>Crear casos generales a partir de patrones que se
+repiten.</p></li>
+</ul></li>
+</ul>
+</section>
+
+<section id="las-funciones-como-abstracciones"
+class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Las
 funciones como abstracciones</h2>
 <ul>
 <li><p>Recordemos la definición de la función <code
@@ -675,7 +761,7 @@ class="sourceCode python">area</code>, para considerarlos más tarde si
 hiciera falta.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.0.0.1">
+<section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
 <li><p>De hecho, por lo que respecta a <code
@@ -699,84 +785,14 @@ para usar la función no debe ser necesario conocer esos
 detalles.</p></li>
 </ul>
 </section>
-<section id="encapsulación-y-cajas-negras"
-class="title-slide slide level3" data-number="2.1.1">
-<h3 data-number="2.1.1"><span class="header-section-number">2.1.1</span>
-Encapsulación y cajas negras</h3>
+<section id="control-de-la-complejidad" class="title-slide slide level3"
+data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
+Control de la complejidad</h3>
 <ul>
-<li><p><strong>Encapsular</strong> es encerrar varios elementos juntos
-dentro una <strong><em>cápsula</em></strong> que se puede manipular como
-una sola unidad, de forma que parte de lo que hay dentro queda visible y
-accesible desde el exterior, mientras que el resto queda oculto e
-inaccesible en el interior.</p></li>
-<li><p>La <strong>encapsulación</strong> es el mecanismo que
-proporcionan los lenguajes de programación para que el programador pueda
-encapsular elementos de un programa, y puede verse al mismo tiempo como
-un mecanismo de <em>agrupamiento</em> y como un mecanismo de de
-<em>protección</em>.</p></li>
-<li><p>La membrana de la cápsula separa el exterior del interior de la
-misma, y es una membrana <em>permeable</em> porque permite exponer los
-elementos de la cápsula que son visibles y accesibles desde fuera de
-ella.</p></li>
-<li><p>La cápsula tiene un espacio de nombres local que guarda las las
-ligaduras que van dentro de la cápsula y que previenen el <em>name
-clash</em>, haciendo que varias cápsulas puedan contener elementos
-internos con el mismo nombre sin que haya conflictos.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.1.1.0.1">
-
-<ul>
-<li><p>Una <strong>caja negra</strong> es una cápsula que expone
-justamente aquello que es necesario conocer para poder usarla (el
-<em>qué</em> hace) y oculta todos los demás detalles internos de
-funcionamiento (el <em>cómo</em> lo hace).</p></li>
-<li><p>La «tapa» de la caja negra es precisamente la barrera de
-separación entre el qué hace y el cómo lo hace.</p></li>
-<li><p><strong>Abstraer</strong> es quedarse con la idea esencial de
-aquello que se está estudiando; el producto resultante de ese proceso se
-llama <em>abstracción</em>.</p></li>
-<li><p>Por tanto, la <strong>abstracción</strong>:</p>
-<ul>
-<li><p>Como <em>acción</em>, es el proceso mental que consiste en
-centrarse en lo que es importante y esencial en un determinado momento e
-ignorar los detalles que en ese momento no resultan
-importantes.</p></li>
-<li><p>Como <em>producto</em>, es una caja negra que contiene un
-mecanismo más o menos complejo y a la que se le da un nombre. De esta
-forma, podemos referirnos a todo el mecanismo simplemente usando ese
-nombre sin tener que conocer su composición interna ni sus detalles
-internos de funcionamiento.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.1.1.0.2">
-
-<ul>
-<li><p>Por tanto, para usar la abstracción nos bastará con conocer su
-<em>nombre</em> y saber <em>qué hace</em>, sin necesidad de saber
-<em>cómo lo hace</em> ni qué elementos la forman
-<em>internamente</em>.</p></li>
-<li><p>En consecuencia, las abstracciones están <em>encapsuladas</em>,
-pero no de cualquier manera, sino de forma que:</p>
-<ul>
-<li><p>lo que queda visible desde el exterior de la cápsula es <em>qué
-hace la abstracción</em>, y</p></li>
-<li><p>lo que se oculta en el interior es <em>cómo lo
-hace</em>.</p></li>
-</ul></li>
-<li><p>Es decir: <strong>las abstracciones son <em>cajas
-negras</em></strong>.</p></li>
-<li><p>Por tanto, podemos definir una caja negra como una cápsula que
-representa una abstracción.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.1.1.0.3">
-
-<ul>
-<li><p><strong>La abstracción es el principal instrumento de control de
-la complejidad</strong>, ya que nos permite ocultar detrás de un nombre
-los detalles que componen una parte del programa, haciendo que esa parte
+<li><p><strong>La abstracción es el principal mecanismo de control de la
+complejidad</strong>, ya que nos permite ocultar detrás de un nombre los
+detalles que componen una parte del programa, haciendo que esa parte
 actúe (a ojos del programador que la utilice) como si fuera un elemento
 <em>predefinido</em> del lenguaje, de forma que el programador lo puede
 usar sin tener que saber cómo funciona por dentro.</p></li>
@@ -785,7 +801,7 @@ porque nos permiten usarlas sin tener que conocer los detalles internos
 del procesamiento que realizan.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.1.0.4">
+<section class="slide level5" data-number="2.2.1.0.1">
 
 <ul>
 <li><p>Por ejemplo, si queremos usar la función <code
@@ -804,8 +820,11 @@ decimos que <code class="sourceCode python">cubo</code> es una
 abstracción.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.1.0.5">
 
+<section id="definición-de-conceptos-abstractos"
+class="title-slide slide level3" data-number="2.2.2">
+<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
+Definición de conceptos abstractos</h3>
 <ul>
 <li><p>Las funciones también son abstracciones porque nos permiten
 definir <strong>conceptos abstractos</strong>.</p></li>
@@ -817,6 +836,11 @@ decir, estamos creando un concepto que antes no existía, y se lo estamos
 enseñando a nuestro lenguaje.</p></li>
 <li><p>De esta forma, nuestro lenguaje ya sabrá qué es elevar algo al
 cubo, y podremos usarlo en nuestros programas.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.2.0.1">
+
+<ul>
 <li><p>Por supuesto, nos las podemos arreglar sin definir el concepto de
 <em>cubo</em>, escribiendo siempre expresiones explícitas (como <code
 class="sourceCode python"><span class="dv">3</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">3</span></code>,
@@ -832,15 +856,32 @@ número, pero no tendrían la habilidad de expresar el concepto de
 </ul>
 </section>
 
+<section id="repetición-de-código" class="title-slide slide level3"
+data-number="2.2.3">
+<h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span>
+Repetición de código</h3>
+<ul>
+<li><p>Las funciones (y, en general, cualquier abstracción) nos permiten
+evitar la aparición de código repetido en nuestros programas.</p></li>
+<li><p>Cuando encontramos el mismo código (exactamente el mismo)
+repetido en varios puntos diferentes del mismo programa, es conveniente
+crear una abstracción que encapsule ese código repetido y le dé un
+nombre.</p></li>
+<li><p>Así, podremos usar el nombre de la abstracción en lugar del
+código repetido en aquellas partes del programa donde se encuentre
+éste.</p></li>
+</ul>
+</section>
+
 <section id="generalización" class="title-slide slide level3"
-data-number="2.1.2">
-<h3 data-number="2.1.2"><span class="header-section-number">2.1.2</span>
+data-number="2.2.4">
+<h3 data-number="2.2.4"><span class="header-section-number">2.2.4</span>
 Generalización</h3>
 <ul>
-<li><p>Finalmente, las funciones también son
-<strong>generalizaciones</strong> de casos particulares porque describen
-operaciones compuestas a realizar sobre ciertos valores sin importar
-cuáles sean esos valores en concreto.</p></li>
+<li><p>Las funciones también son <strong>generalizaciones</strong> de
+casos particulares porque describen operaciones compuestas a realizar
+sobre ciertos valores sin importar cuáles sean esos valores en
+concreto.</p></li>
 <li><p>Por ejemplo, cuando definimos:</p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cubo <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div>
@@ -862,7 +903,7 @@ etc.</p></li>
 número, en general.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.1">
+<section class="slide level5" data-number="2.2.4.0.1">
 
 <ul>
 <li><p>Una de las habilidades que deberíamos pedir a un lenguaje potente
@@ -882,7 +923,7 @@ patrón (<em>elevar al cubo</em>).</p></li>
 generalización.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.2">
+<section class="slide level5" data-number="2.2.4.0.2">
 
 <ul>
 <li><p>De esta forma, analizando ciertos <em>casos particulares</em>,
@@ -897,23 +938,7 @@ internos, y finalmente le damos un nombre a la «caja», con lo que
 acabamos creando una <strong>abstracción</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.3">
-
-<ul>
-<li><p>En resumen, creamos abstracciones:</p>
-<ul>
-<li><p>Cuando queremos <strong>reducir la complejidad</strong>, dándole
-un nombre a un mecanismo complejo para poder referirnos a todo el
-conjunto a través de su nombre sin tener que recordar continuamente qué
-piezas contiene el mecanismo o cómo funciona éste por dentro.</p></li>
-<li><p>Cuando queremos que nuestro programa pueda <strong>expresar un
-concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
-<li><p>Cuando creamos <strong>casos generales a partir de patrones que
-se repiten</strong> en varios casos particulares.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="2.1.2.0.4">
+<section class="slide level5" data-number="2.2.4.0.3">
 
 <ul>
 <li><p>Por ejemplo, cuando vemos que en nuestros programas es frecuente
@@ -927,7 +952,7 @@ le llamamos «<em>elevar al cubo</em>»:</p></li>
 style="width:80.0%" /></p>
 </div>
 </section>
-<section class="slide level5" data-number="2.1.2.0.5">
+<section class="slide level5" data-number="2.2.4.0.4">
 
 <ul>
 <li><p>Ese patrón general representa a cada miembro del grupo formado
@@ -953,7 +978,7 @@ argumentos de la llamada, lo que produce un caso particular a partir del
 caso general.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.6">
+<section class="slide level5" data-number="2.2.4.0.5">
 
 <ul>
 <li><p>En resumen, el proceso conceptual sería el siguiente:</p>
@@ -986,7 +1011,7 @@ aquello en lo que se parecen e ignoramos aquello en lo que se
 diferencian.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.7">
+<section class="slide level5" data-number="2.2.4.0.6">
 
 <ul>
 <li><p>Haciendo eso, deducimos un patrón común que subyace a todas esas
@@ -1023,7 +1048,7 @@ así una <strong><em>expresión lambda</em></strong>:</p>
 class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x: x <span class="op">*</span> x <span class="op">*</span> x</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.8">
+<section class="slide level5" data-number="2.2.4.0.7">
 
 <ul>
 <li><p>Los <strong>parámetros</strong> son nombres que tomarán los
@@ -1037,7 +1062,7 @@ ajustan a ese mismo patrón. Por ese motivo decimos que es una
 <strong>generalización</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.9">
+<section class="slide level5" data-number="2.2.4.0.8">
 
 <ul>
 <li><p>Un <strong><em>cuantificador</em></strong> es un símbolo que
@@ -1087,7 +1112,7 @@ abstracción ya que puede reutilizarse en muchas expresiones y toda la
 expresión lambda queda «oculta» bajo el nombre que le damos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.10">
+<section class="slide level5" data-number="2.2.4.0.9">
 
 <ul>
 <li><p>Así, ahora podemos usar su nombre en lugar de la expresión lambda
@@ -1114,7 +1139,7 @@ lambda a la que está ligada el nombre. Por tanto, trabajamos a un nivel
 mayor de abstracción.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.11">
+<section class="slide level5" data-number="2.2.4.0.10">
 
 <ul>
 <li><p>La importancia de la <strong>abstracción</strong> reside en su
@@ -1140,7 +1165,7 @@ cómo funciona. Por lo tanto, es el principal medio para gestionar la
 complejidad en programas grandes.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.12">
+<section class="slide level5" data-number="2.2.4.0.11">
 
 <ul>
 <li><p>De igual importancia es la
@@ -1182,7 +1207,7 @@ abstracción y oculta los detalles necesarios para saber <em>cómo</em> lo
 hace.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.1.2.0.13">
+<section class="slide level5" data-number="2.2.4.0.12">
 
 <ul>
 <li><p><strong>Generalización</strong>: Es el proceso de identificar un
@@ -1196,11 +1221,31 @@ que reescribirlo, ligando valores concretos a los parámetros.</p></li>
 particular de un patrón común.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="2.2.4.0.13">
+
+<ul>
+<li><p>En resumen, creamos abstracciones:</p>
+<ul>
+<li><p>Cuando queremos <strong>reducir la complejidad</strong>, dándole
+un nombre a un mecanismo complejo para poder referirnos a todo el
+conjunto a través de su nombre sin tener que recordar continuamente qué
+piezas contiene el mecanismo o cómo funciona éste por dentro.</p></li>
+<li><p>Cuando queremos que nuestro programa pueda <strong>expresar un
+concepto abstracto</strong>, como el de «elevar al cubo».</p></li>
+<li><p>Cuando queremos evitar <strong>repeticiones de código</strong> en
+nuestro programa, de forma que el mismo concepto aparezca sólo una vez,
+evitando problemas de inconsistencia y mantenimiento del
+código.</p></li>
+<li><p>Cuando creamos <strong>casos generales a partir de patrones que
+se repiten</strong> en varios casos particulares.</p></li>
+</ul></li>
+</ul>
+</section>
 
 
 
-<section id="pureza" class="title-slide slide level2" data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+<section id="pureza" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
 Pureza</h2>
 <ul>
 <li><p>Si una expresión lambda no contiene identificadores libres, el
@@ -1229,7 +1274,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a h
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.1">
+<section class="slide level5" data-number="2.3.0.0.1">
 
 <ul>
 <li><p>En este otro ejemplo, tenemos una expresión lambda que calcula la
@@ -1247,7 +1292,7 @@ que valga <code class="sourceCode python">suma</code> fuera de <code
 class="sourceCode python">suma3</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="2.3.0.0.2">
 
 <ul>
 <li><p>Se dice que una expresión lambda es <strong>pura</strong> si,
@@ -1274,7 +1319,7 @@ class="sourceCode python">suma</code>) se usa como una
 <strong>función</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.3">
+<section class="slide level5" data-number="2.3.0.0.3">
 
 <ul>
 <li><p>Por ejemplo, las siguientes expresiones lambda están ordenadas de
@@ -1303,8 +1348,8 @@ expresión lambda.</p></li>
 </section>
 
 <section id="especificaciones-de-funciones"
-class="title-slide slide level2" data-number="2.3">
-<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span>
 Especificaciones de funciones</h2>
 <ul>
 <li><p>La <strong>especificación de una <em>función</em></strong> es la
@@ -1328,7 +1373,7 @@ una «<strong>caja negra</strong>», que tiene unas entradas y una salida
 pero no se sabe cómo funciona por dentro.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.1">
+<section class="slide level5" data-number="2.4.0.0.1">
 
 <ul>
 <li><p>Para poder <strong>usar una abstracción funcional</strong>
@@ -1351,7 +1396,7 @@ relación entre su entrada y su salida.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.2">
+<section class="slide level5" data-number="2.4.0.0.2">
 
 <ul>
 <li><p>Hasta ahora, al especificar <strong>programas</strong>, hemos
@@ -1377,7 +1422,7 @@ de código que forman parte de un programa y que siguen el esquema de
 «<em>entrada - proceso - salida</em>» como cualquier programa).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.3">
+<section class="slide level5" data-number="2.4.0.0.3">
 
 <ul>
 <li><p>Pero para especificar funciones resulta más adecuado usar el
@@ -1403,7 +1448,7 @@ función respetando su signatura y cumpliendo su precondición, la llamada
 termina cumpliendo su postcondición</em></strong>».</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.4">
+<section class="slide level5" data-number="2.4.0.0.4">
 
 <ul>
 <li><p>En este caso, la <strong>precondición</strong> es <code
@@ -1428,7 +1473,7 @@ lenguaje de programación que se vaya a usar para implementar la función
 (Python, en este caso).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.5">
+<section class="slide level5" data-number="2.4.0.0.5">
 
 <ul>
 <li><p>Recordemos la diferencia entre:</p>
@@ -1452,7 +1497,7 @@ del conjunto imagen que cumplen la
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.6">
+<section class="slide level5" data-number="2.4.0.0.6">
 
 <ul>
 <li><p>En el caso de la función <code
@@ -1478,7 +1523,7 @@ así está declarado el tipo de retorno de la función.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.7">
+<section class="slide level5" data-number="2.4.0.0.7">
 
 <ul>
 <li><p>Las pre y postcondiciones no es necesario escribirlas de una
@@ -1501,7 +1546,7 @@ especiales que no se tienen en cuenta.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.8">
+<section class="slide level5" data-number="2.4.0.0.8">
 
 <ul>
 <li><p>En este otro ejemplo, más completo, se especifica una función
@@ -1529,7 +1574,7 @@ coinciden</strong> (no todos los valores pertenecientes al conjunto
 origen sirven como datos de entrada válidos para la función).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.9">
+<section class="slide level5" data-number="2.4.0.0.9">
 
 <ul>
 <li><p>En esta especificación, <code
@@ -1552,7 +1597,7 @@ la cadena <span
 class="math inline">\underline{\textbf{\textit{cadena}}}</span></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.3.0.0.10">
+<section class="slide level5" data-number="2.4.0.0.10">
 
 <ul>
 <li><p>En realidad, las condiciones de la especificación anterior se
@@ -1573,7 +1618,7 @@ cadena\texttt{.count(\(car\))}
 <li>¿Por qué?</li>
 </ol>
 </section>
-<section class="slide level5" data-number="2.3.0.0.11">
+<section class="slide level5" data-number="2.4.0.0.11">
 
 <ul>
 <li><p>Finalmente, podríamos escribir la misma especificación en

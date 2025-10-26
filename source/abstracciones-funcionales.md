@@ -418,55 +418,7 @@ nocite: |
 
 # Abstracciones funcionales
 
-## Las funciones como abstracciones
-
-- Recordemos la definición de la función !PYTHON(area):
-
-  ```python
-  cuadrado = lambda x: x * x
-  area = lambda r: 3.1416 * cuadrado(r)
-  ```
-
-- Aunque es muy sencilla, la función !PYTHON(area) ejemplifica la propiedad más
-  potente de las funciones definidas por el programador: la **abstracción**.
-
-- La función !PYTHON(area) está definida sobre la función !PYTHON(cuadrado),
-  pero sólo necesita saber de ella qué resultados de salida devuelve a partir
-  de sus argumentos de entrada (o sea, **_qué_** calcula y no **_cómo_** lo
-  calcula).
-
-- Podemos escribir la función !PYTHON(area) sin preocuparnos de cómo calcular
-  el cuadrado de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
-
-- **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
-  la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en este
-  momento** al diseñar !PYTHON(area), para considerarlos más tarde si hiciera
-  falta.
-
----
-
-- De hecho, por lo que respecta a !PYTHON(area), !PYTHON(cuadrado) no
-  representa una definición concreta de función, sino más bien la abstracción
-  de una función, lo que se denomina una **abstracción funcional**, ya que a
-  !PYTHON(area) le sirve igual de bien cualquier función que calcule el
-  cuadrado de un número.
-
-- Por tanto, si consideramos únicamente los valores que devuelven, las tres
-  funciones siguientes son indistinguibles e igual de válidas para
-  !PYTHON(area). Ambas reciben un argumento numérico y devuelven el cuadrado de
-  ese número:
-
-  ```python
-  cuadrado = lambda x: x * x
-  cuadrado = lambda x: x ** 2
-  cuadrado = lambda x: x * (x - 1) + x
-  ```
-
-- En otras palabras: la definición de una función debe ser capaz de **ocultar
-  sus detalles internos de funcionamiento**, ya que para usar la función no
-  debe ser necesario conocer esos detalles.
-
-### Encapsulación y cajas negras
+## Encapsulación y cajas negras
 
 - **Encapsular** es encerrar varios elementos juntos dentro una **_cápsula_**
   que se puede manipular como una sola unidad, de forma que parte de lo que hay
@@ -531,8 +483,68 @@ nocite: |
 
 ---
 
-- **La abstracción es el principal instrumento de control de la complejidad**,
-  ya que nos permite ocultar detrás de un nombre los detalles que componen una
+- Creamos abstracciones para:
+
+  - Controlar la complejidad.
+
+  - Expresar conceptos abstractos.
+
+  - Evitar repeticiones de código.
+
+  - Crear casos generales a partir de patrones que se repiten.
+
+## Las funciones como abstracciones
+
+- Recordemos la definición de la función !PYTHON(area):
+
+  ```python
+  cuadrado = lambda x: x * x
+  area = lambda r: 3.1416 * cuadrado(r)
+  ```
+
+- Aunque es muy sencilla, la función !PYTHON(area) ejemplifica la propiedad más
+  potente de las funciones definidas por el programador: la **abstracción**.
+
+- La función !PYTHON(area) está definida sobre la función !PYTHON(cuadrado),
+  pero sólo necesita saber de ella qué resultados de salida devuelve a partir
+  de sus argumentos de entrada (o sea, **_qué_** calcula y no **_cómo_** lo
+  calcula).
+
+- Podemos escribir la función !PYTHON(area) sin preocuparnos de cómo calcular
+  el cuadrado de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
+
+- **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
+  la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en este
+  momento** al diseñar !PYTHON(area), para considerarlos más tarde si hiciera
+  falta.
+
+---
+
+- De hecho, por lo que respecta a !PYTHON(area), !PYTHON(cuadrado) no
+  representa una definición concreta de función, sino más bien la abstracción
+  de una función, lo que se denomina una **abstracción funcional**, ya que a
+  !PYTHON(area) le sirve igual de bien cualquier función que calcule el
+  cuadrado de un número.
+
+- Por tanto, si consideramos únicamente los valores que devuelven, las tres
+  funciones siguientes son indistinguibles e igual de válidas para
+  !PYTHON(area). Ambas reciben un argumento numérico y devuelven el cuadrado de
+  ese número:
+
+  ```python
+  cuadrado = lambda x: x * x
+  cuadrado = lambda x: x ** 2
+  cuadrado = lambda x: x * (x - 1) + x
+  ```
+
+- En otras palabras: la definición de una función debe ser capaz de **ocultar
+  sus detalles internos de funcionamiento**, ya que para usar la función no
+  debe ser necesario conocer esos detalles.
+
+### Control de la complejidad
+
+- **La abstracción es el principal mecanismo de control de la complejidad**, ya
+  que nos permite ocultar detrás de un nombre los detalles que componen una
   parte del programa, haciendo que esa parte actúe (a ojos del programador que
   la utilice) como si fuera un elemento _predefinido_ del lenguaje, de forma
   que el programador lo puede usar sin tener que saber cómo funciona por
@@ -560,7 +572,7 @@ nocite: |
 - Los detalles de implementación quedan ocultos y por eso también decimos que
   !PYTHON(cubo) es una abstracción.
 
----
+### Definición de conceptos abstractos
 
 - Las funciones también son abstracciones porque nos permiten definir
   **conceptos abstractos**.
@@ -578,6 +590,8 @@ nocite: |
 - De esta forma, nuestro lenguaje ya sabrá qué es elevar algo al cubo, y
   podremos usarlo en nuestros programas.
 
+---
+
 - Por supuesto, nos las podemos arreglar sin definir el concepto de _cubo_,
   escribiendo siempre expresiones explícitas (como !PYTHON(3*3*3),
   !PYTHON(5*5*5), etc.) sin usar la palabra «`cubo`», pero eso nos obligaría
@@ -587,11 +601,23 @@ nocite: |
   Es decir: **nuestros programas podrían calcular el cubo de un número, pero no
   tendrían la habilidad de expresar el concepto de _elevar al cubo_**.
 
+### Repetición de código
+
+- Las funciones (y, en general, cualquier abstracción) nos permiten evitar la
+  aparición de código repetido en nuestros programas.
+
+- Cuando encontramos el mismo código (exactamente el mismo) repetido en varios
+  puntos diferentes del mismo programa, es conveniente crear una abstracción
+  que encapsule ese código repetido y le dé un nombre.
+
+- Así, podremos usar el nombre de la abstracción en lugar del código repetido
+  en aquellas partes del programa donde se encuentre éste.
+
 ### Generalización
 
-- Finalmente, las funciones también son **generalizaciones** de casos
-  particulares porque describen operaciones compuestas a realizar sobre ciertos
-  valores sin importar cuáles sean esos valores en concreto.
+- Las funciones también son **generalizaciones** de casos particulares porque
+  describen operaciones compuestas a realizar sobre ciertos valores sin
+  importar cuáles sean esos valores en concreto.
 
 - Por ejemplo, cuando definimos:
 
@@ -642,21 +668,6 @@ nocite: |
 - Luego, hacemos una **encapsulación**, metiendo ese caso general en una «_caja
   negra_» que oculte sus detalles internos, y finalmente le damos un nombre a
   la «caja», con lo que acabamos creando una **abstracción**.
-
----
-
-- En resumen, creamos abstracciones:
-
-  - Cuando queremos **reducir la complejidad**, dándole un nombre a un
-    mecanismo complejo para poder referirnos a todo el conjunto a través de su
-    nombre sin tener que recordar continuamente qué piezas contiene el
-    mecanismo o cómo funciona éste por dentro.
-
-  - Cuando queremos que nuestro programa pueda **expresar un concepto
-    abstracto**, como el de «elevar al cubo».
-
-  - Cuando creamos **casos generales a partir de patrones que se repiten** en
-    varios casos particulares.
 
 ---
 
@@ -940,6 +951,25 @@ cg [label = "(caso general)"]
 
 - **Parámetro**: Es una parte que cambia en cada caso particular de un patrón
   común.
+
+---
+
+- En resumen, creamos abstracciones:
+
+  - Cuando queremos **reducir la complejidad**, dándole un nombre a un
+    mecanismo complejo para poder referirnos a todo el conjunto a través de su
+    nombre sin tener que recordar continuamente qué piezas contiene el
+    mecanismo o cómo funciona éste por dentro.
+
+  - Cuando queremos que nuestro programa pueda **expresar un concepto
+    abstracto**, como el de «elevar al cubo».
+
+  - Cuando queremos evitar **repeticiones de código** en nuestro programa, de
+    forma que el mismo concepto aparezca sólo una vez, evitando problemas de
+    inconsistencia y mantenimiento del código.
+
+  - Cuando creamos **casos generales a partir de patrones que se repiten** en
+    varios casos particulares.
 
 ## Pureza
 
