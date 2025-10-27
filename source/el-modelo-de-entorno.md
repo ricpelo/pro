@@ -817,7 +817,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
   - Los _ámbitos_ hacen que los nombres sólo sean visibles en ciertas zonas.
 
   - Los _espacios de nombres_ permiten que un mismo nombre pueda ligarse a
-    diferentes nombres simultáneamente.
+    diferentes valores simultáneamente.
 
 ## Ámbito de un identificador cuantificado
 
