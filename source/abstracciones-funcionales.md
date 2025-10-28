@@ -852,10 +852,10 @@ cg [label = "(caso general)"]
   (lambda x: x * x * x)(5) → 5 * 5 * 5
   ```
 
-- La expresión lambda es una expresión que puede usarse simplemente aplicando
-  los argumentos necesarios en cada llamada, sin necesidad de manipular
-  directamente la expresión que forma su cuerpo y que es la que lleva a cabo el
-  procesamiento y el cálculo del resultado.
+- La expresión lambda puede usarse simplemente aplicando los argumentos
+  necesarios en cada llamada, sin necesidad de manipular directamente la
+  expresión que forma su cuerpo y que es la que lleva a cabo el procesamiento y
+  el cálculo del resultado.
 
 - Por eso podemos decir que la expresión lambda está _encapsulada_ formando una
   **caja negra** con una parte expuesta, visible y manipulable desde el
