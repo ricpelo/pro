@@ -600,7 +600,15 @@ nocite: |
   resultado.
 
 - Los detalles de implementación quedan ocultos y por eso también decimos que
-  !PYTHON(cubo) es una abstracción.
+  !PYTHON(cubo) es una **abstracción**, la cual se puede representar con una
+  **caja negra** con una entrada y una salida:
+
+  !DOT(funcion-cubo-como-caja-negra.svg)(La función `cubo` como caja negra)(width=50%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  E [label = "x", shape = plaintext, fillcolor = transparent, width = 0.2];
+  S [label = "x elevado\nal cubo", shape = plaintext, fillcolor = transparent];
+  E -> cubo -> S
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Definición de conceptos abstractos
 
