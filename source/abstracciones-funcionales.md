@@ -430,34 +430,57 @@ nocite: |
   programa, y puede verse al mismo tiempo como un mecanismo de _agrupamiento_ y
   como un mecanismo de de _protección_.
 
-- La membrana de la cápsula separa el exterior del interior de la misma, y es
-  una membrana _permeable_ porque permite exponer los elementos de la cápsula
-  que son visibles y accesibles desde fuera de ella.
+- La _membrana_ de la cápsula separa el exterior del interior de la misma, y es
+  una membrana _permeable_ porque permite exponer al exterior ciertos elementos
+  que así resultan visibles y accesibles desde fuera de ella.
 
-- La cápsula tiene un espacio de nombres local que guarda las las ligaduras que
-  van dentro de la cápsula y que previenen el _name clash_, haciendo que varias
-  cápsulas puedan contener elementos internos con el mismo nombre sin que haya
-  conflictos.
+- Esa membrana permite también la entrada y salida de señales y datos desde y
+  hacia el exterior de la cápsula.
 
 ---
 
-- Una **caja negra** es una cápsula que expone justamente aquello que es
-  necesario conocer para poder usarla (el _qué_ hace) y oculta todos los demás
-  detalles internos de funcionamiento (el _cómo_ lo hace).
+- La parte que la membrana de la cápsula expone al exterior de la misma se
+  denomina la **interfaz** de la cápsula, e incluye también los puntos de
+  entrada y salida de señales y datos antes mencionados.
 
-- La «tapa» de la caja negra es precisamente la barrera de separación entre el
-  qué hace y el cómo lo hace.
+- En general, la **interfaz** de una cápsula es todo aquello que nos permite
+  interactuar con la cápsula desde el exterior de la misma y, en sentido
+  contrario, también representa la forma que tiene la cápsula de mandar señales
+  o datos al exterior.
+
+- La cápsula tiene un espacio de nombres local que guarda las ligaduras que van
+  dentro de la cápsula y que previenen el _name clash_, haciendo que una
+  cápsula pueda contener elementos internos con el mismo nombre que otros
+  elementos externos a la misma sin que haya conflictos.
+
+---
+
+- Una **caja negra** es una cápsula que:
+
+  - _expone_ justamente aquello que es necesario conocer para poder usarla (el
+    **_qué_** hace), y
+
+  - _oculta_ todos los demás detalles internos de funcionamiento (el **_cómo_**
+    lo hace).
+
+- La «tapa» de la caja negra (lo que incluye su _interfaz_) es precisamente la
+  barrera de separación entre el qué hace y el cómo lo hace.
+
+- Con una caja negra sólo se puede interactuar mediante sus entradas y salidas,
+  sin necesidad (ni posibilidad) de saber lo que hay dentro.
+
+---
 
 - **Abstraer** es quedarse con la idea esencial de aquello que se está
-  estudiando; el producto resultante de ese proceso se llama _abstracción_.
+  estudiando. El producto resultante de ese proceso se llama **_abstracción_**.
 
-- Por tanto, la **abstracción**:
+- Por tanto, la **abstracción** es, al mismo tiempo, una acción y un producto:
 
-  - Como _acción_, es el proceso mental que consiste en centrarse en lo que es
-    importante y esencial en un determinado momento e ignorar los detalles que
-    en ese momento no resultan importantes.
+  - Como **_acción_**, es el proceso mental que consiste en centrarse en lo que
+    es importante y esencial en un determinado momento e ignorar los detalles
+    que en ese momento no resultan importantes.
 
-  - Como _producto_, es una caja negra que contiene un mecanismo más o menos
+  - Como **_producto_**, es una cápsula que contiene un mecanismo más o menos
     complejo y a la que se le da un nombre. De esta forma, podemos referirnos a
     todo el mecanismo simplemente usando ese nombre sin tener que conocer su
     composición interna ni sus detalles internos de funcionamiento.
@@ -476,10 +499,16 @@ nocite: |
 
   - lo que se oculta en el interior es _cómo lo hace_.
 
-- Es decir: **las abstracciones son _cajas negras_**.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Eso quiere decir que **las abstracciones se pueden representar como _cajas
+  negras_** o, dicho de otra manera, que **las cajas negras son una forma de
+  representar abstracciones**.
 
-- Por tanto, podemos definir una caja negra como una cápsula que representa una
-  abstracción.
+- Esas abstracciones se denominan **abstracciones de caja negra** (_black box
+  abstractions_), y son las que trabajaremos en este curso.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -550,8 +579,9 @@ nocite: |
   que el programador lo puede usar sin tener que saber cómo funciona por
   dentro.
 
-- Por tanto, **las funciones son abstracciones** porque nos permiten usarlas
-  sin tener que conocer los detalles internos del procesamiento que realizan.
+- Desde ese punto de vista, podemos decir que **las funciones son
+  abstracciones** porque nos permiten usarlas sin tener que conocer los
+  detalles internos del procesamiento que realizan.
 
 ---
 
