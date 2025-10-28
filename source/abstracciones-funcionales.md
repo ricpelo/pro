@@ -596,8 +596,8 @@ nocite: |
   ```
 
 - Para **usar** la función, nos basta con saber que calcula el cubo de un
-  número, sin necesidad de saber qué cálculo concreto realiza para obtener el
-  resultado.
+  número, sin necesidad de saber qué operaciones concretas realiza para obtener
+  el resultado.
 
 - Los detalles de implementación quedan ocultos y por eso también decimos que
   !PYTHON(cubo) es una **abstracción**, la cual se puede representar con una
