@@ -973,9 +973,9 @@ cg [label = "(caso general)"]
   irrelevantes para el contexto en que se usa.
 
   En la práctica, también es el producto resultante de ese proceso. En tal
-  caso, una abstracción consiste en darle un nombre a una caja negra que se
-  expone la información necesaria para saber _qué_ hace la abstracción y oculta
-  los detalles necesarios para saber _cómo_ lo hace.
+  caso, una abstracción consiste en darle un nombre a una caja negra que expone
+  la información necesaria para saber _qué_ hace la abstracción y oculta los
+  detalles necesarios para saber _cómo_ lo hace.
 
 ---
 
