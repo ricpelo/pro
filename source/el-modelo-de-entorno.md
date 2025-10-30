@@ -1446,6 +1446,8 @@ E -> z [lhead = cluster0]
 
 - Su ejecución, línea a línea, produce los siguientes entornos:
 
+!SALTOHTML
+
 :::: columns
 
 ::: column
@@ -1522,7 +1524,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
----
+!SALTOHTML
 
 !DOT(cuatro-ambitos-entorno-linea3-durante-segundo-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=90%)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1565,9 +1567,7 @@ E -> z [lhead = cluster2]
 
 !IMGP(cuatro-ambitos-entorno-linea3-durante-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=60%)(width=55%)
 
----
-
-!DOT(cuatro-ambitos-entorno-linea3-despues-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=40%)(width=30%)
+!DOT(cuatro-ambitos-entorno-linea3-despues-primer-lambda.svg)(Entorno en la línea 3 en el cuerpo de la primera expresión lambda, después de ejecutar su cuerpo y devolver su resultado)(width=30%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1621,9 +1621,7 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> xl [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
----
-
-!DOT(cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg)(Entorno justo tras ejecutar la línea 4)(width=40%)(width=30%)
+!DOT(cuatro-ambitos-entorno-linea4-despues-tercer-lambda.svg)(Entorno justo tras ejecutar la línea 4)(width=30%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1891,6 +1889,33 @@ E -> w [lhead = cluster1]
     a. Los ámbitos de cada aparición de cada identificador.
     a. Las ligaduras sombreadas y los identificadores sombreados.
     a. Los identificadores y ligaduras que hacen sombra.
+    a. El valor de cada identificador global al finalizar la ejecución del
+       _script_.
+
+!EJERCICIO
+
+@. En el siguiente _script_:
+
+    ```{.python .number-lines}
+    w = 8
+    f = lambda x, y: 5 + (lambda z: z + x + w)(y)
+    r = f(2, 4)
+    ```
+
+    indicar:
+
+    a. Los identificadores.
+    a. Los ámbitos.
+    a. Los entornos, marcos y ligaduras en cada línea de código.
+    a. Los ámbitos de cada ligadura.
+    a. La visibilidad de cada ligadura.
+    a. El tiempo de vida de cada ligadura.
+    a. El almacenamiento de cada ligadura.
+    a. Los ámbitos de cada aparición de cada identificador.
+    a. Las ligaduras sombreadas y los identificadores sombreados.
+    a. Los identificadores y ligaduras que hacen sombra.
+    a. El valor de cada identificador global al finalizar la ejecución del
+       _script_.
 
 ## Resolución de atributos de objetos
 
@@ -2001,7 +2026,7 @@ E -> w [lhead = cluster1]
 - En cuanto la llamada finaliza, su marco se saca de la pila y se transfiere el
   control a la llamada que está inmediatamente debajo (si es que hay alguna).
 
-!EJEMPLOS
+!EJEMPLO
 
 :::: columns
 
@@ -2019,7 +2044,7 @@ uno(3)
 
 ::: column
 
-!DOT(pila-control.svg)(Pila de control con la llamada a la función `tres` activada)(width=40%)(width=30%)
+!DOT(pila-control.svg)(Pila de control durante la ejecución de la función `tres`)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
@@ -2074,6 +2099,8 @@ z -> 4
 x -> dos [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
 w -> uno [lhead = cluster0, ltail = cluster3, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> w [lhead = cluster3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -2130,20 +2157,20 @@ subgraph cluster9 {
     }
     subgraph cluster2 {
         rank = min
-        label = "Marco de dos"
+        label = <        Marco de <font face="monospace">dos</font>        >
         bgcolor = "white"
         node [fontname = "monospace"]
         y [shape = plaintext, fillcolor = transparent, width = 0.1]
         dummy [style = invis, fillcolor = transparent, width = 0.1]
     }
     subgraph cluster1 {
-        label = "Marco de uno"
+        label = <        Marco de <font face="monospace">uno</font>        >
         bgcolor = "white"
         node [fontname = "monospace"]
         x [shape = plaintext, fillcolor = transparent, width = 0.1]
     }
     subgraph cluster0 {
-        label = "Marco global"
+        label = "         Marco global         "
         bgcolor = "white"
         node [fontname = "monospace"]
         g [shape = plaintext, fillcolor = transparent, width = 0.1]
@@ -2167,6 +2194,8 @@ y -> 2
 x -> uno [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
 z -> dummy [lhead = cluster2, ltail = cluster3, minlen = 3]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> z [lhead = cluster3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2210,12 +2239,13 @@ subgraph cluster9 {
         n2 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
     }
     subgraph cluster0 {
-        label = "Marco global"
+        label = "     Marco global     "
         bgcolor = "white"
         fact [shape = plaintext, fillcolor = transparent]
         dummy [style = invis]
+        dummy2 [style = invis]
     }
-    {rank = same; n4; n3; n2; fact; dummy}
+    {rank = same; n4; n3; n2; fact; dummy; dummy2}
 }
 4 [shape = circle]
 3 [shape = circle]
@@ -2227,7 +2257,9 @@ n2 -> 2
 fact -> lambda
 n4 -> fact [lhead = cluster0, ltail = cluster1]
 n3 -> dummy [lhead = cluster0, ltail = cluster2]
-n2 -> dummy [lhead = cluster0, ltail = cluster3]
+n2 -> dummy2 [lhead = cluster0, ltail = cluster3]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> n4 [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
