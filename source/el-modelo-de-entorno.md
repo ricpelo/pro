@@ -2034,10 +2034,10 @@ E -> w [lhead = cluster1]
 
 ```python
 g = 1
-uno = lambda x: 1 + dos(2 * x, 4)
+uno = lambda x: 3 * dos(2 * x, 4)
 dos = lambda y, z: tres(y + z + g)
 tres = lambda w: "W vale " + str(w)
-uno(3)
+r = uno(3)
 ```
 
 :::
@@ -2135,7 +2135,7 @@ E -> w [lhead = cluster3]
   g = 1
   uno = lambda x: dos(x - 1)
   dos = lambda y: 1 + (lambda z: z * 2)(y ** 3)
-  uno(3)
+  r = uno(3)
   ```
 
 ---
@@ -2209,7 +2209,7 @@ E -> z [lhead = cluster3]
 
 ```python
 fact = lambda n: 1 if n == 0 else n * fact(n - 1)
-fact(4)
+r = fact(4)
 ```
 
 ---
@@ -2278,7 +2278,11 @@ E -> n4 [lhead = cluster1]
   fact_iter = lambda cont, acc: acc if cont == 0 else \
                                 fact_iter(cont - 1, acc * cont)
   fact = lambda n: fact_iter(n, 1)
+  ```
 
+  tenemos lo siguiente:
+
+  ```python
   fact(5)
   = fact_iter(5, 1)
   = fact_iter(4, 5)
