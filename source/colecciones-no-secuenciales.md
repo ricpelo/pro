@@ -26,7 +26,7 @@ nocite: |
 
 - Como son colecciones no ordenadas, los conjuntos **no almacenan la posición**
   de los elementos o el **orden** en el que se insertaron.
-  
+
 - Por tanto, tampoco admiten la indexación, las rodajas ni cualquier otro
   comportamiento propio de las secuencias.
 
@@ -75,7 +75,7 @@ nocite: |
   !PYTHON(set)`(`[!NT(iterable)]`)` y !PYTHON(frozenset)`(`[!NT(iterable)]`)`:
 
   - Si se llaman *sin argumentos*, devuelven un conjunto **vacío**:
-  
+
     - !PYTHON(set()) devuelve un conjunto vacío de tipo !PYTHON(set).
 
     - !PYTHON(frozenset()) devuelve un conjunto vacío de tipo
@@ -242,21 +242,21 @@ nocite: |
   Operación                                 Resultado
   ----------------------------------------- --------------------------------------------------------------------
   !PYTHON(len)`(`$s$`)`                     Número de elementos de $\underline{s}$ (su cardinalidad)
-                                           
+
   $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si $\underline{x}$ pertenece a $\underline{s}$
-                                           
+
   $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(True) si $\underline{x}$ no pertenece a $\underline{s}$
-                                           
+
   $s$!PYTHON(.isdisjoint)`(`$o$`)`          !PYTHON(True) si $\underline{s}$ no tiene ningún elemento en común con $\underline{o}$
-                                           
+
   $s$!PYTHON(.issubset)`(`$o$`)` \          !PYTHON(True) si $\underline{s}$ es un subconjunto de $\underline{o}$
-  $s$ `<=` $o$                             
-                                           
+  $s$ `<=` $o$
+
   $s$ `<` $o$                               !PYTHON(True) si $\underline{s}$ es un subconjunto propio de $\underline{o}$
-                                           
+
   $s$!PYTHON(.issuperset)`(`$o$`)` \        !PYTHON(True) si $\underline{s}$ es un superconjunto de $\underline{o}$
-  $s$ `>=` $o$                             
-                                           
+  $s$ `>=` $o$
+
   $s$ `>` $o$                               !PYTHON(True) si $\underline{s}$ es un superconjunto propio de $\underline{o}$
   --------------------------------------------------------------------------------------------------------------
 
@@ -401,7 +401,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   _claves_ y el _valor_ que le corresponde a cada clave.
 
 - Además, los elementos de un diccionario son datos mutables y, por tanto, los
-  diccionarios también son **mutables**. 
+  diccionarios también son **mutables**.
 
 - En consecuencia, los diccionarios **NO** son _hashables_.
 
@@ -472,7 +472,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
   #. Deben ser **_hashables_**.
 
-##### Claves únicas {.unnumbered .unlisted}
+!UNUN(Claves únicas)
 
 - En un diccionario dado, **cada clave sólo puede asociarse con un único
   valor**.
@@ -510,7 +510,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   En este caso, se almacena el elemento !PYTHON('perro': 'doggy') y se ignora
   el !PYTHON('perro': 'dog').
 
-##### Claves únicas {.unnumbered .unlisted}
+!UNUN(Claves _hashables_)
 
 - Por otra parte, las **claves** de un diccionario deben ser datos
   **_hashables_**.
@@ -662,26 +662,26 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   clave válida y $\underline{v}$ es un valor cualquiera:
 
   -----------------------------------------------------------------------------------------------------------------------------------------------
-  Operación                               Resultado                                                                                         
+  Operación                               Resultado
   --------------------------------------- -------------------------------------------------------------------------------------------------------
   $d$`[`$c$`]`                            Devuelve el valor asociado a $\underline{c}$ en $\underline{d}$ (lanza !PYTHON(KeyError) si
                                           $\underline{c}$ no está en $\underline{d}$)
-                                         
+
   $d$`[`$c$`]` `=` $v$                    Asocia a la clave $\underline{c}$ el valor $\underline{v}$ en $\underline{d}$ (crea el elemento
                                           dentro de $\underline{d}$ si la clave $\underline{c}$ no estaba ya en $\underline{d}$)
-                                         
+
   !PYTHON(del) $\ d$`[`$c$`]`             Borra de $\underline{d}$ el elemento cuya clave es $\underline{c}$ (lanza !PYTHON(KeyError) si
                                           $\underline{c}$ no está en $\underline{d}$)
-                                         
+
   !PYTHON(len)`(`$d$`)`                   Número de elementos de $\underline{d}$
-                                           
+
   $c\ $ !PYTHON(in) $\ d$                 !PYTHON(True) si $\underline{d}$ contiene un elemento con clave $\underline{c}$
-                                         
+
   $c\ $ !PYTHON(not)\  !PYTHON(in)        !PYTHON(True) si $\underline{d}$ no contiene un elemento con clave $\underline{c}$
   $\ d$
-                                         
+
   $d$!PYTHON(.clear())                    Elimina todos los elementos de $\underline{d}$
-                                         
+
   $d$!PYTHON(.copy())                     Devuelve una copia superficial de $\underline{d}$
   -----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -692,7 +692,7 @@ Operación                                          Resultado
 -------------------------------------------------- ---------------------------------------------------------------------------------
 $d$!PYTHON(.get)`(`$c$[`,` $def$]`)`               Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
                                                    no está, devuelve $\underline{def}$, que por defecto es !PYTHON(None)
-                                     
+
 $d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`               Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]` y
                                                    elimina de $\underline{d}$ el elemento con clave $\underline{c}$; si no está,
                                                    devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y la clave
@@ -701,14 +701,14 @@ $d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`               Si la clave $\underline{c}$ e
 $d$!PYTHON(.popitem())                             Selecciona un elemento de $\underline{d}$ siguiendo un orden LIFO, lo elimina de
                                                    $\underline{d}$ y lo devuelve en forma de tupla `(`$clave$`, `$valor$`)` (lanza
                                                    un !PYTHON(KeyError) si $\underline{d}$ está vacío)
-                                                  
+
 $d$!PYTHON(.setdefault)`(`$c$[`,` $def$]`)`        Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
                                                    no está, inserta en $\underline{d}$ un elemento con clave $\underline{c}$ y
                                                    valor $\underline{def}$, y devuelve $\underline{def}$ (que por defecto es
                                                    !PYTHON(None))
-                                                  
+
 $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con las parejas ($clave$, $valor$) de $\underline{o}$,
-                                                   sobreescribiendo las claves ya existentes en $\underline{d}$, y devuelve 
+                                                   sobreescribiendo las claves ya existentes en $\underline{d}$, y devuelve
                                                    !PYTHON(None)
 ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1220,7 +1220,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   pueden usar las expresiones `XPath` con los métodos `find` y `findall`:
 
   ----------------------------------------------------------------------------------------------------------------------------
-  Sintaxis             Significado                                                                                         
+  Sintaxis             Significado
   -------------------- ----------------------------------------------------------------------------------------------------------
   **_etiqueta_**       Selecciona todos los nodos hijo con la etiqueta **_etiqueta_**. Por ejemplo, `pepe` selecciona todos
                        los nodos hijo llamados `pepe`, y `pepe/juan` selecciona todos los nietos llamados `juan` en todos los
@@ -1244,7 +1244,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 - Continuación de las expresiones `XPath`:
 
   -------------------------------------------------------------------------------------------------------------------------------------------
-  Sintaxis                            Significado                                                                                         
+  Sintaxis                            Significado
   ----------------------------------- -------------------------------------------------------------------------------------------------------
   `[@`**_atrib_**`]`                  Selecciona todos los nodos que tienen el atributo **_atrib_**.
 
@@ -1584,4 +1584,3 @@ madre -> telefono3, dni3
   ```
 
 !BIBLIOGRAFIA
-

@@ -267,11 +267,11 @@ nocite: |
 Función                       Descripción           Ejemplo                            Resultado
 ----------------------------- --------------------- --------------------------------- ----------------
 `abs(`$n$`)`                  Valor absoluto        !PYTHON(abs(-23))                  !PYTHON(23)
-                                                                                    
+
 `max(`$n_1($`,` $n_2)^+$`)`   Valor máximo          !PYTHON(max(2, 5, 3))              !PYTHON(5)
-                                                                                    
+
 `min(`$n_1($`,` $n_2)^+$`)`   Valor mínimo          !PYTHON(min(2, 5, 3))              !PYTHON(2)
-                                                                                    
+
 `round(`$n$[`,` $p$]`)`       Redondeo              !PYTHON(round(23.493))  \          !PYTHON(23) \
                                                     !PYTHON(round(23.493, 1))          !PYTHON(23.5)
 ------------------------------------------------------------------------------------------------------
@@ -588,9 +588,9 @@ Función                       Descripción           Ejemplo                   
 Función                       Descripción           Ejemplo                                       Resultado
 ----------------------------- --------------------- --------------------------------------------- -----------------
 `len(`$cad$`)`                Longitud de la cadena !PYTHON(len('hola'))                          !PYTHON(4)
-                                                                                               
+
 `max(`$s_1($`,` $s_2)^+$`)`   Valor máximo          !PYTHON(max('hola', 'pepe'))                  !PYTHON('pepe')
-                                                                                               
+
 `min(`$s_1($`,` $s_2)^+$`)`   Valor mínimo          !PYTHON(min('hola', 'pepe'))                  !PYTHON('hola')
 -------------------------------------------------------------------------------------------------------------------
 
@@ -878,7 +878,7 @@ Que traducido a Python sería:
 Si $(\mathbb{B},\lnot,\lor,\land)$ cumple lo anterior, entonces es un álgebra
 de Boole.
 
-##### Traducción a Python {.unnumbered .unlisted}
+!UNUN(Traducción a Python)
 
 1. Ley asociativa:
    ```python
@@ -950,7 +950,7 @@ de Boole.
     \forall a,b \in \mathbb{B}: \lnot ({a \land b}) = \lnot a \lor \lnot b
     \end{cases}$
 
-##### Traducción a Python {.unnumbered .unlisted}
+!UNUN(Traducción a Python)
 
 :::: columns
 
@@ -1469,7 +1469,7 @@ mas -> por
   terminado, dando como resultado un árbol que representa a la forma normal de
   la expresión inicial.
 
-##### Importante {.unnumbered .unlisted}
+!UNUN(Importante)
 
 - Recordar que este orden concreto de evaluación (_primero en profundidad_,
   donde se evalúan primero todos los nodos hijos antes de evaluar al nodo

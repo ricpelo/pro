@@ -235,7 +235,7 @@ acuerdo con un programa almacenado.
   - La información debe pasar primero de la memoria secundaria a la principal
     para que la CPU pueda trabajar con ella.
 
-##### Memoria principal {.unnumbered .unlisted}
+!UNUN(Memoria principal)
 
 - Está formada por celdas o posiciones numeradas.
 

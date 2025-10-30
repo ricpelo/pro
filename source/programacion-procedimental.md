@@ -1823,7 +1823,7 @@ saluda(nombre)
 - Esta información también es usada por otras herramientas de documentación
   externa, como `pydoc`.
 
-##### ¿Cuándo y cómo usar cada forma de _docstring_!ifdef(HTML)(&nbsp;)()? {.unnumbered .unlisted}
+!UNUN(¿Cuándo y cómo usar cada forma de _docstring_!ifdef(HTML)(&nbsp;)()?)
 
 - **_Docstrings_ de una sola línea:**
 
@@ -2039,7 +2039,7 @@ $ pytest-3
 ======================== test session starts =========================
 platform linux -- Python 3.8.5, pytest-4.6.9, py-1.8.1, pluggy-0.13.0
 rootdir: /home/ricardo/python
-collected 1 item                                                     
+collected 1 item
 
 test_ejemplo.py F                                              [100%]
 

@@ -60,7 +60,7 @@ nocite: |
 
 - Los valores posibles de _modo_ aparecen en las siguientes tablas.
 
-##### Modo texto {.unnumbered .unlisted}
+!UNUN(Modo texto)
 
 ---------------------------------------------------------------------------------------------------------------------------------
   Modo    Significado                                                                        El puntero se coloca...
@@ -82,7 +82,7 @@ nocite: |
           abre para lectura/escritura.
 ---------------------------------------------------------------------------------------------------------------------------------
 
-##### Modo binario {.unnumbered .unlisted}
+!UNUN(Modo binario)
 
 ---------------------------------------------------------------------------------------------------------------------------------
   Modo    Significado                                                                        El puntero se coloca...

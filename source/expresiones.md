@@ -573,7 +573,7 @@ T -> O [label = "Determina un conjunto de"]
 
 - Con esta restricción pueden quedar expresiones sin forma normal.
 
-##### Recuerda {.unnumbered .unlisted}
+!UNUN(Recuerda)
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2195,7 +2195,7 @@ $$
 - Entraremos a estudiar más en detalle estas características cuando veamos la
   **programación orientada a objetos**.
 
-##### Métodos predefinidos sobre cadenas {.unnumbered .unlisted}
+!UNUN(Métodos predefinidos sobre cadenas)
 
 - En la documentación de Python podemos encontrar una lista de métodos
   interesantes que operan sobre cadenas:

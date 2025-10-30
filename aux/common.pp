@@ -61,25 +61,15 @@ red, blue, teal, orange, brown, purple, magenta, cyan, yellow
 ## Ejercicios {.unnumbered .unlisted}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!define(EJERCICIOS)
+!define(UNUN)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##### Ejercicios {.unnumbered .unlisted}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-!define(EJERCICIO)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##### Ejercicio {.unnumbered .unlisted}
+##### !1 {.unnumbered .unlisted}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!define(EJEMPLOS)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##### Ejemplos {.unnumbered .unlisted}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-!define(EJEMPLO)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-##### Ejemplo {.unnumbered .unlisted}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!define(EJERCICIOS)(!UNUN(Ejercicios))
+!define(EJERCICIO)(!UNUN(Ejercicio))
+!define(EJEMPLOS)(!UNUN(Ejemplos))
+!define(EJEMPLO)(!UNUN(Ejemplo))
 
 !define(FIN)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
