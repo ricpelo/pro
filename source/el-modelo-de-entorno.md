@@ -2044,7 +2044,7 @@ r = uno(3)
 
 ::: column
 
-!DOT(pila-control.svg)(Pila de control durante la ejecución de la función `tres`)(width=40%)(width=30%)
+!DOT(pila-control.svg)(Pila de control durante la ejecución de la función `tres`)(width=50%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
