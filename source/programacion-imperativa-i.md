@@ -1304,11 +1304,24 @@ Operador         Ejemplo             Equivalente a
 - También existe el paquete experimental `goto-plus`, que funciona de forma
   similar pero usando números de línea en lugar de etiquetas.
 
-- Instalación:
+- Para su instalación, puede usarse cualquiera de estas dos vías:
 
-  ```console
-  $ pip install goto-plus
-  ```
+  1. Ejecutar el siguiente comando:
+
+     ```console
+     $ pip install goto-plus
+     ```
+
+     o bien...
+
+  2. Descargar el archivo `goto.py` desde GitHub usando cualquiera de las
+     siguientes URL y guardarlo en el directorio de trabajo con el nombre
+     `goto_plus.py`:
+
+     - [`abhinav-gg/SyllyPipPackages`](https://raw.githubusercontent.com/abhinav-gg/SillyPipPackages/refs/heads/main/GoTo-Python/goto_plus/goto.py)
+     - [`ricpelo/SillyPipPackages`](https://raw.githubusercontent.com/ricpelo/SillyPipPackages/refs/heads/main/GoTo-Python/goto_plus/goto.py)
+
+---
 
 - Ejemplo:
 
