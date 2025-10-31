@@ -94,16 +94,16 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
   *Object-Oriented Programming*) es un método para organizar programas que
   reúne muchas de las ideas vistas hasta ahora.
 
-- Al igual que las funciones en la abstracción de datos, los objetos imponen
+- Al igual que las funciones en las abstracciones de datos, los objetos imponen
   **barreras de abstracción** entre el uso y la implementación de los datos.
 
 - Al igual que los diccionarios y funciones de despacho, los objetos responden
-  a peticiones que otros objetos le hacen en forma de **mensajes** para que se
-  comporte de determinada manera.
+  a peticiones que otros objetos les hacen en forma de **mensajes** para que se
+  comporten de determinada manera.
 
-- Los objetos tienen un **estado interno local** al que no se puede acceder
-  directamente desde el entorno global, sino que debe hacerse por medio de las
-  operaciones que proporciona el objeto.
+- Los objetos tienen un **estado interno local** al que no se debería acceder
+  directamente desde el exterior de los mismos, sino únicamente por medio de
+  las operaciones que proporciona el objeto.
 
 - A efectos prácticos, por tanto, **los objetos son datos abstractos**.
 
@@ -127,7 +127,7 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
     consecuencia de su interacción.
 
   - Los objetos no sólo transmiten mensajes, sino que también **comparten el
-    comportamiento** entre otros objetos del mismo tipo y **heredan
+    comportamiento** con otros objetos del mismo tipo y **heredan
     características** de otros tipos relacionados.
 
 - El paradigma de la programación orientada a objetos tiene su propio
