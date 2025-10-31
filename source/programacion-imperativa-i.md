@@ -1116,18 +1116,18 @@ Operador         Ejemplo             Equivalente a
 
 :::: columns
 
-::: column
+::: {.column width=47%}
 
 - Algoritmo imperativo que usa saltos incondicionales con etiquetas:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **inicio**
-  **escribir** \"Esto se hace\"
+  $i \longleftarrow 0$
   **saltar** a la etiqueta _fin_
-  **escribir** \"Esto no se hace\"
+  $i \longleftarrow 1$
   **etiqueta** _fin_
-  **escribir** \"Aquí se acaba\"
+  $i \longleftarrow 2$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1136,20 +1136,26 @@ Operador         Ejemplo             Equivalente a
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   1. **inicio**
-  2. **escribir** \"Esto se hace\"
+  2. $i \longleftarrow 0$
   3. **saltar** a la línea 5
-  4. **escribir** \"Esto no se hace\"
-  5. **escribir** \"Aquí se acaba\"
+  4. $i \longleftarrow 1$
+  5. $i \longleftarrow 2$
   6. **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
-::: column
+::: {.column width=6%}
+
+:::
+
+::: {.column width=47%}
 
 - Representado como diagrama de flujo:
 
 !IMGP(salto-incondicional.!EXT)()(width=60%)(width=30%)
+
+¿Cuánto vale $i$ al final del programa?
 
 :::
 
@@ -1188,11 +1194,11 @@ Operador         Ejemplo             Equivalente a
   from goto import with_goto
 
   CODIGO = """
-  print('Esto se hace')
+  i = 0
   goto .fin
-  print('Esto se salta')
+  i = 1
   label .fin
-  print('Aquí se acaba')
+  i = 2
   """
 
   exec(with_goto(compile(CODIGO, '', 'exec')))
@@ -1244,14 +1250,17 @@ Operador         Ejemplo             Equivalente a
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   $primero \longleftarrow 2$
   $ultimo \longleftarrow 25$
+  $suma \longleftarrow 0$
   $i \longleftarrow primero$
   **etiqueta** _inicio_
   **si** $i = ultimo$ **saltar** a la etiqueta _fin_
-  **escribir** $i$
+  $suma \longleftarrow suma + i$
   $i \longleftarrow i + 1$
   **saltar** a la etiqueta _inicio_
   **etiqueta** _fin_
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  ¿Cuánto vale $suma$ al final?
 
 :::
 
@@ -1274,12 +1283,13 @@ Operador         Ejemplo             Equivalente a
   primero = 2
   ultimo = 25
 
+  suma = 0
   i = primero
 
   label .inicio
   if i == ultimo: goto .fin
 
-  print(i, end=' ')
+  suma += i
   i += 1
   goto .inicio
 
@@ -1304,13 +1314,15 @@ Operador         Ejemplo             Equivalente a
 
   ```{.python .number-lines}
   from goto_plus import goto, gotoconfig
-
   gotoconfig(__file__)
 
+  suma = 0
   j = 0
   j += 1
-  print(j)
+  suma += j
   if j < 10: goto(6)
   ```
+
+  ¿Cuánto vale `suma` al final?
 
 !BIBLIOGRAFIA
