@@ -1,1 +1,1 @@
-../antiguos/relaciones-entre-clases-en-java.md
+../source-java/relaciones-entre-clases-en-java.md

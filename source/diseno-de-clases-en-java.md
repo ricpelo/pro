@@ -1,1 +1,1 @@
-../antiguos/diseno-de-clases-en-java.md
+../source-java/diseno-de-clases-en-java.md

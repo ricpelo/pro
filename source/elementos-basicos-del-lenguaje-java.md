@@ -1,1 +1,1 @@
-../antiguos/elementos-basicos-del-lenguaje-java.md
+../source-java/elementos-basicos-del-lenguaje-java.md

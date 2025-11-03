@@ -1,1 +1,1 @@
-../antiguos/programacion-orientada-a-objetos-en-java.md
+../source-java/programacion-orientada-a-objetos-en-java.md

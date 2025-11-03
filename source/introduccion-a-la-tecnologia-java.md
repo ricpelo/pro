@@ -1,1 +1,1 @@
-../antiguos/introduccion-a-la-tecnologia-java.md
+../source-java/introduccion-a-la-tecnologia-java.md
