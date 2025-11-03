@@ -66,7 +66,7 @@ CITATIONS_BIB=$(SRCDIR)/citations.bib
 
 # Listas de archivos
 
-SOURCES      := $(shell find $(SRCDIR) -type f -name "*.md")
+SOURCES      := $(shell find $(SRCDIR) -type f,l -name "*.md")
 OBJECTS_HTML := $(patsubst $(SRCDIR)/%,$(BUILDDIR_HTML)/%,$(SOURCES:.md=.html))
 OBJECTS_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_PDF)/%,$(SOURCES:.md=.pdf))
 APUNTES_PDF  := $(patsubst $(SRCDIR)/%,$(BUILDDIR_APUNTES)/%,$(SOURCES:.md=-apuntes.pdf))
