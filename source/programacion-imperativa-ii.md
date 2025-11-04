@@ -1003,14 +1003,14 @@ node [fixedsize = shape, fontname = "monospace"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
 x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 1 [shape = circle, width = 0.3, fixedsize = shape]
-2 [shape = circle, width = 0.3, fixedsize = shape]
 3 [shape = circle, width = 0.3, fixedsize = shape]
+2 [shape = circle, width = 0.3, fixedsize = shape]
 lista1 [shape = record, width = 0.7, height = 0.3, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤}"]
 lista2 [shape = record, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
 lista1:f0 -> 1
 lista1:f1 -> 2
 lista1:f2 -> 3
-lista2:f0 -> lista1
+lista2:f0:n -> lista1
 lista2:f1 -> lista1
 x:f1 -> lista1
 y:f1 -> lista2
@@ -1044,9 +1044,9 @@ y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = tru
 x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 1 [shape = circle, width = 0.3, fixedsize = shape]
 2 [shape = circle, width = 0.3, fixedsize = shape]
-99 [shape = circle, width = 0.3, fixedsize = shape]
-77 [shape = circle, width = 0.3, fixedsize = shape]
 3 [shape = circle, width = 0.3, fixedsize = shape]
+77 [shape = circle, width = 0.3, fixedsize = shape]
+99 [shape = circle, width = 0.3, fixedsize = shape]
 lista1 [shape = record, width = 0.7, height = 0.3, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤}"]
 lista2 [shape = record, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>⬤|<f1>⬤}"]
 lista1:f0 -> 1 [style = dashed, color = grey]
@@ -1054,7 +1054,7 @@ lista1:f1 -> 2 [style = dashed, color = grey]
 lista1:f0 -> 99
 lista1:f1 -> 77
 lista1:f2 -> 3
-lista2:f0 -> lista1
+lista2:f0:n -> lista1
 lista2:f1 -> lista1
 x:f1 -> lista1
 y:f1 -> lista2
