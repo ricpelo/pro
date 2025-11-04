@@ -247,20 +247,20 @@ z:f1 -> t4
 
 #### Secuencias
 
-- Las **cadenas**, las **tuplas** y los **rangos** son _datos inmutables_, así
+- Las **cadenas** y las **tuplas**, entre otros, son _datos inmutables_, así
   que no podemos modificarlos.
 
 - Pero también son **datos compuestos** de otros datos (sus _elementos_ o
-  _componentes_) a los que podemos acceder individualmente y con los que
-  podemos operar, aunque no podamos cambiarlos, ya que están contenidos en
-  datos compuestos inmutables.
+  _componentes_) a los que podemos acceder y con los que podemos operar
+  individualmente, aunque no podamos cambiarlos ni sustituirlos por otros, ya
+  que forman parte de datos compuestos inmutables.
 
-- De hecho, las cadenas, las tuplas y los rangos pertenecen a la familia de las
+- De hecho, las cadenas y las tuplas pertenecen a la familia de las
   **secuencias**, que son colecciones de elementos ordenados según la posición
   que ocupan dentro de la secuencia.
 
-- Por tanto, con las cadenas, las tuplas y los rangos podemos usar las
-  **operaciones comunes a cualquier secuencia** de elementos.
+- Por tanto, con las cadenas y las tuplas podemos usar las **operaciones
+  comunes a cualquier secuencia** de elementos.
 
 - La siguiente tabla recoge las operaciones comunes sobre secuencias,
   ordenadas por prioridad ascendente. $\underline{s}$ y $\underline{t}$ son
@@ -277,12 +277,12 @@ $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\
 
 $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
+$s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$
                                         
-$s$ `*` $n$ \                             Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
-$n$ `*` $s$                               (no va con rangos)
+$s$ `*` $n$ \                             Concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
+$n$ `*` $s$
 
-$s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
+$s$`[`$i$`]`                              (_Indexación_) El $\underline{i}$-ésimo elemento de $\underline{s}$
 
 $s$`[`$i$`:`$j$`]`                        Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$
 
@@ -488,7 +488,7 @@ s | P | y | t | h | o | n |
 
 ---
 
-- También se pueden crear listas a partir de otros datos estructurados
+- También se pueden crear listas a partir de otros datos compuestos
   (cadenas, tuplas, rangos, etcétera) usando la función !PYTHON(list):
 
   ```python
@@ -501,7 +501,7 @@ s | P | y | t | h | o | n |
   ```
 
 - No se puede crear una lista con !PYTHON(list) a partir de un dato no
-  estructurado:
+  compuesto:
 
   ```python
   >>> list(1)
