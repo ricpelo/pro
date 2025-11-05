@@ -214,9 +214,9 @@ la asignación destructiva.</p></li>
 <strong>estado interno</strong> y es posible cambiar dicho estado, no
 asignando un nuevo valor a la variable que lo contiene, sino
 <strong>modificando el interior de dicho valor</strong>.</p></li>
-<li><p>Es decir: no estaríamos <strong>cambiando</strong> el estado de
-la variable (haciendo que ahora contenga un nuevo valor) sino <strong>el
-estado interno</strong> del propio valor al que hace referencia la
+<li><p>Es decir: no estaríamos cambiando el contenido de la variable
+(haciendo que ahora contenga una referencia a un nuevo valor) sino
+<strong>el estado interno del valor</strong> al que hace referencia la
 variable.</p></li>
 <li><p>Los valores que permiten cambiar su estado interno se denominan
 <strong>mutables</strong>.</p></li>
@@ -294,12 +294,15 @@ style="width:34.0%" /></p>
 <ul>
 <li>Lo que hace la asignación <code
 class="sourceCode python">x <span class="op">=</span> <span class="dv">7</span></code>
-no es cambiar el contenido del valor <code
-class="sourceCode python"><span class="dv">4</span></code>, sino hacer
-que la variable <code class="sourceCode python">x</code> contenga otro
-valor distinto (el valor <code
+<strong>no es transformar el valor <code
+class="sourceCode python"><span class="dv">4</span></code></strong>
+convirtiéndolo en el <code
+class="sourceCode python"><span class="dv">7</span></code> como si fuera
+una metamorfosis, sino que la variable <code
+class="sourceCode python">x</code> <strong>apunte a otro valor
+distinto</strong>. El valor <code
 class="sourceCode python"><span class="dv">4</span></code> en sí mismo
-no se cambia internamente en ningún momento).</li>
+no cambia en ningún momento.</li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.1.0.1">
@@ -326,7 +329,7 @@ variable <code class="sourceCode python">x</code>.</p></li>
 <ul>
 <li>Es decir: la cadena <code
 class="sourceCode python"><span class="st">&#39;hola&#39;</span></code>
-original <strong>no se cambia</strong> (no se le añade <code
+original <strong>no se modifica</strong> (no se le añade <code
 class="sourceCode python"><span class="st">&#39; manolo&#39;</span></code>
 detrás), sino que la nueva <strong>sustituye</strong> a la anterior en
 la variable:</li>
@@ -546,9 +549,9 @@ class="math inline">\underline{s}</span></td>
 <section class="slide level5" data-number="1.2.1.1.2">
 
 <ul>
-<li>El <em>operador</em> de <strong>indexación</strong> consiste en
-acceder al elemento situado en la posición indicada entre
-corchetes:</li>
+<li>El <em>operador</em> de <strong>indexación</strong> permite acceder
+al elemento situado en la posición (también llamada <em>índice</em>)
+indicada entre corchetes:</li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -1667,8 +1670,8 @@ ejemplo, una función) que puede observarse desde otras partes del mismo,
 las cuales podrían verse afectadas por ese efecto de una manera poco
 evidente o impredecible.</p>
 <div class="caja">
-<p>Una función puede provocar efectos laterales, o bien verse afectada
-por efectos laterales provocados por otras partes del programa.</p>
+<p>Una función puede provocar efectos laterales, o verse afectada por
+efectos laterales provocados por otras partes del programa.</p>
 <p>En cualquiera de estos casos, tendríamos una función
 <strong>impura</strong>.</p>
 </div></li>

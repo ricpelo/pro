@@ -21,9 +21,9 @@ nocite: |
   y es posible cambiar dicho estado, no asignando un nuevo valor a la variable
   que lo contiene, sino **modificando el interior de dicho valor**.
 
-- Es decir: no estaríamos **cambiando** el estado de la variable (haciendo que
-  ahora contenga un nuevo valor) sino **el estado interno** del propio valor
-  al que hace referencia la variable.
+- Es decir: no estaríamos cambiando el contenido de la variable (haciendo que
+  ahora contenga una referencia a un nuevo valor) sino **el estado interno del
+  valor** al que hace referencia la variable.
 
 - Los valores que permiten cambiar su estado interno se denominan **mutables**.
 
@@ -108,10 +108,10 @@ y:f1 -> 5
 
 ::::
 
-- Lo que hace la asignación !PYTHON(x = 7) no es cambiar el contenido del valor
-  !PYTHON(4), sino hacer que la variable !PYTHON(x) contenga otro valor
-  distinto (el valor !PYTHON(4) en sí mismo no se cambia internamente en ningún
-  momento).
+- Lo que hace la asignación !PYTHON(x = 7) **no es transformar el valor
+  !PYTHON(4)** convirtiéndolo en el !PYTHON(7) como si fuera una metamorfosis, sino que la variable !PYTHON(x)
+  **apunte a otro valor distinto**. El valor !PYTHON(4) en sí mismo no cambia
+  en ningún momento.
 
 ---
 
@@ -144,9 +144,9 @@ y:f1 -> 5
 
 ::: column
 
-- Es decir: la cadena !PYTHON('hola') original **no se cambia** (no se le añade
-  !PYTHON(' manolo') detrás), sino que la nueva **sustituye** a la anterior en
-  la variable:
+- Es decir: la cadena !PYTHON('hola') original **no se modifica** (no se le
+  añade !PYTHON(' manolo') detrás), sino que la nueva **sustituye** a la
+  anterior en la variable:
 
 :::
 
@@ -302,8 +302,8 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
 ---
 
-- El *operador* de **indexación** consiste en acceder al elemento situado en la
-  posición indicada entre corchetes:
+- El *operador* de **indexación** permite acceder al elemento situado en la
+  posición (también llamada _índice_) indicada entre corchetes:
 
 :::: columns
 
@@ -835,11 +835,11 @@ lista1 [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤
 lista2 [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤}"]
 66 [shape = circle, width = 0.6]
 77 [shape = circle, width = 0.6]
-88 [shape = circle, width = 0.6]
 99 [shape = circle, width = 0.6]
+88 [shape = circle, width = 0.6]
 1 [shape = circle, width = 0.6]
-2 [shape = circle, width = 0.6]
 3 [shape = circle, width = 0.6]
+2 [shape = circle, width = 0.6]
 lista1:f0 -> 66
 lista1:f1 -> 77
 lista1:f2 -> 88
@@ -1347,8 +1347,8 @@ False
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Una función puede provocar efectos laterales, o bien verse afectada por
-  efectos laterales provocados por otras partes del programa.
+  Una función puede provocar efectos laterales, o verse afectada por efectos
+  laterales provocados por otras partes del programa.
 
   En cualquiera de estos casos, tendríamos una función **impura**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
