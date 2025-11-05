@@ -525,7 +525,7 @@ s | P | y | t | h | o | n |
   - Los *operadores* de **indexación** y **_slicing_** combinados con
     !PYTHON(=) y !PYTHON(del):
 
-    ```
+    ```python
       +-----+-----+-----+-----+-----+-----+
     l | 124 | 333 | 'a' | 3.2 |  9  |  53 |
       +-----+-----+-----+-----+-----+-----+
