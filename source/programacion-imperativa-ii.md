@@ -1465,11 +1465,13 @@ False
 
   El exterior de una función es el resto del programa del que forma parte.
 
+---
+
 - Análogamente, un programa puede comunicarse con su exterior mediante
   operaciones de lectura en la entrada y operaciones de escritura en la salida,
   que son efectos laterales.
 
-  !DOT(exterior-programa.svg)(Comunicación con el exterior)(width=60%)(width=55%)
+  !DOT(exterior-programa.svg)(Comunicación con el exterior)(width=75%)(width=70%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ExteriorE [label = "Entrada del exterior\n(Consola, archivos,\nlínea de órdenes, GUI...)", shape = plaintext, fillcolor = transparent];
   ExteriorS [label = "Salida al exterior\n(Consola, archivos, GUI...)", shape = plaintext, fillcolor = transparent];
@@ -1480,6 +1482,8 @@ False
 
   ExteriorE -> Programa -> ExteriorS
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!SALTOHTML
 
 - Gracias a las operaciones de E/S, nuestro programa puede interactuar con el
   usuario, solicitarle datos y proporcionarle resultados.
@@ -1497,6 +1501,8 @@ False
   S [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{\\n|e|p|e|P| |a|l|o|H}"]
   E -> Programa -> S
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!SALTO
 
 - Esos flujos actúan como «colas» de elementos que:
 
