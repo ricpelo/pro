@@ -574,9 +574,9 @@ x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = tru
 lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
 99 [style= invis, width = 0.6]
 24 [shape = circle, width = 0.6]
-32 [shape = circle, width = 0.6]
-15 [shape = circle, width = 0.6]
 81 [shape = circle, width = 0.6]
+15 [shape = circle, width = 0.6]
+32 [shape = circle, width = 0.6]
 lista:f0 -> 24
 lista:f1 -> 99 [style = invis]
 lista:f1 -> 32
@@ -594,11 +594,11 @@ x:f1 -> lista
 node [fixedsize = shape, fontname = "monospace"]
 x [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
-99 [shape = circle, width = 0.6]
 24 [shape = circle, width = 0.6]
-32 [shape = circle, width = 0.6, style = dashed, color = grey, fontcolor = grey]
-15 [shape = circle, width = 0.6]
+99 [shape = circle, width = 0.6]
 81 [shape = circle, width = 0.6]
+15 [shape = circle, width = 0.6]
+32 [shape = circle, width = 0.6, style = dashed, color = grey, fontcolor = grey]
 lista:f0 -> 24
 lista:f1 -> 99
 lista:f1 -> 32 [style = dashed, color = grey]
