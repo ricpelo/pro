@@ -1147,7 +1147,7 @@ y:f1 -> lista2
 - Sin embargo, lo que ocurre es que esos dos !PYTHON('prueba') **no son _el
   mismo valor_**, sino dos _valores iguales_ que se han creado en momentos
   diferentes y que ocupan zonas diferentes en la memoria, por lo que tienen
-  _identidades diferentes_ (aunque sus valores sean iguales).
+  _identidades diferentes_ (aunque los valores sean iguales).
 
 - En cambio, si hacemos:
 
