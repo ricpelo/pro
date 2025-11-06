@@ -1125,9 +1125,9 @@ Operador         Ejemplo             Equivalente a
   **inicio**
   $i \longleftarrow 0$
   **saltar** a la etiqueta _fin_
-  $i \longleftarrow 1$
+  $i \longleftarrow i + 1$
   **etiqueta** _fin_
-  $i \longleftarrow 2$
+  $i \longleftarrow i + 2$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1138,8 +1138,8 @@ Operador         Ejemplo             Equivalente a
   1. **inicio**
   2. $i \longleftarrow 0$
   3. **saltar** a la línea 5
-  4. $i \longleftarrow 1$
-  5. $i \longleftarrow 2$
+  4. $i \longleftarrow i + 1$
+  5. $i \longleftarrow i + 2$
   6. **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1248,16 +1248,18 @@ Operador         Ejemplo             Equivalente a
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **inicio**
   $primero \longleftarrow 2$
   $ultimo \longleftarrow 25$
   $suma \longleftarrow 0$
   $i \longleftarrow primero$
-  **etiqueta** _inicio_
-  **si** $i = ultimo$ **saltar** a la etiqueta _fin_
+  **etiqueta** _bucle_
+  **si** $i = ultimo$ **saltar** a la etiqueta _salir_
   $suma \longleftarrow suma + i$
   $i \longleftarrow i + 1$
-  **saltar** a la etiqueta _inicio_
-  **etiqueta** _fin_
+  **saltar** a la etiqueta _bucle_
+  **etiqueta** _salir_
+  **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ¿Cuánto vale $suma$ al final?
