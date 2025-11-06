@@ -901,8 +901,8 @@ y = 480
 !DOT(inmutable8.svg)(No se comparte el valor)(width=35%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 c1 [shape = circle, width = 0.5, fixedsize = shape, label = "480"]
 c2 [shape = circle, width = 0.5, fixedsize = shape, label = "480"]
 x:f1 -> c1
@@ -934,8 +934,8 @@ y = 'pepe'
 !DOT(inmutable9.svg)()(width=45%)(width=25%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 node [fixedsize = shape, fontname = "monospace"]
-x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 y [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>y|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
 hola [shape = ellipse, width = 1.0, fixedsize = true, label = "'hola'"]
 pepe [shape = ellipse, width = 1.0, fixedsize = true, label = "'pepe'"]
 x:f1 -> hola
