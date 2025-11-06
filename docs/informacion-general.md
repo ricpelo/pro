@@ -6,5 +6,5 @@ title: Información general
 - **Normativa de aplicación**: Consultar la programación del módulo.
 - **Equivalencia en créditos ECTS**: 14.
 - **Código**: 0485.
-- **Duración total**: 256 horas / 32 semanas
+- **Duración total**: 256 horas.
 - **Carga lectiva semanal**: 8 horas
