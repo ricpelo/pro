@@ -849,7 +849,7 @@ lista2:f1 -> 2
 lista2:f2 -> 3
 x:f1 -> lista1
 y:f1 -> lista1 [style = dashed, color = grey]
-y:f1 -> lista2
+y:f1:s -> lista2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -1088,7 +1088,7 @@ y:f1 -> lista2
 
 ---
 
-- La identidad de un valor nunca cambia durante la ejecución del programa o
+- La identidad de un valor **nunca cambia** durante la ejecución del programa o
   durante la misma sesión con el intérprete interactivo, incluso aunque el
   dato sea mutable y cambie su contenido.
 
