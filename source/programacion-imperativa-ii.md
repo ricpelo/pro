@@ -699,8 +699,8 @@ Ejemplo                    Valor de !PYTHON(x) después
 
 ---
 
-- Es importante tener en cuenta que, si $\underline{s}$ es una lista (o
-  cualquier otro objeto mutable) no es lo mismo hacer:
+- Es importante tener en cuenta que, si $\underline{s}$ es una lista (o algún
+  otro objeto mutable) no es lo mismo hacer:
 
   ```python
   s += t
@@ -750,9 +750,9 @@ y [shape = record, fillcolor = white, width = 0.7, height = 0.5, fixedsize = tru
 lista [shape = record, width = 1.5, fixedsize = true, label = "{<f0>⬤|<f1>⬤|<f2>⬤|<f3>⬤}"]
 66 [shape = circle, width = 0.6]
 77 [shape = circle, width = 0.6]
+99 [shape = circle, width = 0.6]
 40 [shape = circle, width = 0.6]
 88 [shape = circle, width = 0.6]
-99 [shape = circle, width = 0.6]
 lista:f0 -> 66
 lista:f1 -> 77
 lista:f2 -> 88 [style = dashed, color = grey]
