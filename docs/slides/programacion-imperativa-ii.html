@@ -1862,7 +1862,7 @@ solicitarle datos y proporcionarle resultados.</li>
 <li><p>En Python (así como en otros lenguajes de programación), la E/S
 de información desde y hacia el exterior se realiza por medio de
 <strong>flujos</strong> (del inglés, <em>streams</em>), que son
-<em>secuencias</em> de bytes o de caracteres:</p>
+<em>secuencias</em> de caracteres o de bytes:</p>
 <div class="centered">
 <figure>
 <img data-src="images/flujos.svg" class="plain" style="width:80.0%"
@@ -1874,33 +1874,36 @@ saluda</figcaption>
 </ul>
 <p><br></p>
 <ul>
-<li><p>Esos flujos actúan como «colas» de elementos que:</p>
+<li><p>Esos flujos actúan como «colas» de elementos (caracteres o
+bytes), de forma que:</p>
 <ul>
-<li><p>En la entrada, están a la espera de ser consumidos por el
-programa.</p></li>
-<li><p>En la salida, se van encolando a medida que el programa los va
-generando y volcando al exterior.</p></li>
+<li><p>En la entrada, los elementos están a la espera de ser consumidos
+por el programa.</p></li>
+<li><p>En la salida, los elementos se van encolando a medida que el
+programa los va generando y volcando al exterior.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.5">
 
 <ul>
-<li><p>Dependiendo de las características del flujo de entrada, hay dos
-posibilidades:</p>
+<li><p>Dependiendo de las características del <strong>flujo de
+entrada</strong>, hay dos posibilidades:</p>
 <ol type="a">
-<li><p>El programa sólo podrá acceder al primer elemento de la
-cola.</p></li>
-<li><p>El programa podrá moverse libremente por el flujo este y acceder
-a cualquier elemento del mismo, sin importar la posición en la que esté
-el elemento dentro del flujo.</p></li>
+<li><p><em>Lectura secuencial</em>: El programa sólo puede acceder al
+primer elemento de la cola, de manera que va leyéndolos de uno en uno y
+se van sacando de la cola a medida que se van leyendo.</p></li>
+<li><p><em>Lectura directa</em>: El programa puede moverse libremente
+por el flujo y acceder a cualquier elemento del mismo, sin importar la
+posición en la que esté el elemento dentro del flujo.</p></li>
 </ol></li>
-<li><p>Asimismo, dependiendo de las características del flujo de salida,
-también hay dos posibilidades:</p>
+<li><p>Asimismo, dependiendo de las características del <strong>flujo de
+salida</strong>, también hay dos posibilidades:</p>
 <ol type="a">
-<li><p>El programa sólo podrá escribir al final de la cola.</p></li>
-<li><p>El programa podrá escribir elementos libremente en cualquier
-posición dentro del flujo.</p></li>
+<li><p><em>Escritura secuencial</em>: El programa sólo puede escribir al
+final de la cola de salida.</p></li>
+<li><p><em>Escritura directa</em>: El programa puede escribir elementos
+libremente en cualquier posición dentro del flujo.</p></li>
 </ol></li>
 <li><p>Finalmente, algunos flujos pueden actuar como flujo de entrada y
 de salida al mismo tiempo y, en tal caso, el programa podría leer y
@@ -1916,10 +1919,10 @@ Entrada y salida por consola</h3>
 el teclado del ordenador.</p></li>
 <li><p>Por tanto, la E/S por consola se refiere a las operaciones de
 lectura de datos por el teclado y escritura a la pantalla.</p></li>
-<li><p>Mientras no se diga lo contrario, el S.O. conecta la consola a
-dos flujos llamados <strong><em>entrada estándar</em></strong> y
-<strong><em>salida estándar</em></strong>, de forma que el teclado está
-conectado a la entrada estándar y la pantalla a la salida
+<li><p>Mientras no se diga lo contrario, el sistema operativo conecta la
+consola a dos flujos llamados <strong><em>entrada estándar</em></strong>
+y <strong><em>salida estándar</em></strong>, de forma que el teclado
+está conectado a la entrada estándar y la pantalla a la salida
 estándar.</p></li>
 <li><p>Esos flujos se pueden <em>redireccionar</em> a otros archivos o
 dispositivos usando las redirecciones de la <em>shell</em>:
@@ -1937,7 +1940,8 @@ objetos <code class="sourceCode python">sys.stdin</code> y <code
 class="sourceCode python">sys.stdout</code>, respectivamente.</p></li>
 <li><p>También existe el flujo <code
 class="sourceCode python">sys.stderr</code> que representa la
-<strong><em>salida estándar de errores</em></strong> del S. O.</p></li>
+<strong><em>salida estándar de errores</em></strong> del sistema
+operativo.</p></li>
 <li><p>El intérprete ya abre automáticamente los flujos <code
 class="sourceCode python">sys.stdin</code>, <code
 class="sourceCode python">sys.stdout</code> y <code

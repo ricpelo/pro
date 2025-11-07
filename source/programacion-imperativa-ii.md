@@ -1540,7 +1540,7 @@ False
 
 - En Python (así como en otros lenguajes de programación), la E/S de
   información desde y hacia el exterior se realiza por medio de **flujos** (del
-  inglés, _streams_), que son _secuencias_ de bytes o de caracteres:
+  inglés, _streams_), que son _secuencias_ de caracteres o de bytes:
 
   !DOT(flujos.svg)(Ejemplo de un programa que saluda)(width=80%)(width=80%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1552,31 +1552,36 @@ False
 
 !SALTO
 
-- Esos flujos actúan como «colas» de elementos que:
+- Esos flujos actúan como «colas» de elementos (caracteres o bytes), de forma
+  que:
 
-  - En la entrada, están a la espera de ser consumidos por el programa.
+  - En la entrada, los elementos están a la espera de ser consumidos por el
+    programa.
 
-  - En la salida, se van encolando a medida que el programa los va generando y
-    volcando al exterior.
+  - En la salida, los elementos se van encolando a medida que el programa los
+    va generando y volcando al exterior.
 
 ---
 
-- Dependiendo de las características del flujo de entrada, hay dos
+- Dependiendo de las características del **flujo de entrada**, hay dos
   posibilidades:
 
-  a. El programa sólo podrá acceder al primer elemento de la cola.
+  a. _Lectura secuencial_: El programa sólo puede acceder al primer elemento de
+     la cola, de manera que va leyéndolos de uno en uno y se van sacando de la
+     cola a medida que se van leyendo.
 
-  a. El programa podrá moverse libremente por el flujo este y acceder a
-     cualquier elemento del mismo, sin importar la posición en la que esté el
-     elemento dentro del flujo.
+  a. _Lectura directa_: El programa puede moverse libremente por el flujo y
+     acceder a cualquier elemento del mismo, sin importar la posición en la que
+     esté el elemento dentro del flujo.
 
-- Asimismo, dependiendo de las características del flujo de salida, también hay
-  dos posibilidades:
+- Asimismo, dependiendo de las características del **flujo de salida**, también
+  hay dos posibilidades:
 
-  a. El programa sólo podrá escribir al final de la cola.
+  a. _Escritura secuencial_: El programa sólo puede escribir al final de la
+      cola de salida.
 
-  a. El programa podrá escribir elementos libremente en cualquier posición
-     dentro del flujo.
+  a. _Escritura directa_: El programa puede escribir elementos libremente en
+     cualquier posición dentro del flujo.
 
 - Finalmente, algunos flujos pueden actuar como flujo de entrada y de salida al
   mismo tiempo y, en tal caso, el programa podría leer y escribir datos sobre
@@ -1590,9 +1595,9 @@ False
 - Por tanto, la E/S por consola se refiere a las operaciones de lectura de
   datos por el teclado y escritura a la pantalla.
 
-- Mientras no se diga lo contrario, el S.O. conecta la consola a dos flujos
-  llamados **_entrada estándar_** y **_salida estándar_**, de forma que el
-  teclado está conectado a la entrada estándar y la pantalla a la salida
+- Mientras no se diga lo contrario, el sistema operativo conecta la consola a
+  dos flujos llamados **_entrada estándar_** y **_salida estándar_**, de forma
+  que el teclado está conectado a la entrada estándar y la pantalla a la salida
   estándar.
 
 - Esos flujos se pueden _redireccionar_ a otros archivos o dispositivos
@@ -1609,7 +1614,7 @@ False
   !PYTHON(sys.stdin) y !PYTHON(sys.stdout), respectivamente.
 
 - También existe el flujo !PYTHON(sys.stderr) que representa la **_salida
-  estándar de errores_** del S. O.
+  estándar de errores_** del sistema operativo.
 
 - El intérprete ya abre automáticamente los flujos !PYTHON(sys.stdin),
   !PYTHON(sys.stdout) y !PYTHON(sys.stderr) nada más arrancar y los conecta a
