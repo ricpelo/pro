@@ -1325,11 +1325,11 @@ False
 
 ## Funciones impuras
 
-- Por contraste, una función se considera **impura**:
+- Por contraste, una función se considera **impura** si:
 
-  - si su valor de retorno depende de algo más que de sus argumentos, o
+  - su valor de retorno depende de algo más que de sus argumentos, o
 
-  - si provoca cambios de estado observables en el exterior de la función.
+  - provoca cambios de estado observables en el exterior de la función.
 
     En éste último caso decimos que la función provoca **efectos laterales**.
 
@@ -1364,9 +1364,9 @@ False
 ---
 
 - En un lenguaje imperativo **se pierde la transparencia referencial**, ya que
-  ahora el valor de una función puede depender no sólo de los valores de sus
-  argumentos, sino también además de los valores de las variables libres que
-  ahora pueden cambiar durante la ejecución del programa:
+  el valor de una función puede depender no sólo de los valores de sus
+  argumentos, sino también de los valores de las variables libres, los cuales
+  pueden cambiar durante la ejecución del programa:
 
   ```python
   >>> suma = lambda x, y: x + y + z
@@ -1393,8 +1393,8 @@ False
 
 - Por ejemplo, una función que imprime por la pantalla o escribe en un archivo
   del disco está provocando un efecto observable fuera de la función, por lo
-  que tampoco es una función pura y, por tanto, en ella no se cumple la
-  transparencia referencial.
+  que tampoco es una función pura y, por tanto, no cumple la transparencia
+  referencial.
 
 - Lo mismo pasa con las funciones que modifican algún argumento mutable. Por
   ejemplo:
@@ -1412,10 +1412,10 @@ False
 
 ---
 
-- Los efectos laterales hacen que sea muy difícil razonar sobre el
+- Los efectos laterales hacen que sea más difícil razonar sobre el
   funcionamiento del programa, porque las funciones impuras no pueden verse
   como simples correspondencias entre los datos de entrada y el resultado de
-  salida, sino que además hay que tener en cuenta los **efectos ocultos** que
+  salida, sino que además hay que tener en cuenta los **efectos laterales** que
   producen en otras partes del programa.
 
 - Por ello, se debe **evitar**, siempre que sea posible, escribir funciones
@@ -1435,8 +1435,83 @@ False
 
 ## Conceptos básicos
 
-- Nuestro programa puede comunicarse con el exterior realizando **operaciones
-  de entrada/salida (E/S)**.
+- En principio, el **exterior** de una función es el resto del programa del que
+  forma parte.
+
+- Visto así, una función (que es un _subprograma_) puede comunicarse con su
+  exterior principalmente mediante:
+
+  - el paso de argumentos y
+
+  - la devolución de su valor de retorno,
+
+  !DOT(exterior-funcion-funcional.svg)(Comunicación básica de una función con el exterior)(width=75%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Argumentos [shape = plaintext, fillcolor = transparent];
+  Resultado [label = "Valor de retorno", shape = plaintext, fillcolor = transparent];
+
+  Argumentos -> Función;
+  Función -> Resultado;
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Aunque sabemos que también puede interactuar con su exterior mediante
+  **efectos laterales** como el uso de variables no locales y la modificación
+  de argumentos mutables.
+
+  !DOT(exterior-funcion-sin-entrada-salida.svg)(Comunicación de una función con el exterior incluyendo efectos laterales)(width=75%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  VariablesNoLocales [shape = plaintext, fillcolor = transparent, label = "Variables no locales"];
+  Argumentos [shape = plaintext, fillcolor = transparent];
+  ArgumentosMutables [shape = plaintext, fillcolor = transparent, label = "Argumentos mutables"];
+  Resultado [label = "Valor de retorno", shape = plaintext, fillcolor = transparent];
+
+  Argumentos -> Función;
+  Función -> Resultado;
+
+  { rank = same; ArgumentosMutables; Argumentos; VariablesNoLocales }
+  Función -> ArgumentosMutables [dir = both];
+  VariablesNoLocales -> Función [dir = both];
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Pero además, una función puede interactuar con el exterior del programa
+  realizando **operaciones de entrada/salida (E/S)**.
+
+- El **exterior de un programa** puede ser, entre otros:
+
+  - El teclado.
+  - La pantalla.
+  - Un archivo del disco duro.
+  - Otro ordenador de la red.
+
+  !DOT(exterior-funcion-completa.svg)(Comunicación de una función con el exterior)(width=75%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  VariablesNoLocales [shape = plaintext, fillcolor = transparent, label = "Variables no locales"];
+  ArgumentosMutables [shape = plaintext, fillcolor = transparent, label = "Argumentos mutables"];
+  Argumentos [shape = plaintext, fillcolor = transparent];
+  Resultado [label = "Valor de retorno", shape = plaintext, fillcolor = transparent];
+
+  Argumentos -> Función;
+  Función -> Resultado;
+
+  { rank = same; ArgumentosMutables; Argumentos; VariablesNoLocales }
+  Función -> ArgumentosMutables [dir = both];
+  VariablesNoLocales -> Función [dir = both];
+
+  ExteriorE [label = "Entrada desde el exterior\n(Consola, archivos,\nlínea de órdenes, GUI...)", shape = plaintext, fillcolor = transparent];
+  ExteriorS [label = "Salida al exterior\n(Consola, archivos, GUI...)", shape = plaintext, fillcolor = transparent];
+
+  { rank = same; ExteriorE; Función; ExteriorS }
+
+  // Flechas verticales
+  ExteriorE -> Función;
+  Función -> ExteriorS;
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
 
 - Las operaciones de E/S se consideran **efectos laterales** porque:
 
@@ -1445,48 +1520,21 @@ False
   - pueden hacer que el resultado de una función dependa de los datos leídos
     del exterior y, por tanto, ya no sólo dependería de sus argumentos.
 
-- Interpretamos la palabra _exterior_ en un sentido amplio; por ejemplo:
-
-  - El teclado.
-
-  - La pantalla.
-
-  - Un archivo del disco duro.
-
-  - Otro ordenador de la red.
-
----
-
-- Una función (que es un _subprograma_) puede comunicarse con su exterior
-  principalmente mediante el paso de argumentos y la devolución de su valor de
-  retorno, aunque sabemos que también puede interactuar con el exterior
-  mediante efectos laterales como el uso de variables no locales, argumentos
-  mutables, etcétera.
-
-  El exterior de una función es el resto del programa del que forma parte.
-
----
-
-- Análogamente, un programa puede comunicarse con su exterior mediante
+- Gracias a ello, un programa puede comunicarse con el exterior mediante
   operaciones de lectura en la entrada y operaciones de escritura en la salida,
   que son efectos laterales.
 
-  !DOT(exterior-programa.svg)(Comunicación con el exterior)(width=75%)(width=70%)
+  !DOT(exterior-programa.svg)(Comunicación de un programa con el exterior)(width=75%)(width=70%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ExteriorE [label = "Entrada del exterior\n(Consola, archivos,\nlínea de órdenes, GUI...)", shape = plaintext, fillcolor = transparent];
+  ExteriorE [label = "Entrada desde el exterior\n(Consola, archivos,\nlínea de órdenes, GUI...)", shape = plaintext, fillcolor = transparent];
   ExteriorS [label = "Salida al exterior\n(Consola, archivos, GUI...)", shape = plaintext, fillcolor = transparent];
-  Argumentos [shape = plaintext, fillcolor = transparent];
-  Resultado [label = "Valor de retorno", shape = plaintext, fillcolor = transparent];
-
-  Argumentos -> Función -> Resultado
-
   ExteriorE -> Programa -> ExteriorS
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !SALTOHTML
 
-- Gracias a las operaciones de E/S, nuestro programa puede interactuar con el
-  usuario, solicitarle datos y proporcionarle resultados.
+- De esta forma, el programa puede interactuar con el usuario, solicitarle
+  datos y proporcionarle resultados.
 
 ---
 

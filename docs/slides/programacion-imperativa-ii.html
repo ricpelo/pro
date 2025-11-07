@@ -14,9 +14,6 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,9 +29,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -45,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -100,6 +96,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -1645,12 +1642,12 @@ data-number="2.2">
 <h2 data-number="2.2"><span class="header-section-number">2.2</span>
 Funciones impuras</h2>
 <ul>
-<li><p>Por contraste, una función se considera
-<strong>impura</strong>:</p>
+<li><p>Por contraste, una función se considera <strong>impura</strong>
+si:</p>
 <ul>
-<li><p>si su valor de retorno depende de algo más que de sus argumentos,
+<li><p>su valor de retorno depende de algo más que de sus argumentos,
 o</p></li>
-<li><p>si provoca cambios de estado observables en el exterior de la
+<li><p>provoca cambios de estado observables en el exterior de la
 función.</p>
 <p>En éste último caso decimos que la función provoca <strong>efectos
 laterales</strong>.</p></li>
@@ -1690,10 +1687,10 @@ efectos laterales provocados por otras partes del programa.</p>
 
 <ul>
 <li><p>En un lenguaje imperativo <strong>se pierde la transparencia
-referencial</strong>, ya que ahora el valor de una función puede
-depender no sólo de los valores de sus argumentos, sino también además
-de los valores de las variables libres que ahora pueden cambiar durante
-la ejecución del programa:</p>
+referencial</strong>, ya que el valor de una función puede depender no
+sólo de los valores de sus argumentos, sino también de los valores de
+las variables libres, los cuales pueden cambiar durante la ejecución del
+programa:</p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y <span class="op">+</span> z</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">2</span></span>
@@ -1719,8 +1716,8 @@ valor</strong>, y ese <em>algo</em> es un efecto observable fuera de la
 función.</p></li>
 <li><p>Por ejemplo, una función que imprime por la pantalla o escribe en
 un archivo del disco está provocando un efecto observable fuera de la
-función, por lo que tampoco es una función pura y, por tanto, en ella no
-se cumple la transparencia referencial.</p></li>
+función, por lo que tampoco es una función pura y, por tanto, no cumple
+la transparencia referencial.</p></li>
 <li><p>Lo mismo pasa con las funciones que modifican algún argumento
 mutable. Por ejemplo:</p>
 <div class="sourceCode" id="cb40"><pre
@@ -1737,11 +1734,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a h
 <section class="slide level5" data-number="2.3.0.0.3">
 
 <ul>
-<li><p>Los efectos laterales hacen que sea muy difícil razonar sobre el
+<li><p>Los efectos laterales hacen que sea más difícil razonar sobre el
 funcionamiento del programa, porque las funciones impuras no pueden
 verse como simples correspondencias entre los datos de entrada y el
 resultado de salida, sino que además hay que tener en cuenta los
-<strong>efectos ocultos</strong> que producen en otras partes del
+<strong>efectos laterales</strong> que producen en otras partes del
 programa.</p></li>
 <li><p>Por ello, se debe <strong>evitar</strong>, siempre que sea
 posible, escribir funciones impuras.</p></li>
@@ -1770,8 +1767,69 @@ data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span>
 Conceptos básicos</h2>
 <ul>
-<li><p>Nuestro programa puede comunicarse con el exterior realizando
-<strong>operaciones de entrada/salida (E/S)</strong>.</p></li>
+<li><p>En principio, el <strong>exterior</strong> de una función es el
+resto del programa del que forma parte.</p></li>
+<li><p>Visto así, una función (que es un <em>subprograma</em>) puede
+comunicarse con su exterior principalmente mediante:</p>
+<ul>
+<li><p>el paso de argumentos y</p></li>
+<li><p>la devolución de su valor de retorno,</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/exterior-funcion-funcional.svg" class="plain"
+style="width:75.0%"
+alt="Comunicación básica de una función con el exterior" />
+<figcaption aria-hidden="true">Comunicación básica de una función con el
+exterior</figcaption>
+</figure>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>Aunque sabemos que también puede interactuar con su exterior
+mediante <strong>efectos laterales</strong> como el uso de variables no
+locales y la modificación de argumentos mutables.</p>
+<div class="centered">
+<figure>
+<img data-src="images/exterior-funcion-sin-entrada-salida.svg"
+class="plain" style="width:75.0%"
+alt="Comunicación de una función con el exterior incluyendo efectos laterales" />
+<figcaption aria-hidden="true">Comunicación de una función con el
+exterior incluyendo efectos laterales</figcaption>
+</figure>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<ul>
+<li><p>Pero además, una función puede interactuar con el exterior del
+programa realizando <strong>operaciones de entrada/salida
+(E/S)</strong>.</p></li>
+<li><p>El <strong>exterior de un programa</strong> puede ser, entre
+otros:</p>
+<ul>
+<li>El teclado.</li>
+<li>La pantalla.</li>
+<li>Un archivo del disco duro.</li>
+<li>Otro ordenador de la red.</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/exterior-funcion-completa.svg" class="plain"
+style="width:75.0%" alt="Comunicación de una función con el exterior" />
+<figcaption aria-hidden="true">Comunicación de una función con el
+exterior</figcaption>
+</figure>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.3">
+
+<ul>
 <li><p>Las operaciones de E/S se consideran <strong>efectos
 laterales</strong> porque:</p>
 <ul>
@@ -1780,49 +1838,25 @@ laterales</strong> porque:</p>
 leídos del exterior y, por tanto, ya no sólo dependería de sus
 argumentos.</p></li>
 </ul></li>
-<li><p>Interpretamos la palabra <em>exterior</em> en un sentido amplio;
-por ejemplo:</p>
-<ul>
-<li><p>El teclado.</p></li>
-<li><p>La pantalla.</p></li>
-<li><p>Un archivo del disco duro.</p></li>
-<li><p>Otro ordenador de la red.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.1.0.0.1">
-
-<ul>
-<li><p>Una función (que es un <em>subprograma</em>) puede comunicarse
-con su exterior principalmente mediante el paso de argumentos y la
-devolución de su valor de retorno, aunque sabemos que también puede
-interactuar con el exterior mediante efectos laterales como el uso de
-variables no locales, argumentos mutables, etcétera.</p>
-<p>El exterior de una función es el resto del programa del que forma
-parte.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.1.0.0.2">
-
-<ul>
-<li><p>Análogamente, un programa puede comunicarse con su exterior
+<li><p>Gracias a ello, un programa puede comunicarse con el exterior
 mediante operaciones de lectura en la entrada y operaciones de escritura
 en la salida, que son efectos laterales.</p>
 <div class="centered">
 <figure>
 <img data-src="images/exterior-programa.svg" class="plain"
-style="width:75.0%" alt="Comunicación con el exterior" />
-<figcaption aria-hidden="true">Comunicación con el exterior</figcaption>
+style="width:75.0%" alt="Comunicación de un programa con el exterior" />
+<figcaption aria-hidden="true">Comunicación de un programa con el
+exterior</figcaption>
 </figure>
 </div></li>
 </ul>
 <p><br></p>
 <ul>
-<li>Gracias a las operaciones de E/S, nuestro programa puede interactuar
-con el usuario, solicitarle datos y proporcionarle resultados.</li>
+<li>De esta forma, el programa puede interactuar con el usuario,
+solicitarle datos y proporcionarle resultados.</li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
 <li><p>En Python (así como en otros lenguajes de programación), la E/S
@@ -1849,7 +1883,7 @@ generando y volcando al exterior.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.4">
+<section class="slide level5" data-number="3.1.0.0.5">
 
 <ul>
 <li><p>Dependiendo de las características del flujo de entrada, hay dos
@@ -2243,22 +2277,22 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb54-1"><a
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-aguilar_fundamentos_2008" class="csl-entry"
 role="listitem">
 Aguilar, Luis Joyanes. 2008. <em>Fundamentos de Programación</em>.
-McGraw-Hill Interamericana de España.
+Aravaca: McGraw-Hill Interamericana de España.
 </div>
 <div id="ref-pareja_flores_desarrollo_1997" class="csl-entry"
 role="listitem">
 Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada,
 and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos y Técnicas
-de Programación En <span>Pascal</span></em>. Ra-Ma.
+de Programación En <span>Pascal</span></em>. Madrid: Ra-Ma.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <em>Sitio Web de Documentación de
-<span>Python</span></em>. <a
+Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
+<span>Python</span>.”</span> <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>
