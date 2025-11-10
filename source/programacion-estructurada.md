@@ -102,6 +102,22 @@ nocite: |
 - Ese programa, una vez terminado, debe estar construido combinando sólo unos
   pocos tipos de componentes y cumpliendo una serie de restricciones.
 
+---
+
+- Cuando leemos un texto, no lo hacemos letra a letra, sino por _bloques_:
+  leemos palabras completas de un solo vistazo, incluso varias palabras juntas
+  cuando esa combinación de palabras se da con frecuencia.
+
+- Igualmente, queremos programas que no necesiten ser leídos instrucción por
+  instrucción, sino que podamos descomponerlos en _bloques_ con significado
+  propio que puedan ser leídos y entendidos por sí mismos como una sola cosa:
+  unidades de código que se puedan leer y entender como cuando leemos palabras
+  completas de un solo vistazo.
+
+- Con la programación estructurada, queremos poder componer sentencias
+  complejas a partir de otras sentencias más simples, de la misma manera que
+  podemos componer expresiones complejas a partir de otras más simples.
+
 ## Programa restringido
 
 - Un **programa restringido** es aquel que se construye combinando únicamente
