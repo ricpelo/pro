@@ -44,9 +44,11 @@ nocite: |
   por **E. W. Dijkstra** en 1965, aunque el fundamento teórico está basado en
   los trabajos de **Böhm y Jacopini** publicados en 1966.
 
-<!--
-- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd para establecer una metodología disciplinada y sistemática de programación en la cual los programas se escriben al mismo tiempo que se va demostrando su corrección, en un estilo formal y riguroso, aprovechando que los programas estructurados son más fácilmente verificables por su composicionalidad.
--->
+- Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd
+  para establecer una metodología disciplinada y sistemática de programación en
+  la cual los programas se escriben al mismo tiempo que se va demostrando su
+  corrección, en un estilo formal y riguroso, aprovechando que los programas
+  estructurados son más fácilmente verificables por su _composicionalidad_.
 
 ---
 
@@ -101,6 +103,15 @@ nocite: |
 
 - Ese programa, una vez terminado, debe estar construido combinando sólo unos
   pocos tipos de componentes y cumpliendo una serie de restricciones.
+
+- El concepto de **_composicionalidad_** es clave en programación estructurada:
+  los programas se _componen_ de partes, las cuales se componen a su vez de
+  otras partes, y así sucesivamente hasta llegar a partes compuestas únicamente
+  de instrucciones elementales.
+
+- La idea es que podemos comprobar la corrección de un programa (o de una de
+  sus partes) a partir de la corrección de cada una de las partes de lo
+  componen).
 
 ---
 
