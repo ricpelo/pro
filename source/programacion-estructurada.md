@@ -15,7 +15,7 @@ nocite: |
 
   - **Estructuras básicas:** los programas se escriben usando sólo unos pocos
     componentes constructivos básicos que se combinan entre sí mediante
-    composición.
+    _composición_.
 
   - **Recursos abstractos:** los programas se escriben sin tener en cuenta
     inicialmente el ordenador que lo va a ejecutar ni las instrucciones de las
@@ -84,7 +84,7 @@ nocite: |
 
 ::: {.column width=55%}
 
-!IMGP(confuso.!EXT)(¿Qué hace este programa?)(width=100%)(width=70%)
+!IMGP(confuso.!EXT)(¿Qué hace este programa?)(width=100%)(width=65%)
 
 :::
 
@@ -272,13 +272,13 @@ nocite: |
 
 ::: column
 
-!IMGP(estructuras-anidadas.!EXT)(Estructuras)(width=45%)(width=45%)
+!IMGP(estructuras-anidadas.!EXT)(Estructuras)(width=45%)(width=25%)
 
 :::
 
 ::: column
 
-!IMGP(estructuras-que-se-cruzan.!EXT)(Estructuras que se cruzan y que, por tanto, no son estructuras)(width=45%)(width=45%)
+!IMGP(estructuras-que-se-cruzan.!EXT)(Estructuras que se cruzan y que, por tanto, no son estructuras)(width=45%)(width=25%)
 
 :::
 
@@ -427,7 +427,7 @@ nocite: |
 - Recordemos el ejemplo del programa anterior, donde veíamos que resultaba muy
   confuso entender qué hacía:
 
-!IMGP(confuso.!EXT)()(width=55%)(width=60%)
+!IMGP(confuso.!EXT)()(width=55%)(width=70%)
 
 ---
 
@@ -438,7 +438,7 @@ nocite: |
 
 ::: {.column width=65%}
 
-!IMGP(claro.!EXT)()(width=90%)(width=60%)
+!IMGP(claro.!EXT)()(width=90%)(width=70%)
 
 :::
 
@@ -451,6 +451,7 @@ forman el programa.
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+**inicio**
 **leer** $a$
 **leer** $b$
 **mientras** $a !NEQ b$ **hacer**
@@ -459,6 +460,7 @@ forman el programa.
 !SPC(6)      **sino**
 !SPC(12)            $a \longleftarrow a - b$
 **escribir** $a$
+**fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -850,7 +852,7 @@ columna en el archivo fuente) pertenecen a la misma estructura.
 
   genera la siguiente salida:
 
-  ```
+  ```python
   0
   1
   2
@@ -948,7 +950,7 @@ while not salida:
 
   produce:
 
-  ```
+  ```python
   s
   t
   r
@@ -976,7 +978,7 @@ while not salida:
 
   produce:
 
-  ```
+  ```python
   s
   t
   r
