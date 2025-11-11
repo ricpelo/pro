@@ -45,8 +45,8 @@ nocite: |
   los trabajos de **Böhm y Jacopini** publicados en 1966.
 
 - Posteriormente, Dijkstra se basó en los trabajos previos de Hoare y Floyd
-  para establecer una metodología disciplinada y sistemática de programación en
-  la cual los programas se escriben al mismo tiempo que se va demostrando su
+  para establecer una metodología disciplinada y sistemática de programación
+  según la cual un programa se escribe al mismo tiempo que se va demostrando su
   corrección, en un estilo formal y riguroso, aprovechando que los programas
   estructurados son más fácilmente verificables por su _composicionalidad_.
 
@@ -95,7 +95,8 @@ nocite: |
 - Este programa es un ejemplo del llamado **código _espagueti_**.
 
 - El código espagueti es un término coloquial que se usa al describir los
-  programas que tienen un flujo de control complicado e incomprensible, sobre todo debido al uso indiscriminado de **sentencias de salto** o **_GOTO_**.
+  programas que tienen un flujo de control complicado e incomprensible, sobre
+  todo debido al uso indiscriminado de **sentencias de salto** o **_GOTO_**.
 
 - Su nombre proviene del hecho de que este tipo de código se parece a un plato
   de espaguetis, o sea, un montón de hilos intrincados y anudados.
@@ -152,7 +153,7 @@ nocite: |
   podemos componer expresiones complejas a partir de otras más simples.
 
 - Eso implica, entre otras cosas, que debemos evitar el uso de sentencias
-  **_GOTO_** para evitar el _código espagueti_.
+  _GOTO_ para evitar el _código espagueti_.
 
 ## Programa restringido
 
@@ -575,7 +576,7 @@ forman el programa.
 
 - La **secuencia** (o _estructura secuencial_) en Python consiste sencillamente
   en poner las sentencias juntas una tras otra **al mismo nivel de indentación
-  o sangrado**.
+  o _sangrado_**.
 
 - No requiere de ninguna otra sintaxis particular ni palabras clave.
 
