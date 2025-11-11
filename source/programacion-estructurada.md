@@ -95,10 +95,10 @@ nocite: |
 - Este programa es un ejemplo del llamado **código _espagueti_**.
 
 - El código espagueti es un término coloquial que se usa al describir los
-  programas que tienen un flujo de control complicado e incomprensible.
+  programas que tienen un flujo de control complicado e incomprensible, sobre todo debido al uso indiscriminado de **sentencias de salto** o **_GOTO_**.
 
 - Su nombre proviene del hecho de que este tipo de código se parece a un plato
-  de espaguetis, es decir, un montón de hilos intrincados y anudados.
+  de espaguetis, o sea, un montón de hilos intrincados y anudados.
 
 - Un código así se tarda más en comprenderse que en reescribirse.
 
@@ -150,6 +150,9 @@ nocite: |
 - Con la programación estructurada, queremos poder componer sentencias
   complejas a partir de otras sentencias más simples, de la misma manera que
   podemos componer expresiones complejas a partir de otras más simples.
+
+- Eso implica, entre otras cosas, que debemos evitar el uso de sentencias
+  **_GOTO_** para evitar el _código espagueti_.
 
 ## Programa restringido
 
