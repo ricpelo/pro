@@ -651,6 +651,11 @@ nocite: |
 - Así, podremos usar el nombre de la abstracción en lugar del código repetido
   en aquellas partes del programa donde se encuentre éste.
 
+- Evitar código repetido es un principio fundamental en el diseño de programas
+  conocido como «**_Don't Repeat Yourself_ (DRY)**».
+
+- De esta forma, si el código cambia, sólo habrá que hacerlo en un sitio.
+
 ### Generalización
 
 - Las funciones también son **generalizaciones** de casos particulares porque
