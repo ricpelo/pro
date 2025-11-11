@@ -92,6 +92,28 @@ nocite: |
 
 ---
 
+- Este programa es un ejemplo del llamado **código _espagueti_**.
+
+- El código espagueti es un término coloquial que se usa al describir los
+  programas que tienen un flujo de control complicado e incomprensible.
+
+- Su nombre proviene del hecho de que este tipo de código se parece a un plato
+  de espaguetis, es decir, un montón de hilos intrincados y anudados.
+
+- Un código así se tarda más en comprenderse que en reescribirse.
+
+- Además, en un programa así resulta muy complicado añadir una nueva
+  funcionalidad sin romper otra, ya que todos los elementos que lo forman están
+  fuertemente interrelacionados y cualquier parte del programa puede afectar a
+  cualquier otra de maneras imprevisibles.
+
+- Eso es debido a que falta una coherencia, una estructura interna en el
+  programa, porque el código se ha escrito de cualquier manera, sin disciplina
+  ni restricciones, sin que el programador se haya parado a pensar si debería
+  hacer lo que está haciendo como lo está haciendo.
+
+---
+
 - Si un programa se escribe de cualquier manera, aunque funcione correctamente,
   puede resultar engorroso, críptico, ilegible, casi imposible de modificar y
   de comprobar su corrección.
