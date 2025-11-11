@@ -574,7 +574,8 @@ forman el programa.
 ## Secuencia
 
 - La **secuencia** (o _estructura secuencial_) en Python consiste sencillamente
-  en poner cada sentencia una tras otra **al mismo nivel de indentación**.
+  en poner las sentencias juntas una tras otra **al mismo nivel de indentación
+  o sangrado**.
 
 - No requiere de ninguna otra sintaxis particular ni palabras clave.
 
@@ -611,7 +612,7 @@ forman el programa.
 ::: column
 
 - Las sentencias deben empezar todas en el mismo nivel de indentación (misma
-  posición horizontal o _columna_).
+  posición horizontal o _columna_ en el archivo fuente).
 
 - Puede haber líneas en blanco entre las sentencias del mismo bloque.
 
@@ -717,6 +718,31 @@ columna en el archivo fuente) pertenecen a la misma estructura.
 :::
 
 ::::
+
+---
+
+- El uso de la cláusula !PYTHON(elif) es equivalente a usar varias sentencias
+  !PYTHON(if) en cascada, anidadas unas dentro de otras.
+
+- Por ejemplo, el código anterior es equivalente al siguiente:
+
+  ```python
+  if x < 2:
+      print('Es menor que dos')
+  else:
+      if x <= 9:
+          print('Está comprendido entre 2 y 9')
+          x = 5
+      else:
+          if x < 12:
+              print('Es mayor que 9 y menor que 12')
+          else:
+              print('Es mayor o igual que 12')
+  ```
+
+- Por eso se puede decir que la cláusula !PYTHON(elif) es azúcar sintáctico, ya
+  que no es estrictamente necesario usarla (si Python no la tuviera, se podría
+  simular con una cascada de !PYTHON(if)s).
 
 ---
 
