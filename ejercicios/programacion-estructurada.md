@@ -120,3 +120,63 @@ include-before:
    incrementando en un 10 % el salario de cada empleado y muestre por pantalla
    el salario total de los empleados de la empresa.
 
+#. Convertir una cantidad de tiempo (en segundos, $\mathbb{Z}$) en la
+   correspondiente en horas, minutos y segundos, con arreglo al siguiente
+   formato:
+
+   3817 segundos = 1 horas, 3 minutos y 37 segundos
+
+#. Escribir un programa que, en primer lugar, lea los coeficientes $a_2$ ,
+   $a_1$ y $a_0$ de un polinomio de segundo grado $$a_2x^2 + a_1x + a_0$$ y
+   escriba ese polinomio. Y, en segundo, lea el valor de $x$ y escriba qué
+   valor toma el polinomio para esa $x$.
+
+   Para facilitar la salida, se supondrá que los coeficientes y $x$ son
+   enteros. Por ejemplo, si los coeficientes y $x$ son 1, 2, 3 y 2,
+   respectivamente, la salida puede ser:
+
+   ```
+   1x^2 + 2x + 3
+   p(2) = 9
+   ```
+
+#. Escribir un programa apropiado para cada una de las siguientes tareas:
+
+   a. Pedir los dos términos de una fracción y dar el valor de la división
+      correspondiente, a no ser que sea nulo el hipotético denominador, en
+      cuyo caso se avisará del error.
+
+   b. Pedir los coeficientes de una ecuación de segundo grado y dar las dos
+      soluciones correspondientes, comprobando previamente si el discriminante
+      es positivo o no.
+
+   c. Pedir los coeficientes de la recta $ax + by + c = 0$ y dar su pendiente
+      y su ordenada en el origen en caso de que existan, o el mensaje
+      apropiado en otro caso.
+
+   d. Pedir un número natural $n$ y dar sus divisores.
+
+#. Escribir un programa que lea un carácter, correspondiente a un dígito
+   hexadecimal:
+
+   ```
+   0, 1, ..., 9, A, B, ..., F
+   ```
+
+   y lo convierta en el valor decimal correspondiente:
+
+   ```
+   0, 1, ..., 9, 10, 11, ..., 15
+   ```
+
+#. Para hallar en qué fecha cae el Domingo de Pascua de un `anyo` cualquiera,
+   basta con hallar las cantidades `a` y `b` siguientes:
+
+   ```python
+   a = (19 * (anyo % 19) + 24) % 30
+   b = (2 * (anyo % 4) + 4 * (anyo % 7) + 6 * a + 5) % 7
+   ```
+
+   y entonces, ese Domingo es el *22 de marzo + `a` + `b` días*, que podría
+   caer en abril. Escriba un programa que realice estos cálculos, produciendo
+   una entrada y salida claras.

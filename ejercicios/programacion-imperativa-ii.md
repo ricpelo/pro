@@ -70,29 +70,5 @@ include-before:
    Recordemos: \begin{align*} longitud & = 2\pi \cdot radio \\ \acute{a}rea & =
    \pi \cdot radio^2 \end{align*}
 
-#. Escribir un programa que pida al usuario su edad y que imprima el mensaje
-   «`¡Qué joven!`» si es menor de 25 años.
-
-#. Escribir un programa que pida al usuario su edad y que imprima el mensaje
-   «`¡Qué joven!`» si es menor de 25 años y «`¡Qué mayor!`» en caso contrario.
-
-#. Escribir un programa que pida al usuario su edad y que imprima el mensaje
-   «`¡Qué joven!`» si es menor de 25 años y «`No está mal.`» si tiene entre 25
-   y 40 años.
-
-#. Escribir un programa que pida al usuario su edad y que imprima el mensaje
-   «`¡Qué joven!`» si es menor de 25 años, «`No está mal.`» si tiene entre 25 y
-   40 años y «`¡Qué mayor!`» si tiene más de 40 años.
-
-#. Escribir un programa que muestre por pantalla la tabla de multiplicar de un
-   número comprendido entre 0 y 10, introducido por teclado.
-
 #. Escribir un programa que calcule la media de cinco valores numéricos reales
    (tipo !PYTHON(float)) introducidos por teclado.
-
-#. Escribir un programa que guarde en una lista diez cadenas introducidas por
-   teclado y luego las muestre en orden inverso a como se han introducido,
-   desde la última cadena introducida hasta la primera.
-
-   _Indicación_: Usar el método `append` sobre la lista y luego un _bucle_ que
-   recorra la lista desde el último elemento hasta el primero.
