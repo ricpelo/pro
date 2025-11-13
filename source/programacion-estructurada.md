@@ -1151,11 +1151,11 @@ while not salida:
 
 ## Diseño descendente por refinamiento sucesivo
 
-- El diseño descendente es la técnica que consiste en descomponer un problema
-  complejo en problemas más sencillos, realizándose esta operación de forma
-  sucesiva hasta llegar al máximo nivel de detalle en el cual se pueden
-  codificar directamente las operaciones en un lenguaje de programación
-  estructurado.
+- El diseño descendente es una técnica de refinamiento por etapas que consiste
+  en descomponer la solución de un problema complejo en instrucciones o pasos
+  más sencillos, realizándose esta operación de forma sucesiva hasta llegar al
+  máximo nivel de detalle en el cual se pueden codificar directamente las
+  operaciones en un lenguaje de programación estructurado.
 
 - Con esta técnica, los programas se crean en distintos niveles de
   refinamiento, de forma que cada nuevo nivel define la solución de forma más
@@ -1183,8 +1183,8 @@ while not salida:
 
 - Se basa en suponer que, en cada nivel de refinamiento, todos los elementos
   (instrucciones, expresiones, funciones, etc.) que aparecen en la solución
-  están ya disponibles directamente en el lenguaje de programación, aunque no
-  sea verdad.
+  están ya disponibles directamente en nuestro lenguaje de programación (como
+  si fuera un lenguaje «mágico»), aunque no sea verdad.
 
 - Esos elementos o recursos se denominan abstractos porque los podemos usar
   directamente en un determinado nivel de refinamiento sin tener que saber cómo
