@@ -11,9 +11,9 @@ nocite: |
 ## Subprogramas
 
 - Un **subprograma** o **subrutina** es una porción de código que por sí solo
-  no representa un programa, aunque sigue el mismo esquema de «_entrada -
-  proceso - salida_» que sigue cualquier programa, por lo que funciona «casi»
-  como si lo fuera.
+  no representa un programa, aunque sigue el mismo esquema de «_entrada
+  $\rightarrow$ proceso $\rightarrow$ salida_» que sigue cualquier programa,
+  por lo que funciona «casi» como si lo fuera.
 
 - Como no es un programa, no puede funcionar por sí solo, sino que debe formar
   parte de un verdadero programa que lo ejecute las veces que sea necesario,
@@ -40,8 +40,8 @@ nocite: |
   instrucción siguiente a la que se había detenido, para continuar la ejecución
   del programa desde ahí.
 
-- Naturalmente, un subprograma puede llamar a otro subprograma, lo que hace que
-  varias instrucciones puedan estar detenidas en un momento dado a la espera de
+- Un subprograma puede llamar a otro subprograma, lo que hace que varias
+  instrucciones puedan estar detenidas en un momento dado a la espera de
   terminar la ejecución del subprograma que se llamó.
 
 ---
@@ -61,23 +61,28 @@ nocite: |
   - Evitar repeticiones del mismo código al realizar tareas rutinarias que se
     van a ejecutar varias veces en diferentes puntos del programa.
 
-- En definitiva, los subprogramas (bien definidos y usados) son
-  **abstracciones**.
+- En definitiva, los subprogramas son **abstracciones**, si se definen y usan
+  adecuadamente.
 
 ---
 
-- Las funciones que hemos creado hasta ahora con abstracciones lambda son
-  subprogramas compuestos por una sola expresión (el cuerpo de la abstracción
-  lambda).
+- **En programación funcional**:
 
-- De hecho, en el paradigma funcional, las funciones son el único tipo de
-  subprograma que existe.
+  - Las funciones que hemos creado hasta ahora con abstracciones lambda son
+    subprogramas **compuestos por una sola expresión** (el cuerpo de la
+    abstracción lambda).
 
-- Un lenguaje de programación imperativo también debería permitir la creación
-  de subprogramas.
+  - De hecho, en el paradigma funcional, las funciones son el único tipo de
+    subprograma que existe.
 
-- En ese caso, los subprogramas deberían estar basados en sentencias en lugar
-  de expresiones, ya que las sentencias son la base del paradigma imperativo.
+- **En programación imperativa**:
+
+  - Un lenguaje de programación imperativo también debería permitir la creación
+    de subprogramas.
+
+  - En ese caso, los subprogramas deberían estar **compuestos por sentencias**
+    en lugar de por expresiones, ya que las sentencias son la base del
+    paradigma imperativo.
 
 <!--
 - En el paradigma imperativo, a un bloque de sentencias que realiza una tarea
@@ -112,16 +117,15 @@ nocite: |
 ---
 
 - Pero hay lenguajes imperativos, como C o Python, que no tienen
-  procedimientos, sino que todos los subprogramas son funciones.
+  procedimientos, sino que todos sus subprogramas son funciones.
 
-- En estos lenguajes se puede definir un procedimiento como una función que
-  devuelva un valor que represente «_ningún valor_» (como el !PYTHON(None) de
-  Python).
+- En estos lenguajes, los «procedimientos» son funciones que devuelven un valor
+  especial que representa «_ningún valor_» (como el !PYTHON(None) de Python).
 
 - Así, podemos afirmar que, en Python:
 
-  - Existen dos tipos de funciones: expresiones lambda y funciones imperativas
-    (que veremos posteriormente).
+  - Existen dos formas de definir funciones: las expresiones lambda y las
+    funciones imperativas (que veremos a continuación).
 
   - Los procedimientos no son más que funciones imperativas que devuelven
     !PYTHON(None).
@@ -147,22 +151,23 @@ nocite: |
     mejor debería llamarse «_programación con subprogramas_».
 
 - En este paradigma, un programa imperativo está compuesto principalmente por
-  subprogramas que se llaman entre sí.
+  subprogramas que se llaman entre sí, los cuales están compuestos, a su vez,
+  por sentencias.
 
 ---
 
-- Los subprogramas pueden tener parámetros a través de los cuales reciben sus
-  datos de entrada, caso de necesitarlos.
+- Los subprogramas pueden tener **parámetros** a través de los cuales reciben
+  sus datos de entrada, caso de necesitarlos.
 
-- A su vez (si los subprogramas son funciones), pueden devolver un resultado,
-  de ser necesario.
+- A su vez (si los subprogramas son funciones), pueden devolver un
+  **resultado**, de ser necesario.
 
-- Los subprogramas, dependiendo del lenguaje de programación usado, introducen
-  su propio ámbito local y también podrían acceder a otros ámbitos no locales
-  que contengan al suyo, como el ámbito global.
+- Los subprogramas, dependiendo del lenguaje de programación usado,
+  **introducen su propio ámbito local** y también podrían acceder a otros
+  ámbitos no locales que contengan al suyo, como el ámbito global.
 
-- Asimismo, los subprogramas suelen contar con un espacio de nombres propio que
-  almacena sus nombres locales para evitar el _name clash_.
+- Asimismo, los subprogramas suelen contar con un **espacio de nombres propio**
+  que almacena sus nombres locales para evitar el _name clash_.
 
 ## Subprogramas y refinamiento sucesivo
 
@@ -189,7 +194,7 @@ nocite: |
 
 - Las cajas con trazo discontinuo, que representan los límites de cada
   estructura, nos hacen entender que podemos ver cada una de esas estructuras
-  como una sola sentencia.
+  como si fuera una sola sentencia.
 
 :::
 
@@ -197,8 +202,8 @@ nocite: |
 
 ---
 
-- De igual forma, una llamada a un subprograma es una instrucción simple que
-  actúa como una sentencia compuesta, formada por varias sentencias (el
+- De igual forma, **una llamada a un subprograma es una instrucción simple que
+  actúa como una sentencia compuesta**, formada por varias sentencias (el
   _cuerpo_ del subprograma) que actúan como una sola.
 
 - En ese caso, **el subprograma actúa como un recurso abstracto en un
@@ -318,23 +323,27 @@ nocite: |
   - un bloque de código independiente que no pertenece a ningún subprograma
     (caso de los lenguajes Pascal o Python).
 
-- Ejercicio: dibujar los ordinogramas del programa principal y de los
-  subprogramas del ejemplo anterior.
+!EJERCICIO
+
+@. Dibujar los ordinogramas del programa principal y de los subprogramas del
+   ejemplo anterior.
 
 ---
 
-- El código escrito mediante descomposición en subprogramas tiene dos grandes
-  ventajas:
+- El código escrito mediante **descomposición en subprogramas** tiene dos
+  grandes **ventajas**:
 
-  - Es más fácil de entender un código basado en abstracciones independientes y
-    separadas que se llaman entre sí, antes que un código donde todo está en el
-    mismo nivel de refinamiento formando un texto monolítico de principio a
-    fin.
+  - Es más fácil estudiar y entender un código basado en abstracciones
+    independientes y separadas que se llaman entre sí, antes que un código
+    donde todo está en el mismo nivel de refinamiento formando un texto
+    monolítico de principio a fin.
 
   - Es probable que los subprogramas así obtenidos puedan _reutilizarse_ en
     otros programas con poca o ninguna variación, siempre y cuando sean lo
     suficientemente genéricos e independientes del resto del programa que los
     utiliza.
+
+    Esta propiedad se conoce como **reusabilidad**.
 
 ---
 
@@ -373,7 +382,7 @@ nocite: |
 - Cada lenguaje de programación procedimental establece sus propios mecanismos
   de creación de subprogramas.
 
-- En Python, los subprogramas formados por sentencias se crean mediante las
+- En Python, los subprogramas compuestos por sentencias se crean mediante las
   denominadas **funciones imperativas**.
 
 - Estudiaremos ahora cómo crear y usar funciones imperativas en Python.
@@ -386,9 +395,9 @@ nocite: |
 - Pero a diferencia de lo que ocurre en programación funcional, una función
   imperativa contiene **sentencias**.
 
-- Las funciones imperativas en Python conforman los bloques básicos que nos
-  permiten **descomponer un programa en partes** que se combinan entre sí, lo
-  que resulta el complemento perfecto para la programación estructurada.
+- Las funciones imperativas en Python son los bloques constructivos básicos que
+  nos permiten **descomponer un programa en partes** que se combinan entre sí,
+  lo que resulta el complemento perfecto para la programación estructurada.
 
 - Todavía podemos construir funciones mediante expresiones lambda, pero las
   funciones imperativas tienen ventajas:
@@ -396,7 +405,7 @@ nocite: |
   - Podemos escribir **sentencias** dentro de las funciones imperativas.
 
   - Podemos escribir funciones que no devuelvan ningún resultado porque su
-    cometido sea provocar algún efecto lateral.
+    cometido sea provocar algún **efecto lateral**.
 
 ---
 
@@ -553,10 +562,13 @@ nocite: |
   _ejecutando_ la función, ya que estamos provocando la ejecución de las
   sentencias que contiene.
 
+- Sintácticamente, una llamada a una función imperativa tiene la misma forma
+  que una llamada a cualquier función.
+
 ---
 
-- En concreto, cuando se llama a una función imperativa, ocurre lo siguiente
-  (en este orden):
+- Cuando se llama a una función imperativa, ocurre lo siguiente (en este
+  orden):
 
   1. Como siempre que se llama a una función, se crea un nuevo marco en el
      entorno (que contiene las ligaduras y variables locales a su ámbito,
@@ -565,10 +577,6 @@ nocite: |
   2. Se pasan los argumentos de la llamada a los parámetros de la función, de
      forma que los parámetros toman los valores de los argumentos
      correspondientes.
-
-     Recordemos que en Python se sigue el orden aplicativo (o evaluación
-     estricta): primero se evalúan los argumentos y después se pasan a los
-     parámetros correspondientes.
 
   3. El flujo de control del programa se transfiere al bloque de sentencias que
      forman el cuerpo de la función y se empieza a ejecutar éste.
@@ -604,9 +612,27 @@ nocite: |
 - Debemos tener en cuenta que, en ese caso, el valor de retorno se perdería ya
   que no se usaría.
 
-- Por ejemplo, si la función `saluda` que vimos antes devolviera el número de
-  caracteres que tiene el nombre que recibe como argumento, al llamar a la
-  función como una sentencia propia:
+---
+
+- Por ejemplo, supongamos que la función `saluda` que vimos antes devolviera el
+  número de caracteres que tiene el nombre que recibe como argumento.
+
+- Si llamamos a la función como una expresión, podríamos usar ese valor de
+  retorno:
+
+  ```python
+  n = saluda('Manuel', 'Gonzalez')
+  print('El nombre de pila tiene', n, 'caracteres')
+  ```
+
+  y daría:
+
+  ```
+  Hola Manuel González
+  El nombre de pila tiene 6 caracteres
+  ```
+
+- Pero si llamamos a la función como una sentencia:
 
   ```python
   saluda('Manuel', 'González')
