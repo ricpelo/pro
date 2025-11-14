@@ -1170,48 +1170,53 @@ while not salida:
 
 ## Recursos abstractos
 
-- Descomponer un programa en términos de recursos abstractos consiste en
-  descomponer una determinada sentencia compleja en sentencias mas simples,
-  capaces de ser ejecutadas por un ordenador, y que constituirán sus
-  instrucciones.
+<!--
+- Escribir un programa en términos de recursos abstractos consiste en usar 
+  descomponer una determinada sentencia compleja en sentencias más elementales,
+  detalladas y concretas, y por tanto, más cercanas a algo que se pueda
+  implementar con un lenguaje de programación.
 
 - Es el complemento perfecto para el diseño descendente y el que nos
   proporciona el método a seguir para obtener un nuevo nivel de refinamiento a
   partir del anterior.
 
 ---
+-->
 
-- Se basa en suponer que, en cada nivel de refinamiento, todos los elementos
-  (instrucciones, expresiones, funciones, etc.) que aparecen en la solución
-  están ya disponibles directamente en nuestro lenguaje de programación (como
-  si fuera un lenguaje «mágico»), aunque no sea verdad.
+- Escribir un programa en términos de recursos abstractos consiste en suponer
+  que, en cada nivel de refinamiento, todos los elementos (instrucciones,
+  expresiones, funciones, etc.) que aparecen en la solución están ya
+  disponibles directamente en nuestro lenguaje de programación (como si fuera
+  un lenguaje «mágico»), aunque no sea verdad.
 
-- Esos elementos o recursos se denominan abstractos porque los podemos usar
-  directamente en un determinado nivel de refinamiento sin tener que saber cómo
+- Esos elementos o recursos se denominan abstractos porque los usamos
+  en un determinado nivel de refinamiento sin tener que saber cómo
   funcionan realmente por dentro, o incluso si existen realmente. Nosotros
   suponemos que sí existen y que hacen lo que tienen que hacer sin preocuparnos
   del cómo.
 
+---
+
 - En el siguiente refinamiento, aquellos elementos que no estén implementados
-  ya directamente en el lenguaje se refinarán, bajando el nivel de abstracción
-  y acercándonos cada vez más a una solución que sí se pueda implementar en el
-  lenguaje.
+  ya directamente en el lenguaje se refinarán reescribiéndolos con elementos
+  más detallados, bajando el nivel de abstracción y acercándonos cada vez más a
+  una solución que sí se pueda implementar en el lenguaje.
 
 - El refinamiento acaba cuando la solución se encuentra completamente definida
-  usando los elementos del lenguaje de programación (ya no hay recursos
-  abstractos).
+  usando los elementos que proporciona el lenguaje de programación (ya no hay
+  recursos abstractos).
 
 ---
 
 - Al diseñar un programa estructurado, **se deben estructurar al mismo tiempo
-  tanto el _programa_ como los _datos_** que éste manipula.
+  tanto las _instrucciones_ como los _datos_** que éstas manipulan.
 
 - Por tanto, el diseño descendente por refinamiento sucesivo se debe ir
   aplicando también a los datos además de a las instrucciones.
 
 - En cada paso del refinamiento, tanto las instrucciones como los datos se
   deben considerar recursos abstractos, de forma que, en un determinado nivel
-  de abstracción, las instrucciones y los datos deberían estar refiniados con
+  de abstracción, las instrucciones y los datos deberían estar refinados con
   el mismo nivel de detalle.
 
 - Hay que evitar, por tanto, que las instrucciones estén poco detalladas y los
