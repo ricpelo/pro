@@ -1699,13 +1699,13 @@ E -> suma [lhead = cluster0]
   identificador que representa a un _tipo_ cualquiera que en este momento no
   está determinado.
 
-- Al usar la sintaxis `[T]`, expresamos el hecho de que `T` representa un
-  **parámetro de tipo** para la función, y sirve para expresar el hecho de que
-  la función que estamos definiendo es genérica y funciona con valores de
-  muchos tipos distintos (uno por cada posible valor de `T`).
+- Al usar la sintaxis `[T]`, decimos que `T` representa un **parámetro de
+  tipo** para la función, y sirve para expresar el hecho de que la función que
+  estamos definiendo es genérica y funciona con valores de muchos tipos
+  distintos (uno por cada posible valor de `T`).
 
-- Esta forma de expresar funciones describe un cierto tipo de polimorfismo
-  llamado **polimorfismo paramétrico**, donde la misma función puede actuar
+- Esta forma de definir funciones caracteriza un cierto tipo de polimorfismo
+  llamado **polimorfismo paramétrico**, donde una misma función puede actuar
   sobre valores de tipos muy diversos. Por eso, a esas funciones las podemos
   llamar **funciones polimórficas**.
 
