@@ -2,7 +2,7 @@
 title:
 - |
   Ejercicios de\
-  Programación orientada a objetos
+  Programación orientada a objetos (II)
 author:
 - |
   Ricardo Pérez López\
