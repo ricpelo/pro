@@ -3092,9 +3092,10 @@ $$\text{Visibilidad} \begin{cases}
 
   - Tienes un atributo pero necesitas añadir control.
 
-  - Quieres que un atributo calculado se acceda como “normal”.
+  - Quieres que un atributo calculado se acceda como uno almacenado.
 
-  - No quieres romper la interfaz de la clase (cosa que veremos a continuación) si después necesitas validación.
+  - No quieres romper la _interfaz de la clase_ (un concepto que veremos a
+    continuación) si después necesitas validación.
 
 ---
 
