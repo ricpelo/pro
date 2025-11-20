@@ -3076,6 +3076,103 @@ $$\text{Visibilidad} \begin{cases}
 
 - La pregunta es: ¿qué ganamos con todo esto?
 
+#### Propiedades
+
+- En Python, una **propiedad** (_property_) es una forma elegante de definir
+  atributos con _getters_ y _setters_ sin perder la sintaxis de acceso usando
+  el operador punto (`.`).
+
+- Son útiles cuando:
+
+  - Quieres validar o transformar el valor al asignarlo.
+
+  - Necesitas que un atributo sea de solo lectura.
+
+  - Quieres exponer un atributo «calculado» como si fuera normal.
+
+  - Tienes un atributo pero necesitas añadir control.
+
+  - Quieres que un atributo calculado se acceda como “normal”.
+
+  - No quieres romper la interfaz de la clase (cosa que veremos a continuación) si después necesitas validación.
+
+---
+
+- Definición básica con !PYTHON(@property):
+
+  ```python
+  class Persona:
+      def __init__(self, edad):
+          self.__edad = edad   # atributo privado
+
+      @property
+      def edad(self):
+          return self.__edad   # getter
+
+      @edad.setter
+      def edad(self, valor):
+          if valor < 0:
+              raise ValueError("La edad no puede ser negativa")
+          self.__edad = valor  # setter
+  ```
+
+- Ejemplo de uso:
+
+  ```python
+  p = Persona(30)
+  print(p.edad)   # llama al getter → 30
+
+  p.edad = 40     # llama al setter
+  p.edad = -1     # ValueError
+  ```
+
+- Usamos `__edad` como atributo privado para evitar recursión y señalar que no
+  debe tocarse desde fuera (_encapsulación_).
+
+---
+
+- Propiedad de sólo lectura:
+
+  ```python
+  from math import pi
+
+  class Circulo:
+      def __init__(self, radio):
+          self.radio = radio
+
+      @property
+      def area(self):
+          return pi * self.radio ** 2
+  ```
+
+- Ejemplo de uso:
+
+  ```python
+  c = Circulo(3)
+  print(c.area)   # OK
+  c.area = 5      # Error: no tiene setter
+  ```
+
+---
+
+- Usar `property()` como función en lugar de usar decoradores:
+
+  ```python
+  class Persona:
+      def __init__(self, edad):
+          self.__edad = edad
+
+      def get_edad(self):
+          return self.__edad
+
+      def set_edad(self, valor):
+          if valor < 0:
+              raise ValueError("Edad negativa")
+          self.__edad = valor
+
+      edad = property(get_edad, set_edad)
+  ```
+
 #### Invariantes de clase
 
 - Si necesitamos acceder y/o cambiar el valor de una variable de instancia
