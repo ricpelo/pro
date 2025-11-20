@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ricardo Pérez López">
+  <title>Programación orientada a objetos (I)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=1280">
+  <link rel="stylesheet" href="./reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #268bd2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #cb4b16; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #d33682; } /* BaseN */
+    code span.bu { color: #4070a0; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #dc322f; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #6c71c4; } /* DataType */
+    code span.dv { color: #d33682; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #d33682; } /* Float */
+    code span.fu { color: #4070a0; } /* Function */
+    code span.im { font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #268bd2; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #a57800; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #2aa198; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #6c71c4; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
+  <link rel="stylesheet" href="custom.css"/>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <style type="text/css">
+      #header-left {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-top: 10px;
+      }
+      #header-right {
+          position: absolute;
+          font-size: 25%;
+          top: 0%;
+          right: 0%;
+          margin-right: 10px;
+          margin-top: 10px;
+      }
+      #footer-left {
+          position: absolute;
+          font-size: 25%;
+          bottom: 0%;
+          left: 0%;
+          margin-left: 10px;
+          margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body>
+<div id="hidden" style="display:none;">
+    <div id="header">
+        <div id="header-left"></div>
+        <div id="header-right"></div>
+        <div id="footer-left"></div>
+    </div>
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Programación orientada a objetos (I)</h1>
+  <p class="author">Ricardo Pérez López</p>
+  <p class="date">IES Doñana, curso 2025/2026</p>
+</section>
+<section id="TOC">
+<nav role="doc-toc"> 
+<ul>
+<li><a href="#/introducción" id="/toc-introducción"><span
+class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="#/conceptos-básicos" id="/toc-conceptos-básicos"><span
+class="toc-section-number">2</span> Conceptos básicos</a></li>
+<li><a href="#/paso-de-mensajes" id="/toc-paso-de-mensajes"><span
+class="toc-section-number">3</span> Paso de mensajes</a></li>
+</ul>
+</nav>
+</section>
+
+<section>
+<section id="introducción" class="title-slide slide level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span>
+Introducción</h1>
+
+</section>
+<section id="recapitulación" class="title-slide slide level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+Recapitulación</h2>
+<ul>
+<li><p>Recordemos lo que hemos aprendido hasta ahora:</p>
+<ul>
+<li><p>La <strong>abstracción de datos</strong> nos permite definir
+tipos de datos complejos llamados <strong>tipos abstractos de
+datos</strong> (<em>TAD</em>), que se describen únicamente mediante las
+<strong>operaciones</strong> que manipulan esos datos y con
+<strong>independencia de su implementación</strong>.</p></li>
+<li><p>Las funciones pueden tener <strong>estado interno</strong> usando
+clausuras, que se crean a partir de funciones locales, funciones de
+orden superior y variables no locales.</p></li>
+<li><p>Una función puede representar un dato.</p></li>
+<li><p>Un dato puede tener estado interno, usando el estado interno de
+la función que lo representa.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>Además:</p>
+<ul>
+<li><p>El <strong>paso de mensajes</strong> agrupa las operaciones que
+actúan sobre ese dato dentro de una función que responde a diferentes
+mensajes <strong>despachando</strong> a otras funciones dependiendo del
+mensaje recibido.</p></li>
+<li><p>La función que representa al dato <strong>encapsula su estado
+interno junto con las operaciones</strong> que lo manipulan en <em>una
+única unidad sintáctica</em> que oculta sus detalles de
+implementación.</p></li>
+</ul></li>
+<li><p>En conclusión:</p>
+<div class="caja centered">
+<p>Una <strong>función</strong> puede implementar todo un <strong>tipo
+abstracto de datos</strong>.</p>
+</div></li>
+</ul>
+</section>
+
+<section id="objetos" class="title-slide slide level2"
+data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+Objetos</h2>
+<ul>
+<li><p>Al principio, distinguíamos entre funciones y datos: las
+funciones realizan operaciones sobre los datos y éstos esperan
+pasivamente a que se opere con ellos.</p></li>
+<li><p>Cuando empezamos a representar a los datos con funciones, vimos
+que los datos también pueden encapsular
+<strong>comportamiento</strong>.</p></li>
+<li><p>Esos datos ahora representan información, pero también <strong>se
+comportan</strong> como las cosas que representan.</p></li>
+<li><p>Por tanto, los datos ahora saben cómo reaccionar ante los
+mensajes que reciben cuando el resto del programa les envía
+mensajes.</p></li>
+<li><p>Esta forma de ver a los datos como <strong>objetos</strong>
+activos que interactúan entre sí y que son capaces de reaccionar y
+cambiar su estado interno en función de los mensajes que reciben, da
+lugar a todo un nuevo paradigma de programación llamado
+<strong>orientación a objetos</strong> o <strong>Programación Orientada
+a Objetos</strong> (<em>POO</em>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.1">
+
+<div class="caja">
+<p><strong>Definición:</strong></p>
+<p>La <strong>programación orientada a objetos</strong> es un paradigma
+de programación en el que los programas se ven como formados por
+entidades llamadas <strong>objetos</strong> que recuerdan su propio
+<strong>estado interno</strong> y que se comunican entre sí mediante el
+<strong>paso de mensajes</strong> que se intercambian entre ellos con la
+finalidad de:</p>
+<ul>
+<li><p>cambiar sus estados internos,</p></li>
+<li><p>compartir información y</p></li>
+<li><p>solicitar a otros objetos el procesamiento de dicha
+información.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level5" data-number="1.2.0.0.2">
+
+<ul>
+<li><p>La <strong>programación orientada a objetos</strong> (también
+llamada <strong>OOP</strong>, del inglés <em>Object-Oriented
+Programming</em>) es un método para organizar programas que reúne muchas
+de las ideas vistas hasta ahora.</p></li>
+<li><p>Al igual que las funciones en las abstracciones de datos, los
+objetos imponen <strong>barreras de abstracción</strong> entre el uso y
+la implementación de los datos.</p></li>
+<li><p>Al igual que los diccionarios y funciones de despacho, los
+objetos responden a peticiones que otros objetos les hacen en forma de
+<strong>mensajes</strong> para que se comporten de determinada
+manera.</p></li>
+<li><p>Los objetos tienen un <strong>estado interno local</strong> al
+que no se debería acceder directamente desde el exterior de los mismos,
+sino únicamente por medio de las operaciones que proporciona el
+objeto.</p></li>
+<li><p>A efectos prácticos, por tanto, <strong>los objetos son datos
+abstractos</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.3">
+
+<ul>
+<li><p>El sistema de objetos de Python proporciona una sintaxis cómoda
+para promover el uso de estas técnicas de organización de
+programas.</p></li>
+<li><p>Gran parte de esta sintaxis es compartida con otros lenguajes de
+programación orientados a objetos.</p></li>
+<li><p>Ese sistema de objetos ofrece algo más que simple comodidad:</p>
+<ul>
+<li><p>Proporciona una <strong>nueva metáfora</strong> para diseñar
+programas en los que varios agentes independientes
+<strong>interactúan</strong> dentro del ordenador.</p></li>
+<li><p>Cada objeto <strong>agrupa (<em>encapsula</em>)</strong> el
+estado local y el comportamiento de una manera que abstrae la
+complejidad de ambos.</p></li>
+<li><p>Los objetos <strong>se comunican entre sí</strong> y se obtienen
+resultados útiles como consecuencia de su interacción.</p></li>
+<li><p>Los objetos no sólo transmiten mensajes, sino que también
+<strong>comparten el comportamiento</strong> con otros objetos del mismo
+tipo y <strong>heredan características</strong> de otros tipos
+relacionados.</p></li>
+</ul></li>
+<li><p>El paradigma de la programación orientada a objetos tiene su
+propio vocabulario que apoya la metáfora del objeto.</p></li>
+</ul>
+</section>
+<section id="ejercicio" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol class="example" type="1">
+<li>Investiga en Wikipedia los principales lenguajes orientados a
+objetos que existen en el mercado. ¿En qué año salieron? ¿Cuál influyó
+en cuál? ¿Cuáles son los más usados a día de hoy?</li>
+</ol>
+</section>
+</section>
+<section>
+<section id="conceptos-básicos" class="title-slide slide level1"
+data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span>
+Conceptos básicos</h1>
+
+</section>
+<section id="atributos" class="title-slide slide level2"
+data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span>
+Atributos</h2>
+<ul>
+<li><p>Los <strong>atributos</strong> de un objeto representan los
+elementos que el objeto contiene dentro de sí mismo.</p></li>
+<li><p>El objeto almacena atributos porque un objeto representa un
+espacio de nombres.</p></li>
+<li><p>Cuando se crea un objeto, se le asocia en el montículo una zona
+de memoria que, entre otras cosas, contiene la estructura en forma de
+diccionario que representa el espacio de nombres del objeto.</p></li>
+<li><p>Esa estructura en forma de diccionario almacena los atributos del
+objeto, asociando el nombre de cada atributo con el valor que tiene ese
+atributo en el objeto.</p></li>
+<li><p>Los atributos pueden almacenar valores de cualquier tipo,
+incluyendo funciones, ya que las funciones son valores como cualquier
+otro.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.1">
+
+<ul>
+<li>A los atributos de un objeto se puede acceder usando el operador
+punto (<code>.</code>), indicando una referencia al objeto y el nombre
+del atributo al que se desea acceder:</li>
+</ul>
+<div class="centered">
+<p><em>objeto</em><code>.</code><em>atributo</em></p>
+</div>
+<ul>
+<li><p>Por ejemplo, si importamos el módulo <code>math</code> usando
+<code>import</code> obtenemos un objeto al que se puede acceder a través
+de su nombre, de forma que los elementos que contiene el módulo se
+convierten en <strong>atributos</strong> del objeto
+<code>math</code>.</p></li>
+<li><p>Entre ellos, hay atributos que representan variables y otros que
+representan funciones:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> math</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.pi</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.141592653589793</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> math.cos(<span class="dv">3</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">-</span><span class="fl">0.9899924966004454</span></span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="clases" class="title-slide slide level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span>
+Clases</h2>
+<ul>
+<li>Una <strong>clase</strong> es una construcción sintáctica que los
+lenguajes de programación orientados a objetos proporcionan como
+<em>azúcar sintáctico</em> para <strong>implementar tipos abstractos de
+datos</strong> de una forma cómoda y directa sin necesidad de usar
+funciones de orden superior, estado local o diccionarios de
+despacho.</li>
+</ul>
+<div class="caja">
+<p>En programación orientada a objetos:</p>
+<ul>
+<li><p>Se habla siempre de <strong>clases</strong> y no de <em>tipos
+abstractos de datos</em>.</p></li>
+<li><p>Una <strong>clase</strong> es la <strong>implementación de un
+tipo abstracto de datos</strong>.</p></li>
+<li><p>Las clases definen <strong>tipos de datos</strong> de pleno
+derecho en el lenguaje de programación.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level5" data-number="2.2.0.0.1">
+
+<ul>
+<li>Recordemos el ejemplo del tema anterior en el que implementamos el
+tipo abstracto de datos <strong>Depósito</strong> mediante la siguiente
+<strong>función</strong>:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> retirar</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ingresar</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> saldo</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="2.2.0.0.2">
+
+<ul>
+<li>Ese mismo TAD se puede implementar como una <strong>clase</strong>
+de la siguiente forma:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>En el momento en que se ejecute esta definición, el intérprete
+incorporará al sistema un nuevo tipo llamado <code>Deposito</code>.</li>
+</ul>
+</div>
+</div>
+<ul>
+<li>Más tarde estudiaremos los detalles técnicos que diferencian ambas
+implementaciones, pero ya apreciamos que por cada operación sigue
+habiendo una función (aquí llamada <strong>método</strong>), que
+desaparece la función <code>despacho</code> y que aparece una extraña
+función <code
+class="sourceCode python"><span class="fu">__init__</span></code>.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.3">
+
+<ul>
+<li><p>Podemos usar <em>docstrings</em> para documentar tanto la propia
+clase como los métodos de la misma:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">    Un depósito del banco.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Crea un depósito con una cantidad de fondos.&quot;&quot;&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Retira una cantidad de dinero del depósito.&quot;&quot;&quot;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Ingresa una cantidad de dinero en el depósito.&quot;&quot;&quot;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Devuelve el saldo del depósito.&quot;&quot;&quot;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<ul>
+<li>Por convenio, el <em>docstring</em> de una clase siempre se escribe
+usando el estilo <em>multilínea</em>, al igual que pasa con los
+módulos.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.4">
+
+<ul>
+<li><p>La <strong>definición de una clase</strong> es una estructura
+sintáctica que crea un <strong>espacio de nombres</strong> y determina
+su propio <strong>ámbito</strong>.</p></li>
+<li><p>Esa definición está formada por un <strong>bloque de
+sentencias</strong> que se ejecutarán dentro de ese ámbito en el momento
+en que el intérprete ejecute la definición:</p>
+<div class="line-block"><strong><code>class</code></strong> <span
+style="color:teal">⟨<em>nombre</em>⟩</span><strong><code>:</code></strong><br />
+       <span style="color:teal">⟨<em>sentencia</em>⟩</span><span
+class="math inline">^+</span></div></li>
+<li><p>Todas las definiciones que se realicen directamente en el ámbito
+de la clase como consecuencia de ejecutar su bloque de sentencias, serán
+<strong>locales</strong> a la clase y se almacenarán en el espacio de
+nombres de la clase, ya que, durante la ejecución del bloque de
+sentencias, el espacio de nombres actual es el espacio de nombres de la
+clase.</p></li>
+<li><p>Los elementos así definidos y almacenados directamente en el
+espacio de nombres de la clase se denominan <strong>miembros</strong> o
+<strong>atributos</strong> de la clase.</p></li>
+<li><p>Las funciones que son miembros de una clase se denominan
+<strong>métodos</strong> de la clase.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.5">
+
+<ul>
+<li><p>Por ejemplo, las funciones <code
+class="sourceCode python"><span class="fu">__init__</span></code>,
+<code>retirar</code>, <code>ingresar</code> y <code>saldo</code>
+pertenecen a la clase <code>Deposito</code> y sólo existen dentro de
+ella (son <em>locales</em> a la clase), porque sus definiciones se
+almacenan en el espacio de nombres de la clase.</p></li>
+<li><p>Ese espacio de nombres es un <strong>marco</strong> que se
+almacena en la pila mientras se ejecuta la definición de la clase, y que
+formará parte del entorno mientras dure esa ejecución.</p></li>
+<li><p>Cuando se termina de ejecutar la definición de la clase, se saca
+ese marco de la pila y se convierte en un <strong>objeto</strong> que
+almacena en forma de <strong>atributos</strong> a los miembros de esa
+clase.</p>
+<p>Por tanto, ese objeto acaba almacenando el espacio de nombres de la
+clase y representando a dicha clase dentro del programa.</p></li>
+<li><p>Recordemos que durante la definición de una función no se ejecuta
+su cuerpo, sino que simplemente se crea la ligadura entre el nombre de
+la función y la propia función.</p>
+<p>Por tanto, al ejecutar la definición de una clase no se ejecutan los
+cuerpos de sus métodos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.6">
+
+<ul>
+<li><p>Por ejemplo, en el código anterior:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb5-3"><a href="#cb5-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb5-6"><a href="#cb5-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb5-7"><a href="#cb5-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb5-9"><a href="#cb5-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb5-10"><a href="#cb5-10"></a></span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb5-12"><a href="#cb5-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb5-13"><a href="#cb5-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb5-14"><a href="#cb5-14"></a></span>
+<span id="cb5-15"><a href="#cb5-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb5-16"><a href="#cb5-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
+<li><p>En la línea 10 tendríamos el siguiente entorno:</p>
+<div class="centered">
+<p><img data-src="images/entorno-clase-linea10.svg" class="plain"
+style="width:80.0%" /></p>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.7">
+
+<ul>
+<li><p>En general, no importa el orden en el que aparecen las
+definiciones dentro de la clase, salvo excepciones.</p></li>
+<li><p>Ya sabemos que el cuerpo de una función (y recordemos que, aquí,
+las funciones se llaman <em>métodos</em>) no se ejecuta cuando se define
+la función, sino cuando se la llama. Por tanto, si un método usa a otro,
+no importará el orden en el que se hayan definido.</p></li>
+<li><p>Por ejemplo, en el código anterior, los miembros se podrían haber
+definido en cualquier otro orden (<code>retirar</code> después de
+<code>saldo</code>, <code>ingresar</code> antes de
+<code>__init__</code>…, da igual).</p></li>
+<li><p>En cambio, si hacemos una definición a partir de otra, el orden
+sí importará. Por ejemplo, aquí sí es importante que <code>hola</code>
+se defina antes que <code>saludo</code>:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Prueba:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> hola(<span class="va">self</span>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Hola&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    saludo <span class="op">=</span> hola</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.8">
+
+<ul>
+<li><p>Como se dijo anteriormente, con las <strong>clases</strong>
+ocurre lo siguiente:</p>
+<ul>
+<li><p>Al entrar en la definición de la clase, se crea un nuevo espacio
+de nombres en forma de marco en la pila, que contiene las definiciones
+que se van creando durante la ejecución de la clase.</p></li>
+<li><p>Al salir de la definición de la clase, se saca el marco de la
+pila y con él se crea un objeto que acaba almacenando ese espacio de
+nombres, de forma que <strong>las ligaduras que contiene se convierten
+en atributos del objeto</strong>.</p></li>
+</ul>
+<div class="caja">
+<p><strong>La clase acaba siendo un objeto más, almacenado en el
+montículo</strong>, que se ligará al nombre de la clase en el espacio de
+nombres donde se haya definido ésta (normalmente, el marco global).</p>
+</div></li>
+<li><p>Ese objeto «clase» permanecerá en memoria mientras exista, al
+menos, una referencia que apunte a él.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.9">
+
+<ul>
+<li><p>Si ejecutamos la anterior definición en el <a
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+target="_blank">Pythontutor</a>, observamos que se crea en memoria un
+objeto que, como cualquier otro objeto, contiene su propio espacio de
+nombres representado con una estructura similar al <strong>diccionario
+de despacho</strong> que creábamos antes a mano, el cual almacena los
+miembros de la clase como atributos del objeto, asociando el nombre de
+cada operación con la función (mejor dicho, con el <em>método</em>)
+correspondiente.</p></li>
+<li><p>Ese objeto representa a la clase en la memoria durante la
+ejecución del programa, y se liga al nombre de la clase en el espacio de
+nombres actual (que normalmente será el marco global).</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/clase-estructura.png" class="plain"
+style="width:55.0%" alt="La clase Deposito en memoria" />
+<figcaption aria-hidden="true">La clase <code>Deposito</code> en
+memoria</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.2.0.0.10">
+
+<!--
+- El nombre de la clase es una **referencia** que apunta a la clase, la cual es
+  un objeto y, por tanto, nos va a permitir acceder a sus atributos (los
+  miembros de la clase) usando el operador punto (`.`).
+-->
+<ul>
+<li><p>Como las clases son objetos, debemos usar el operador punto
+(<code>.</code>) para acceder a un miembro de una clase, indicando la
+referencia a la clase (normalmente, su nombre) y el nombre del miembro
+al que se desea acceder:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.retirar</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function Deposito.retirar at <span class="bn">0x7f6f04885160</span><span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>En realidad, todo lo que hemos dicho hasta ahora sobre la
+creación de clases y el acceso a sus miembros, es esencialmente el mismo
+mecanismo que se usa en la creación y uso de módulos.</p></li>
+<li><p>Sin embargo, hay que tener cuidado, ya que <strong>las clases no
+funcionan exactamente igual que los módulos en lo que se refiere al
+<em>entorno</em></strong>, como veremos luego en un apartado
+posterior.</p></li>
+</ul>
+</section>
+<section id="instancias" class="title-slide slide level3"
+data-number="2.2.1">
+<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
+Instancias</h3>
+<ul>
+<li><p>Un <strong>objeto</strong> representa un <strong>dato
+abstracto</strong> de la misma manera que una <em>clase</em> representa
+un <em>tipo abstracto de datos</em>.</p></li>
+<li><p>Es decir: un objeto es un caso particular de una clase, motivo
+por el que también se le denomina <strong><em>instancia</em> de una
+clase</strong>.</p></li>
+<li><p>Un objeto es <strong>un dato que pertenece al tipo definido por
+la clase</strong> de la que es instancia.</p>
+<p>También se puede decir que «<strong>el objeto <em>pertenece</em> a la
+clase</strong>» aunque sea más correcto decir que «<strong>es
+<em>instancia</em> de la clase</strong>».</p></li>
+<li><p>El proceso de crear un objeto a partir de una clase se denomina
+<strong>instanciar la clase</strong> o
+<strong>instanciación</strong>.</p></li>
+<li><p>En un lenguaje orientado a objetos <em>puro</em>, todos los datos
+que manipula el programa son objetos y, por tanto, instancias de alguna
+clase.</p></li>
+<li><p>Existen lenguajes orientados a objetos <em>impuros</em> o
+<em>híbridos</em> en los que coexisten objetos con otros datos que no
+son instancias de clases.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.1">
+
+<ul>
+<li><p>Python es considerado un lenguaje orientado a objetos
+<strong>puro</strong>, ya que en Python todos los datos son
+objetos.</p></li>
+<li><p>Por ejemplo, en Python:</p>
+<ul>
+<li><p>El tipo <code
+class="sourceCode python"><span class="bu">int</span></code> es una
+clase.</p></li>
+<li><p>El entero <code
+class="sourceCode python"><span class="dv">5</span></code> es un objeto,
+instancia de la clase <code
+class="sourceCode python"><span class="bu">int</span></code>.</p></li>
+</ul></li>
+<li><p>Java es un lenguaje orientado a objetos <strong>híbrido</strong>,
+ya que un programa Java manipula objetos pero también manipula otros
+datos llamados <em>primitivos</em>, que no son instancias de ninguna
+clase sino que pertenecen a un <em>tipo primitivo</em> del
+lenguaje.</p></li>
+<li><p>Por ejemplo, en Java:</p>
+<ul>
+<li><p>El tipo <code
+class="sourceCode java"><span class="bu">String</span></code> es una
+clase, por lo que la cadena <code
+class="sourceCode java"><span class="st">&quot;Hola&quot;</span></code>
+es un objeto, instancia de la clase <code
+class="sourceCode java"><span class="bu">String</span></code>.</p></li>
+<li><p>El tipo <code
+class="sourceCode python"><span class="bu">int</span></code> es un tipo
+primitivo del lenguaje, por lo que el número <code
+class="sourceCode python"><span class="dv">5</span></code> no es ningún
+objeto, sino un dato primitivo.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.2">
+
+<div class="caja">
+<p><strong>Las clases, por tanto, son como <em>plantillas</em> para
+crear objetos</strong> que comparten (normalmente) el mismo
+comportamiento y la misma estructura interna.</p>
+</div>
+<div class="caja">
+<p>Los <strong>objetos</strong> tienen tres
+<strong>características</strong> básicas:</p>
+<ul>
+<li><p><strong>Identidad</strong>: un objeto se puede distinguir de
+otros.</p></li>
+<li><p><strong>Estado</strong>: un objeto tiene un estado interno que
+puede cambiar durante su vida.</p></li>
+<li><p><strong>Comportamiento</strong>: un objeto se comporta de cierta
+forma ante la recepción de ciertos mensajes.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level5" data-number="2.2.1.0.3">
+
+<ul>
+<li><p>En Python podemos instanciar una clase (creando así un nuevo
+objeto) llamando a la clase como si fuera una función, del mismo modo
+que hacíamos con la implementación funcional que hemos estado usando
+hasta ahora:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+<li><p>Lo que ocurre al ejecutar este código es lo siguiente:</p>
+<ol type="1">
+<li><p>Se crea en el montículo un objeto, instancia de la clase
+<code>Deposito</code>, que contiene su propio espacio de nombres
+representado por una estructura con forma de diccionario.</p></li>
+<li><p>Se invoca al método <code
+class="sourceCode python"><span class="fu">__init__</span></code> sobre
+el objeto recién creado (ya hablaremos de ésto más adelante).</p></li>
+<li><p>La expresión <code
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>
+devuelve una <strong>referencia</strong> al nuevo objeto, que
+representa, a grandes rasgos, la posición de memoria donde se encuentra
+almacenado el objeto (su <strong><em>identidad</em></strong>).</p></li>
+<li><p>Esa referencia es la que se almacena en la variable
+<code>dep</code>. O sea: <strong>en la variable no se almacena el objeto
+en sí, sino una <em>referencia</em> al objeto</strong>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.4">
+
+<ul>
+<li><p>En este ejemplo, <code>0x7fba5a16d978</code> es la dirección de
+memoria donde está almacenado el objeto al que hace referencia la
+variable <code>dep</code> (es decir, su <strong>identidad</strong>):</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7fba5a16d978</span><span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>Cuando una variable contiene una referencia a un objeto, decimos
+que la variable <strong>se refiere</strong> al objeto o que
+<strong>apunta</strong> al objeto.</p></li>
+<li><p>Aunque actualmente las referencias representan direcciones de
+memoria, eso no quiere decir que vaya a ser siempre así. Ese es un
+detalle de implementación basada en una decisión de diseño del
+intérprete que puede cambiar en posteriores versiones del mismo.</p>
+<p>Esa decisión, en la práctica, es una cuestión que no nos afecta (o no
+debería, al menos) a la hora de escribir nuestros programas.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.5">
+
+<ul>
+<li>Con <a
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+target="_blank">Pythontutor</a> podemos observar las estructuras que se
+forman al definir la clase y al instanciar dicha clase en un nuevo
+objeto:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:57%;">
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
+</div><div class="column" style="width:43%;">
+<div class="centered">
+<figure>
+<img data-src="images/clase-objeto-estructura.png" class="plain"
+style="width:100.0%"
+alt="La clase Deposito y el objeto dep en memoria" />
+<figcaption aria-hidden="true">La clase <code>Deposito</code> y el
+objeto <code>dep</code> en memoria</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Se aprecia claramente que la clase almacena los métodos y la
+instancia almacena sus fondos, y todo son atributos.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.6">
+
+<ul>
+<li><p>Un objeto tiene existencia propia e independiente y permanecerá
+en la memoria siempre que haya al menos una referencia que apunte a él
+(en caso contrario, el recolector de basura lo eliminará).</p></li>
+<li><p>De hecho, un objeto puede tener varias referencias
+apuntándole.</p></li>
+<li><p>Por ejemplo, si hacemos:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dep2 <span class="op">=</span> dep1</span></code></pre></div>
+<p>tendremos dos variables que contienen la misma referencia y, por
+tanto, <strong><em>se refieren</em> (o <em>apuntan</em>) al mismo
+objeto</strong>.</p></li>
+<li><p>En ese caso, decimos que <code>dep1</code> y <code>dep2</code>
+son <strong>idénticas</strong>, porque las identidades de los objetos a
+los que apuntan son iguales, cosa que podemos comprobar usando <code
+class="sourceCode python"><span class="bu">id</span></code> o <code
+class="sourceCode python"><span class="kw">is</span></code>:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">id</span>(dep1) <span class="op">==</span> <span class="bu">id</span>(dep2)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="kw">is</span> dep2</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<li><p>No olvidemos que las variables no contienen al objeto en sí
+mismo, sino una referencia a éste.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.1.0.7">
+
+<ul>
+<li>Gráficamente, el caso anterior se puede representar de la siguiente
+forma:</li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/dos-referencias-iguales.png" class="plain"
+style="width:80.0%"
+alt="Dos variables (dep1 y dep2) que apuntan al mismo objeto" />
+<figcaption aria-hidden="true">Dos variables (<code>dep1</code> y
+<code>dep2</code>) que <em>apuntan</em> al mismo objeto</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.2.1.0.8">
+
+<ul>
+<li><p>Recordemos que en Python todos los tipos son clases.</p></li>
+<li><p>Para saber la clase a la que pertenece el objeto, se usa la
+función <code
+class="sourceCode python"><span class="bu">type</span></code> o el
+atributo <code class="sourceCode python">__class__</code> del
+objeto:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(dep)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Deposito&#39;</span><span class="op">&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.__class__</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;__main__.Deposito&#39;</span><span class="op">&gt;</span></span></code></pre></div>
+<p>Se nos muestra que la clase del objeto <code>dep</code> es <code
+class="sourceCode python">__main__.Deposito</code>, que representa la
+clase <code>Deposito</code> definida en el módulo <code
+class="sourceCode python">__main__</code>.</p>
+<p>Esto demuestra que el objeto <strong>recuerda</strong> su clase (la
+clase que se usó para instanciarlo) porque lo guarda en un
+atributo.</p></li>
+<li><p>Otra forma de comprobar si un objeto es instancia de una clase
+determinada es usar la función <code
+class="sourceCode python"><span class="bu">isinstance</span></code><code>(</code><span
+class="math inline">obj</span><code>,</code> <span
+class="math inline">cls</span><code>)</code>, que devuelve <code
+class="sourceCode python"><span class="va">True</span></code> si el
+objeto <span class="math inline">obj</span> es instancia de la clase
+<span class="math inline">cls</span>:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(<span class="dv">4</span>, <span class="bu">int</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">isinstance</span>(<span class="st">&#39;hola&#39;</span>, <span class="bu">float</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div></li>
+</ul>
+</section>
+
+
+<section id="estado" class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+Estado</h2>
+<ul>
+<li><p>Los objetos son datos abstractos que poseen su propio estado
+interno, el cual puede cambiar durante la ejecución del programa como
+consecuencia de los mensajes recibidos o enviados por los
+objetos.</p></li>
+<li><p>Eso significa que <strong>los objetos son datos
+mutables</strong>.</p></li>
+<li><p>Dos objetos no idénticos podrán tener estados internos
+distintos.</p></li>
+</ul>
+</section>
+<section id="variables-de-instancia" class="title-slide slide level3"
+data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span>
+Variables de instancia</h3>
+<ul>
+<li><p>En terminología orientada a objetos, el estado de un objeto se
+almacena en variables denominadas <strong>variables de
+instancia</strong>, <strong>campos</strong> o
+<strong>propiedades</strong> del objeto (si bien, en Python el concepto
+de <em>propiedad</em> tiene un significado específico).</p></li>
+<li><p>Esas variables de instancia se almacenan como
+<strong>atributos</strong> del objeto, dentro de éste, por lo que
+representan <em>variables locales</em> al objeto en su espacio de
+nombres.</p></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/objeto-atributos.svg" class="plain"
+style="width:40.0%" alt="Objeto dep y su atributo fondos" />
+<figcaption aria-hidden="true">Objeto <code>dep</code> y su atributo
+<code>fondos</code></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.1">
+
+<ul>
+<li>Recordemos que debemos usar el operador punto (<code>.</code>) para
+acceder a un atributo del objeto a partir de una referencia suya usando
+la sintaxis:</li>
+</ul>
+<div class="centered">
+<p><em>objeto</em><code>.</code><em>atributo</em></p>
+</div>
+<ul>
+<li><p>Por ejemplo, para acceder al atributo <code>fondos</code> (que
+aquí es una variable de instancia) de un objeto <code>dep</code> de la
+clase <code>Deposito</code>, se usaría la expresión
+<code>dep.fondos</code>:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span></span></code></pre></div></li>
+<li><p>Y podemos cambiar el valor de la variable de instancia mediante
+asignación:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos <span class="op">=</span> <span class="dv">400</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="dv">400</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.1.0.2">
+
+<ul>
+<li><p>Por supuesto, dos objetos distintos pueden tener valores
+distintos en sus atributos, ya que cada atributo pertenece a un objeto
+determinado:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1.fondos          <span class="co"># el atributo fondos del objeto dep1 vale 100</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.fondos          <span class="co"># el atributo fondos del objeto dep2 vale 400</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="dv">400</span></span></code></pre></div></li>
+</ul>
+<div class="centered">
+<figure>
+<img data-src="images/clase-dos-objetos-estructura.png" class="plain"
+style="width:50.0%"
+alt="La clase Deposito y los objetos dep1 y dep2 en memoria" />
+<figcaption aria-hidden="true">La clase <code>Deposito</code> y los
+objetos <code>dep1</code> y <code>dep2</code> en memoria</figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level5" data-number="2.3.1.0.3">
+
+<ul>
+<li><p>En Python es posible acceder directamente al estado interno de un
+objeto (o, lo que es lo mismo, al valor de sus atributos) desde el
+exterior del mismo, cosa que, en principio, podría considerarse una
+<em>violación</em> del <strong>principio de ocultación de
+información</strong> y del concepto mismo de <strong>abstracción de
+datos</strong>.</p></li>
+<li><p>Incluso es posible cambiar directamente el valor de un atributo
+desde fuera del objeto, o crear atributos nuevos dinámicamente, haciendo
+simplemente una asignación.</p></li>
+<li><p>Todo esto puede resultar chocante para un programador de otros
+lenguajes, pero en la práctica resulta útil al programador por la
+naturaleza dinámica del lenguaje Python y por el estilo de programación
+que promueve.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.1.0.4">
+
+<ul>
+<li><p>Como cualquier variable en Python, un atributo empieza a existir
+en el momento en el que se le asigna un valor:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.otro <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.otro</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola</span></span></code></pre></div></li>
+<li><p>Por tanto, <strong>en Python, los atributos de un objeto se crean
+en tiempo de ejecución mediante una simple asignación</strong>.</p></li>
+<li><p>Este comportamiento contrasta con el de otros lenguajes de
+programación (como Java, por ejemplo), donde los atributos de un objeto
+vienen determinados de antemano por la clase a la que pertenece y
+siempre son los mismos.</p>
+<p>Así, en Java, dos objetos de la misma clase siempre tendrán las
+mismas variables de instancia, definidas por la clase (aunque la misma
+variable de instancia podrá tener valores distintos en los dos objetos,
+naturalmente).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.1.0.5">
+
+<ul>
+<li><p>Ese comportamiento dinámico de Python a la hora de crear
+atributos permite resultados interesantes imposibles de conseguir en
+Java, como que dos objetos distintos de la misma clase puedan poseer
+distintos atributos:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span>       <span class="co"># el atributo uno sólo existe en dep1</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span>     <span class="co"># el atributo otro sólo existe en dep2</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1.uno</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola&#39;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.uno</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;uno&#39;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.otro</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;adiós&#39;</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep1.otro</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="pp">AttributeError</span>: <span class="st">&#39;Deposito&#39;</span> <span class="bu">object</span> has no attribute <span class="st">&#39;otro&#39;</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.3.1.0.6">
+
+<ul>
+<li>Con <a
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20&#39;hola&#39;%0Adep2.otro%20%3D%20&#39;adi%C3%B3s&#39;&amp;cumulative=false&amp;curInstr=11&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+target="_blank">Pythontutor</a> podemos observar lo que ocurre al
+instanciar dos objetos y crear atributos distintos en cada objeto:</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:57%;">
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">400</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>dep1.uno <span class="op">=</span> <span class="st">&#39;hola&#39;</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>dep2.otro <span class="op">=</span> <span class="st">&#39;adiós&#39;</span></span></code></pre></div>
+</div><div class="column" style="width:43%;">
+<div class="centered">
+<figure>
+<img
+data-src="images/clase-dos-objetos-atributos-distintos-estructura.png"
+class="plain" style="width:100.0%"
+alt="La clase Deposito y los objetos dep1 y dep2 con distintos atributos" />
+<figcaption aria-hidden="true">La clase <code>Deposito</code> y los
+objetos <code>dep1</code> y <code>dep2</code> con distintos
+atributos</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<!--
+
+---
+
+- Otro ejemplo: si tenemos el número complejo `4 + 3j`, podemos preguntar cuál
+  es su parte real y su parte imaginaria (que son atributos del objeto):
+
+  ```python
+  >>> c = 4 + 3j
+  >>> c
+  (4+3j)
+  >>> c.real
+  4.0
+  >>> c.imag
+  3.0
+  ```
+
+- Pero esos atributos no se pueden modificar directamente, ya que son de *sólo
+  lectura*:
+
+  ```python
+  >>> c.real = 9.0
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  AttributeError: readonly attribute
+  ```
+
+-->
+</section>
+
+
+<section id="la-antisimetría-dato-objeto"
+class="title-slide slide level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> La
+antisimetría dato-objeto</h2>
+<ul>
+<li><p>Se da una curiosa contra-analogía entre los conceptos de dato y
+objeto:</p>
+<ul>
+<li><p>Los objetos ocultan sus datos detrás de abstracciones y exponen
+las funciones que operan con esos datos.</p></li>
+<li><p>Las estructuras de datos exponen sus datos y no contienen
+funciones (o, al menos, no las exponen).</p></li>
+</ul></li>
+<li><p>Son definiciones virtualmente opuestas y
+complementarias.</p></li>
+</ul>
+</section>
+</section>
+<section>
+<section id="paso-de-mensajes" class="title-slide slide level1"
+data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Paso de
+mensajes</h1>
+
+</section>
+<section id="resolución-de-atributos" class="title-slide slide level2"
+data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span>
+Resolución de atributos</h2>
+<ul>
+<li><p>Cuando se intenta acceder a un atributo de un objeto, lo que hace
+el intérprete es lo siguiente:</p>
+<ol>
+<li><p>Primero busca dicho atributo dentro del objeto.</p></li>
+<li><p>Si lo encuentra, devuelve su valor.</p></li>
+<li><p>En caso contrario, lo busca en la clase del objeto.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
+<li><p>Supongamos que tenemos el objeto <code>dep</code> de la clase
+<code>Deposito</code>.</p></li>
+<li><p>Si hacemos:</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.fondos</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span></span></code></pre></div>
+<p>el intérprete devolverá el valor del atributo <code>fondos</code> que
+encuentra en el objeto <code>dep</code>, ya que el objeto contiene un
+atributo con ese nombre.</p></li>
+<li><p>En cambio, si hacemos:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.retirar</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>bound method Deposito.retirar of <span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7f65736d4a90</span><span class="op">&gt;&gt;</span></span></code></pre></div>
+<p>el intérprete buscará primero el atributo <code>retirar</code> en el
+objeto <code>dep</code> y, al no encontrarlo allí, pasa a buscarlo en la
+clase <code>Deposito</code>. Ahí sí lo encuentra, así que devuelve su
+valor, que en este caso es un método.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.2">
+
+<ul>
+<li><p>Por tanto, lo anterior es <strong><em>casi</em></strong>
+equivalente a hacer:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Deposito.retirar</span></code></pre></div></li>
+<li><p>Pero no es <strong><em>exactamente</em></strong> igual, ya que en
+el primer caso nos devuelve un método, mientras que en el segundo caso
+nos devuelve una función:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.retirar</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>bound method Deposito.retirar of <span class="op">&lt;</span>__main__.Deposito <span class="bu">object</span> at <span class="bn">0x7f65736d4a90</span><span class="op">&gt;&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.retirar</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function __main__.Deposito.retirar(<span class="va">self</span>, cantidad)<span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>Esto no nos pilla de sorpresa, ya que sabíamos que
+<code>retirar</code> es un método para el objeto <code>dep</code> pero
+es una función para la clase <code>Deposito</code>.</p></li>
+</ul>
+</section>
+
+<section id="ejecución-de-métodos" class="title-slide slide level2"
+data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span>
+Ejecución de métodos</h2>
+<ul>
+<li><p>Como las clases implementan las operaciones como métodos, el paso
+de mensajes se realiza ahora invocando, sobre un objeto, el método
+correspondiente al mensaje que se enviaría al objeto.</p></li>
+<li><p>Por ejemplo, si queremos enviarle el mensaje <code>saldo</code>
+al objeto <code>dep</code> para saber cuál es el saldo actual de ese
+depósito, invocaríamos el método <code>saldo</code> sobre el objeto
+<code>dep</code> de esta forma:</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.saldo()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span></span></code></pre></div></li>
+<li><p>Si la operación requiere argumentos, se le pasarán al método
+también:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.retirar(<span class="dv">25</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.1">
+
+<ul>
+<li><p>Ya tenemos que <code>retirar</code> es un método para el objeto
+<code>dep</code> y que, por tanto, <code
+class="sourceCode python">dep.retirar</code> nos devuelve ese
+método.</p></li>
+<li><p>Pero, ¿qué ocurre cuando <strong>se invoca</strong> a un método
+sobre un objeto?</p></li>
+<li><p>No es lo mismo hacer:</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dep.retirar</span></code></pre></div>
+<p>que hacer:</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dep.retirar()</span></code></pre></div>
+<p>ya que en el primer caso obtenemos el valor del atributo (que es un
+método), pero en el segundo caso estamos <em>invocando</em> al método
+sobre el objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.2">
+
+<ul>
+<li><p>Supongamos que <em>o</em> es una instancia de la clase
+<em>C</em>, que <em>m</em> es un método almacenado como un atributo de
+la clase <em>C</em> y que <em>o</em> no contiene ningún atributo que se
+llame <em>m</em>.</p></li>
+<li><p>La ejecución del <strong><em>método</em></strong> <em>m</em> con
+argumentos <span class="math inline">a_1, a_2, \ldots, a_n</span> sobre
+el objeto <em>o</em> tiene esta forma:</p>
+<div class="centered">
+<p><em>o</em><code>.</code><em>m</em><code>(</code><span
+class="math inline">a_1</span><code>,</code><span
+class="math inline">a_2</span><code>,</code><span
+class="math inline">\ldots</span><code>,</code><span
+class="math inline">a_n</span><code>)</code></p>
+</div></li>
+<li><p>Pues bien: el intérprete de Python lo traduce por una llamada a
+función con esta forma:</p>
+<div class="centered">
+<p><em>C</em><code>.</code><em>m</em><code>(</code><em>o</em><code>,</code><span
+class="math inline">a_1</span><code>,</code><span
+class="math inline">a_2</span><code>,</code><span
+class="math inline">\ldots</span><code>,</code><span
+class="math inline">a_n</span><code>)</code></p>
+</div></li>
+<li><p>Es decir: el intérprete llama a la
+<strong><em>función</em></strong> <em>m</em> definida en la clase
+<em>C</em> y le pasa automática e implícitamente el objeto <em>o</em>
+como primer argumento (el resto de los argumentos originales irían a
+continuación de <em>o</em>).</p></li>
+<li><p>Esto nos vuelve a demostrar que los métodos no son más que una
+forma especial de función.</p></li>
+<li><p>No olvidemos que quien almacena los métodos es la clase, no el
+objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.3">
+
+<ul>
+<li><p>Por ejemplo, hacer:</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep.retirar(<span class="dv">25</span>)</span></code></pre></div>
+<p>equivale a hacer:</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> Deposito.retirar(dep, <span class="dv">25</span>)</span></code></pre></div>
+<p>De hecho, el intérprete traduce el primer código al segundo
+automáticamente.</p></li>
+<li><p>Esto facilita la implementación del intérprete, ya que todo se
+convierte en llamadas a funciones.</p></li>
+<li><p>Para la clase <code>Deposito</code>, <code>retirar</code> es una
+función, mientras que, para el objeto <code>dep</code>,
+<code>retirar</code> es un método.</p></li>
+<li><p>Aunque son la misma cosa, el intérprete los trata de forma
+distinta según el contexto.</p></li>
+</ul>
+</section>
+
+<section id="definición-de-métodos" class="title-slide slide level2"
+data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span>
+Definición de métodos</h2>
+<ul>
+<li><p>Esa es la razón por la que los métodos se definen siempre con un
+parámetro extra que representa el objeto sobre el que se invoca el
+método (o, dicho de otra forma, el objeto que recibe el
+mensaje).</p></li>
+<li><p>Ese parámetro extra (por regla de estilo) se llama siempre <code
+class="sourceCode python"><span class="va">self</span></code>, si bien
+ese nombre no es ninguna palabra clave y se podría usar cualquier
+otro.</p></li>
+<li><p>Por tanto, siempre que definamos un método, lo haremos como una
+función que tendrá siempre un parámetro extra que será siempre el
+primero de sus parámetros y que se llamará <code
+class="sourceCode python"><span class="va">self</span></code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.1">
+
+<ul>
+<li>Por ejemplo, en la clase <code>Deposito</code>, obsérvese que todos
+los métodos tienen <code
+class="sourceCode python"><span class="va">self</span></code> como
+primer parámetro:</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+</section>
+<section class="slide level5" data-number="3.3.0.0.2">
+
+<ul>
+<li><p>El método <code>saldo</code> de la clase <code>Deposito</code>
+recibe un argumento <code
+class="sourceCode python"><span class="va">self</span></code> que,
+durante la llamada al método, contendrá el objeto sobre el que se ha
+invocado dicho método:</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
+<li><p>En este caso, contendrá el objeto del que se desea conocer los
+fondos que posee.</p></li>
+<li><p>Por tanto, dentro de <code>saldo</code>, accedemos a los fondos
+del objeto usando la expresión <code
+class="sourceCode python"><span class="va">self</span>.fondos</code>, y
+ese es el valor que retorna el método.</p></li>
+<li><p>Dentro del programa, la expresión <code>dep.saldo()</code> se
+traducirá como <code>Deposito.saldo(dep)</code>.</p></li>
+<li><p>Es importante recordar que <strong>el parámetro <code
+class="sourceCode python"><span class="va">self</span></code> se pasa
+automáticamente</strong> durante la llamada al método y, por tanto,
+<strong>no debemos pasarlo nosotros</strong> o se producirá un error por
+intentar pasar más parámetros de los requeridos por el método.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.3">
+
+<ul>
+<li><p>El método <code>ingresar</code> tiene otro argumento además del
+<code class="sourceCode python"><span class="va">self</span></code>, que
+es la cantidad a ingresar:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
+<li><p>En este caso, <code
+class="sourceCode python"><span class="va">self</span></code> contendrá
+el objeto en el que se desea ingresar la cantidad deseada.</p></li>
+<li><p>Dentro del método <code>ingresar</code>, la expresión <code
+class="sourceCode python"><span class="va">self</span>.fondos</code>
+representa el valor del atributo <code>fondos</code> del objeto <code
+class="sourceCode python"><span class="va">self</span></code>.</p></li>
+<li><p>Por tanto, lo que hace el método es incrementar el valor de dicho
+atributo en el objeto <code
+class="sourceCode python"><span class="va">self</span></code>, sumándole
+la cantidad indicada en el parámetro.</p></li>
+<li><p>Por ejemplo, la expresión <code
+class="sourceCode python">dep.ingresar(<span class="dv">35</span>)</code>
+se traducirá como <code
+class="sourceCode python">Deposito.ingresar(dep, <span class="dv">35</span>)</code>.
+Por tanto, en la llamada al método, <code
+class="sourceCode python"><span class="va">self</span></code> valdrá
+<code>dep</code> y <code>cantidad</code> valdrá <code
+class="sourceCode python"><span class="dv">35</span></code>.</p></li>
+</ul>
+</section>
+<section id="entorno-durante-la-ejecución-de-métodos"
+class="title-slide slide level3" data-number="3.3.1">
+<h3 data-number="3.3.1"><span class="header-section-number">3.3.1</span>
+Entorno durante la ejecución de métodos</h3>
+<ul>
+<li><p>Durante la ejecución de un método en Python, el entorno no
+contiene ni la clase a la que pertenece el método ni el objeto sobre el
+que se invoca.</p></li>
+<li><p>Es decir: los métodos no pueden considerarse clausuras, ya que no
+recuerdan el contexto en el que se definieron.</p></li>
+<li><p>Por tanto, si un método quiere acceder a un miembro de cualquier
+clase (incluso de su misma clase), tendrá que hacerlo siempre a través
+de una referencia (con el operador <code>.</code>), nunca
+directamente.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.1">
+
+<ul>
+<li>Por tanto, un método puede llamar a otro, pero <strong>siempre a
+través de la referencia al objeto que recibe el mensaje</strong>,
+incluso aunque los dos métodos pertenezcan a la misma clase.</li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Por ejemplo, esto funcionará:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> A:</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>...    <span class="kw">def</span> uno(<span class="va">self</span>):</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>...        <span class="bu">print</span>(<span class="st">&#39;Estoy en uno&#39;</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>...        <span class="va">self</span>.dos()</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>...    <span class="kw">def</span> dos(<span class="va">self</span>):</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>...        <span class="bu">print</span>(<span class="st">&#39;Estoy en dos&#39;</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> A()</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a.uno()</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>Estoy en uno</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>Estoy en dos</span></code></pre></div></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><p>Pero esto <strong>NO</strong> funcionará:</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">class</span> A:</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>...    <span class="kw">def</span> uno(<span class="va">self</span>):</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>...        <span class="bu">print</span>(<span class="st">&#39;Estoy en uno&#39;</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>...        dos()  <span class="co"># Esto falla</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>...    <span class="kw">def</span> dos(<span class="va">self</span>):</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>...        <span class="bu">print</span>(<span class="st">&#39;Estoy en dos&#39;</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> A()</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a.uno()</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>Estoy en uno</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;dos&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+</ul>
+</div>
+</div>
+<ul>
+<li>El método <code>dos</code> no está en el entorno del método
+<code>uno</code>, así que no lo puede llamar directamente.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.2">
+
+<ul>
+<li><p>Por ejemplo: en el siguiente código, al invocar al método
+<code>uno</code> sobre el objeto <code>a</code> de la clase
+<code>A</code>, se tienen los siguientes entornos antes y durante la
+invocación del método:</p>
+<div class="columns">
+<div class="column" style="width:35%;">
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> uno(<span class="va">self</span>):</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Soy uno&#39;</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> A()</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>a.uno()</span></code></pre></div>
+</div><div class="column" style="width:65%;">
+<div class="centered">
+<figure>
+<img data-src="images/entorno-antes-uno.svg" class="plain"
+style="width:80.0%" alt="Entorno antes de la invocación de uno" />
+<figcaption aria-hidden="true">Entorno antes de la invocación de
+<code>uno</code></figcaption>
+</figure>
+</div>
+<p><br></p>
+<div class="centered">
+<figure>
+<img data-src="images/entorno-durante-uno.svg" class="plain"
+style="width:100.0%" alt="Entorno durante la invocación de uno" />
+<figcaption aria-hidden="true">Entorno durante la invocación de
+<code>uno</code></figcaption>
+</figure>
+</div>
+</div>
+</div></li>
+<li><p>El entorno del método no incluye a la propia clase <code>A</code>
+ni al objeto sobre el que se invoca el método.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.3">
+
+<ul>
+<li><p>Como otro ejemplo, si recordamos la clase
+<code>Deposito</code>:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb37-2"><a href="#cb37-2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb37-3"><a href="#cb37-3"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb37-4"><a href="#cb37-4"></a></span>
+<span id="cb37-5"><a href="#cb37-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
+<span id="cb37-6"><a href="#cb37-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
+<span id="cb37-7"><a href="#cb37-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
+<span id="cb37-9"><a href="#cb37-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb37-10"><a href="#cb37-10"></a></span>
+<span id="cb37-11"><a href="#cb37-11"></a>    <span class="kw">def</span> ingresar(<span class="va">self</span>, cantidad):</span>
+<span id="cb37-12"><a href="#cb37-12"></a>        <span class="va">self</span>.fondos <span class="op">+=</span> cantidad</span>
+<span id="cb37-13"><a href="#cb37-13"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb37-14"><a href="#cb37-14"></a></span>
+<span id="cb37-15"><a href="#cb37-15"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
+<span id="cb37-16"><a href="#cb37-16"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
+<span id="cb37-17"><a href="#cb37-17"></a></span>
+<span id="cb37-18"><a href="#cb37-18"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
+<span id="cb37-19"><a href="#cb37-19"></a>dep.ingresar(<span class="dv">200</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.4">
+
+<ul>
+<li><p>Durante la ejecución del método <code>ingresar</code> (digamos,
+en la línea 12 del código anterior), la situación en la memoria
+sería:</p>
+<div class="centered">
+<p><img data-src="images/entorno-clase-linea12.svg" class="plain"
+style="width:85.0%" /></p>
+</div></li>
+<li><p>Y, por tanto, el entorno estaría formado por el marco de
+<code>ingresar</code> y el marco global, en ese orden.</p></li>
+<li><p>En consecuencia, ni la clase <code>Deposito</code> ni el objeto
+sobre el que se invoca el método (<code>dep</code> o <code>self</code>,
+que son el mismo) están en el entorno del método
+<code>ingresar</code>.</p></li>
+</ul>
+</section>
+
+
+<section id="métodos-mágicos-y-constructores"
+class="title-slide slide level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span>
+Métodos <em>mágicos</em>  y constructores</h2>
+<ul>
+<li><p>En Python, los métodos cuyo nombre empieza y termina por
+<code>__</code> se denominan <strong>métodos mágicos</strong> y tienen
+un comportamiento especial.</p></li>
+<li><p>En concreto, el método <code
+class="sourceCode python"><span class="fu">__init__</span></code> se
+invoca automáticamente cada vez que se instancia un nuevo objeto a
+partir de una clase.</p></li>
+<li><p>Coloquialmente, se le suele llamar el
+<strong>constructor</strong> de la clase, y es el responsable de
+<em>inicializar</em> el objeto de forma que tenga un estado inicial
+adecuado desde el momento de su creación.</p></li>
+<li><p>Entre otras cosas, el constructor se encarga de asignarle los
+valores iniciales adecuados a los atributos del objeto.</p></li>
+<li><p>Ese método recibe como argumentos (además del <code
+class="sourceCode python"><span class="va">self</span></code>) los
+argumentos indicados en la llamada a la clase que se usó para instanciar
+el objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.1">
+
+<ul>
+<li><p>Por ejemplo: en la clase <code>Deposito</code>, tenemos:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div></li>
+<li><p>Ese método <code
+class="sourceCode python"><span class="fu">__init__</span></code> se
+encarga de crear el atributo <code>fondos</code> del objeto que se acaba
+de crear (y que recibe a través del parámetro <code>self</code>),
+asignándole el valor del parámetro <code>fondos</code>.</p>
+<p>¡Cuidado! No confudir la expresión <code
+class="sourceCode python"><span class="va">self</span>.fondos</code> con
+<code>fondos</code>. La primera se refiere al atributo
+<code>fondos</code> del objeto <code
+class="sourceCode python"><span class="va">self</span></code>, mientras
+que la segunda se refiere al parámetro <code>fondos</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.2">
+
+<ul>
+<li><p>Cuando se crea un nuevo objeto de la clase <code>Deposito</code>,
+llamando a la clase como si fuera una función, se debe indicar entre
+paréntesis (como argumento) el valor del parámetro que luego va a
+recibir el método <code
+class="sourceCode python"><span class="fu">__init__</span></code> (en
+este caso, los fondos iniciales):</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+<li><p>La ejecución de este código produce el siguiente efecto:</p>
+<ol type="1">
+<li><p>Se crea en memoria una instancia de la clase
+<code>Deposito</code>.</p></li>
+<li><p>Se invoca el método <code
+class="sourceCode python"><span class="fu">__init__</span></code> sobre
+el objeto recién creado, de forma que el parámetro <code
+class="sourceCode python"><span class="va">self</span></code> recibe una
+referencia a dicho objeto y el parámetro <code>fondos</code> toma el
+valor <code
+class="sourceCode python"><span class="dv">100</span></code>, que es el
+valor del argumento en la llamada a <code
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>.</p>
+<p>En la práctica, esto equivale a decir que la expresión <code
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>
+se traduce a <em>ref</em><code
+class="sourceCode python">.<span class="fu">__init__</span>(<span class="dv">100</span>)</code>,
+donde <em>ref</em> es una referencia al objeto recién creado.</p></li>
+<li><p>La expresión <code
+class="sourceCode python">Deposito(<span class="dv">100</span>)</code>
+devuelve la referencia al objeto.</p></li>
+<li><p>Esa referencia es la que se almacena en la variable
+<code>dep</code>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section id="ejercicio-1" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejercicio</h5>
+<ol start="2" class="example" type="1">
+<li>Comprobar el funcionamiento del constructor en <a
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&amp;cumulative=true&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+target="_blank">Pythontutor</a>.</li>
+</ol>
+</section>
+<section class="slide level5" data-number="3.4.0.0.3">
+
+<ul>
+<li><p>En resumen: la expresión <em>C</em><code>(</code><span
+class="math inline">a_1</span><code>,</code><span
+class="math inline">a_2</span><code>,</code><span
+class="math inline">\ldots</span><code>,</code><span
+class="math inline">a_n</span><code>)</code> usada para crear una
+instancia de la clase <em>C</em> lleva a cabo las siguientes
+acciones:</p>
+<ol type="1">
+<li><p>Crea en memoria una instancia de la clase <em>C</em> y guarda en
+una variable temporal (llamémosla <em>ref</em>, por ejemplo) una
+referencia al objeto recién creado.</p></li>
+<li><p>Invoca a <em>ref</em><code>.__init__(</code><span
+class="math inline">a_1</span><code>,</code><span
+class="math inline">a_2</span><code>,</code><span
+class="math inline">\ldots</span><code>,</code><span
+class="math inline">a_n</span><code>)</code></p></li>
+<li><p>Devuelve <em>ref</em>.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.0.0.4">
+
+<ul>
+<li><p>En consecuencia, los argumentos que se indican al instanciar una
+clase se enviarán al método <code
+class="sourceCode python"><span class="fu">__init__</span></code> de la
+clase, lo que significa que tendremos que indicar tantos argumentos (y
+del tipo apropiado) como espere el método <code
+class="sourceCode python"><span class="fu">__init__</span></code>.</p>
+<p>En caso contrario, tendremos un error:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito()  <span class="co"># no indicamos ningún argumento cuando se espera uno</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="fu">__init__</span>() missing <span class="dv">1</span> required positional argument: <span class="st">&#39;fondos&#39;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito(<span class="dv">1</span>, <span class="dv">2</span>)  <span class="co"># mandamos dos argumentos cuando se espera sólo uno</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="fu">__init__</span>() takes <span class="dv">2</span> positional arguments but <span class="dv">3</span> were given</span></code></pre></div></li>
+<li><p>Es importante tener en cuenta, además, que <strong>el constructor
+<code class="sourceCode python"><span class="fu">__init__</span></code>
+no debe devolver ningún valor</strong> (o, lo que es lo mismo, debe
+devolver <code
+class="sourceCode python"><span class="va">None</span></code>), o de lo
+contrario provocará un error de ejecución.</p></li>
+</ul>
+</section>
+</section>
+<section id="bibliografía"
+class="title-slide slide level1 unnumbered unlisted">
+<h1 class="unnumbered unlisted">Bibliografía</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
+Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
+<em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
+Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
+</div>
+<div id="ref-denero_composing_nodate" class="csl-entry" role="listitem">
+DeNero, John. n.d. <span>“Composing <span>Programs</span>.”</span> <a
+href="http://www.composingprograms.com">http://www.composingprograms.com</a>.
+</div>
+<div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
+role="listitem">
+Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
+<span>Python</span>.”</span> <a
+href="https://docs.python.org/3">https://docs.python.org/3</a>.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="./reveal.js/plugin/notes/notes.js"></script>
+  <script src="./reveal.js/plugin/search/search.js"></script>
+  <script src="./reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="./reveal.js/plugin/reveal.js-menu/menu.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: true,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 1080,
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        menu: {
+          hideMissingTitles: true,
+        },
+
+        dependencies: [
+          { src: './reveal.js/plugin/reveal.js-quiz/quiz/js/quiz.js', async: true, callback: function() { prepareQuizzes({preventUnanswered: true, checkAnswerText: 'Comprueba la respuesta', nextQuestionText: 'Siguiente &raquo;', backButtonText: '&laquo; Anterior', tryAgainText: 'Prueba de nuevo', preventUnansweredText: 'Selecciona una respuesta', questionCountText: 'Pregunta %current de %total', skipStartButton: true}); } }
+        ],
+
+        // reveal.js plugins
+        plugins: [
+          RevealMenu,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="text/javascript">
+       var title = document.getElementsByClassName('title')[0];
+       title = title != null ? title.innerHTML : '';
+       var author = document.getElementsByClassName('author')[0];
+       author = author != null ? author.innerHTML : '';
+       var date = document.getElementsByClassName('date')[0];
+       date = date != null ? date.innerHTML : '';
+       document.getElementById('header-left').innerHTML = '<a href="#/title-slide">' + title + '</a>';
+       document.getElementById('footer-left').innerHTML = '<a href="https://pro.iesdonana.org">&copy; ' + author + ' (' + date + ')</a>';
+
+       function updateHeader(nd) {
+           var hr = document.getElementById('header-right');
+           while (hr.children.length > 0) {
+               hr.removeChild(hr.lastChild);
+           }
+           buscar(nd, 3, hr);
+           buscar(nd, 2, hr);
+           buscar(nd, 1, hr);
+           hr.style.fontSize = Math.round(50 * Reveal.getScale()) + '%';
+           hr.style.fontSize = Math.max(Number.parseInt(getComputedStyle(hr).fontSize), 12) + 'px';
+           var hl = document.getElementById('header-left');
+           hl.style.fontSize = hr.style.fontSize;
+       }
+
+       function buscar(nd, level, hr) {
+           if (!nd.classList.contains('level' + (level - 1))) {
+               for (var n = nd; n != null; n = n.previousSibling) {
+                   if (n.nodeType == Node.TEXT_NODE) {
+                       continue;
+                   }
+                   var cl = n.classList;
+                   if (cl.contains('level' + level)) {
+                       var h = n.querySelector('h' + level);
+                   } else if (cl.contains('level' + (level - 1))) {
+                       break;
+                   } else {
+                       continue;
+                   }
+                   if (h == null || Reveal.getCurrentSlide().id == 'title-slide') {
+                       hr.innerHTML = '';
+                   } else {
+                       var el = document.createElement('a');
+                       var href = '#/' + n.id;
+                       el.href = href;
+                       el.innerHTML = h.innerHTML;
+                       var a = el.querySelector('a');
+                       if (a !== null) {
+                           a.href = href;
+                       }
+                       if (hr.innerHTML != '') {
+                           hr.innerHTML = ' &mdash; ' + hr.innerHTML;
+                       }
+                       hr.insertBefore(el, hr.firstChild);
+                   }
+                   break;
+               }
+           }
+       }
+
+       // On Reveal.js ready event, copy header/footer <div>
+       // into each `.slide-background` <div>
+       Reveal.on('ready', event => {
+           var header = document.getElementById('header');
+           document.querySelector('.reveal').appendChild(header);
+           updateHeader(Reveal.getCurrentSlide());
+       });
+
+       Reveal.on('slidechanged', event => {
+           // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+           updateHeader(event.currentSlide);
+       });
+    </script>
+    </body>
+</html>
