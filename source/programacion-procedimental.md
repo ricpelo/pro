@@ -1970,21 +1970,14 @@ saluda(nombre)
 ```python
 # ejemplo.py
 def factorial(n):
-    """Devuelve el factorial de n, un número entero >= 0.
+    """
+    Devuelve el factorial de n, un número entero >= 0.
 
-    >>> [factorial(n) for n in range(6)]
-    [1, 1, 2, 6, 24, 120]
     >>> factorial(30)
     265252859812191058636308480000000
-    >>> factorial(-1)
-    Traceback (most recent call last):
-        ...
-    ValueError: n debe ser >= 0
+    >>> factorial(0)
+    1
     """
-
-    import math
-    if not n >= 0:
-        raise ValueError("n debe ser >= 0")
     result = 1
     factor = 2
     while factor <= n:
@@ -1999,28 +1992,21 @@ def factorial(n):
 $ python -m doctest ejemplo.py
 $ python -m doctest ejemplo.py -v
 Trying:
-    [factorial(n) for n in range(6)]
-Expecting:
-    [1, 1, 2, 6, 24, 120]
-ok
-Trying:
     factorial(30)
 Expecting:
     265252859812191058636308480000000
 ok
 Trying:
-    factorial(-1)
+    factorial(0)
 Expecting:
-    Traceback (most recent call last):
-        ...
-    ValueError: n debe ser >= 0
+    1
 ok
 1 items had no tests:
     ejemplo
 1 items passed all tests:
-   3 tests in ejemplo.factorial
-3 tests in 2 items.
-3 passed and 0 failed.
+   2 tests in ejemplo.factorial
+2 tests in 2 items.
+2 passed and 0 failed.
 Test passed.
 ```
 
