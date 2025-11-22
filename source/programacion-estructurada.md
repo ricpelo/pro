@@ -1094,15 +1094,36 @@ while not salida:
 
   - Se intenta ejecutar el bloque de sentencias del !PYTHON(try).
 
-  - Si durante su ejecución no se levanta ninguna excepción, se saltan los
-    !PYTHON(except) y se ejecutan las sentencias del !PYTHON(else) (si existe).
+  - Si durante su ejecución no se levanta ninguna excepción, se ignoran los
+    !PYTHON(except), se ejecutan las sentencias del !PYTHON{else} (si existe) y
+    finalmente las sentencias del !PYTHON{finally} (si existe).
 
-  - Si se levanta alguna excepción, se busca (por orden de arriba abajo) algún
-    !PYTHON(except) que cuadre con el tipo de excepción que se ha lanzado y, si
-    se encuentra, se ejecutan sus sentencias asociadas.
+  - Se levante o no se levante alguna excepción durante la ejecución del
+    !PYTHON(try), siempre se ejecutan las sentencias del !PYTHON{finally} (si
+    existe) justo antes de salir de la estructura !PYTHON(try).
 
-  - Finalmente, y en cualquier caso (se haya levantado alguna excepción o no),
-    se ejecutan las sentencias del !PYTHON(finally) (si existe).
+---
+
+- Si se levanta alguna excepción durante la ejecución del !PYTHON(try): 
+
+  - Se crea en memoria un objeto que representa a esa excepción, cuyo tipo
+    coincide con el tipo de la excepción lanzada.
+
+  - Se busca (por orden de arriba abajo) algún !PYTHON(except) que cuadre con
+    el tipo de excepción que se ha lanzado.
+
+    - Si se encuentra, se ejecutan las sentencias asociadas a ese
+      !PYTHON(except).
+
+      En ese caso, decimos que la excepción se ha gestionado o «_capturado_»
+      y ésta desaparece de la memoria.
+
+    - Si no se encuentra, se provoca la finalización abrupta del código
+      asociado al marco actual, y la excepción baja por la pila de control
+      hasta que algún !PYTHON(try ... except) la captura.
+
+    - Si se acaba la pila de control y la excepción no se captura, el programa
+      finaliza su ejecución con un error.
 
 ---
 
@@ -1146,6 +1167,54 @@ while not salida:
 [!T(finally:)
       !NT(sentencia)]
 ~~~~~~~~~~~~~~~~~~~~
+
+#### Lanzamiento de excepciones
+
+- Podemos lanzar una excepción en cualquier momento usando la sentencia
+  !PYTHON(raise).
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~
+  !NT(raise) ::= !T(raise) !NT(excepción)
+  !NT(excepción) ::= !NT(tipo_excepción)!T{(}!NT(mensaje)!T{)}
+  ~~~~~~~~~~~~~~~~~~~~
+
+  donde !NT(excepción) es una expresión que crea una excepción de un
+  determinado tipo indicado en !NT(tipo_excepción), y !NT(mensaje) es la
+  cadena que contiene la información asociada a la excepción (generalmente, un
+  mensaje de error).
+
+- Por ejemplo:
+
+  ```python
+  raise ValueError('Valor incorrecto.')
+  ```
+
+  donde la expresión !PYTHON(ValueError('Valor incorrecto')) crea la excepción,
+  y la orden !PYTHON(raise) la lanza.
+
+---
+
+- Algunos ejemplos de excepciones que podemos lanzar (y capturar) son:
+
+  - !PYTHON(IndexError): Se produce al intentar usar un índice incorrecto en
+    una tupla, lista, etc.
+
+  - !PYTHON(NameError): Se produce al intentar resolver un nombre que no está
+    en el entorno.
+
+  - !PYTHON(SyntaxError): Se produce cuando se encuentra un error sintáctico en
+    el código.
+
+  - !PYTHON(TypeError): Se produce cuando una operación o función se aplica a
+    un objeto de tipo inapropiado.
+
+  - !PYTHON(ValueError): Se produce cuando una operación o función recibe un
+    argumento que tiene el tipo correcto pero un valor inapropiado.
+
+  - !PYTHON(ZeroDivisionError): Se produce al intentar dividir entre cero.
 
 # Metodología de la programación estructurada
 

@@ -29,9 +29,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -42,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -1432,22 +1431,50 @@ style="color:teal">⟨<em>nombre_excepcion</em>⟩</span>)*<strong><code>)</code
 <li><p>Se intenta ejecutar el bloque de sentencias del <code
 class="sourceCode python"><span class="cf">try</span></code>.</p></li>
 <li><p>Si durante su ejecución no se levanta ninguna excepción, se
-saltan los <code
-class="sourceCode python"><span class="cf">except</span></code> y se
+ignoran los <code
+class="sourceCode python"><span class="cf">except</span></code>, se
 ejecutan las sentencias del <code
-class="sourceCode python"><span class="cf">else</span></code>.</p></li>
-<li><p>Si se levanta alguna excepción, se busca (por orden de arriba
-abajo) algún <code
-class="sourceCode python"><span class="cf">except</span></code> que
-cuadre con el tipo de excepción que se ha lanzado y, si se encuentra, se
-ejecutan sus sentencias asociadas.</p></li>
-<li><p>Finalmente, y en cualquier caso (se haya levantado alguna
-excepción o no), se ejecutan las sentencias del <code
-class="sourceCode python"><span class="cf">finally</span></code>.</p></li>
+class="sourceCode python"><span class="cf">else</span></code> (si
+existe) y finalmente las sentencias del <code
+class="sourceCode python"><span class="cf">finally</span></code> (si
+existe).</p></li>
+<li><p>Se levante o no se levante alguna excepción durante la ejecución
+del <code class="sourceCode python"><span class="cf">try</span></code>,
+siempre se ejecutan las sentencias del <code
+class="sourceCode python"><span class="cf">finally</span></code> (si
+existe) justo antes de salir de la estructura <code
+class="sourceCode python"><span class="cf">try</span></code>.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.4.3.1.2">
+
+<ul>
+<li><p>Si se levanta alguna excepción durante la ejecución del <code
+class="sourceCode python"><span class="cf">try</span></code>:</p>
+<ul>
+<li><p>Se crea en memoria un objeto que representa a esa excepción, cuyo
+tipo coincide con el tipo de la excepción lanzada.</p></li>
+<li><p>Se busca (por orden de arriba abajo) algún <code
+class="sourceCode python"><span class="cf">except</span></code> que
+cuadre con el tipo de excepción que se ha lanzado.</p>
+<ul>
+<li><p>Si se encuentra, se ejecutan las sentencias asociadas a ese <code
+class="sourceCode python"><span class="cf">except</span></code>.</p>
+<p>En ese caso, decimos que la excepción se ha gestionado o
+«<em>capturado</em>» y ésta desaparece de la memoria.</p></li>
+<li><p>Si no se encuentra, se provoca la finalización abrupta del código
+asociado al marco actual, y la excepción baja por la pila de control
+hasta que algún <code
+class="sourceCode python"><span class="cf">try</span> ... <span class="cf">except</span></code>
+la captura.</p></li>
+<li><p>Si se acaba la pila de control y la excepción no se captura, el
+programa finaliza su ejecución con un error.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.3.1.3">
 
 <ul>
 <li><p>Por ejemplo, el siguiente programa pide al usuario que introduzca
@@ -1468,7 +1495,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a h
 <code>Fin</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.3.1.3">
+<section class="slide level5" data-number="2.4.3.1.4">
 
 <ul>
 <li>Y volvemos a ampliar de nuevo nuestra gramática:</li>
@@ -1498,6 +1525,70 @@ class="math inline">^+</span><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span>]<br />
 [<strong><code>finally:</code></strong><br />
       <span style="color:teal">⟨<em>sentencia</em>⟩</span>]</div>
+</section>
+
+<section id="lanzamiento-de-excepciones"
+class="title-slide slide level4" data-number="2.4.3.2">
+<h4 data-number="2.4.3.2"><span
+class="header-section-number">2.4.3.2</span> Lanzamiento de
+excepciones</h4>
+<ul>
+<li><p>Podemos lanzar una excepción en cualquier momento usando la
+sentencia <code
+class="sourceCode python"><span class="cf">raise</span></code>.</p></li>
+<li><p>Su sintaxis es:</p>
+<div class="line-block"><span style="color:teal">⟨<em>raise</em>⟩</span>
+::= <strong><code>raise</code></strong> <span
+style="color:teal">⟨<em>excepción</em>⟩</span><br />
+<span style="color:teal">⟨<em>excepción</em>⟩</span> ::= <span
+style="color:teal">⟨<em>tipo_excepción</em>⟩</span><strong><code>(</code></strong><span
+style="color:teal">⟨<em>mensaje</em>⟩</span><strong><code>)</code></strong></div>
+<p>donde <span style="color:teal">⟨<em>excepción</em>⟩</span> es una
+expresión que crea una excepción de un determinado tipo indicado en
+<span style="color:teal">⟨<em>tipo_excepción</em>⟩</span>, y <span
+style="color:teal">⟨<em>mensaje</em>⟩</span> es la cadena que contiene
+la información asociada a la excepción (generalmente, un mensaje de
+error).</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Valor incorrecto.&#39;</span>)</span></code></pre></div>
+<p>donde la expresión <code
+class="sourceCode python"><span class="pp">ValueError</span>(<span class="st">&#39;Valor incorrecto&#39;</span>)</code>
+crea la excepción, y la orden <code
+class="sourceCode python"><span class="cf">raise</span></code> la
+lanza.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.4.3.2.1">
+
+<ul>
+<li><p>Algunos ejemplos de excepciones que podemos lanzar (y capturar)
+son:</p>
+<ul>
+<li><p><code
+class="sourceCode python"><span class="pp">IndexError</span></code>: Se
+produce al intentar usar un índice incorrecto en una tupla, lista,
+etc.</p></li>
+<li><p><code
+class="sourceCode python"><span class="pp">NameError</span></code>: Se
+produce al intentar resolver un nombre que no está en el
+entorno.</p></li>
+<li><p><code
+class="sourceCode python"><span class="pp">SyntaxError</span></code>: Se
+produce cuando se encuentra un error sintáctico en el código.</p></li>
+<li><p><code
+class="sourceCode python"><span class="pp">TypeError</span></code>: Se
+produce cuando una operación o función se aplica a un objeto de tipo
+inapropiado.</p></li>
+<li><p><code
+class="sourceCode python"><span class="pp">ValueError</span></code>: Se
+produce cuando una operación o función recibe un argumento que tiene el
+tipo correcto pero un valor inapropiado.</p></li>
+<li><p><code
+class="sourceCode python"><span class="pp">ZeroDivisionError</span></code>:
+Se produce al intentar dividir entre cero.</p></li>
+</ul></li>
+</ul>
 </section>
 
 
@@ -1721,30 +1812,30 @@ programación.</p></li>
 
 <ul>
 <li><p>Por ejemplo, en Python se escribiría así:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> j <span class="op">&lt;=</span> n:</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i <span class="op">*</span> j, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div></li>
-<li><p>O mejor aún:</p>
 <div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> j <span class="op">&lt;=</span> n):</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{i</span> <span class="op">*</span> <span class="sc">j:&gt;3}</span><span class="ss">&#39;</span>, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Número incorrecto&#39;</span>)</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> j <span class="op">&lt;=</span> n:</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i <span class="op">*</span> j, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div></li>
+<li><p>O mejor aún:</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&#39;Introduce el número: &#39;</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> j <span class="op">&lt;=</span> n):</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{i</span> <span class="op">*</span> <span class="sc">j:&gt;3}</span><span class="ss">&#39;</span>, end<span class="op">=</span><span class="st">&#39; &#39;</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;Número incorrecto&#39;</span>)</span></code></pre></div></li>
 </ul>
 <!--
 
