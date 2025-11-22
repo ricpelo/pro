@@ -1022,8 +1022,13 @@ while not salida:
 - Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede
   provocar un error cuando se intente ejecutar o evaluar.
 
-- Los errores detectados durante la ejecución del programa se denominan
-  **excepciones** y no tienen por qué ser incondicionalmente fatales si se
+- Los errores producidos y detectados durante la ejecución del programa se
+  denominan **excepciones**.
+
+- Decimos que el programa **_lanza_ o _levanta_ una excepción** cuando se
+  produce un error detectado por el intérprete.
+
+- Las excepciones no tienen por qué ser incondicionalmente fatales si se
   capturan y se gestionan adecuadamente.
 
 - En cambio, la mayoría de las excepciones no son gestionadas por el programa
