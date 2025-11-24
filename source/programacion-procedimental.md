@@ -2028,7 +2028,7 @@ Test passed.
 - En caso de que no se cumpla, se entenderá que la función !NT(nombre) no ha
   superado dicha prueba.
 
-- En Python 3, la herramienta se llama `pytest-3` y se instala mediante:
+- La herramienta se se instala mediante:
 
   ```console
   $ sudo apt install python3-pytest
@@ -2036,36 +2036,40 @@ Test passed.
 
 ---
 
-```python
-# test_ejemplo.py
-def inc(x):
-    return x + 1
+- Código con test de prueba:
+
+  ```python
+  # test_ejemplo.py
+  def inc(x):
+      return x + 1
 
 
-def test_respuesta():
-    assert inc(3) == 5
-```
+  def test_respuesta():
+      assert inc(3) == 5
+  ```
 
-```python
-$ pytest-3
-======================== test session starts =========================
-platform linux -- Python 3.8.5, pytest-4.6.9, py-1.8.1, pluggy-0.13.0
-rootdir: /home/ricardo/python
-collected 1 item
+- Ejemplo de uso:
 
-test_ejemplo.py F                                              [100%]
+  ```python
+  $ pytest
+  ======================== test session starts =========================
+  platform linux -- Python 3.11.2, pytest-7.2.1, pluggy-1.0.0-repack
+  rootdir: /home/ricardo/python
+  collected 1 item
 
-============================== FAILURES ==============================
-___________________________ test_respuesta ___________________________
+  test_ejemplo.py F                                              [100%]
 
-    def test_respuesta():
->       assert inc(3) == 5
-E       assert 4 == 5
-E        +  where 4 = inc(3)
+  ============================== FAILURES ==============================
+  ___________________________ test_respuesta ___________________________
 
-test_ejemplo.py:7: AssertionError
-====================== 1 failed in 2.48 seconds ======================
-```
+      def test_respuesta():
+  >       assert inc(3) == 5
+  E       assert 4 == 5
+  E        +  where 4 = inc(3)
+
+  test_ejemplo.py:7: AssertionError
+  ====================== 1 failed in 2.48 seconds ======================
+  ```
 
 ---
 
@@ -2074,10 +2078,12 @@ test_ejemplo.py:7: AssertionError
   - Si no se especifica ningún argumento, empieza a buscar recursivamente
     empezando en el directorio actual.
 
-  - En esos directorios, busca todos los archivos `test_*.py` o `*_test.py`.
+    - En esos directorios, busca todos los archivos `test_*.py` o `*_test.py`.
 
-  - En esos archivos, localiza todas las funciones cuyo nombre empiece por
-    `test`.
+    - En esos archivos, localiza todas las funciones cuyo nombre empiece por
+      `test`.
+
+  - Si se especifica un archivo, ejecuta las pruebas de ese archivo únicamente.
 
 !SECCIONEJERCICIOS
 

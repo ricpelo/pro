@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -2314,14 +2315,15 @@ comprobar si se cumple una determinada condición.</p></li>
 <li><p>En caso de que no se cumpla, se entenderá que la función <span
 style="color:teal">⟨<em>nombre</em>⟩</span> no ha superado dicha
 prueba.</p></li>
-<li><p>En Python 3, la herramienta se llama <code>pytest-3</code> y se
-instala mediante:</p>
+<li><p>La herramienta se se instala mediante:</p>
 <div class="sourceCode" id="cb65"><pre
 class="sourceCode console"><code class="sourceCode console"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pytest</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.2.0.1">
 
+<ul>
+<li><p>Código con test de prueba:</p>
 <div class="sourceCode" id="cb66"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_ejemplo.py</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inc(x):</span>
@@ -2329,11 +2331,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a h
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_respuesta():</span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> inc(<span class="dv">3</span>) <span class="op">==</span> <span class="dv">5</span></span></code></pre></div></li>
+<li><p>Ejemplo de uso:</p>
 <div class="sourceCode" id="cb67"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>$ pytest<span class="op">-</span><span class="dv">3</span></span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>$ pytest</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="op">========================</span> test session starts <span class="op">=========================</span></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.8.5</span>, pytest<span class="op">-</span><span class="fl">4.6.9</span>, py<span class="op">-</span><span class="fl">1.8.1</span>, pluggy<span class="op">-</span><span class="fl">0.13.0</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>platform linux <span class="op">--</span> Python <span class="fl">3.11.2</span>, pytest<span class="op">-</span><span class="fl">7.2.1</span>, pluggy<span class="op">-</span><span class="fl">1.0.0</span><span class="op">-</span>repack</span>
 <span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>rootdir: <span class="op">/</span>home<span class="op">/</span>ricardo<span class="op">/</span>python</span>
 <span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>collected <span class="dv">1</span> item</span>
 <span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -2348,7 +2351,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a h
 <span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>E        <span class="op">+</span>  where <span class="dv">4</span> <span class="op">=</span> inc(<span class="dv">3</span>)</span>
 <span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>test_ejemplo.py:<span class="dv">7</span>: <span class="pp">AssertionError</span></span>
-<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="op">======================</span> <span class="dv">1</span> failed <span class="kw">in</span> <span class="fl">2.48</span> seconds <span class="op">======================</span></span></code></pre></div>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="op">======================</span> <span class="dv">1</span> failed <span class="kw">in</span> <span class="fl">2.48</span> seconds <span class="op">======================</span></span></code></pre></div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="5.2.2.0.2">
 
@@ -2357,11 +2361,15 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a h
 localizar pruebas:</p>
 <ul>
 <li><p>Si no se especifica ningún argumento, empieza a buscar
-recursivamente empezando en el directorio actual.</p></li>
+recursivamente empezando en el directorio actual.</p>
+<ul>
 <li><p>En esos directorios, busca todos los archivos
 <code>test_*.py</code> o <code>*_test.py</code>.</p></li>
 <li><p>En esos archivos, localiza todas las funciones cuyo nombre
 empiece por <code>test</code>.</p></li>
+</ul></li>
+<li><p>Si se especifica un archivo, ejecuta las pruebas de ese archivo
+únicamente.</p></li>
 </ul></li>
 </ul>
 </section>
