@@ -106,13 +106,13 @@ nocite: |
 
 - Según su **secuencialidad**:
 
-  - **Secuenciales:** Son aquellos en los que se puede acceder directamente y
-    de forma eficiente a cada uno de sus elementos indicando la posición que
+  - **Secuencias:** Son aquellos en los que se puede acceder directamente y de
+    forma eficiente a cada uno de sus elementos indicando la posición que
     ocupan dentro de la secuencia.
 
-    Por tanto, son colecciones _ordenadas_, ya que sus elementos están
-    ordenados dentro de la secuencia según la posición en la que se encuentran
-    situados dentro de la misma.
+    Por tanto, son colecciones _ordenadas_ por posición, ya que sus elementos
+    están ordenados dentro de la secuencia según la posición en la que se
+    encuentran situados dentro de la misma.
 
   - **No secuenciales:** Son aquellos en los que **NO** se puede acceder
     directamente y de forma eficiente a cada uno de sus elementos indicando la

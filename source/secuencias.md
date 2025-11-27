@@ -18,7 +18,8 @@ nocite: |
 
   #. Cada elemento que contiene lleva asociado un número entero llamado
      **índice**, comprendido entre !PYTHON(0) y !PYTHON(len)`(`$s$`)`
-     !PYTHON(- 1).
+     !PYTHON(- 1), que representa la posición que ocupa el elemento dentro de
+     la secuencia.
 
   #. Permite el acceso eficiente a cada uno de sus elementos mediante
      indexación $s$`[`$i$`]`, siendo $i$ el índice del elemento.
