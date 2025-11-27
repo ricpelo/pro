@@ -213,12 +213,12 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   !NT(conversión) ::= !T(s) | !T(r) | !T(a)
   !NT(especif) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{sustitución})\*
   !ifdef(HTML)
-  ~~~~~~~~~~~~~~
-  !NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto !T({), !T(}) o !T{NULL})
-  ~~~~~~~~~~~~~~
-  ~~~~~~~~~~~~~~
-  !NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
-  ~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto !T({), !T(}) o !T{NULL})
+~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
+~~~~~~~~~~~~~~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Las partes de la cadena que van fuera de las llaves se tratan literalmente,
@@ -283,7 +283,7 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   conversión y sus propios especificadores de formato, pero no pueden incluir
   más campos de sustitución anidados.
 
-- Para más información, consultar [https://docs.python.org/3.7/library/string.html#format-specification-mini-language](https://docs.python.org/3.7/library/string.html#format-specification-mini-language)
+- Para más información, consultar [https://docs.python.org/3/library/string.html#format-specification-mini-language](https://docs.python.org/3/library/string.html#format-specification-mini-language)
 
 ---
 
