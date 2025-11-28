@@ -1777,7 +1777,7 @@ E -> suma [lhead = cluster0]
 - Las _docstrings_ son comentarios que tienen la finalidad de **documentar** la
   función correspondiente.
 
-- Por convenio, las _docstrings_ siempre se delimitan mediante triples dobles
+- Por convenio, las _docstrings_ siempre se delimitan mediante tres dobles
   comillas (!PYTHON(""")).
 
 - La función !PYTHON(help) (que se usa sobre todo en sesiones interactivas)
