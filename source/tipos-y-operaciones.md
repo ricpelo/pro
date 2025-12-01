@@ -238,6 +238,14 @@ nocite: |
   suma es un valor real (!PYTHON(3.5)). Finalmente, se obtiene un valor real
   (!PYTHON(7.5)).
 
+- Concretamente, en una operación aritmética donde puede haber operandos `int`s
+  y `float`s, el resultado será:
+
+  - `float` si al menos uno de los operandos es `float`, o la operación es la
+    división real (`/`).
+
+  - `int` en caso contrario.
+
 ### Operadores aritméticos
 
 --------------------------------------------------------------------------------------------
@@ -249,7 +257,7 @@ nocite: |
 
    `*`     Producto            !PYTHON(3 * 4)      !PYTHON(12)
 
-   `/`     División            !PYTHON(3 / 4)      !PYTHON(0.75)      Devuelve un
+   `/`     División real       !PYTHON(3 / 4)      !PYTHON(0.75)      Devuelve un
                                                                       !PYTHON(float)
 
    `%`     Módulo              !PYTHON(4 % 3) \    !PYTHON(1) \       Resto de la división
@@ -257,8 +265,8 @@ nocite: |
 
    `**`    Exponente           !PYTHON(3 ** 4)     !PYTHON(81)        Devuelve $3^4$
 
-   `//`    División entera     !PYTHON(4 // 3) \   !PYTHON(1) \       \hfill{} \
-           hacia abajo         !PYTHON(-4 // 3)    !PYTHON(-2)        ??
+   `//`    División            !PYTHON(4 // 3) \   !PYTHON(1) \       \hfill{} \
+           hacia abajo         !PYTHON(-4 // 3)    !PYTHON(-2)        ¿¿Por qué??
 --------------------------------------------------------------------------------------------
 
 ## Funciones numéricas predefinidas
