@@ -71,6 +71,8 @@ $s$`[`$i$`:`$j$`:`$k$`]`                  Rodaja de $\underline{s}$ desde $\unde
 
 !PYTHON(max)`(`$s$`)`                     El elemento más grande de $\underline{s}$
 
+!PYTHON(sorted)`(`$s$`)`                  Lista ordenada de los elementos de $\underline{s}$
+
 $s$!PYTHON(.index)`(`$x$                  El índice de la primera aparición de $\underline{x}$ en $\underline{s}$
 [`, ` $i$ [`, ` $j$ ] ]`)`                (desde el índice $\underline{i}$ inclusive y antes del $\underline{j}$)
 
