@@ -226,8 +226,8 @@ $$\text{Tipos} \begin{cases}
   deben ser *hashables*.
 
 - La mayoría de los datos inmutables predefinidos en Python son *hashables*,
-  incluyendo los valores de tipo `int`, `float`, `str` y `bool`, así como las
-  funciones y el valor `None`.
+  incluyendo los valores de tipo `int`, `float`, `str`, `range` y `bool`, así
+  como las funciones y el valor `None`.
 
 - Las **colecciones inmutables** (como las tuplas o los !PYTHON(frozenset)s)
   sólo son *hashables* si sus elementos también lo son.
