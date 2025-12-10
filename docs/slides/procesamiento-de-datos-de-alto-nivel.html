@@ -353,9 +353,9 @@ cambiar nunca su estado interno a lo largo de su vida.</p></li>
 estado interno a lo largo de su vida sin cambiar su identidad.</p></li>
 </ul></li>
 <li><p>El <strong>contenido</strong> de un dato estructurado forma parte
-del <strong>estado interno</strong> de ese dato estructurado, por lo que
-cambiar el contenido de un dato estructurado supone cambiar también su
-estado interno.</p></li>
+del <strong>estado interno</strong> de ese dato, por lo que cambiar el
+contenido de un dato estructurado supone cambiar también su estado
+interno.</p></li>
 <li><p>Por ejemplo, si en la lista <code
 class="sourceCode python">[<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</code>
 sustituimos su segundo elemento (el <code
@@ -465,12 +465,14 @@ existen tipos de datos estructurados que sólo pueden contener elementos
 <li><p>Por ejemplo, los elementos de un conjunto y las claves de un
 diccionario deben ser <em>hashables</em>.</p></li>
 <li><p>La mayoría de los datos inmutables predefinidos en Python son
-<em>hashables</em>.</p></li>
+<em>hashables</em>, incluyendo los valores de tipo <code>int</code>,
+<code>float</code>, <code>str</code> y <code>bool</code>, así como las
+funciones y el valor <code>None</code>.</p></li>
 <li><p>Las <strong>colecciones inmutables</strong> (como las tuplas o
 los <code
 class="sourceCode python"><span class="bu">frozenset</span></code>s)
 sólo son <em>hashables</em> si sus elementos también lo son.</p></li>
-<li><p>Las <strong>coleccion mutables</strong> (como las listas o los
+<li><p>Las <strong>colecciones mutables</strong> (como las listas o los
 diccionarios) <strong>NO</strong> son <em>hashables</em>.</p></li>
 </ul>
 </section>
@@ -503,7 +505,8 @@ dato</strong> en un simple número entero.</p></li>
 
 <ul>
 <li><p>El <em>hash</em> de un dato se utiliza internamente para acceder
-al dato dentro de una colección de forma directa y eficiente.</p></li>
+a ese dato dentro de una colección de forma directa y
+eficiente.</p></li>
 <li><p>Para ello, el intérprete utiliza ciertas técnicas que permiten
 localizar directamente a un dato dentro de una colección, de forma casi
 inmediata y sin importar el tamaño de la colección (pero recordemos que
@@ -522,8 +525,8 @@ dato</strong> dentro de una colección.</p>
 <section class="slide level5" data-number="1.4.0.0.5">
 
 <ul>
-<li><p>Muy en resumen, las técnicas se basan en dividir el espacio de
-memoria que ocupa la colección en una serie de <em>contenedores</em>
+<li><p>Muy en resumen, esas técnicas se basan en dividir el espacio de
+memoria que ocupa la colección en una serie de <em>almacenes</em>
 llamados <strong><em>buckets</em></strong>.</p></li>
 <li><p>Cada <em>bucket</em> va numerado por un posible valor de
 <em>hash</em>, de forma que el <em>bucket</em> número <span
@@ -621,10 +624,10 @@ data-number="2">
 Iterables e iteradores</h1>
 
 </section>
-<section id="iterables" class="title-slide slide level2"
+<section id="iterables-e-iteradores-1" class="title-slide slide level2"
 data-number="2.1">
 <h2 data-number="2.1"><span class="header-section-number">2.1</span>
-Iterables</h2>
+Iterables e iteradores</h2>
 <ul>
 <li><p>Se dice que un dato compuesto es <strong>iterable</strong> cuando
 se puede acceder a todos sus elementos de uno en uno, operación que se
@@ -639,19 +642,15 @@ elementos.</p></li>
 </ul></li>
 <li><p>Los iterables no representan un tipo concreto, sino más bien una
 <em>familia</em> de tipos que comparten la misma propiedad.</p></li>
-<li><p>Muchas funciones, como <code
-class="sourceCode python"><span class="bu">map</span></code> y <code
-class="sourceCode python"><span class="bu">filter</span></code>, actúan
-sobre iterables en general, en lugar de hacerlo sobre un tipo concreto
-(lista, tupla, …).</p></li>
+<li><p>Muchas funciones actúan sobre iterables en general, en lugar de
+hacerlo sobre un tipo estructurado concreto (lista, tupla, …).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.1">
 
 <ul>
-<li><p>Por ejemplo, las listas son iterables ya que nos permite acceder
-a todos sus elementos de uno en uno y, por tanto, podemos
-recorrerla.</p></li>
+<li><p>Por ejemplo, las listas nos permiten acceder a todos sus
+elementos de uno en uno y, por tanto, podemos recorrerla.</p></li>
 <li><p>Para <em>visitar</em> sus elementos podemos usar la
 <em>indexación</em>, y para <em>recorrer</em> toda la lista podemos usar
 un <em>bucle</em>:</p>
@@ -661,23 +660,25 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(l):</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(l[i])</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div></li>
+<li><p>Pero hay que hacerlo bien para asegurarse de que no se visita el
+mismo elemento dos veces, o se quedan elementos sin visitar, o se
+intenta acceder a un elemento inexistente a través de un índice que está
+fuera del rango permitido por la lista.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="2.1.0.0.2">
 
-<section id="iteradores" class="title-slide slide level2"
-data-number="2.2">
-<h2 data-number="2.2"><span class="header-section-number">2.2</span>
-Iteradores</h2>
 <ul>
-<li><p>La forma básica de recorrer un dato iterable es usando un
+<li><p>La mejor forma de recorrer un dato iterable es usando un
 <strong>iterador</strong>.</p>
 <p>De hecho, técnicamente, un <em>iterable</em> <strong>se
 define</strong> como aquel dato al que le podemos asociar, al menos, un
 <strong><em>iterador</em></strong>.</p></li>
 <li><p>Un <strong>iterador</strong> es un objeto que sabe cómo
 <strong>recorrer</strong> un iterable.</p></li>
-<li><p>Para ello, el iterador crea un flujo de datos <em>perezoso</em>
-que va entregando los elementos del iterable de uno en uno.</p></li>
+<li><p>Para ello, el iterador crea un <strong>flujo de datos
+<em>perezoso</em></strong> que va entregando los elementos del iterable
+de uno en uno a medida que se los vamos solicitando.</p></li>
 <li><p>Los sucesivos elementos del flujo de datos se van obteniendo al
 llamar repetidamente a la función <code
 class="sourceCode python"><span class="bu">next</span></code> aplicada
@@ -693,14 +694,14 @@ class="sourceCode python"><span class="bu">next</span></code> se seguirá
 lanzando esa excepción.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.1">
+<section class="slide level5" data-number="2.1.0.0.3">
 
 <ul>
 <li><p>Se puede obtener un iterador a partir de cualquier dato iterable
 aplicando la función <code
 class="sourceCode python"><span class="bu">iter</span></code> al
 iterable.</p>
-<p>(Recordemos que todo iterable debe tener asociado un
+<p>(Recordemos que todo iterable puede tener asociado un
 iterador.)</p></li>
 <li><p>Ejemplo de uso de <code
 class="sourceCode python"><span class="bu">iter</span></code> y <code
@@ -729,7 +730,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;int&#39;</span> <span class="bu">object</span> <span class="kw">is</span> <span class="kw">not</span> iterable</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.2">
+<section class="slide level5" data-number="2.1.0.0.4">
 
 <ul>
 <li><p>Los iteradores son <strong>iterables perezosos de un solo
@@ -741,7 +742,7 @@ primero.</p></li>
 <li><p>Son <strong>de un solo uso</strong> porque cada elemento sólo se
 entrega una vez.</p></li>
 </ul></li>
-<li><p>Además, los iteradores son <strong>iterables que actúan como sus
+<li><p>Además, <strong>los iteradores son iterables que actúan como sus
 propios iteradores</strong>:</p>
 <ul>
 <li><p>Por tanto, cuando llamamos a <code
@@ -755,24 +756,22 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a hr
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it2 <span class="op">=</span> <span class="bu">iter</span>(it)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it2</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>list_iterator <span class="bu">object</span> at <span class="bn">0x7f3c49aa9080</span><span class="op">&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">==</span> it2</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="kw">is</span> it2</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 <li><p>En consecuencia, podemos usar un iterador en cualquier sitio
 donde se espere un iterable.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.0.0.3">
+<section class="slide level5" data-number="2.1.0.0.5">
 
 <ul>
-<li><p>Funciones como <code
-class="sourceCode python"><span class="bu">map</span></code> y <code
-class="sourceCode python"><span class="bu">filter</span></code>
-devuelven iteradores porque, al ser perezosos, son más eficientes en
-memoria que si devolvieran toda una lista o tupla.</p>
-<p>Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos
-del resultado de un <code
-class="sourceCode python"><span class="bu">map</span></code>?</p></li>
+<li><p>Muchas funciones (como <code
+class="sourceCode python"><span class="bu">map</span></code> o <code
+class="sourceCode python"><span class="bu">filter</span></code>)
+devuelven iteradores en lugar de colecciones porque, al ser perezosos,
+los iteradores son más eficientes en memoria que si se devolviera toda
+una lista o tupla.</p></li>
 <li><p>Los iteradores se pueden convertir en listas o tuplas usando las
 funciones <code
 class="sourceCode python"><span class="bu">list</span></code> y <code
@@ -785,11 +784,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a hr
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section id="el-bucle-for" class="title-slide slide level3"
-data-number="2.2.1">
-<h3 data-number="2.2.1"><span class="header-section-number">2.2.1</span>
-El bucle <code
-class="sourceCode python"><span class="cf">for</span></code></h3>
+
+<section id="el-bucle-for" class="title-slide slide level2"
+data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> El
+bucle <code
+class="sourceCode python"><span class="cf">for</span></code></h2>
 <ul>
 <li><p>Probablemente, la mejor forma de recorrer los elementos que
 devuelve un iterador es mediante una <strong>estructura de
@@ -826,34 +826,21 @@ class="sourceCode python"><span class="cf">else</span>:</code><br />
 style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.1">
+<section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
-<li>Ejemplos:</li>
-</ul>
-<div class="columns">
-<div class="column">
+<li><p>Ejemplos:</p>
 <div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code></pre></div>
-<p>devuelve:</p>
-<pre><code>0
-1
-2
-3</code></pre>
-</div><div class="column">
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> [<span class="st">&#39;hola&#39;</span>, <span class="fl">23.5</span>, <span class="dv">10</span>, [<span class="dv">1</span>, <span class="dv">2</span>]]:</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> [<span class="st">&#39;hola&#39;</span>, <span class="fl">23.5</span>, <span class="dv">10</span>, [<span class="dv">1</span>, <span class="dv">2</span>]]:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>devuelve:</p>
 <pre><code>&#39;holahola&#39;
 47.0
 20
-[1, 2, 1, 2]</code></pre>
-</div>
-</div>
+[1, 2, 1, 2]</code></pre></li>
+</ul>
 </section>
-<section class="slide level5" data-number="2.2.1.0.2">
+<section class="slide level5" data-number="2.2.0.0.2">
 
 <ul>
 <li><p>Si estamos recorriendo una secuencia y necesitamos recuperar
@@ -870,19 +857,25 @@ posición.</p></li>
 class="sourceCode python"><span class="dv">0</span></code> y se va
 incrementando de uno en uno, por lo que coincide con el índice del
 elemento en la secuencia:</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> i, e <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">&#39;El elemento en la posición &#39;</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="op">+</span> <span class="st">&#39; es &#39;</span> <span class="op">+</span> <span class="bu">str</span>(e))</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>El elemento en la posición <span class="dv">0</span> es a</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>El elemento en la posición <span class="dv">1</span> es b</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>El elemento en la posición <span class="dv">2</span> es c</span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> i, e <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>]):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">&#39;El elemento en la posición &#39;</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="op">+</span> <span class="st">&#39; es &#39;</span> <span class="op">+</span> <span class="bu">str</span>(e))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>El elemento en la posición <span class="dv">0</span> es a</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>El elemento en la posición <span class="dv">1</span> es b</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>El elemento en la posición <span class="dv">2</span> es c</span></code></pre></div></li>
 </ul>
 </section>
 
+<section id="funciones-que-generan-iteradores"
+class="title-slide slide level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span>
+Funciones que generan iteradores</h2>
+
+</section>
 <section id="el-módulo-itertools" class="title-slide slide level3"
-data-number="2.2.2">
-<h3 data-number="2.2.2"><span class="header-section-number">2.2.2</span>
+data-number="2.3.1">
+<h3 data-number="2.3.1"><span class="header-section-number">2.3.1</span>
 El módulo <code class="sourceCode python">itertools</code></h3>
 <ul>
 <li><p>El módulo <code class="sourceCode python">itertools</code>
@@ -897,9 +890,11 @@ class="sourceCode python">itertools.count</code><code>(</code>[<span
 style="color:teal">⟨<em>inicio</em>⟩</span>[<code>,</code> <span
 style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> devuelve un
 flujo infinito de valores separados uniformemente. Se puede indicar
-opcionalmente un valor de comienzo (que por defecto es <code
+opcionalmente un valor de comienzo (<span
+style="color:teal">⟨<em>inicio</em>⟩</span>, que por defecto es <code
 class="sourceCode python"><span class="dv">0</span></code>) y el
-intervalo entre números (que por defecto es <code
+intervalo entre números (<span
+style="color:teal">⟨<em>paso</em>⟩</span>, que por defecto es <code
 class="sourceCode python"><span class="dv">1</span></code>):</p>
 <p><code class="sourceCode python">itertools.count()</code> <span
 class="math inline">\Rightarrow</span> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -914,14 +909,14 @@ class="sourceCode python">itertools.count(<span class="dv">10</span>, <span clas
 45, …</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.2.2.0.1">
+<section class="slide level5" data-number="2.3.1.0.1">
 
 <ul>
 <li><p><code
 class="sourceCode python">itertools.cycle</code><code>(</code><span
-style="color:teal">⟨<em>iterador</em>⟩</span><code>)</code> devuelve un
-nuevo iterador que va generando sus elementos del primero al último,
-repitiéndolos indefinidamente:</p>
+style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code> devuelve un
+iterador que va generando los elementos del iterable del primero al
+último, repitiéndolos indefinidamente:</p>
 <p><code
 class="sourceCode python">itertools.cycle([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</code>
 <span class="math inline">\Rightarrow</span> 1, 2, 3, 4, 1, 2, 3, 4,
@@ -944,8 +939,8 @@ abc</p></li>
 </ul>
 </section>
 
-<section id="zip" class="title-slide slide level3" data-number="2.2.3">
-<h3 data-number="2.2.3"><span class="header-section-number">2.2.3</span>
+<section id="zip" class="title-slide slide level3" data-number="2.3.2">
+<h3 data-number="2.3.2"><span class="header-section-number">2.3.2</span>
 <code>zip</code></h3>
 <ul>
 <li><p>La función <code
@@ -975,25 +970,50 @@ class="math inline">_n</span></em>⟩</span>]<strong><code>)</code></strong></di
 <h5 class="unnumbered unlisted">Ejemplos</h5>
 <ul>
 <li><p>El siguiente código:</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>, <span class="st">&#39;z&#39;</span>]</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">zip</span>(a, b)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(c))</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>, <span class="st">&#39;z&#39;</span>]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">zip</span>(a, b)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(c))</span></code></pre></div>
 <p>produce la siguiente salida:</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">1</span>, <span class="st">&#39;x&#39;</span>), (<span class="dv">2</span>, <span class="st">&#39;y&#39;</span>), (<span class="dv">3</span>, <span class="st">&#39;z&#39;</span>)]</span></code></pre></div></li>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">1</span>, <span class="st">&#39;x&#39;</span>), (<span class="dv">2</span>, <span class="st">&#39;y&#39;</span>), (<span class="dv">3</span>, <span class="st">&#39;z&#39;</span>)]</span></code></pre></div></li>
 <li><p>Si los iterables tienen distinta longitud, la función
 <code>zip</code> se detiene en el más corto. Por ejemplo, el siguiente
 código:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>, <span class="st">&#39;z&#39;</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(<span class="bu">zip</span>(a, b)))</span></code></pre></div>
+<p>produce la siguiente salida:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">1</span>, <span class="st">&#39;x&#39;</span>), (<span class="dv">2</span>, <span class="st">&#39;y&#39;</span>)]</span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="reversed" class="title-slide slide level3"
+data-number="2.3.3">
+<h3 data-number="2.3.3"><span class="header-section-number">2.3.3</span>
+<code>reversed</code></h3>
+<ul>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">reversed</span></code> en
+Python devuelve un iterador que genera los elementos de un iterable en
+orden inverso a como se entregarían habitualmente.</p></li>
+<li><p>Su sintaxis es:</p>
+<div
+class="line-block"><strong><code>reversed</code><code>(</code></strong><span
+style="color:teal">⟨<em>iterable</em>⟩</span><strong><code>)</code></strong></div></li>
+<li><p>Por ejemplo, el siguiente código:</p>
 <div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>, <span class="st">&#39;z&#39;</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(<span class="bu">zip</span>(a, b)))</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> <span class="bu">reversed</span>(l)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(it))</span></code></pre></div>
 <p>produce la siguiente salida:</p>
 <div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">1</span>, <span class="st">&#39;x&#39;</span>), (<span class="dv">2</span>, <span class="st">&#39;y&#39;</span>)]</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div></li>
 </ul>
 </section>
 

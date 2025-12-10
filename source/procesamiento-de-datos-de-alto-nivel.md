@@ -133,8 +133,8 @@ nocite: |
     largo de su vida sin cambiar su identidad.
 
 - El **contenido** de un dato estructurado forma parte del **estado interno**
-  de ese dato estructurado, por lo que cambiar el contenido de un dato
-  estructurado supone cambiar también su estado interno.
+  de ese dato, por lo que cambiar el contenido de un dato estructurado supone
+cambiar también su estado interno.
 
 - Por ejemplo, si en la lista !PYTHON([7, 8, 9]) sustituimos su segundo
   elemento (el !PYTHON(8)) por un !PYTHON(5) para obtener la lista
@@ -225,12 +225,14 @@ $$\text{Tipos} \begin{cases}
 - Por ejemplo, los elementos de un conjunto y las claves de un diccionario
   deben ser *hashables*.
 
-- La mayoría de los datos inmutables predefinidos en Python son *hashables*.
+- La mayoría de los datos inmutables predefinidos en Python son *hashables*,
+  incluyendo los valores de tipo `int`, `float`, `str` y `bool`, así como las
+  funciones y el valor `None`.
 
 - Las **colecciones inmutables** (como las tuplas o los !PYTHON(frozenset)s)
   sólo son *hashables* si sus elementos también lo son.
 
-- Las **coleccion mutables** (como las listas o los diccionarios) **NO** son
+- Las **colecciones mutables** (como las listas o los diccionarios) **NO** son
   *hashables*.
 
 ---
@@ -261,8 +263,8 @@ y, en caso de ser una colección, también en función de su **contenido**.
 
 ---
 
-- El _hash_ de un dato se utiliza internamente para acceder al dato dentro de
-  una colección de forma directa y eficiente.
+- El _hash_ de un dato se utiliza internamente para acceder a ese dato dentro
+  de una colección de forma directa y eficiente.
 
 - Para ello, el intérprete utiliza ciertas técnicas que permiten localizar
   directamente a un dato dentro de una colección, de forma casi inmediata y sin
@@ -281,8 +283,8 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
 
 ---
 
-- Muy en resumen, las técnicas se basan en dividir el espacio de memoria que
-  ocupa la colección en una serie de _contenedores_ llamados **_buckets_**.
+- Muy en resumen, esas técnicas se basan en dividir el espacio de memoria que
+  ocupa la colección en una serie de _almacenes_ llamados **_buckets_**.
 
 - Cada _bucket_ va numerado por un posible valor de _hash_, de forma que el
   _bucket_ número $n$ contendrá todos los elementos cuyo _hash_ valga $n$.
@@ -326,7 +328,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 # Iterables e iteradores
 
-## Iterables
+## Iterables e iteradores
 
 - Se dice que un dato compuesto es **iterable** cuando se puede acceder a todos
   sus elementos de uno en uno, operación que se denomina **recorrer** el
@@ -344,13 +346,13 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 - Los iterables no representan un tipo concreto, sino más bien una _familia_ de
   tipos que comparten la misma propiedad.
 
-- Muchas funciones, como !PYTHON(map) y !PYTHON(filter), actúan sobre iterables
-  en general, en lugar de hacerlo sobre un tipo concreto (lista, tupla, ...).
+- Muchas funciones actúan sobre iterables en general, en lugar de hacerlo sobre
+  un tipo estructurado concreto (lista, tupla, ...).
 
 ---
 
-- Por ejemplo, las listas son iterables ya que nos permite acceder a todos sus
-  elementos de uno en uno y, por tanto, podemos recorrerla.
+- Por ejemplo, las listas nos permiten acceder a todos sus elementos de uno en
+  uno y, por tanto, podemos recorrerla.
 
 - Para _visitar_ sus elementos podemos usar la _indexación_, y para _recorrer_
   toda la lista podemos usar un _bucle_:
@@ -363,17 +365,23 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
           i += 1
   ```
 
-## Iteradores
+- Pero hay que hacerlo bien para asegurarse de que no se visita el mismo
+  elemento dos veces, o se quedan elementos sin visitar, o se intenta acceder a
+  un elemento inexistente a través de un índice que está fuera del rango
+  permitido por la lista.
 
-- La forma básica de recorrer un dato iterable es usando un **iterador**.
+---
+
+- La mejor forma de recorrer un dato iterable es usando un **iterador**.
 
   De hecho, técnicamente, un _iterable_ **se define** como aquel dato al que le
   podemos asociar, al menos, un **_iterador_**.
 
 - Un **iterador** es un objeto que sabe cómo **recorrer** un iterable.
 
-- Para ello, el iterador crea un flujo de datos _perezoso_ que va entregando
-  los elementos del iterable de uno en uno.
+- Para ello, el iterador crea un **flujo de datos _perezoso_** que va
+  entregando los elementos del iterable de uno en uno a medida que se los vamos
+  solicitando.
 
 - Los sucesivos elementos del flujo de datos se van obteniendo al llamar
   repetidamente a la función !PYTHON(next) aplicada al iterador.
@@ -388,7 +396,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 - Se puede obtener un iterador a partir de cualquier dato iterable aplicando la
   función !PYTHON(iter) al iterable.
 
-  (Recordemos que todo iterable debe tener asociado un iterador.)
+  (Recordemos que todo iterable puede tener asociado un iterador.)
 
 - Ejemplo de uso de !PYTHON(iter) y !PYTHON(next):
 
@@ -426,7 +434,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
   - Son **de un solo uso** porque cada elemento sólo se entrega una vez.
 
-- Además, los iteradores son **iterables que actúan como sus propios
+- Además, **los iteradores son iterables que actúan como sus propios
   iteradores**:
 
   - Por tanto, cuando llamamos a !PYTHON(iter) pasándole un iterador, se
@@ -440,7 +448,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
     >>> it2 = iter(it)
     >>> it2
     <list_iterator object at 0x7f3c49aa9080>
-    >>> it == it2
+    >>> it is it2
     True
     ```
 
@@ -449,12 +457,9 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- Funciones como !PYTHON(map) y !PYTHON(filter) devuelven iteradores porque, al
-  ser perezosos, son más eficientes en memoria que si devolvieran toda una
-  lista o tupla.
-
-  Por ejemplo: ¿qué ocurre si sólo necesitamos los primeros elementos del
-  resultado de un !PYTHON(map)?
+- Muchas funciones (como !PYTHON(map) o !PYTHON(filter)) devuelven iteradores
+  en lugar de colecciones porque, al ser perezosos, los iteradores son más
+  eficientes en memoria que si se devolviera toda una lista o tupla.
 
 - Los iteradores se pueden convertir en listas o tuplas usando las funciones
   !PYTHON(list) y !PYTHON(tuple):
@@ -467,7 +472,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   (1, 2, 3)
   ```
 
-### El bucle !PYTHON(for)
+## El bucle !PYTHON(for)
 
 - Probablemente, la mejor forma de recorrer los elementos que devuelve un
   iterador es mediante una **estructura de control** llamada **bucle
@@ -499,28 +504,6 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 - Ejemplos:
 
-:::: columns
-
-::: column
-
-  ```python
-  for i in range(0, 4):
-      print(i)
-  ```
-
-  devuelve:
-
-  ```
-  0
-  1
-  2
-  3
-  ```
-
-:::
-
-::: column
-
   ```python
   for x in ['hola', 23.5, 10, [1, 2]]:
       print(x * 2)
@@ -534,10 +517,6 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   20
   [1, 2, 1, 2]
   ```
-
-:::
-
-::::
 
 ---
 
@@ -564,6 +543,8 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
   ```
 
+## Funciones que generan iteradores
+
 ### El módulo !PYTHON(itertools)
 
 - El módulo !PYTHON(itertools) contiene una variedad de iteradores de uso
@@ -576,8 +557,8 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 - !PYTHON{itertools.count}`(`[!NT(inicio)[`,` !NT(paso)]]`)` devuelve un flujo
   infinito de valores separados uniformemente. Se puede indicar opcionalmente
-  un valor de comienzo (que por defecto es !PYTHON(0)) y el intervalo entre
-  números (que por defecto es !PYTHON(1)):
+  un valor de comienzo (!NT(inicio), que por defecto es !PYTHON(0)) y el
+  intervalo entre números (!NT(paso), que por defecto es !PYTHON(1)):
 
   !PYTHON(itertools.count()) $\Rightarrow$ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...
 
@@ -589,8 +570,9 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- !PYTHON(itertools.cycle)`(`!NT(iterador)`)` devuelve un nuevo iterador que va
-  generando sus elementos del primero al último, repitiéndolos indefinidamente:
+- !PYTHON(itertools.cycle)`(`!NT(iterable)`)` devuelve un iterador que va
+  generando los elementos del iterable del primero al último, repitiéndolos
+  indefinidamente:
 
   !PYTHON(itertools.cycle([1, 2, 3, 4])) $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3, 4,
   ...
@@ -657,6 +639,34 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
   ```python
   [(1, 'x'), (2, 'y')]
+  ```
+
+### `reversed`
+
+- La función !PYTHON(reversed) en Python devuelve un iterador que genera los
+  elementos de un iterable en orden inverso a como se entregarían
+  habitualmente.
+
+- Su sintaxis es:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(reversed)!T{(}!NT(iterable)!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo, el siguiente código:
+
+  ```python
+  l = [1, 2, 3]
+  it = reversed(l)
+
+  print(list(it))
+  ```
+
+  produce la siguiente salida:
+
+  ```python
+  [3, 2, 1]
   ```
 
 # Funciones genéricas
