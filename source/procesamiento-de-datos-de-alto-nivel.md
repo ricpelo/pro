@@ -324,86 +324,6 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 |                                                                       |   cambiaría al cambiar su contenido o estado interno.                      |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
 
-# Funciones genéricas
-
-## Definición y uso
-
-- Esquemáticamente, las **funciones genéricas** tienen la siguiente forma:
-
-  ```python
-  def func[T](arg: T): ...
-  ```
-
-- En esta definición, `T` es una **variable de tipo**, es decir, un
-  identificador que representa a un _tipo_ cualquiera que en este momento no
-  está determinado.
-
-- Al usar la sintaxis `[T]`, decimos que `T` representa un **parámetro de
-  tipo** para la función, y sirve para expresar el hecho de que la función que
-  estamos definiendo es genérica y funciona con valores de muchos tipos
-  distintos (uno por cada posible valor de `T`).
-
-- Esta forma de definir funciones caracteriza un cierto tipo de polimorfismo
-  llamado **polimorfismo paramétrico**, donde una misma función puede actuar
-  sobre valores de tipos muy diversos. Por eso, a esas funciones las podemos
-  llamar **funciones polimórficas**.
-
----
-
-- Por ejemplo, la función que devuelve el máximo elemento de una lista donde
-  todos sus elementos son del mismo tipo, se puede anotar de la siguiente
-  forma:
-
-  ```python
-  def maximo[T](l: list[T]) -> T:
-      ...
-  ```
-
-  y podríamos llamarla pasándole cualquier tipo de lista, siempre que todos los
-  elementos de la lista sean del mismo tipo:
-
-  ```python
-  >>> maximo([1, 2, 3, 4])
-  4
-  >>> maximo(['a', 'b', 'c', 'd'])
-  'd'
-  ```
-
-- Según la signatura de la función, no sería correcto pasarle una lista con
-  elementos de diferentes tipos, pero el intérprete no detectaría el error ya
-  que no hace comprobación de tipos. De todas formas, la función probablemente
-  no funcionaría bien en ese caso, ya que es una violación de su
-  especificación:
-
-  ```python
-  >>> maximo([1, 'a', True, 2.5])  # Incorrecto si se comprueban los tipos
-  ???                              # No se sabe cómo se comportará la función en este caso
-  ```
-
----
-
-- Una función genérica puede tener **más de un parámetro de tipo** en caso
-  necesario.
-
-- Por ejemplo:
-
-  ```python
-  def crear_tupla[T, U](elem1: T, elem2: U) -> tuple[T, U]:
-      """Crea una tupla con dos elementos."""
-      return (elem1, elem2)
-  ```
-
-- Un ejemplo de uso:
-
-  ```python
-  >>> crear_tupla(1, 'a')
-  (1, 'a')
-  ```
-
-  Aquí, mandamos a la función un elemento de tipo !PYTHON(int) y otro de tipo
-  !PYTHON(str), y la función produce como resultado una tupla de tipo
-  !PYTHON(tuple[int, str]).
-
 # Iterables e iteradores
 
 ## Iterables
@@ -738,6 +658,86 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   ```python
   [(1, 'x'), (2, 'y')]
   ```
+
+# Funciones genéricas
+
+## Definición y uso
+
+- Esquemáticamente, las **funciones genéricas** tienen la siguiente forma:
+
+  ```python
+  def func[T](arg: T): ...
+  ```
+
+- En esta definición, `T` es una **variable de tipo**, es decir, un
+  identificador que representa a un _tipo_ cualquiera que en este momento no
+  está determinado.
+
+- Al usar la sintaxis `[T]`, decimos que `T` representa un **parámetro de
+  tipo** para la función, y sirve para expresar el hecho de que la función que
+  estamos definiendo es genérica y funciona con valores de muchos tipos
+  distintos (uno por cada posible valor de `T`).
+
+- Esta forma de definir funciones caracteriza un cierto tipo de polimorfismo
+  llamado **polimorfismo paramétrico**, donde una misma función puede actuar
+  sobre valores de tipos muy diversos. Por eso, a esas funciones las podemos
+  llamar **funciones polimórficas**.
+
+---
+
+- Por ejemplo, la función que devuelve el máximo elemento de una lista donde
+  todos sus elementos son del mismo tipo, se puede anotar de la siguiente
+  forma:
+
+  ```python
+  def maximo[T](l: list[T]) -> T:
+      ...
+  ```
+
+  y podríamos llamarla pasándole cualquier tipo de lista, siempre que todos los
+  elementos de la lista sean del mismo tipo:
+
+  ```python
+  >>> maximo([1, 2, 3, 4])
+  4
+  >>> maximo(['a', 'b', 'c', 'd'])
+  'd'
+  ```
+
+- Según la signatura de la función, no sería correcto pasarle una lista con
+  elementos de diferentes tipos, pero el intérprete no detectaría el error ya
+  que no hace comprobación de tipos. De todas formas, la función probablemente
+  no funcionaría bien en ese caso, ya que es una violación de su
+  especificación:
+
+  ```python
+  >>> maximo([1, 'a', True, 2.5])  # Incorrecto si se comprueban los tipos
+  ???                              # No se sabe cómo se comportará la función en este caso
+  ```
+
+---
+
+- Una función genérica puede tener **más de un parámetro de tipo** en caso
+  necesario.
+
+- Por ejemplo:
+
+  ```python
+  def crear_tupla[T, U](elem1: T, elem2: U) -> tuple[T, U]:
+      """Crea una tupla con dos elementos."""
+      return (elem1, elem2)
+  ```
+
+- Un ejemplo de uso:
+
+  ```python
+  >>> crear_tupla(1, 'a')
+  (1, 'a')
+  ```
+
+  Aquí, mandamos a la función un elemento de tipo !PYTHON(int) y otro de tipo
+  !PYTHON(str), y la función produce como resultado una tupla de tipo
+  !PYTHON(tuple[int, str]).
 
 # Funciones de orden superior
 
