@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -670,16 +672,16 @@ fuera del rango permitido por la lista.</p></li>
 <section class="slide level5" data-number="2.1.0.0.2">
 
 <ul>
-<li><p>La mejor forma de recorrer un dato iterable es usando un
+<li><p>La manera general de recorrer un dato iterable es usando un
 <strong>iterador</strong>.</p>
-<p>De hecho, técnicamente, un <em>iterable</em> <strong>se
+<p>De hecho, técnicamente, <strong>un <em>iterable</em> se
 define</strong> como aquel dato al que le podemos asociar, al menos, un
 <strong><em>iterador</em></strong>.</p></li>
 <li><p>Un <strong>iterador</strong> es un objeto que sabe cómo
-<strong>recorrer</strong> un iterable.</p></li>
+<strong>recorrer</strong> un iterable concreto.</p></li>
 <li><p>Para ello, el iterador crea un <strong>flujo de datos
-<em>perezoso</em></strong> que va entregando los elementos del iterable
-de uno en uno a medida que se los vamos solicitando.</p></li>
+<em>perezoso</em></strong> que va entregando los elementos de ese
+iterable de uno en uno a medida que se los vamos solicitando.</p></li>
 <li><p>Los sucesivos elementos del flujo de datos se van obteniendo al
 llamar repetidamente a la función <code
 class="sourceCode python"><span class="bu">next</span></code> aplicada
@@ -767,14 +769,11 @@ donde se espere un iterable.</p></li>
 <section class="slide level5" data-number="2.1.0.0.5">
 
 <ul>
-<li><p>Muchas funciones (como <code
-class="sourceCode python"><span class="bu">map</span></code> o <code
-class="sourceCode python"><span class="bu">filter</span></code>)
-devuelven iteradores en lugar de colecciones porque, al ser perezosos,
-los iteradores son más eficientes en memoria que si se devolviera toda
-una lista o tupla.</p></li>
-<li><p>Los iteradores se pueden convertir en listas o tuplas usando las
-funciones <code
+<li><p>Muchas funciones devuelven iteradores en lugar de colecciones
+porque, al ser perezosos, los iteradores son más eficientes en memoria
+que si se devolviera toda una lista o tupla.</p></li>
+<li><p>El flujo de datos que entrega un iterador se puede convertir en
+una lista o tupla usando las funciones <code
 class="sourceCode python"><span class="bu">list</span></code> y <code
 class="sourceCode python"><span class="bu">tuple</span></code>:</p>
 <div class="sourceCode" id="cb6"><pre
@@ -793,7 +792,7 @@ bucle <code
 class="sourceCode python"><span class="cf">for</span></code></h2>
 <ul>
 <li><p>Probablemente, la mejor forma de recorrer los elementos que
-devuelve un iterador es mediante una <strong>estructura de
+entrega un iterador es mediante una <strong>estructura de
 control</strong> llamada <strong>bucle <code
 class="sourceCode python"><span class="cf">for</span></code></strong>.</p></li>
 <li><p>Su sintaxis es:</p>
@@ -830,7 +829,7 @@ style="color:teal">⟨<em>sentencia</em>⟩</span></div></li>
 <section class="slide level5" data-number="2.2.0.0.1">
 
 <ul>
-<li><p>Ejemplos:</p>
+<li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> [<span class="st">&#39;hola&#39;</span>, <span class="fl">23.5</span>, <span class="dv">10</span>, [<span class="dv">1</span>, <span class="dv">2</span>]]:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</span></code></pre></div>
@@ -848,7 +847,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
 tanto el valor como el <strong>índice</strong> de cada elemento, podemos
 usar la función <code
 class="sourceCode python"><span class="bu">enumerate</span></code>.</p></li>
-<li><p>Esta función devuelve un iterador que va generando tuplas que
+<li><p>Esta función devuelve un iterador que va entregando tuplas que
 contienen, además del elemento, el valor correspondiente de un contador
 numérico.</p></li>
 <li><p>Las tuplas que devuelve el iterador llevan el contador en la
@@ -868,10 +867,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 </ul>
 </section>
 
-<section id="funciones-que-generan-iteradores"
+<section id="funciones-que-devuelven-iteradores"
 class="title-slide slide level2" data-number="2.3">
 <h2 data-number="2.3"><span class="header-section-number">2.3</span>
-Funciones que generan iteradores</h2>
+Funciones que devuelven iteradores</h2>
 
 </section>
 <section id="el-módulo-itertools" class="title-slide slide level3"
@@ -883,13 +882,13 @@ El módulo <code class="sourceCode python">itertools</code></h3>
 contiene una variedad de iteradores de uso frecuente, así como funciones
 que combinan varios iteradores.</p></li>
 <li><p>Algunos de esos iteradores son muy especiales porque pueden
-devolver flujos infinitos o valores que se repiten continuamente, lo
+entregar flujos infinitos o valores que se repiten continuamente, lo
 cual contradice en cierta manera lo que dijimos cuando definimos los
 iteradores como «<em>iterables de un solo uso</em>».</p></li>
 <li><p><code
 class="sourceCode python">itertools.count</code><code>(</code>[<span
 style="color:teal">⟨<em>inicio</em>⟩</span>[<code>,</code> <span
-style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> devuelve un
+style="color:teal">⟨<em>paso</em>⟩</span>]]<code>)</code> entrega un
 flujo infinito de valores separados uniformemente. Se puede indicar
 opcionalmente un valor de comienzo (<span
 style="color:teal">⟨<em>inicio</em>⟩</span>, que por defecto es <code
@@ -916,7 +915,7 @@ class="sourceCode python">itertools.count(<span class="dv">10</span>, <span clas
 <li><p><code
 class="sourceCode python">itertools.cycle</code><code>(</code><span
 style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code> devuelve un
-iterador que va generando los elementos del iterable del primero al
+iterador que va entregando los elementos del iterable del primero al
 último, repitiéndolos indefinidamente:</p>
 <p><code
 class="sourceCode python">itertools.cycle([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</code>
@@ -925,9 +924,9 @@ class="sourceCode python">itertools.cycle([<span class="dv">1</span>, <span clas
 <li><p><code
 class="sourceCode python">itertools.repeat</code><code>(</code><span
 style="color:teal">⟨<em>elem</em>⟩</span>[<code>,</code> <span
-style="color:teal">⟨<em>n</em>⟩</span>]<code>)</code> devuelve <span
+style="color:teal">⟨<em>n</em>⟩</span>]<code>)</code> entrega <span
 style="color:teal">⟨<em>n</em>⟩</span> veces el elemento <span
-style="color:teal">⟨<em>elem</em>⟩</span>, o lo devuelve indefinidamente
+style="color:teal">⟨<em>elem</em>⟩</span>, o lo entrega indefinidamente
 si no se indica <span style="color:teal">⟨<em>n</em>⟩</span>:</p>
 <p><code
 class="sourceCode python">itertools.repeat(<span class="st">&#39;abc&#39;</span>)</code>
@@ -1000,7 +999,7 @@ data-number="2.3.3">
 <ul>
 <li><p>La función <code
 class="sourceCode python"><span class="bu">reversed</span></code> en
-Python devuelve un iterador que genera los elementos de un iterable en
+Python devuelve un iterador que entrega los elementos de un iterable en
 orden inverso a como se entregarían habitualmente.</p></li>
 <li><p>Su sintaxis es:</p>
 <div
@@ -1812,11 +1811,11 @@ class="sourceCode python"><span class="bu">tuple</span>[<span class="bu">int</sp
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>

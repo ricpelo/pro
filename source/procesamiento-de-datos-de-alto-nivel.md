@@ -372,16 +372,16 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- La mejor forma de recorrer un dato iterable es usando un **iterador**.
+- La manera general de recorrer un dato iterable es usando un **iterador**.
 
-  De hecho, técnicamente, un _iterable_ **se define** como aquel dato al que le
+  De hecho, técnicamente, **un _iterable_ se define** como aquel dato al que le
   podemos asociar, al menos, un **_iterador_**.
 
-- Un **iterador** es un objeto que sabe cómo **recorrer** un iterable.
+- Un **iterador** es un objeto que sabe cómo **recorrer** un iterable concreto.
 
 - Para ello, el iterador crea un **flujo de datos _perezoso_** que va
-  entregando los elementos del iterable de uno en uno a medida que se los vamos
-  solicitando.
+  entregando los elementos de ese iterable de uno en uno a medida que se los
+  vamos solicitando.
 
 - Los sucesivos elementos del flujo de datos se van obteniendo al llamar
   repetidamente a la función !PYTHON(next) aplicada al iterador.
@@ -457,12 +457,12 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- Muchas funciones (como !PYTHON(map) o !PYTHON(filter)) devuelven iteradores
-  en lugar de colecciones porque, al ser perezosos, los iteradores son más
-  eficientes en memoria que si se devolviera toda una lista o tupla.
+- Muchas funciones devuelven iteradores en lugar de colecciones porque, al ser
+  perezosos, los iteradores son más eficientes en memoria que si se devolviera
+  toda una lista o tupla.
 
-- Los iteradores se pueden convertir en listas o tuplas usando las funciones
-  !PYTHON(list) y !PYTHON(tuple):
+- El flujo de datos que entrega un iterador se puede convertir en una lista o
+  tupla usando las funciones !PYTHON(list) y !PYTHON(tuple):
 
   ```python
   >>> l = [1, 2, 3]
@@ -474,7 +474,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ## El bucle !PYTHON(for)
 
-- Probablemente, la mejor forma de recorrer los elementos que devuelve un
+- Probablemente, la mejor forma de recorrer los elementos que entrega un
   iterador es mediante una **estructura de control** llamada **bucle
   !PYTHON(for)**.
 
@@ -502,7 +502,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ---
 
-- Ejemplos:
+- Ejemplo:
 
   ```python
   for x in ['hola', 23.5, 10, [1, 2]]:
@@ -524,7 +524,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   como el **índice** de cada elemento, podemos usar la función
   !PYTHON(enumerate).
 
-- Esta función devuelve un iterador que va generando tuplas que contienen,
+- Esta función devuelve un iterador que va entregando tuplas que contienen,
   además del elemento, el valor correspondiente de un contador numérico.
 
 - Las tuplas que devuelve el iterador llevan el contador en la primera posición
@@ -543,19 +543,19 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
   ```
 
-## Funciones que generan iteradores
+## Funciones que devuelven iteradores
 
 ### El módulo !PYTHON(itertools)
 
 - El módulo !PYTHON(itertools) contiene una variedad de iteradores de uso
   frecuente, así como funciones que combinan varios iteradores.
 
-- Algunos de esos iteradores son muy especiales porque pueden devolver flujos
+- Algunos de esos iteradores son muy especiales porque pueden entregar flujos
   infinitos o valores que se repiten continuamente, lo cual contradice en
   cierta manera lo que dijimos cuando definimos los iteradores como «_iterables
   de un solo uso_».
 
-- !PYTHON{itertools.count}`(`[!NT(inicio)[`,` !NT(paso)]]`)` devuelve un flujo
+- !PYTHON{itertools.count}`(`[!NT(inicio)[`,` !NT(paso)]]`)` entrega un flujo
   infinito de valores separados uniformemente. Se puede indicar opcionalmente
   un valor de comienzo (!NT(inicio), que por defecto es !PYTHON(0)) y el
   intervalo entre números (!NT(paso), que por defecto es !PYTHON(1)):
@@ -571,14 +571,14 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 ---
 
 - !PYTHON(itertools.cycle)`(`!NT(iterable)`)` devuelve un iterador que va
-  generando los elementos del iterable del primero al último, repitiéndolos
+  entregando los elementos del iterable del primero al último, repitiéndolos
   indefinidamente:
 
   !PYTHON(itertools.cycle([1, 2, 3, 4])) $\Rightarrow$ 1, 2, 3, 4, 1, 2, 3, 4,
   ...
 
-- !PYTHON(itertools.repeat)`(`!NT(elem)[`,` !NT(n)]`)` devuelve !NT(n) veces el
-  elemento !NT(elem), o lo devuelve indefinidamente si no se indica !NT(n):
+- !PYTHON(itertools.repeat)`(`!NT(elem)[`,` !NT(n)]`)` entrega !NT(n) veces el
+  elemento !NT(elem), o lo entrega indefinidamente si no se indica !NT(n):
 
   !PYTHON(itertools.repeat('abc')) $\Rightarrow$ abc, abc, abc, abc, abc, abc,
   abc, ...
@@ -643,7 +643,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 
 ### `reversed`
 
-- La función !PYTHON(reversed) en Python devuelve un iterador que genera los
+- La función !PYTHON(reversed) en Python devuelve un iterador que entrega los
   elementos de un iterable en orden inverso a como se entregarían
   habitualmente.
 
