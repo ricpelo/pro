@@ -787,7 +787,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   ...    else:
   ...        return restar
   >>> suma_o_resta('suma')
-  <function <lambda>.<locals>.<lambda> at 0x7f526ab4a790>
+  <function <lambda>.<locals>.sumar at 0x7f3ab30de200>
   >>> suma = suma_o_resta('suma')
   >>> suma(2, 3)
   5
