@@ -532,31 +532,6 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   [1, 2, 1, 2]
   ```
 
----
-
-- Si estamos recorriendo una secuencia y necesitamos recuperar tanto el valor
-  como el **índice** de cada elemento, podemos usar la función
-  !PYTHON(enumerate).
-
-- Esta función devuelve un iterador que va entregando tuplas que contienen,
-  además del elemento, el valor correspondiente de un contador numérico.
-
-- Las tuplas que devuelve el iterador llevan el contador en la primera posición
-  y el elemento de la secuencia en la segunda posición.
-
-- Por defecto, el contador empieza desde !PYTHON(0) y se va incrementando de
-  uno en uno, por lo que coincide con el índice del elemento en la secuencia:
-
-  ```python
-  >>> for i, e in enumerate(['a', 'b', 'c']):
-  ...     print('El elemento en la posición ' + str(i) + ' es ' + str(e))
-  ...
-  El elemento en la posición 0 es a
-  El elemento en la posición 1 es b
-  El elemento en la posición 2 es c
-
-  ```
-
 ## Funciones que devuelven iteradores
 
 ### El módulo !PYTHON(itertools)
@@ -598,6 +573,31 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   abc, ...
 
   !PYTHON(itertools.repeat('abc', 5)) $\Rightarrow$ abc, abc, abc, abc, abc
+
+### `enumerate`
+
+- Si estamos recorriendo una secuencia y necesitamos recuperar tanto el valor
+  como el **índice** de cada elemento, podemos usar la función
+  !PYTHON(enumerate).
+
+- Esta función devuelve un iterador que va entregando tuplas que contienen,
+  además del elemento, el valor correspondiente de un contador numérico.
+
+- Las tuplas que devuelve el iterador llevan el contador en la primera posición
+  y el elemento de la secuencia en la segunda posición.
+
+- Por defecto, el contador empieza desde !PYTHON(0) y se va incrementando de
+  uno en uno, por lo que coincide con el índice del elemento en la secuencia:
+
+  ```python
+  >>> for i, e in enumerate(['a', 'b', 'c']):
+  ...     print('El elemento en la posición ' + str(i) + ' es ' + str(e))
+  ...
+  El elemento en la posición 0 es a
+  El elemento en la posición 1 es b
+  El elemento en la posición 2 es c
+
+  ```
 
 ### `zip`
 
@@ -737,7 +737,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   ```python
   >>> def aplica5(f):
   ...     return f(5)
-  >>> def (cuadrado):
+  >>> def cuadrado(x):
   ...     return x ** 2
   >>> cubo = lambda x: x ** 3
   >>> aplica5(cuadrado)
