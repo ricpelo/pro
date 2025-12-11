@@ -572,9 +572,9 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
 ## Rangos
 
-- Los **rangos** (!PYTHON(range)) representan secuencias inmutables y
-  *hashables* de números enteros y se usan frecuentemente para hacer bucles que
-  se repitan un determinado número de veces.
+- Los **rangos** (!PYTHON(range)) representan secuencias perezosas, inmutables
+  y *hashables* de números enteros y se usan frecuentemente para hacer bucles
+  que se repitan un determinado número de veces.
 
 - Los rangos se crean con la función !PYTHON(range):
 
@@ -619,7 +619,7 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   un patrón muy estricto, y las repeticiones y las concatenaciones a menudo
   violan ese patrón.
 
-- **Los rangos son perezosos** y además ocupan mucha menos memoria que las
+- **Los rangos son perezosos**, por lo que ocupan mucha menos memoria que las
   listas o las tuplas (sólo hay que almacenar *start*, *stop* y *step*).
 
 ---

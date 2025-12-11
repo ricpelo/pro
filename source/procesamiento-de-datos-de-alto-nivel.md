@@ -99,6 +99,20 @@ nocite: |
 
   - Usaremos **estructura de datos** cuando nos interesen esos detalles.
 
+---
+
+- En Python, el término más utilizado es el de **_colección_**.
+
+- Una **colección** en Python es un objeto que **almacena o genera múltiples
+  elementos en memoria** y provee una **interfaz estandarizada** para acceder,
+  recorrer y consultar sus elementos.
+
+- Entre otras operaciones, una colección admite la función !PYTHON(len) para
+  consultar el número de elementos que contiene.
+
+- Además, dispone de otras operaciones dependiendo del tipo concreto de
+  colección que se trate.
+
 ## Clasificación
 
 - Los **datos estructurados** se pueden clasificar atendiendo a su
