@@ -602,8 +602,12 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 - Esto hace que ocupen mucho menos espacio en memoria que las listas o las
   tuplas, por ejemplo.
 
-- Los rangos, además, son iterables, por lo que se pueden usar iteradores para
-  recorrer sus elementos.
+- Los rangos, además, **son iterables**, por lo que se pueden usar iteradores
+  para recorrer sus elementos.
+
+- En cambio, los rangos **NO se consideran _colecciones_**, ya que,
+  estrictamente hablando, no contienen elementos sino que los calcula a partir
+  de una fórmula.
 
 ---
 
