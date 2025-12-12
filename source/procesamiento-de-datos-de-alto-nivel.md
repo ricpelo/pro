@@ -1504,6 +1504,16 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
       return reduce(fun, tupla[1:], fun(ini, tupla[0]))
   ```
 
+- O bien, de forma iterativa y no recursiva:
+
+  ```python
+  def reduce(fun, tupla, ini):
+      res = ini
+      for e in tupla:
+          res = fun(res, e)
+      return res
+  ```
+
 ## Expresiones generadoras
 
 - Dos operaciones que se realizan con frecuencia sobre un iterable son:
