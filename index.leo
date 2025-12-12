@@ -6,29 +6,29 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="ricardo.20251211193843.1"><vh>@auto source/introduccion.md</vh></v>
-<v t="ricardo.20251211193843.2"><vh>@auto source/lenguajes-de-programacion.md</vh></v>
-<v t="ricardo.20251211193843.3"><vh>@auto source/expresiones.md</vh></v>
-<v t="ricardo.20251211193843.4"><vh>@auto source/tipos-y-operaciones.md</vh></v>
-<v t="ricardo.20251211193843.5"><vh>@auto source/programacion-funcional.md</vh></v>
-<v t="ricardo.20251211193843.6"><vh>@auto source/abstracciones-funcionales.md</vh></v>
-<v t="ricardo.20251211193843.7"><vh>@auto source/el-modelo-de-entorno.md</vh></v>
-<v t="ricardo.20251211193843.8"><vh>@auto source/programacion-imperativa-i.md</vh></v>
-<v t="ricardo.20251211193843.9"><vh>@auto source/programacion-imperativa-ii.md</vh></v>
-<v t="ricardo.20251211193843.10"><vh>@auto source/programacion-estructurada.md</vh></v>
-<v t="ricardo.20251211193843.11"><vh>@auto source/programacion-procedimental.md</vh></v>
-<v t="ricardo.20251211193843.12"><vh>@auto source/procesamiento-de-datos-de-alto-nivel.md</vh></v>
-<v t="ricardo.20251211193843.13"><vh>@auto source/secuencias.md</vh></v>
-<v t="ricardo.20251211193843.14"><vh>@auto source/colecciones-no-secuenciales.md</vh></v>
-<v t="ricardo.20251211193843.15"><vh>@auto source/entrada-y-salida-por-archivos.md</vh></v>
-<v t="ricardo.20251211193843.16"><vh>@auto source/programacion-modular.md</vh></v>
-<v t="ricardo.20251211193843.17"><vh>@auto source/abstraccion-de-datos.md</vh></v>
-<v t="ricardo.20251211193843.18"><vh>@auto source/programacion-orientada-a-objetos-i.md</vh></v>
-<v t="ricardo.20251211193843.19"><vh>@auto source/programacion-orientada-a-objetos-ii.md</vh></v>
-<v t="ricardo.20251211193843.20"><vh>@auto source/relaciones-entre-clases.md</vh></v>
-<v t="ricardo.20251211193843.21"><vh>@auto source/interfaces-graficas-de-usuario.md</vh></v>
-<v t="ricardo.20251211193843.22"><vh>@auto source/bases-de-datos-orientadas-a-objetos.md</vh></v>
-<v t="ricardo.20251211193843.23"><vh>@auto source/bases-de-datos-relacionales.md</vh></v>
+<v t="ricardo.20251212123043.1"><vh>@auto source/introduccion.md</vh></v>
+<v t="ricardo.20251212123043.2"><vh>@auto source/lenguajes-de-programacion.md</vh></v>
+<v t="ricardo.20251212123043.3"><vh>@auto source/expresiones.md</vh></v>
+<v t="ricardo.20251212123043.4"><vh>@auto source/tipos-y-operaciones.md</vh></v>
+<v t="ricardo.20251212123043.5"><vh>@auto source/programacion-funcional.md</vh></v>
+<v t="ricardo.20251212123043.6"><vh>@auto source/abstracciones-funcionales.md</vh></v>
+<v t="ricardo.20251212123043.7"><vh>@auto source/el-modelo-de-entorno.md</vh></v>
+<v t="ricardo.20251212123043.8"><vh>@auto source/programacion-imperativa-i.md</vh></v>
+<v t="ricardo.20251212123043.9"><vh>@auto source/programacion-imperativa-ii.md</vh></v>
+<v t="ricardo.20251212123043.10"><vh>@auto source/programacion-estructurada.md</vh></v>
+<v t="ricardo.20251212123043.11"><vh>@auto source/programacion-procedimental.md</vh></v>
+<v t="ricardo.20251212123043.12"><vh>@auto source/procesamiento-de-datos-de-alto-nivel.md</vh></v>
+<v t="ricardo.20251212123043.13"><vh>@auto source/secuencias.md</vh></v>
+<v t="ricardo.20251212123043.14"><vh>@auto source/colecciones-no-secuenciales.md</vh></v>
+<v t="ricardo.20251212123043.15"><vh>@auto source/entrada-y-salida-por-archivos.md</vh></v>
+<v t="ricardo.20251212123043.16"><vh>@auto source/programacion-modular.md</vh></v>
+<v t="ricardo.20251212123043.17"><vh>@auto source/abstraccion-de-datos.md</vh></v>
+<v t="ricardo.20251212123043.18"><vh>@auto source/programacion-orientada-a-objetos-i.md</vh></v>
+<v t="ricardo.20251212123043.19"><vh>@auto source/programacion-orientada-a-objetos-ii.md</vh></v>
+<v t="ricardo.20251212123043.20"><vh>@auto source/relaciones-entre-clases.md</vh></v>
+<v t="ricardo.20251212123043.21"><vh>@auto source/interfaces-graficas-de-usuario.md</vh></v>
+<v t="ricardo.20251212123043.22"><vh>@auto source/bases-de-datos-orientadas-a-objetos.md</vh></v>
+<v t="ricardo.20251212123043.23"><vh>@auto source/bases-de-datos-relacionales.md</vh></v>
 </vnodes>
 <tnodes>
 </tnodes>

@@ -340,7 +340,7 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
 |                                                                       |   cambiaría al cambiar su contenido o estado interno.                      |
 +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
 
-# Iterables e iteradores
+# Flujos perezosos
 
 ## Iterables e iteradores
 
@@ -530,6 +530,180 @@ No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
   47.0
   20
   [1, 2, 1, 2]
+  ```
+
+## `range`
+
+- Los **rangos** (valores de tipo !PYTHON(range)) representan **secuencias
+  perezosas, inmutables y *hashables* de números enteros** situados dentro de
+  un intervalo.
+
+- Los rangos se crean con la función !PYTHON(range), cuya signatura es:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $\texttt{range(!VAR([)!VAR(start):\,int,!VAR(])\;!VAR(stop):\,int\;!VAR([),\;!VAR(step):\,int!VAR(]))\;->\;range}$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  - Cuando se omite _start_, se entiende que es !PYTHON(0).
+
+  - Cuando se omite _step_, se entiende que es !PYTHON(1).
+
+  - El valor de _stop_ no se alcanza nunca.
+
+  - Cuando _start_ y _stop_ son iguales, representa el *rango vacío*.
+
+  - _step_ debe ser siempre distinto de cero.
+
+  - Cuando _start_ es mayor que _stop_, el valor de _step_ debería ser
+    negativo. En caso contrario, también representaría el rango vacío.
+
+---
+
+- Por ejemplo:
+
+  - !PYTHON(range(2, 7)) representa la secuencia de números enteros
+    comprendidos entre 2 y 6, es decir, la secuencia 2, 3, 4, 5, 6.
+
+  - !PYTHON(range(2, 7, 2)) representa la misma secuencia pero saltándose uno
+    cada vez, es decir, la secuencia 2, 4, 6.
+
+  - !PYTHON(range(3)) representa la secuencia 0, 1, 2 (se empieza por 0 si no
+    se indica otra cosa).
+
+  - !PYTHON(range(4, 0, -1)) representa la secuencia 4, 3, 2, 1.
+
+---
+
+- Como ocurre en toda secuencia, podemos usar **_indexación_** para acceder al
+  contenido de un rango, es decir, a cada uno de sus elementos.
+
+- El **contenido** de un rango $r$ vendrá determinado por la fórmula: $$r[i] =
+  start + step \cdot i$$ donde $i \geq 0$. Además:
+
+  - Si $step > 0$, se impone también la restricción $r[i] <
+    \text{\textit{stop}}$.
+
+  - Si $step < 0$, se impone también la restricción $r[i] >
+    \text{\textit{stop}}$.
+
+- Un rango es **vacío** cuando $r[0]$ no satisface las restricciones
+  anteriores.
+
+- Los rangos admiten **índices negativos**, pero se interpretan como si se
+  indexara desde el final de la secuencia usando índices positivos.
+
+---
+
+- **Los rangos son perezosos** ya que no hay que reservar espacio en memoria
+  para almacenar todos sus elementos simultáneamente, sino que tan sólo
+  necesita recordar los valores de _start_, _stop_ y _step_.
+
+- Esto hace que ocupen mucho menos espacio en memoria que las listas o las
+  tuplas, por ejemplo.
+
+- Los rangos, además, son iterables, por lo que se pueden usar iteradores para
+  recorrer sus elementos.
+
+---
+
+- Para ver con claridad todos los elementos de un rango, podemos convertirlo en
+  una tupla o una lista. Por ejemplo:
+
+  ```python
+  >>> list(range(10))
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  >>> list(range(1, 11))
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  >>> list(range(0, 30, 5))
+  [0, 5, 10, 15, 20, 25]
+  >>> list(range(0, 10, 3))
+  [0, 3, 6, 9]
+  >>> list(range(0, -10, -1))
+  [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+  >>> list(range(0))
+  []
+  >>> list(range(1, 0))
+  []
+  ```
+
+- La **forma normal** de un rango es una expresión en la que se llama a la
+  función !PYTHON(range) con los argumentos necesarios para construir el rango:
+
+  :::: columns
+
+  ::: {.column width=48%}
+
+  ```python
+  >>> range(10)
+  range(0, 10)
+  >>> range(0, 10)
+  range(0, 10)
+  >>> range(0, 10, 1)
+  range(0, 10)
+  ```
+
+  :::
+
+  ::: {.column width=4%}
+  :::
+
+  ::: {.column width=48%}
+
+  ```python
+  >>> range(0, 30, 5)
+  range(0, 30, 5)
+  >>> range(0, -10, -1)
+  range(0, -10, -1)
+  >>> range(4, -5, -2)
+  range(4, -5, -2)
+  ```
+
+  :::
+
+  ::::
+
+---
+
+- El **rango vacío** es un valor que no tiene expresión canónica, ya que
+  cualquiera de las siguientes expresiones representan al rango vacío tan bien
+  como cualquier otra:
+
+  - !PYTHON(range(0)).
+
+  - !PYTHON(range)`(`$a$`, `$\;a$`)`, donde _a_ es cualquier entero.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \geq b$ y $c > 0$.
+
+  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \leq b$ y $c < 0$.
+
+```python
+>>> range(3, 3) == range(4, 4)
+True
+>>> range(4, 3) == range(3, 4, -1)
+True
+```
+
+---
+
+- Los rangos se usan frecuentemente para hacer bucles que se repitan un
+  determinado número de veces.
+
+- Por ejemplo, el cuerpo del siguiente bucle se ejecuta 5 veces:
+
+  ```python
+  for i in range(5):
+      print(i)
+  ```
+
+  y produce la siguiente salida:
+
+  ```
+  0
+  1
+  2
+  3
+  4
   ```
 
 ## Funciones que devuelven iteradores

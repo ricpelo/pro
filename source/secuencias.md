@@ -572,113 +572,23 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
 
 ## Rangos
 
-- Los **rangos** (!PYTHON(range)) representan secuencias perezosas, inmutables
-  y *hashables* de números enteros y se usan frecuentemente para hacer bucles
-  que se repitan un determinado número de veces.
+- Ya vimos que los **rangos** (!PYTHON(range)) representan secuencias
+  perezosas, inmutables y *hashables* de números enteros y se usan
+  frecuentemente para hacer bucles que se repitan un determinado número de
+  veces.
 
-- Los rangos se crean con la función !PYTHON(range):
+- Como secuencia, el tipo !PYTHON(range) es bastante especial, ya que es el
+  único tipo de secuencia perezosa que existe en Python.
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  $\texttt{range(!VAR([)!VAR(start):\,int,!VAR(])\;!VAR(stop):\,int\;!VAR([),\;!VAR(step):\,int!VAR(]))\;->\;range}$
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Además, hay ciertas operaciones comunes a las secuencias que no se pueden
+  realizar sobre rangos.
 
-- Cuando se omite _start_, se entiende que es !PYTHON(0).
+- En concreto, los rangos implementan **todas las operaciones de las
+  secuencias, *excepto* la concatenación y la repetición**.
 
-- Cuando se omite _step_, se entiende que es !PYTHON(1).
-
-- El valor de _stop_ no se alcanza nunca.
-
-- Cuando _start_ y _stop_ son iguales, representa el *rango vacío*.
-
-- _step_ debe ser siempre distinto de cero.
-
-- Cuando _start_ es mayor que _stop_, el valor de _step_ debería ser negativo.
-  En caso contrario, también representaría el rango vacío.
-
----
-
-- El **contenido** de un rango $r$ vendrá determinado por la fórmula: $$r[i] =
-  start + step \cdot i$$ donde $i \geq 0$. Además:
-
-  - Si $step > 0$, se impone también la restricción $r[i] <
-    \text{\textit{stop}}$.
-
-  - Si $step < 0$, se impone también la restricción $r[i] >
-    \text{\textit{stop}}$.
-
-- Un rango es **vacío** cuando $r[0]$ no satisface las restricciones anteriores.
-
-- Los rangos admiten **índices negativos**, pero se interpretan como si se
-  indexara desde el final de la secuencia usando índices positivos.
-
-- Los rangos implementan **todas las operaciones de las secuencias, *excepto*
-  la concatenación y la repetición**.
-
-  Esto es debido a que los rangos sólo pueden representar secuencias que siguen
+- Esto es debido a que los rangos sólo pueden representar secuencias que siguen
   un patrón muy estricto, y las repeticiones y las concatenaciones a menudo
   violan ese patrón.
-
-- **Los rangos son perezosos**, por lo que ocupan mucha menos memoria que las
-  listas o las tuplas (sólo hay que almacenar *start*, *stop* y *step*).
-
----
-
-- La **forma normal** de un rango es una expresión en la que se llama a la
-  función !PYTHON(range) con los argumentos necesarios para construir el rango:
-
-  :::: columns
-
-  ::: {.column width=48%}
-
-  ```python
-  >>> range(10)
-  range(0, 10)
-  >>> range(0, 10)
-  range(0, 10)
-  >>> range(0, 10, 1)
-  range(0, 10)
-  ```
-
-  :::
-
-  ::: {.column width=4%}
-  :::
-
-  ::: {.column width=48%}
-
-  ```python
-  >>> range(0, 30, 5)
-  range(0, 30, 5)
-  >>> range(0, -10, -1)
-  range(0, -10, -1)
-  >>> range(4, -5, -2)
-  range(4, -5, -2)
-  ```
-
-  :::
-
-  ::::
-
-- Para ver con claridad todos los elementos de un rango, podemos convertirlo en
-  una tupla o una lista. Por ejemplo:
-
-  ```python
-  >>> list(range(10))
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  >>> list(range(1, 11))
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  >>> list(range(0, 30, 5))
-  [0, 5, 10, 15, 20, 25]
-  >>> list(range(0, 10, 3))
-  [0, 3, 6, 9]
-  >>> list(range(0, -10, -1))
-  [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
-  >>> list(range(0))
-  []
-  >>> list(range(1, 0))
-  []
-  ```
 
 ---
 
@@ -699,26 +609,16 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   True
   ```
 
----
+- Por otra parte, no es posible comparar dos rangos usando `<`, `<=`, `>` o
+  `>=`:
 
-- El **rango vacío** es un valor que no tiene expresión canónica, ya que
-  cualquiera de las siguientes expresiones representan al rango vacío tan bien
-  como cualquier otra:
-
-  - !PYTHON(range(0)).
-
-  - !PYTHON(range)`(`$a$`, `$\;a$`)`, donde _a_ es cualquier entero.
-
-  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \geq b$ y $c > 0$.
-
-  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \leq b$ y $c < 0$.
-
-```python
->>> range(3, 3) == range(4, 4)
-True
->>> range(4, 3) == range(3, 4, -1)
-True
-```
+  ```python
+  >>> range(3) < range(2)
+  Traceback (most recent call last):
+    File "<python-input-0>", line 1, in <module>
+      range(3) < range(2)
+  TypeError: '<' not supported between instances of 'range' and 'range'
+  ```
 
 # Mutables
 
