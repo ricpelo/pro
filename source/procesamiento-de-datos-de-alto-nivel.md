@@ -1651,7 +1651,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   !DOT(procesamiento-flujos)()(width=75%)(width=75%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Generación -> Filtrado -> Mapeado -> Acumulación
+  Generación -> Filtrado -> Transformación -> Acumulación
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
