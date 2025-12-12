@@ -1632,6 +1632,45 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
     NameError: name 'x' is not defined
     ```
 
+## Procesamiento de flujos
+
+- El **procesamiento de flujos** es una técnica de diseño de programas que se
+  basa en estudiar cómo se transforman los datos de entrada en datos de salida
+  y descomponer dicha transformación en una secuencia de etapas intermedias
+  donde la salida de una etapa es la entrada de la siguiente, como en una
+  cadena de montaje.
+
+- El esquema general es el siguiente, con posibles ligeras variaciones:
+
+!DOT(procesamiento-flujos)()(width=50%)(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Generación -> Filtrado -> Mapeado -> Acumulación
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Este esquema se puede trasladar al uso de funciones ya conocidas, de la
+  siguiente forma:
+
+!DOT(procesamiento-flujos-funciones)(Procesamiento de flujos con funciones)(width=50%)(width=50%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fontname = "monospace"]
+range -> filter -> map -> reduce
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Por ejemplo, supongamos el siguiente problema:
+
+  «_Dada una lista con los $n$ primeros números naturales, obtener la suma de
+  los cuadrados de los números impares que haya en la lista._»
+
+- Este problema se podría resolver de la siguiente forma:
+
+!DOT(problema-procesamiento-flujos)(Solución mediante procesamiento de flujos)(width=100%)(width=100%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+node [fontname = "monospace"]
+"range(n + 1)" -> "filter(lambda x: x % 2 == 0)" -> "map(lambda x: x ** 2)" -> "reduce(add)"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # Funciones genéricas
 
 ## Definición y uso
