@@ -993,11 +993,19 @@ True
 - Supongamos las dos funciones siguientes:
 
   ```python
-  # Suma los enteros comprendidos entre a y b:
-  suma_enteros = lambda a, b: 0 if a > b else a + suma_enteros(a + 1, b)
+  def suma_enteros(a, b):
+      """Suma los enteros comprendidos entre a y b."""
+      suma = 0
+      for i in range(a, b + 1):
+          suma += i
+      return suma
 
-  # Suma los cubos de los enteros comprendidos entre a y b:
-  suma_cubos = lambda a, b: 0 if a > b else cubo(a) + suma_cubos(a + 1, b)
+  def suma_enteros(a, b):
+      """Suma los cubos de los enteros comprendidos entre a y b."""
+      suma = 0
+      for i in range(a, b + 1):
+          suma += cubo(i)
+      return suma
   ```
 
 - Estas dos funciones comparten claramente un patrón común. Se diferencian
@@ -1008,12 +1016,18 @@ True
   - La función que se aplica a !PYTHON(a) para calcular cada _término_ de la
     suma.
 
+---
+
 - Podríamos haber escrito las funciones anteriores rellenando los «casilleros»
-  del siguiente *patrón general*:
+  !NT(nombre) y !NT(término) del siguiente *patrón general*:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
-  !NT(nombre) = !T(lambda) a, b: 0 !T(if) a > b !T(else) !NT{término}(a) + !NT{nombre}(a + 1, b)
+  !PYTHON{def} !NT(nombre)!PYTHON{(a, b):}
+  !SPC(6)        !PYTHON(suma = 0)
+  !SPC(6)        !PYTHON(for i in range(a, b + 1):)
+  !SPC(12)                !PYTHON(suma +=)\ \ !NT(término)!PYTHON((i))
+  !SPC(6)        !PYTHON(return suma)
   ~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1036,21 +1050,25 @@ True
 
 ---
 
-- En programación funcional lo conseguimos creando funciones que conviertan los
+- En programación lo conseguimos creando funciones que conviertan los
   «casilleros» en parámetros que recibirían funciones:
 
   ```python
-  suma = lambda term, a, b: 0 if a > b else term(a) + suma(term, a + 1, b)
+  def suma(term, a, b):
+      suma = 0
+      for i in range(a, b + 1):
+          suma += term(i)
+      return suma
   ```
 
 - De esta forma, las dos funciones !PYTHON(suma_enteros) y !PYTHON(suma_cubos)
   anteriores se podrían definir en términos de esta !PYTHON(suma):
 
   ```python
-  suma_enteros = lambda a, b: suma(lambda x: x, a, b)
-  suma_cubos = lambda a, b: suma(lambda x: x * x * x, a, b)
-  # O mejor aún:
-  suma_cubos = lambda a, b: suma(cubo, a, b)
+  def suma_enteros(a, b):
+      return suma(lambda x: x, a, b)
+  def suma_cubos(a, b):
+      return suma(lambda x: x * x * x, a, b)  # o suma(cubo, a, b)
   ```
 
 - `suma` es una abstracción que captura el patrón común que comparten
@@ -1090,8 +1108,8 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 ## `map`
 
-- Supongamos que queremos escribir una función que, dada una tupla de números,
-  nos devuelva otra tupla con los mismos números elevados al cubo.
+- Supongamos que queremos escribir una función que, dada una lista de números,
+  nos devuelva otra lista con los mismos números elevados al cubo.
 
 !EJERCICIO
 
@@ -1102,15 +1120,21 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Una forma de hacerlo sería:
 
   ```python
-  elevar_cubo = lambda t: () if t == () else \
-                          (cubo(t[0]),) + elevar_cubo(t[1:])
+  def elevar_cubo(l):
+      res = []
+      for e in l:
+          res.append(e ** 3)
+      return res
   ```
 
 - ¿Y elevar a la cuarta potencia?
 
   ```python
-  elevar_cuarta = lambda t: () if t == () else \
-                            ((lambda x: x ** 4)(t[0]),) + elevar_cuarta(t[1:])
+  def elevar_cuarta(l):
+      res = []
+      for e in l:
+          res.append(e ** 4)
+      return res
   ```
 
 - Es evidente que hay un patrón subyacente que se podría abstraer creando una
@@ -1143,22 +1167,23 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   ```
 
 - Lo que devuelve es un iterador que luego podemos recorrer o, por ejemplo,
-  convertir en una tupla usando la función !PYTHON(tuple):
+  convertir en una lista usando la función !PYTHON(list):
 
   ```python
-  >>> tuple(map(cubo, (1, 2, 3, 4)))
-  (1, 8, 27, 64)
+  >>> list(map(cubo, (1, 2, 3, 4)))
+  [1, 8, 27, 64]
   ```
 
-- Además de una tupla, también podemos usar cualquier otro iterable como
-  argumento para !PYTHON(map), como por ejemplo un rango:
+- Podemos usar cualquier iterable como argumento para !PYTHON(map), como por
+  ejemplo un rango:
 
   ```python
-  >>> tuple(map(cubo, range(1, 5)))
-  (1, 8, 27, 64)
+  >>> for e in map(cubo, range(1, 5)):
+  ...     print(e, end=' ')
+  1 8 27 64
   ```
 
-- ¿Cómo definirías la función !PYTHON(map) de forma que devolviera una tupla?
+- ¿Cómo definirías la función !PYTHON(map) de forma que devolviera una lista?
 
 !EJERCICIO
 
@@ -1169,7 +1194,11 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Podríamos definirla así:
 
   ```python
-  map = lambda f, t: () if t == () else (f(t[0]),) + map(f, t[1:])
+  def map(f, l):
+      res = []
+      for e in l:
+          res.append(f(e))
+      return res
   ```
 
 ## `filter`
@@ -1187,14 +1216,14 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   donde _function_ debe ser una función de un solo argumento que devuelva un
   _booleano_.
 
-- Como !PYTHON(map), también devuelve un _iterador_, que se puede recorrer o
-  convertir a tupla con la función !PYTHON(tuple), por ejemplo.
+- Como !PYTHON(map), también devuelve un _iterador_.
 
 - Por ejemplo:
 
   ```python
-  >>> tuple(filter(lambda x: x > 0, (-4, 3, 5, -2, 8, -3, 9)))
-  (3, 5, 8, 9)
+  >>> for e in filter(lambda x: x > 0, (-4, 3, 5, -2, 8, -3, 9)):
+  ...     print(e, end=' ')
+  3 5 8 9
   ```
 
 ## `reduce`
@@ -1204,22 +1233,50 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 - Captura un **patrón muy frecuente** de recursión sobre secuencias.
 
-- Por ejemplo, para calcular la suma de todos los elementos de una tupla,
-  haríamos:
+- Por ejemplo, para calcular la suma y el producto de todos los elementos de
+  una lista, haríamos:
+
+  :::: columns
+
+  ::: {.column width=48%}
 
   ```python
-  >>> suma = lambda t: 0 if t == () else t[0] + suma(t[1:])
-  >>> suma((1, 2, 3, 4))
+  def suma(l):
+      res = 0
+      for e in l:
+          res += e
+      return res
+  ```
+
+  ```python
+  >>> suma([1, 2, 3, 4])
   10
   ```
 
-- Y para calcular el producto:
+  :::
+
+  ::: {.column width=4%}
+
+  :::
+
+  ::: {.column width=48%}
 
   ```python
-  >>> producto = lambda t: 1 if t == () else t[0] * producto(t[1:])
-  >>> producto((1, 2, 3, 4))
+  def producto(l):
+      res = 1
+      for e in l:
+          res *= e
+      return res
+  ```
+
+  ```python
+  >>> producto([1, 2, 3, 4])
   24
   ```
+
+  :::
+
+  ::::
 
 - Como podemos observar, la estrategia de cálculo es esencialmente la misma;
   sólo se diferencian en la _operación_ a realizar (`+` o `*`) y en el _valor
@@ -1275,10 +1332,17 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   ```python
   from functools import reduce
+
   tupla = (1, 2, 3, 4)
-  suma_de_numeros = lambda tupla: reduce(lambda x, y: x + y, tupla, 0)
-  producto_de_numeros = lambda tupla: reduce(lambda x, y: x * y, tupla, 1)
+
+  def suma_de_numeros(tupla):
+      return reduce(lambda x, y: x + y, tupla, 0)
+
+  def producto_de_numeros(tupla):
+      return reduce(lambda x, y: x * y, tupla, 1)
   ```
+
+---
 
 - También podemos importar y usar las funciones `add` y `mul` del módulo
   `operator`, las cuales actúan, respectivamente, como el operador `+` y `*`:
@@ -1286,9 +1350,14 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   ```python
   from functools import reduce
   from operator import add, mul
+
   tupla = (1, 2, 3, 4)
-  suma_de_numeros = lambda tupla: reduce(add, tupla, 0)
-  producto_de_numeros = lambda tupla: reduce(mul, tupla, 1)
+
+  def suma_de_numeros(tupla):
+      return reduce(add, tupla, 0)
+
+  def producto_de_numeros(tupla):
+      return reduce(mul, tupla, 1)
   ```
 
   De esta forma, usamos `add` y `mul` en lugar de las expresiones lambda
@@ -1429,8 +1498,10 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Una forma (con valor inicial obligatorio) podría ser así:
 
   ```python
-  reduce = lambda fun, tupla, ini: ini if tupla == () else \
-                                   reduce(fun, tupla[1:], fun(ini, tupla[0]))
+  def reduce(fun, tupla, ini):
+      if len(tupla) == 0:
+          return ini
+      return reduce(fun, tupla[1:], fun(ini, tupla[0]))
   ```
 
 ## Expresiones generadoras
