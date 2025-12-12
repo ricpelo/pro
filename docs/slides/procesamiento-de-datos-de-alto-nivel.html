@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -1526,8 +1528,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a h
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div></li>
 <li><p>Es evidente que hay un patrón subyacente que se podría abstraer
 creando una función de orden superior que aplique una función <code
-class="sourceCode python">f</code> a los elementos de una tupla y
-devuelva la tupla resultante.</p></li>
+class="sourceCode python">f</code> a los elementos de una lista y
+devuelva la lista resultante.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.2">
@@ -1542,7 +1544,7 @@ class="math inline">\texttt{map(\(func\),\;\(iterable\))\;-&gt;\;Iterator}</span
 </div>
 <p>donde:</p>
 <ul>
-<li><p><em>func</em> debe ser una función de un solo argumento.</p></li>
+<li><p><em>func</em> debe ser una función de un sol parámetro.</p></li>
 <li><p><em>iterable</em> puede ser cualquier iterable.</p></li>
 </ul></li>
 </ul>
@@ -1605,7 +1607,7 @@ condición.</p></li>
 <p><span
 class="math inline">\texttt{filter(\(function\),\;\(iterable\))\;-&gt;\;Iterator}</span></p>
 </div>
-<p>donde <em>function</em> debe ser una función de un solo argumento que
+<p>donde <em>function</em> debe ser una función de un solo parámetro que
 devuelva un <em>booleano</em>.</p></li>
 <li><p>Como <code
 class="sourceCode python"><span class="bu">map</span></code>, también
@@ -1628,7 +1630,7 @@ class="sourceCode python"><span class="bu">reduce</span></code> es una
 <em>acumulativa</em>, una función a todos los elementos de un
 <em>iterable</em>.</p></li>
 <li><p>Captura un <strong>patrón muy frecuente</strong> de recursión
-sobre secuencias.</p></li>
+sobre iterables.</p></li>
 <li><p>Por ejemplo, para calcular la suma y el producto de todos los
 elementos de una lista, haríamos:</p>
 <div class="columns">
@@ -1679,8 +1681,8 @@ class="math inline">\texttt{reduce(\(function\),\;\(sequence\)\;\([\),\;\(initia
 </div>
 <p>donde:</p>
 <ul>
-<li><p><em>function</em> debe ser una función que reciba dos
-argumentos.</p></li>
+<li><p><em>function</em> debe ser una función de dos
+parámetros.</p></li>
 <li><p><em>sequence</em> debe ser cualquier objeto iterable
 (normalmente, una secuencia como una cadena, una tupla o un
 rango).</p></li>
@@ -1790,8 +1792,8 @@ class="sourceCode python"><span class="dv">0</span></code>.</p></li>
 <li><p>Si <strong>no se indica un valor inicial</strong>, tenemos que:
 <span class="math display">\texttt{reduce(\(f\),\;\((e_1, e_2, \ldots,
 e_n)\))} = f(\ldots{}f(f(e_1, e_2), e_3), \ldots, e_n)</span></p>
-<p>Es decir: se usará el primer elemento del iterable como valor
-inicial.</p></li>
+<p>Es decir: el valor inicial será el primer elemento del
+iterable.</p></li>
 <li><p>Por ejemplo, la siguiente llamada a <code>reduce</code>:</p>
 <div class="sourceCode" id="cb48"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">reduce</span>(add, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
@@ -2167,11 +2169,11 @@ class="sourceCode python"><span class="bu">tuple</span>[<span class="bu">int</sp
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>

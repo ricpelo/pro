@@ -1143,7 +1143,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 - Es evidente que hay un patrón subyacente que se podría abstraer creando una
   función de orden superior que aplique una función !PYTHON(f) a los elementos
-  de una tupla y devuelva la tupla resultante.
+  de una lista y devuelva la lista resultante.
 
 ---
 
@@ -1157,7 +1157,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   donde:
 
-  - _func_ debe ser una función de un solo argumento.
+  - _func_ debe ser una función de un sol parámetro.
 
   - _iterable_ puede ser cualquier iterable.
 
@@ -1217,7 +1217,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   $\texttt{filter(!VAR(function),\;!VAR(iterable))\;->\;Iterator}$
   ~~~~~~~~~~~~~~~~~~~~~
 
-  donde _function_ debe ser una función de un solo argumento que devuelva un
+  donde _function_ debe ser una función de un solo parámetro que devuelva un
   _booleano_.
 
 - Como !PYTHON(map), también devuelve un _iterador_.
@@ -1235,7 +1235,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - !PYTHON(reduce) es una **función de orden superior** que aplica, de forma
   _acumulativa_, una función a todos los elementos de un *iterable*.
 
-- Captura un **patrón muy frecuente** de recursión sobre secuencias.
+- Captura un **patrón muy frecuente** de recursión sobre iterables.
 
 - Por ejemplo, para calcular la suma y el producto de todos los elementos de
   una lista, haríamos:
@@ -1303,7 +1303,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   donde:
 
-  - _function_ debe ser una función que reciba dos argumentos.
+  - _function_ debe ser una función de dos parámetros.
 
   - _sequence_ debe ser cualquier objeto iterable (normalmente, una secuencia
     como una cadena, una tupla o un rango).
@@ -1411,7 +1411,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Si **no se indica un valor inicial**, tenemos que:
   $$\texttt{reduce(!VAR(f),\;!VAR((e_1, e_2, \ldots, e_n)))} = f(\ldots{}f(f(e_1, e_2), e_3), \ldots, e_n)$$
 
-  Es decir: se usará el primer elemento del iterable como valor inicial.
+  Es decir: el valor inicial será el primer elemento del iterable.
 
 - Por ejemplo, la siguiente llamada a `reduce`:
 
