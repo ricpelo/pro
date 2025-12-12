@@ -1640,23 +1640,45 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
   donde la salida de una etapa es la entrada de la siguiente, como en una
   cadena de montaje.
 
+- Es una técnica usada principalmente en programación funcional, aunque también
+  es muy útil en programación imperativa.
+
 - El esquema general es el siguiente, con posibles ligeras variaciones:
 
-!DOT(procesamiento-flujos)()(width=50%)(width=50%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Generación -> Filtrado -> Mapeado -> Acumulación
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(procesamiento-flujos)()(width=75%)(width=75%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Generación -> Filtrado -> Mapeado -> Acumulación
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Para que esta solución funcione de manera eficiente, es importante que los
+  datos intermedios (los generados entre una etapa y la siguiente) sean
+  exactamente los que la etapa siguiente necesita, ni más ni menos.
+
+- Cuando una etapa necesite generar un nuevo dato de salida, le pedirá un
+  nuevo dato de entrada a la etapa anterior, y así sucesivamente.
+
+- Eso significa que entre etapas se deben intercambiar datos perezosos (es
+  decir, flujos), de manera que los datos intercambiados sean justamente los
+  que cada etapa necesita.
+
+- Si el flujo de datos intercambiado no fuera perezoso, se crearían en memoria
+  muchísimos datos intermedios innecesarios de conservar.
+
+- La idea clave es pensar que las cuatro etapas funcionan a la vez, y NO pensar
+  que una etapa empieza y termina antes de empezar la siguiente.
+
+---
 
 - Este esquema se puede trasladar al uso de funciones ya conocidas, de la
   siguiente forma:
 
-!DOT(procesamiento-flujos-funciones)(Procesamiento de flujos con funciones)(width=50%)(width=50%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fontname = "monospace"]
-range -> filter -> map -> reduce
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
+  !DOT(procesamiento-flujos-funciones)()(width=70%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fontname = "monospace"]
+  range -> filter -> map -> reduce
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, supongamos el siguiente problema:
 

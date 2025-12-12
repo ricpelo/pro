@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -2022,29 +2023,46 @@ diseño de programas que se basa en estudiar cómo se transforman los
 datos de entrada en datos de salida y descomponer dicha transformación
 en una secuencia de etapas intermedias donde la salida de una etapa es
 la entrada de la siguiente, como en una cadena de montaje.</p></li>
+<li><p>Es una técnica usada principalmente en programación funcional,
+aunque también es muy útil en programación imperativa.</p></li>
 <li><p>El esquema general es el siguiente, con posibles ligeras
-variaciones:</p></li>
-</ul>
+variaciones:</p>
 <div class="centered">
 <p><img data-src="images/procesamiento-flujos.svg" class="plain"
-style="width:50.0%" /></p>
-</div>
-<ul>
-<li>Este esquema se puede trasladar al uso de funciones ya conocidas, de
-la siguiente forma:</li>
+style="width:75.0%" /></p>
+</div></li>
 </ul>
-<div class="centered">
-<figure>
-<img data-src="images/procesamiento-flujos-funciones.svg" class="plain"
-style="width:50.0%" alt="Procesamiento de flujos con funciones" />
-<figcaption aria-hidden="true">Procesamiento de flujos con
-funciones</figcaption>
-</figure>
-</div>
 </section>
 <section class="slide level5" data-number="3.6.0.0.1">
 
 <ul>
+<li><p>Para que esta solución funcione de manera eficiente, es
+importante que los datos intermedios (los generados entre una etapa y la
+siguiente) sean exactamente los que la etapa siguiente necesita, ni más
+ni menos.</p></li>
+<li><p>Cuando una etapa necesite generar un nuevo dato de salida, le
+pedirá un nuevo dato de entrada a la etapa anterior, y así
+sucesivamente.</p></li>
+<li><p>Eso significa que entre etapas se deben intercambiar datos
+perezosos (es decir, flujos), de manera que los datos intercambiados
+sean justamente los que cada etapa necesita.</p></li>
+<li><p>Si el flujo de datos intercambiado no fuera perezoso, se crearían
+en memoria muchísimos datos intermedios innecesarios de
+conservar.</p></li>
+<li><p>La idea clave es pensar que las cuatro etapas funcionan a la vez,
+y NO pensar que una etapa empieza y termina antes de empezar la
+siguiente.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.6.0.0.2">
+
+<ul>
+<li><p>Este esquema se puede trasladar al uso de funciones ya conocidas,
+de la siguiente forma:</p>
+<div class="centered">
+<p><img data-src="images/procesamiento-flujos-funciones.svg"
+class="plain" style="width:70.0%" /></p>
+</div></li>
 <li><p>Por ejemplo, supongamos el siguiente problema:</p>
 <p>«<em>Dada una lista con los <span class="math inline">n</span>
 primeros números naturales, obtener la suma de los cuadrados de los
