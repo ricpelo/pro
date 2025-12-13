@@ -1675,8 +1675,8 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 ---
 
-- Este esquema se puede trasladar al uso de funciones ya conocidas, de la
-  siguiente forma:
+- Este esquema se puede implementar mediante la composición de funciones ya
+  conocidas, de la siguiente forma:
 
   !DOT(procesamiento-flujos-funciones)()(width=70%)(width=70%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
