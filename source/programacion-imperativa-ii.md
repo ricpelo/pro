@@ -1685,6 +1685,66 @@ False
   hola pepe 23-
   ```
 
+---
+
+- En la documentación de Python, la signatura de una función puede contener
+  entre sus parámetros los símbolos «`/`» y/o «`*`» (los dos o sólo uno de los
+  dos).
+
+- Por ejemplo:
+
+  ```python
+  exec(source, /, globals=None, locals=None, *, closure=None)
+  ```
+
+- Esos símbolos representan marcadores que señalan lo siguiente:
+
+  - Hasta `/`: Los argumentos sólo se pueden pasar por posición.
+
+  - Entre `/` y `*`: Los argumentos se pueden pasar por posición o por palabra
+    clave.
+
+  - A partir de `*`: Los argumentos se pasan sólo por palabra clave.
+
+- En el caso del ejemplo anterior:
+
+  - `source` sólo se puede pasar por posición.
+
+  - `globals` y `locals` se pueden pasar por posición o por palabra clave.
+
+  - `closure` sólo se puede pasar por palabra clave.
+
+---
+
+- Diagrama visual:
+
+  ```
+  def g(a, b, /, c, d, *, e, f):
+           |  |     |  |     |
+           |  |     |  |     +-- parámetros sólo por palabras clave (e, f)
+           |  |     |  +-------- indica inicio de sólo palabras clave
+           |  |     +----------- parámetros posicionales o por palabras clave (c, d)
+           |  +----------------- indica fin de sólo posicionales
+           +-------------------- parámetros sólo posicionales (a, b)
+  ```
+
+- Ejemplos de llamadas:
+
+  ---------------------------------------------------------------------------------------------
+  Llamada                                     ¿Válida?   Comentario
+  -----------------------------------------  ----------  -------------------------------------- 
+  !PYTHON{g(1, 2, 3, 4, e=5, f=6)}               Sí      `a`, `b`, `c`, `d`: posicionales \
+                                                         `e`, `f`: por palabras clave
+                                                             
+  !PYTHON{g(1, 2, c=3,} \                        Sí      `a`, `b`: posicionales \
+  \ \ \ \ \ \ !PYTHON{d=4, e=5, f=6)}                    `c`, `d`, `e`, `f`: por palabras clave
+                                                             
+  !PYTHON{g(a=1, b=2, c=3,} \                    No      `a`, `b`: son sólo posicionales
+  \ \ \ \ \ \ !PYTHON{d=4, e=5, f=6)}
+                                                             
+  !PYTHON{g(1, 2, 3, 4, 5, 6)}                   No      `e`, `f`: deben ser por palabras clave
+  ---------------------------------------------------------------------------------------------
+
 #### El valor !PYTHON(None)
 
 - Es importante resaltar que la función !PYTHON(print) **no devuelve** el valor

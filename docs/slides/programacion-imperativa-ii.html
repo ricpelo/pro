@@ -14,9 +14,6 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -32,9 +29,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -45,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -100,6 +96,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -2034,6 +2031,100 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a h
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span><span class="op">-</span></span></code></pre></div></li>
 </ul>
 </section>
+<section class="slide level5" data-number="3.1.2.1.2">
+
+<ul>
+<li><p>En la documentación de Python, la signatura de una función puede
+contener entre sus parámetros los símbolos «<code>/</code>» y/o
+«<code>*</code>» (los dos o sólo uno de los dos).</p></li>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(source, <span class="op">/</span>, <span class="bu">globals</span><span class="op">=</span><span class="va">None</span>, <span class="bu">locals</span><span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, closure<span class="op">=</span><span class="va">None</span>)</span></code></pre></div></li>
+<li><p>Esos símbolos representan marcadores que señalan lo
+siguiente:</p>
+<ul>
+<li><p>Hasta <code>/</code>: Los argumentos sólo se pueden pasar por
+posición.</p></li>
+<li><p>Entre <code>/</code> y <code>*</code>: Los argumentos se pueden
+pasar por posición o por palabra clave.</p></li>
+<li><p>A partir de <code>*</code>: Los argumentos se pasan sólo por
+palabra clave.</p></li>
+</ul></li>
+<li><p>En el caso del ejemplo anterior:</p>
+<ul>
+<li><p><code>source</code> sólo se puede pasar por posición.</p></li>
+<li><p><code>globals</code> y <code>locals</code> se pueden pasar por
+posición o por palabra clave.</p></li>
+<li><p><code>closure</code> sólo se puede pasar por palabra
+clave.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.2.1.3">
+
+<ul>
+<li><p>Diagrama visual:</p>
+<pre><code>def g(a, b, /, c, d, *, e, f):
+         |  |     |  |     |
+         |  |     |  |     +-- parámetros sólo por palabras clave (e, f)
+         |  |     |  +-------- indica inicio de sólo palabras clave
+         |  |     +----------- parámetros posicionales o por palabras clave (c, d)
+         |  +----------------- indica fin de sólo posicionales
+         +-------------------- parámetros sólo posicionales (a, b)</code></pre></li>
+<li><p>Ejemplos de llamadas:</p>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 12%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Llamada</th>
+<th style="text-align: center;">¿Válida?</th>
+<th style="text-align: left;">Comentario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python">g(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, e<span class="op">=</span><span class="dv">5</span>, f<span class="op">=</span><span class="dv">6</span>)</code></td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: left;"><code>a</code>, <code>b</code>,
+<code>c</code>, <code>d</code>: posicionales<br />
+<code>e</code>, <code>f</code>: por palabras clave</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python">g(<span class="dv">1</span>, <span class="dv">2</span>, c<span class="op">=</span><span class="dv">3</span>,</code><br />
+      <code
+class="sourceCode python">d<span class="op">=</span><span class="dv">4</span>, e<span class="op">=</span><span class="dv">5</span>, f<span class="op">=</span><span class="dv">6</span>)</code></td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: left;"><code>a</code>, <code>b</code>:
+posicionales<br />
+<code>c</code>, <code>d</code>, <code>e</code>, <code>f</code>: por
+palabras clave</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python">g(a<span class="op">=</span><span class="dv">1</span>, b<span class="op">=</span><span class="dv">2</span>, c<span class="op">=</span><span class="dv">3</span>,</code><br />
+      <code
+class="sourceCode python">d<span class="op">=</span><span class="dv">4</span>, e<span class="op">=</span><span class="dv">5</span>, f<span class="op">=</span><span class="dv">6</span>)</code></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;"><code>a</code>, <code>b</code>: son sólo
+posicionales</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python">g(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</code></td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;"><code>e</code>, <code>f</code>: deben ser
+por palabras clave</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</section>
 
 <section id="el-valor-none" class="title-slide slide level4"
 data-number="3.1.2.2">
@@ -2047,13 +2138,13 @@ class="sourceCode python"><span class="bu">print</span></code>
 <strong>imprime</strong> (provoca el efecto lateral de cambiar la
 pantalla haciendo que aparezcan nuevos caracteres).</p></li>
 <li><p>Por tanto, no es lo mismo hacer:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;Hola mundo&#39;</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Hola mundo&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&#39;Hola mundo&#39;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Hola mundo&#39;</span></span></code></pre></div>
 <p>que hacer:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola mundo&#39;</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>Hola mundo</span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola mundo&#39;</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>Hola mundo</span></code></pre></div></li>
 <li><p>La función <code
 class="sourceCode python"><span class="bu">print</span></code> como tal
 no devuelve ningún valor, pero como en Python todas las funciones deben
@@ -2085,16 +2176,16 @@ montículo, que se crea justo al arrancar el intérprete.</p></li>
 <li><p>Podemos comprobar que, efectivamente, <code
 class="sourceCode python"><span class="bu">print</span></code> devuelve
 <code class="sourceCode python"><span class="va">None</span></code>:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>) <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de print es None</span></span></code></pre></div></li>
 <li><p>Otra forma, usando variables:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> <span class="va">None</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de x es None</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>hola pepe <span class="dv">23</span>  <span class="co"># ésto es lo que imprime print</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>          <span class="co"># ésto es el resultado de comprobar si el valor de x es None</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2119,11 +2210,11 @@ class="sourceCode python"><span class="bu">str</span></code>]<code>) -&gt;</code
 <code
 class="sourceCode python"><span class="bu">str</span></code></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>Introduce tu nombre: Ramón</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>Hola, Ramón</span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> nombre <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Introduce tu nombre: &#39;</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>Introduce tu nombre: Ramón</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;Hola,&#39;</span>, nombre)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>Hola, Ramón</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.3.0.1">
@@ -2162,8 +2253,8 @@ operativo, llamando al intérprete por lotes y pasándole el nombre del
 <li><p>Por ejemplo, para ejecutar el <em>script</em>
 <code>programa.py</code>, el usuario escribiría lo siguiente en un
 terminal del sistema operativo:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python programa.py</span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python programa.py</span></code></pre></div></li>
 <li><p>Observar que no se usa ninguna opción en la orden; solamente el
 nombre del archivo.</p></li>
 </ul>
@@ -2241,29 +2332,29 @@ orden en el que aparecen en la línea de órdenes.</p></li>
 <li><p>Por ejemplo, un programa puede saludar al usuario dirigiéndose a
 él por su nombre, el cual tendrá que pasarlo mediante la línea de
 órdenes de la siguiente forma:</p>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python saluda.py Ricardo</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python saluda.py Ricardo</span></code></pre></div></li>
 <li><p>Al ejecutar el <em>script</em> <code>saluda.py</code>, el nombre
 del <em>script</em> aparecerá en <code
 class="sourceCode python">sys.argv[<span class="dv">0</span>]</code> y
 el primer argumento enviado al mismo (en este caso, el nombre del
 usuario <code>Ricardo</code>) aparecerá en <code
 class="sourceCode python">sys.argv[<span class="dv">1</span>]</code>:</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span></code></pre></div></li>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span></code></pre></div></li>
 <li><p>Si el usuario no le pasa ningún argumento en la línea de órdenes,
 <code
 class="sourceCode python">sys.argv[<span class="dv">1</span>]</code> no
 existirá y se producirá un error <code
 class="sourceCode python"><span class="pp">IndexError</span></code> al
 intentar acceder a él:</p>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>$ python saluda.py</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;saluda.py&quot;</span>, line <span class="dv">2</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="pp">IndexError</span>: <span class="bu">list</span> index out of <span class="bu">range</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>$ python saluda.py</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;saluda.py&quot;</span>, line <span class="dv">2</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&#39;¡Hola,&#39;</span>, sys.argv[<span class="dv">1</span>])</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="pp">IndexError</span>: <span class="bu">list</span> index out of <span class="bu">range</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.1.0.2">
@@ -2274,15 +2365,15 @@ mediante la línea de órdenes.</p></li>
 <li><p>En este caso, hay que tener en cuenta que los argumentos siempre
 se pasan como cadenas, así que habría que convertirlos previamente a
 números:</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">1</span>])</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">2</span>])</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;La suma de&#39;</span>, x, <span class="st">&#39;+&#39;</span>, y, <span class="st">&#39;es&#39;</span>, x <span class="op">+</span> y)</span></code></pre></div></li>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">1</span>])</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">float</span>(sys.argv[<span class="dv">2</span>])</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;La suma de&#39;</span>, x, <span class="st">&#39;+&#39;</span>, y, <span class="st">&#39;es&#39;</span>, x <span class="op">+</span> y)</span></code></pre></div></li>
 <li><p>Un ejemplo de ejecución de este programa sería:</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python suma.py 4 3</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>La suma de 4.0 + 3.0 es 7.0</span></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python suma.py 4 3</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>La suma de 4.0 + 3.0 es 7.0</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2291,22 +2382,22 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb54-1"><a
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
+data-entry-spacing="0" role="list">
 <div id="ref-aguilar_fundamentos_2008" class="csl-entry"
 role="listitem">
 Aguilar, Luis Joyanes. 2008. <em>Fundamentos de Programación</em>.
-McGraw-Hill Interamericana de España.
+Aravaca: McGraw-Hill Interamericana de España.
 </div>
 <div id="ref-pareja_flores_desarrollo_1997" class="csl-entry"
 role="listitem">
 Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada,
 and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos y Técnicas
-de Programación En <span>Pascal</span></em>. Ra-Ma.
+de Programación En <span>Pascal</span></em>. Madrid: Ra-Ma.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <em>Sitio Web de Documentación de
-<span>Python</span></em>. <a
+Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
+<span>Python</span>.”</span> <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>
