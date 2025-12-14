@@ -1656,12 +1656,13 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 ---
 
-- Para que esta solución funcione de manera eficiente, es importante que los
-  datos intermedios (los generados entre una etapa y la siguiente) sean
-  exactamente los que la etapa siguiente necesita, ni más ni menos.
+- Para que esta solución funcione de manera eficiente, es importante que una
+  etapa no genere más cantidad de datos de los que va a necesitar la etapa
+  siguiente, sino que genere exactamente los datos necesarios.
 
-- Cuando una etapa necesite generar un nuevo dato de salida, le pedirá un
-  nuevo dato de entrada a la etapa anterior, y así sucesivamente.
+- Para ello, cuando una etapa necesite generar un nuevo dato de salida, le
+  pedirá un nuevo dato de entrada a la etapa anterior, y ésta a la anterior, y
+  así sucesivamente.
 
 - Eso significa que entre etapas se deben intercambiar datos perezosos (es
   decir, flujos), de manera que los datos intercambiados sean justamente los
