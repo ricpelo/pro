@@ -1691,11 +1691,18 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 - Este problema se podría resolver de la siguiente forma:
 
-!DOT(problema-procesamiento-flujos)(Solución mediante procesamiento de flujos)(width=100%)(width=100%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-node [fontname = "monospace"]
-"range(n + 1)" -> "filter(lambda x: x % 2 == 0)" -> "map(lambda x: x ** 2)" -> "reduce(add)"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !DOT(problema-procesamiento-flujos)()(width=100%)(width=100%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fontname = "monospace"]
+  "range(n + 1)" -> "filter(lambda x: x % 2 == 0)" -> "map(lambda x: x ** 2)" -> "reduce(add)"
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Lo que se traduce en la siguiente composición de funciones:
+
+  ```python
+  def suma_cuadrados_impares(n):
+      return sum(map(lambda x: x ** 2, filter(lambda x: x % 2 == 0, range(n + 1))))
+  ```
 
 # Funciones genéricas
 

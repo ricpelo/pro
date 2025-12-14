@@ -2070,16 +2070,16 @@ class="plain" style="width:70.0%" /></p>
 <p>«<em>Dada una lista con los <span class="math inline">n</span>
 primeros números naturales, obtener la suma de los cuadrados de los
 números impares que haya en la lista.</em>»</p></li>
-<li><p>Este problema se podría resolver de la siguiente forma:</p></li>
-</ul>
+<li><p>Este problema se podría resolver de la siguiente forma:</p>
 <div class="centered">
-<figure>
-<img data-src="images/problema-procesamiento-flujos.svg" class="plain"
-style="width:100.0%" alt="Solución mediante procesamiento de flujos" />
-<figcaption aria-hidden="true">Solución mediante procesamiento de
-flujos</figcaption>
-</figure>
-</div>
+<p><img data-src="images/problema-procesamiento-flujos.svg"
+class="plain" style="width:100.0%" /></p>
+</div></li>
+<li><p>Lo que se traduce en la siguiente composición de funciones:</p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma_cuadrados_impares(n):</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>, <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, <span class="bu">range</span>(n <span class="op">+</span> <span class="dv">1</span>))))</span></code></pre></div></li>
+</ul>
 </section>
 </section>
 <section>
@@ -2096,8 +2096,8 @@ Definición y uso</h2>
 <ul>
 <li><p>Esquemáticamente, las <strong>funciones genéricas</strong> tienen
 la siguiente forma:</p>
-<div class="sourceCode" id="cb62"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> func[T](arg: T): ...</span></code></pre></div></li>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> func[T](arg: T): ...</span></code></pre></div></li>
 <li><p>En esta definición, <code>T</code> es una <strong>variable de
 tipo</strong>, es decir, un identificador que representa a un
 <em>tipo</em> cualquiera que en este momento no está
@@ -2120,24 +2120,24 @@ polimórficas</strong>.</p></li>
 <li><p>Por ejemplo, la función que devuelve el máximo elemento de una
 lista donde todos sus elementos son del mismo tipo, se puede anotar de
 la siguiente forma:</p>
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximo[T](l: <span class="bu">list</span>[T]) <span class="op">-&gt;</span> T:</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximo[T](l: <span class="bu">list</span>[T]) <span class="op">-&gt;</span> T:</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div>
 <p>y podríamos llamarla pasándole cualquier tipo de lista, siempre que
 todos los elementos de la lista sean del mismo tipo:</p>
-<div class="sourceCode" id="cb64"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>])</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;d&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;d&#39;</span>])</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;d&#39;</span></span></code></pre></div></li>
 <li><p>Según la signatura de la función, no sería correcto pasarle una
 lista con elementos de diferentes tipos, pero el intérprete no
 detectaría el error ya que no hace comprobación de tipos. De todas
 formas, la función probablemente no funcionaría bien en ese caso, ya que
 es una violación de su especificación:</p>
-<div class="sourceCode" id="cb65"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo([<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>, <span class="va">True</span>, <span class="fl">2.5</span>])  <span class="co"># Incorrecto si se comprueban los tipos</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>???                              <span class="co"># No se sabe cómo se comportará la función en este caso</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb66"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> maximo([<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>, <span class="va">True</span>, <span class="fl">2.5</span>])  <span class="co"># Incorrecto si se comprueban los tipos</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>???                              <span class="co"># No se sabe cómo se comportará la función en este caso</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.2">
@@ -2146,14 +2146,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a h
 <li><p>Una función genérica puede tener <strong>más de un parámetro de
 tipo</strong> en caso necesario.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb66"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> crear_tupla[T, U](elem1: T, elem2: U) <span class="op">-&gt;</span> <span class="bu">tuple</span>[T, U]:</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Crea una tupla con dos elementos.&quot;&quot;&quot;</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (elem1, elem2)</span></code></pre></div></li>
-<li><p>Un ejemplo de uso:</p>
 <div class="sourceCode" id="cb67"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> crear_tupla(<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>)</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> crear_tupla[T, U](elem1: T, elem2: U) <span class="op">-&gt;</span> <span class="bu">tuple</span>[T, U]:</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Crea una tupla con dos elementos.&quot;&quot;&quot;</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (elem1, elem2)</span></code></pre></div></li>
+<li><p>Un ejemplo de uso:</p>
+<div class="sourceCode" id="cb68"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> crear_tupla(<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>)</span></code></pre></div>
 <p>Aquí, mandamos a la función un elemento de tipo <code
 class="sourceCode python"><span class="bu">int</span></code> y otro de
 tipo <code class="sourceCode python"><span class="bu">str</span></code>,
