@@ -1685,6 +1685,18 @@ False
   hola pepe 23-
   ```
 
+- La signatura de la función !PYTHON(print) es:
+
+  ```python
+  print(*args, sep=' ', end='\n', file=None, flush=False)
+  ```
+
+- La sintaxis «!PYTHON(*args)» significa que !PYTHON(print) admite un número
+  variable de argumentos posicionales.
+
+- Los otros parámetros (`sep`, `end`, `file` y `flush`) se pasan por palabras
+  clave.
+
 ---
 
 - En la documentación de Python, la signatura de una función puede contener
