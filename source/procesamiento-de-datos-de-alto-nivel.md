@@ -1647,7 +1647,8 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Es una técnica usada principalmente en programación funcional, aunque también
   es muy útil en programación imperativa.
 
-- El esquema general es el siguiente, con posibles ligeras variaciones:
+- El esquema general es el siguiente, con posibles ligeras variaciones (mayor o
+  menor cantidad de etapas):
 
   !DOT(procesamiento-flujos)()(width=75%)(width=75%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
