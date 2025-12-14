@@ -2063,14 +2063,57 @@ clave.</p></li>
 <section class="slide level5" data-number="3.1.2.1.3">
 
 <ul>
+<li><p>Algunos o todos los marcadores pueden omitirse:</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr>
+<th>Signatura de la función</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="sourceCode python">g(a, b, c)</code></td>
+<td>Todos los parámetros son posicionales o por palabras clave</td>
+</tr>
+<tr>
+<td><code
+class="sourceCode python">g(a, b, <span class="op">/</span>, c)</code></td>
+<td><code>a, b</code> sólo posicionales, <code>c</code> posicional o por
+palabra clave</td>
+</tr>
+<tr>
+<td><code
+class="sourceCode python">g(a, <span class="op">*</span>, b)</code></td>
+<td><code>a</code> posicional, <code>b</code> sólo por palabra
+clave</td>
+</tr>
+<tr>
+<td><code
+class="sourceCode python">g(a, <span class="op">/</span>, b, <span class="op">*</span>, c)</code></td>
+<td><code>a</code> posicional, <code>b</code> posicional o por palabra
+clave, <code>c</code> sólo por palabra clave</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.2.1.4">
+
+<ul>
 <li><p>Diagrama visual:</p>
-<pre><code>def g(a, b, /, c, d, *, e, f):
-         |  |     |  |     |
-         |  |     |  |     +-- parámetros sólo por palabras clave (e, f)
-         |  |     |  +-------- indica inicio de sólo palabras clave
-         |  |     +----------- parámetros posicionales o por palabras clave (c, d)
-         |  +----------------- indica fin de sólo posicionales
-         +-------------------- parámetros sólo posicionales (a, b)</code></pre></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> g(a, b, <span class="op">/</span>, c, d, <span class="op">*</span>, e, f):</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">|</span>  <span class="op">|</span>     <span class="op">|</span>  <span class="op">|</span>     <span class="op">|</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>         <span class="op">|</span>  <span class="op">|</span>     <span class="op">|</span>  <span class="op">|</span>     <span class="op">+--</span> parámetros sólo por palabras clave (e, f)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>         <span class="op">|</span>  <span class="op">|</span>     <span class="op">|</span>  <span class="op">+--------</span> indica inicio de sólo palabras clave</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>         <span class="op">|</span>  <span class="op">|</span>     <span class="op">+-----------</span> parámetros posicionales o por palabras clave (c, d)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>         <span class="op">|</span>  <span class="op">+-----------------</span> indica fin de sólo posicionales</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>         <span class="op">+--------------------</span> parámetros sólo posicionales (a, b)</span></code></pre></div></li>
 <li><p>Ejemplos de llamadas:</p>
 <table>
 <colgroup>
@@ -2165,12 +2208,13 @@ class="sourceCode python"><span class="bu">print</span></code>.</p></li>
 <ul>
 <li><p>Pertenece a un tipo de datos especial llamado <code
 class="sourceCode python">NoneType</code> cuyo único valor posible es
-<code class="sourceCode python"><span class="va">None</span></code>, y
-para comprobar si un valor es <code
+<code
+class="sourceCode python"><span class="va">None</span></code>.</p></li>
+<li><p>Para comprobar si un valor es <code
 class="sourceCode python"><span class="va">None</span></code> se usa
 <span style="color:teal">⟨<em>valor</em>⟩</span>  <code
-class="sourceCode python"><span class="kw">is</span> <span class="va">None</span></code>.</p>
-<p>Sólo existe un único valor <code
+class="sourceCode python"><span class="kw">is</span> <span class="va">None</span></code>.</p></li>
+<li><p>Sólo existe un único valor <code
 class="sourceCode python"><span class="va">None</span></code> en el
 montículo, que se crea justo al arrancar el intérprete.</p></li>
 <li><p>Podemos comprobar que, efectivamente, <code

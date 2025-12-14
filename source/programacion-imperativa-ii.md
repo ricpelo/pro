@@ -1716,9 +1716,20 @@ False
 
 ---
 
+- Algunos o todos los marcadores pueden omitirse:
+
+  | Signatura de la función                      | Qué significa                                                                  |
+  | -------------------------------------------- | ------------------------------------------------------------------------------ |
+  | !PYTHON(g(a, b, c))                          | Todos los parámetros son posicionales o por palabras clave                     |
+  | !PYTHON(g(a, b, /, c))                       | `a, b` sólo posicionales, `c` posicional o por palabra clave                   |
+  | !PYTHON(g(a, *, b))                          | `a` posicional, `b` sólo por palabra clave                                     |
+  | !PYTHON(g(a, /, b, *, c))                    | `a` posicional, `b` posicional o por palabra clave, `c` sólo por palabra clave |
+
+---
+
 - Diagrama visual:
 
-  ```
+  ```python
   def g(a, b, /, c, d, *, e, f):
            |  |     |  |     |
            |  |     |  |     +-- parámetros sólo por palabras clave (e, f)
@@ -1776,10 +1787,12 @@ False
 ---
 
 - Pertenece a un tipo de datos especial llamado !PYTHON(NoneType) cuyo único
-  valor posible es !PYTHON(None), y para comprobar si un valor es !PYTHON(None)
-  se usa !NT(valor)\  !PYTHON(is None).
+  valor posible es !PYTHON(None).
+
+- Para comprobar si un valor es !PYTHON(None) se usa
+  !NT(valor)\  !PYTHON(is None).
  
-  Sólo existe un único valor !PYTHON(None) en el montículo, que se crea justo
+- Sólo existe un único valor !PYTHON(None) en el montículo, que se crea justo
   al arrancar el intérprete.
 
 - Podemos comprobar que, efectivamente, !PYTHON(print) devuelve !PYTHON(None):
