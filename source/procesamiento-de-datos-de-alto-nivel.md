@@ -82,10 +82,13 @@ nocite: |
   **componentes** o **elementos**, los cuales representan su **contenido**.
 
 - Por contra, los datos no estructurados se denominan **datos elementales**,
-  **escalares** o **atómicos**.
+  **escalares** o **atómicos**, que son aquellos que representan a un único
+  dato y se manipulan como unidades atómicas o indivisibles.
 
 - Un **tipo de dato estructurado**, también llamado **tipo compuesto**, es
   aquel cuyos valores son datos estructurados.
+
+---
 
 - Normalmente, se puede **acceder** de manera individual a los elementos que
   componen un dato estructurado y, a veces, también se pueden **modificar**
@@ -182,7 +185,7 @@ cambiar también su estado interno.
 ---
 
 $$\text{Tipos} \begin{cases}
-\text{Escalares} \\ \\
+\text{Escalares (\texttt{int}, \texttt{float}, \texttt{bool}, \texttt{NoneType}, \ldots)} \\ \\
     \text{Estructurados} \begin{cases}
         \text{Secuencias} \begin{cases}
             \text{Inmutables} \begin{cases}
