@@ -103,20 +103,28 @@ nocite: |
 
 - En Python, el término más utilizado es el de **_colección_**.
 
-- Una **colección** en Python es un objeto que **almacena o genera múltiples
-  elementos en memoria** y provee una **interfaz estandarizada** para acceder,
-  recorrer y consultar sus elementos.
+- Una **colección** en Python es un objeto que **representa un número finito de
+  elementos (bien almacenándolos o bien generándolos)**, y que proporciona una
+  **interfaz estandarizada** para acceder, recorrer y consultar esos elementos.
 
-- Entre otras operaciones, una colección admite la función !PYTHON(len) para
-  consultar el número de elementos que contiene.
+- Entre otras operaciones, una colección admite:
 
-- Además, dispone de otras operaciones dependiendo del tipo concreto de
-  colección que se trate.
+  - Consultar su **tamaño** (es decir, el número de elementos que contiene),
+    mediante la función !PYTHON(len).
+
+  - Consultar si un elemento **pertenece** a la colección, mediante el operador
+    !PYTHON(in).
+
+  - Además, dispone de otras operaciones dependiendo del tipo concreto de
+    colección que se trate.
+
+- Las colecciones en Python son todos objetos _iterables_ (concepto que
+  estudiaremos en breve).
 
 ## Clasificación
 
 - Los **datos estructurados** se pueden clasificar atendiendo a su
-  _secuencialidad_ y a su _mutabilidad_.
+  _secuencialidad_, a su _mutabilidad_ y a su _materiabilidad_.
 
 - Según su **secuencialidad**:
 
@@ -156,6 +164,20 @@ cambiar también su estado interno.
   consiguiente, su estado interno.
 
   Su identidad no ha cambiado, pero su estado interno sí.
+
+---
+
+- Según su **materiabilidad**:
+
+  - **Materializadas**: todos los elementos se encuentran almacenados en
+    memoria simultáneamente ocupando el espacio que sea necesario.
+
+  - **Calculadas**: los elementos no están todos almacenados en memoria
+    simultáneamente, sino que se calculan y se entregan individualmente a
+    medida que se accede a cada uno de ellos.
+
+- En Python, los **rangos** son colecciones calculadas, mientras que el resto
+  de colecciones son materializadas.
 
 ---
 
