@@ -1603,7 +1603,7 @@ $$
 
 ---
 
-- Sintácticamente, la **llamada a una función** tiene esta forma:
+- Sintácticamente, la **llamada a una función** tiene esta forma simplificada:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1820,7 +1820,7 @@ $$
 **Conclusión: las funciones también son valores.**
 ~~~~~~~~~~~~~~~~~~~~~
 
-### Evaluación de expresiones con funciones
+### Evaluación de expresiones con llamadas a funciones
 
 - **Una llamada a función es una expresión válida**, por lo que podemos colocar
   una llamada a función en cualquier lugar donde sea sintácticamente correcto
