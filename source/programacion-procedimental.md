@@ -849,6 +849,43 @@ Una función puede llamar a otra.
 - En este caso, además, la función !PYTHON(print) tampoco dará ningún error ya
   que puede imprimir valores de tipo entero.
 
+### Argumentos por defecto
+
+- Podemos definir funciones imperativas que contengan parámetros con valores
+  por defecto (llamados _argumentos por defecto_ en las llamadas a la función).
+
+  ```python
+  def imprimir_potencia(base, exponente=2):
+      print(base ** exponente)
+  ```
+
+- Ejemplos de llamadas a la función:
+
+  ```python
+  >>> potencia(3)        # Aquí exponente toma su valor por defecto (2)
+  9
+  >>> potencia(3, 4)     # Aquí exponente toma el valor 4
+  81
+  >>> potencia(base=2, exponente=4)  # Paso de argumentos por palabras clave
+  16
+  ```
+
+### Paso de argumentos por palabra clave
+
+- Usando los marcadores `/` y `*` podemos forzar el paso de argumentos
+  posicionales o por palabras clave:
+
+  ```python
+  def imprimir_potencia(/, base, *, exponente=2):
+      print(base ** exponente)
+  ```
+
+- Así:
+
+  - `base` sólo podrá pasarse posicionalmente.
+
+  - `exponente` sólo podrá pasarse por palabra clave.
+
 ## La sentencia !PYTHON(return)
 
 - Para devolver el resultado de la función al código que la llamó, hay que usar
