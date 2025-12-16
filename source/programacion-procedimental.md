@@ -905,15 +905,16 @@ Una función puede llamar a otra.
   ```python
   def agregar_elemento(elemento, lista=[]):
       lista.append(elemento)
-      return lista
+      print(lista)
   ```
 
 - Ejemplo de uso:
 
   ```python
-  print(agregar_elemento(1))  # Esperado: [1]
-  print(agregar_elemento(2))  # Esperado: [2] pero obtenemos [1, 2]
-  print(agregar_elemento(3))  # Esperado: [3] pero obtenemos [1, 2, 3]
+  lst = [25]
+  agregar_elemento(1, lst)  # Esperado: [25, 1]
+  agregar_elemento(2)       # Esperado: [2]
+  agregar_elemento(3)       # Esperado: [3] pero obtenemos [2, 3] !!!!
   ```
 
 ---
@@ -928,6 +929,9 @@ Una función puede llamar a otra.
 
   - Esto causa que los elementos se acumulen inesperadamente.
 
+  - En la práctica, eso significa que la lista !PYTHON(lista) se está
+    compartiendo entre todas las llamadas que no pasan ese argumento.
+
 ---
 
 - Cómo solucionarlo:
@@ -940,15 +944,16 @@ Una función puede llamar a otra.
         if lista is None:
             lista = []
         lista.append(elemento)
-        return lista
+        print(lista)
     ```
 
   - Ejemplo de uso:
 
     ```python
-    print(agregar_elemento(1))  # [1]
-    print(agregar_elemento(2))  # [2]
-    print(agregar_elemento(3))  # [3]
+    lst = [25]
+    agregar_elemento(1, lst)  # Esperado: [25, 1]
+    agregar_elemento(2)       # Esperado: [2]
+    agregar_elemento(3)       # Esperado: [3]
     ```
 
   - Aquí, cada llamada sin lista crea una nueva lista independiente, evitando
