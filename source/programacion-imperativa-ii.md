@@ -1784,8 +1784,11 @@ False
   puede omitir y, en tal caso, el parámetro tomaría su valor por defecto,
   también denominado **argumento por defecto**.
 
+- También se dice que ese parámetro es **opcional**.
+
 - Por ejemplo, la función !PYTHON(int) tiene un parámetro llamado `base` que
-  tiene un valor por defecto !PYTHON(10). Su signatura es:
+  tiene un valor por defecto !PYTHON{10} (y que, por tanto, es _opcional_). Su
+  signatura es:
 
   ```python
   int(x, base=10)

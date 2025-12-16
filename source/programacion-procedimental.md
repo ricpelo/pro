@@ -851,8 +851,9 @@ Una función puede llamar a otra.
 
 ### Argumentos por defecto
 
-- Podemos definir funciones imperativas que contengan parámetros con valores
-  por defecto (llamados _argumentos por defecto_ en las llamadas a la función).
+- Podemos definir funciones imperativas que contengan parámetros
+  **opcionales**, es decir, parámetros con valores por defecto (llamados
+  _argumentos por defecto_ en las llamadas a la función).
 
   ```python
   def imprimir_potencia(base, exponente=2):
@@ -872,7 +873,7 @@ Una función puede llamar a otra.
 
 ### Paso de argumentos por palabra clave
 
-- Usando los marcadores `/` y `*` podemos forzar el paso de argumentos
+- Usando los marcadores «`/`» y «`*`» podemos forzar el paso de argumentos
   posicionales o por palabras clave:
 
   ```python
@@ -880,11 +881,78 @@ Una función puede llamar a otra.
       print(base ** exponente)
   ```
 
-- Así:
+- De esta forma:
 
   - `base` sólo podrá pasarse posicionalmente.
 
   - `exponente` sólo podrá pasarse por palabra clave.
+
+---
+
+- Los valores por defecto se evalúan de izquierda a derecha cuando se ejecuta
+  la definición de la función.
+
+- Esto significa que la expresión que representa a un valor por defecto se
+  evaluará una sola vez (cuando se define la función) y que ese mismo valor
+  «precalculado» se usará siempre cada vez que se llame a la función.
+
+- Esto es especialmente importante cuando el valor por defecto es un objeto
+  mutable, como una lista.
+
+- Si la función modifica el objeto (por ejemplo, añadiendo un elemento a la
+  lista), se estará modificando el valor por defecto :
+
+  ```python
+  def agregar_elemento(elemento, lista=[]):
+      lista.append(elemento)
+      return lista
+  ```
+
+- Ejemplo de uso:
+
+  ```python
+  print(agregar_elemento(1))  # Esperado: [1]
+  print(agregar_elemento(2))  # Esperado: [2] pero obtenemos [1, 2]
+  print(agregar_elemento(3))  # Esperado: [3] pero obtenemos [1, 2, 3]
+  ```
+
+---
+
+- Qué está pasando:
+
+  - Cuando se define !PYTHON(lista=[]) como valor por defecto, Python crea esa
+    lista una sola vez cuando se define la función.
+
+  - Cada vez que se llama a la función sin pasar un argumento para `lista`,
+    se usa la misma lista que se fue modificando en llamadas anteriores.
+
+  - Esto causa que los elementos se acumulen inesperadamente.
+
+---
+
+- Cómo solucionarlo:
+
+  - Se recomienda usar !PYTHON(None) como valor por defecto y crear la lista
+    dentro de la función si es necesario:
+
+    ```python
+    def agregar_elemento(elemento, lista=None):
+        if lista is None:
+            lista = []
+        lista.append(elemento)
+        return lista
+    ```
+
+  - Ejemplo de uso:
+
+    ```python
+    print(agregar_elemento(1))  # [1]
+    print(agregar_elemento(2))  # [2]
+    print(agregar_elemento(3))  # [3]
+    ```
+
+  - Aquí, cada llamada sin lista crea una nueva lista independiente, evitando
+    el problema.
 
 ## La sentencia !PYTHON(return)
 
