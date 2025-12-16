@@ -1555,7 +1555,8 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Las **expresiones generadoras** son una notación copiada del lenguaje Haskell
   que nos permite realizar ambas operaciones de una forma muy concisa.
 
-- El resultado que devuelve es un iterador.
+- El resultado que devuelve es un iterador (más concretamente un _generador_,
+  que es un tipo especial de iterador).
 
 ---
 
@@ -1632,7 +1633,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 ---
 
-- Debido a lo anterior, esos identificadores cumplen estas dos propiedades:
+- Por tanto, esos identificadores cumplen estas dos propiedades:
 
   - Se pueden renombrar (siempre de forma consistente) sin que la expresión
     cambie su significado.

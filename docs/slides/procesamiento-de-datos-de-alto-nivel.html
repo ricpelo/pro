@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -1939,7 +1940,8 @@ class="sourceCode python"><span class="bu">filter</span></code>).</p></li>
 <li><p>Las <strong>expresiones generadoras</strong> son una notación
 copiada del lenguaje Haskell que nos permite realizar ambas operaciones
 de una forma muy concisa.</p></li>
-<li><p>El resultado que devuelve es un iterador.</p></li>
+<li><p>El resultado que devuelve es un iterador (más concretamente un
+<em>generador</em>, que es un tipo especial de iterador).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.1">
@@ -2026,7 +2028,7 @@ expresión generadora, y sólo existen dentro de ella.</p></li>
 <section class="slide level5" data-number="3.5.0.0.5">
 
 <ul>
-<li><p>Debido a lo anterior, esos identificadores cumplen estas dos
+<li><p>Por tanto, esos identificadores cumplen estas dos
 propiedades:</p>
 <ul>
 <li><p>Se pueden renombrar (siempre de forma consistente) sin que la
