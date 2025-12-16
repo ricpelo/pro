@@ -1631,7 +1631,7 @@ False
 - Produce un efecto lateral porque cambia el exterior del programa, afectando
   al estado de un dispositivo de salida.
 
-- Su signatura es:
+- Su signatura (simplificada) puede describirse así:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1668,8 +1668,11 @@ False
   parámetro y el valor de su argumento correspondiente separados por un `=`,
   como si fuera una asignación.
 
-- Esta técnica se usa en la función !PYTHON(print) para indicar el separador o
-  el terminador de la lista de expresiones a imprimir.
+- Los argumentos así pasados a la función se pueden colocar en cualquier orden
+  dentro de la lista de argumentos en la llamada a la función.
+
+- Esta técnica se usa, por ejemplo, en la función !PYTHON(print) para indicar
+  el separador o el terminador de la lista de expresiones a imprimir.
 
 ---
 
@@ -1685,7 +1688,7 @@ False
   hola pepe 23-
   ```
 
-- La signatura de la función !PYTHON(print) es:
+- La _verdadera_ signatura de la función !PYTHON(print) es:
 
   ```python
   print(*args, sep=' ', end='\n', file=None, flush=False)
@@ -1694,8 +1697,8 @@ False
 - La sintaxis «!PYTHON(*args)» significa que !PYTHON(print) admite un número
   variable de argumentos posicionales.
 
-- Los otros parámetros (`sep`, `end`, `file` y `flush`) se pasan por palabras
-  clave.
+- Los otros parámetros (`sep`, `end`, `file` y `flush`) se pasan
+  obligatoriamente por palabras clave, no por posición.
 
 ---
 
@@ -1736,6 +1739,8 @@ False
   | !PYTHON(g(a, b, /, c))                       | `a, b` sólo posicionales, `c` posicional o por palabra clave                   |
   | !PYTHON(g(a, *, b))                          | `a` posicional, `b` sólo por palabra clave                                     |
   | !PYTHON(g(a, /, b, *, c))                    | `a` posicional, `b` posicional o por palabra clave, `c` sólo por palabra clave |
+  | !PYTHON(g(*args, b, c))                      | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave\
+                                                   (el `*` de «!PYTHON(*args)» actúa como el `*` de los ejemplos anteriores)      |
 
 ---
 
@@ -1768,6 +1773,50 @@ False
   !PYTHON{g(1, 2, 3, 4, 5, 6)}                   No      `e`, `f`: deben ser por palabras clave
   ---------------------------------------------------------------------------------------------
 
+### Argumentos por defecto
+
+- Un **parámetro con valor por defecto** es un parámetro de una función al que
+  se le asigna un valor en la definición de la función.
+
+- Esa asignación queda recogida en la signatura de la función.
+
+- Cuando se llama a la función, el argumento correspondiente a ese parámetro se
+  puede omitir y, en tal caso, el parámetro tomaría su valor por defecto,
+  también denominado **argumento por defecto**.
+
+- Por ejemplo, la función !PYTHON(int) tiene un parámetro llamado `base` que
+  tiene un valor por defecto !PYTHON(10). Su signatura es:
+
+  ```python
+  int(x, base=10)
+  ```
+ 
+- Ejemplos de uso:
+
+  ```python
+  int("101")        # 101 (el parámero base toma su valor por defecto, 10)
+  int("101", 2)     # 5 (el parámetro base toma el valor del argumento 2)
+  ```
+
+---
+
+- Es habitual que los parámetros con valores por defecto también sean
+  parámetros que sólo admitan argumentos pasados por palabra clave.
+
+- En el ejemplo del !PYTHON(print):
+
+  ```python
+  print(*args, sep=' ', end='\n', file=None, flush=False)
+  ```
+
+  - Primero admite un número variable de argumentos posicionales.
+
+  - Luego, si se desea pasar argumentos para los parámetros `sep`, `end`,
+    `file` o `flush`, hay que hacerlo por palabra clave.
+
+  - En caso de no hacerlo, tomarán sus valores por defecto, indicados en la
+    signatura.
+ 
 #### El valor !PYTHON(None)
 
 - Es importante resaltar que la función !PYTHON(print) **no devuelve** el valor
@@ -1833,10 +1882,9 @@ False
 
 - Su signatura es:
 
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !PYTHON(input)`(`[_prompt_`:` !PYTHON(str)]`) -> `\  !PYTHON(str)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ```python
+  input(prompt: str = '') -> str
+  ```
 
 - Por ejemplo:
 
