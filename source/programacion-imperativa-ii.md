@@ -1802,7 +1802,11 @@ False
 
 - Cuando se llama a la función, el argumento correspondiente a ese parámetro se
   puede omitir y, en tal caso, el parámetro tomaría su valor por defecto,
-  también denominado **argumento por defecto** durante esa llamada.
+  también denominado **argumento por defecto** en esa llamada.
+
+- Una función puede tener cero, uno o varios parámetros opcionales.
+
+---
 
 - Por ejemplo, la función !PYTHON(int) tiene un parámetro llamado `base` que
   tiene un valor por defecto !PYTHON{10} (y que, por tanto, es _opcional_). Su
@@ -1815,8 +1819,15 @@ False
 - Ejemplos de uso:
 
   ```python
-  int("101")        # 101 (el parámero base toma su valor por defecto, 10)
-  int("101", 2)     # 5 (el parámetro base toma el valor del argumento 2)
+  int("101")           # 101 (el parámero base toma su valor por defecto, 10)
+  int("101", 2)        # 5 (el parámetro base toma el valor del argumento 2)
+  ```
+
+- Tal como está definida la función, el parámetro `base` también se puede pasar
+  por palabra clave:
+
+  ```python
+  int("102", base=2)   # 5
   ```
 
 ---
