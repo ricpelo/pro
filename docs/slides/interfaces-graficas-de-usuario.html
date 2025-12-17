@@ -172,8 +172,8 @@ class="toc-section-number">1</span> Introducción a Tkinter</a></li>
 class="toc-section-number">2</span> Widgets básicos</a></li>
 <li><a href="#/layout-y-organización-de-la-interfaz"
 id="/toc-layout-y-organización-de-la-interfaz"><span
-class="toc-section-number">3</span> <em>Layout</em> y organización de la
-interfaz</a></li>
+class="toc-section-number">3</span> <em>Layout</em>  y organización de
+la interfaz</a></li>
 <li><a href="#/eventos-y-funciones-asociadas"
 id="/toc-eventos-y-funciones-asociadas"><span
 class="toc-section-number">4</span> Eventos y funciones
@@ -409,6 +409,11 @@ texto o imágenes</strong>.</p></li>
 <li><p>Etiquetas descriptivas de otros widgets.</p></li>
 <li><p>Mensajes informativos.</p></li>
 </ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.2.0.0.1">
+
+<ul>
 <li><p>Ejemplo:</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> tk.Label(root, text<span class="op">=</span><span class="st">&quot;Nombre:&quot;</span>)</span>
@@ -730,23 +735,23 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a h
 <thead>
 <tr>
 <th>Widget</th>
-<th>get</th>
-<th>insert</th>
-<th>delete</th>
+<th style="text-align: center;"><code>get</code></th>
+<th style="text-align: center;"><code>insert</code></th>
+<th style="text-align: center;"><code>delete</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Entry</td>
-<td>Sí</td>
-<td>Sí</td>
-<td>Sí</td>
+<td><code>Entry</code></td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
 </tr>
 <tr>
-<td>Text</td>
-<td>Sí</td>
-<td>Sí</td>
-<td>Sí</td>
+<td><code>Text</code></td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
 </tr>
 </tbody>
 </table>
@@ -758,7 +763,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a h
 <section id="layout-y-organización-de-la-interfaz"
 class="title-slide slide level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span>
-<em>Layout</em> y organización de la interfaz</h1>
+<em>Layout</em>  y organización de la interfaz</h1>
 
 </section>
 <section id="introducción-1" class="title-slide slide level2"
@@ -768,21 +773,30 @@ Introducción</h2>
 <ul>
 <li><p>Tkinter no posiciona los widgets automáticamente. Para ello se
 usan <strong>gestores de geometría</strong>.</p></li>
-<li><p>En Tkinter, pack(), grid() y place() son gestores de geometría
-(geometry managers).</p></li>
+<li><p>En Tkinter, <code>pack</code>, <code>grid</code> y
+<code>place</code> son gestores de geometría (<em>geometry
+managers</em>).</p></li>
 <li><p>Su función es decidir dónde y cómo se colocan los widgets dentro
-de un contenedor (una ventana Tk o un Frame).</p></li>
+de un contenedor (una ventana <code>Tk</code> o un
+<code>Frame</code>).</p></li>
 <li><p>Un widget no aparece en pantalla hasta que se le aplica alguno de
 estos métodos.</p></li>
 </ul>
-<p>Los gestores de geometría son el mecanismo que usa Tkinter para:</p>
-<pre><code>asignar posición
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
 
-asignar tamaño
-
-reorganizar los widgets cuando la ventana cambia de tamaño</code></pre>
-<p>Cada contenedor (Tk, Frame, etc.) puede usar solo un gestor de
-geometría a la vez.</p>
+<ul>
+<li><p>Los gestores de geometría son el mecanismo que usa Tkinter
+para:</p>
+<ul>
+<li><p>Asignar posición.</p></li>
+<li><p>Asignar tamaño.</p></li>
+<li><p>Reorganizar los widgets cuando la ventana cambia de
+tamaño.</p></li>
+</ul></li>
+<li><p>Cada contenedor (<code>Tk</code>, <code>Frame</code>, etc.) puede
+usar sólo un gestor de geometría a la vez.</p></li>
+</ul>
 </section>
 
 <section id="geometría-con-pack-grid-y-place"
@@ -791,19 +805,22 @@ class="title-slide slide level2" data-number="3.2">
 Geometría con <code>pack</code>, <code>grid</code> y
 <code>place</code></h2>
 <ul>
+<li><p>Los tres gestores de geometría en Tkinter son:</p>
+<ul>
 <li><p><code>pack</code>: organiza los widgets en bloques (arriba,
 abajo, izquierda, derecha).</p></li>
 <li><p><code>grid</code>: organiza los widgets en filas y
 columnas.</p></li>
 <li><p><code>place</code>: posicionamiento absoluto
 (coordenadas).</p></li>
+</ul></li>
 <li><p>Ejemplo con <code>pack</code>:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>label.pack(side<span class="op">=</span><span class="st">&quot;top&quot;</span>, fill<span class="op">=</span><span class="st">&quot;x&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>label.pack(side<span class="op">=</span><span class="st">&quot;top&quot;</span>, fill<span class="op">=</span><span class="st">&quot;x&quot;</span>)</span></code></pre></div></li>
 <li><p>Ejemplo con <code>grid</code>:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>label.grid(row<span class="op">=</span><span class="dv">0</span>, column<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>button.grid(row<span class="op">=</span><span class="dv">1</span>, column<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>label.grid(row<span class="op">=</span><span class="dv">0</span>, column<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>button.grid(row<span class="op">=</span><span class="dv">1</span>, column<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div></li>
 <li><p>No se deben mezclar distintos gestores de geometría <strong>en el
 mismo contenedor</strong>.</p></li>
 </ul>
@@ -816,12 +833,12 @@ de <code>Frame</code> para dividir la ventana</h2>
 <ul>
 <li><p><code>Frame</code> es un contenedor que permite agrupar widgets y
 estructurar la interfaz.</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>frame <span class="op">=</span> tk.Frame(root)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>frame.pack()</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> tk.Label(frame, text<span class="op">=</span><span class="st">&quot;Dentro del frame&quot;</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>label.pack()</span></code></pre></div></li>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>frame <span class="op">=</span> tk.Frame(root)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>frame.pack()</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> tk.Label(frame, text<span class="op">=</span><span class="st">&quot;Dentro del frame&quot;</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>label.pack()</span></code></pre></div></li>
 <li><p>Usar <code>Frame</code> facilita:</p>
 <ul>
 <li><p>Interfaces más claras.</p></li>
@@ -834,7 +851,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a h
 <section id="diseño-responsive-básico" class="title-slide slide level2"
 data-number="3.4">
 <h2 data-number="3.4"><span class="header-section-number">3.4</span>
-Diseño <em>responsive</em> básico</h2>
+Diseño <em>responsive</em>  básico</h2>
 <ul>
 <li><p>Para que la interfaz se adapte al tamaño de la ventana:</p>
 <ul>
@@ -844,9 +861,9 @@ Diseño <em>responsive</em> básico</h2>
 <code>grid_columnconfigure</code>.</p></li>
 </ul></li>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>root.columnconfigure(<span class="dv">0</span>, weight<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>root.rowconfigure(<span class="dv">0</span>, weight<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>root.columnconfigure(<span class="dv">0</span>, weight<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>root.rowconfigure(<span class="dv">0</span>, weight<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div></li>
 </ul>
 </section>
 </section>
@@ -875,9 +892,9 @@ Asociar funciones a eventos (<em>callbacks</em>)</h2>
 <ul>
 <li><p>Un <em>callback</em> es una función que se pasa como argumento y
 se ejecuta cuando ocurre un evento.</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saludar():</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Hola&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> saludar():</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Hola&quot;</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section id="uso-de-command" class="title-slide slide level3"
@@ -887,9 +904,9 @@ Uso de <code>command=</code></h3>
 <ul>
 <li><p>Muchos widgets (como <code>Button</code>) aceptan el parámetro
 <code>command</code>:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>button <span class="op">=</span> tk.Button(root, text<span class="op">=</span><span class="st">&quot;Saludar&quot;</span>, command<span class="op">=</span>saludar)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>button.pack()</span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>button <span class="op">=</span> tk.Button(root, text<span class="op">=</span><span class="st">&quot;Saludar&quot;</span>, command<span class="op">=</span>saludar)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>button.pack()</span></code></pre></div></li>
 <li><p>Se pasa la función <strong>sin paréntesis</strong>.</p></li>
 </ul>
 </section>
@@ -901,26 +918,27 @@ Eventos con <code>bind</code></h3>
 <ul>
 <li><p><code>bind</code> permite asociar funciones a eventos más
 generales:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> al_pulsar_tecla(event):</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(event.keysym)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>root.bind(<span class="st">&quot;&lt;Key&gt;&quot;</span>, al_pulsar_tecla)</span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> al_pulsar_tecla(event):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(event.keysym)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>root.bind(<span class="st">&quot;&lt;Key&gt;&quot;</span>, al_pulsar_tecla)</span></code></pre></div></li>
 <li><p>Algunos eventos comunes:</p>
 <ul>
-<li><p><code>&lt;Button-1&gt;</code>: clic izquierdo.</p></li>
-<li><p><code>&lt;Key&gt;</code>: pulsación de tecla.</p></li>
-<li><p><code>&lt;Return&gt;</code>: tecla Enter.</p></li>
+<li><p><code>&lt;Button-1&gt;</code>: pulsación del botón izquierdo del
+ratón.</p></li>
+<li><p><code>&lt;Key&gt;</code>: pulsación de cualquier tecla.</p></li>
+<li><p><code>&lt;Return&gt;</code>: pulsación de la tecla
+Enter.</p></li>
 </ul></li>
 </ul>
 </section>
 
 
-<section id="variables-de-control-stringvar-intvar-etc."
-class="title-slide slide level2" data-number="4.3">
+<section id="variables-de-control" class="title-slide slide level2"
+data-number="4.3">
 <h2 data-number="4.3"><span class="header-section-number">4.3</span>
-Variables de control (<code>StringVar</code>, <code>IntVar</code>,
-etc.)</h2>
+Variables de control</h2>
 <ul>
 <li><p>Las <strong>variables de control</strong> enlazan el estado de un
 widget con una variable Python.</p></li>
@@ -931,14 +949,19 @@ widget con una variable Python.</p></li>
 <li><p><code>DoubleVar</code></p></li>
 <li><p><code>BooleanVar</code></p></li>
 </ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.1">
+
+<ul>
 <li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>var <span class="op">=</span> tk.StringVar()</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>entry <span class="op">=</span> tk.Entry(root, textvariable<span class="op">=</span>var)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>entry.pack()</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(var.get())</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>var.<span class="bu">set</span>(<span class="st">&quot;Nuevo valor&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>var <span class="op">=</span> tk.StringVar()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>entry <span class="op">=</span> tk.Entry(root, textvariable<span class="op">=</span>var)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>entry.pack()</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(var.get())</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>var.<span class="bu">set</span>(<span class="st">&quot;Nuevo valor&quot;</span>)</span></code></pre></div></li>
 <li><p>Son especialmente útiles con <code>Entry</code>,
 <code>Checkbutton</code> y <code>Radiobutton</code>.</p></li>
 </ul>

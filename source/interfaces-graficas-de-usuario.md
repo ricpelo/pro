@@ -198,6 +198,8 @@ nocite: |
 
   - Mensajes informativos.
 
+---
+
 - Ejemplo:
 
   ```python
@@ -509,44 +511,50 @@ nocite: |
 
 !UNUN(Resumen práctico)
 
-| Widget | get | insert | delete |
-|--------|-----|--------|--------|
-| Entry  | Sí  |   Sí   |   Sí   |
-| Text   | Sí  |   Sí   |   Sí   |
+| Widget   | `get` | `insert` | `delete` |
+|----------|:-----:|:--------:|:--------:|
+| `Entry`  |  Sí   |    Sí    |    Sí    |
+| `Text`   |  Sí   |    Sí    |    Sí    |
 
-# *Layout* y organización de la interfaz
+# *Layout*!ifdef(HTML)(&nbsp;)() y organización de la interfaz
 
 ## Introducción
 
 - Tkinter no posiciona los widgets automáticamente. Para ello se usan
   **gestores de geometría**.
 
-- En Tkinter, pack(), grid() y place() son gestores de geometría (geometry managers).
+- En Tkinter, `pack`, `grid` y `place` son gestores de geometría (_geometry
+  managers_).
 
 - Su función es decidir dónde y cómo se colocan los widgets dentro de un
-  contenedor (una ventana Tk o un Frame).
+  contenedor (una ventana `Tk` o un `Frame`).
 
 - Un widget no aparece en pantalla hasta que se le aplica alguno de estos
   métodos.
 
-Los gestores de geometría son el mecanismo que usa Tkinter para:
+---
 
-    asignar posición
+- Los gestores de geometría son el mecanismo que usa Tkinter para:
 
-    asignar tamaño
+    - Asignar posición.
 
-    reorganizar los widgets cuando la ventana cambia de tamaño
+    - Asignar tamaño.
 
-Cada contenedor (Tk, Frame, etc.) puede usar solo un gestor de geometría a la
-vez.
+    - Reorganizar los widgets cuando la ventana cambia de tamaño.
+
+- Cada contenedor (`Tk`, `Frame`, etc.) puede usar sólo un gestor de geometría
+  a la vez.
 
 ## Geometría con `pack`, `grid` y `place`
 
-- `pack`: organiza los widgets en bloques (arriba, abajo, izquierda, derecha).
+- Los tres gestores de geometría en Tkinter son:
 
-- `grid`: organiza los widgets en filas y columnas.
+  - `pack`: organiza los widgets en bloques (arriba, abajo, izquierda,
+    derecha).
 
-- `place`: posicionamiento absoluto (coordenadas).
+  - `grid`: organiza los widgets en filas y columnas.
+
+  - `place`: posicionamiento absoluto (coordenadas).
 
 - Ejemplo con `pack`:
 
@@ -585,7 +593,7 @@ vez.
 
   - Uso combinado de distintos gestores de geometría.
 
-## Diseño *responsive* básico
+## Diseño *responsive*!ifdef(HTML)(&nbsp;)() básico
 
 - Para que la interfaz se adapte al tamaño de la ventana:
 
@@ -641,13 +649,13 @@ vez.
 
 - Algunos eventos comunes:
 
-    - `<Button-1>`: clic izquierdo.
+    - `<Button-1>`: pulsación del botón izquierdo del ratón.
 
-    - `<Key>`: pulsación de tecla.
+    - `<Key>`: pulsación de cualquier tecla.
 
-    - `<Return>`: tecla Enter.
+    - `<Return>`: pulsación de la tecla Enter.
 
-## Variables de control (`StringVar`, `IntVar`, etc.)
+## Variables de control
 
 - Las **variables de control** enlazan el estado de un widget con una variable
   Python.
@@ -661,6 +669,8 @@ vez.
   - `DoubleVar`
 
   - `BooleanVar`
+
+---
 
 - Ejemplo:
 
