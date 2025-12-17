@@ -1638,13 +1638,15 @@ False
   !PYTHON(print)`(`!NT{expresión}(`,` !NT{expresión})\* [`, ` `sep=`!NT(expresión)][`, ` `end=`!NT(expresión)]`)`
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- El `sep` es el *separador* y su valor por defecto es !PYTHON{' '} (un
-  espacio).
+  - El `sep` es el *separador*, que por defecto es !PYTHON{' '} (un
+    espacio).
 
-- El `end` es el *terminador* y su valor por defecto es !PYTHON{'\n'} (un
-  salto de línea).
+  - El `end` es el *terminador*, que por defecto es !PYTHON{'\n'} (un salto de
+    línea).
 
-- Las expresiones se convierten en cadenas antes de imprimirse.
+  - Las expresiones se convierten en cadenas antes de imprimirse.
+
+---
 
 - Por ejemplo:
 
@@ -1652,6 +1654,24 @@ False
   >>> print('hola', 'pepe', 23)
   hola pepe 23
   ```
+
+- Imprime por la salida las expresiones indicadas, separadas por el separador
+  (en este caso, un espacio), y al final imprime el terminador (en este caso,
+  un salto de línea).
+
+- En detalle, la llamada anterior hace lo siguiente:
+
+  #. Imprime `hola`.
+
+  #. Imprime un espacio (!PYTHON(' ')).
+
+  #. Imprime `pepe`.
+
+  #. Imprime otro espacio (!PYTHON(' ')).
+
+  #. Imprime `23`.
+
+  #. Imprime un salto de línea (!PYTHON('\n')).
 
 #### Paso de argumentos por palabras clave
 
@@ -1772,18 +1792,17 @@ False
   !PYTHON{g(1, 2, 3, 4, 5, 6)}                   No      `e`, `f`: deben ser por palabras clave
   ---------------------------------------------------------------------------------------------
 
-### Argumentos por defecto
+#### Argumentos por defecto
 
 - Un **parámetro con valor por defecto** es un parámetro de una función al que
-  se le asigna un valor en la definición de la función.
+  se le asigna un valor por defecto en la definición de la función,
+  quedando recogido en la signatura de la misma.
 
-- Esa asignación queda recogida en la signatura de la función.
+- En tal caso, se dice que ese parámetro es **opcional**.
 
 - Cuando se llama a la función, el argumento correspondiente a ese parámetro se
   puede omitir y, en tal caso, el parámetro tomaría su valor por defecto,
-  también denominado **argumento por defecto**.
-
-- También se dice que ese parámetro es **opcional**.
+  también denominado **argumento por defecto** durante esa llamada.
 
 - Por ejemplo, la función !PYTHON(int) tiene un parámetro llamado `base` que
   tiene un valor por defecto !PYTHON{10} (y que, por tanto, es _opcional_). Su
