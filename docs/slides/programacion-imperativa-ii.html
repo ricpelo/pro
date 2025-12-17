@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -1971,7 +1973,8 @@ class="sourceCode python"><span class="bu">print</span></code> imprime
 una o varias expresiones.</p></li>
 <li><p>Produce un efecto lateral porque cambia el exterior del programa,
 afectando al estado de un dispositivo de salida.</p></li>
-<li><p>Su signatura (simplificada) puede describirse así:</p>
+<li><p>Su signatura (simplificada) puede describirse así en notación
+EBNF:</p>
 <div class="line-block"><code
 class="sourceCode python"><span class="bu">print</span></code><code>(</code><span
 style="color:teal">⟨<em>expresión</em>⟩</span>(<code>,</code> <span
@@ -1986,7 +1989,8 @@ class="sourceCode python"><span class="st">&#39; &#39;</span></code> (un
 espacio).</p></li>
 <li><p>El <code>end</code> es el <em>terminador</em> y su valor por
 defecto es <code
-class="sourceCode python"><span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></code>.</p></li>
+class="sourceCode python"><span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span></code>
+(un salto de línea).</p></li>
 <li><p>Las expresiones se convierten en cadenas antes de
 imprimirse.</p></li>
 <li><p>Por ejemplo:</p>
@@ -2025,8 +2029,9 @@ imprimir.</p></li>
 <section class="slide level5" data-number="3.1.2.1.1">
 
 <ul>
-<li><p>Si se combinan ambas técnicas en una misma llamada, los
-argumentos pasados por palabas clave se ponen al final.</p></li>
+<li><p>Si se combinan ambas técnicas en una misma llamada, <strong>los
+argumentos pasados por palabras clave se ponen al final</strong>, detrás
+de los argumentos pasados por posición.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">&#39;hola&#39;</span>, <span class="st">&#39;pepe&#39;</span>, <span class="dv">23</span>, sep<span class="op">=</span><span class="st">&#39;*&#39;</span>)</span>
@@ -2041,7 +2046,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a h
 class="sourceCode python"><span class="op">*</span>args</code>»
 significa que <code
 class="sourceCode python"><span class="bu">print</span></code> admite un
-número variable de argumentos posicionales.</p></li>
+número variable de argumentos posicionales (es una función
+<strong><em>variádica</em></strong>).</p></li>
 <li><p>Los otros parámetros (<code>sep</code>, <code>end</code>,
 <code>file</code> y <code>flush</code>) se pasan obligatoriamente por
 palabras clave, no por posición.</p></li>
@@ -2052,25 +2058,24 @@ palabras clave, no por posición.</p></li>
 <ul>
 <li><p>En la documentación de Python, la signatura de una función puede
 contener entre sus parámetros los símbolos «<code>/</code>» y/o
-«<code>*</code>» (los dos o sólo uno de los dos).</p></li>
+«<code>*</code>» (uno o los dos).</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb45"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(source, <span class="op">/</span>, <span class="bu">globals</span><span class="op">=</span><span class="va">None</span>, <span class="bu">locals</span><span class="op">=</span><span class="va">None</span>, <span class="op">*</span>, closure<span class="op">=</span><span class="va">None</span>)</span></code></pre></div></li>
-<li><p>Esos símbolos representan separadores que indican lo
-siguiente:</p>
+<li><p>Esos símbolos son separadores que indican lo siguiente:</p>
 <ul>
 <li><p>Hasta <code>/</code>: Los argumentos sólo se pueden pasar por
 posición.</p></li>
 <li><p>Entre <code>/</code> y <code>*</code>: Los argumentos se pueden
-pasar por posición o por palabra clave.</p></li>
+pasar por posición o por palabras clave.</p></li>
 <li><p>A partir de <code>*</code>: Los argumentos se pasan sólo por
 palabra clave.</p></li>
 </ul></li>
-<li><p>En el caso del ejemplo anterior:</p>
+<li><p>En el ejemplo anterior:</p>
 <ul>
 <li><p><code>source</code> sólo se puede pasar por posición.</p></li>
 <li><p><code>globals</code> y <code>locals</code> se pueden pasar por
-posición o por palabra clave.</p></li>
+posición o por palabras clave.</p></li>
 <li><p><code>closure</code> sólo se puede pasar por palabra
 clave.</p></li>
 </ul></li>
@@ -2118,8 +2123,7 @@ clave, <code>c</code> sólo por palabra clave.</td>
 <td><code
 class="sourceCode python">g(<span class="op">*</span>args, b, c)</code></td>
 <td>Número variable de argumentos posicionales, <code>b</code> y
-<code>c</code> sólo por palabras clave<br />
-(el <code>*</code> de «<code
+<code>c</code> sólo por palabras clave (el <code>*</code> de «<code
 class="sourceCode python"><span class="op">*</span>args</code>» actúa
 como el <code>*</code> de los ejemplos anteriores).</td>
 </tr>
@@ -2344,8 +2348,9 @@ del dispositivo de entrada, ya que se espera a que desde el exterior se
 introduzca el dato solicitado consumiendo los caracteres que haya en la
 entrada hasta el salto de línea.</p></li>
 <li><p>Eso hace que sea <em>impura</em> por partida triple: provoca dos
-efectos laterales y puede devolver un resultado distinto cada vez que se
-la llama.</p></li>
+efectos laterales (dos operaciones de E/S) y puede devolver un resultado
+distinto cada vez que se la llama, incluso con los mismos
+argumentos.</p></li>
 </ul>
 </section>
 
@@ -2498,22 +2503,22 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb61-1"><a
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-aguilar_fundamentos_2008" class="csl-entry"
 role="listitem">
 Aguilar, Luis Joyanes. 2008. <em>Fundamentos de Programación</em>.
-Aravaca: McGraw-Hill Interamericana de España.
+McGraw-Hill Interamericana de España.
 </div>
 <div id="ref-pareja_flores_desarrollo_1997" class="csl-entry"
 role="listitem">
 Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada,
 and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos y Técnicas
-de Programación En <span>Pascal</span></em>. Madrid: Ra-Ma.
+de Programación En <span>Pascal</span></em>. Ra-Ma.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>

@@ -1631,7 +1631,7 @@ False
 - Produce un efecto lateral porque cambia el exterior del programa, afectando
   al estado de un dispositivo de salida.
 
-- Su signatura (simplificada) puede describirse así:
+- Su signatura (simplificada) puede describirse así en notación EBNF:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1641,8 +1641,8 @@ False
 - El `sep` es el *separador* y su valor por defecto es !PYTHON{' '} (un
   espacio).
 
-- El `end` es el *terminador* y su valor por defecto es !PYTHON('\n') (el
-  carácter de nueva línea).
+- El `end` es el *terminador* y su valor por defecto es !PYTHON{'\n'} (un
+  salto de línea).
 
 - Las expresiones se convierten en cadenas antes de imprimirse.
 
@@ -1676,8 +1676,9 @@ False
 
 ---
 
-- Si se combinan ambas técnicas en una misma llamada, los argumentos pasados
-  por palabas clave se ponen al final.
+- Si se combinan ambas técnicas en una misma llamada, **los argumentos pasados
+  por palabras clave se ponen al final**, detrás de los argumentos pasados por
+  posición.
 
 - Por ejemplo:
 
@@ -1695,7 +1696,7 @@ False
   ```
 
 - La sintaxis «!PYTHON(*args)» significa que !PYTHON(print) admite un número
-  variable de argumentos posicionales.
+  variable de argumentos posicionales (es una función **_variádica_**).
 
 - Los otros parámetros (`sep`, `end`, `file` y `flush`) se pasan
   obligatoriamente por palabras clave, no por posición.
@@ -1703,8 +1704,7 @@ False
 ---
 
 - En la documentación de Python, la signatura de una función puede contener
-  entre sus parámetros los símbolos «`/`» y/o «`*`» (los dos o sólo uno de los
-  dos).
+  entre sus parámetros los símbolos «`/`» y/o «`*`» (uno o los dos).
 
 - Por ejemplo:
 
@@ -1712,20 +1712,20 @@ False
   exec(source, /, globals=None, locals=None, *, closure=None)
   ```
 
-- Esos símbolos representan separadores que indican lo siguiente:
+- Esos símbolos son separadores que indican lo siguiente:
 
   - Hasta `/`: Los argumentos sólo se pueden pasar por posición.
 
-  - Entre `/` y `*`: Los argumentos se pueden pasar por posición o por palabra
+  - Entre `/` y `*`: Los argumentos se pueden pasar por posición o por palabras
     clave.
 
   - A partir de `*`: Los argumentos se pasan sólo por palabra clave.
 
-- En el caso del ejemplo anterior:
+- En el ejemplo anterior:
 
   - `source` sólo se puede pasar por posición.
 
-  - `globals` y `locals` se pueden pasar por posición o por palabra clave.
+  - `globals` y `locals` se pueden pasar por posición o por palabras clave.
 
   - `closure` sólo se puede pasar por palabra clave.
 
@@ -1739,8 +1739,7 @@ False
   | !PYTHON(g(a, b, /, c))                             | `a, b` sólo posicionales, `c` posicional o por palabra clave.                   |
   | !PYTHON(g(a, !POR, b))                             | `a` posicional, `b` sólo por palabra clave.                                     |
   | !PYTHON(g(a, /, b, !POR, c))                       | `a` posicional, `b` posicional o por palabra clave, `c` sólo por palabra clave. |
-  | !PYTHON(g(!POR{}args, b, c))                       | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave\
-                                                         (el `*` de «!PYTHON(!POR{}args)» actúa como el `*` de los ejemplos anteriores). |
+  | !PYTHON(g(!POR{}args, b, c))                       | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave (el `*` de «!PYTHON(!POR{}args)» actúa como el `*` de los ejemplos anteriores). |
 
 ---
 
@@ -1908,8 +1907,9 @@ False
   solicitado consumiendo los caracteres que haya en la entrada hasta el salto
   de línea.
 
-- Eso hace que sea *impura* por partida triple: provoca dos efectos laterales y
-  puede devolver un resultado distinto cada vez que se la llama.
+- Eso hace que sea *impura* por partida triple: provoca dos efectos laterales
+  (dos operaciones de E/S) y puede devolver un resultado distinto cada vez que
+  se la llama, incluso con los mismos argumentos.
 
 ## Ejecución de _scripts_!ifdef(HTML)(&nbsp;)() por lotes
 
