@@ -171,28 +171,441 @@ nocite: |
 
 # Widgets básicos
 
+## Introducción
+
+- Los **widgets** son los componentes visuales de la interfaz.
+
+- Los más comunes son:
+
+  - `Label`: muestra texto o imágenes
+  - `Button`: botón pulsable
+  - `Entry`: campo de texto de una sola línea
+  - `Text`: área de texto multilínea
+  - `Checkbutton`: casilla de verificación
+  - `Radiobutton`: botón de opción (selección exclusiva)
+
 ## `Label`, `Button`, `Entry`, `Text`, `Checkbutton`, `Radiobutton`
+
+El widget `Label` se utiliza para **mostrar texto o imágenes**. No permite interacción directa por parte del usuario.
+
+Usos comunes:
+- Títulos y subtítulos
+- Etiquetas descriptivas de otros widgets
+- Mensajes informativos
+
+Ejemplo:
+
+```python
+label = tk.Label(root, text="Nombre:")
+label.pack()
+```
+
+Con estilos:
+
+```python
+label = tk.Label(
+    root,
+    text="Bienvenido",
+    font=("Arial", 16),
+    fg="white",
+    bg="black"
+)
+label.pack()
+```
+
+---
+
+El widget `Button` representa un **botón pulsable** que ejecuta una función cuando se hace clic.
+
+Usos comunes:
+- Confirmar acciones
+- Lanzar cálculos
+- Cerrar ventanas
+
+Ejemplo:
+
+```python
+def saludar():
+    print("Hola")
+
+button = tk.Button(root, text="Saludar", command=saludar)
+button.pack()
+```
+
+Cambiar el texto dinámicamente:
+
+```python
+button.config(text="Nuevo texto")
+```
+
+---
+
+`Entry` es un **campo de texto de una sola línea**, pensado para introducir datos cortos.
+
+Usos comunes:
+- Nombre de usuario
+- Edad
+- Búsquedas
+
+Ejemplo:
+
+```python
+entry = tk.Entry(root)
+entry.pack()
+```
+
+Obtener y modificar su contenido:
+
+```python
+texto = entry.get()
+entry.delete(0, tk.END)
+entry.insert(0, "Texto inicial")
+```
+
+---
+
+El widget `Text` permite **introducir y mostrar texto multilínea**.
+
+Usos comunes:
+- Editores de texto simples
+- Cuadros de comentarios
+- Visualización de logs
+
+Ejemplo:
+
+```python
+text = tk.Text(root, width=40, height=10)
+text.pack()
+```
+
+Insertar y borrar contenido:
+
+```python
+text.insert("1.0", "Hola
+")
+text.delete("1.0", tk.END)
+```
+
+---
+
+`Checkbutton` representa una **casilla de verificación** que puede estar activada o desactivada.
+
+Usos comunes:
+- Opciones independientes
+- Preferencias del usuario
+
+Suele utilizarse junto con `BooleanVar` o `IntVar`.
+
+Ejemplo:
+
+```python
+var = tk.BooleanVar()
+check = tk.Checkbutton(root, text="Aceptar condiciones", variable=var)
+check.pack()
+```
+
+Consultar el estado:
+
+```python
+print(var.get())  # True o False
+```
+
+---
+
+`Radiobutton` permite **seleccionar una opción entre varias**, siendo excluyentes entre sí.
+
+Usos comunes:
+- Selección de una sola alternativa
+- Formularios
+
+Todos los botones del grupo comparten la misma variable de control.
+
+Ejemplo:
+
+```python
+opcion = tk.StringVar(value="A")
+
+rb1 = tk.Radiobutton(root, text="Opción A", variable=opcion, value="A")nrb2 = tk.Radiobutton(root, text="Opción B", variable=opcion, value="B")
+
+rb1.pack()
+rb2.pack()
+```
+
+Obtener la opción seleccionada:
+
+```python
+print(opcion.get())
+```
 
 ## Atributos comunes: texto, color, fuente, tamaño
 
+Muchos widgets de Tkinter comparten un conjunto de **atributos (u opciones)** que controlan su apariencia y comportamiento. Estos atributos pueden indicarse al crear el widget o modificarse posteriormente mediante el método `config()`.
+
+### Texto (`text`)
+
+El atributo `text` define el **contenido textual** que muestra el widget.
+
+Widgets habituales:
+- `Label`
+- `Button`
+- `Checkbutton`
+- `Radiobutton`
+
+Ejemplo:
+
+```python
+label = tk.Label(root, text="Hola mundo")
+label.pack()
+```
+
+Modificar el texto en tiempo de ejecución:
+
+```python
+label.config(text="Nuevo texto")
+```
+
+### Color (`fg`, `bg`)
+
+Los colores se controlan principalmente con:
+
+- `fg` o `foreground`: color del texto
+- `bg` o `background`: color de fondo
+
+Ejemplo:
+
+```python
+button = tk.Button(
+    root,
+    text="Aceptar",
+    fg="white",
+    bg="green"
+)
+button.pack()
+```
+
+Los colores pueden indicarse por nombre (`"red"`, `"blue"`) o en formato hexadecimal (`"#ff0000"`).
+
+### Fuente (`font`)
+
+El atributo `font` controla el **tipo de letra, tamaño y estilo**.
+
+Formato habitual:
+
+```python
+font=(familia, tamaño, estilo)
+```
+
+Ejemplo:
+
+```python
+label = tk.Label(
+    root,
+    text="Título",
+    font=("Arial", 18, "bold")
+)
+label.pack()
+```
+
+Estilos comunes:
+- `"bold"`
+- `"italic"`
+- `"underline"`
+
+### Tamaño (`width`, `height`)
+
+Los atributos `width` y `height` definen el **tamaño del widget**, aunque su significado depende del tipo de widget:
+
+- En `Label`, `Button` y `Entry`: número de caracteres
+- En `Text`: caracteres (ancho) y líneas (alto)
+
+Ejemplo:
+
+```python
+entry = tk.Entry(root, width=30)
+entry.pack()
+```
+
+```python
+text = tk.Text(root, width=40, height=5)
+text.pack()
+```
+
+
+
 ## Métodos útiles: `get`, `insert`, `delete`
+
+Muchos widgets proporcionan métodos para **acceder y modificar su contenido**, especialmente los widgets de entrada de texto.
+
+### `get()`
+
+Obtiene el contenido actual del widget.
+
+```python
+texto = entry.get()
+contenido = text.get("1.0", tk.END)
+```
+
+---
+
+### `insert(posición, texto)`
+
+Inserta texto en una posición determinada.
+
+```python
+entry.insert(0, "Texto inicial")
+text.insert("1.0", "Primera línea
+")
+```
+
+---
+
+### `delete(inicio, fin)`
+
+Elimina contenido entre dos posiciones.
+
+```python
+entry.delete(0, tk.END)
+text.delete("1.0", tk.END)
+```
+
+!UNUN(Resumen práctico)
+
+| Widget | get | insert | delete |
+|-------|-----|--------|--------|
+| Entry | Sí | Sí | Sí |
+| Text  | Sí | Sí | Sí |
+
 
 # *Layout* y organización de la interfaz
 
+## Introducción
+
+- Tkinter no posiciona los widgets automáticamente. Para ello se usan **gestores de geometría**.
+
 ## Geometría con `pack`, `grid` y `place`
+
+- `pack`: organiza los widgets en bloques (arriba, abajo, izquierda, derecha)
+- `grid`: organiza los widgets en filas y columnas
+- `place`: posicionamiento absoluto (coordenadas)
+
+Ejemplo con `pack`:
+
+```python
+label.pack(side="top", fill="x")
+```
+
+Ejemplo con `grid`:
+
+```python
+label.grid(row=0, column=0)
+button.grid(row=1, column=0)
+```
+
+⚠️ No se deben mezclar distintos gestores de geometría **en el mismo contenedor**.
 
 ## Uso de `Frame` para dividir la ventana
 
+`Frame` es un contenedor que permite agrupar widgets y estructurar la interfaz.
+
+```python
+frame = tk.Frame(root)
+frame.pack()
+
+label = tk.Label(frame, text="Dentro del frame")
+label.pack()
+```
+
+Usar `Frame` facilita:
+
+- Interfaces más claras
+- Reutilización de componentes
+- Uso combinado de distintos gestores de geometría
+
+
 ## Diseño *responsive* básico
+
+Para que la interfaz se adapte al tamaño de la ventana:
+
+- Usar `fill` y `expand` con `pack`
+- Configurar pesos con `grid_rowconfigure` y `grid_columnconfigure`
+
+Ejemplo:
+
+```python
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+```
+
 
 # Eventos y funciones asociadas
 
+## Introducción
+
+Tkinter funciona mediante **eventos** (acciones del usuario) y **callbacks** (funciones que se ejecutan como respuesta).
+
 ## Asociar funciones a eventos (*callbacks*)
+
+Un *callback* es una función que se pasa como argumento y se ejecuta cuando ocurre un evento.
+
+```python
+def saludar():
+    print("Hola")
+```
+
 
 ## Uso de `command=`
 
+Muchos widgets (como `Button`) aceptan el parámetro `command`:
+
+```python
+button = tk.Button(root, text="Saludar", command=saludar)
+button.pack()
+```
+
+⚠️ Se pasa la función **sin paréntesis**.
+
+
 ## Eventos con `bind`
 
+`bind` permite asociar funciones a eventos más generales:
+
+```python
+def al_pulsar_tecla(event):
+    print(event.keysym)
+
+root.bind("<Key>", al_pulsar_tecla)
+```
+
+Algunos eventos comunes:
+
+- `<Button-1>`: clic izquierdo
+- `<Key>`: pulsación de tecla
+- `<Return>`: tecla Enter
+
+
 ## Variables de control (`StringVar`, `IntVar`, etc.)
+
+Las **variables de control** enlazan el estado de un widget con una variable Python.
+
+Tipos habituales:
+
+- `StringVar`
+- `IntVar`
+- `DoubleVar`
+- `BooleanVar`
+
+Ejemplo:
+
+```python
+var = tk.StringVar()
+entry = tk.Entry(root, textvariable=var)
+entry.pack()
+
+print(var.get())
+var.set("Nuevo valor")
+```
+
+Son especialmente útiles con `Entry`, `Checkbutton` y `Radiobutton`.
+
 
 !BIBLIOGRAFIA
