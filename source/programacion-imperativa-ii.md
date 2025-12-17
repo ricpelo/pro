@@ -1712,7 +1712,7 @@ False
   exec(source, /, globals=None, locals=None, *, closure=None)
   ```
 
-- Esos símbolos representan marcadores que señalan lo siguiente:
+- Esos símbolos representan separadores que indican lo siguiente:
 
   - Hasta `/`: Los argumentos sólo se pueden pasar por posición.
 
@@ -1731,16 +1731,16 @@ False
 
 ---
 
-- Algunos o todos los marcadores pueden omitirse:
+- Algunos o todos los separadores pueden omitirse:
 
-  | Signatura de la función                      | Qué significa                                                                  |
-  | -------------------------------------------- | ------------------------------------------------------------------------------ |
-  | !PYTHON(g(a, b, c))                          | Todos los parámetros son posicionales o por palabras clave                     |
-  | !PYTHON(g(a, b, /, c))                       | `a, b` sólo posicionales, `c` posicional o por palabra clave                   |
-  | !PYTHON(g(a, *, b))                          | `a` posicional, `b` sólo por palabra clave                                     |
-  | !PYTHON(g(a, /, b, *, c))                    | `a` posicional, `b` posicional o por palabra clave, `c` sólo por palabra clave |
-  | !PYTHON(g(*args, b, c))                      | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave\
-                                                   (el `*` de «!PYTHON(*args)» actúa como el `*` de los ejemplos anteriores)      |
+  | Signatura de la función                            | Qué significa                                                                   |
+  | -------------------------------------------------- | ------------------------------------------------------------------------------- |
+  | !PYTHON(g(a, b, c))                                | Todos los parámetros son posicionales o por palabras clave.                     |
+  | !PYTHON(g(a, b, /, c))                             | `a, b` sólo posicionales, `c` posicional o por palabra clave.                   |
+  | !PYTHON(g(a, !POR, b))                             | `a` posicional, `b` sólo por palabra clave.                                     |
+  | !PYTHON(g(a, /, b, !POR, c))                       | `a` posicional, `b` posicional o por palabra clave, `c` sólo por palabra clave. |
+  | !PYTHON(g(!POR{}args, b, c))                       | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave\
+                                                         (el `*` de «!PYTHON(!POR{}args)» actúa como el `*` de los ejemplos anteriores). |
 
 ---
 

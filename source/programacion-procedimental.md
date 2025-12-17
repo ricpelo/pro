@@ -871,21 +871,13 @@ Una función puede llamar a otra.
   16
   ```
 
-### Paso de argumentos por palabra clave
-
-- Usando los marcadores «`/`» y «`*`» podemos forzar el paso de argumentos
-  posicionales o por palabras clave:
+- Todos los parámetros con valor por defecto deben ir **después** de todos los
+  parámetros sin valor por defecto, así que **lo siguiente estaría mal**:
 
   ```python
-  def imprimir_potencia(/, base, *, exponente=2):
+  def imprimir_potencia(exponente=2, base):  # Error
       print(base ** exponente)
   ```
-
-- De esta forma:
-
-  - `base` sólo podrá pasarse posicionalmente.
-
-  - `exponente` sólo podrá pasarse por palabra clave.
 
 ---
 
@@ -958,6 +950,47 @@ Una función puede llamar a otra.
 
   - Aquí, cada llamada sin lista crea una nueva lista independiente, evitando
     el problema.
+
+### Paso de argumentos por palabra clave
+
+- Usando los separadores «`/`» y «`*`» podemos forzar el paso de argumentos
+  posicionales o por palabras clave:
+
+  ```python
+  def imprimir_potencia(/, base, *, exponente=2):
+      print(base ** exponente)
+  ```
+
+- De esta forma:
+
+  - `base` sólo podrá pasarse posicionalmente.
+
+  - `exponente` sólo podrá pasarse por palabra clave.
+
+- Diagrama visual:
+
+  ```python
+  def g(a, b, /, c, d, *, e, f):
+           |  |     |  |     |
+           |  |     |  |     +-- parámetros sólo por palabras clave (e, f)
+           |  |     |  +-------- indica inicio de sólo palabras clave
+           |  |     +----------- parámetros posicionales o por palabras clave (c, d)
+           |  +----------------- indica fin de sólo posicionales
+           +-------------------- parámetros sólo posicionales (a, b)
+  ```
+
+---
+
+- Recordatorio:
+
+  | Signatura de la función                            | Qué significa                                                                   |
+  | -------------------------------------------------- | ------------------------------------------------------------------------------- |
+  | !PYTHON(g(a, b, c))                                | Todos los parámetros son posicionales o por palabras clave.                     |
+  | !PYTHON(g(a, b, /, c))                             | `a, b` sólo posicionales, `c` posicional o por palabra clave.                   |
+  | !PYTHON(g(a, !POR, b))                             | `a` posicional, `b` sólo por palabra clave.                                     |
+  | !PYTHON(g(a, /, b, !POR, c))                       | `a` posicional, `b` posicional o por palabra clave, `c` sólo por palabra clave. |
+  | !PYTHON(g(!POR{}args, b, c))                       | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave\
+                                                         (el `*` de «!PYTHON(!POR{}args)» actúa como el `*` de los ejemplos anteriores). |
 
 ## La sentencia !PYTHON(return)
 
