@@ -344,19 +344,23 @@ class Principal {
 
 :::: columns
 
-::: column
+::: {.column width=30%}
 
-- Imprime:
+Imprime:
 
 :::
 
-::: column
+::: {.column width=68%}
 
 ```
 Hola, Pepe, soy la clase Base
 Hola, Pepe, soy la clase Derivada
 Hola, Pepe, soy la clase Derivada
 ```
+
+:::
+
+::: {.column width=2%}
 
 :::
 
@@ -419,13 +423,13 @@ Hola, Pepe, soy la clase Derivada
 
 :::: columns
 
-::: column
+::: {.column width=30%}
 
-- Imprime:
+Imprime:
 
 :::
 
-::: column
+::: {.column width=70%}
 
 ```
 Derivada
@@ -559,17 +563,17 @@ Derivada
 
 :::: columns
 
-::: column
+::: {.column width=30%}
 
-- Imprime:
+Imprime:
 
 :::
 
-::: column
+::: {.column width=70%}
 
-  ```
-  Hola
-  ```
+```
+Hola
+```
 
 :::
 
@@ -583,7 +587,7 @@ Derivada
 
 :::: columns
 
-::: column
+::: {.column width=65%}
 
 - Por ejemplo:
 
@@ -614,7 +618,7 @@ Derivada
 
 :::
 
-::: column
+::: {.column width=35%}
 
 - Imprime:
 
@@ -632,7 +636,7 @@ Derivada
 
 :::: columns
 
-::: column
+::: {.column width=65%}
 
 - En cambio, si se redefine el método `getNombre`, el resultado es distinto:
 
@@ -668,7 +672,7 @@ Derivada
 
 :::
 
-::: column
+::: {.column width=35%}
 
 - Imprime:
 
