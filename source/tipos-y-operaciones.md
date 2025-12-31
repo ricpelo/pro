@@ -631,11 +631,13 @@ Función                       Descripción           Ejemplo                   
 
 ---
 
-- Por tanto, !PYTHON(max) es la función en sí (un **valor** de tipo _función_)
-  , y \
-  !PYTHON(max(3, 4)) es una llamada a la función !PYTHON(max) con los
-  argumentos !PYTHON(3) y !PYTHON{4} (una **operación** realizada sobre la
-  función).
+- Por tanto:
+
+  - !PYTHON(max) es la función en sí (un **valor** de tipo _función_).
+
+  - !PYTHON(max(3, 4)) es una llamada a la función !PYTHON(max) con los
+    argumentos !PYTHON(3) y !PYTHON{4} (una **operación** realizada sobre la
+    función).
 
   ```python
   >>> max                   # la función max
