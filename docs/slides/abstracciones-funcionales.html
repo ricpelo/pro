@@ -2780,204 +2780,69 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a h
 <section class="slide level5" data-number="3.3.3.0.2">
 
 <ul>
-<li><p>Junto a las operaciones <code
-class="sourceCode python">t[<span class="dv">0</span>]</code> y <code
-class="sourceCode python">t[<span class="dv">1</span>:]</code>, tenemos
-también la operación <code>+</code> (<strong>concatenación</strong>), al
-igual que ocurre con las cadenas.</p></li>
-<li><p>Con la concatenación se pueden crear nuevas tuplas a partir de
-otras tuplas.</p></li>
-<li><p>Por ejemplo:</p>
+<li><p>Además de las operaciones <code
+class="sourceCode python">t[<span class="dv">0</span>]</code> (primer
+elemento de la tupla) y <code
+class="sourceCode python">t[<span class="dv">1</span>:]</code> (resto de
+la tupla), tenemos también las operaciones <code>len</code>
+(<em>longitud</em>) y <code>+</code> (<em>concatenación</em>), al igual
+que ocurre con las cadenas.</p>
+<ul>
+<li><p>Con <code>len</code> se puede saber cuántos elementos tiene una
+tupla:</p>
 <div class="sourceCode" id="cb56"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">+</span> (<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div></li>
-<li><p>Eso significa que, si <code class="sourceCode python">t</code> es
-una tupla no vacía, se cumple que <br> <code
-class="sourceCode python">t <span class="op">==</span> (t[<span class="dv">0</span>],) <span class="op">+</span> t[<span class="dv">1</span>:]</code>.</p>
-<p>Esta propiedad es similar (aunque no exactamente igual) a la que se
-cumple en las cadenas no vacías.</p></li>
-</ul>
-</section>
-
-<section id="rangos" class="title-slide slide level3"
-data-number="3.3.4">
-<h3 data-number="3.3.4"><span class="header-section-number">3.3.4</span>
-Rangos</h3>
-<ul>
-<li><p>Los rangos (datos de tipo <code
-class="sourceCode python"><span class="bu">range</span></code>) son
-valores que representan <strong>sencuencias de números
-enteros</strong>.</p></li>
-<li><p>Los rangos se crean con la función <code
-class="sourceCode python"><span class="bu">range</span></code>, cuya
-signatura es:</p>
-<div class="caja">
-<p><span
-class="math inline">\texttt{range(\([\)\(start\):\,int,\(]\)\;\(stop\):\,int\;\([\),\;\(step\):\,int\(]\))\;-&gt;\;range}</span></p>
-</div></li>
-<li><p>Cuando se omite <em>start</em>, se entiende que es <code
-class="sourceCode python"><span class="dv">0</span></code>.</p></li>
-<li><p>Cuando se omite <em>step</em>, se entiende que es <code
-class="sourceCode python"><span class="dv">1</span></code>.</p></li>
-<li><p>El valor de <em>stop</em> no se alcanza nunca.</p></li>
-<li><p>Cuando <em>start</em> y <em>stop</em> son iguales, representa el
-<em>rango vacío</em>.</p></li>
-<li><p><em>step</em> debe ser siempre distinto de cero.</p></li>
-<li><p>Cuando <em>start</em> es mayor que <em>stop</em>, el valor de
-<em>step</em> debería ser negativo. En caso contrario, también
-representaría el rango vacío.</p></li>
-</ul>
-</section>
-<section id="ejemplos" class="slide level5 unnumbered unlisted">
-<h5 class="unnumbered unlisted">Ejemplos</h5>
-<ul>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span>(<span class="dv">10</span>)</code>
-representa la secuencia <span class="math inline">0, 1, 2, \ldots,
-9</span>.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">10</span>)</code>
-representa la secuencia <span class="math inline">3, 4, 5, \ldots,
-9</span>.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>)</code>
-representa la secuencia <span class="math inline">0, 2, 4, 6,
-8</span>.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>)</code>
-representa la secuencia <span class="math inline">4, 3, 2,
-1</span>.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">3</span>)</code>
-representa el rango vacío.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">3</span>)</code>
-también representa el rango vacío.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.3.4.0.1">
-
-<ul>
-<li>La <strong>forma normal</strong> de un rango es una expresión en la
-que se llama a la función <code
-class="sourceCode python"><span class="bu">range</span></code> con los
-argumentos necesarios para construir el rango:</li>
-</ul>
-<div class="columns">
-<div class="column">
+class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>((<span class="dv">4</span>, <span class="dv">7</span>))</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(())</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>((<span class="dv">3</span>,))</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code></pre></div></li>
+<li><p>Con <code>+</code> se pueden crear nuevas tuplas a partir de
+otras tuplas:</p>
 <div class="sourceCode" id="cb57"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>)</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>)</span></code></pre></div>
-</div><div class="column">
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="op">+</span> (<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div></li>
+</ul></li>
+<li><p>Si <code class="sourceCode python">t</code> es una tupla no
+vacía, siempre se cumple que:</p>
+<div class="centered">
+<p><code
+class="sourceCode python">t <span class="op">==</span> (t[<span class="dv">0</span>],) <span class="op">+</span> t[<span class="dv">1</span>:]</code></p>
+</div></li>
+<li><p>Esta propiedad es similar (aunque no exactamente igual) a la que
+se cumple en las cadenas no vacías.</p></li>
+</ul>
+</section>
+<section id="conversión-a-tupla" class="title-slide slide level4"
+data-number="3.3.3.1">
+<h4 data-number="3.3.3.1"><span
+class="header-section-number">3.3.3.1</span> Conversión a tupla</h4>
+<ul>
+<li><p>Las cadenas se pueden convertir fácilmente a tupla usando la
+función <code
+class="sourceCode python"><span class="bu">tuple</span></code>:</p>
 <div class="sourceCode" id="cb58"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
-</div>
-</div>
-<ul>
-<li><p>El <strong>rango vacío</strong> es un valor que no tiene
-expresión canónica, ya que cualquiera de las siguientes expresiones
-representan al rango vacío tan bien como cualquier otra:</p>
-<ul>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span>(<span class="dv">0</span>)</code>.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span></code><code>(</code><span
-class="math inline">a</span><code>,</code><span
-class="math inline">\;a</span><code>)</code>, donde <em>a</em> es
-cualquier entero.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span></code><code>(</code><span
-class="math inline">a</span><code>,</code><span
-class="math inline">\;b</span><code>,</code><span
-class="math inline">\;c</span><code>)</code>, donde <span
-class="math inline">a \geq b</span> y <span class="math inline">c &gt;
-0</span>.</p></li>
-<li><p><code
-class="sourceCode python"><span class="bu">range</span></code><code>(</code><span
-class="math inline">a</span><code>,</code><span
-class="math inline">\;b</span><code>,</code><span
-class="math inline">\;c</span><code>)</code>, donde <span
-class="math inline">a \leq b</span> y <span class="math inline">c &lt;
-0</span>.</p></li>
-</ul></li>
-</ul>
+class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;&#39;</span>)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>()</span></code></pre></div></li>
+<li><p>Los demás tipos que hemos visto hasta ahora (<code>int</code>,
+<code>float</code> y <code>bool</code>) no se pueden convertir a tupla,
+ya que sus valores son objetos que no se pueden descomponer en elementos
+más pequeños:</p>
 <div class="sourceCode" id="cb59"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">4</span>)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">3</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div>
-</section>
-<section class="slide level5" data-number="3.3.4.0.2">
-
-<ul>
-<li><p>Los rangos también pueden verse como un <strong>tipo de datos
-recursivo</strong>, ya que todo rango <code
-class="sourceCode python">r</code>:</p>
-<ul>
-<li><p>o bien es el rango vacío (<em>caso base</em>),</p></li>
-<li><p>o bien está formado por dos partes:</p>
-<ul>
-<li><p>El <strong>primer elemento</strong> del rango (al que se accede
-mediante <code
-class="sourceCode python">r[<span class="dv">0</span>]</code>), que
-hemos visto que tiene que ser un número entero.</p></li>
-<li><p>El <strong>resto</strong> del rango (al que se accede mediante
-<code class="sourceCode python">r[<span class="dv">1</span>:]</code>),
-que también es un rango (<em>caso recursivo</em>).</p></li>
-</ul></li>
-</ul></li>
-<li><p>Según el ejemplo anterior:</p>
+class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="dv">1</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;int&#39;</span> <span class="bu">object</span> <span class="kw">is</span> <span class="kw">not</span> iterable</span></code></pre></div></li>
+<li><p>Lo mejor en este caso es meter directamente el valor entre
+paréntesis con una coma al final:</p>
 <div class="sourceCode" id="cb60"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango <span class="op">=</span> <span class="bu">range</span>(<span class="dv">4</span>, <span class="dv">7</span>)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">0</span>]</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">1</span>:]</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> rango[<span class="dv">1</span>:][<span class="dv">0</span>]</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">1</span>,)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>,)</span></code></pre></div></li>
 </ul>
 </section>
 
-<section id="conversión-a-tupla" class="title-slide slide level3"
-data-number="3.3.5">
-<h3 data-number="3.3.5"><span class="header-section-number">3.3.5</span>
-Conversión a tupla</h3>
-<ul>
-<li>Las cadenas y los rangos se pueden convertir fácilmente a tuplas
-usando la función <code
-class="sourceCode python"><span class="bu">tuple</span></code>:</li>
-</ul>
-<div class="columns">
-<div class="column" style="width:40%;">
-<div class="sourceCode" id="cb61"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;hola&#39;</span>)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="st">&#39;&#39;</span>)</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>()</span></code></pre></div>
-</div><div class="column" style="width:60%;">
-<div class="sourceCode" id="cb62"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">10</span>))</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">5</span>))</span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>)</span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">3</span>))</span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>)</span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">4</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">6</span>, <span class="op">-</span><span class="dv">7</span>, <span class="op">-</span><span class="dv">8</span>, <span class="op">-</span><span class="dv">9</span>)</span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">0</span>))</span>
-<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>()</span>
-<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>()</span></code></pre></div>
-</div>
-</div>
-</section>
 
 </section>
 <section id="bibliografía"

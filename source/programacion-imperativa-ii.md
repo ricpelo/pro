@@ -491,15 +491,13 @@ s | P | y | t | h | o | n |
 ---
 
 - También se pueden crear listas a partir de otros datos compuestos
-  (cadenas, tuplas, rangos, etcétera) usando la función !PYTHON(list):
+  (cadenas, tuplas, etcétera) usando la función !PYTHON(list):
 
   ```python
   >>> list((1, 2, 3))
   [1, 2, 3]
   >>> list('hola')
   ['h', 'o', 'l', 'a']
-  >>> list(range(0, 6))
-  [0, 1, 2, 3, 4, 5]
   ```
 
 - No se puede crear una lista con !PYTHON(list) a partir de un dato no

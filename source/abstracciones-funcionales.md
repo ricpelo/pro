@@ -2318,180 +2318,67 @@ fib1_5 -> u5
 
 ---
 
-- Junto a las operaciones !PYTHON(t[0]) (primer elemento de la tupla) y
-  !PYTHON(t[1:]) (resto de la tupla), tenemos también la operación `+`
-  (**concatenación**), al igual que ocurre con las cadenas.
+- Además de las operaciones !PYTHON{t[0]} (primer elemento de la tupla) y
+  !PYTHON{t[1:]} (resto de la tupla), tenemos también las operaciones `len`
+  (_longitud_) y `+` (_concatenación_), al igual que ocurre con las cadenas.
 
-- Con la concatenación se pueden crear nuevas tuplas a partir de otras tuplas.
+  - Con `len` se puede saber cuántos elementos tiene una tupla:
+  
+    ```python
+    >>> len((4, 7))
+    2
+    >>> len(())
+    0
+    >>> len((3,))
+    1
+    ```
 
-- Por ejemplo:
+  - Con `+` se pueden crear nuevas tuplas a partir de otras tuplas:
+ 
+    ```python
+    >>> (1, 2, 3) + (4, 5, 6)
+    (1, 2, 3, 4, 5, 6)
+    ```
 
-  ```python
-  >>> (1, 2, 3) + (4, 5, 6)
-  (1, 2, 3, 4, 5, 6)
-  ```
+- Si !PYTHON(t) es una tupla no vacía, siempre se cumple que:
 
-- Eso significa que, si !PYTHON(t) es una tupla no vacía, se cumple que !SALTO
-  !PYTHON(t == (t[0],) + t[1:]).
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !PYTHON(t == (t[0],) + t[1:])
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Esta propiedad es similar (aunque no exactamente igual) a la que se cumple en
+- Esta propiedad es similar (aunque no exactamente igual) a la que se cumple en
   las cadenas no vacías.
 
-### Rangos
+#### Conversión a tupla
 
-- Los rangos (datos de tipo !PYTHON(range)) son valores que representan
-  **sencuencias de números enteros**.
-
-- Los rangos se crean con la función !PYTHON(range), cuya signatura es:
-
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  $\texttt{range(!VAR([)!VAR(start):\,int,!VAR(])\;!VAR(stop):\,int\;!VAR([),\;!VAR(step):\,int!VAR(]))\;->\;range}$
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Cuando se omite _start_, se entiende que es !PYTHON(0).
-
-- Cuando se omite _step_, se entiende que es !PYTHON(1).
-
-- El valor de _stop_ no se alcanza nunca.
-
-- Cuando _start_ y _stop_ son iguales, representa el *rango vacío*.
-
-- _step_ debe ser siempre distinto de cero.
-
-- Cuando _start_ es mayor que _stop_, el valor de _step_ debería ser negativo.
-  En caso contrario, también representaría el rango vacío.
-
-!EJEMPLOS
-
-- !PYTHON(range(10)) representa la secuencia $0, 1, 2, \ldots, 9$.
-
-- !PYTHON(range(3, 10)) representa la secuencia $3, 4, 5, \ldots, 9$.
-
-- !PYTHON(range(0, 10, 2)) representa la secuencia $0, 2, 4, 6, 8$.
-
-- !PYTHON(range(4, 0, -1)) representa la secuencia $4, 3, 2, 1$.
-
-- !PYTHON(range(3, 3)) representa el rango vacío.
-
-- !PYTHON(range(4, 3)) también representa el rango vacío.
-
----
-
-- La **forma normal** de un rango es una expresión en la que se llama a la
-  función !PYTHON(range) con los argumentos necesarios para construir el rango:
-
-:::: columns
-
-::: column
-
-```python
->>> range(2, 3)
-range(2, 3)
->>> range(4)
-range(0, 4)
-```
-
-:::
-
-::: column
-
-```python
->>> range(2, 5, 1)
-range(2, 5)
->>> range(2, 5, 2)
-range(2, 5, 2)
-```
-
-:::
-
-::::
-
-- El **rango vacío** es un valor que no tiene expresión canónica, ya que
-  cualquiera de las siguientes expresiones representan al rango vacío tan bien
-  como cualquier otra:
-
-  - !PYTHON(range(0)).
-
-  - !PYTHON(range)`(`$a$`, `$\;a$`)`, donde _a_ es cualquier entero.
-
-  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \geq b$ y $c > 0$.
-
-  - !PYTHON(range)`(`$a$`, `$\;b$`, `$\;c$`)`, donde $a \leq b$ y $c < 0$.
-
-```python
->>> range(3, 3) == range(4, 4)
-True
->>> range(4, 3) == range(3, 4, -1)
-True
-```
-
----
-
-- Los rangos también pueden verse como un **tipo de datos recursivo**, ya que
-  todo rango !PYTHON(r):
-
-  - o bien es el rango vacío (*caso base*),
-
-  - o bien está formado por dos partes:
-
-    - El **primer elemento** del rango (al que se accede mediante
-      !PYTHON(r[0])), que hemos visto que tiene que ser un número entero.
-
-    - El **resto** del rango (al que se accede mediante !PYTHON(r[1:])), que
-      también es un rango (*caso recursivo*).
-
-- Según el ejemplo anterior:
+- Las cadenas se pueden convertir fácilmente a tupla usando la función
+  !PYTHON(tuple):
 
   ```python
-  >>> rango = range(4, 7)
-  >>> rango[0]
-  4
-  >>> rango[1:]
-  range(5, 7)
-  >>> rango[1:][0]
-  5
+  >>> tuple('hola')
+  ('h', 'o', 'l', 'a')
+  >>> tuple('')
+  ()
   ```
 
-### Conversión a tupla
+- Los demás tipos que hemos visto hasta ahora (`int`, `float` y `bool`) no se
+  pueden convertir a tupla, ya que sus valores son objetos que no se pueden
+  descomponer en elementos más pequeños:
 
-- Las cadenas y los rangos se pueden convertir fácilmente a tuplas usando la
-  función !PYTHON(tuple):
+  ```python
+  >>> tuple(1)
+  Traceback (most recent call last):
+    File "<stdin", line 1, in <module>
+  TypeError: 'int' object is not iterable
+  ```
 
-:::: columns
+- Lo mejor en este caso es meter directamente el valor entre paréntesis con una
+  coma al final:
 
-::: {.column width=40%}
-
-```python
->>> tuple('hola')
-('h', 'o', 'l', 'a')
->>> tuple('')
-()
-```
-
-:::
-
-::: {.column width=60%}
-
-```python
->>> tuple(range(10))
-(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
->>> tuple(range(1, 11))
-(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
->>> tuple(range(0, 30, 5))
-(0, 5, 10, 15, 20, 25)
->>> tuple(range(0, 10, 3))
-(0, 3, 6, 9)
->>> tuple(range(0, -10, -1))
-(0, -1, -2, -3, -4, -5, -6, -7, -8, -9)
->>> tuple(range(0))
-()
->>> tuple(range(1, 0))
-()
-```
-
-:::
-
-::::
+  ```python
+  >>> (1,)
+  (1,)
+  ```
 
 !BIBLIOGRAFIA
