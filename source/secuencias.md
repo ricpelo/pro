@@ -47,37 +47,80 @@ nocite: |
 
 ---
 
---------------------------------------------------------------------------------------------------------------------------
-Operación                                 Resultado
------------------------------------------ --------------------------------------------------------------------------------
-$x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
+- Operadores:
 
-$x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
+  --------------------------------------------------------------------------------------------------------------------------
+  Operación                                 Resultado
+  ----------------------------------------- --------------------------------------------------------------------------------
+  $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
+  $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-$s$ `*` $n$ \                             (_Repetición_) Equivale a concatenar $\underline{s}$ consigo misma $\underline{n}$ veces
-$n$ `*` $s$                               (no va con rangos)
+  $s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
 
-$s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
+  $s$ `*` $k$ \                             (_Repetición_) Equivale a concatenar $\underline{s}$ consigo misma $\underline{k}$ veces
+  $k$ `*` $s$                               (no va con rangos)
 
-$s$`[`$i$`:`$j$`]`                        Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$
+  $s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
 
-$s$`[`$i$`:`$j$`:`$k$`]`                  Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ con paso $\underline{k}$
+  $s$`[`$i$`:`$j$`]`                        Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$
 
-!PYTHON(len)`(`$s$`)`                     Longitud de $\underline{s}$
+  $s$`[`$i$`:`$j$`:`$k$`]`                  Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ con paso $\underline{k}$
+  --------------------------------------------------------------------------------------------------------------------------
 
-!PYTHON(min)`(`$s$`)`                     El elemento más pequeño de $\underline{s}$
+---
 
-!PYTHON(max)`(`$s$`)`                     El elemento más grande de $\underline{s}$
+- Funciones y métodos:
 
-!PYTHON(sorted)`(`$s$`)`                  Lista ordenada de los elementos de $\underline{s}$
+  --------------------------------------------------------------------------------------------------------------------------
+  Operación                                 Resultado
+  ----------------------------------------- --------------------------------------------------------------------------------
+  !PYTHON(len)`(`$s$`)`                     Longitud de $\underline{s}$
 
-$s$!PYTHON(.index)`(`$x$                  El índice de la primera aparición de $\underline{x}$ en $\underline{s}$
-[`, ` $i$ [`, ` $j$ ] ]`)`                (desde el índice $\underline{i}$ inclusive y antes del $\underline{j}$)
+  !PYTHON(min)`(`$s$`)`                     El elemento más pequeño de $\underline{s}$
 
-$s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\underline{x}$ en $\underline{s}$
---------------------------------------------------------------------------------------------------------------------------
+  !PYTHON(max)`(`$s$`)`                     El elemento más grande de $\underline{s}$
+
+  !PYTHON(sorted)`(`$s$`)`                  Lista ordenada de los elementos de $\underline{s}$
+
+  $s$!PYTHON(.index)`(`$x$                  El índice de la primera aparición de $\underline{x}$ en $\underline{s}$
+  [`, ` $i$ [`, ` $j$ ] ]`)`                (desde el índice $\underline{i}$ inclusive y antes del $\underline{j}$)
+
+  $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\underline{x}$ en $\underline{s}$
+  --------------------------------------------------------------------------------------------------------------------------
+
+---
+
+- Coste computacional en tiempo de ejecución:
+
+  --------------------------------------------------------------------------------------------------------------------------
+  Operación                                 Coste
+  ----------------------------------------- --------------------------------------------------------------------------------
+  $x\ $ !PYTHON(in) $\ s$ \                 $O(1)$ si $s$ es !PYTHON(set) o !PYTHON(dict), $O(n)$ en los demás casos
+  $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$
+
+  $s$ `+` $t$                               $O(\max($!PYTHON(len)`(`$s$`)`, !PYTHON(len)`(`$t$`)`$))$
+
+  $s$ `*` $k$ \                             $O(k\cdot{}$!PYTHON(len)`(`$s$`)`$)$
+  $k$ `*` $s$
+
+  $s$`[`$i$`]`                              $O(1)$
+
+  $s$`[`$i$`:`$j$`:`$k$`]`                  $O($!PYTHON(len)`(`$s$`)`$)$
+
+  !PYTHON(len)`(`$s$`)`                     $O(1)$
+
+  !PYTHON(min)`(`$s$`)`                     $O($!PYTHON(len)`(`$s$`)`$)$
+
+  !PYTHON(max)`(`$s$`)`                     $O($!PYTHON(len)`(`$s$`)`$)$
+
+  !PYTHON(sorted)`(`$s$`)`                  $O(n\cdot\log($!PYTHON(len)`(`$s$`)`$))$
+
+  $s$!PYTHON(.index)`(`$x$                  $O($!PYTHON(len)`(`$s$`)`$)$
+  [`, ` $i$ [`, ` $j$ ] ]`)`
+
+  $s$!PYTHON(.count)`(`$x$`)`               $O($!PYTHON(len)`(`$s$`)`$)$
+  --------------------------------------------------------------------------------------------------------------------------
 
 ---
 
@@ -122,8 +165,8 @@ $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\unde
   - Se empieza comparando el primer elemento de $\underline{s}$ con el primero
     de $\underline{t}$.
 
-  - Si son iguales, se pasa al siguiente hasta encontrar
-    algún elemento de $\underline{s}$ que sea distinto a su correspondiente de
+  - Si son iguales, se pasa al siguiente hasta encontrar algún elemento de
+    $\underline{s}$ que sea distinto a su correspondiente de
     $\underline{t}$.
 
   - Si llegamos al final de $\underline{s}$ sin haber encontrado ningún
