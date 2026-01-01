@@ -90,13 +90,13 @@ nocite: |
 
 ::: column
 
-!IMGP(estructuras-anidadas.!EXT)(Ámbitos léxicos anidados)(width=35%)(width=25%)
+!IMGP(estructuras-anidadas.!EXT)(Ámbitos léxicos anidados)(width=35%)(width=23%)
 
 :::
 
 ::: column
 
-!IMGP(estructuras-que-se-cruzan.!EXT)(Estas no son estructuras, y por tanto no pueden ser ámbitos)(width=35%)(width=25%)
+!IMGP(estructuras-que-se-cruzan.!EXT)(Estas no son estructuras, y por tanto no pueden ser ámbitos)(width=35%)(width=23%)
 
 :::
 
@@ -2154,14 +2154,13 @@ subgraph cluster9 {
         bgcolor = "white"
         node [fontname = "monospace"]
         z [shape = plaintext, fillcolor = transparent, width = 0.1]
+        dummy [style = invis]
     }
     subgraph cluster2 {
-        rank = min
         label = <        Marco de <font face="monospace">dos</font>        >
         bgcolor = "white"
         node [fontname = "monospace"]
         y [shape = plaintext, fillcolor = transparent, width = 0.1]
-        dummy [style = invis, fillcolor = transparent, width = 0.1]
     }
     subgraph cluster1 {
         label = <        Marco de <font face="monospace">uno</font>        >
@@ -2177,7 +2176,7 @@ subgraph cluster9 {
         uno [shape = plaintext, fillcolor = transparent, width = 0.1]
         dos [shape = plaintext, fillcolor = transparent, width = 0.1]
     }
-    {rank = same; x; uno; dos; g; z; y}
+    {rank = same; x; uno; dos; g; z; y; dummy}
 }
 3 [shape = circle]
 8 [shape = circle]
@@ -2193,9 +2192,9 @@ z -> 8
 y -> 2
 x -> uno [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
-z -> dummy [lhead = cluster2, ltail = cluster3, minlen = 3]
+dummy -> y [lhead = cluster2, ltail = cluster3, minlen = 3]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> z [lhead = cluster3]
+E -> dummy [lhead = cluster3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
