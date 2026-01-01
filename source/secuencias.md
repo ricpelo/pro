@@ -49,24 +49,25 @@ nocite: |
 
 - Operadores:
 
-  --------------------------------------------------------------------------------------------------------------------------
-  Operación                                 Resultado
-  ----------------------------------------- --------------------------------------------------------------------------------
-  $x\ $ !PYTHON(in) $\ s$                   !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
+  ------------------------------------------------------------------------------------------------------------------------------------------------
+  Operación                     Resultado
+  ----------------------------- ------------------------------------------------------------------------------------------------------------------
+  $x\ $ !PYTHON(in) $\ s$       !PYTHON(True) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
 
-  $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
+  $x\ $ !PYTHON(not)            !PYTHON(False) si algún elemento de $\underline{s}$ es igual a $\underline{x}$
+  !PYTHON(in) $\ s$
 
-  $s$ `+` $t$                               La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
+  $s$ `+` $t$                   La concatenación de $\underline{s}$ y $\underline{t}$ (no va con rangos)
 
-  $s$ `*` $k$ \                             (_Repetición_) Equivale a concatenar $\underline{s}$ consigo misma $\underline{k}$ veces
-  $k$ `*` $s$                               (no va con rangos)
+  $s$ `*` $k$ \                 (_Repetición_) Equivale a concatenar $\underline{s}$ consigo misma $\underline{k}$ veces
+  $k$ `*` $s$                   (no va con rangos)
 
-  $s$`[`$i$`]`                              El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
+  $s$`[`$i$`]`                  (_Indexación_) El $\underline{i}$-ésimo elemento de $\underline{s}$, empezando por 0
 
-  $s$`[`$i$`:`$j$`]`                        Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$
+  $s$`[`$i$`:`$j$`]`            Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$
 
-  $s$`[`$i$`:`$j$`:`$k$`]`                  Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ con paso $\underline{k}$
-  --------------------------------------------------------------------------------------------------------------------------
+  $s$`[`$i$`:`$j$`:`$k$`]`      Rodaja de $\underline{s}$ desde $\underline{i}$ hasta $\underline{j}$ con paso $\underline{k}$
+  ------------------------------------------------------------------------------------------------------------------------------------------------
 
 ---
 
@@ -93,9 +94,9 @@ nocite: |
 
 - Coste computacional en tiempo de ejecución:
 
-  --------------------------------------------------------------------------------------------------------------------------
+  --------------------------------------------------------------------------------------------------------------------
   Operación                                 Coste
-  ----------------------------------------- --------------------------------------------------------------------------------
+  ----------------------------------------- --------------------------------------------------------------------------
   $x\ $ !PYTHON(in) $\ s$ \                 $O(1)$ si $s$ es !PYTHON(set) o !PYTHON(dict), $O(n)$ en los demás casos
   $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$
 
@@ -106,7 +107,7 @@ nocite: |
 
   $s$`[`$i$`]`                              $O(1)$
 
-  $s$`[`$i$`:`$j$`:`$k$`]`                  $O($!PYTHON(len)`(`$s$`)`$)$
+  $s$`[`$i$`:`$j$ [`:`$k$]`]`               $O($!PYTHON(len)`(`$s$`)`$)$
 
   !PYTHON(len)`(`$s$`)`                     $O(1)$
 
@@ -120,7 +121,7 @@ nocite: |
   [`, ` $i$ [`, ` $j$ ] ]`)`
 
   $s$!PYTHON(.count)`(`$x$`)`               $O($!PYTHON(len)`(`$s$`)`$)$
-  --------------------------------------------------------------------------------------------------------------------------
+  --------------------------------------------------------------------------------------------------------------------
 
 ---
 
