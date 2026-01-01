@@ -142,7 +142,7 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 		-A $(INCLUDE_AFTER_HTML) \
 		--toc --toc-depth=1 -N \
 		--slide-level=5 \
-		--highlight-style=$(HIGHLIGHT_STYLE) \
+		--syntax-highlighting=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
 		--syntax-definition=$(PYTHON_XML) \
@@ -165,7 +165,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHL
 		--slide-level=5 \
 		-H $(PREAMBULO_BEAMER) \
 		--pdf-engine=xelatex \
-		--highlight-style=$(HIGHLIGHT_STYLE) \
+		--syntax-highlighting=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
 		--syntax-definition=$(PYTHON_XML) \
@@ -196,7 +196,7 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 		-H $(PREAMBULO_LATEX) \
 		-B $(INCLUDE_BEFORE_TEX) \
 		--pdf-engine=xelatex \
-		--highlight-style=$(HIGHLIGHT_STYLE) \
+		--syntax-highlighting=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
 		--syntax-definition=$(PYTHON_XML) \
@@ -207,6 +207,8 @@ $(BUILDDIR_APUNTES)/%-apuntes.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(LATEX_TEMPLA
 		-V monofont=FiraMono \
 		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V mathspec \
+		-V urlcolor=SteelBlue3 \
+		-V urlstyle=tt \
 		-V fontsize=10pt -V lang=es-ES -o $@
 
 # Ejercicios y prácticas
@@ -215,10 +217,10 @@ $(EJER_BUILDDIR_PDF)/%-ejercicios.pdf: $(EJER_SRCDIR)/%.md $(PP) $(PANDOC) $(HIG
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t latex \
-		--highlight-style=$(HIGHLIGHT_STYLE) \
 		-N \
 		-H $(HEADER_INCLUDES_EJERCICIOS) \
 		-B $(INCLUDE_BEFORE_EJERCICIOS) \
+		--syntax-highlighting=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
 		--syntax-definition=$(PYTHON_XML) \
@@ -234,10 +236,10 @@ $(PRAC_BUILDDIR_PDF)/%-practicas.pdf: $(PRAC_SRCDIR)/%.md $(PP) $(PANDOC) $(HIGH
 	@echo "Generando $@..."
 	@$(PP) -DLATEX -DCURSO=$(CURSO) -import $(COMMON_PP) $< | \
 		pandoc -s -t latex \
-		--highlight-style=$(HIGHLIGHT_STYLE) \
 		-N \
 		-H $(HEADER_INCLUDES_EJERCICIOS) \
 		-B $(INCLUDE_BEFORE_EJERCICIOS) \
+		--syntax-highlighting=$(HIGHLIGHT_STYLE) \
 		--syntax-definition=$(PHP_XML) \
 		--syntax-definition=$(CONSOLE_XML) \
 		--syntax-definition=$(PYTHON_XML) \

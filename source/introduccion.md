@@ -399,7 +399,7 @@ Fetch -> Decode -> Execute -> Fetch[constraint = false];
 !DOT(codificaciones.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 E [label = "Exterior", shape = oval];
-S [label = <Sistema<br/>informático<br/><br/>(<b><i>Codificación interna</i></b>)>];
+S [label = <Sistema<br/>informático<br/><br/>(<b><i>Codificación interna</i></b> )>];
 
 S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

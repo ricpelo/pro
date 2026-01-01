@@ -138,7 +138,7 @@ nocite: |
   - Tienen la misma longitud (!PYTHON(len)`(`$s$`)` `==`
     !PYTHON(len)`(`$t$`)`).
 
-  - Contienen los mismos elementos en el mismo orden \
+  - Contienen los mismos elementos en el mismo orden !SALTOHTML{}
     ($s$!PYTHON([0]) `==` $t$!PYTHON([0]), $s$!PYTHON([1]) `==`
     $t$!PYTHON([1]), etcétera).
 
@@ -237,7 +237,7 @@ nocite: |
     ```
 
 - Las cadenas implementan todas las operaciones de las secuencias, además de
-  los métodos que se pueden consultar en
+  los métodos que se pueden consultar en !SALTOHTML{}
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
 ### Formateado de cadenas
