@@ -173,6 +173,7 @@ $(BUILDDIR_PDF)/%.pdf: $(SRCDIR)/%.md $(PP) $(PANDOC) $(BEAMER_TEMPLATE) $(HIGHL
 		--syntax-definition=$(SPDX_COMMENTS_XML) \
 		-V theme=Ithaca \
 		-V mainfont=Lato \
+		-V mathfont=Lato \
 		-V monofont=FiraMono \
 		-V monofontoptions=Extension=.otf,UprightFont=*-Regular,BoldFont=*-Bold,AutoFakeSlant,BoldItalicFeatures={FakeSlant},Scale=MatchLowercase,Contextuals={Alternate} \
 		-V mathspec \

@@ -862,15 +862,15 @@ $s$`[`$i$`:`$j$`:             Los elementos de $s$`[`$i$`:`$j$`:`$k$`]` se susti
 -----------------------------------------------------------------------------------------------------------------------------------
 Operación                         Resultado
 --------------------------------- -------------------------------------------------------------------------------------------------
-$s$!PYTHON(.append)`(`$x$`)`      Añade $\underline{x}$ al final de $\underline{s}$; es igual que \
+$s$!PYTHON(.append)`(`$x$`)`      Añade $\underline{x}$ al final de $\underline{s}$; es igual que !SALTOHTML
                                   $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` `[`$x$`]`
 
-$s$!PYTHON(.clear())              Elimina todos los elementos de $\underline{s}$; es igual que \
+$s$!PYTHON(.clear())              Elimina todos los elementos de $\underline{s}$; es igual que !SALTOHTML
                                   !PYTHON(del) $\ s$!PYTHON([:])
 
 $s$!PYTHON(.copy())               Crea una copia *superficial* de $\underline{s}$; es igual que $s$!PYTHON([:])
 
-$s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es igual que \
+$s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es igual que !SALTOHTML
 $s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` $t$
 
 $s$ `*=` $n$                      Modifica $\underline{s}$ repitiendo su contenido $\underline{n}$ veces
@@ -878,8 +878,8 @@ $s$ `*=` $n$                      Modifica $\underline{s}$ repitiendo su conteni
 $s$!PYTHON(.insert)`(`$i$`, `     Inserta $\underline{x}$ en $\underline{s}$ en el índice $\underline{i}$; es igual que
 $x$`)`                            $s$`[`$i$`:`$i$`]` `=` `[`$x$`]`
 
-$s$!PYTHON(.pop)`(`[ $i$ ]`)`     Extrae el elemento $\underline{i}$ de $\underline{s}$ y lo devuelve\
-                                  (por defecto, $i$ vale !PYTHON(-1))
+$s$!PYTHON(.pop)`(`[ $i$ ]`)`     Extrae el elemento $\underline{i}$ de $\underline{s}$ y lo devuelve !SALTOHTML
+                                  \(por defecto, $i$ vale !PYTHON(-1))
 
 $s$!PYTHON(.remove)`(`$x$`)`      Quita el primer elemento de $\underline{s}$ que sea igual a $\underline{x}$
 
