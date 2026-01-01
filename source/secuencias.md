@@ -24,7 +24,8 @@ nocite: |
   #. Permite el acceso eficiente a cada uno de sus elementos mediante
      indexación $s$`[`$i$`]`, siendo $i$ el índice del elemento.
 
-- Las secuencias se dividen en:
+- !JUNTA
+  Las secuencias se dividen en:
 
   - **Inmutables**: cadenas (!PYTHON(str)), tuplas (!PYTHON(tuple)) y rangos
     (!PYTHON(range)).
@@ -92,7 +93,8 @@ nocite: |
 
 ---
 
-- Coste computacional en tiempo de ejecución:
+- !JUNTA
+  Coste computacional en tiempo de ejecución:
 
   --------------------------------------------------------------------------------------------------------------------
   Operación                                 Coste
@@ -225,7 +227,8 @@ nocite: |
     'hola'
     ```
 
-  - Con triples comillas (!PYTHON(''') o !PYTHON(""")):
+  - !JUNTA
+    Con triples comillas (!PYTHON(''') o !PYTHON(""")):
 
     ```python
     >>> """hola
