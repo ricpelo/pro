@@ -2145,45 +2145,42 @@ E -> w [lhead = cluster3]
 rankdir = LR
 compound = true
 newrank = true
-node [shape = record]
-subgraph cluster9 {
-    label = "Pila de control"
-    bgcolor = grey95
-    subgraph cluster3 {
-        label = "Marco del lambda interior"
-        bgcolor = "white"
-        node [fontname = "monospace"]
-        z [shape = plaintext, fillcolor = transparent, width = 0.1]
-        dummy [style = invis]
-    }
-    subgraph cluster2 {
-        label = <        Marco de <font face="monospace">dos</font>        >
-        bgcolor = "white"
-        node [fontname = "monospace"]
-        y [shape = plaintext, fillcolor = transparent, width = 0.1]
-    }
-    subgraph cluster1 {
-        label = <        Marco de <font face="monospace">uno</font>        >
-        bgcolor = "white"
-        node [fontname = "monospace"]
-        x [shape = plaintext, fillcolor = transparent, width = 0.1]
-    }
-    subgraph cluster0 {
-        label = "         Marco global         "
-        bgcolor = "white"
-        node [fontname = "monospace"]
-        g [shape = plaintext, fillcolor = transparent, width = 0.1]
-        uno [shape = plaintext, fillcolor = transparent, width = 0.1]
-        dos [shape = plaintext, fillcolor = transparent, width = 0.1]
-    }
-    {rank = same; x; uno; dos; g; z; y; dummy}
-}
+node [shape = record, fontname = "monospace"]
 3 [shape = circle]
 8 [shape = circle]
 1 [shape = circle]
 2 [shape = circle]
 l1 [shape = circle, label = "λ"]
 l2 [shape = circle, label = "λ"]
+subgraph cluster9 {
+    label = "Pila de control"
+    bgcolor = grey95
+    subgraph cluster3 {
+        label = "Marco del lambda interior"
+        bgcolor = "white"
+        z_gate [shape = box, style = invis, width = 0.5, height = 0.3]
+        z [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster2 {
+        label = <        Marco de <font face="monospace">dos</font>        >
+        bgcolor = "white"
+        y_gate [shape = box, style = invis, width = 0.5, height = 0.3]
+        y [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster1 {
+        label = <        Marco de <font face="monospace">uno</font>        >
+        bgcolor = "white"
+        x [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    subgraph cluster0 {
+        label = "         Marco global         "
+        bgcolor = "white"
+        g [shape = plaintext, fillcolor = transparent, width = 0.1]
+        uno [shape = plaintext, fillcolor = transparent, width = 0.1]
+        dos [shape = plaintext, fillcolor = transparent, width = 0.1]
+    }
+    {rank = same; x; uno; dos; g; z; y; z_gate; y_gate}
+}
 uno -> l1
 dos -> l2
 g -> 1
@@ -2192,9 +2189,9 @@ z -> 8
 y -> 2
 x -> uno [lhead = cluster0, ltail = cluster1, minlen = 2]
 y -> g [lhead = cluster0, ltail = cluster2, minlen = 2]
-dummy -> y [lhead = cluster2, ltail = cluster3, minlen = 3]
+z -> y [lhead = cluster2, ltail = cluster3, minlen = 3]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> dummy [lhead = cluster3]
+E -> z [lhead = cluster3]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2235,16 +2232,15 @@ subgraph cluster9 {
     subgraph cluster3 {
         label = <Marco de <font face="monospace">fact(2)</font>>
         bgcolor = "white"
+        n2_gate [shape = box, style = invis, width = 0.5, height = 0.3]
         n2 [shape = plaintext, fillcolor = transparent, label = "n", width = 0.1]
     }
     subgraph cluster0 {
         label = "     Marco global     "
         bgcolor = "white"
         fact [shape = plaintext, fillcolor = transparent]
-        dummy [style = invis]
-        dummy2 [style = invis]
     }
-    {rank = same; n4; n3; n2; fact; dummy; dummy2}
+    {rank = same; n4; n3; n2; n2_gate; fact}
 }
 4 [shape = circle]
 3 [shape = circle]
@@ -2255,17 +2251,17 @@ n3 -> 3
 n2 -> 2
 fact -> lambda
 n4 -> fact [lhead = cluster0, ltail = cluster1]
-n3 -> dummy [lhead = cluster0, ltail = cluster2]
-n2 -> dummy2 [lhead = cluster0, ltail = cluster3]
+n3 -> fact [lhead = cluster0, ltail = cluster2]
+n2 -> fact [lhead = cluster0, ltail = cluster3]
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> n4 [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- Los **traductores que optimizan la recursividad final** lo que hacen es
-  sustituir cada llamada recursiva por la nueva llamada recursiva a la misma
-  función.
+- Los **traductores que optimizan la recursividad final** (_TCO_, _Tail Call
+  Optimization_) lo que hacen es sustituir cada llamada recursiva por la nueva
+  llamada recursiva a la misma función.
 
 - De esta forma, el marco que genera cada nueva llamada recursiva no se apila
   sobre los marcos anteriores en la pila, sino que sustituye al marco de la
