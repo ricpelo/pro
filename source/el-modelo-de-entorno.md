@@ -2203,10 +2203,12 @@ E -> z [lhead = cluster3]
 - Por tanto, en el caso de una función recursiva, tendremos un marco por cada
   llamada recursiva.
 
-```python
-fact = lambda n: 1 if n == 0 else n * fact(n - 1)
-r = fact(4)
-```
+- Por ejemplo:
+
+  ```python
+  fact = lambda n: 1 if n == 0 else n * fact(n - 1)
+  r = fact(4)
+  ```
 
 ---
 
