@@ -997,9 +997,9 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 - Por ejemplo:
 
-  - Cuando entramos a ejecutar un _script_, se crea su _marco global_.
+  - Cuando entramos a ejecutar un _script_, se crea su _marco global_:
 
-    !IMGP(unico-marco-en-entorno.svg)()(width=25%)
+    !IMGP(unico-marco-en-entorno.svg)()(width=25%)(width=27%)
 
   - Si dentro de ese _script_ llamamos a una expresión lambda, se creará un
     marco para esa ejecución concreta de la expresión lambda, por lo que en ese
@@ -1007,9 +1007,9 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
     expresión lambda.
 
     El marco de la expresión lambda será el marco actual, que será el
-    primer marco del entorno y apuntará a su vez al marco global.
+    primer marco del entorno y apuntará a su vez al marco global:
 
-    !DOT(marcos-de-expresion-lambda-y-global.svg)()(width=60%)(width=60%)
+    !DOT(marcos-de-expresion-lambda-y-global.svg)()(width=60%)(width=65%)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     graph [rankdir = LR]
     node [fontname = "monospace"]
@@ -1141,7 +1141,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 - Por ejemplo, si en cierto momento de la ejecución del programa anterior
   tenemos el siguiente entorno:
 
-  !DOT(lambda-suma-entorno.svg)()(width=60%)(width=50%)
+  !DOT(lambda-suma-entorno.svg)()(width=60%)(width=60%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
@@ -1227,7 +1227,7 @@ b. En caso contrario, el espacio de nombres será el marco asociado al ámbito d
 
 ::: column
 
-!DOT(lambda-entorno-linea1.svg)(Entorno justo tras ejecutar la línea 1)(width=60%)(width=25%)
+!DOT(lambda-entorno-linea1.svg)(Entorno justo tras ejecutar la línea 1)(width=60%)(width=27%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 4 [shape = circle]
@@ -1246,7 +1246,7 @@ E -> x [lhead = cluster0]
 
 ::: column
 
-!DOT(lambda-entorno-linea2.svg)(Entorno justo tras ejecutar la línea 2)(width=60%)(width=25%)
+!DOT(lambda-entorno-linea2.svg)(Entorno justo tras ejecutar la línea 2)(width=60%)(width=27%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 1 [shape = circle]
@@ -1327,7 +1327,7 @@ E -> z [lhead = cluster0]
 
 ::: column
 
-!DOT(lambda-entorno-linea4.svg)(Entorno justo tras ejecutar la línea 4)(width=60%)(width=35%)
+!DOT(lambda-entorno-linea4.svg)(Entorno justo tras ejecutar la línea 4)(width=60%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -1355,7 +1355,7 @@ E -> z [lhead = cluster0]
 
 ::: column
 
-!DOT(lambda-entorno-linea5.svg)(Entorno justo tras ejecutar la línea 5)(width=60%)(width=35%)
+!DOT(lambda-entorno-linea5.svg)(Entorno justo tras ejecutar la línea 5)(width=60%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 21 [shape = circle];
@@ -1526,7 +1526,7 @@ E -> xl [lhead = cluster1]
 
 !SALTOHTML
 
-!DOT(cuatro-ambitos-entorno-linea3-durante-segundo-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=90%)(width=75%)
+!DOT(cuatro-ambitos-entorno-linea3-durante-segundo-lambda.svg)(Entorno en la línea 3 en el cuerpo de la segunda expresión lambda, después de aplicar sus argumentos y durante la ejecución de su cuerpo)(width=90%)(width=85%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -2210,7 +2210,7 @@ r = fact(4)
 
 ---
 
-!DOT(pila-control-factorial.svg)(Pila de control tras tres activaciones desde `fact(4)`)(width=30%)(width=30%)
+!DOT(pila-control-factorial.svg)(Pila de control tras tres activaciones desde `fact(4)`)(width=30%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 rankdir = LR
 compound = true
