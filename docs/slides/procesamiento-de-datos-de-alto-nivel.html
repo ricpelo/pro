@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -1923,9 +1925,75 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a h
 </ul>
 </section>
 
-<section id="expresiones-generadoras" class="title-slide slide level2"
+<section id="procesamiento-de-flujos" class="title-slide slide level2"
 data-number="3.5">
 <h2 data-number="3.5"><span class="header-section-number">3.5</span>
+Procesamiento de flujos</h2>
+<ul>
+<li><p>El <strong>procesamiento de flujos</strong> es una técnica de
+diseño de programas que se basa en estudiar cómo se transforman los
+datos de entrada en datos de salida y descomponer dicha transformación
+en una secuencia de etapas intermedias donde la salida de una etapa es
+la entrada de la siguiente, como en una cadena de montaje.</p></li>
+<li><p>Es una técnica usada principalmente en programación funcional,
+aunque también es muy útil en programación imperativa.</p></li>
+<li><p>El esquema general es el siguiente, con posibles ligeras
+variaciones (mayor o menor cantidad de etapas):</p>
+<div class="centered">
+<p><img data-src="images/procesamiento-flujos.svg" class="plain"
+style="width:75.0%" /></p>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.1">
+
+<ul>
+<li><p>Para que esta solución funcione de manera eficiente, es
+importante que una etapa no genere más cantidad de datos de los que va a
+necesitar la etapa siguiente, sino que genere exactamente los datos
+necesarios.</p></li>
+<li><p>Para ello, cuando una etapa necesite generar un nuevo dato de
+salida, le pedirá un nuevo dato de entrada a la etapa anterior, y ésta a
+la anterior, y así sucesivamente.</p></li>
+<li><p>Eso significa que entre etapas se deben intercambiar datos
+perezosos (es decir, flujos), de manera que los datos intercambiados
+sean justamente los que cada etapa necesita.</p></li>
+<li><p>Si el flujo de datos intercambiado no fuera perezoso, se crearían
+en memoria muchísimos datos intermedios innecesarios de
+conservar.</p></li>
+<li><p>La idea clave es pensar que las cuatro etapas funcionan a la vez,
+y NO pensar que una etapa empieza y termina antes de empezar la
+siguiente.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.2">
+
+<ul>
+<li><p>Este esquema se puede implementar mediante la composición de
+funciones ya conocidas, de la siguiente forma:</p>
+<div class="centered">
+<p><img data-src="images/procesamiento-flujos-funciones.svg"
+class="plain" style="width:70.0%" /></p>
+</div></li>
+<li><p>Por ejemplo, supongamos el siguiente problema:</p>
+<p>«<em>Dada una lista con los <span class="math inline">n</span>
+primeros números naturales, obtener la suma de los cuadrados de los
+números impares que haya en la lista.</em>»</p></li>
+<li><p>Este problema se podría resolver de la siguiente forma:</p>
+<div class="centered">
+<p><img data-src="images/problema-procesamiento-flujos.svg"
+class="plain" style="width:100.0%" /></p>
+</div></li>
+<li><p>Lo que se traduce en la siguiente composición de funciones:</p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma_cuadrados_impares(n):</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>, <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, <span class="bu">range</span>(n <span class="op">+</span> <span class="dv">1</span>))))</span></code></pre></div></li>
+</ul>
+</section>
+
+<section id="expresiones-generadoras" class="title-slide slide level2"
+data-number="3.6">
+<h2 data-number="3.6"><span class="header-section-number">3.6</span>
 Expresiones generadoras</h2>
 <ul>
 <li><p>Dos operaciones que se realizan con frecuencia sobre un iterable
@@ -1944,25 +2012,25 @@ de una forma muy concisa.</p></li>
 <em>generador</em>, que es un tipo especial de iterador).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.1">
+<section class="slide level5" data-number="3.6.0.0.1">
 
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb56"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="op">**</span> <span class="dv">3</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co"># equivale a:</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span>, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb57"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>) <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="op">**</span> <span class="dv">3</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># equivale a:</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>)))</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">3</span>, (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">27</span>, <span class="dv">64</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>) <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># equivale a:</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">&gt;</span> <span class="dv">0</span>, (<span class="op">-</span><span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">3</span>, <span class="dv">9</span>)))</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.2">
+<section class="slide level5" data-number="3.6.0.0.2">
 
 <ul>
 <li><p>Su sintaxis es:</p>
@@ -1987,16 +2055,16 @@ style="color:teal">⟨<em>condición</em>⟩</span>.</p></li>
 expresión generadora se pueden quitar si la expresión se usa como único
 argumento de una función.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb58"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec1 <span class="op">=</span> <span class="st">&#39;abc&#39;</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec2 <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>((x, y) <span class="cf">for</span> x <span class="kw">in</span> sec1 <span class="cf">for</span> y <span class="kw">in</span> sec2)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>((<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">3</span>),</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">3</span>),</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>))</span></code></pre></div></li>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec1 <span class="op">=</span> <span class="st">&#39;abc&#39;</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sec2 <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">tuple</span>((x, y) <span class="cf">for</span> x <span class="kw">in</span> sec1 <span class="cf">for</span> y <span class="kw">in</span> sec2)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>((<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;a&#39;</span>, <span class="dv">3</span>),</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;b&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">3</span>),</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a> (<span class="st">&#39;c&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;c&#39;</span>, <span class="dv">3</span>))</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.3">
+<section class="slide level5" data-number="3.6.0.0.3">
 
 <ul>
 <li><p>Las expresiones generadoras, al igual que las expresiones lambda,
@@ -2010,7 +2078,7 @@ indicada en la cláusula <code
 class="sourceCode python"><span class="kw">in</span></code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.4">
+<section class="slide level5" data-number="3.6.0.0.4">
 
 <ul>
 <li><p>Al recorrer el iterable, las variables van almacenando en cada
@@ -2025,7 +2093,7 @@ iterable.</p></li>
 expresión generadora, y sólo existen dentro de ella.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.5">
+<section class="slide level5" data-number="3.6.0.0.5">
 
 <ul>
 <li><p>Por tanto, esos identificadores cumplen estas dos
@@ -2035,86 +2103,20 @@ propiedades:</p>
 expresión cambie su significado.</p>
 <p>Por ejemplo, las dos expresiones generadoras siguientes son
 equivalentes, puesto que producen el mismo resultado:</p>
-<div class="sourceCode" id="cb59"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb60"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>(y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>(x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>(y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div></li>
 <li><p>No se pueden usar fuera de la expresión generadora, ya que
 estarían fuera de su ámbito y no serían visibles.</p>
 <p>Por ejemplo, lo siguiente daría un error de nombre:</p>
-<div class="sourceCode" id="cb61"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> (x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la expresión generadora</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
-</ul></li>
-</ul>
-</section>
-
-<section id="procesamiento-de-flujos" class="title-slide slide level2"
-data-number="3.6">
-<h2 data-number="3.6"><span class="header-section-number">3.6</span>
-Procesamiento de flujos</h2>
-<ul>
-<li><p>El <strong>procesamiento de flujos</strong> es una técnica de
-diseño de programas que se basa en estudiar cómo se transforman los
-datos de entrada en datos de salida y descomponer dicha transformación
-en una secuencia de etapas intermedias donde la salida de una etapa es
-la entrada de la siguiente, como en una cadena de montaje.</p></li>
-<li><p>Es una técnica usada principalmente en programación funcional,
-aunque también es muy útil en programación imperativa.</p></li>
-<li><p>El esquema general es el siguiente, con posibles ligeras
-variaciones (mayor o menor cantidad de etapas):</p>
-<div class="centered">
-<p><img data-src="images/procesamiento-flujos.svg" class="plain"
-style="width:75.0%" /></p>
-</div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.6.0.0.1">
-
-<ul>
-<li><p>Para que esta solución funcione de manera eficiente, es
-importante que una etapa no genere más cantidad de datos de los que va a
-necesitar la etapa siguiente, sino que genere exactamente los datos
-necesarios.</p></li>
-<li><p>Para ello, cuando una etapa necesite generar un nuevo dato de
-salida, le pedirá un nuevo dato de entrada a la etapa anterior, y ésta a
-la anterior, y así sucesivamente.</p></li>
-<li><p>Eso significa que entre etapas se deben intercambiar datos
-perezosos (es decir, flujos), de manera que los datos intercambiados
-sean justamente los que cada etapa necesita.</p></li>
-<li><p>Si el flujo de datos intercambiado no fuera perezoso, se crearían
-en memoria muchísimos datos intermedios innecesarios de
-conservar.</p></li>
-<li><p>La idea clave es pensar que las cuatro etapas funcionan a la vez,
-y NO pensar que una etapa empieza y termina antes de empezar la
-siguiente.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.6.0.0.2">
-
-<ul>
-<li><p>Este esquema se puede implementar mediante la composición de
-funciones ya conocidas, de la siguiente forma:</p>
-<div class="centered">
-<p><img data-src="images/procesamiento-flujos-funciones.svg"
-class="plain" style="width:70.0%" /></p>
-</div></li>
-<li><p>Por ejemplo, supongamos el siguiente problema:</p>
-<p>«<em>Dada una lista con los <span class="math inline">n</span>
-primeros números naturales, obtener la suma de los cuadrados de los
-números impares que haya en la lista.</em>»</p></li>
-<li><p>Este problema se podría resolver de la siguiente forma:</p>
-<div class="centered">
-<p><img data-src="images/problema-procesamiento-flujos.svg"
-class="plain" style="width:100.0%" /></p>
-</div></li>
-<li><p>Lo que se traduce en la siguiente composición de funciones:</p>
 <div class="sourceCode" id="cb62"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> suma_cuadrados_impares(n):</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">**</span> <span class="dv">2</span>, <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, <span class="bu">range</span>(n <span class="op">+</span> <span class="dv">1</span>))))</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> (x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la expresión generadora</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+</ul></li>
 </ul>
 </section>
 </section>
@@ -2202,11 +2204,11 @@ class="sourceCode python"><span class="bu">tuple</span>[<span class="bu">int</sp
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>

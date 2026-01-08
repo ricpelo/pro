@@ -1543,6 +1543,76 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
       return res
   ```
 
+## Procesamiento de flujos
+
+- El **procesamiento de flujos** es una técnica de diseño de programas que se
+  basa en estudiar cómo se transforman los datos de entrada en datos de salida
+  y descomponer dicha transformación en una secuencia de etapas intermedias
+  donde la salida de una etapa es la entrada de la siguiente, como en una
+  cadena de montaje.
+
+- Es una técnica usada principalmente en programación funcional, aunque también
+  es muy útil en programación imperativa.
+
+- El esquema general es el siguiente, con posibles ligeras variaciones (mayor o
+  menor cantidad de etapas):
+
+  !DOT(procesamiento-flujos)()(width=75%)(width=75%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Generación -> Filtrado -> Transformación -> Acumulación
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Para que esta solución funcione de manera eficiente, es importante que una
+  etapa no genere más cantidad de datos de los que va a necesitar la etapa
+  siguiente, sino que genere exactamente los datos necesarios.
+
+- Para ello, cuando una etapa necesite generar un nuevo dato de salida, le
+  pedirá un nuevo dato de entrada a la etapa anterior, y ésta a la anterior, y
+  así sucesivamente.
+
+- Eso significa que entre etapas se deben intercambiar datos perezosos (es
+  decir, flujos), de manera que los datos intercambiados sean justamente los
+  que cada etapa necesita.
+
+- Si el flujo de datos intercambiado no fuera perezoso, se crearían en memoria
+  muchísimos datos intermedios innecesarios de conservar.
+
+- La idea clave es pensar que las cuatro etapas funcionan a la vez, y NO pensar
+  que una etapa empieza y termina antes de empezar la siguiente.
+
+---
+
+- Este esquema se puede implementar mediante la composición de funciones ya
+  conocidas, de la siguiente forma:
+
+  !DOT(procesamiento-flujos-funciones)()(width=70%)(width=70%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fontname = "monospace"]
+  range -> filter -> map -> reduce
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Por ejemplo, supongamos el siguiente problema:
+
+  «_Dada una lista con los $n$ primeros números naturales, obtener la suma de
+  los cuadrados de los números impares que haya en la lista._»
+
+- Este problema se podría resolver de la siguiente forma:
+
+  !DOT(problema-procesamiento-flujos)()(width=100%)(width=100%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  node [fontname = "monospace"]
+  "range(n + 1)" -> "filter(lambda x: x % 2 == 0)" -> "map(lambda x: x ** 2)" -> "reduce(add)"
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Lo que se traduce en la siguiente composición de funciones:
+
+  ```python
+  def suma_cuadrados_impares(n):
+      return sum(map(lambda x: x ** 2, filter(lambda x: x % 2 == 0, range(n + 1))))
+  ```
+
 ## Expresiones generadoras
 
 - Dos operaciones que se realizan con frecuencia sobre un iterable son:
@@ -1661,76 +1731,6 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
       File "<stdin>", line 1, in <module>
     NameError: name 'x' is not defined
     ```
-
-## Procesamiento de flujos
-
-- El **procesamiento de flujos** es una técnica de diseño de programas que se
-  basa en estudiar cómo se transforman los datos de entrada en datos de salida
-  y descomponer dicha transformación en una secuencia de etapas intermedias
-  donde la salida de una etapa es la entrada de la siguiente, como en una
-  cadena de montaje.
-
-- Es una técnica usada principalmente en programación funcional, aunque también
-  es muy útil en programación imperativa.
-
-- El esquema general es el siguiente, con posibles ligeras variaciones (mayor o
-  menor cantidad de etapas):
-
-  !DOT(procesamiento-flujos)()(width=75%)(width=75%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Generación -> Filtrado -> Transformación -> Acumulación
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Para que esta solución funcione de manera eficiente, es importante que una
-  etapa no genere más cantidad de datos de los que va a necesitar la etapa
-  siguiente, sino que genere exactamente los datos necesarios.
-
-- Para ello, cuando una etapa necesite generar un nuevo dato de salida, le
-  pedirá un nuevo dato de entrada a la etapa anterior, y ésta a la anterior, y
-  así sucesivamente.
-
-- Eso significa que entre etapas se deben intercambiar datos perezosos (es
-  decir, flujos), de manera que los datos intercambiados sean justamente los
-  que cada etapa necesita.
-
-- Si el flujo de datos intercambiado no fuera perezoso, se crearían en memoria
-  muchísimos datos intermedios innecesarios de conservar.
-
-- La idea clave es pensar que las cuatro etapas funcionan a la vez, y NO pensar
-  que una etapa empieza y termina antes de empezar la siguiente.
-
----
-
-- Este esquema se puede implementar mediante la composición de funciones ya
-  conocidas, de la siguiente forma:
-
-  !DOT(procesamiento-flujos-funciones)()(width=70%)(width=70%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  node [fontname = "monospace"]
-  range -> filter -> map -> reduce
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Por ejemplo, supongamos el siguiente problema:
-
-  «_Dada una lista con los $n$ primeros números naturales, obtener la suma de
-  los cuadrados de los números impares que haya en la lista._»
-
-- Este problema se podría resolver de la siguiente forma:
-
-  !DOT(problema-procesamiento-flujos)()(width=100%)(width=100%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  node [fontname = "monospace"]
-  "range(n + 1)" -> "filter(lambda x: x % 2 == 0)" -> "map(lambda x: x ** 2)" -> "reduce(add)"
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Lo que se traduce en la siguiente composición de funciones:
-
-  ```python
-  def suma_cuadrados_impares(n):
-      return sum(map(lambda x: x ** 2, filter(lambda x: x % 2 == 0, range(n + 1))))
-  ```
 
 # Funciones genéricas
 
