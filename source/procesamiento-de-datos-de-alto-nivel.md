@@ -1654,7 +1654,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(iterador) [!T(if) !NT{condición}])!MAS!T{)}
+  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(iterable) [!T(if) !NT{condición}])!MAS!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Los elementos de la salida generada serán los sucesivos valores de
@@ -1685,7 +1685,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Ese ámbito abarca toda la expresión generadora, de principio a fin.
 
 - Los identificadores que aparecen en la cláusula !PYTHON(for) se se van
-  ligando automáticamente, uno a uno, a cada elemento del iterable indicada en
+  ligando automáticamente, uno a uno, a cada elemento del iterable indicado en
   la cláusula !PYTHON(in).
 
 ---
