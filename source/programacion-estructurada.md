@@ -127,10 +127,16 @@ nocite: |
 - Ese programa, una vez terminado, debe estar construido combinando sólo unos
   pocos tipos de componentes y cumpliendo una serie de restricciones.
 
+---
+
 - El concepto de **_composicionalidad_** es clave en programación estructurada:
   los programas se _componen_ de partes, las cuales se componen a su vez de
   otras partes, y así sucesivamente hasta llegar a partes compuestas únicamente
   de instrucciones elementales.
+
+- La **composición** es el mecanismo por el cual podemos combinar elementos más
+  simples para crear elementos más complejos, los cuales a su vez pueden formar
+  parte de otros elementos más complejos, y así sucesivamente.
 
 - La idea es que podemos comprobar la corrección de un programa (o de una de
   sus partes) a partir de la corrección de cada una de las partes de lo
