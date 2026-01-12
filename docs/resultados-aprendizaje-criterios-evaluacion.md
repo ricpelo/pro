@@ -3,8 +3,8 @@ title: Resultados de aprendizaje y criterios de evaluación
 ---
 
 Estos son los resultados de aprendizaje del módulo, así como sus
-correspondientes criterios de evaluación, tal y como se definen en la
-[Normativa](http://www.juntadeandalucia.es/boja/2011/149/23) vigente:
+correspondientes criterios de evaluación, tal y como se definen en la normativa
+vigente:
 
 - **[RA1] Reconoce la estructura de un programa informático, identificando y
   relacionando los elementos propios del lenguaje de programación utilizado.**
