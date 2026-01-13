@@ -226,6 +226,17 @@ indexación <span class="math inline">s</span><code>[</code><span
 class="math inline">i</span><code>]</code>, siendo <span
 class="math inline">i</span> el índice del elemento.</p></li>
 </ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
+<li><p>En una secuencia:</p>
+<ul>
+<li><p>Los elementos se encuentran <strong>ordenados</strong> por su
+posición dentro de la secuencia.</p></li>
+<li><p>Puede haber elementos <strong>repetidos</strong>.</p></li>
+</ul></li>
 <li><p>Las secuencias se dividen en:</p>
 <ul>
 <li><p><strong>Inmutables</strong>: cadenas (<code
@@ -249,12 +260,10 @@ comparten un conjunto de <strong>operaciones comunes</strong>.</p></li>
 <li><p>Los rangos son una excepción, ya que sus elementos se crean a
 partir de una fórmula y, por eso, no admiten ni la concatenación ni la
 repetición.</p></li>
-<li><p>La siguiente tabla recoge las operaciones comunes sobre
-secuencias, ordenadas por prioridad ascendente. <span
-class="math inline">\underline{s}</span> y <span
+<li><p>Las siguientes tablas recogen las operaciones comunes sobre
+secuencias. <span class="math inline">\underline{s}</span> y <span
 class="math inline">\underline{t}</span> son secuencias del mismo tipo,
-<span class="math inline">\underline{n}</span>, <span
-class="math inline">\underline{i}</span>, <span
+<span class="math inline">\underline{i}</span>, <span
 class="math inline">\underline{j}</span> y <span
 class="math inline">\underline{k}</span> son enteros y <span
 class="math inline">\underline{x}</span> es un dato cualquiera que
@@ -443,19 +452,21 @@ class="math inline">\ s</span></td>
 <td style="text-align: left;"><span class="math inline">O(1)</span> si
 <span class="math inline">s</span> es <code
 class="sourceCode python"><span class="bu">set</span></code> o <code
-class="sourceCode python"><span class="bu">dict</span></code>, <span
-class="math inline">O(n)</span> en los demás casos</td>
+class="sourceCode python"><span class="bu">range</span></code>, <span
+class="math inline">O(</span><code
+class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code>)</code><span
+class="math inline">)</span> en los demás casos</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline">s</span>
 <code>+</code> <span class="math inline">t</span></td>
-<td style="text-align: left;"><span
-class="math inline">O(\max(</span><code
+<td style="text-align: left;"><span class="math inline">O(</span><code
 class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
-class="math inline">s</span><code>)</code>, <code
+class="math inline">s</span><code>)</code> + <code
 class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
 class="math inline">t</span><code>)</code><span
-class="math inline">))</span></td>
+class="math inline">)</span></td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="math inline">s</span>
@@ -513,8 +524,10 @@ class="math inline">)</span></td>
 <td style="text-align: left;"><code
 class="sourceCode python"><span class="bu">sorted</span></code><code>(</code><span
 class="math inline">s</span><code>)</code></td>
-<td style="text-align: left;"><span
-class="math inline">O(n\cdot\log(</span><code
+<td style="text-align: left;"><span class="math inline">O(</span><code
+class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
+class="math inline">s</span><code>)</code><span
+class="math inline">\cdot\log(</span><code
 class="sourceCode python"><span class="bu">len</span></code><code>(</code><span
 class="math inline">s</span><code>)</code><span
 class="math inline">))</span></td>
@@ -579,6 +592,11 @@ etcétera).</p></li>
 <li><p>Por supuesto, las dos secuencias son distintas (<span
 class="math inline">\underline{s}</span> <code>!=</code> <span
 class="math inline">\underline{t}</span>) si no son iguales.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.5">
+
+<ul>
 <li><p>Se pueden comparar dos secuencias con los operadores
 <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code> y
 <code>&gt;=</code> para comprobar si una es menor (o igual) o mayor (o
@@ -588,11 +606,6 @@ igual) que la otra si:</p>
 excepción).</p></li>
 <li><p>No son rangos.</p></li>
 </ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.2.0.0.5">
-
-<ul>
 <li><p>Las comparaciones <code>&lt;</code>, <code>&lt;=</code>,
 <code>&gt;</code> y <code>&gt;=</code> se hacen lexicográficamente
 elemento a elemento, como en un diccionario.</p></li>
@@ -603,9 +616,15 @@ class="sourceCode python"><span class="st">&#39;hola&#39;</span></code>
 porque <code>adios</code> aparece antes que <code>hola</code> en el
 diccionario.</p></li>
 <li><p>Con el resto de las secuencias se actúa igual que con las
-cadenas.</p>
-<p>Dadas dos secuencias <span class="math inline">\underline{s}</span> y
-<span class="math inline">\underline{t}</span>, para ver si <span
+cadenas.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.2.0.0.6">
+
+<ul>
+<li><p>Dadas dos secuencias <span
+class="math inline">\underline{s}</span> y <span
+class="math inline">\underline{t}</span>, para ver si <span
 class="math inline">\underline{s}</span> <code>&lt;</code> <span
 class="math inline">\underline{t}</span> se procede así:</p>
 <ul>
@@ -622,6 +641,11 @@ elemento distinto a su correspondiente en <span
 class="math inline">\underline{t}</span>, es porque <span
 class="math inline">\underline{s}</span> <code>==</code> <span
 class="math inline">\underline{t}</span>.</p></li>
+<li><p>Si <span class="math inline">\underline{s}</span> se termina pero
+<span class="math inline">\underline{t}</span> todavía sigue teniendo
+más elementos, se concluye que <span
+class="math inline">\underline{s}</span> <code>&lt;</code> <span
+class="math inline">\underline{t}</span>.</p></li>
 <li><p>En cuanto se encuentre un elemento de <span
 class="math inline">\underline{s}</span> que no es igual a su
 correspondiente de <span class="math inline">\underline{s}</span>, se
@@ -632,7 +656,7 @@ comparación.</p></li>
 <code>&lt;=</code>, <code>&gt;</code> o <code>&gt;=</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.2.0.0.6">
+<section class="slide level5" data-number="1.2.0.0.7">
 
 <ul>
 <li><p>Ejemplos:</p>
@@ -695,8 +719,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">... qué tal&quot;&quot;&quot;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;hola</span><span class="ch">\n</span><span class="st">qué tal&#39;</span></span></code></pre></div></li>
 </ul></li>
-<li><p>Las cadenas implementan todas las operaciones de las secuencias,
-además de los métodos que se pueden consultar en <br> <a
+<li><p>Las cadenas implementan todas las operaciones comunes de las
+secuencias, además de los métodos que se pueden consultar en <br> <a
 href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p></li>
 </ul>
 </section>
@@ -842,7 +866,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El nombre es: </span><span class="sc">{</span>nombre<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>apellidos<span class="sc">}</span><span class="ss">&#39;</span>  <span class="co"># Igual</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El nombre es: Pepe Pérez&#39;</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;El nombre es: </span><span class="sc">{</span>nombre <span class="op">+</span> apellidos<span class="sc">}</span><span class="ss">&#39;</span>  <span class="co"># Se puede usar cualquier expresión</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El nombre es: Pepe Pérez&#39;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;El nombre es: PepePérez&#39;</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{</span>nombre<span class="sc">:10}</span><span class="ss">&#39;</span>    <span class="co"># Las cadenas se alinean a la izquierda</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Formato con anchura: Pepe      &#39;</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f&#39;Formato con anchura: </span><span class="sc">{</span>nombre<span class="sc">:&lt;10}</span><span class="ss">&#39;</span>   <span class="co"># Igual que lo anterior</span></span>

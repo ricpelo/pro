@@ -24,6 +24,15 @@ nocite: |
   #. Permite el acceso eficiente a cada uno de sus elementos mediante
      indexación $s$`[`$i$`]`, siendo $i$ el índice del elemento.
 
+---
+
+- En una secuencia:
+
+  - Los elementos se encuentran **ordenados** por su posición dentro de la
+    secuencia.
+
+  - Puede haber elementos **repetidos**.
+
 - !JUNTA
   Las secuencias se dividen en:
 
@@ -40,11 +49,11 @@ nocite: |
 - Los rangos son una excepción, ya que sus elementos se crean a partir de una
   fórmula y, por eso, no admiten ni la concatenación ni la repetición.
 
-- La siguiente tabla recoge las operaciones comunes sobre secuencias,
-  ordenadas por prioridad ascendente. $\underline{s}$ y $\underline{t}$ son
-  secuencias del mismo tipo, $\underline{n}$, $\underline{i}$, $\underline{j}$
-  y $\underline{k}$ son enteros y $\underline{x}$ es un dato cualquiera que
-  cumple con las restricciones que impone $\underline{s}$.
+- Las siguientes tablas recogen las operaciones comunes sobre secuencias.
+  $\underline{s}$ y $\underline{t}$ son secuencias del mismo tipo,
+  $\underline{i}$, $\underline{j}$ y $\underline{k}$ son
+  enteros y $\underline{x}$ es un dato cualquiera que cumple con las
+  restricciones que impone $\underline{s}$.
 
 ---
 
@@ -99,10 +108,10 @@ nocite: |
   --------------------------------------------------------------------------------------------------------------------
   Operación                                 Coste
   ----------------------------------------- --------------------------------------------------------------------------
-  $x\ $ !PYTHON(in) $\ s$ \                 $O(1)$ si $s$ es !PYTHON(set) o !PYTHON(dict), $O(n)$ en los demás casos
-  $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$
+  $x\ $ !PYTHON(in) $\ s$ \                 $O(1)$ si $s$ es !PYTHON(set) o !PYTHON(range),
+  $x\ $ !PYTHON(not)\  !PYTHON(in) $\ s$    $O($!PYTHON(len)`(`$s$`)`$)$ en los demás casos
 
-  $s$ `+` $t$                               $O(\max($!PYTHON(len)`(`$s$`)`, !PYTHON(len)`(`$t$`)`$))$
+  $s$ `+` $t$                               $O($!PYTHON(len)`(`$s$`)` + !PYTHON(len)`(`$t$`)`$)$
 
   $s$ `*` $k$ \                             $O(k\cdot{}$!PYTHON(len)`(`$s$`)`$)$
   $k$ `*` $s$
@@ -117,7 +126,7 @@ nocite: |
 
   !PYTHON(max)`(`$s$`)`                     $O($!PYTHON(len)`(`$s$`)`$)$
 
-  !PYTHON(sorted)`(`$s$`)`                  $O(n\cdot\log($!PYTHON(len)`(`$s$`)`$))$
+  !PYTHON(sorted)`(`$s$`)`                  $O($!PYTHON(len)`(`$s$`)`$\cdot\log($!PYTHON(len)`(`$s$`)`$))$
 
   $s$!PYTHON(.index)`(`$x$                  $O($!PYTHON(len)`(`$s$`)`$)$
   [`, ` $i$ [`, ` $j$ ] ]`)`
@@ -145,14 +154,14 @@ nocite: |
 - Por supuesto, las dos secuencias son distintas ($\underline{s}$ `!=`
   $\underline{t}$) si no son iguales.
 
+---
+
 - Se pueden comparar dos secuencias con los operadores `<`, `<=`, `>` y `>=`
   para comprobar si una es menor (o igual) o mayor (o igual) que la otra si:
 
   - Son del mismo tipo (si no son del mismo tipo, lanza una excepción).
 
   - No son rangos.
-
----
 
 - Las comparaciones `<`, `<=`, `>` y `>=` se hacen lexicográficamente elemento
   a elemento, como en un diccionario.
@@ -162,7 +171,9 @@ nocite: |
 
 - Con el resto de las secuencias se actúa igual que con las cadenas.
 
-  Dadas dos secuencias $\underline{s}$ y $\underline{t}$, para ver si
+---
+
+- Dadas dos secuencias $\underline{s}$ y $\underline{t}$, para ver si
   $\underline{s}$ `<` $\underline{t}$ se procede así:
 
   - Se empieza comparando el primer elemento de $\underline{s}$ con el primero
@@ -175,6 +186,9 @@ nocite: |
   - Si llegamos al final de $\underline{s}$ sin haber encontrado ningún
     elemento distinto a su correspondiente en $\underline{t}$, es porque
     $\underline{s}$ `==` $\underline{t}$.
+
+  - Si $\underline{s}$ se termina pero $\underline{t}$ todavía sigue teniendo
+    más elementos, se concluye que $\underline{s}$ `<` $\underline{t}$.
 
   - En cuanto se encuentre un elemento de $\underline{s}$ que no es igual a su
     correspondiente de $\underline{s}$, se comparan esos elementos y se
@@ -236,8 +250,8 @@ nocite: |
     'hola\nqué tal'
     ```
 
-- Las cadenas implementan todas las operaciones de las secuencias, además de
-  los métodos que se pueden consultar en !SALTOHTML{}
+- Las cadenas implementan todas las operaciones comunes de las secuencias,
+  además de los métodos que se pueden consultar en !SALTOHTML{}
   [https://docs.python.org/3/library/stdtypes.html#string-methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
 ### Formateado de cadenas
@@ -346,7 +360,7 @@ nocite: |
   >>> f'El nombre es: {nombre} {apellidos}'  # Igual
   'El nombre es: Pepe Pérez'
   >>> f'El nombre es: {nombre + apellidos}'  # Se puede usar cualquier expresión
-  'El nombre es: Pepe Pérez'
+  'El nombre es: PepePérez'
   >>> f'Formato con anchura: {nombre:10}'    # Las cadenas se alinean a la izquierda
   'Formato con anchura: Pepe      '
   >>> f'Formato con anchura: {nombre:<10}'   # Igual que lo anterior
