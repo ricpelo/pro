@@ -505,7 +505,7 @@ nocite: |
   poder expresivo).
 
 - Esas reglas sintácticas se pueden usar luego para **comprobar si una cadena
-  _se ajusta_ a un patrón**.
+  _se ajusta a_ (o _encaja con_) un patrón**.
 
 - Este patrón puede ser frases en español, o direcciones de correo electrónico
   o cualquier otra cosa.
@@ -547,8 +547,8 @@ nocite: |
 
     Estas expresiones simplemente se ajustan a sí mismas.
 
-    Se pueden concatenar caracteres ordinarios, así que `hola` coincide con la
-    cadena !PYTHON('hola').
+    Se pueden concatenar caracteres ordinarios, así que la expresión regular
+    `hola` encaja con la cadena !PYTHON('hola').
 
   - Otros caracteres, como `|` o `(`, son **caracteres especiales**.
 
@@ -560,6 +560,130 @@ nocite: |
 
     Gran parte del aprendizaje de las expresiones regulares consiste en saber
     qué metacaracteres existen y qué hacen.
+
+---
+
+- Los metacaracteres son los siguientes:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `.` \  `^` \  `$` \  `*` \  `+` \  `?` \  `{` \  `}` \  `[` \  `]` \  `\` \  `|` \  `(` \  `)`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### Clases de caracteres
+
+- Los metacaracteres `[` y `]` se usan para especificar una **clase de
+  caracteres**.
+
+- Las clases de caracteres son conjuntos de caracteres que se desean hacer
+  encajar con alguna cadena.
+
+- Los caracteres se pueden enumerar individualmente. Por ejemplo:
+
+  ```
+  [abc]
+  ```
+
+  encaja con cualquiera de los caracteres `a`, `b` o `c`.
+
+- También se puede usar un _rango_ de caracteres, indicando dos caracteres
+  separados por un guión («`-`»). Por ejemplo:
+
+  ```
+  [a-c]
+  ```
+
+  se corresponde con la misma clase de caracteres anterior (es decir, `[abc]`),
+  por lo que expresa el mismo conjunto de caracteres y encaja exactamente con
+  los mismos caracteres.
+
+  La clase `[a-z]` representa todas las letras minúsculas.
+
+---
+
+- Los metacaracteres (excepto `\`) funcionan como caracteres ordinarios dentro
+  de las clases de caracteres. Por ejemplo:
+
+  ```
+  [akm$]
+  ```
+
+  encaja con cualquiera de los caracteres `a`, `k`, `m` o `$`.
+
+  El carácter `$` es normalmente un metacarácter, pero pierde su significado
+  especial dentro de una clase de caracteres.
+
+- Si aparece un `^` como primer carácter dentro de la clase de caracteres, esto
+  indica que se encaja con los caracteres que **no** aparecen dentro de la
+  clase de caracteres.
+
+---
+
+- Se pueden encajar con los caracteres que **NO** aparecen dentro de la clase
+  de caracteres, lo que se denomina **complementar** el conjunto de la clase de
+  caracteres.
+
+- Esto se indica colocando un `^` como primer carácter dentro de la clase de
+  caracteres. Por ejemplo:
+
+  ```
+  [^5]
+  ```
+
+  encajará con cualquier carácter excepto el `5`.
+
+- Si el `^` aparece en cualquier otro sitio dentro de la clase de caracteres,
+  perderá su significado especial. Por ejemplo:
+
+  ```
+  [5^]
+  ``` 
+
+  encaja con `5` o con `^`.
+
+---
+
+- La barra invertida `\` va seguida de uno o varios caracteres para representar
+  secuencias especiales.
+
+- También se usa para quitar su significado especial a un metacarácter y que
+  sea interpretado como un carácter ordinario.
+
+  Por ejemplo, `\?` representa el carácter `?` como un carácter ordinario, y no
+  el metacarácter `?` con su significado especial dentro de una expresión
+  regular.
+
+  Asimismo, la secuencia `\\` dentro de una expresión regular representa el
+  carácter `\` ordinario, sin significado especial.
+
+---
+
+- La siguiente es una lista (incompleta) de secuencias especiales que comienzan
+  por `\`:
+
+  - `\d`: encaja con cualquier dígito decimal.
+
+    Equivale a `[0-9]`.
+
+  - `\D`: encaja con cualquier carácter que no sea un dígito.
+
+    Equivale a `[^0-9]`.
+
+  - `\s`: encaja con cualquier carácter de espacio en blanco.
+
+    Equivale a `[ \t\n\r\f\v]`.
+
+  - `\S`: encaja con cualquier carácter que no sea un espacio en blanco.
+
+    Equivale a `[^ \t\n\r\f\v]`.
+
+  - `\w`: encaja con cualquier carácter alfanumérico.
+
+    Equivale a `[a-zA-Z0-9_]`.
+
+  - `\W`: encaja con cualquier carácter no alfanumérico.
+
+    Equivale a `[^a-zA-Z0-9_]`.
 
 ---
 
