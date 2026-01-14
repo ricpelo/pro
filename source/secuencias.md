@@ -519,6 +519,19 @@ nocite: |
 
 ---
 
+- Para información detallada sobre cómo crear y usar expresiones regulares,
+  consultar:
+
+  - Tutorial de introducción:
+
+    [https://docs.python.org/3/howto/regex.html](https://docs.python.org/3/howto/regex.html)
+
+  - Documentación del módulo `re`:
+
+    [https://docs.python.org/3/library/re.html](https://docs.python.org/3/library/re.html)
+
+---
+
 - Una expresión regular especifica un conjunto de cadenas que coinciden con
   ella.
 
@@ -539,8 +552,8 @@ nocite: |
 
 ---
 
-- Las expresiones regulares pueden contener tanto caracteres ordinarios como
-  especiales:
+- Las expresiones regulares pueden contener tanto _caracteres ordinarios_ como
+  _caracteres especiales_:
 
   - La mayoría de los **caracteres ordinarios**, como `A`, `a` o `0`, son las
     expresiones regulares más sencillas.
@@ -563,12 +576,23 @@ nocite: |
 
 ---
 
-- Los metacaracteres son los siguientes:
+- Los metacaracteres de las expresiones regulares en Python son los siguientes:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `.` \  `^` \  `$` \  `*` \  `+` \  `?` \  `{` \  `}` \  `[` \  `]` \  `\` \  `|` \  `(` \  `)`
+  `.` \ \  `^` \ \  `$` \ \  `*` \ \  `+` \ \  `?` \ \  `{` \ \  `}` \ \  `[` \ \  `]` \ \  `\` \ \  `|` \ \  `(` \ \  `)`
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- En las siguientes secciones se estudiará el funcionamiento y significado
+  especial de estos metacaracteres.
+
+- Los básicos son:
+
+  - `.`: encaja con cualquier carácter que no sea salto de línea.
+
+  - `^`: encaja con el principio de la cadena.
+
+  - `$`: encaja con el final de la cadena.
 
 #### Clases de caracteres
 
@@ -684,14 +708,25 @@ nocite: |
 - Estas secuencias pueden ir dentro de una clase de caracteres. Por ejemplo,
   `[\s,.]` encaja con un espacio en blanco, una coma o un punto.
 
----
+#### Repeticiones
 
-- Para más información sobre cómo crear y usar expresiones regulares,
-  consultar:
+- Los metacaracteres que expresan repeticiones son: `*`, `+`, `?`, `{` y `}`.
 
-  - Tutorial de introducción en [https://docs.python.org/3/howto/regex.html](https://docs.python.org/3/howto/regex.html)
+- El metacarácter `*` especifica que el carácter anterior puede encajar cero o
+  más veces, en lugar de exactamente una vez. Por ejemplo:
 
-  - Documentación del módulo `re` en [https://docs.python.org/3/library/re.html](https://docs.python.org/3/library/re.html)
+  ```
+  ca*t
+  ```
+
+  encaja con `ct` (ningún carácter `a`), `cat` (una `a`), `caat` (dos `a`es),
+`caaat` (tres `a`es), y así sucesivamente.
+
+- Las repeticiones son _ansiosas_, es decir, que el intérprete tratará de
+  encajar con el mayor número posible de repeticiones.
+
+  Si las últimas porciones del patrón no encajan, el intérprete dará marcha
+  atrás y lo volverá a intentar con menos repeticiones.
 
 ## Tuplas
 
