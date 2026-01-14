@@ -496,9 +496,9 @@ nocite: |
 
 ### Expresiones regulares
 
-- Las **expresiones regulares** (también llamados *regex*) constituyen
-  un pequeño lenguaje muy especializado incrustado dentro de
-  Python y disponible a través del módulo `re`.
+- Las **expresiones regulares** (también llamados *regex*) constituyen un
+  pequeño lenguaje muy especializado incrustado dentro de Python y disponible a
+  través del módulo `re`.
 
 - Usando este pequeño lenguaje es posible especificar **reglas sintácticas** de
   una forma distinta pero parecida a las _gramáticas EBNF_ (aunque con menos
