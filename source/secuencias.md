@@ -274,13 +274,12 @@ nocite: |
   !NT(f_string) ::= (!NT(carácter_literal) | !T({{) | !T(}}) | !NT{sustitución})\*
   !NT(sustitución) ::= !T({)!NT(expresión) [!T(!)!NT(conversión)] [!T(:)!NT(especif)]!T(})
   !NT(conversión) ::= !T(s) | !T(r) | !T(a)
-  !NT(especif) ::=  (!NT(carácter_literal) | !T(NULL) | !NT{sustitución})\*
   !ifdef(HTML)
 ~~~~~~~~~~~~~~
-!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto !T({), !T(}) o !T{NULL})
+!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto </em>!T({)<em> o </em>!T[}]<em>)
 ~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~
-!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto \textbf{\texttt{\{}}, \textbf{\texttt{\}}} o \textbf{\texttt{NULL}})
+!NT(carácter_literal) ::= !NT(cualquier carácter Unicode excepto \textbf{\texttt{\{}} o \textbf{\texttt{\}}})
 ~~~~~~~~~~~~~~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -329,13 +328,13 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(especif) ::= [[!NT{relleno}\]!NT{alig}][!NT{signo}][!T(#)][!T(0)][!NT(ancho)][!NT(grupos)][!T(.)!NT(precision)][!NT(tipo)]
+  !NT(especif) ::= [[!NT{relleno}\]!NT{alig}][!NT{signo}][!T(z)][!T(#)][!T(0)][!NT(ancho)][!NT(grupos)][!T(.)!NT(precision)][!NT(tipo)]
   !NT(relleno) ::= !NT(cualquier carácter)
   !NT(alig) ::= !T(<) | !T(>) | !T(=) | !T(^)
   !NT(signo) ::=  !T(+) | !T(-) | !NT(espacio)
-  !NT(ancho) ::= !NT(dígito)+
+  !NT(ancho) ::= !NT(dígito)!MAS
   !NT(grupos) ::= !T(_)(_) | !T(,)
-  !NT(precision) ::= !NT(dígito)+
+  !NT(precision) ::= !NT(dígito)!MAS
   !NT(tipo) ::= !T(b) | !T(c) | !T(d) | !T(e) | !T(E) | !T(f) | !T(F) | !T(g) | !T(G) | !T(n) | !T(o) | !T(s) | !T(x) | !T(X) | !T(%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
