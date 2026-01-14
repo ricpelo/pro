@@ -641,7 +641,7 @@ nocite: |
 
   encaja con `5` o con `^`.
 
----
+#### Secuencias de barra invertida
 
 - La barra invertida `\` va seguida de uno o varios caracteres para representar
   secuencias especiales.
@@ -658,32 +658,31 @@ nocite: |
 
 ---
 
-- La siguiente es una lista (incompleta) de secuencias especiales que comienzan
-  por `\`:
+- Una lista (incompleta) de secuencias especiales que comienzan por `\`:
 
-  - `\d`: encaja con cualquier dígito decimal.
+  --------------------------------------------------------------------------
+  Secuencia Encaja con                   Equivale a
+  --------- ---------------------------- -----------------------------------
+  `\d`      Cualquier dígito decimal.    `[0-9]`
 
-    Equivale a `[0-9]`.
+  `\D`      Cualquier carácter que no    `[^0-9]`
+            sea un dígito.
 
-  - `\D`: encaja con cualquier carácter que no sea un dígito.
+  `\s`      Cualquier carácter de        `[ \t\n\r\f\v]`
+            espacio.
 
-    Equivale a `[^0-9]`.
+  `\S`      Cualquier carácter que no    `[^ \t\n\r\f\v]`
+            sea un espacio.
 
-  - `\s`: encaja con cualquier carácter de espacio en blanco.
+  `\w`      Cualquier carácter           `[a-zA-Z0-9_]`
+            alfanumérico.
 
-    Equivale a `[ \t\n\r\f\v]`.
+  `\W`      Cualquier carácter no        `[^a-zA-Z0-9_]`
+            alfanumérico.
+  --------------------------------------------------------------------------
 
-  - `\S`: encaja con cualquier carácter que no sea un espacio en blanco.
-
-    Equivale a `[^ \t\n\r\f\v]`.
-
-  - `\w`: encaja con cualquier carácter alfanumérico.
-
-    Equivale a `[a-zA-Z0-9_]`.
-
-  - `\W`: encaja con cualquier carácter no alfanumérico.
-
-    Equivale a `[^a-zA-Z0-9_]`.
+- Estas secuencias pueden ir dentro de una clase de caracteres. Por ejemplo,
+  `[\s,.]` encaja con un espacio en blanco, una coma o un punto.
 
 ---
 
