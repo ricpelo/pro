@@ -496,9 +496,9 @@ nocite: |
 
 ### Expresiones regulares
 
-- Las **expresiones regulares** (también llamados *regex*) constituyen un
-  pequeño lenguaje muy especializado incrustado dentro de Python y disponible a
-  través del módulo `re`.
+- Las **expresiones regulares** constituyen un pequeño lenguaje muy
+  especializado incrustado dentro de Python y disponible a través del módulo
+  `re`.
 
 - Usando este pequeño lenguaje es posible especificar **reglas sintácticas** de
   una forma distinta pero parecida a las _gramáticas EBNF_ (aunque con menos
@@ -519,16 +519,47 @@ nocite: |
 
 ---
 
+- Una expresión regular especifica un conjunto de cadenas que coinciden con
+  ella.
+
+- Las funciones del módulo `re` permiten comprobar si una determinada cadena
+  coincide con una expresión regular dada, o si una expresión regular dada
+  coincide con una determinada cadena (que es básicamente lo mismo).
+
 - El lenguaje de las expresiones regulares es relativamente pequeño y
   restringido, por lo que no es posible usarlo para realizar cualquier tipo de
   procesamiento de cadenas.
 
-- Además, hay procesamientos que se pueden realizar con *regexes* pero las
-  expresiones que resultan se vuelven muy complicadas.
+- Además, hay procesamientos que se pueden realizar con expresiones regulares
+  pero las expresiones que resultan se vuelven muy complicadas.
 
 - En estos casos, es mejor escribir directamente código Python ya que, aunque
   el código resultante pueda resultar más lento, probablemente resulte más
   fácil de leer.
+
+---
+
+- Las expresiones regulares pueden contener tanto caracteres ordinarios como
+  especiales:
+
+  - La mayoría de los **caracteres ordinarios**, como `A`, `a` o `0`, son las
+    expresiones regulares más sencillas.
+
+    Estas expresiones simplemente se ajustan a sí mismas.
+
+    Se pueden concatenar caracteres ordinarios, así que `hola` coincide con la
+    cadena !PYTHON('hola').
+
+  - Otros caracteres, como `|` o `(`, son **caracteres especiales**.
+
+    A los caracteres especiales se les denomina **_metacaracteres_** y tienen
+    un significado especial dentro de una expresión regular.
+
+    Por ejemplo, representan clases de caracteres ordinarios o afectan a la
+    forma en que se interpretan las expresiones regulares que los rodean.
+
+    Gran parte del aprendizaje de las expresiones regulares consiste en saber
+    qué metacaracteres existen y qué hacen.
 
 ---
 
