@@ -1483,11 +1483,94 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <section class="slide level5" data-number="2.1.2.5.1">
 
 <ul>
-<li>La expresión regular se pasa a <code>re.compile</code> en forma de
-cadena.</li>
+<li><p>La expresión regular se pasa a <code>re.compile</code> en forma
+de cadena.</p></li>
+<li><p>Las expresiones regulares usan el carácter <code>\</code> para
+indicar secuencias especiales o quitar el significado expecial de los
+metacaracteres.</p></li>
+<li><p>Esto hace que debamos repetir el mismo carácter <code>\</code>
+varias veces al introducirlo en una cadena de Python.</p></li>
+<li><p>Por ejemplo, si queremos comprobar la aparición de la subcadena
+<code>\section</code> dentro de una cadena usando expresiones regulares,
+debemos escapar la barra invertida poniéndola dos veces para que se
+interprete literalmente, así: <code>\\section</code>.</p></li>
+<li><p>Esa cadena se debe pasar a <code>re.compile</code>, pero para
+hacerlo en forma de cadena Python debemos volver a escapar cada una de
+las barras.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.2.5.2">
+
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Secuencia de caracteres</th>
+<th style="text-align: left;">Representa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>\section</code></td>
+<td style="text-align: left;">El texto que se desea comprobar</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>\\section</code></td>
+<td style="text-align: left;">Barra invertida escapada para
+<code>re.compile()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code
+class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">section&#39;</span></code></td>
+<td style="text-align: left;">Barras invertidas escapadas en un literal
+cadena de Python</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>En resumen, para encajar con una barra invertida literal, se debe
+escribir <code>\\\\</code> en la cadena Python que representa a la
+expresión regular, porque dicha expresión regular debe ser
+<code>\\</code>, y cada barra invertida debe indicarse como
+<code style="color: red">\\</code> dentro de un literal de tipo cadena
+en Python.</p></li>
+<li><p>Esto hace que la expresión regular resultante resulte difícil de
+escribir y de entender.</p></li>
+</ul>
+<!--
+
+---
+
+The solution is to use Python’s raw string notation for regular expressions; backslashes are not handled in any special way in a string literal prefixed with 'r', so r"\n" is a two-character string containing '\' and 'n', while "\n" is a one-character string containing a newline. Regular expressions will often be written in Python code using this raw string notation.
+
+In addition, special escape sequences that are valid in regular expressions, but not valid as Python string literals, now result in a DeprecationWarning and will eventually become a SyntaxError, which means the sequences will be invalid if raw string notation or escaping the backslashes isn’t used.
+
+Regular String
+    
+
+Raw string
+
+"ab*"
+    
+
+r"ab*"
+
+"\\\\section"
+    
+
+r"\\section"
+
+"\\w+\\s+\\1"
+    
+
+r"\w+\s+\1"
+
+-->
+</section>
+<section class="slide level5" data-number="2.1.2.5.3">
 
 <table>
 <colgroup>

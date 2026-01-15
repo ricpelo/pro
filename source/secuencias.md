@@ -854,8 +854,70 @@ nocite: |
 
 - La expresión regular se pasa a `re.compile` en forma de cadena.
 
+- Las expresiones regulares usan el carácter `\` para indicar secuencias
+  especiales o quitar el significado expecial de los metacaracteres.
 
+- Esto hace que debamos repetir el mismo carácter `\` varias veces al
+  introducirlo en una cadena de Python.
 
+- Por ejemplo, si queremos comprobar la aparición de la subcadena `\section`
+  dentro de una cadena usando expresiones regulares, debemos escapar la barra
+  invertida poniéndola dos veces para que se interprete literalmente, así:
+  `\\section`.
+
+- Esa cadena se debe pasar a `re.compile`, pero para hacerlo en forma de cadena
+  Python debemos volver a escapar cada una de las barras.
+
+---
+
+-------------------------------------------------------------------------------  
+Secuencia de caracteres           Representa
+--------------------------------- ---------------------------------------------  
+`\section`                        El texto que se desea comprobar
+
+`\\section`                       Barra invertida escapada para `re.compile()` 
+	
+!PYTHON('\\\\section')            Barras invertidas escapadas en un literal cadena de Python
+-------------------------------------------------------------------------------  
+
+- En resumen, para encajar con una barra invertida literal, se debe escribir
+  `\\\\` en la cadena Python que representa a la expresión regular, porque
+  dicha expresión regular debe ser `\\`, y cada barra invertida debe indicarse
+  como !ifdef(HTML)(<code style="color: red">\\\\</code>)(\textcolor{red}{\texttt{\textbackslash\textbackslash}})
+  dentro de un literal de tipo cadena en Python.
+
+- Esto hace que la expresión regular resultante resulte difícil de escribir y
+  de entender.
+
+<!--
+
+---
+
+The solution is to use Python’s raw string notation for regular expressions; backslashes are not handled in any special way in a string literal prefixed with 'r', so r"\n" is a two-character string containing '\' and 'n', while "\n" is a one-character string containing a newline. Regular expressions will often be written in Python code using this raw string notation.
+
+In addition, special escape sequences that are valid in regular expressions, but not valid as Python string literals, now result in a DeprecationWarning and will eventually become a SyntaxError, which means the sequences will be invalid if raw string notation or escaping the backslashes isn’t used.
+
+Regular String
+	
+
+Raw string
+
+"ab*"
+	
+
+r"ab*"
+
+"\\\\section"
+	
+
+r"\\section"
+
+"\\w+\\s+\\1"
+	
+
+r"\w+\s+\1"
+
+-->
 
 ---
 
