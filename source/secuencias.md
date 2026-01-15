@@ -754,13 +754,28 @@ nocite: |
   carácter !PYTHON('a')), !PYTHON{'caat'} (dos caracteres !PYTHON('a')),
   !PYTHON{'caaat'} (tres caracteres !PYTHON('a')), y así sucesivamente.
 
+---
+
 - Las repeticiones son _ansiosas_, es decir, que el intérprete será _glotón_ y
   tratará de encajar con el mayor número posible de repeticiones.
 
   Si las últimas porciones del patrón no encajan, el intérprete dará marcha
   atrás y lo volverá a intentar con menos repeticiones.
 
-- Ejemplo: `a[bcd]*b` con la cadena !PYTHON('abcbd').
+- Por ejemplo, la siguiente expresión regular:
+
+  ```
+  a[bcd]*b
+  ```
+
+  encajaría con la cadena !PYTHON('abcbd') de dos formas:
+
+  - $\underline{ab}$cbd
+
+  - $\underline{abcb}$d
+
+  De los dos encajes posibles, el intérprete se queda con el que la subcadena
+  encajada es más larga.
 
 ---
 
@@ -967,7 +982,7 @@ Métodos sobre objetos patrón  Finalidad
 - Ejemplo:
 
   ```python
-  p = re.compile("a|(bc)+")
+  >>> p = re.compile("a|(bc)+")
   >>> p.match('cbbc')
   >>> p.search('cbbc')
   <re.Match object; span=(2, 4), match='bc'>
