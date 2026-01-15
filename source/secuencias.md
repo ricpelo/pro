@@ -588,11 +588,16 @@ nocite: |
 
 - Los básicos son:
 
-  - `.`: encaja con cualquier carácter que no sea salto de línea.
-
-  - `^`: encaja con el principio de la cadena.
-
-  - `$`: encaja con el final de la cadena.
+  -----------------------------------------------------------------------------------------------------------------------------------
+  Metacarácter  Encaja con                                              Ejemplo
+  ------------  ------------------------------------------------------- -------------------------------------------------------------
+  `.`           Cualquier carácter que                                  `ab.c` encaja con !PYTHON('abec') pero no con !PYTHON('abc')
+                no sea un salto de línea.                             
+                                                                      
+  `^`           El principio de la cadena.                              `^ab` encaja con !PYTHON('abc') pero no con !PYTHON('dab')
+                                                                      
+  `$`           El final de la cadena.                                  `ab$` encaja con !PYTHON('dab') pero no con !PYTHON('abd')
+  -----------------------------------------------------------------------------------------------------------------------------------
 
 #### Clases de caracteres
 
@@ -608,7 +613,8 @@ nocite: |
   [abc]
   ```
 
-  encaja con cualquiera de los caracteres `a`, `b` o `c`.
+  encaja con cualquiera de los caracteres !PYTHON('a'), !PYTHON('b') o
+  !PYTHON('c').
 
 - También se puede usar un _rango_ de caracteres, indicando dos caracteres
   separados por un guión («`-`»). Por ejemplo:
@@ -632,7 +638,8 @@ nocite: |
   [akm$]
   ```
 
-  encaja con cualquiera de los caracteres `a`, `k`, `m` o `$`.
+  encaja con cualquiera de los caracteres !PYTHON('a'), !PYTHON('k'),
+  !PYTHON('m') o !PYTHON('$').
 
   El carácter `$` es normalmente un metacarácter, pero pierde su significado
   especial dentro de una clase de caracteres.
@@ -654,7 +661,7 @@ nocite: |
   [^5]
   ```
 
-  encajará con cualquier carácter excepto el `5`.
+  encajará con cualquier carácter excepto el !PYTHON('5').
 
 - Si el `^` aparece en cualquier otro sitio dentro de la clase de caracteres,
   perderá su significado especial. Por ejemplo:
@@ -663,7 +670,7 @@ nocite: |
   [5^]
   ``` 
 
-  encaja con `5` o con `^`.
+  encaja con !PYTHON('5') o con !PYTHON('^').
 
 #### Secuencias de barra invertida
 
@@ -673,12 +680,13 @@ nocite: |
 - También se usa para quitar su significado especial a un metacarácter y que
   sea interpretado como un carácter ordinario.
 
-  Por ejemplo, `\?` representa el carácter `?` como un carácter ordinario, y no
-  el metacarácter `?` con su significado especial dentro de una expresión
-  regular.
+  Por ejemplo, `\?` representa el carácter !PYTHON('?') como un carácter
+  ordinario, y no el metacarácter `?` con su significado especial dentro de una
+  expresión regular.
 
   Asimismo, la secuencia `\\` dentro de una expresión regular representa el
-  carácter `\` ordinario, sin significado especial.
+  carácter !ifdef(HTML)(<code style="color: teal">\'\\\'</code>)(\texttt{\textcolor{teal}{'\textbackslash{}'}})
+  ordinario, sin significado especial.
 
 ---
 
@@ -730,9 +738,8 @@ nocite: |
 
 ## Tuplas
 
-- Las **tuplas** (!PYTHON(tuple)) son secuencias inmutables, usadas
-  frecuentemente para representar colecciones de datos heterogéneos (es decir,
-  de tipos distintos).
+- Las **tuplas** (!PYTHON(tuple)) son secuencias inmutables, usadas a menudo
+  para representar colecciones de datos heterogéneos (o sea, de varios tipos).
 
 - También se usan en aquellos casos en los que se necesita una secuencia
   inmutable de datos homogéneos (por ejemplo, para almacenar datos en un

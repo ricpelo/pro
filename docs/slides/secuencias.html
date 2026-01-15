@@ -1100,12 +1100,47 @@ siguientes:</p>
 <li><p>En las siguientes secciones se estudiará el funcionamiento y
 significado especial de estos metacaracteres.</p></li>
 <li><p>Los básicos son:</p>
-<ul>
-<li><p><code>.</code>: encaja con cualquier carácter que no sea salto de
-línea.</p></li>
-<li><p><code>^</code>: encaja con el principio de la cadena.</p></li>
-<li><p><code>$</code>: encaja con el final de la cadena.</p></li>
-</ul></li>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 42%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr>
+<th>Metacarácter</th>
+<th style="text-align: left;">Encaja con</th>
+<th style="text-align: left;">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td style="text-align: left;">Cualquier carácter que no sea un salto de
+línea.</td>
+<td style="text-align: left;"><code>ab.c</code> encaja con <code
+class="sourceCode python"><span class="st">&#39;abec&#39;</span></code>
+pero no con <code
+class="sourceCode python"><span class="st">&#39;abc&#39;</span></code></td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td style="text-align: left;">El principio de la cadena.</td>
+<td style="text-align: left;"><code>^ab</code> encaja con <code
+class="sourceCode python"><span class="st">&#39;abc&#39;</span></code>
+pero no con <code
+class="sourceCode python"><span class="st">&#39;dab&#39;</span></code></td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td style="text-align: left;">El final de la cadena.</td>
+<td style="text-align: left;"><code>ab$</code> encaja con <code
+class="sourceCode python"><span class="st">&#39;dab&#39;</span></code>
+pero no con <code
+class="sourceCode python"><span class="st">&#39;abd&#39;</span></code></td>
+</tr>
+</tbody>
+</table></li>
 </ul>
 </section>
 <section id="clases-de-caracteres" class="title-slide slide level4"
@@ -1120,8 +1155,12 @@ desean hacer encajar con alguna cadena.</p></li>
 <li><p>Los caracteres se pueden enumerar individualmente. Por
 ejemplo:</p>
 <pre><code>[abc]</code></pre>
-<p>encaja con cualquiera de los caracteres <code>a</code>,
-<code>b</code> o <code>c</code>.</p></li>
+<p>encaja con cualquiera de los caracteres <code
+class="sourceCode python"><span class="st">&#39;a&#39;</span></code>,
+<code
+class="sourceCode python"><span class="st">&#39;b&#39;</span></code> o
+<code
+class="sourceCode python"><span class="st">&#39;c&#39;</span></code>.</p></li>
 <li><p>También se puede usar un <em>rango</em> de caracteres, indicando
 dos caracteres separados por un guión («<code>-</code>»). Por
 ejemplo:</p>
@@ -1140,8 +1179,14 @@ minúsculas.</p></li>
 caracteres ordinarios dentro de las clases de caracteres. Por
 ejemplo:</p>
 <pre><code>[akm$]</code></pre>
-<p>encaja con cualquiera de los caracteres <code>a</code>,
-<code>k</code>, <code>m</code> o <code>$</code>.</p>
+<p>encaja con cualquiera de los caracteres <code
+class="sourceCode python"><span class="st">&#39;a&#39;</span></code>,
+<code
+class="sourceCode python"><span class="st">&#39;k&#39;</span></code>,
+<code
+class="sourceCode python"><span class="st">&#39;m&#39;</span></code> o
+<code
+class="sourceCode python"><span class="st">&#39;$&#39;</span></code>.</p>
 <p>El carácter <code>$</code> es normalmente un metacarácter, pero
 pierde su significado especial dentro de una clase de
 caracteres.</p></li>
@@ -1160,11 +1205,15 @@ caracteres.</p></li>
 <li><p>Esto se indica colocando un <code>^</code> como primer carácter
 dentro de la clase de caracteres. Por ejemplo:</p>
 <pre><code>[^5]</code></pre>
-<p>encajará con cualquier carácter excepto el <code>5</code>.</p></li>
+<p>encajará con cualquier carácter excepto el <code
+class="sourceCode python"><span class="st">&#39;5&#39;</span></code>.</p></li>
 <li><p>Si el <code>^</code> aparece en cualquier otro sitio dentro de la
 clase de caracteres, perderá su significado especial. Por ejemplo:</p>
 <pre><code>[5^]</code></pre>
-<p>encaja con <code>5</code> o con <code>^</code>.</p></li>
+<p>encaja con <code
+class="sourceCode python"><span class="st">&#39;5&#39;</span></code> o
+con <code
+class="sourceCode python"><span class="st">&#39;^&#39;</span></code>.</p></li>
 </ul>
 </section>
 
@@ -1178,12 +1227,13 @@ invertida</h4>
 caracteres para representar secuencias especiales.</p></li>
 <li><p>También se usa para quitar su significado especial a un
 metacarácter y que sea interpretado como un carácter ordinario.</p>
-<p>Por ejemplo, <code>\?</code> representa el carácter <code>?</code>
+<p>Por ejemplo, <code>\?</code> representa el carácter <code
+class="sourceCode python"><span class="st">&#39;?&#39;</span></code>
 como un carácter ordinario, y no el metacarácter <code>?</code> con su
 significado especial dentro de una expresión regular.</p>
 <p>Asimismo, la secuencia <code>\\</code> dentro de una expresión
-regular representa el carácter <code>\</code> ordinario, sin significado
-especial.</p></li>
+regular representa el carácter <code style="color: teal">'\'</code>
+ordinario, sin significado especial.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.2.2.1">
@@ -1277,9 +1327,8 @@ Tuplas</h2>
 <ul>
 <li><p>Las <strong>tuplas</strong> (<code
 class="sourceCode python"><span class="bu">tuple</span></code>) son
-secuencias inmutables, usadas frecuentemente para representar
-colecciones de datos heterogéneos (es decir, de tipos
-distintos).</p></li>
+secuencias inmutables, usadas a menudo para representar colecciones de
+datos heterogéneos (o sea, de varios tipos).</p></li>
 <li><p>También se usan en aquellos casos en los que se necesita una
 secuencia inmutable de datos homogéneos (por ejemplo, para almacenar
 datos en un conjunto o un diccionario).</p></li>
