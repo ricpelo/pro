@@ -827,6 +827,54 @@ nocite: |
   desde el punto de vista del `?` que hay detrás. Eso hace que el `?` actúa
   sobre `bc` al completo, y no sólo sobre el `c`.
 
+#### Métodos del módulo `re`
+
+- Las expresiones regulares se deben compilar en **objetos patrón**, los cuales
+  contienen métodos que permiten realizar operaciones tales como ajuste de
+  patrones o sustituciones sobre cadenas.
+
+- Para compilar una expresión regular se usa la función `compile` del módulo
+  `re`. Por ejemplo:
+
+  ```python
+  >>> import re
+  >>> p = re.compile('ab*')
+  >>> p
+  re.compile('ab*')
+  ```
+
+- La función `re.compile` también acepta un argumento opcional que sirve para
+  activar ciertas características especiales. Por ejemplo:
+
+  ```python
+  p = re.compile('ab*', re.IGNORECASE)
+  ```
+
+---
+
+- La expresión regular se pasa a `re.compile` en forma de cadena.
+
+
+
+
+---
+
+-------------------------------------------------------------------------------------------------
+Métodos sobre objetos patrón  Finalidad                                                          
+----------------------------- -------------------------------------------------------------------
+`match()`                     Determina si la expresión regular encaja con el                    
+                              comienzo de la cadena.                                             
+                                                                                                 
+`search()`                    Examina dentro de una cadena, buscando algún lugar                 
+                              donde la expresión regular encaje con la cadena.                   
+                                                                                                 
+`findall()`                   Busca todas las subcadenas que encajen con la                      
+                              expresión regular y las devuelve en una lista.                     
+                                                                                                 
+`finditer()`                  Busca todas las subcadenas que encajen con la                      
+                              expresión regular y las devuelve en forma de iterador.             
+-------------------------------------------------------------------------------------------------
+
 ## Tuplas
 
 - Las **tuplas** (!PYTHON(tuple)) son secuencias inmutables, usadas a menudo
