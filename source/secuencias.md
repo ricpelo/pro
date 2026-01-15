@@ -760,6 +760,73 @@ nocite: |
 
   encaja con !PYTHON('ac') o con !PYTHON('abc').
 
+---
+
+- Los metacaracteres `{` y `}` se usan combinados para expresar el
+  cuantificador `{`!COLOR(blue)($m$!ifdef(HTML)(`,`)(\texttt{,}))!COLOR(blue)($n$!ifdef(HTML)(`}`)(\texttt{\}})),
+  donde $m$ y $n$ son números enteros.
+ 
+- Este cuantificador indica que el carácter anterior debe repetirse entre $m$ y
+  $n$ veces (como mínimo $m$ veces y como máximo $n$ veces).
+
+- Por ejemplo:
+
+  ```
+  a/{1,3}b
+  ```
+
+  encaja con !PYTHON('a/b'), !PYTHON('a//b') y !PYTHON('a///b'), pero no con
+  !PYTHON{'ab'} (porque no tiene ninguna !PYTHON('/')) ni con !PYTHON{'a////b'}
+  (porque tiene cuatro !PYTHON('/'), o sea, más de tres).
+
+---
+
+- Tanto $m$ como $n$ pueden omitirse:
+
+  - Si se omite $m$, se interpreta que el límite inferior es 0.
+
+  - Si se omite $n$, se interpreta que el límite superior es infinito.
+
+- El caso `{`$m$`}` indica que el carácter anterior debe repetirse exactamente
+  $m$ veces. Por ejemplo:
+
+  ```
+  a/{2}b
+  ```
+
+  sólo encajará con !PYTHON('a//b').
+
+- Se deduce que:
+
+  - `{0,}` equivale a `*`
+
+  - `{1,}` equivale a `+`
+
+  - `{0,1}` equivale a `?`
+
+#### Opcionalidad y agrupamiento
+
+- El metacarácter `|` sirve para expresar que se debe encajar con una cosa
+  **o bien** con otra. Por ejemplo:
+
+  ```
+  a|b
+  ```
+
+  encaja con !PYTHON('a') o con !PYTHON('b').
+
+- Los metacaracteres `(` y `)` sirven para agrupar partes de una misma
+  expresión regular, de forma que se interpreten como una sola. Por ejemplo:
+
+  ```
+  a(bc)?d
+  ```
+
+  encaja con !PYTHON('ad') y con !PYTHON('abcd'), ya que los paréntesis
+  alrededor de `bc` hacen que esos dos caracteres actúen como una sola cosa
+  desde el punto de vista del `?` que hay detrás. Eso hace que el `?` actúa
+  sobre `bc` al completo, y no sólo sobre el `c`.
+
 ## Tuplas
 
 - Las **tuplas** (!PYTHON(tuple)) son secuencias inmutables, usadas a menudo
