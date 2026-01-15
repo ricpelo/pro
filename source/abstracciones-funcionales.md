@@ -460,8 +460,8 @@ nocite: |
   - _expone_ justamente aquello que es necesario conocer para poder usarla (el
     **_qué_** hace), y
 
-  - _oculta_ todos los demás detalles internos de funcionamiento (el **_cómo_**
-    lo hace).
+  - _oculta_ e impide el acceso de todos los demás detalles internos de
+    funcionamiento (el **_cómo_** lo hace).
 
 - La «tapa» de la caja negra (lo que incluye su _interfaz_) es precisamente la
   barrera de separación entre el qué hace y el cómo lo hace.
@@ -542,10 +542,10 @@ nocite: |
 - Podemos escribir la función !PYTHON(area) sin preocuparnos de cómo calcular
   el cuadrado de un número, porque eso ya lo hace la función !PYTHON(cuadrado).
 
-- **Los detalles** sobre cómo se calcula el cuadrado están **ocultos dentro de
-  la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en este
-  momento** al diseñar !PYTHON(area), para considerarlos más tarde si hiciera
-  falta.
+- **Los detalles** sobre cómo se calcula el cuadrado están **encapsulados
+  dentro de la definición** de !PYTHON(cuadrado). Esos detalles **se ignoran en
+  este momento** al diseñar !PYTHON(area), para considerarlos más tarde si
+  hiciera falta.
 
 ---
 
@@ -669,16 +669,14 @@ nocite: |
   ```
 
   no estamos hablando del cubo de un número en particular, sino más bien de un
-  **método** para calcular el cubo de cualquier número.
+  método para calcular el cubo de **cualquier** número, _en general_.
 
 - De esta forma, podemos usar la función para obtener los diferentes casos
-  particulares que obtendríamos si no tuviéramos la función.
+  particulares que obtendríamos si no tuviéramos la función (proceso que se
+  denomina **especialización**).
 
 - Por ejemplo, podremos usar !PYTHON(cubo(3)) en lugar de !PYTHON(3*3*3),
   !PYTHON(cubo(5)) en lugar de !PYTHON(5*5*5), etc.
-
-- Es decir, estamos expresando cómo se calcula el cubo de cualquier número, en
-  general.
 
 ---
 
@@ -702,15 +700,20 @@ nocite: |
 
 ---
 
-- De esta forma, analizando ciertos _casos particulares_, observamos que se
-  repite el mismo patrón en todos ellos (es decir, **abstraemos** el concepto
-  esencial), y de ahí extraemos un _caso general_ (es decir, hacemos una
-  **generalización**) que agrupa a todos los posibles casos particulares que
-  cumplen ese patrón.
+- De esta forma, analizando ciertos _casos particulares_, observamos que:
 
-- Luego, hacemos una **encapsulación**, metiendo ese caso general en una «_caja
-  negra_» que oculte sus detalles internos, y finalmente le damos un nombre a
-  la «caja», con lo que acabamos creando una **abstracción**.
+  #. Se repite el mismo patrón en todos ellos (es decir, **abstraemos** el
+     concepto esencial).
+
+  #. De ahí extraemos un _caso general_ (es decir, hacemos una
+     **generalización**) que agrupa a todos los posibles casos particulares que
+     cumplen ese patrón.
+
+     Esa generalización también es una **encapsulación** que tiene forma de
+     «_caja negra_», ya que oculta sus detalles internos al exterior.
+
+  #. Finalmente, le damos un nombre a la caja negra, con lo que acabamos
+     creando una **abstracción**.
 
 ---
 
@@ -769,13 +772,13 @@ cg [label = "(caso general)"]
      común y que representan el mismo concepto.
 
   2. Generalizar esos casos particulares y parametrizar el caso general
-     creando una expresión lambda.
+     creando una expresión lambda que encapsula el caso general.
 
   3. Abstraer la expresión lambda dándole un nombre.
 
 - Veamos cada paso por separado con detalle.
 
-##### Paso 1: Abstracción {.unnumbered .unlisted}
+!UNUN(Paso 1: Abstracción como proceso)
 
 - Partimos de casos particulares que se parecen. Por ejemplo, supongamos las
   siguientes expresiones:
@@ -791,8 +794,9 @@ cg [label = "(caso general)"]
 - Por ejemplo, los operadores `*` son iguales, y lo que varía es la cosa que se
   multiplica (el `3`, el `5`, etcétera).
 
-- A partir de ahí, hacemos abstracción y nos centramos en estudiar aquello en
-  lo que se parecen e ignoramos aquello en lo que se diferencian.
+- A partir de ahí, hacemos un proceso mental de abstracción y nos centramos en
+  estudiar aquello en lo que se parecen e ignoramos aquello en lo que se
+  diferencian.
 
 ---
 
@@ -810,11 +814,11 @@ cg [label = "(caso general)"]
 
 - Ahora bien: ¿cómo se materializa ese concepto?
 
-##### Paso 2: Generalización {.unnumbered .unlisted}
+!UNUN(Paso 2: Generalización)
 
-- Generalizamos estos casos particulares, _parametrizando_ los elementos en los
-  que se diferencian (es decir, las partes que no son comunes) y dejando el
-  resto igual.
+- **Generalizamos** estos casos particulares y **parametrizamos** los elementos
+  en los que se diferencian (es decir, las partes que no son comunes), dejando
+  el resto de los elementos sin cambiar.
 
 - En nuestro ejemplo, los casos particulares se distinguen en el número que se
   multiplica para calcular el cubo. Por tanto, habrá un único parámetro que
@@ -836,10 +840,14 @@ cg [label = "(caso general)"]
   aplicados a la expresión lambda. En este caso, la `x` es el único parámetro
   que tiene la expresión lambda anterior.
 
-- Esa expresión describe el patrón común como un **caso general** de las
+- Esa expresión lambda describe el patrón común como un **caso general** de las
   expresiones anteriores, ya que representa a todos los posibles casos
   particulares (potencialmente infinitos) que se ajustan a ese mismo patrón.
   Por ese motivo decimos que es una **generalización**.
+
+- Asimismo, la expresión lambda lleva a cabo una **encapsulación**, es decir,
+  crea una _cápsula_ que separa el interior (el **cuerpo** de la expresión
+  lambda) del exterior de la misma.
 
 ---
 
@@ -850,12 +858,15 @@ cg [label = "(caso general)"]
   `lambda`. De lo contrario, sería un identificador _libre_.
 
 - Al invocarla con un argumento concreto, el parámetro toma el valor de ese
-  argumento y así se van obteniendo los casos particulares deseados:
+  argumento y así se van obteniendo los casos particulares deseados, proceso
+  que se denomina **_especialización_**:
 
   ```python
   (lambda x: x * x * x)(3) → 3 * 3 * 3
   (lambda x: x * x * x)(5) → 5 * 5 * 5
   ```
+
+---
 
 - La expresión lambda puede usarse simplemente aplicando los argumentos
   necesarios en cada llamada, sin necesidad de manipular directamente la
@@ -868,7 +879,7 @@ cg [label = "(caso general)"]
   cuerpo), que no necesitaríamos manipular para poder usar la
   expresión lambda.
 
-##### Paso 3: Más abstracción {.unnumbered .unlisted}
+!UNUN(Paso 3: Abstracción como producto)
 
 - Aunque para usar una expresión lambda no necesitamos conocer cómo es su
   cuerpo, en la práctica sí que podemos verlo (aunque no podemos manipularlo
@@ -881,16 +892,16 @@ cg [label = "(caso general)"]
 - Una expresión lambda sin nombre es como una función de «usar y tirar» que
   vive y muere en la misma expresión donde se la utiliza.
 
-- En general, las **abstracciones de usar y tirar** son aquellas que se crean
-  para cumplir una función concreta, en un punto específico del programa, y
-  después no se reutilizan ni se les da un nombre permanente.
+- Las **abstracciones de usar y tirar** son aquellas que se crean para cumplir
+  una función concreta en un punto específico del programa, y que después no se
+  reutilizan ni se les da un nombre permanente.
 
 - Son abstracciones efímeras, que encapsulan algo pero sin la intención de
   volver a usarlas más adelante.
 
-- En cambio, cuando le damos un nombre, subimos más el nivel de abstracción ya
-  que puede reutilizarse en muchas expresiones y toda la expresión lambda queda
-  «oculta» bajo el nombre que le damos.
+- En cambio, cuando le damos un nombre creamos una verdadera **abstracción**,
+  ya que puede reutilizarse en muchas expresiones y toda la expresión lambda
+  queda «oculta» bajo el nombre que le damos.
 
 ---
 
@@ -901,8 +912,8 @@ cg [label = "(caso general)"]
   cubo = lambda x: x * x * x
   ```
 
-- De ahora en adelante, podemos invocar a la función usando su nombre, sin
-  tener que recordar incluso que debajo hay una expresión lambda concreta:
+- En adelante, podemos invocar a la función usando su nombre, sin tener que
+  recordar siquiera que debajo hay una expresión lambda concreta:
 
   ```python
   cubo(3) → 3 * 3 * 3
@@ -918,7 +929,7 @@ cg [label = "(caso general)"]
   - Es una caja negra que expone el _qué_ y oculta el _cómo_.
 
 - Ahora ya ni siquiera tenemos que saber cómo es la expresión lambda a la que
-  está ligada el nombre. Por tanto, trabajamos a un nivel mayor de abstracción.
+  está ligada el nombre. Ahora sí es una verdadera abstracción.
 
 ---
 
@@ -928,6 +939,13 @@ cg [label = "(caso general)"]
 - La principal preocupación del usuario de un programa (o de cada una de sus
   partes) es _qué_ hace. Esto contrasta con la del programador de esa parte del
   programa, cuya principal preocupación es _cómo_ lo hace.
+
+- La abstracción es esencial en la construcción de programas. Pone el énfasis
+  en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
+  lo tanto, es el principal medio para gestionar la complejidad en programas
+  grandes.
+
+---
 
 - Los lenguajes de programación proporcionan abstracción mediante funciones (y
   otros elementos como procedimientos y módulos, que veremos posteriormente)
@@ -939,11 +957,6 @@ cg [label = "(caso general)"]
   la cápsula de una función sólo deja pasar fuera lo necesario para poder usar
   la función, y oculta dentro todo lo demás, es decir, lo que no es necesario
   conocer ni manipular para usarla.
-
-- La abstracción es esencial en la construcción de programas. Pone el énfasis
-  en lo que algo es o hace, más que en cómo se representa o cómo funciona. Por
-  lo tanto, es el principal medio para gestionar la complejidad en programas
-  grandes.
 
 ---
 
@@ -973,27 +986,32 @@ cg [label = "(caso general)"]
   y oculta el resto de detalles innecesarios. La «tapa» de la caja negra separa
   el _qué_ hace del _cómo_ lo hace.
 
-- **Abstracción**: Conceptualmente, es el proceso de simplificar algo
-  resaltando solo sus características esenciales y ocultando los detalles
-  irrelevantes para el contexto en que se usa.
+- **Abstracción**: Es un proceso y un producto.
 
-  En la práctica, también es el producto resultante de ese proceso. En tal
-  caso, una abstracción consiste en darle un nombre a una caja negra que expone
-  la información necesaria para saber _qué_ hace la abstracción y oculta los
-  detalles necesarios para saber _cómo_ lo hace.
+  - Conceptualmente, es el proceso de simplificar algo mentalmente, resaltando
+    solo sus características esenciales y ocultando los detalles irrelevantes
+    para el contexto en el que se está usando o estudiando.
+
+  - En la práctica, también es el producto resultante de ese proceso. En ese
+    caso, la abstracción se construye dándole un nombre a una caja negra que
+    expone la información necesaria para saber _qué_ hace la abstracción y
+    oculta los detalles necesarios para saber _cómo_ lo hace.
 
 ---
 
 - **Generalización**: Es el proceso de identificar un patrón común entre varios
-  casos particulares y crear un modelo más general que los abarque a todos.
+  casos particulares y crear un modelo más general que los abarque a todos,
+  definiendo un concepto que representa un caso general.
 
-- **Parametrización**: Es el proceso de definir un elemento que representa un
-  caso general utilizando _parámetros_ que permiten obtener los casos
-  particulares del caso general sin tener que reescribirlo, ligando valores
-  concretos a los parámetros.
+- **Parametrización**: Es el proceso de expresar mediante _parámetros_ las
+  partes en las que se diferencian los casos particulares de un mismo caso
+  general.
 
-- **Parámetro**: Es una parte que cambia en cada caso particular de un patrón
-  común.
+- **Especialización**: Es el proceso de obtener un caso particular a partir de
+  un caso general, ligando valores concretos a sus parámetros.
+
+- **Parámetro**: Es cada una de las partes que pueden cambiar en cada caso
+  particular de un patrón común.
 
 ---
 
