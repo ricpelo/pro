@@ -553,26 +553,49 @@ nocite: |
 ---
 
 - Las expresiones regulares pueden contener tanto _caracteres ordinarios_ como
-  _caracteres especiales_:
+  _caracteres especiales_.
 
-  - La mayoría de los **caracteres ordinarios**, como `A`, `a` o `0`, son las
-    expresiones regulares más sencillas.
+- La mayoría de los **caracteres ordinarios**, como `A`, `a` o `0`, son las
+  expresiones regulares más sencillas, las cuales simplemente encajan consigo
+  mismas.
 
-    Estas expresiones simplemente se ajustan a sí mismas.
+- Además, se pueden concatenar caracteres ordinarios, así que la expresión
+  regular `hola` encaja con la cadena !PYTHON('hola').
 
-    Se pueden concatenar caracteres ordinarios, así que la expresión regular
-    `hola` encaja con la cadena !PYTHON('hola').
+---
 
-  - Otros caracteres, como `|` o `(`, son **caracteres especiales**.
+- En concreto, se pueden crear expresiones regulares concatenando otras
+  expresiones regulares.
 
-    A los caracteres especiales se les denomina **_metacaracteres_** y tienen
-    un significado especial dentro de una expresión regular.
+- Si $A$ y $B$ son expresiones regulares, $AB$ también es una expresión
+  regular, y las cadenas que encajan con ella serán todas las posibles cadenas
+  que se pueden obtener concatenando las que encajan con $A$ y las que encajan
+  con $B$.
 
-    Por ejemplo, representan clases de caracteres ordinarios o afectan a la
-    forma en que se interpretan las expresiones regulares que los rodean.
+- Por ejemplo:
 
-    Gran parte del aprendizaje de las expresiones regulares consiste en saber
-    qué metacaracteres existen y qué hacen.
+  - La expresión regular `a` encaja con la cadena !PYTHON('a').
+
+  - La expresión regular `b` encaja con la cadena !PYTHON('b').
+
+  - Por tanto, la expresión regular `ab` encaja con la cadena !PYTHON('ab').
+
+  - Y por ello, la expresión regular `hola` encaja con la cadena
+    !PYTHON('hola').
+
+---
+
+- Además de usar caracteres ordinarios, en una expresión regular podemos usar
+  otros caracteres, como `|` o `(`, que son **caracteres especiales**.
+
+- A los caracteres especiales se les denomina **_metacaracteres_** y tienen
+  un significado especial dentro de una expresión regular.
+
+- Por ejemplo, representan clases de caracteres ordinarios o afectan a la
+  forma en que se interpretan las expresiones regulares que los rodean.
+
+- Gran parte del aprendizaje de las expresiones regulares consiste en saber
+  qué metacaracteres existen y qué hacen.
 
 ---
 
