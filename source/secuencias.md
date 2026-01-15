@@ -720,21 +720,45 @@ nocite: |
 
 - Los metacaracteres que expresan repeticiones son: `*`, `+`, `?`, `{` y `}`.
 
-- El metacarácter `*` especifica que el carácter anterior puede encajar cero o
-  más veces, en lugar de exactamente una vez. Por ejemplo:
+- El metacarácter `*` especifica que el carácter anterior puede encajar **cero
+  o más veces**, en lugar de exactamente una vez. Por ejemplo:
 
   ```
   ca*t
   ```
 
-  encaja con `ct` (ningún carácter `a`), `cat` (una `a`), `caat` (dos `a`es),
-`caaat` (tres `a`es), y así sucesivamente.
+  encaja con !PYTHON{'ct'} (ningún carácter !PYTHON('a')), !PYTHON{'cat'} (un
+  carácter !PYTHON('a')), !PYTHON{'caat'} (dos caracteres !PYTHON('a')),
+  !PYTHON{'caaat'} (tres caracteres !PYTHON('a')), y así sucesivamente.
 
 - Las repeticiones son _ansiosas_, es decir, que el intérprete tratará de
   encajar con el mayor número posible de repeticiones.
 
   Si las últimas porciones del patrón no encajan, el intérprete dará marcha
   atrás y lo volverá a intentar con menos repeticiones.
+
+---
+
+- El metacarácter `+` especifica que el carácter anterior puede encajar **_una_
+  o más veces**, a diferencia del `*` que encaja **_cero_ o más veces**. Por
+  ejemplo:
+
+  ```
+  ca+t
+  ```
+
+  encaja con !PYTHON{'cat'} (un carácter !PYTHON('a')), !PYTHON{'caat'} (dos
+  caracteres !PYTHON('a')), !PYTHON{'caaat'} (tres caracteres !PYTHON('a')), y
+  así sucesivamente, pero **NO** con !PYTHON{'ct'} (ninguna !PYTHON('a')). 
+
+- El metacarácter `?` encaja **una vez o ninguna**, por lo que se usa
+  frecuentemente para indicar que algo es **opcional**. Por ejemplo:
+
+  ```
+  ab?c
+  ```
+
+  encaja con !PYTHON('ac') o con !PYTHON('abc').
 
 ## Tuplas
 
