@@ -1532,18 +1532,62 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a h
 <ul>
 <li><p>La expresión regular se pasa a <code>re.compile</code> en forma
 de cadena.</p></li>
-<li><p>Las expresiones regulares usan el carácter <code>\</code> para
-indicar secuencias especiales o quitar el significado expecial de los
-metacaracteres.</p></li>
+<li><p>Las cadenas literales en Python usan la barra invertida
+<code>\</code> como marca de inicio de una secuencia de escape, como
+<code>\n</code> o <code>\t</code>.</p></li>
+<li><p>Pero además, las expresiones regulares usan el carácter
+<code>\</code> para indicar secuencias especiales o quitar el
+significado expecial de los metacaracteres.</p></li>
+<li><p>Esto provoca que debamos <em>escapar</em> la barra <strong>dos
+veces</strong>: una vez para la cadena literal de Python y otra para el
+motor de expresiones regulares.</p></li>
+<li><p>Esto se debe a que el código está pasando por dos niveles
+distintos de interpretación de las barras invertidas, y cada nivel
+<em>consume</em> una barra.</p></li>
+<li><p>Por ejemplo, supongamos que queremos comprobar la aparición de la
+secuencia de caracteres <code>\section</code>.</p></li>
+<li><p>Si se escribe <code
+class="sourceCode python"><span class="st">&#39;\section&#39;</span></code>,
+Python intenta interpretar <code>\s</code> como una secuencia de
+escape.</p></li>
+<li><p>Como <code>\s</code> no es una secuencia de escape válida en
+Python, el intérprete lo deja como <code>\s</code>, pero ya ha
+intervenido.</p></li>
+<li><p>Para que la cadena contenga realmente <code>\section</code>, hay
+que escribir <code
+class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\</span><span class="st">section&#39;</span></code>.</p></li>
+<li><p>Es decir: para que aparezca una sola <code>\</code> en la cadena
+resultante, hay que poner <code>\\</code>.</p></li>
+<li><p>Pero en expresiones regulares, la barra <code>\</code> también es
+especial y se interpreta de forma especial; por ejemplo, <code>\s</code>
+(espacio en blanco), <code>\d</code> (dígito) o <code>\w</code>
+(carácter alfanumérico).</p></li>
+<li><p>Por tanto, si se quiere que la expresión regular busque una barra
+invertida literal, debe escaparse también usando
+<code>\\</code>.</p></li>
+<li><p>Así que el motor de expresiones regulares necesita ver
+<code>\\section</code>.</p></li>
+<li><p>Combinando ambos niveles, sabiendo que queremos que el motor de
+expresiones regulares vea <code>\\section</code>, debemos escribir <code
+class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">section&#39;</span></code>
+para que Python construya esa cadena.</p></li>
+</ul>
+<p>Desglose:</p>
+<p>Código Python Cadena real Interpretación regex “\\section” \section
+\section literal 4️⃣ ✅ La forma recomendada: raw strings</p>
+<p>Para evitar este lío, usa cadenas crudas (r”…“):</p>
+<p>re.compile(r”\section”)</p>
+<ul>
 <li><p>Esto hace que debamos repetir el mismo carácter <code>\</code>
 varias veces al introducirlo en una cadena de Python.</p></li>
 <li><p>Por ejemplo, si queremos comprobar la aparición de la subcadena
 <code>\section</code> dentro de una cadena usando expresiones regulares,
-debemos escapar la barra invertida poniéndola dos veces para que se
-interprete literalmente, así: <code>\\section</code>.</p></li>
+debemos empezar escapando la barra invertida poniéndola dos veces para
+que se interprete literalmente, así: <code>\\section</code>.</p></li>
 <li><p>Esa cadena se debe pasar a <code>re.compile</code>, pero para
 hacerlo en forma de cadena Python debemos volver a escapar cada una de
-las barras.</p></li>
+las barras, así que realmente deberemos pasarle la cadena <code
+class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">section&#39;</span></code>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.2.5.2">
@@ -1566,14 +1610,14 @@ las barras.</p></li>
 </tr>
 <tr>
 <td style="text-align: left;"><code>\\section</code></td>
-<td style="text-align: left;">Barra invertida escapada para
-<code>re.compile()</code></td>
+<td style="text-align: left;">Barras invertidas escapadas en un literal
+cadena de Python</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code
 class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">section&#39;</span></code></td>
-<td style="text-align: left;">Barras invertidas escapadas en un literal
-cadena de Python</td>
+<td style="text-align: left;">Barra invertida escapada para
+<code>re.compile()</code></td>
 </tr>
 </tbody>
 </table>

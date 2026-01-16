@@ -894,19 +894,85 @@ nocite: |
 
 - La expresión regular se pasa a `re.compile` en forma de cadena.
 
-- Las expresiones regulares usan el carácter `\` para indicar secuencias
-  especiales o quitar el significado expecial de los metacaracteres.
+- Las cadenas literales en Python usan la barra invertida `\` como marca de
+  inicio de una secuencia de escape, como `\n` o `\t`.
+
+- Pero además, las expresiones regulares usan el carácter `\` para indicar
+  secuencias especiales o quitar el significado expecial de los metacaracteres.
+
+- Esto provoca que debamos _escapar_ la barra **dos veces**: una vez para la
+  cadena literal de Python y otra para el motor de expresiones regulares.
+
+- Esto se debe a que el código está pasando por dos niveles distintos de
+  interpretación de las barras invertidas, y cada nivel _consume_ una barra.
+
+- Por ejemplo, supongamos que queremos comprobar la aparición de la secuencia
+  de caracteres `\section`.
+
+- Si se escribe !PYTHON('\section'), Python intenta interpretar `\s` como una
+  secuencia de escape.
+
+- Como `\s` no es una secuencia de escape válida en Python, el intérprete lo
+  deja como `\s`, pero ya ha intervenido.
+
+- Para que la cadena contenga realmente `\section`, hay que escribir
+  !PYTHON('\\section').
+
+- Es decir: para que aparezca una sola `\` en la cadena resultante, hay que
+  poner `\\`.
+
+- Pero en expresiones regulares, la barra `\` también es especial y se
+  interpreta de forma especial; por ejemplo, `\s` (espacio en blanco), `\d`
+  (dígito) o `\w` (carácter alfanumérico).
+
+- Por tanto, si se quiere que la expresión regular busque una barra invertida
+  literal, debe escaparse también usando `\\`.
+
+- Así que el motor de expresiones regulares necesita ver `\\section`.
+
+- Combinando ambos niveles, sabiendo que queremos que el motor de expresiones
+  regulares vea `\\section`, debemos escribir !PYTHON('\\\\section') para que
+  Python construya esa cadena.
+
+Desglose:
+
+Código Python	Cadena real	Interpretación regex
+"\\\\section"	\\section	\section literal
+4️⃣ ✅ La forma recomendada: raw strings
+
+Para evitar este lío, usa cadenas crudas (r"..."):
+
+re.compile(r"\\section")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - Esto hace que debamos repetir el mismo carácter `\` varias veces al
   introducirlo en una cadena de Python.
 
 - Por ejemplo, si queremos comprobar la aparición de la subcadena `\section`
-  dentro de una cadena usando expresiones regulares, debemos escapar la barra
-  invertida poniéndola dos veces para que se interprete literalmente, así:
-  `\\section`.
+  dentro de una cadena usando expresiones regulares, debemos empezar escapando
+  la barra invertida poniéndola dos veces para que se interprete literalmente,
+  así: `\\section`.
 
 - Esa cadena se debe pasar a `re.compile`, pero para hacerlo en forma de cadena
-  Python debemos volver a escapar cada una de las barras.
+  Python debemos volver a escapar cada una de las barras, así que realmente
+  deberemos pasarle la cadena !PYTHON('\\\\section').
 
 ---
 
@@ -915,9 +981,9 @@ Secuencia de caracteres           Representa
 --------------------------------- ---------------------------------------------  
 `\section`                        El texto que se desea comprobar
 
-`\\section`                       Barra invertida escapada para `re.compile()` 
+`\\section`                       Barras invertidas escapadas en un literal cadena de Python 
 	
-!PYTHON('\\\\section')            Barras invertidas escapadas en un literal cadena de Python
+!PYTHON('\\\\section')            Barra invertida escapada para `re.compile()`
 -------------------------------------------------------------------------------  
 
 - En resumen, para encajar con una barra invertida literal, se debe escribir
