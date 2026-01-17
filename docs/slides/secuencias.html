@@ -1519,7 +1519,9 @@ cadenas.</p></li>
 class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> re</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">&#39;ab*&#39;</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>re.<span class="bu">compile</span>(<span class="st">&#39;ab*&#39;</span>)</span></code></pre></div></li>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>re.<span class="bu">compile</span>(<span class="st">&#39;ab*&#39;</span>)</span></code></pre></div>
+<p>A partir de ahora, <code>p</code> contiene el <em>objeto
+patrón</em>.</p></li>
 <li><p>La función <code>re.compile</code> también acepta un argumento
 opcional que sirve para activar ciertas características especiales. Por
 ejemplo:</p>
@@ -1544,9 +1546,14 @@ motor de expresiones regulares.</p></li>
 <li><p>Esto se debe a que el código está pasando por dos niveles
 distintos de interpretación de las barras invertidas, y cada nivel
 <em>consume</em> una barra.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.2.5.2">
+
+<ul>
 <li><p>Por ejemplo, supongamos que queremos comprobar la aparición de la
 secuencia de caracteres <code>\section</code>.</p></li>
-<li><p>Si se escribe <code
+<li><p>Si se escribe la cadena <code
 class="sourceCode python"><span class="st">&#39;\section&#39;</span></code>,
 Python intenta interpretar <code>\s</code> como una secuencia de
 escape.</p></li>
@@ -1554,44 +1561,29 @@ escape.</p></li>
 Python, el intérprete lo deja como <code>\s</code>, pero ya ha
 intervenido.</p></li>
 <li><p>Para que la cadena contenga realmente <code>\section</code>, hay
-que escribir <code
-class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\</span><span class="st">section&#39;</span></code>.</p></li>
-<li><p>Es decir: para que aparezca una sola <code>\</code> en la cadena
+que escribir el literal <code
+class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\</span><span class="st">section&#39;</span></code>.</p>
+<p>Es decir: para que aparezca una sola <code>\</code> en la cadena
 resultante, hay que poner <code>\\</code>.</p></li>
-<li><p>Pero en expresiones regulares, la barra <code>\</code> también es
-especial y se interpreta de forma especial; por ejemplo, <code>\s</code>
-(espacio en blanco), <code>\d</code> (dígito) o <code>\w</code>
-(carácter alfanumérico).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.2.5.3">
+
+<ul>
+<li><p>Pero en expresiones regulares, la barra <code>\</code> también se
+interpreta de forma especial. Por ejemplo: <code>\s</code> (espacio en
+blanco), <code>\d</code> (dígito) o <code>\w</code> (carácter
+alfanumérico).</p></li>
 <li><p>Por tanto, si se quiere que la expresión regular busque una barra
 invertida literal, debe escaparse también usando
 <code>\\</code>.</p></li>
 <li><p>Así que el motor de expresiones regulares necesita ver
 <code>\\section</code>.</p></li>
-<li><p>Combinando ambos niveles, sabiendo que queremos que el motor de
-expresiones regulares vea <code>\\section</code>, debemos escribir <code
-class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">section&#39;</span></code>
-para que Python construya esa cadena.</p></li>
-</ul>
-<p>Desglose:</p>
-<p>Código Python Cadena real Interpretación regex “\\section” \section
-\section literal 4️⃣ ✅ La forma recomendada: raw strings</p>
-<p>Para evitar este lío, usa cadenas crudas (r”…“):</p>
-<p>re.compile(r”\section”)</p>
-<ul>
-<li><p>Esto hace que debamos repetir el mismo carácter <code>\</code>
-varias veces al introducirlo en una cadena de Python.</p></li>
-<li><p>Por ejemplo, si queremos comprobar la aparición de la subcadena
-<code>\section</code> dentro de una cadena usando expresiones regulares,
-debemos empezar escapando la barra invertida poniéndola dos veces para
-que se interprete literalmente, así: <code>\\section</code>.</p></li>
-<li><p>Esa cadena se debe pasar a <code>re.compile</code>, pero para
-hacerlo en forma de cadena Python debemos volver a escapar cada una de
-las barras, así que realmente deberemos pasarle la cadena <code
+<li><p>Combinando ambos niveles, y sabiendo que queremos que el motor de
+expresiones regulares vea <code>\\section</code>, debemos escribir como
+expresión regular la cadena <code
 class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\\\</span><span class="st">section&#39;</span></code>.</p></li>
 </ul>
-</section>
-<section class="slide level5" data-number="2.1.2.5.2">
-
 <table>
 <colgroup>
 <col style="width: 41%" />
@@ -1621,17 +1613,91 @@ class="sourceCode python"><span class="st">&#39;</span><span class="ch">\\\\</sp
 </tr>
 </tbody>
 </table>
+</section>
+<section class="slide level5" data-number="2.1.2.5.4">
+
 <ul>
-<li><p>En resumen, para encajar con una barra invertida literal, se debe
+<li><p>En resumen: para encajar con una barra invertida literal, se debe
 escribir <code>\\\\</code> en la cadena Python que representa a la
 expresión regular, porque dicha expresión regular debe ser
-<code>\\</code>, y cada barra invertida debe indicarse como
-<code style="color: red">\\</code> dentro de un literal de tipo cadena
-en Python.</p></li>
+<code>\\</code>, y cada barra invertida debe indicarse como dos barras
+invertidas dentro de un literal cadena en Python.</p></li>
 <li><p>Esto hace que la expresión regular resultante resulte difícil de
-escribir y de entender.</p></li>
+escribir y de entender, con gran cantidad de barras.</p></li>
 </ul>
+</section>
+<section id="raw-strings" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted"><em>Raw strings</em></h5>
+<ul>
+<li><p>Para evitar en lo posible la necesidad de tantas barras
+inclinadas, la forma recomendada de escribir expresiones regulares es
+mediante el uso de <em>cadenas crudas</em> o <strong><em>raw
+strings</em></strong>.</p></li>
+<li><p>Una <em>raw string</em> es una cadena literal de Python que lleva
+un prefijo <code>r</code> o <code>R</code>.</p></li>
+<li><p>Las <em>raw strings</em> se interpretan de forma que una barra
+inclinada <code>\</code> no se considera un carácter especial, sino un
+carácter más, como cualquier otro.</p></li>
+<li><p>Por tanto, en una <em>raw string</em>, la <code>\</code> pierde
+su significado especial de «<em>comienzo de secuencia de
+escape</em>».</p></li>
+<li><p>Eso significa que cada <code>\</code> que se encuentra en una
+<em>raw string</em> representa una simple <code>\</code>, sin
+más.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.2.5.5">
+
+<ul>
+<li><p>Por ejemplo, en la siguiente cadena:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="vs">r&#39;ab\ncd&#39;</span></span></code></pre></div>
+<p>la secuencia <code>\n</code> no representa un salto de línea, sino
+los dos caracteres <code>\</code> y <code>n</code> juntos.</p></li>
+<li><p>En consecuencia, la longitud de la cadena anterior es 6, y no 5,
+ya que <code>\n</code> se interpreta como dos caracteres separados, y no
+uno sólo.</p></li>
+<li><p>Eso significa también que no se necesitan escapar las
+<code>\</code> en una <em>raw string</em> para que Python las trate
+literalmente como un carácter más.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.2.5.6">
+
+<ul>
+<li><p>Por ejemplo, la expresión regular <code>^\d+$</code> reconoce el
+lenguaje de las cadenas formadas por números enteros (la aparición de
+uno o más dígitos en base diez).</p></li>
+<li><p>Esa expresión regular se puede escribir así:</p>
+<ul>
+<li><p>Sin <em>raw strings</em>, hay que escapar la <code>\</code>:</p>
+<pre><code>&#39;^\\d+$&#39;</code></pre></li>
+<li><p>Con <em>raw strings</em>, la <code>\</code> se escribe una sola
+vez:</p>
+<pre><code>r&#39;^\d+$&#39;</code></pre></li>
+</ul></li>
+<li><p>Si queremos que la expresión regular reconozca la secuencia de
+caracteres <code>\section</code>, podemos usar:</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r&quot;\\section&quot;</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.2.5.7">
+
 <!--
+- Esto hace que debamos repetir el mismo carácter `\` varias veces al
+  introducirlo en una cadena de Python.
+
+- Por ejemplo, si queremos comprobar la aparición de la subcadena `\section`
+  dentro de una cadena usando expresiones regulares, debemos empezar escapando
+  la barra invertida poniéndola dos veces para que se interprete literalmente,
+  así: `\\section`.
+
+- Esa cadena se debe pasar a `re.compile`, pero para hacerlo en forma de cadena
+  Python debemos volver a escapar cada una de las barras, así que realmente
+  deberemos pasarle la cadena `'\\\\section'`{.python}.
+
+---
 
 ---
 
@@ -1659,10 +1725,9 @@ r"\\section"
 
 r"\w+\s+\1"
 
--->
-</section>
-<section class="slide level5" data-number="2.1.2.5.3">
+---
 
+-->
 <table>
 <colgroup>
 <col style="width: 30%" />
@@ -1686,6 +1751,11 @@ con el comienzo de la cadena.</td>
 algún lugar donde la expresión regular encaje con la cadena.</td>
 </tr>
 <tr>
+<td style="text-align: left;"><code>fullmatch()</code></td>
+<td style="text-align: left;">Comprueba si la expresión regular encaja
+con la cadena completa.</td>
+</tr>
+<tr>
 <td style="text-align: left;"><code>findall()</code></td>
 <td style="text-align: left;">Busca todas las subcadenas que encajen con
 la expresión regular y las devuelve en una lista.</td>
@@ -1698,15 +1768,20 @@ la expresión regular y las devuelve en forma de iterador.</td>
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="2.1.2.5.4">
+<section class="slide level5" data-number="2.1.2.5.8">
 
 <ul>
-<li><p>Ejemplo:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">&quot;a|(bc)+&quot;</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p.match(<span class="st">&#39;cbbc&#39;</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p.search(<span class="st">&#39;cbbc&#39;</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>re.Match <span class="bu">object</span><span class="op">;</span> span<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">4</span>), match<span class="op">=</span><span class="st">&#39;bc&#39;</span><span class="op">&gt;</span></span></code></pre></div></li>
+<li><p>Ejemplos de uso:</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">&quot;a|(bc)+&quot;</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p.match(<span class="st">&#39;cbbc&#39;</span>)                 <span class="co"># La cadena no comienza con algo que encaje</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p.search(<span class="st">&#39;cbbc&#39;</span>)                <span class="co"># La cadena contiene algo que encaja</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>re.Match <span class="bu">object</span><span class="op">;</span> span<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">4</span>), match<span class="op">=</span><span class="st">&#39;bc&#39;</span><span class="op">&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p.match(<span class="st">&#39;bcx&#39;</span>)                  <span class="co"># La cadena comienza con algo que encaja</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>re.Match <span class="bu">object</span><span class="op">;</span> span<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">2</span>), match<span class="op">=</span><span class="st">&#39;bc&#39;</span><span class="op">&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p.fullmatch(<span class="st">&#39;bcx&#39;</span>)              <span class="co"># La cadena completa no encaja</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p.fullmatch(<span class="st">&#39;bc&#39;</span>)               <span class="co"># La cadena completa sí encaja</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>re.Match <span class="bu">object</span><span class="op">;</span> span<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">2</span>), match<span class="op">=</span><span class="st">&#39;bc&#39;</span><span class="op">&gt;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1789,8 +1864,8 @@ datos donde sus elementos se identifican mediante un índice, que es un
 número entero que indica la posición que ocupa el elemento dentro de la
 tupla.</p></li>
 <li><p>Por ejemplo, la siguiente tupla:</p>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
 <p>se almacenaría de la siguiente forma según lo representa la
 herramienta Pythontutor:</p>
 <div class="centered">
@@ -1834,24 +1909,24 @@ representan la misma secuencia de valores, sin importar si tienen
 distintos valores de <em>start</em>, <em>stop</em> o
 <em>step</em>.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">20</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">2</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">2</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">20</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">2</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">2</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">0</span>) <span class="op">==</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 <li><p>Por otra parte, no es posible comparar dos rangos usando
 <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code> o
 <code>&gt;=</code>:</p>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">3</span>) <span class="op">&lt;</span> <span class="bu">range</span>(<span class="dv">2</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;python-input-0&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">range</span>(<span class="dv">3</span>) <span class="op">&lt;</span> <span class="bu">range</span>(<span class="dv">2</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;&lt;&#39;</span> <span class="kw">not</span> supported between instances of <span class="st">&#39;range&#39;</span> <span class="kw">and</span> <span class="st">&#39;range&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">range</span>(<span class="dv">3</span>) <span class="op">&lt;</span> <span class="bu">range</span>(<span class="dv">2</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;python-input-0&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">range</span>(<span class="dv">3</span>) <span class="op">&lt;</span> <span class="bu">range</span>(<span class="dv">2</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: <span class="st">&#39;&lt;&#39;</span> <span class="kw">not</span> supported between instances of <span class="st">&#39;range&#39;</span> <span class="kw">and</span> <span class="st">&#39;range&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 </section>
@@ -1905,11 +1980,11 @@ ser:</p>
 </ul></li>
 <li><p>Si se llama sin argumentos, devuelve una lista vacía.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;hola&#39;</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>]</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="st">&#39;hola&#39;</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">&#39;h&#39;</span>, <span class="st">&#39;o&#39;</span>, <span class="st">&#39;l&#39;</span>, <span class="st">&#39;a&#39;</span>]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.2">
@@ -1920,8 +1995,8 @@ datos donde sus elementos se identifican mediante un índice, que es un
 número entero que indica la posición que ocupa el elemento dentro de la
 lista.</p></li>
 <li><p>Por ejemplo, la siguiente lista:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div>
 <p>se almacenaría de la siguiente forma según lo representa la
 herramienta Pythontutor:</p>
 <div class="centered">
@@ -1955,9 +2030,9 @@ style="color:teal">⟨<em>secuencia</em>⟩</span>
 style="color:teal">⟨<em>condición</em>⟩</span>])<span
 class="math inline">^+</span><strong><code>]</code></strong></div></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>]</span></code></pre></div></li>
 <li><p>Como se ve, el resultado es directamente una lista, no un
 iterador.</p></li>
 <li><p>Por tanto, a diferencia de lo que pasa con las expresiones
@@ -1971,12 +2046,12 @@ sean necesarios.</p></li>
 
 <ul>
 <li><p>Por ejemplo, la siguiente expresión generadora:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>res_gen <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10000000000000</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>res_gen <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10000000000000</span>))</span></code></pre></div>
 <p>es mucho más eficiente en tiempo y espacio que la lista por
 comprensión:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>res_list <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10000000000000</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>res_list <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10000000000000</span>)]</span></code></pre></div>
 <p>ya que la expresión generadora devuelve un <strong>iterador</strong>
 que irá generando los valores de uno en uno a medida que los vayamos
 recorriendo con <code
@@ -2018,19 +2093,19 @@ propiedades:</p>
 lista por comprensión cambie su significado.</p>
 <p>Por ejemplo, las dos listas por comprensión siguientes son
 equivalentes, puesto que producen el mismo resultado:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>[x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>[y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>[x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>[y <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span></code></pre></div></li>
 <li><p>No se pueden usar fuera de la lista por comprensión, ya que
 estarían fuera de su ámbito y no serían visibles.</p>
 <p>Por ejemplo, lo siguiente daría un error de nombre:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la lista por comprensión</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; de la lista por comprensión</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ol></li>
 </ul>
 </section>
@@ -2268,18 +2343,18 @@ mutable también son objetos mutables.</p></li>
 <li><p>Por ejemplo, si tenemos listas dentro de otra lista, y copiamos
 ésta última con <code class="sourceCode python">.copy()</code>, la nueva
 lista compartirá elementos con la lista original:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]   <span class="co"># los elementos de «x» también son listas</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x.copy()           <span class="co"># «y» es una copia de «x»</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span>                      <span class="co"># no son la misma lista</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>] <span class="kw">is</span> y[<span class="dv">0</span>]</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>                       <span class="co"># sus elementos no se han copiado,</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>].append(<span class="dv">9</span>)         <span class="co"># sino que están compartidos por «x» e «y»</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">99</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">99</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]</span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]   <span class="co"># los elementos de «x» también son listas</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y <span class="op">=</span> x.copy()           <span class="co"># «y» es una copia de «x»</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> y</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span>                      <span class="co"># no son la misma lista</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>] <span class="kw">is</span> y[<span class="dv">0</span>]</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>                       <span class="co"># sus elementos no se han copiado,</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x[<span class="dv">0</span>].append(<span class="dv">9</span>)         <span class="co"># sino que están compartidos por «x» e «y»</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">99</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> y</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">99</span>], [<span class="dv">3</span>, <span class="dv">4</span>]]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.3">
@@ -2288,14 +2363,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a h
 <li><p>El método <code class="sourceCode python">sort</code> permite
 ordenar los elementos de la secuencia de forma ascendente o
 descendente:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort()</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort()</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div></li>
 </ul>
 </section>
 </section>

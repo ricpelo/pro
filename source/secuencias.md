@@ -883,6 +883,8 @@ nocite: |
   re.compile('ab*')
   ```
 
+  A partir de ahora, `p` contiene el _objeto patrón_.
+
 - La función `re.compile` también acepta un argumento opcional que sirve para
   activar ciertas características especiales. Por ejemplo:
 
@@ -906,62 +908,122 @@ nocite: |
 - Esto se debe a que el código está pasando por dos niveles distintos de
   interpretación de las barras invertidas, y cada nivel _consume_ una barra.
 
+---
+
 - Por ejemplo, supongamos que queremos comprobar la aparición de la secuencia
   de caracteres `\section`.
 
-- Si se escribe !PYTHON('\section'), Python intenta interpretar `\s` como una
-  secuencia de escape.
+- Si se escribe la cadena !PYTHON('\section'), Python intenta interpretar `\s`
+  como una secuencia de escape.
 
 - Como `\s` no es una secuencia de escape válida en Python, el intérprete lo
   deja como `\s`, pero ya ha intervenido.
 
 - Para que la cadena contenga realmente `\section`, hay que escribir
-  !PYTHON('\\section').
+  el literal !PYTHON('\\section').
 
-- Es decir: para que aparezca una sola `\` en la cadena resultante, hay que
+  Es decir: para que aparezca una sola `\` en la cadena resultante, hay que
   poner `\\`.
 
-- Pero en expresiones regulares, la barra `\` también es especial y se
-  interpreta de forma especial; por ejemplo, `\s` (espacio en blanco), `\d`
-  (dígito) o `\w` (carácter alfanumérico).
+---
+
+- Pero en expresiones regulares, la barra `\` también se interpreta de forma
+  especial. Por ejemplo: `\s` (espacio en blanco), `\d` (dígito) o `\w`
+  (carácter alfanumérico).
 
 - Por tanto, si se quiere que la expresión regular busque una barra invertida
   literal, debe escaparse también usando `\\`.
 
 - Así que el motor de expresiones regulares necesita ver `\\section`.
 
-- Combinando ambos niveles, sabiendo que queremos que el motor de expresiones
-  regulares vea `\\section`, debemos escribir !PYTHON('\\\\section') para que
-  Python construya esa cadena.
+- Combinando ambos niveles, y sabiendo que queremos que el motor de expresiones
+  regulares vea `\\section`, debemos escribir como expresión regular la cadena
+  !PYTHON('\\\\section').
 
-Desglose:
+-------------------------------------------------------------------------------  
+Secuencia de caracteres           Representa
+--------------------------------- ---------------------------------------------  
+`\section`                        El texto que se desea comprobar
 
-Código Python	Cadena real	Interpretación regex
-"\\\\section"	\\section	\section literal
-4️⃣ ✅ La forma recomendada: raw strings
+`\\section`                       Barras invertidas escapadas en un literal cadena de Python 
+	
+!PYTHON('\\\\section')            Barra invertida escapada para `re.compile()`
+-------------------------------------------------------------------------------  
 
-Para evitar este lío, usa cadenas crudas (r"..."):
+---
 
-re.compile(r"\\section")
+- En resumen: para encajar con una barra invertida literal, se debe escribir
+  `\\\\` en la cadena Python que representa a la expresión regular, porque
+  dicha expresión regular debe ser `\\`, y cada barra invertida debe indicarse
+  como dos barras invertidas dentro de un literal cadena en Python.
 
+- Esto hace que la expresión regular resultante resulte difícil de escribir y
+  de entender, con gran cantidad de barras.
 
+!UNUN(_Raw strings_)
 
+- Para evitar en lo posible la necesidad de tantas barras inclinadas, la forma
+  recomendada de escribir expresiones regulares es mediante el uso de _cadenas
+  crudas_ o **_raw strings_**.
 
+- Una _raw string_ es una cadena literal de Python que lleva un prefijo `r` o
+  `R`.
 
+- Las _raw strings_ se interpretan de forma que una barra inclinada `\` no se
+  considera un carácter especial, sino un carácter más, como cualquier otro. 
 
+- Por tanto, en una _raw string_, la `\` pierde su significado especial de
+  «_comienzo de secuencia de escape_».
 
+- Eso significa que cada `\` que se encuentra en una _raw string_ representa
+  una simple `\`, sin más.
 
+---
 
+- Por ejemplo, en la siguiente cadena:
 
+  ```python
+  r'ab\ncd'
+  ```
 
+  la secuencia `\n` no representa un salto de línea, sino los dos caracteres
+  `\` y `n` juntos.
 
+- En consecuencia, la longitud de la cadena anterior es 6, y no 5, ya que `\n`
+  se interpreta como dos caracteres separados, y no uno sólo.
 
+- Eso significa también que no se necesitan escapar las `\` en una _raw
+  string_ para que Python las trate literalmente como un carácter más.
 
+---
 
+- Por ejemplo, la expresión regular `^\d+$` reconoce el lenguaje de las cadenas
+  formadas por números enteros (la aparición de uno o más dígitos en base
+  diez).
 
+- Esa expresión regular se puede escribir así:
 
+  - Sin _raw strings_, hay que escapar la `\`:
+    
+    ```
+    '^\\d+$'
+    ```
 
+  - Con _raw strings_, la `\` se escribe una sola vez:
+    
+    ```
+    r'^\d+$'
+    ```
 
+- Si queremos que la expresión regular reconozca la secuencia de caracteres `\section`, podemos usar:
+
+  ```python
+  p = re.compile(r"\\section")
+  ```
+
+---
+
+<!--
 - Esto hace que debamos repetir el mismo carácter `\` varias veces al
   introducirlo en una cadena de Python.
 
@@ -975,27 +1037,6 @@ re.compile(r"\\section")
   deberemos pasarle la cadena !PYTHON('\\\\section').
 
 ---
-
--------------------------------------------------------------------------------  
-Secuencia de caracteres           Representa
---------------------------------- ---------------------------------------------  
-`\section`                        El texto que se desea comprobar
-
-`\\section`                       Barras invertidas escapadas en un literal cadena de Python 
-	
-!PYTHON('\\\\section')            Barra invertida escapada para `re.compile()`
--------------------------------------------------------------------------------  
-
-- En resumen, para encajar con una barra invertida literal, se debe escribir
-  `\\\\` en la cadena Python que representa a la expresión regular, porque
-  dicha expresión regular debe ser `\\`, y cada barra invertida debe indicarse
-  como !ifdef(HTML)(<code style="color: red">\\\\</code>)(\textcolor{red}{\texttt{\textbackslash\textbackslash}})
-  dentro de un literal de tipo cadena en Python.
-
-- Esto hace que la expresión regular resultante resulte difícil de escribir y
-  de entender.
-
-<!--
 
 ---
 
@@ -1023,35 +1064,42 @@ r"\\section"
 
 r"\w+\s+\1"
 
--->
-
 ---
+
+-->
 
 -------------------------------------------------------------------------------------------------
 Métodos sobre objetos patrón  Finalidad                                                          
 ----------------------------- -------------------------------------------------------------------
 `match()`                     Determina si la expresión regular encaja con el                    
                               comienzo de la cadena.                                             
-                                                                                                 
+
 `search()`                    Examina dentro de una cadena, buscando algún lugar                 
                               donde la expresión regular encaje con la cadena.                   
-                                                                                                 
+
+`fullmatch()`                 Comprueba si la expresión regular encaja con la cadena completa.
+
 `findall()`                   Busca todas las subcadenas que encajen con la                      
                               expresión regular y las devuelve en una lista.                     
-                                                                                                 
+
 `finditer()`                  Busca todas las subcadenas que encajen con la                      
                               expresión regular y las devuelve en forma de iterador.             
 -------------------------------------------------------------------------------------------------
 
 ---
 
-- Ejemplo:
+- Ejemplos de uso:
 
   ```python
   >>> p = re.compile("a|(bc)+")
-  >>> p.match('cbbc')
-  >>> p.search('cbbc')
+  >>> p.match('cbbc')                 # La cadena no comienza con algo que encaje
+  >>> p.search('cbbc')                # La cadena contiene algo que encaja
   <re.Match object; span=(2, 4), match='bc'>
+  >>> p.match('bcx')                  # La cadena comienza con algo que encaja
+  <re.Match object; span=(0, 2), match='bc'>
+  >>> p.fullmatch('bcx')              # La cadena completa no encaja
+  >>> p.fullmatch('bc')               # La cadena completa sí encaja
+  <re.Match object; span=(0, 2), match='bc'>
   ```
 
 ## Tuplas
