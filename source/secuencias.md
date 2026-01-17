@@ -1214,6 +1214,37 @@ Métodos sobre objetos patrón  Finalidad
 
 ---
 
+- Los rangos se crean con la función !PYTHON(range), cuya signatura es:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  $\texttt{range(!VAR([)!VAR(start):\,int,!VAR(])\;!VAR(stop):\,int\;!VAR([),\;!VAR(step):\,int!VAR(]))\;->\;range}$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  donde:
+
+  - _start_ es el valor inicial (por defecto, 0).
+
+  - _stop_ es el valor final (que no se alcanza, es decir, que el último valor
+    de la secuencia es $(stop - 1$)).
+
+  - _step_ es el paso, es decir, lo que se suma a un valor de la secuencia para
+    obtener el siguiente (por defecto, 1).
+
+- Ejemplos:
+
+  ```python
+  >>> range(10)         # => 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+  >>> range(1, 11)      # => 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+  >>> range(0, 30, 5)   # => 0, 5, 10, 15, 20, 25
+  >>> range(0, 10, 3)   # => 0, 3, 6, 9
+  >>> range(0, -10, -1) # => 0, -1, -2, -3, -4, -5, -6, -7, -8, -9
+  >>> range(0)          # => (vacío)
+  >>> range(1, 0)       # => (vacío)
+  ```
+
+---
+
 - Dos rangos son considerados **iguales** si representan la misma secuencia de
   valores, sin importar si tienen distintos valores de _start_, _stop_ o
   _step_.
