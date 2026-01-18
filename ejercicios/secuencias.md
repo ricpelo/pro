@@ -206,3 +206,132 @@ author:
    ```
 
    mostrar la media de la lista en una sola línea, redondeada a 2 decimales.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "Hoy es 18 de enero de 2026"
+   ```
+
+   escribir una expresión regular que encuentre **todos los números** en la
+   cadena.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   frase = "Me gustan los gatos y los perros, pero no los ratones"
+   ```
+
+   encontrar todas las apariciones de "gatos" o "perros" en la cadena.
+
+#. Dada una lista de direcciones de e-mail similar a la siguiente:
+
+   ```python
+   correos = [
+       "usuario123@gmail.com",
+       "usuario@dominio.es",
+       "mal.email@dominio"
+   ]
+   ```
+
+   comprobar cuáles cumplen el patrón básico `nombre@dominio.extension` (con
+   `.com` o `.es`).
+
+#. Dada una lista de fechas similar a la siguiente:
+
+   ```python
+   fechas = ["01/12/2023, 15/01/2026, 3/7/2025, 31/2/2026"]
+   ```
+
+   comprobar cuáles cumplen el patrón `dd/mm/yyyy`.
+
+#. Dada una cadena similar a la siguiente:
+
+   ```python
+   frase = "Un código postal es 11001, el otro es 543, y hay otro que es el 28013."
+   ```
+
+   encontrar todos los códigos postales válidos.
+
+#. Dada una lista de teléfonos similar a la siguiente:
+
+   ```python
+   telefonos = ["+34 600-123-456", "600123456", "123-456-789"]
+   ```
+
+   verificar cuáles cumplen el patrón de **teléfono español válido**.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "Hoy Lunes es un buen Día para Aprender Python"
+   ```
+
+   encontrar todas las palabras que **empiecen con letra mayúscula**.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "Educación, programación, función, gato, acción"
+   ```
+
+   encontrar todas las palabras que **terminen en “ción”**.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "aeropuerto, cuevas, baúl, rio"
+   ```
+
+   encontrar todos los lugares donde hay **dos o más vocales consecutivas**.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "Galleta, llama, perro, puerta, silla"
+   ```
+
+   encontrar todas las palabras que contengan **letras repetidas consecutivas**
+   (por ejemplo, `ll`, `rr`, `ll`).
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "Hola123 mundo, prueba_1, test"
+   ```
+
+   encontrar todas las palabras que **contengan solo letras**.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "uno dos tres cuatro cinco seis siete"
+   ```
+
+   encontrar todas las palabras de **exactamente 3 letras**.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "Hay 3 gatos y 12 perros en la casa"
+   ```
+
+   encontrar **solo el primer número** en la cadena.
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "Python es un lenguaje, typografía y pyme"
+   ```
+
+   encontrar todas las palabras que **contengan `py`** (mayúsculas o
+   minúsculas).
+
+#. Dado un texto como el siguiente:
+
+   ```python
+   texto = "hola holanda holá holi"
+   ```
+
+   comprobar si la palabra `hola` aparece como **palabra completa**, no como
+   parte de otra palabra.
