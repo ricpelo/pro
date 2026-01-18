@@ -9,29 +9,6 @@ author:
   IES Doñana
 ---
 
-# Devolver el último elemento
-
-Crear una función que devuelva el valor del último elemento de una lista o
-cadena.
-
-**Ejemplos**
-
-```python
-last_ind([0, 4, 19, 34, 50, -9, 2]) == 2
-last_ind("The quick brown fox jumped over the lazy dog") == "g"
-last_ind([]) == None
-```
-
-**Notas**
-
-- Las listas/cadenas pueden ser de cualquier tamaño.
-
-- Devuelve `None` si la lista/cadena está vacía.
-
-**Fuente**
-
-[`https://edabit.com/challenge/mcC546MLnBjNLXTb8`](https://edabit.com/challenge/mcC546MLnBjNLXTb8)
-
 # Asignar personas a profesiones
 
 Tienes dos listas. Una muestra los nombres de las personas (`names`), mientras
