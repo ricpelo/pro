@@ -892,12 +892,12 @@ cg [label = "(caso general)"]
 - Una expresión lambda sin nombre es como una función de «usar y tirar» que
   vive y muere en la misma expresión donde se la utiliza.
 
-- Las **abstracciones de usar y tirar** son aquellas que se crean para cumplir
+- Las **funciones de usar y tirar** son aquellas que se crean para cumplir
   una función concreta en un punto específico del programa, y que después no se
   reutilizan ni se les da un nombre permanente.
 
-- Son abstracciones efímeras, que encapsulan algo pero sin la intención de
-  volver a usarlas más adelante.
+- Son funciones efímeras, que encapsulan algo pero sin la intención de volver a
+  usarlas más adelante.
 
 - En cambio, cuando le damos un nombre creamos una verdadera **abstracción**,
   ya que puede reutilizarse en muchas expresiones y toda la expresión lambda
