@@ -67,8 +67,8 @@ author:
    precio = 0.5
    ```
 
-   imprimir en formato de tabla, con ancho 10 para el nombre y 6 para el
-   precio, alineando el precio a la derecha:
+   imprimir en formato de tabla una cadena como la siguiente, con ancho 10 para
+   el nombre y 6 para el precio, alineando el precio a la derecha:
 
    Manzana    0.50
 
@@ -79,7 +79,7 @@ author:
    total = 50
    ```
 
-   imprimir una cadena similar a la siguiente:
+   imprimir una cadena como la siguiente:
 
    ```
    Has acertado 90.00%
@@ -128,3 +128,81 @@ author:
 
    escribir una función llamada `imprimir_notas` que imprima cada nota numerada
    empezando por 1.
+
+#. Dada la siguiente variable con valor similar al dado:
+
+   ```python
+   numero = 7
+   ```
+
+   imprimir una cadena como la siguiente:
+
+   ```
+   El número 7 es impar
+   ```
+
+#. Dadas las variables siguientes con valores similares a los dados:
+
+   ```python
+   a, b = 5, 8
+   ```
+
+   imprimir una cadena como la siguiente:
+
+   ```
+   5 * 8 = 40, y 5 + 8 = 13
+   ```
+
+   usando una sola _f-string_.
+
+#. Dada la siguiente variable, con un valor similar al dado:
+
+   ```python
+   frutas = ["manzana", "pera", "plátano"]
+   ```
+
+   imprimir una lista numerada como la siguiente, usando una _f-string_
+   dentro de un bucle:
+
+   ```
+   1. manzana
+   2. pera
+   3. plátano
+   ```
+
+#. Escribir una función llamada `imprimir_tabla_multiplicar` que imprima la
+   tabla de multiplicar de un número en formato alineado con _f-strings_ y
+   ancho 2 para números:
+
+   ```
+   7 x  1 =  7
+   7 x  2 = 14
+   7 x  3 = 21
+   ...
+   7 x 10 = 70
+   ```
+
+#. Dada una lista de saldos con valores similares a los dados:
+
+   ```python
+   saldos = [1200, -350.5, 78, -15.75]
+   ```
+
+   imprimir cada saldo con decimales y € al final, alineado a la derecha en
+   columna de ancho 10.
+
+#. Escribir una _f-string_ que muestre:
+
+   ```
+   La raíz cuadrada de 16 es 4.00
+   ```
+
+   usando la función `math.sqrt` dentro de una _f-string_.
+
+#. Dada una lista con valores similares a los dados:
+
+   ```python
+   notas = [7, 8.5, 6, 9]
+   ```
+
+   mostrar la media de la lista en una sola línea, redondeada a 2 decimales.
