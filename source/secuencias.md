@@ -1020,8 +1020,6 @@ Secuencia de caracteres           Representa
   p = re.compile(r"\\section")
   ```
 
----
-
 <!--
 - Esto hace que debamos repetir el mismo carácter `\` varias veces al
   introducirlo en una cadena de Python.
@@ -1066,6 +1064,8 @@ r"\w+\s+\1"
 ---
 
 -->
+
+!UNUN(Métodos sobre objetos patrón)
 
 -------------------------------------------------------------------------------------------------
 Métodos sobre objetos patrón  Finalidad                                                          
