@@ -1107,8 +1107,7 @@ Métodos sobre objetos patrón  Finalidad
   para representar colecciones de datos heterogéneos (o sea, de varios tipos).
 
 - También se usan en aquellos casos en los que se necesita una secuencia
-  inmutable de datos homogéneos (por ejemplo, para almacenar datos en un
-  conjunto o un diccionario).
+  inmutable de datos homogéneos.
 
 - Las tuplas se pueden crear así:
 
@@ -1150,12 +1149,35 @@ Métodos sobre objetos patrón  Finalidad
 
     ::::
 
-  - Usando la función !PYTHON(tuple)`(`!NT{iterable}`)`.
+  - Usando !PYTHON(tuple()) o !PYTHON(tuple)`(`!NT{iterable}`)`.
+
+---
+
+- La función !PYTHON(tuple) construye una tupla cuyos elementos son los mismos
+  (y están en el mismo orden) que los elementos de !NT{iterable}.
+
+- Si se llama sin argumentos, devuelve un tupla vacía.
+
+- Por ejemplo:
+
+  ```python
+  >>> tuple()
+  ()
+  >>> tuple('hola')
+  ('h', 'o', 'l', 'a')
+  >>> tuple(range(0, 4))
+  (0, 1, 2, 3)
+  ```
 
 ---
 
 - Observar que lo que construye la tupla es realmente la coma, no los
-  paréntesis.
+  paréntesis:
+
+  ```python
+  >>> 1, 2, 3
+  (1, 2, 3)
+  ```
 
 - Los paréntesis son opcionales, excepto en dos casos:
 
@@ -1167,13 +1189,24 @@ Métodos sobre objetos patrón  Finalidad
     argumentos, mientras que `f((`$a$`,` $b$`,` $c$`))` es una llamada a una
     función con un único argumento que es una tupla de tres elementos.
 
+---
+
 - Las tuplas implementan todas las operaciones comunes de las secuencias.
 
 - En general, las tuplas se pueden considerar como la versión inmutable de las
   listas.
 
-- Además, las tuplas son *hashables* si sus elementos también lo son.
+- Además, las tuplas son *hashables* si sus elementos también lo son:
 
+  ```python
+  >>> hash((1, 2, 3))
+  529344067295497451
+  >>> hash((1, [], "hola"))
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  TypeError: unhashable type: 'list'
+  ```
+  
 ---
 
 - En memoria, las tuplas se almacenan mediante una estructura de datos donde
@@ -1291,21 +1324,12 @@ Métodos sobre objetos patrón  Finalidad
 
     `[`$a$`,` $b$`,` $c$`]`
 
-  - Usando la función !PYTHON(list) con las sintaxis !PYTHON(list()) o
-    !PYTHON(list)`(`!NT{iterable}`)`.
+  - Usando !PYTHON(list()) o !PYTHON(list)`(`!NT{iterable}`)`.
 
 ---
 
 - La función !PYTHON(list) construye una lista cuyos elementos son los mismos
   (y están en el mismo orden) que los elementos de !NT(iterable).
-
-- !NT(iterable) puede ser:
-
-  - una secuencia,
-
-  - un contenedor sobre el que se pueda iterar, o
-
-  - un iterador.
 
 - Si se llama sin argumentos, devuelve una lista vacía.
 
@@ -1334,6 +1358,39 @@ Métodos sobre objetos patrón  Finalidad
   Pythontutor:
 
   !IMGP(lista_en_pythontutor.png)(Lista almacenada en memoria)(width=50%)(width=50%)
+
+---
+
+- El método $s$!PYTHON(.copy()) crea una copia superficial de $s$ (es igual que
+  $s$`[:]`).
+
+- La **copia superficial** (a diferencia de la **_copia profunda_**) significa
+  que sólo se copia el objeto sobre el que se aplica la copia, **no sus
+  elementos**.
+
+- Por tanto, al crear la copia superficial, se crea sólo un nuevo objeto, donde
+  se copiarán las referencias de los elementos del objeto original.
+
+- Esto influye, sobre todo, cuando los elementos de una colección mutable
+  también son objetos mutables.
+
+- Por ejemplo, si tenemos listas dentro de otra lista, y copiamos ésta última
+  con !PYTHON(.copy()), la nueva lista compartirá elementos con la lista
+  original:
+
+  ```python
+  >>> x = [[1, 2], [3, 4]]   # los elementos de «x» también son listas
+  >>> y = x.copy()           # «y» es una copia de «x»
+  >>> x is y
+  False                      # no son la misma lista
+  >>> x[0] is y[0]
+  True                       # sus elementos no se han copiado,
+  >>> x[0].append(9)         # sino que están compartidos por «x» e «y»
+  >>> x
+  [[1, 2, 99], [3, 4]]
+  >>> y
+  [[1, 2, 99], [3, 4]]
+  ```
 
 ### Listas por comprensión
 
@@ -1367,13 +1424,13 @@ Métodos sobre objetos patrón  Finalidad
 - Por ejemplo, la siguiente expresión generadora:
 
   ```python
-  res_gen = (x ** 2 for x in range(0, 10000000000000))
+  res_gen = (x ** 2 for x in range(0, 10_000_000_000_000))
   ```
 
   es mucho más eficiente en tiempo y espacio que la lista por comprensión:
 
   ```python
-  res_list = [x ** 2 for x in range(0, 10000000000000)]
+  res_list = [x ** 2 for x in range(0, 10_000_000_000_000)]
   ```
 
   ya que la expresión generadora devuelve un **iterador** que irá generando los
@@ -1479,8 +1536,6 @@ $s$!PYTHON(.append)`(`$x$`)`      Añade $\underline{x}$ al final de $\underline
 $s$!PYTHON(.clear())              Elimina todos los elementos de $\underline{s}$; es igual que !SALTOHTML
                                   !PYTHON(del) $\ s$!PYTHON([:])
 
-$s$!PYTHON(.copy())               Crea una copia *superficial* de $\underline{s}$; es igual que $s$!PYTHON([:])
-
 $s$!PYTHON(.extend)`(`$t$`)` \    Extiende $\underline{s}$ con el contenido de $\underline{t}$; es igual que !SALTOHTML
 $s$ `+=` $t$                      $s$!PYTHON{[len}`(`$s$!PYTHON{):len}`(`$s$`)]` `=` $t$
 
@@ -1498,36 +1553,6 @@ $s$!PYTHON(.reverse())            Invierte los elementos de $\underline{s}$
 
 $s$!PYTHON(.sort())               Ordena los elementos de $\underline{s}$
 -----------------------------------------------------------------------------------------------------------------------------------
-
----
-
-- La **copia superficial** (a diferencia de la **_copia profunda_**) significa
-  que sólo se copia el objeto sobre el que se aplica la copia, **no sus
-  elementos**.
-
-- Por tanto, al crear la copia superficial, se crea sólo un nuevo objeto, donde
-  se copiarán las referencias de los elementos del objeto original.
-
-- Esto influye, sobre todo, cuando los elementos de una colección mutable
-  también son objetos mutables.
-
-- Por ejemplo, si tenemos listas dentro de otra lista, y copiamos ésta última
-  con !PYTHON(.copy()), la nueva lista compartirá elementos con la lista
-  original:
-
-  ```python
-  >>> x = [[1, 2], [3, 4]]   # los elementos de «x» también son listas
-  >>> y = x.copy()           # «y» es una copia de «x»
-  >>> x is y
-  False                      # no son la misma lista
-  >>> x[0] is y[0]
-  True                       # sus elementos no se han copiado,
-  >>> x[0].append(9)         # sino que están compartidos por «x» e «y»
-  >>> x
-  [[1, 2, 99], [3, 4]]
-  >>> y
-  [[1, 2, 99], [3, 4]]
-  ```
 
 ---
 

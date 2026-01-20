@@ -108,6 +108,8 @@ author:
    escribir una función llamada `imprimir_factura` que imprima una salida como
    la siguiente:
 
+   !JUNTA
+
    ```
    Denominación     Cantidad        Precio         Importe
    -------------------------------------------------------
