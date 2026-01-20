@@ -614,11 +614,10 @@ nocite: |
   -----------------------------------------------------------------------------------------------------------------------------------
   Metacarácter  Encaja con                                              Ejemplo
   ------------  ------------------------------------------------------- -------------------------------------------------------------
-  `.`           Cualquier carácter que                                  `ab.c` encaja con !PYTHON('abec') pero no con !PYTHON('abc')
-                no sea un salto de línea.                             
-                                                                      
+  `.`           Cualquier carácter que no sea un salto de línea.        `ab.c` encaja con !PYTHON('abec') pero no con !PYTHON('abc')
+
   `^`           El principio de la cadena.                              `^ab` encaja con !PYTHON('abc') pero no con !PYTHON('dab')
-                                                                      
+
   `$`           El final de la cadena.                                  `ab$` encaja con !PYTHON('dab') pero no con !PYTHON('abd')
   -----------------------------------------------------------------------------------------------------------------------------------
 
@@ -803,9 +802,8 @@ nocite: |
 ---
 
 - Los metacaracteres `{` y `}` se usan combinados para expresar el
-  cuantificador `{`!COLOR(blue)($m$!ifdef(HTML)(`,`)(\texttt{,}))!COLOR(blue)($n$!ifdef(HTML)(`}`)(\texttt{\}})),
-  donde $m$ y $n$ son números enteros.
- 
+  cuantificador !ifdef(HTML)(`{`<em style="color:#268bd2">m</em>`,`<em style="color:#268bd2">n</em>`}`)(\textcolor[HTML]{268bd2}{\texttt{\{}$m$,\,$n$\,\}}), donde $m$ y $n$ son números enteros.
+
 - Este cuantificador indica que el carácter anterior debe repetirse entre $m$ y
   $n$ veces (como mínimo $m$ veces y como máximo $n$ veces).
 
@@ -827,8 +825,9 @@ nocite: |
 
   - Si se omite $n$, se interpreta que el límite superior es infinito.
 
-- El caso `{`$m$`}` indica que el carácter anterior debe repetirse exactamente
-  $m$ veces. Por ejemplo:
+- El caso !ifdef(HTML)(`{`<em style="color:#268bd2">m</em>`}`)(\textcolor[HTML]{268bd2}{\texttt{\{}$m$\,\}})
+  indica que el carácter anterior debe repetirse exactamente $m$ veces. Por
+  ejemplo:
 
   ```
   a/{2}b
@@ -1071,19 +1070,19 @@ r"\w+\s+\1"
 -------------------------------------------------------------------------------------------------
 Métodos sobre objetos patrón  Finalidad                                                          
 ----------------------------- -------------------------------------------------------------------
-`match()`                     Determina si la expresión regular encaja con el                    
-                              comienzo de la cadena.                                             
+`match()`                     Determina si la expresión regular encaja con el
+                              comienzo de la cadena.
 
-`search()`                    Examina dentro de una cadena, buscando algún lugar                 
-                              donde la expresión regular encaje con la cadena.                   
+`search()`                    Examina dentro de una cadena, buscando algún lugar
+                              donde la expresión regular encaje con la cadena.
 
 `fullmatch()`                 Comprueba si la expresión regular encaja con la cadena completa.
 
-`findall()`                   Busca todas las subcadenas que encajen con la                      
-                              expresión regular y las devuelve en una lista.                     
+`findall()`                   Busca todas las subcadenas que encajen con la
+                              expresión regular y las devuelve en una lista.
 
-`finditer()`                  Busca todas las subcadenas que encajen con la                      
-                              expresión regular y las devuelve en forma de iterador.             
+`finditer()`                  Busca todas las subcadenas que encajen con la
+                              expresión regular y las devuelve en forma de iterador.
 -------------------------------------------------------------------------------------------------
 
 ---
