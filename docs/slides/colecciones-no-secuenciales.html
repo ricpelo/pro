@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,8 +32,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +45,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -252,9 +255,11 @@ está).</p></li>
 <li><p>En resumen:</p>
 <div class="caja">
 <p><strong>En un conjunto:</strong></p>
-<p>Un elemento concreto, o está una vez, o no está.</p>
-<p>Si está, no podemos saber en qué posición (no tiene sentido
-preguntárselo).</p>
+<ul>
+<li><p>Un elemento concreto, o está una vez, o no está.</p></li>
+<li><p>Si está, no podemos saber en qué posición (no tiene sentido
+preguntárselo).</p></li>
+</ul>
 </div></li>
 </ul>
 </section>
@@ -305,8 +310,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span>()</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">frozenset</span>()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">frozenset</span>()</span></code></pre></div>
-<p>Como se ve, esas son, precisamente, las <strong>formas
-normales</strong> de un conjunto vacío de tipo <code
+<p>Como se ve, esas son, precisamente, las <strong>expresiones
+canónicas</strong> de un conjunto vacío de tipo <code
 class="sourceCode python"><span class="bu">set</span></code> y <code
 class="sourceCode python"><span class="bu">frozenset</span></code>.</p></li>
 <li><p>Si se les pasa un <em>iterable</em> (como por ejemplo, una
@@ -334,9 +339,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;pepe&#39;</span>, <span class="st">&#39;juan&#39;</span>}</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(x)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;set&#39;</span><span class="op">&gt;</span></span></code></pre></div>
-<p>Esa es, precisamente, la <strong>forma normal</strong> de un conjunto
-no vacío y, por tanto, la que se usa cuando se visualiza desde el
-intérprete o se imprime con <code
+<p>Esa es, precisamente, la <strong>expresión canónica</strong> de un
+conjunto no vacío y, por tanto, la <strong>forma normal</strong> de
+cualquier expresión que evalúa a un conjunto vacío. Por eso es la
+expresión que se usa cuando se visualiza desde el intérprete o se
+imprime con <code
 class="sourceCode python"><span class="bu">print</span></code>.</p></li>
 <li><p>Por tanto, para crear conjuntos congelados usando <code
 class="sourceCode python"><span class="bu">frozenset</span></code>
@@ -1489,9 +1496,9 @@ secuencial</strong>).</p></li>
 </ul>
 </div><div class="column" style="width:70%;">
 <div class="sourceCode" id="cb34"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span><span class="ot"> numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;12312312A&lt;/<span class="kw">dni</span>&gt;</span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;Juan&lt;/<span class="kw">propio</span>&gt;</span>
@@ -1500,7 +1507,7 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb34-1"><a href="#
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span>
 <span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span>&gt;7&lt;/<span class="kw">nota</span>&gt;</span>
 <span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span><span class="ot"> numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
 <span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
 <span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
 <span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
@@ -1615,7 +1622,7 @@ nodo, es decir, el texto que hay entre
 <li><p>Por ejemplo, si tenemos la siguiente etiqueta en el documento
 XML:</p>
 <div class="sourceCode" id="cb37"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">telefono</span><span class="ot"> tipo=</span><span class="st">&quot;movil&quot;</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span></code></pre></div>
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">telefono</span> <span class="ot">tipo=</span><span class="st">&quot;movil&quot;</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span></code></pre></div>
 <p>y la variable <code>nodo</code> contiene el nodo (es decir, el objeto
 <code>Element</code>) que representa a dicha etiqueta en el árbol,
 entonces:</p>
@@ -1994,25 +2001,25 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a h
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
 <div class="sourceCode" id="cb49"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span><span class="ot"> numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;12312312A&lt;/<span class="kw">dni</span>&gt;</span>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;Juan&lt;/<span class="kw">propio</span>&gt;</span>
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;García González&lt;/<span class="kw">apellidos</span>&gt;</span>
 <span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
 <span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span><span class="ot"> modificado=</span><span class="st">&quot;si&quot;</span>&gt;8&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;8&lt;/<span class="kw">nota</span>&gt;</span>
 <span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span><span class="ot"> numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
 <span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
 <span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
 <span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
 <span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
 <span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
 <span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span><span class="ot"> modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
 <span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
 <span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
 <span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
@@ -2104,16 +2111,16 @@ devuelve podría verse afectado por los borrados.</p></li>
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
 <div class="sourceCode" id="cb53"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span><span class="ot"> numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
 <span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span><span class="ot"> modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
 <span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
 <span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
 <span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
@@ -2143,16 +2150,16 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a h
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
 <div class="sourceCode" id="cb55"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span><span class="ot"> numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
 <span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
 <span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span><span class="ot"> modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
 <span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">madre</span>&gt;</span>
 <span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
 <span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">madre</span>&gt;</span>
@@ -2179,11 +2186,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a h
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>

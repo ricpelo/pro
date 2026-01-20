@@ -49,9 +49,10 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **En un conjunto:**
 
-  Un elemento concreto, o está una vez, o no está.
+  - Un elemento concreto, o está una vez, o no está.
 
-  Si está, no podemos saber en qué posición (no tiene sentido preguntárselo).
+  - Si está, no podemos saber en qué posición (no tiene sentido preguntárselo).
+
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -88,8 +89,8 @@ nocite: |
     frozenset()
     ```
 
-    Como se ve, esas son, precisamente, las **formas normales** de un conjunto
-    vacío de tipo !PYTHON(set) y !PYTHON(frozenset).
+    Como se ve, esas son, precisamente, las **expresiones canónicas** de un
+conjunto vacío de tipo !PYTHON(set) y !PYTHON(frozenset).
 
   - Si se les pasa un *iterable* (como por ejemplo, una lista), devuelve un
     conjunto formado por los elementos del iterable:
@@ -115,9 +116,10 @@ nocite: |
   <class 'set'>
   ```
 
-  Esa es, precisamente, la **forma normal** de un conjunto no vacío y, por
-  tanto, la que se usa cuando se visualiza desde el intérprete o se imprime con
-  !PYTHON(print).
+  Esa es, precisamente, la **expresión canónica** de un conjunto no vacío y,
+  por tanto, la **forma normal** de cualquier expresión que evalúa a un
+  conjunto vacío. Por eso es la expresión que se usa cuando se visualiza desde
+  el intérprete o se imprime con !PYTHON(print).
 
 - Por tanto, para crear conjuntos congelados usando !PYTHON(frozenset) podemos
   usar esa sintaxis en lugar de usar listas como hicimos antes:
