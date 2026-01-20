@@ -520,8 +520,9 @@ forman el programa.
     estar continuamente saltando de un punto a otro del programa.
 
   - Es más fácil demostrar que son correctos, ya que las estructuras anidadas
-    pueden verse como cajas negras, lo que facilita trabajar a diferentes
-    niveles de abstracción.
+    pueden verse como bloques más o menos independientes con significado
+    propio, lo que facilita trabajar a diferentes niveles de abstracción y
+    estudiar cada estructura como una unidad.
 
   - Se reducen los costes de mantenimiento.
 
