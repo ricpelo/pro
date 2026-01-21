@@ -90,7 +90,7 @@ nocite: |
     ```
 
     Como se ve, esas son, precisamente, las **expresiones canónicas** de un
-conjunto vacío de tipo !PYTHON(set) y !PYTHON(frozenset).
+    conjunto vacío de tipo !PYTHON(set) y !PYTHON(frozenset).
 
   - Si se les pasa un *iterable* (como por ejemplo, una lista), devuelve un
     conjunto formado por los elementos del iterable:
@@ -426,11 +426,11 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
     {'juan': 4098, 'pepe': 4127}
     ```
 
-    Esa es precisamente la **forma normal** de un diccionario y, por tanto, la
-    que se usa cuando se visualiza desde el intérprete o se imprime con
+    Esa es precisamente la **expresión canónica** del diccionario y, por tanto,
+    la que se usa cuando se visualiza desde el intérprete o se imprime con
     !PYTHON(print).
 
-  - Usando la función !PYTHON(dict).
+  - Usando !PYTHON(dict()) o !PYTHON(dict)`(`!NT(iterable)`)`.
 
 ---
 
@@ -442,7 +442,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   >>> v1 == v2
   True                                                 # son iguales
   >>> a = {'uno': 1, 'dos': 2, 'tres': 3}              # literal
-  >>> b = dict(uno=1, dos=2, tres=3)                   # argumentos con nombre
+  >>> b = dict(uno=1, dos=2, tres=3)                   # paso de argumentos por palabra clave
   >>> c = dict([('dos', 2), ('uno', 1), ('tres', 3)])  # lista de tuplas
   >>> d = dict({'tres': 3, 'uno': 1, 'dos': 2})        # crea una copia
   >>> e = dict(zip(['uno', 'dos', 'tres'], [1, 2, 3])) # con dos iterables
@@ -943,11 +943,11 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   - Lo que hay dentro de la etiqueta (como `numero="111"`) es un _atributo_ de
     la etiqueta.
 
-    `numero="111"` es un atributo de la primera etiqueta `<alumno>`.
+    - `numero="111"` es un atributo de la primera etiqueta `<alumno>`.
 
-    `numero` es el _nombre_ del atributo.
+    - `numero` es el _nombre_ del atributo.
 
-    `111` es el _valor_ del atributo `numero`.
+    - `111` es el _valor_ del atributo `numero`.
 
   - Puede haber etiquetas con uno o varios atributos y etiquetas sin atributos.
 
@@ -955,7 +955,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 - Ese documento representaría la siguiente estructura jerárquica:
 
-  !DOT(documento-xml.svg)()(width=100%)(width=70%)
+  !DOT(documento-xml.svg)()(width=100%)(width=85%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [shape = plaintext, fillcolor = transparent, fixedsize = shape, height = 0.3, width = 0.4]
   edge [arrowhead = none]

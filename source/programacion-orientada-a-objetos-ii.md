@@ -728,9 +728,9 @@ True
 
 ### `__repr__`
 
-- Existe una función llamada !PYTHON(repr) que devuelve la **forma normal** de
-  una expresión, es decir, la cadena de símbolos que mejor **representa** al
-  valor de la expresión.
+- Existe una función llamada !PYTHON(repr) que devuelve la **expresión
+  canónica** de un valor, es decir, la cadena de símbolos que mejor
+  **representa** a ese valor.
 
 :::: columns
 
@@ -774,7 +774,8 @@ True
 
 ---
 
-- Recordemos que no toda expresión tiene forma normal:
+- Recordemos que no todo valor tiene expresión canónica; por ejemplo, las
+  funciones:
 
   ```python
   >>> repr(max)
