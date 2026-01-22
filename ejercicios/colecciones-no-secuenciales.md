@@ -2,7 +2,7 @@
 title:
 - |
   Ejercicios de\
-  Tipos de datos estructurados
+  Colecciones no secuenciales
 author:
 - |
   Ricardo Pérez López\
@@ -13,7 +13,7 @@ author:
 
 Tienes dos listas. Una muestra los nombres de las personas (`names`), mientras
 que el otro muestra sus profesiones (`jobs`). Tu tarea es crear un diccionario
-que muestre a cada persona con su respectiva profesión.
+que asocie a cada persona con su respectiva profesión.
 
 Persona  Profesión
 -------- ----------

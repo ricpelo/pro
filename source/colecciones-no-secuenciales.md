@@ -60,15 +60,29 @@ nocite: |
 - Existen dos tipos predefinidos de conjuntos: !PYTHON(set) y
   !PYTHON(frozenset).
 
+- El tipo !PYTHON(set)`[`$t$`]` representa el tipo de los conjuntos de tipo
+  !PYTHON(set) cuyas elementos son todos de tipo $t$.
+
+  Por ejemplo, el tipo !PYTHON(set[str]) representa el tipo de los conjuntos
+  mutables cuyos elementos son todos cadenas.
+
 - El tipo !PYTHON(set) es **mutable**, es decir, que su contenido puede cambiar
   usando métodos como !PYTHON(add) y !PYTHON(remove).
 
   Como es mutable, **no es _hashable_** y, por tanto, no puede usarse como
   clave de un diccionario o como elemento de otro conjunto.
 
+---
+
 - El tipo !PYTHON(frozenset) es **inmutable** y *hashable*. Por tanto, su
   contenido no se puede cambiar una vez creado y puede usarse como clave de un
   diccionario o como elemento de otro conjunto.
+
+- El tipo !PYTHON(frozenset)`[`$t$`]` representa el tipo de los conjuntos de
+  tipo !PYTHON(frozenset) cuyas elementos son todos de tipo $t$.
+
+  Por ejemplo, el tipo !PYTHON(frozenset[str]) representa el tipo de los
+  conjuntos inmutables cuyos elementos son todos cadenas.
 
 ---
 
@@ -395,9 +409,9 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
 ## Definición
 
-- Un **diccionario** es una colección que almacena _correspondencias_ (o
-  _asociaciones_) entre un conjunto de objetos llamados **_claves_** y un
-  conjunto de objetos llamados **_valores_**.
+- Un **diccionario** (valor de tipo !PYTHON(dict)) es una colección que
+  almacena _correspondencias_ (o _asociaciones_) entre un conjunto de objetos
+  llamados **_claves_** y un conjunto de objetos llamados **_valores_**.
 
 - Por tanto, **los elementos de un diccionario son parejas formadas por una
   _clave_ y un _valor_**, de forma que el diccionario lo que hace es almacenar
@@ -475,6 +489,13 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   !IMGP(diccionario_en_pythontutor.png)(Diccionario almacenado en memoria)(width=50%)(width=50%)
 
 ---
+
+- El tipo !PYTHON(dict)`[`$k$`,`$v$`]` representa el tipo de los diccionarios
+  cuyas claves son todos de tipo $k$ y cuyos valores son todos de tipo $v$.
+
+  Por ejemplo, el tipo !PYTHON(dict[str, int]) representa el tipo de los
+  diccionarios cuyas claves son todas cadenas y cuyos valores son todos números
+  enteros.
 
 - Las **claves** de un diccionario deben cumplir dos **restricciones**:
 
@@ -808,8 +829,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ::: column
 
-- !PYTHON(keys) devuelve un objeto que, al iterar sobre él, va generando las
-  **claves** del diccionario sobre el que se invoca:
+- !PYTHON(keys) devuelve un iterador que va entregando las **claves** del
+  diccionario sobre el que se invoca:
 
 
   ```python
@@ -828,8 +849,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 !ifdef(LATEX)(\vspace{0.3em})
 
-- !PYTHON(values) devuelve un objeto que, al iterar sobre él, va generando los
-  **valores** del diccionario sobre el que se invoca:
+- !PYTHON(values) devuelve un iterador que va entregando los **valores** del
+  diccionario sobre el que se invoca:
 
   ```python
   >>> d.values()
