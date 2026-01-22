@@ -857,12 +857,13 @@ data-number="2.1">
 Definición</h2>
 <ul>
 <li><p>Un <strong>diccionario</strong> es una colección que almacena
-<em>correspondencias</em> (o <em>asociaciones</em>) entre
-valores.</p></li>
-<li><p>Por tanto, <strong>los elementos de un diccionario son parejas de
-valores llamados <em>clave</em> y <em>valor</em></strong>, y lo que hace
-el diccionario es almacenar las <em>claves</em> y el <em>valor</em> que
-le corresponde a cada clave.</p></li>
+<em>correspondencias</em> (o <em>asociaciones</em>) entre un conjunto de
+objetos llamados <strong><em>claves</em></strong> y un conjunto de
+objetos llamados <strong><em>valores</em></strong>.</p></li>
+<li><p>Por tanto, <strong>los elementos de un diccionario son parejas
+formadas por una <em>clave</em> y un <em>valor</em></strong>, de forma
+que el diccionario lo que hace es almacenar las claves y el valor que le
+corresponde a cada clave.</p></li>
 <li><p>Además, los elementos de un diccionario son datos mutables y, por
 tanto, los diccionarios también son <strong>mutables</strong>.</p></li>
 <li><p>En consecuencia, los diccionarios <strong>NO</strong> son
@@ -887,10 +888,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a h
 diccionario y, por tanto, la que se usa cuando se visualiza desde el
 intérprete o se imprime con <code
 class="sourceCode python"><span class="bu">print</span></code>.</p></li>
-<li><p>Usando <code
-class="sourceCode python"><span class="bu">dict</span>()</code> o <code
-class="sourceCode python"><span class="bu">dict</span></code><code>(</code><span
-style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code>.</p></li>
+<li><p>Usando la función <code
+class="sourceCode python"><span class="bu">dict</span></code>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -901,15 +900,19 @@ style="color:teal">⟨<em>iterable</em>⟩</span><code>)</code>.</p></li>
 <div class="sourceCode" id="cb15"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v1 <span class="op">=</span> {}                                          <span class="co"># diccionario vacío</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v2 <span class="op">=</span> <span class="bu">dict</span>()                                      <span class="co"># también diccionario vacío</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v1 <span class="op">==</span> v2</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>                                                 <span class="co"># son iguales</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>}              <span class="co"># literal</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> v1 <span class="op">==</span> v2                                         <span class="co"># ¿son iguales?</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span>                                                 <span class="co"># sí, son iguales</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>}              <span class="co"># literal de tipo dict</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> <span class="bu">dict</span>(uno<span class="op">=</span><span class="dv">1</span>, dos<span class="op">=</span><span class="dv">2</span>, tres<span class="op">=</span><span class="dv">3</span>)                   <span class="co"># paso de argumentos por palabra clave</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> <span class="bu">dict</span>([(<span class="st">&#39;dos&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;uno&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;tres&#39;</span>, <span class="dv">3</span>)])  <span class="co"># lista de tuplas</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>})        <span class="co"># crea una copia</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="co"># con dos iterables</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c <span class="kw">and</span> c <span class="op">==</span> d <span class="kw">and</span> d <span class="op">==</span> e          <span class="co"># todos son iguales</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> <span class="bu">dict</span>(((<span class="st">&#39;dos&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;uno&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;tres&#39;</span>, <span class="dv">3</span>)))  <span class="co"># tupla de tuplas</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> <span class="bu">dict</span>({(<span class="st">&#39;dos&#39;</span>, <span class="dv">2</span>), (<span class="st">&#39;uno&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;tres&#39;</span>, <span class="dv">3</span>)})  <span class="co"># conjunto de tuplas</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>([<span class="st">&#39;uno&#39;</span>, <span class="st">&#39;dos&#39;</span>, <span class="st">&#39;tres&#39;</span>], [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="co"># iterable que devuelve tuplas</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> g <span class="op">=</span> <span class="bu">dict</span>({<span class="st">&#39;tres&#39;</span>: <span class="dv">3</span>, <span class="st">&#39;uno&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;dos&#39;</span>: <span class="dv">2</span>})        <span class="co"># diccionario: crea una copia</span></span></code></pre></div></li>
+<li><p>Todos son iguales:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c <span class="kw">and</span> c <span class="op">==</span> d <span class="kw">and</span> d <span class="op">==</span> e <span class="kw">and</span> e <span class="op">==</span> f <span class="kw">and</span> f <span class="op">==</span> g</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.3">
@@ -918,8 +921,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 <li><p>En memoria, los diccionarios se almacenan como
 <strong>tablas</strong> de dos columnas, la clave y el valor.</p></li>
 <li><p>Por ejemplo, el siguiente diccionario:</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;c&#39;</span>: <span class="dv">3</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;c&#39;</span>: <span class="dv">3</span>}</span></code></pre></div>
 <p>se almacenaría de la siguiente forma según lo representa la
 herramienta Pythontutor:</p>
 <div class="centered">
@@ -969,10 +972,10 @@ se consideran la misma clave dentro del diccionario.</p></li>
 <li><p>Si se intenta crear un diccionario con claves repetidas, sólo se
 almacenará uno de los elementos que tengan la misma clave (los demás se
 ignoran):</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>, <span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>}</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>, <span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>}</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;doggy&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span></code></pre></div>
 <p>Como se ve, la clave <code
 class="sourceCode python"><span class="st">&#39;perro&#39;</span></code>
 está repetida y, por tanto, sólo se almacena uno de los dos elementos
@@ -995,21 +998,21 @@ diccionario o cualquier otro dato mutable.</p></li>
 <li><p>Si se intenta crear un diccionario con una clave no
 <em>hashable</em>, se produce un error <code
 class="sourceCode python"><span class="pp">TypeError</span></code>:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {[<span class="dv">1</span>, <span class="dv">2</span>]: <span class="st">&#39;a&#39;</span>, [<span class="dv">3</span>, <span class="dv">4</span>]: <span class="st">&#39;b&#39;</span>}         <span class="co"># Las listas no son hashables</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;list&#39;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {{<span class="dv">1</span>, <span class="dv">2</span>}: <span class="st">&#39;a&#39;</span>, {<span class="dv">3</span>, <span class="dv">4</span>}: <span class="st">&#39;b&#39;</span>}         <span class="co"># Los conjuntos set tampoco</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;set&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {[<span class="dv">1</span>, <span class="dv">2</span>]: <span class="st">&#39;a&#39;</span>, [<span class="dv">3</span>, <span class="dv">4</span>]: <span class="st">&#39;b&#39;</span>}         <span class="co"># Las listas no son hashables</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;list&#39;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {{<span class="dv">1</span>, <span class="dv">2</span>}: <span class="st">&#39;a&#39;</span>, {<span class="dv">3</span>, <span class="dv">4</span>}: <span class="st">&#39;b&#39;</span>}         <span class="co"># Los conjuntos set tampoco</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unhashable <span class="bu">type</span>: <span class="st">&#39;set&#39;</span></span></code></pre></div></li>
 <li><p>En cambio, sí se puede usar un <code
 class="sourceCode python"><span class="bu">frozenset</span></code>, al
 ser <em>hashable</em>:</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {<span class="bu">frozenset</span>({<span class="dv">1</span>, <span class="dv">2</span>}): <span class="st">&#39;a&#39;</span>, <span class="bu">frozenset</span>({<span class="dv">3</span>, <span class="dv">4</span>}): <span class="st">&#39;b&#39;</span>}</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>{<span class="bu">frozenset</span>({<span class="dv">1</span>, <span class="dv">2</span>}): <span class="st">&#39;a&#39;</span>, <span class="bu">frozenset</span>({<span class="dv">3</span>, <span class="dv">4</span>}): <span class="st">&#39;b&#39;</span>}</span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {<span class="bu">frozenset</span>({<span class="dv">1</span>, <span class="dv">2</span>}): <span class="st">&#39;a&#39;</span>, <span class="bu">frozenset</span>({<span class="dv">3</span>, <span class="dv">4</span>}): <span class="st">&#39;b&#39;</span>}</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>{<span class="bu">frozenset</span>({<span class="dv">1</span>, <span class="dv">2</span>}): <span class="st">&#39;a&#39;</span>, <span class="bu">frozenset</span>({<span class="dv">3</span>, <span class="dv">4</span>}): <span class="st">&#39;b&#39;</span>}</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.6">
@@ -1025,9 +1028,9 @@ contienen los mismos elementos, es decir, si tienen las mismas parejas
 style="color:teal">⟨<em>clave</em>⟩</span><strong><code>:</code></strong><span
 style="color:teal">⟨<em>valor</em>⟩</span>, sin importar el orden en el
 que aparezcan los elementos en el diccionario:</p>
-<div class="sourceCode" id="cb20"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>} <span class="op">==</span> {<span class="st">&#39;b&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;a&#39;</span>: <span class="dv">1</span>}</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>} <span class="op">==</span> {<span class="st">&#39;b&#39;</span>: <span class="dv">2</span>, <span class="st">&#39;a&#39;</span>: <span class="dv">1</span>}</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.1.0.0.7">
@@ -1037,18 +1040,18 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a h
 usa una sintaxis idéntica a la de la <strong>indexación</strong>, salvo
 que, en este caso, en lugar de usar el índice o posición del elemento,
 se usa la clave:</p>
-<div class="sourceCode" id="cb21"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;perro&#39;</span>]</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;dog&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> {<span class="st">&#39;perro&#39;</span>: <span class="st">&#39;dog&#39;</span>, <span class="st">&#39;gato&#39;</span>: <span class="st">&#39;cat&#39;</span>}</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;perro&#39;</span>]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;dog&#39;</span></span></code></pre></div></li>
 <li><p>Si se intenta acceder a un elemento usando una clave que no
 existe, se lanza una excepción de tipo <code
 class="sourceCode python"><span class="pp">KeyError</span></code>:</p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;caballo&#39;</span>]</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="pp">KeyError</span>: <span class="st">&#39;caballo&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a[<span class="st">&#39;caballo&#39;</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="pp">KeyError</span>: <span class="st">&#39;caballo&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1080,14 +1083,11 @@ expresión que devuelva valores <em>hashables</em>, y <span
 style="color:teal">⟨<em>valor</em>⟩</span> puede ser una expresión
 cualquiera.</p></li>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {x: x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]}</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">1</span>: <span class="dv">1</span>, <span class="dv">2</span>: <span class="dv">4</span>, <span class="dv">3</span>: <span class="dv">9</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {x: x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]}</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">1</span>: <span class="dv">1</span>, <span class="dv">2</span>: <span class="dv">4</span>, <span class="dv">3</span>: <span class="dv">9</span>}</span></code></pre></div>
 <p>devuelve el diccionario que asocia a cada número 1, 2 y 3 con su
 correspondiente cuadrado.</p></li>
-<li><p>El resultado es directamente un valor de tipo <code
-class="sourceCode python"><span class="bu">dict</span></code>, no un
-iterador.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.1">
@@ -1120,19 +1120,19 @@ propiedades:</p>
 diccionario por comprensión cambie su significado.</p>
 <p>Por ejemplo, los dos diccionarios por comprensión siguientes son
 equivalentes, puesto que producen el mismo resultado:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>{x: x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)}</span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>{y: y <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)}</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>{x: x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>{y: y <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> y <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)}</span></code></pre></div></li>
 <li><p>No se pueden usar fuera del diccionario por comprensión, ya que
 estarían fuera de su ámbito y no serían visibles.</p>
 <p>Por ejemplo, lo siguiente daría un error de nombre:</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> {x: x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)}</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; del diccinario por comprensión</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> e <span class="op">=</span> {x: x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)}</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x       <span class="co"># Intento acceder a la &#39;x&#39; del diccinario por comprensión</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="pp">NameError</span>: name <span class="st">&#39;x&#39;</span> <span class="kw">is</span> <span class="kw">not</span> defined</span></code></pre></div></li>
 </ol></li>
 </ul>
 </section>
@@ -1344,25 +1344,25 @@ recorren sus <strong>claves</strong>:</p></li>
 <div class="column">
 <ul>
 <li><p>Con un iterador:</p>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(d)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;a&#39;</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;b&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> it <span class="op">=</span> <span class="bu">iter</span>(d)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;a&#39;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">next</span>(it)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;b&#39;</span></span></code></pre></div></li>
 </ul>
 </div><div class="column">
 <ul>
 <li><p>Con un bucle <code
 class="sourceCode python"><span class="cf">for</span></code>:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1376,12 +1376,12 @@ lo recorremos, podemos:</p>
 <ul>
 <li><p>Acceder al valor a partir de la clave usando
 <strong>indexación</strong>:</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, d[k])</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, d[k])</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Usar el método <code class="sourceCode python">items</code> sobre
 el diccionario (el cual devuelve un objeto que, al iterar sobre él,
 genera una secuencia de tuplas <strong><code>(</code></strong><span
@@ -1389,14 +1389,14 @@ style="color:teal">⟨<em>clave</em>⟩</span><strong><code>,</code></strong>
 <span
 style="color:teal">⟨<em>valor</em>⟩</span><strong><code>)</code></strong>),
 y combinarlo con el <strong>desempaquetado de tuplas</strong>:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.items()</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>dict_items([(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>)]</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k, v <span class="kw">in</span> d.items():</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, v)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.items()</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dict_items([(<span class="st">&#39;a&#39;</span>, <span class="dv">1</span>), (<span class="st">&#39;b&#39;</span>, <span class="dv">2</span>)]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k, v <span class="kw">in</span> d.items():</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k, v)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>a <span class="dv">1</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>b <span class="dv">2</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
@@ -1413,28 +1413,28 @@ class="sourceCode python">values</code>.</li>
 <li><p><code class="sourceCode python">keys</code> devuelve un objeto
 que, al iterar sobre él, va generando las <strong>claves</strong> del
 diccionario sobre el que se invoca:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.keys()</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dict_keys([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>])</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d.keys():</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.keys()</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dict_keys([<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>])</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d.keys():</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
 </ul>
 </div><div class="column">
 <ul>
 <li><p><code class="sourceCode python">values</code> devuelve un objeto
 que, al iterar sobre él, va generando los <strong>valores</strong> del
 diccionario sobre el que se invoca:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.values()</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dict_values([<span class="dv">1</span>, <span class="dv">2</span>])</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> v <span class="kw">in</span> d.values():</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(v)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.values()</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dict_values([<span class="dv">1</span>, <span class="dv">2</span>])</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> v <span class="kw">in</span> d.values():</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(v)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1442,12 +1442,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a h
 <li><p>En la práctica, no resulta muy útil usar <code
 class="sourceCode python">keys</code>, ya que se puede hacer lo mismo
 recorriendo directamente el propio diccionario, como ya sabemos:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> k <span class="kw">in</span> d:</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(k)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div></li>
 </ul>
 <!--
 
@@ -1497,31 +1497,31 @@ secuencial</strong>).</p></li>
 <li><p>Por ejemplo, supongamos el siguiente documento XML:</p></li>
 </ul>
 </div><div class="column" style="width:70%;">
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;12312312A&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;Juan&lt;/<span class="kw">propio</span>&gt;</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;García González&lt;/<span class="kw">apellidos</span>&gt;</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span>&gt;7&lt;/<span class="kw">nota</span>&gt;</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span>&gt;9&lt;/<span class="kw">nota</span>&gt;</span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">madre</span>&gt;</span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;12312312A&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;Juan&lt;/<span class="kw">propio</span>&gt;</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;García González&lt;/<span class="kw">apellidos</span>&gt;</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span>&gt;7&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span>&gt;9&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">madre</span>&gt;</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div>
 </div>
 </div>
 </section>
@@ -1580,14 +1580,14 @@ class="uri">https://docs.python.org/3/library/xml.etree.elementtree.html</a>)
 implementa una interfaz sencilla y eficiente para interpretar y crear
 datos XML.</p></li>
 <li><p>Para importar los datos de un archivo XML, podemos hacer:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xml.etree.ElementTree <span class="im">as</span> ET</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>arbol <span class="op">=</span> ET.parse(<span class="st">&#39;archivo.xml&#39;</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>raiz <span class="op">=</span> arbol.getroot()</span></code></pre></div></li>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xml.etree.ElementTree <span class="im">as</span> ET</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>arbol <span class="op">=</span> ET.parse(<span class="st">&#39;archivo.xml&#39;</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>raiz <span class="op">=</span> arbol.getroot()</span></code></pre></div></li>
 <li><p>Si los datos XML se encuentran ya en una cadena, se puede hacer
 directamente:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>raiz <span class="op">=</span> ET.fromstring(datos_en_una_cadena)</span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>raiz <span class="op">=</span> ET.fromstring(datos_en_una_cadena)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
@@ -1625,8 +1625,8 @@ nodo, es decir, el texto que hay entre
 <ul>
 <li><p>Por ejemplo, si tenemos la siguiente etiqueta en el documento
 XML:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">telefono</span> <span class="ot">tipo=</span><span class="st">&quot;movil&quot;</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">telefono</span> <span class="ot">tipo=</span><span class="st">&quot;movil&quot;</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span></code></pre></div>
 <p>y la variable <code>nodo</code> contiene el nodo (es decir, el objeto
 <code>Element</code>) que representa a dicha etiqueta en el árbol,
 entonces:</p>
@@ -1647,24 +1647,24 @@ class="sourceCode python"><span class="st">&#39;666555444&#39;</span></code>.</p
 <code>Element</code> que, además, representa al nodo raíz del árbol
 XML.</p></li>
 <li><p>Por tanto, tendríamos lo siguiente:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.tag</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;raiz&#39;</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.attrib</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>{}</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.text</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span><span class="ch">\n</span><span class="st">    &#39;</span>              <span class="co"># ¿Por qué?</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.tag</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;raiz&#39;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.attrib</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>{}</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.text</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span><span class="ch">\n</span><span class="st">    &#39;</span>              <span class="co"># ¿Por qué?</span></span></code></pre></div></li>
 <li><p>Los objetos <code>Element</code> son <strong>iterables</strong>.
 Por ejemplo, el nodo raíz tiene <strong>nodos hijos</strong> (nodos que
 «cuelgan» directamente del nodo raíz) sobre los cuales se puede iterar
 desde el objeto <code>raiz</code>:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> hijo <span class="kw">in</span> raiz:</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(hijo.tag, hijo.attrib)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>alumno {<span class="st">&#39;numero&#39;</span>: <span class="st">&#39;111&#39;</span>}</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>alumno {<span class="st">&#39;numero&#39;</span>: <span class="st">&#39;222&#39;</span>}</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>madre {}</span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> hijo <span class="kw">in</span> raiz:</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(hijo.tag, hijo.attrib)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>alumno {<span class="st">&#39;numero&#39;</span>: <span class="st">&#39;111&#39;</span>}</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>alumno {<span class="st">&#39;numero&#39;</span>: <span class="st">&#39;222&#39;</span>}</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>madre {}</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.4">
@@ -1673,13 +1673,13 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a h
 <li><p>Los hijos están anidados, y podemos acceder a nodos concretos a
 través de su índice (es decir, que los objetos <code>Element</code> son
 <strong>indexables</strong>):</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>]       <span class="co"># el primer hijo directo de raiz</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>][<span class="dv">2</span>]    <span class="co"># el tercer hijo directo del primer hijo directo de raiz</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Element <span class="st">&#39;telefono&#39;</span> at <span class="bn">0x7f929c29d180</span><span class="op">&gt;</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>][<span class="dv">2</span>].text</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;666555444&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>]       <span class="co"># el primer hijo directo de raiz</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>][<span class="dv">2</span>]    <span class="co"># el tercer hijo directo del primer hijo directo de raiz</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Element <span class="st">&#39;telefono&#39;</span> at <span class="bn">0x7f929c29d180</span><span class="op">&gt;</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>][<span class="dv">2</span>].text</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;666555444&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.5">
@@ -1704,39 +1704,39 @@ nodo sobre el que se invoca.</p></li>
 <div class="column">
 <ul>
 <li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> nodo <span class="kw">in</span> raiz.<span class="bu">iter</span>():</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(nodo.tag)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>raiz</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>alumno</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>dni</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>nombre</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>propio</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>apellidos</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>telefono</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>nota</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>alumno</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>dni</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>nombre</span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>propio</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>apellidos</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>telefono</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>nota</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>madre</span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>dni</span></code></pre></div></li>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> nodo <span class="kw">in</span> raiz.<span class="bu">iter</span>():</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(nodo.tag)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>raiz</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>alumno</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>dni</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>nombre</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>propio</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>apellidos</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>telefono</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>nota</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>alumno</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>dni</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>nombre</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>propio</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>apellidos</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>telefono</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>nota</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>madre</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>dni</span></code></pre></div></li>
 </ul>
 </div><div class="column">
 <ul>
 <li><p>Si se le pasa una etiqueta como argumento, devolverá únicamente
 los nodos que tengan esa etiqueta:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> dni <span class="kw">in</span> raiz.<span class="bu">iter</span>(<span class="st">&#39;dni&#39;</span>):</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(dni.text)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>12312312A</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>44455566B</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>22222222C</span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> dni <span class="kw">in</span> raiz.<span class="bu">iter</span>(<span class="st">&#39;dni&#39;</span>):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(dni.text)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>12312312A</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>44455566B</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>22222222C</span></code></pre></div></li>
 </ul>
 </div>
 </div>
@@ -1757,14 +1757,14 @@ class="sourceCode python"><span class="va">None</span></code> si el nodo
 no tiene ningún hijo con esa etiqueta.</p></li>
 <li><p>El método <code>get</code> devuelve el valor de algún atributo de
 la etiqueta asociada a ese nodo:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> alumno <span class="kw">in</span> raiz.findall(<span class="st">&#39;alumno&#39;</span>):</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>...     numero <span class="op">=</span> alumno.get(<span class="st">&#39;numero&#39;</span>)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>...     dni <span class="op">=</span> alumno.find(<span class="st">&#39;dni&#39;</span>).text</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(numero, dni)</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="dv">111</span> 12312312A</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="dv">222</span> 44455566B</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> alumno <span class="kw">in</span> raiz.findall(<span class="st">&#39;alumno&#39;</span>):</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>...     numero <span class="op">=</span> alumno.get(<span class="st">&#39;numero&#39;</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>...     dni <span class="op">=</span> alumno.find(<span class="st">&#39;dni&#39;</span>).text</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(numero, dni)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="dv">111</span> 12312312A</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="dv">222</span> 44455566B</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.8">
@@ -1774,21 +1774,21 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a h
 <code>get</code>, éste devuelve <code
 class="sourceCode python"><span class="va">None</span></code> o el valor
 que se haya indicado en el segundo argumento:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno <span class="op">=</span> raiz[<span class="dv">0</span>]</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;numero&#39;</span>)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="dv">111</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;altura&#39;</span>)</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="va">None</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;altura&#39;</span>, <span class="dv">0</span>)</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;numero&#39;</span>, <span class="dv">0</span>)</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="dv">111</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno <span class="op">=</span> raiz[<span class="dv">0</span>]</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;numero&#39;</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="dv">111</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;altura&#39;</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="va">None</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;altura&#39;</span>, <span class="dv">0</span>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> alumno.get(<span class="st">&#39;numero&#39;</span>, <span class="dv">0</span>)</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="dv">111</span></span></code></pre></div></li>
 <li><p>También disponemos de la función <code>dump</code> que devuelve
 la cadena correspondiente al nodo que se le pase como argumento:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ET.dump(raiz[<span class="dv">0</span>][<span class="dv">2</span>])</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>telefono<span class="op">&gt;</span><span class="dv">666555444</span><span class="op">&lt;/</span>telefono<span class="op">&gt;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ET.dump(raiz[<span class="dv">0</span>][<span class="dv">2</span>])</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>telefono<span class="op">&gt;</span><span class="dv">666555444</span><span class="op">&lt;/</span>telefono<span class="op">&gt;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.9">
@@ -1907,61 +1907,61 @@ cierta <strong><em>posición</em></strong>. Ésta puede ser un entero
 </section>
 <section id="ejemplos" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos de nivel más alto:</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.&quot;</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;raiz&#39;</span> at <span class="bn">0x7f929c29cf40</span><span class="op">&gt;</span>]</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nietos &#39;dni&#39; de los hijos &#39;alumno&#39; de los nodos de nivel más alto:</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;./alumno/dni&quot;</span>)</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d040</span><span class="op">&gt;</span>,</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d270</span><span class="op">&gt;</span>]</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Lo de antes equivale a hacer (porque el nodo actual es el raíz):</span></span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;alumno/dni&quot;</span>)</span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d040</span><span class="op">&gt;</span>,</span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d270</span><span class="op">&gt;</span>]</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos con numero=&#39;111&#39; que tienen un hijo &#39;dni&#39;:</span></span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.//dni/..[@numero=&#39;111&#39;]&quot;</span>)</span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span>]</span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Antes de // hay que poner algo que indique el nodo debajo del</span></span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="co"># cual se va a buscar:</span></span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;//dni/..[@numero=&#39;111&#39;]&quot;</span>)</span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="pp">SyntaxError</span>: cannot use absolute path on element</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos de nivel más alto:</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.&quot;</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;raiz&#39;</span> at <span class="bn">0x7f929c29cf40</span><span class="op">&gt;</span>]</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nietos &#39;dni&#39; de los hijos &#39;alumno&#39; de los nodos de nivel más alto:</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;./alumno/dni&quot;</span>)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d040</span><span class="op">&gt;</span>,</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d270</span><span class="op">&gt;</span>]</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Lo de antes equivale a hacer (porque el nodo actual es el raíz):</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;alumno/dni&quot;</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d040</span><span class="op">&gt;</span>,</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d270</span><span class="op">&gt;</span>]</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos con numero=&#39;111&#39; que tienen un hijo &#39;dni&#39;:</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.//dni/..[@numero=&#39;111&#39;]&quot;</span>)</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span>]</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Antes de // hay que poner algo que indique el nodo debajo del</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="co"># cual se va a buscar:</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;//dni/..[@numero=&#39;111&#39;]&quot;</span>)</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="pp">SyntaxError</span>: cannot use absolute path on element</span></code></pre></div>
 </section>
 <section id="ejemplos-1" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplos</h5>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Todos los nodos &#39;dni&#39; del árbol completo:</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&#39;.//dni&#39;</span>)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9950</span><span class="op">&gt;</span>,</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9b80</span><span class="op">&gt;</span>,</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9e00</span><span class="op">&gt;</span>]</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sólo los DNIs que estén por debajo de un nodo &#39;madre&#39;</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># en cualquier nivel:</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&#39;madre//dni&#39;</span>)</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9e00</span><span class="op">&gt;</span>]</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos &#39;dni&#39; que son hijos de los nodos con numero=&#39;111&#39;:</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.//*[@numero=&#39;111&#39;]/dni&quot;</span>)</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d040</span><span class="op">&gt;</span>]</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos &#39;alumno&#39; que son hijos segundos de sus padres:</span></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.//alumno[2]&quot;</span>)</span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29d220</span><span class="op">&gt;</span>]</span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos &#39;alumno&#39; hijos directos del actual que tienen un hijo &#39;nota&#39;:</span></span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;./alumno[nota]&quot;</span>)</span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span>,</span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29d220</span><span class="op">&gt;</span>]</span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Lo de antes equivale a hacer (porque el nodo actual es el raíz):</span></span>
-<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;alumno[nota]&quot;</span>)</span>
-<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span>,</span>
-<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29d220</span><span class="op">&gt;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Todos los nodos &#39;dni&#39; del árbol completo:</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&#39;.//dni&#39;</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9950</span><span class="op">&gt;</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9b80</span><span class="op">&gt;</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9e00</span><span class="op">&gt;</span>]</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sólo los DNIs que estén por debajo de un nodo &#39;madre&#39;</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co"># en cualquier nivel:</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&#39;madre//dni&#39;</span>)</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f547a0e9e00</span><span class="op">&gt;</span>]</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos &#39;dni&#39; que son hijos de los nodos con numero=&#39;111&#39;:</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.//*[@numero=&#39;111&#39;]/dni&quot;</span>)</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;dni&#39;</span> at <span class="bn">0x7f929c29d040</span><span class="op">&gt;</span>]</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos &#39;alumno&#39; que son hijos segundos de sus padres:</span></span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;.//alumno[2]&quot;</span>)</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29d220</span><span class="op">&gt;</span>]</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Los nodos &#39;alumno&#39; hijos directos del actual que tienen un hijo &#39;nota&#39;:</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;./alumno[nota]&quot;</span>)</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span>,</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29d220</span><span class="op">&gt;</span>]</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Lo de antes equivale a hacer (porque el nodo actual es el raíz):</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz.findall(<span class="st">&quot;alumno[nota]&quot;</span>)</span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>[<span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span>,</span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a> <span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29d220</span><span class="op">&gt;</span>]</span></code></pre></div>
 </section>
 
 <section id="modificación" class="title-slide slide level2"
@@ -1991,44 +1991,44 @@ objeto, con el método <code>set</code>.</p></li>
 <li><p>Por ejemplo, supongamos que queremos sumarle 1 a la
 <code>nota</code> de cada alumno y añadir un atributo
 <code>modificado</code> a la etiqueta <code>nota</code>:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> nota <span class="kw">in</span> raiz.<span class="bu">iter</span>(<span class="st">&#39;nota&#39;</span>):</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>...     nueva_nota <span class="op">=</span> <span class="bu">int</span>(nota.text) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>...     nota.text <span class="op">=</span> <span class="bu">str</span>(nueva_nota)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>...     nota.<span class="bu">set</span>(<span class="st">&#39;modificado&#39;</span>, <span class="st">&#39;si&#39;</span>)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> nota <span class="kw">in</span> raiz.<span class="bu">iter</span>(<span class="st">&#39;nota&#39;</span>):</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>...     nueva_nota <span class="op">=</span> <span class="bu">int</span>(nota.text) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>...     nota.text <span class="op">=</span> <span class="bu">str</span>(nueva_nota)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>...     nota.<span class="bu">set</span>(<span class="st">&#39;modificado&#39;</span>, <span class="st">&#39;si&#39;</span>)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.2">
 
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;12312312A&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;Juan&lt;/<span class="kw">propio</span>&gt;</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;García González&lt;/<span class="kw">apellidos</span>&gt;</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;8&lt;/<span class="kw">nota</span>&gt;</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">madre</span>&gt;</span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;12312312A&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;Juan&lt;/<span class="kw">propio</span>&gt;</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;García González&lt;/<span class="kw">apellidos</span>&gt;</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;666555444&lt;/<span class="kw">telefono</span>&gt;</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;8&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">madre</span>&gt;</span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.3">
@@ -2042,11 +2042,11 @@ insertar usando
 <strong><code>Element(</code><em>etiqueta</em><code>)</code></strong>.</p></li>
 <li><p>Por ejemplo, añadimos el teléfono a la única madre que tenemos en
 el documento XML:</p>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>telefono <span class="op">=</span> ET.Element(<span class="st">&#39;telefono&#39;</span>)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>telefono.text <span class="op">=</span> <span class="st">&#39;956366666&#39;</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>madre <span class="op">=</span> raiz.find(<span class="st">&#39;madre&#39;</span>)</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>madre.append(telefono)</span></code></pre></div></li>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>telefono <span class="op">=</span> ET.Element(<span class="st">&#39;telefono&#39;</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>telefono.text <span class="op">=</span> <span class="st">&#39;956366666&#39;</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>madre <span class="op">=</span> raiz.find(<span class="st">&#39;madre&#39;</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>madre.append(telefono)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.4">
@@ -2067,11 +2067,11 @@ style="width:100.0%" /></p>
 hijo.</p></li>
 <li><p>Por ejemplo, si queremos situar el teléfono antes que el DNI,
 podríamos hacer:</p>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>telefono <span class="op">=</span> ET.Element(<span class="st">&#39;telefono&#39;</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>telefono.text <span class="op">=</span> <span class="st">&#39;956366666&#39;</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>madre <span class="op">=</span> raiz.find(<span class="st">&#39;madre&#39;</span>)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>madre.insert(<span class="dv">0</span>, telefono)</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>telefono <span class="op">=</span> ET.Element(<span class="st">&#39;telefono&#39;</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>telefono.text <span class="op">=</span> <span class="st">&#39;956366666&#39;</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>madre <span class="op">=</span> raiz.find(<span class="st">&#39;madre&#39;</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>madre.insert(<span class="dv">0</span>, telefono)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.6">
@@ -2090,14 +2090,14 @@ style="width:100.0%" /></p>
 <li><p>Podemos eliminar elementos con el método <code>remove</code>. Por
 ejemplo, supongamos que queremos eliminar todos los alumnos con una
 <code>nota</code> inferior a 9:</p>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> alumno <span class="kw">in</span> raiz.findall(<span class="st">&#39;alumno&#39;</span>):</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>...     <span class="co"># se usa findall para que no afecte el borrado durante el recorrido</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>...     nota <span class="op">=</span> <span class="bu">int</span>(alumno.find(<span class="st">&#39;nota&#39;</span>).text)</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> nota <span class="op">&lt;</span> <span class="dv">9</span>:</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>...         raiz.remove(alumno)</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> alumno <span class="kw">in</span> raiz.findall(<span class="st">&#39;alumno&#39;</span>):</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>...     <span class="co"># se usa findall para que no afecte el borrado durante el recorrido</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>...     nota <span class="op">=</span> <span class="bu">int</span>(alumno.find(<span class="st">&#39;nota&#39;</span>).text)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> nota <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>...         raiz.remove(alumno)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>)</span></code></pre></div></li>
 <li><p>Tener en cuenta que la modificación concurrente mientras se hace
 una iteración puede dar problemas, lo mismo que ocurre cuando se
 modifican listas o diccionarios mientras se itera sobre ellos.</p></li>
@@ -2114,22 +2114,22 @@ devuelve podría verse afectado por los borrados.</p></li>
 
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">madre</span>&gt;</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">madre</span>&gt;</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">madre</span>&gt;</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.9">
@@ -2142,33 +2142,33 @@ cambiar un nodo de sitio), podemos combinar los efectos de
 <li><p>Por ejemplo, si queremos mover la etiqueta
 <code>&lt;madre&gt;</code> dentro de la etiqueta
 <code>&lt;alumno&gt;</code>, podríamos hacer:</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>madre <span class="op">=</span> raiz.find(<span class="st">&#39;madre&#39;</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>raiz.remove(madre)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>alumno <span class="op">=</span> raiz.find(<span class="st">&#39;alumno&#39;</span>)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>alumno.append(madre)</span></code></pre></div></li>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>madre <span class="op">=</span> raiz.find(<span class="st">&#39;madre&#39;</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>raiz.remove(madre)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>alumno <span class="op">=</span> raiz.find(<span class="st">&#39;alumno&#39;</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>alumno.append(madre)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.10">
 
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">madre</span>&gt;</span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">madre</span>&gt;</span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;222&quot;</span>&gt;</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;44455566B&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nombre</span>&gt;</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">propio</span>&gt;María&lt;/<span class="kw">propio</span>&gt;</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">apellidos</span>&gt;Pérez Rodríguez&lt;/<span class="kw">apellidos</span>&gt;</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">nombre</span>&gt;</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">telefono</span>&gt;696969696&lt;/<span class="kw">telefono</span>&gt;</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">nota</span> <span class="ot">modificado=</span><span class="st">&quot;si&quot;</span>&gt;10&lt;/<span class="kw">nota</span>&gt;</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">madre</span>&gt;</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>            &lt;<span class="kw">dni</span>&gt;22222222C&lt;/<span class="kw">dni</span>&gt;</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>        &lt;/<span class="kw">madre</span>&gt;</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">alumno</span>&gt;</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.11">
@@ -2176,13 +2176,13 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb55-1"><a href="#
 <ul>
 <li><p>La función <code>SubElement</code> también proporciona una forma
 muy conveniente de crear sub-elementos de un elemento dado:</p>
-<div class="sourceCode" id="cb56"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> ET.Element(<span class="st">&#39;a&#39;</span>)</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> ET.SubElement(a, <span class="st">&#39;b&#39;</span>)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> ET.SubElement(a, <span class="st">&#39;c&#39;</span>)</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> ET.SubElement(c, <span class="st">&#39;d&#39;</span>)</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ET.dump(a)</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>a<span class="op">&gt;&lt;</span>b <span class="op">/&gt;&lt;</span>c<span class="op">&gt;&lt;</span>d <span class="op">/&gt;&lt;/</span>c<span class="op">&gt;&lt;/</span>a<span class="op">&gt;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> ET.Element(<span class="st">&#39;a&#39;</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> ET.SubElement(a, <span class="st">&#39;b&#39;</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> c <span class="op">=</span> ET.SubElement(a, <span class="st">&#39;c&#39;</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> ET.SubElement(c, <span class="st">&#39;d&#39;</span>)</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ET.dump(a)</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>a<span class="op">&gt;&lt;</span>b <span class="op">/&gt;&lt;</span>c<span class="op">&gt;&lt;</span>d <span class="op">/&gt;&lt;/</span>c<span class="op">&gt;&lt;/</span>a<span class="op">&gt;</span></span></code></pre></div></li>
 </ul>
 </section>
 </section>

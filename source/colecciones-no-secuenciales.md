@@ -396,11 +396,12 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 ## Definición
 
 - Un **diccionario** es una colección que almacena _correspondencias_ (o
-  _asociaciones_) entre valores.
+  _asociaciones_) entre un conjunto de objetos llamados **_claves_** y un
+  conjunto de objetos llamados **_valores_**.
 
-- Por tanto, **los elementos de un diccionario son parejas de valores llamados
-  _clave_ y _valor_**, y lo que hace el diccionario es almacenar las
-  _claves_ y el _valor_ que le corresponde a cada clave.
+- Por tanto, **los elementos de un diccionario son parejas formadas por una
+  _clave_ y un _valor_**, de forma que el diccionario lo que hace es almacenar
+  las claves y el valor que le corresponde a cada clave.
 
 - Además, los elementos de un diccionario son datos mutables y, por tanto, los
   diccionarios también son **mutables**.
@@ -430,7 +431,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
     la que se usa cuando se visualiza desde el intérprete o se imprime con
     !PYTHON(print).
 
-  - Usando !PYTHON(dict()) o !PYTHON(dict)`(`!NT(iterable)`)`.
+  - Usando la función !PYTHON(dict).
 
 ---
 
@@ -439,14 +440,21 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   ```python
   >>> v1 = {}                                          # diccionario vacío
   >>> v2 = dict()                                      # también diccionario vacío
-  >>> v1 == v2
-  True                                                 # son iguales
-  >>> a = {'uno': 1, 'dos': 2, 'tres': 3}              # literal
+  >>> v1 == v2                                         # ¿son iguales?
+  True                                                 # sí, son iguales
+  >>> a = {'uno': 1, 'dos': 2, 'tres': 3}              # literal de tipo dict
   >>> b = dict(uno=1, dos=2, tres=3)                   # paso de argumentos por palabra clave
   >>> c = dict([('dos', 2), ('uno', 1), ('tres', 3)])  # lista de tuplas
-  >>> d = dict({'tres': 3, 'uno': 1, 'dos': 2})        # crea una copia
-  >>> e = dict(zip(['uno', 'dos', 'tres'], [1, 2, 3])) # con dos iterables
-  >>> a == b and b == c and c == d and d == e          # todos son iguales
+  >>> d = dict((('dos', 2), ('uno', 1), ('tres', 3)))  # tupla de tuplas
+  >>> e = dict({('dos', 2), ('uno', 1), ('tres', 3)})  # conjunto de tuplas
+  >>> f = dict(zip(['uno', 'dos', 'tres'], [1, 2, 3])) # iterable que devuelve tuplas
+  >>> g = dict({'tres': 3, 'uno': 1, 'dos': 2})        # diccionario: crea una copia
+  ```
+
+- Todos son iguales:
+
+  ```python
+  >>> a == b and b == c and c == d and d == e and e == f and f == g
   True
   ```
 
@@ -605,8 +613,6 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
   devuelve el diccionario que asocia a cada número 1, 2 y 3 con su
   correspondiente cuadrado.
-
-- El resultado es directamente un valor de tipo !PYTHON(dict), no un iterador.
 
 ---
 
