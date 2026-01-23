@@ -9,9 +9,129 @@ author:
   IES Doñana
 ---
 
-#. Tienes dos listas. Una muestra los nombres de las personas (`names`),
-   mientras que el otro muestra sus profesiones (`jobs`). Tu tarea es crear un
-   diccionario que asocie a cada persona con su respectiva profesión.
+#. Dada una lista de correos electrónicos de usuarios, devolver:
+
+   a. El número de correos distintos.
+
+   b. La colección de correos sin duplicados.
+
+   ```python
+   emails = [
+       "ana@mail.com", "juan@mail.com", "ana@mail.com",
+       "luis@mail.com", "juan@mail.com"
+   ]
+   ```
+
+#. Tres sistemas registran usuarios activos en un día. Obtener:
+
+   a. Usuarios activos en todos los sistemas.
+
+   b. Usuarios activos en al menos uno.
+
+   c. Usuarios activos sólo en el sistema A.
+
+   ```python
+   a = {"ana", "juan", "luis"}
+   b = {"juan", "luis", "carmen"}
+   c = {"luis", "ana"}
+   ```
+
+#. Un sistema tiene usuarios permitidos y usuarios bloqueados. Calcular el
+   conjunto de usuarios que pueden acceder realmente.
+
+   ```python
+   permitidos = {"ana", "juan", "luis", "carmen"}
+   bloqueados = {"juan", "carmen"}
+   ```
+
+#. Dadas dos frases, devolver el conjunto de palabras que aparecen en ambas.
+
+   ```python
+   t1 = "python es simple y potente"
+   t2 = "python es potente y elegante"
+   ```
+
+#. Dos alumnos entregan textos. Se considera sospechoso de plagio si comparten
+   más del 70 % del total de palabras distintas usadas entre los dos textos.
+   Comprobar si ha habido plagio. Ignorar mayúsculas y minúsculas.
+
+   ```python
+   a = "programar en python es divertido y educativo"
+   b = "programar en python es educativo y muy divertido"
+   ```
+
+#. Un profesor y un alumno indican los días que tienen disponibles cada uno:
+
+   ```python
+   profesor = {"lunes", "martes", "jueves"}
+   alumno   = {"martes", "miércoles", "jueves"}
+   ```
+
+   - Calcular:
+
+     a. Días posibles para tutoría.
+
+     b. Días en los que ninguno puede.
+
+#. Comprobar si una contraseña contiene:
+
+   - al menos una vocal, y
+
+   - al menos un dígito.
+
+   ```python
+   password = "abc9x"
+   ```
+
+#. Una fila de Sudoku es válida si contiene exactamente los números del 1 al 9
+   sin repetición, da igual el orden. Comprobar si una lista de números enteros
+   es una fila válida en el Sudoku. Por ejemplo, la siguiente es una fila
+   válida:
+
+   ```
+   fila = [9, 2, 7, 1, 5, 4, 3, 6, 8]
+   ```
+
+#. Un usuario tiene un conjunto de permisos, y una acción requiere ciertos
+   permisos mínimos. Determinar si el usuario puede realizar la acción.
+
+   ```python
+   usuario = {"leer", "escribir", "exportar"}
+   requeridos = {"leer", "escribir"}
+   ```
+
+#. Dado un texto y un conjunto de palabras prohibidas, indica si aparece
+   alguna palabra prohibida en el texto.
+
+   ```python
+   texto = "este mensaje es confidencial"
+   prohibidas = {"secreto", "confidencial", "privado"}
+   ```
+
+#. Dado un conjunto de alumnos matriculados y un conjunto de alumnos aprobados,
+   obtener el conjunto de alumnos suspensos.
+
+   ```python
+   matriculados = {"ana", "juan", "luis", "carmen"}
+   aprobados = {"ana", "luis"}
+   ```
+
+#. Recorrer una lista y mostrar sólo los elementos que aparecen por primera
+   vez. Por ejemplo, para esta entrada:
+
+   ```python
+   datos = [3, 1, 3, 2, 1, 4, 2, 5]
+   ```
+
+   se espera obtener la siguiente salida:
+
+   ```python
+   [3, 1, 2, 4, 5]
+   ```
+
+#. Se dispone de dos listas. Una muestra los nombres de las personas (`names`),
+   mientras que el otro muestra sus profesiones (`jobs`). Crear un diccionario
+   que asocie a cada persona con su respectiva profesión.
 
    Persona  Profesión
    -------- ----------
