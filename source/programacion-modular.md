@@ -404,8 +404,8 @@ nocite: |
     internos constituyen la **implementación** del módulo.
 
   - Los **usuarios** del módulo son los programadores que desean usar ese
-    módulo en sus programas. También se les llama así a los módulos de un
-    programa que usan a ese módulo (lo necesitan para funcionar).
+    módulo en sus programas. También se les llama así a los módulos que usan a
+    ese módulo (lo necesitan para funcionar) en un programa.
   
     A la parte del módulo que es accesible directamente desde fuera del mismo
     se le denomina la **interfaz** del módulo.
@@ -1619,8 +1619,8 @@ Nivel $n$    (Más detalle)
   
 - El responsable del *cómo* es únicamente el **creador** del módulo.
 
-- Los módulos definidos como abstracciones son más fáciles de usar, diseñar y
-  mantener.
+- Los módulos definidos como abstracciones (las denominadas **abstracciones
+  modulares**) son más fáciles de usar, diseñar y mantener.
 
 ## Ocultación de información
 
@@ -2155,5 +2155,44 @@ compontentes intermedios.
   - Permite reutilización y validación temprana de componentes (_bottom-up_).
 
   - Facilita la integración progresiva del sistema.
+
+## Principios _SOLID_
+
+- Los **principios _SOLID_** son un conjunto de cinco principios de diseño
+  modular cuyo objetivo es hacer el software más mantenible, extensible,
+  comprensible y robusto.
+
+- El acrónimo fue popularizado por Robert C. Martin («Uncle Bob»), y proviene
+  del nombre de los cinco principios en inglés:
+
+  - *S*ingle Responsibility Principle (SRP).
+
+  - *O*pen/Closed Principle (OCP).
+
+  - *L*iskov Sustitution Principle (LSP).
+
+  - *I*nterface Segregation Principle (ISP).
+
+  - *D*ependency Inversion Principle (DIP).
+
+---
+
+- Los cinco principios son:
+
+  - **Principio de Responsabilidad Única (SRP)**: los módulos deben tener un
+    único propósito y una única responsabilidad clara.
+
+  - **Principio Abierto/Cerrado (OCP)**: los módulos deben estar abiertos para
+    su extensión pero cerrados para su modificación.
+
+  - **Principio de Sustitución de Liskov (LSP)**: los módulos deben poderse
+    intercambiar unos por otros siempre que respeten la misma especificación.
+
+  - **Principio de Segregación de la Interfaz (ISP)**: los módulos sólo deben
+    exponer la mínima funcionalidad que sea relevante para sus usuarios, y los
+    usuarios no deben depender de interfaces que no usan.
+
+  - **Principio de Inversión de Dependencias (DIP)**: los módulos deben
+    depender de abstracciones y no de concreciones.
 
 !BIBLIOGRAFIA
