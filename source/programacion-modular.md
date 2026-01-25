@@ -96,7 +96,7 @@ nocite: |
   mantener todo el código dentro de un único *script* se hace mayor.
 
 - No sólo resulta incómodo mantener todo el código en un mismo archivo,
-  sino que además resulta intelectualmente más difícil de entender.
+  sino que además es intelectualmente más difícil de entender.
 
 - Lo más práctico es repartir el código fuente de nuestro programa en una
   colección de archivos fuente que se puedan trabajar por separado, lo que se
@@ -112,35 +112,64 @@ nocite: |
 
 ---
 
-- Los módulos, además, introducen su propio **ámbito léxico**, por lo que las
-  definiciones que se realicen dentro del módulo serán locales a éste.
+- Los módulos contienen **_definiciones internas_** llamadas **miembros**,
+  entre las que pueden estar:
 
-- Los módulos están **encapsulados**, lo que hace que sea aún más independiente
-  de los demás módulos que forman el programa, ya que un elemento local al
-  módulo sólo será visible directamente dentro de éste, y sólo se podrá ver
-  desde fuera si se **exporta**.
+  - Subprogramas (funciones y procedimientos).
 
-- En consecuencia, los módulos tienen su propio **espacio de nombres** separado
-  del resto, donde se almacenan las ligaduras creadas durante la ejecución de
-  sus definiciones locales.
+  - Definiciones de tipos de datos.
+
+  - Variables.
+
+  - Constantes.
+
+  - Otros módulos (submódulos).
+
+- Todos esos elementos internos del módulo son manipulables desde dentro del
+  mismo y también pueden estar accesibles desde fuera, disponibles para su uso
+  por parte de otros módulos del programa.
+
+- Gracias a sus variables locales, un módulo almacena y recuerda su propio
+  **estado interno**, el cual puede cambiar durante la ejecución del programa.
+
+---
+
+- Para que todo esto funcione, los módulos deben introducir su propio **ámbito
+  léxico**, deben estar **encapsulados** y deben tener su propio **espacio de
+  nombres**:
+
+  - Los módulos introducen su propio **ámbito léxico**, por lo que las
+    definiciones que se ejecuten dentro del módulo serán locales a éste.
+
+  - Los módulos están **encapsulados**, lo que hace que sea aún más independiente
+    de los demás módulos que forman el programa, ya que un elemento local al
+    módulo sólo será visible directamente dentro de éste, y sólo se podrá ver
+    desde fuera si se **exporta**.
+
+  - Finalmente, los módulos tienen su propio **espacio de nombres** separado
+    del resto, donde se almacenan sus ligaduras locales, es decir, las ligaduras
+    creadas dentro de ese módulo.
+
+---
 
 - Así, los elementos locales al módulo pertenecen al propio módulo, y puede
   haber dos elementos distintos con el mismo nombre en diferentes módulos de un
   mismo programa, lo que evita el _name clash_.
 
----
-
 - El hecho de que los módulos estén encapsulados facilita la escritura de cada
   módulo por separado y su integración posterior en el mismo programa, ya que
-  el programador de un módulo no se tiene que preocupar por si casualmente usa
+  el programador de un módulo no se tiene que preocupar por si casualmente usó
   el mismo nombre que ha usado otro programador al escribir su módulo.
+
+---
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - Los **módulos** son _cápsulas_ que:
 
-  - Permiten seleccionar qué se **exporta** al exterior (lo que constituye su
-    **_interfaz_**) y qué se **importa** del exterior (sus **_dependencias_**).
+  - Permiten seleccionar qué se **exporta** a otros módulos (lo que constituye
+    su **_interfaz_**) y qué se **importa** de otros módulos (sus
+    **_dependencias_**).
 
   - Permiten la **descomposición física del código en archivos separados**,
     para que se puedan escribir de forma más o menos independiente unos de
@@ -155,11 +184,19 @@ nocite: |
 - Un módulo es, pues, una parte de un programa que se puede estudiar, entender
   y programar por separado con relativa independencia del resto del programa.
 
-- Según esa definición, podría decirse que **un subprograma es un ejemplo de
-  _módulo_**, ya que se ajusta a esa definición.
+- Según esa definición, podría pensarse que **un _subprograma_ es un ejemplo de
+  _módulo_**.
 
-- Sin embargo, descomponer un programa en partes usando únicamente como
-  criterio la descomposición en subprogramas **no resulta adecuado en
+- Sin embargo, un subprograma no es un módulo, ya que:
+
+  - Un subprograma no exporta nada al exterior.
+
+  - Un subprograma no puede usar elementos locales a otros subprogramas.
+
+---
+
+- Además, descomponer un programa en partes usando únicamente como
+  criterio la descomposición en subprogramas **no resultaría adecuado en
   general**, ya que:
 
   - No habría *descomposición física*, salvo que se coloque cada función en un
@@ -181,12 +218,6 @@ nocite: |
 - Pero aunque podamos encapsular varias funciones juntas, en general eso
   todavía no resulta suficiente para llamar «_módulo_» a esa agrupación de
   funciones.
-
-- Un módulo no tiene por qué ser simplemente una colección de funciones o
-  procedimientos, sino que también puede tener su propio **estado interno** así
-  como otras definiciones locales (p. ej. tipos, o datos almacenados en
-  variables y constantes), manipulables desde dentro del módulo y posiblemente
-  accesibles también desde fuera.
 
 ---
 

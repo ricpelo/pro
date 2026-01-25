@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,8 +32,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +45,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -306,7 +309,7 @@ manejables.</p></li>
 esfuerzo de mantener todo el código dentro de un único <em>script</em>
 se hace mayor.</p></li>
 <li><p>No sólo resulta incómodo mantener todo el código en un mismo
-archivo, sino que además resulta intelectualmente más difícil de
+archivo, sino que además es intelectualmente más difícil de
 entender.</p></li>
 <li><p>Lo más práctico es repartir el código fuente de nuestro programa
 en una colección de archivos fuente que se puedan trabajar por separado,
@@ -323,39 +326,70 @@ que unos consumirán los servicios que proporcionan otros.</p></li>
 <section class="slide level5" data-number="1.1.0.0.5">
 
 <ul>
-<li><p>Los módulos, además, introducen su propio <strong>ámbito
-léxico</strong>, por lo que las definiciones que se realicen dentro del
-módulo serán locales a éste.</p></li>
-<li><p>Los módulos están <strong>encapsulados</strong>, lo que hace que
-sea aún más independiente de los demás módulos que forman el programa,
-ya que un elemento local al módulo sólo será visible directamente dentro
-de éste, y sólo se podrá ver desde fuera si se
-<strong>exporta</strong>.</p></li>
-<li><p>En consecuencia, los módulos tienen su propio <strong>espacio de
-nombres</strong> separado del resto, donde se almacenan las ligaduras
-creadas durante la ejecución de sus definiciones locales.</p></li>
-<li><p>Así, los elementos locales al módulo pertenecen al propio módulo,
-y puede haber dos elementos distintos con el mismo nombre en diferentes
-módulos de un mismo programa, lo que evita el <em>name
-clash</em>.</p></li>
+<li><p>Los módulos contienen <strong><em>definiciones
+internas</em></strong> llamadas <strong>miembros</strong>, entre las que
+pueden estar:</p>
+<ul>
+<li><p>Subprogramas (funciones y procedimientos).</p></li>
+<li><p>Definiciones de tipos de datos.</p></li>
+<li><p>Variables.</p></li>
+<li><p>Constantes.</p></li>
+<li><p>Otros módulos (submódulos).</p></li>
+</ul></li>
+<li><p>Todos esos elementos internos del módulo son manipulables desde
+dentro del mismo y también pueden estar accesibles desde fuera,
+disponibles para su uso por parte de otros módulos del
+programa.</p></li>
+<li><p>Gracias a sus variables locales, un módulo almacena y recuerda su
+propio <strong>estado interno</strong>, el cual puede cambiar durante la
+ejecución del programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
-<li>El hecho de que los módulos estén encapsulados facilita la escritura
-de cada módulo por separado y su integración posterior en el mismo
-programa, ya que el programador de un módulo no se tiene que preocupar
-por si casualmente usa el mismo nombre que ha usado otro programador al
-escribir su módulo.</li>
+<li><p>Para que todo esto funcione, los módulos deben introducir su
+propio <strong>ámbito léxico</strong>, deben estar
+<strong>encapsulados</strong> y deben tener su propio <strong>espacio de
+nombres</strong>:</p>
+<ul>
+<li><p>Los módulos introducen su propio <strong>ámbito léxico</strong>,
+por lo que las definiciones que se ejecuten dentro del módulo serán
+locales a éste.</p></li>
+<li><p>Los módulos están <strong>encapsulados</strong>, lo que hace que
+sea aún más independiente de los demás módulos que forman el programa,
+ya que un elemento local al módulo sólo será visible directamente dentro
+de éste, y sólo se podrá ver desde fuera si se
+<strong>exporta</strong>.</p></li>
+<li><p>Finalmente, los módulos tienen su propio <strong>espacio de
+nombres</strong> separado del resto, donde se almacenan sus ligaduras
+locales, es decir, las ligaduras creadas dentro de ese módulo.</p></li>
+</ul></li>
 </ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.7">
+
+<ul>
+<li><p>Así, los elementos locales al módulo pertenecen al propio módulo,
+y puede haber dos elementos distintos con el mismo nombre en diferentes
+módulos de un mismo programa, lo que evita el <em>name
+clash</em>.</p></li>
+<li><p>El hecho de que los módulos estén encapsulados facilita la
+escritura de cada módulo por separado y su integración posterior en el
+mismo programa, ya que el programador de un módulo no se tiene que
+preocupar por si casualmente usó el mismo nombre que ha usado otro
+programador al escribir su módulo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.8">
+
 <div class="caja">
 <ul>
 <li><p>Los <strong>módulos</strong> son <em>cápsulas</em> que:</p>
 <ul>
-<li><p>Permiten seleccionar qué se <strong>exporta</strong> al exterior
-(lo que constituye su <strong><em>interfaz</em></strong>) y qué se
-<strong>importa</strong> del exterior (sus
+<li><p>Permiten seleccionar qué se <strong>exporta</strong> a otros
+módulos (lo que constituye su <strong><em>interfaz</em></strong>) y qué
+se <strong>importa</strong> de otros módulos (sus
 <strong><em>dependencias</em></strong>).</p></li>
 <li><p>Permiten la <strong>descomposición física del código en archivos
 separados</strong>, para que se puedan escribir de forma más o menos
@@ -366,17 +400,27 @@ programa.</p></li>
 </ul>
 </div>
 </section>
-<section class="slide level5" data-number="1.1.0.0.7">
+<section class="slide level5" data-number="1.1.0.0.9">
 
 <ul>
 <li><p>Un módulo es, pues, una parte de un programa que se puede
 estudiar, entender y programar por separado con relativa independencia
 del resto del programa.</p></li>
-<li><p>Según esa definición, podría decirse que <strong>un subprograma
-es un ejemplo de <em>módulo</em></strong>, ya que se ajusta a esa
-definición.</p></li>
-<li><p>Sin embargo, descomponer un programa en partes usando únicamente
-como criterio la descomposición en subprogramas <strong>no resulta
+<li><p>Según esa definición, podría pensarse que <strong>un
+<em>subprograma</em> es un ejemplo de <em>módulo</em></strong>.</p></li>
+<li><p>Sin embargo, un subprograma no es un módulo, ya que:</p>
+<ul>
+<li><p>Un subprograma no exporta nada al exterior.</p></li>
+<li><p>Un subprograma no puede usar elementos locales a otros
+subprogramas.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.10">
+
+<ul>
+<li><p>Además, descomponer un programa en partes usando únicamente como
+criterio la descomposición en subprogramas <strong>no resultaría
 adecuado en general</strong>, ya que:</p>
 <ul>
 <li><p>No habría <em>descomposición física</em>, salvo que se coloque
@@ -388,7 +432,7 @@ ellas formando un todo interrelacionado.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.8">
+<section class="slide level5" data-number="1.1.0.0.11">
 
 <ul>
 <li><p>Por ejemplo, existen lenguajes procedimentales (como C) donde
@@ -401,15 +445,9 @@ para formar el programa ejecutable final.</p></li>
 <li><p>Pero aunque podamos encapsular varias funciones juntas, en
 general eso todavía no resulta suficiente para llamar «<em>módulo</em>»
 a esa agrupación de funciones.</p></li>
-<li><p>Un módulo no tiene por qué ser simplemente una colección de
-funciones o procedimientos, sino que también puede tener su propio
-<strong>estado interno</strong> así como otras definiciones locales
-(p. ej. tipos, o datos almacenados en variables y constantes),
-manipulables desde dentro del módulo y posiblemente accesibles también
-desde fuera.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.9">
+<section class="slide level5" data-number="1.1.0.0.12">
 
 <ul>
 <li><p>La programación estructurada y la programación procedimental son
@@ -427,7 +465,7 @@ escala (<em>Programming In The Large</em>, o
 <em>PITL</em>)</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.10">
+<section class="slide level5" data-number="1.1.0.0.13">
 
 <ul>
 <li><p>La programación a gran escala se centra en programas que no son
@@ -442,7 +480,7 @@ otros módulos.</p></li>
 programas) y modificable sin forzar cambios en otros módulos.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.11">
+<section class="slide level5" data-number="1.1.0.0.14">
 
 <ul>
 <li><p>Todo es un camino hacia la obtención de componentes constructivos
@@ -467,7 +505,7 @@ programas cada vez más grandes y complejos porque nos permite aislar y
 estudiar cada parte y cada nivel por separado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.12">
+<section class="slide level5" data-number="1.1.0.0.15">
 
 <ul>
 <li><p>Por ejemplo, supongamos un conjunto de funciones que manipulan
@@ -482,7 +520,7 @@ función anterior por separado, es más conveniente considerarlas como un
 todo: el <em>módulo de manipulación de números racionales</em>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.13">
+<section class="slide level5" data-number="1.1.0.0.16">
 
 <ul>
 <li><p>Otro ejemplo: supongamos un módulo encargado de realizar
@@ -504,7 +542,7 @@ class="math inline">\pi</span>, que podría almacenar el módulo
 internamente como una constante.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.14">
+<section class="slide level5" data-number="1.1.0.0.17">
 
 <ul>
 <li><p>En un hipotético programa que usara los dos módulos anteriores
@@ -525,7 +563,7 @@ que reduce el tiempo de desarrollo.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.15">
+<section class="slide level5" data-number="1.1.0.0.18">
 
 <ul>
 <li><p>De lo dicho hasta ahora se deducen varias <strong>conclusiones
@@ -2372,17 +2410,17 @@ de forma que los del paso 2 llaman o usan a los del paso 3.</p></li>
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-pressman_ingenierisoftware_2004" class="csl-entry"
 role="listitem">
 Pressman, Roger S, Darrel Ince, Rafael Ojeda Martín, and Luis Joyanes
 Aguilar. 2004. <em>Ingeniería Del Software: Un Enfoque Práctico</em>.
-Madrid: McGraw-Hill.
+McGraw-Hill.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>
