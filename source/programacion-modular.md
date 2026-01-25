@@ -187,11 +187,18 @@ nocite: |
 - Según esa definición, podría pensarse que **un _subprograma_ es un ejemplo de
   _módulo_**.
 
-- Sin embargo, un subprograma no es un módulo, ya que:
+- Sin embargo, un subprograma no es un módulo, ya que, según lo que hemos visto
+  hasta ahora:
 
   - Un subprograma no exporta nada al exterior.
 
-  - Un subprograma no puede usar elementos locales a otros subprogramas.
+  - Un subprograma no puede usar elementos locales de otros subprogramas.
+
+  - Un subprograma no tiene estado interno que se conserve y recuerde durante
+    la ejecución del programa.
+
+  (Si bien en temas posteriores veremos que algunas de estas limitaciones se
+  pueden superar con el uso de _clausuras_.)
 
 ---
 
