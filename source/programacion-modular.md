@@ -228,6 +228,13 @@ nocite: |
   general eso tampoco resulta suficiente para llamar «_módulo_» a ese paquete
   de funciones.
 
+- Al final, lo que es y no es un módulo depende mucho también de las
+  construcciones que el lenguaje de programación nos proporciona.
+
+- Por ejemplo, lenguajes como Haskell, OCaml, Turbo Pascal o Modula-2 tienen
+  sus módulos, mientras que las «_clases_» de los lenguajes orientados a
+  objetos también son muy buenos ejemplos de módulos.
+
 ---
 
 - La programación estructurada y la programación procedimental son suficientes
