@@ -26,8 +26,8 @@ nocite: |
 
   3. Combinar las soluciones para así obtener la solución al problema original.
 
-- La **modularidad** es la propiedad que tienen los programas escritos
-  siguiendo los principios de la programación modular.
+- La **modularidad** es la propiedad que tienen los programas escritos de forma
+  modular, es decir, como una colección de módulos que se utilizan entre sí.
 
 ---
 
@@ -187,8 +187,8 @@ nocite: |
 - Según esa definición, podría pensarse que **un _subprograma_ es un ejemplo de
   _módulo_**.
 
-- Sin embargo, un subprograma no es un módulo, ya que, según lo que hemos visto
-  hasta ahora:
+- Sin embargo, un subprograma es un ejemplo bastante pobre de módulo, ya que,
+  según lo que hemos visto hasta ahora:
 
   - Un subprograma no exporta nada al exterior.
 
@@ -218,30 +218,35 @@ nocite: |
 - Por ejemplo, existen lenguajes procedimentales (como C) donde podemos usar y
   crear **bibliotecas de funciones**, que son colecciones agrupadas de
   funciones reutilizables (y, normalmente, ya compiladas) que se pueden invocar
-  desde el código de nuestro programa y que se distribuyen apropiadamente
-  empaquetadas de forma luego que se puedan enlazar en tiempo de compilación
-  con el resto de nuestro código para formar el programa ejecutable final.
+  desde el código de nuestro programa.
 
-- Pero aunque podamos encapsular varias funciones juntas, en general eso
-  todavía no resulta suficiente para llamar «_módulo_» a esa agrupación de
-  funciones.
+- Esas bibliotecas se distribuyen apropiadamente empaquetadas de forma que
+  luego se puedan enlazar en tiempo de compilación con el resto de nuestro
+  código para formar el programa ejecutable final.
+
+- Pero aunque podamos encapsular varias funciones juntas en una biblioteca, en
+  general eso tampoco resulta suficiente para llamar «_módulo_» a ese paquete
+  de funciones.
 
 ---
 
 - La programación estructurada y la programación procedimental son suficientes
   para la denominada **programación a pequeña escala (_Programming In The
-  Small_, o _PITS_)**.
+  Small_, _PITS_)**.
 
-- Se trata de programas que un programador individual puede comprender en su
-  totalidad.
+- Se trata de programas que un solo programador puede programar y comprender
+  fácilmente en su totalidad.
 
-- Sin embargo, no son lo suficientemente generales para programas muy grandes.
+- Sin embargo, no son técnicas o paradigmas lo suficientemente generales ni
+  apropiadas como para escribir programas muy grandes.
 
 - Estos programas, escritos por muchas personas, deben constar de módulos que
-  puedan desarrollarse y probarse independientemente de otros módulos.
+  puedan desarrollarse y probarse independientemente de otros módulos, en
+  paralelo, por varios programadores que se reparten simultáneamente el
+  trabajo.
 
 - Este tipo de programación se denomina **programación a gran escala
-  (_Programming In The Large_, o _PITL_)**.
+  (_Programming In The Large_, _PITL_)**.
 
 ---
 
@@ -252,10 +257,12 @@ nocite: |
   compilarse y probarse independientemente de otros módulos (o lo más posible,
   al menos).
 
-- Un módulo tiene un único propósito y una interfaz estrecha con otros módulos.
+- Para ello, un módulo debe tener un único propósito y una interfaz estrecha
+  con otros módulos.
 
-- Es probable que sea reutilizable (pueda incorporarse a muchos programas) y
-  modificable sin forzar cambios en otros módulos.
+- Además, es conveniente diseñar módulos que sean reutilizables (es decir, que
+  puedan incorporarse a muchos programas) y modificables sin forzar cambios en
+  otros módulos.
 
 ---
 
@@ -2162,18 +2169,21 @@ compontentes intermedios.
   modular cuyo objetivo es hacer el software más mantenible, extensible,
   comprensible y robusto.
 
-- El acrónimo fue popularizado por Robert C. Martin («Uncle Bob»), y proviene
-  del nombre de los cinco principios en inglés:
+- Inicialmente fueron propuestos para el paradigma de la _Programación
+  orientada a objetos_, pero pueden aplicarse a cualquier sistema modular.
 
-  - *S*ingle Responsibility Principle (SRP).
+- _SOLID_ es un acrónimo que fue popularizado por Robert C. Martin («Uncle
+  Bob»), y proviene del nombre de los cinco principios en inglés:
 
-  - *O*pen/Closed Principle (OCP).
+  - **S**ingle Responsibility Principle (SRP).
 
-  - *L*iskov Sustitution Principle (LSP).
+  - **O**pen/Closed Principle (OCP).
 
-  - *I*nterface Segregation Principle (ISP).
+  - **L**iskov Sustitution Principle (LSP).
 
-  - *D*ependency Inversion Principle (DIP).
+  - **I**nterface Segregation Principle (ISP).
+
+  - **D**ependency Inversion Principle (DIP).
 
 ---
 

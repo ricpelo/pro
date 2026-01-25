@@ -229,8 +229,8 @@ en:</p>
 original.</p></li>
 </ol></li>
 <li><p>La <strong>modularidad</strong> es la propiedad que tienen los
-programas escritos siguiendo los principios de la programación
-modular.</p></li>
+programas escritos de forma modular, es decir, como una colección de
+módulos que se utilizan entre sí.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
@@ -408,8 +408,8 @@ estudiar, entender y programar por separado con relativa independencia
 del resto del programa.</p></li>
 <li><p>Según esa definición, podría pensarse que <strong>un
 <em>subprograma</em> es un ejemplo de <em>módulo</em></strong>.</p></li>
-<li><p>Sin embargo, un subprograma no es un módulo, ya que, según lo que
-hemos visto hasta ahora:</p>
+<li><p>Sin embargo, un subprograma es un ejemplo bastante pobre de
+módulo, ya que, según lo que hemos visto hasta ahora:</p>
 <ul>
 <li><p>Un subprograma no exporta nada al exterior.</p></li>
 <li><p>Un subprograma no puede usar elementos locales de otros
@@ -444,13 +444,14 @@ ellas formando un todo interrelacionado.</p></li>
 <li><p>Por ejemplo, existen lenguajes procedimentales (como C) donde
 podemos usar y crear <strong>bibliotecas de funciones</strong>, que son
 colecciones agrupadas de funciones reutilizables (y, normalmente, ya
-compiladas) que se pueden invocar desde el código de nuestro programa y
-que se distribuyen apropiadamente empaquetadas de forma luego que se
-puedan enlazar en tiempo de compilación con el resto de nuestro código
-para formar el programa ejecutable final.</p></li>
-<li><p>Pero aunque podamos encapsular varias funciones juntas, en
-general eso todavía no resulta suficiente para llamar «<em>módulo</em>»
-a esa agrupación de funciones.</p></li>
+compiladas) que se pueden invocar desde el código de nuestro
+programa.</p></li>
+<li><p>Esas bibliotecas se distribuyen apropiadamente empaquetadas de
+forma que luego se puedan enlazar en tiempo de compilación con el resto
+de nuestro código para formar el programa ejecutable final.</p></li>
+<li><p>Pero aunque podamos encapsular varias funciones juntas en una
+biblioteca, en general eso tampoco resulta suficiente para llamar
+«<em>módulo</em>» a ese paquete de funciones.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.12">
@@ -458,16 +459,18 @@ a esa agrupación de funciones.</p></li>
 <ul>
 <li><p>La programación estructurada y la programación procedimental son
 suficientes para la denominada <strong>programación a pequeña escala
-(<em>Programming In The Small</em>, o <em>PITS</em>)</strong>.</p></li>
-<li><p>Se trata de programas que un programador individual puede
-comprender en su totalidad.</p></li>
-<li><p>Sin embargo, no son lo suficientemente generales para programas
-muy grandes.</p></li>
+(<em>Programming In The Small</em>, <em>PITS</em>)</strong>.</p></li>
+<li><p>Se trata de programas que un solo programador puede programar y
+comprender fácilmente en su totalidad.</p></li>
+<li><p>Sin embargo, no son técnicas o paradigmas lo suficientemente
+generales ni apropiadas como para escribir programas muy
+grandes.</p></li>
 <li><p>Estos programas, escritos por muchas personas, deben constar de
 módulos que puedan desarrollarse y probarse independientemente de otros
-módulos.</p></li>
+módulos, en paralelo, por varios programadores que se reparten
+simultáneamente el trabajo.</p></li>
 <li><p>Este tipo de programación se denomina <strong>programación a gran
-escala (<em>Programming In The Large</em>, o
+escala (<em>Programming In The Large</em>,
 <em>PITL</em>)</strong>.</p></li>
 </ul>
 </section>
@@ -480,10 +483,11 @@ de programadores.</p></li>
 <li><p>En este nivel, los programas deben constar de módulos que puedan
 escribirse, compilarse y probarse independientemente de otros módulos (o
 lo más posible, al menos).</p></li>
-<li><p>Un módulo tiene un único propósito y una interfaz estrecha con
-otros módulos.</p></li>
-<li><p>Es probable que sea reutilizable (pueda incorporarse a muchos
-programas) y modificable sin forzar cambios en otros módulos.</p></li>
+<li><p>Para ello, un módulo debe tener un único propósito y una interfaz
+estrecha con otros módulos.</p></li>
+<li><p>Además, es conveniente diseñar módulos que sean reutilizables (es
+decir, que puedan incorporarse a muchos programas) y modificables sin
+forzar cambios en otros módulos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.14">
@@ -2421,14 +2425,18 @@ Principios <em>SOLID</em></h2>
 <li><p>Los <strong>principios <em>SOLID</em></strong> son un conjunto de
 cinco principios de diseño modular cuyo objetivo es hacer el software
 más mantenible, extensible, comprensible y robusto.</p></li>
-<li><p>El acrónimo fue popularizado por Robert C. Martin («Uncle Bob»),
-y proviene del nombre de los cinco principios en inglés:</p>
+<li><p>Inicialmente fueron propuestos para el paradigma de la
+<em>Programación orientada a objetos</em>, pero pueden aplicarse a
+cualquier sistema modular.</p></li>
+<li><p><em>SOLID</em> es un acrónimo que fue popularizado por Robert C.
+Martin («Uncle Bob»), y proviene del nombre de los cinco principios en
+inglés:</p>
 <ul>
-<li><p><em>S</em>ingle Responsibility Principle (SRP).</p></li>
-<li><p><em>O</em>pen/Closed Principle (OCP).</p></li>
-<li><p><em>L</em>iskov Sustitution Principle (LSP).</p></li>
-<li><p><em>I</em>nterface Segregation Principle (ISP).</p></li>
-<li><p><em>D</em>ependency Inversion Principle (DIP).</p></li>
+<li><p><strong>S</strong>ingle Responsibility Principle (SRP).</p></li>
+<li><p><strong>O</strong>pen/Closed Principle (OCP).</p></li>
+<li><p><strong>L</strong>iskov Sustitution Principle (LSP).</p></li>
+<li><p><strong>I</strong>nterface Segregation Principle (ISP).</p></li>
+<li><p><strong>D</strong>ependency Inversion Principle (DIP).</p></li>
 </ul></li>
 </ul>
 </section>
