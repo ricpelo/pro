@@ -929,39 +929,75 @@ y:f1 -> lista
   !NT(op) ::= !T(+) | !T(-) | !T( * ) | !T(/) | !T(%) | !T(//) | !T( ** ) | !T(&) | !T(|) | !T(^) | !T(>>) | !T(<<)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+  de manera que la sentencia:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(identificador)\  !NT(op)!T(=)\  !NT(expresión)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  equivale a:
+
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !T(identificador)\  !T(=)\  !T(identificador)\  !NT{op}\  !T{(}!NT(expresión)!T{)}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ---
 
------------------------------------------------------------
-Operador         Ejemplo             Equivalente a
----------------- ------------------- ----------------------
-!PYTHON(=)       !PYTHON(x = 5)      !PYTHON(x = 5)
+-------------------------------------------------------------------
+Operador         Ejemplo                 Equivalente a
+---------------- ----------------------- --------------------------
+!PYTHON(=)       !PYTHON(x = 5 + 2)      !PYTHON(x = 5 + 2)
                        
-!PYTHON(+=)      !PYTHON(x += 5)     !PYTHON(x = x + 5)
+!PYTHON(+=)      !PYTHON(x += 5 + 2)     !PYTHON(x = x + (5 + 2))
                        
-!PYTHON(-=)      !PYTHON(x -= 5)     !PYTHON(x = x - 5)
-                       
-!PYTHON(*=)      !PYTHON(x *= 5)     !PYTHON(x = x * 5)
-                       
-!PYTHON(/=)      !PYTHON(x /= 5)     !PYTHON(x = x / 5)
-                       
-!PYTHON(%=)      !PYTHON(x %= 5)     !PYTHON(x = x % 5)
-                       
-!PYTHON(//=)     !PYTHON(x //= 5)    !PYTHON(x = x // 5)
-                       
-!PYTHON(**=)     !PYTHON(x **= 5)    !PYTHON(x = x ** 5)
-                       
-!PYTHON(&=)      !PYTHON(x &= 5)     !PYTHON(x = x & 5)
-                       
-!PYTHON(|=)      !PYTHON(x |= 5)     !PYTHON(x = x | 5)
-                       
-!PYTHON(^=)      !PYTHON(x ^= 5)     !PYTHON(x = x ^ 5)
-                       
-!PYTHON(>>=)     !PYTHON(x >>= 5)    !PYTHON(x = x >> 5)
-                       
-!PYTHON(<<=)     !PYTHON(x <<= 5)    !PYTHON(x = x << 5)
------------------------------------------------------------
+!PYTHON(-=)      !PYTHON(x -= 5 + 2)     !PYTHON(x = x - (5 + 2))
+                                      
+!PYTHON(*=)      !PYTHON(x *= 5 + 2)     !PYTHON(x = x * (5 + 2))
+                                      
+!PYTHON(/=)      !PYTHON(x /= 5 + 2)     !PYTHON(x = x / (5 + 2))
+                                      
+!PYTHON(%=)      !PYTHON(x %= 5 + 2)     !PYTHON(x = x % (5 + 2))
+                                      
+!PYTHON(//=)     !PYTHON(x //= 5 + 2)    !PYTHON(x = x // (5 + 2))
+                                      
+!PYTHON(**=)     !PYTHON(x **= 5 + 2)    !PYTHON(x = x ** (5 + 2))
+                                      
+!PYTHON(&=)      !PYTHON(x &= 5 + 2)     !PYTHON(x = x & (5 + 2))
+                                      
+!PYTHON(|=)      !PYTHON(x |= 5 + 2)     !PYTHON(x = x | (5 + 2))
+                                      
+!PYTHON(^=)      !PYTHON(x ^= 5 + 2)     !PYTHON(x = x ^ (5 + 2))
+                                      
+!PYTHON(>>=)     !PYTHON(x >>= 5 + 2)    !PYTHON(x = x >> (5 + 2))
+                                      
+!PYTHON(<<=)     !PYTHON(x <<= 5 + 2)    !PYTHON(x = x << (5 + 2))
+-------------------------------------------------------------------
 
-<!-- -->
+---
+
+- Hay que tener en cuenta que la !NT(expresión) es como si estuviera encerrada
+  entre paréntesis en la sentencia equivalente.
+
+- Por ejemplo, la siguiente sentencia:
+
+  ```python
+  acc *= temp + x
+  ```
+
+  no es equivalente a:
+
+  ```python
+  acc = acc * temp + x
+  ```
+
+  sino que la expresión !PYTHON(temp + x) va encerrada entre paréntesis, de
+  manera que la sentencia equivalente correcta es:
+
+  ```python
+  acc = acc * (temp + x)
+  ```
 
 ## Asignación múltiple
 
