@@ -1709,33 +1709,46 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a h
 
 <ul>
 <li><p>Los hijos de un nodo están ordenados entre sí por la posición
-relativa que ocupan sus respectivas etiquetas en el documento XML, de
-forma que podemos decir «<em>el primer hijo del nodo</em>», «<em>el
-segundo hijo del nodo</em>», etcétera.</p></li>
-<li><p>Es decir, que si dos etiquetas <code>&lt;A&gt;</code> y
-<code>&lt;B&gt;</code> son las únicas etiquetas que aparecen
-directamente dentro de la etiqueta <code>&lt;R&gt;</code> en el
-documento XML, y <code>&lt;A&gt;</code> aparece antes que
-<code>&lt;B&gt;</code> en el documento XML, entonces el nodo de
-<code>A</code> será el primer hijo de <code>R</code> en el árbol (ocupa
-la posición <code>0</code>), y el nodo de <code>B</code> será el segundo
-hijo (ocupa la posición <code>1</code>).</p></li>
-<li><p>Esa posición representa el <strong>índice</strong> del nodo
-dentro de la secuencia de nodos hijos que tiene su nodo padre.</p></li>
+relativa que ocupan sus respectivas etiquetas en el documento XML, así
+que podemos decir «<em>el primer hijo del nodo</em>», «<em>el segundo
+hijo del nodo</em>», etc.</p></li>
+<li><p>Por ejemplo, supongamos que en un documento XML:</p>
+<ul>
+<li><p>Hay una etiqueta <code>&lt;R&gt;</code>.</p></li>
+<li><p>Hay dos etiquetas llamadas <code>&lt;A&gt;</code> y
+<code>&lt;B&gt;</code>, y son las únicas etiquetas que aparecen
+directamente dentro de la etiqueta <code>&lt;R&gt;</code>.</p></li>
+<li><p>La etiqueta <code>&lt;A&gt;</code> aparece antes que la
+<code>&lt;B&gt;</code> en el documento XML.</p></li>
+</ul>
+<p>En ese caso:</p>
+<ul>
+<li><p>El nodo de <code>A</code> será el primer hijo de <code>R</code>
+en el árbol (ocupa la <em>posición</em> <code
+class="sourceCode python"><span class="dv">0</span></code>).</p></li>
+<li><p>El nodo de <code>B</code> será el segundo hijo de <code>R</code>
+en el árbol (ocupa la <em>posición</em> <code
+class="sourceCode python"><span class="dv">1</span></code>).</p></li>
+</ul></li>
+<li><p>Esa <em>posición</em> representa el <strong>índice</strong> del
+nodo dentro de la secuencia de nodos hijos que tiene su nodo
+padre.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.5">
 
 <ul>
 <li><p>Podemos acceder a nodos concretos a través de su índice usando
-<strong>indexación</strong>, por lo que podemos afirmar que los objetos
-<code>Element</code> son <strong>indexables</strong>:</p>
+<strong>indexación</strong> desde su nodo padre, por lo que podemos
+afirmar que los objetos <code>Element</code> son
+<strong>indexables</strong>:</p>
 <div class="sourceCode" id="cb41"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>]       <span class="co"># el primer hijo directo de raiz</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">1</span>]       <span class="co"># el segundo hijo directo de raiz</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f16266d0310</span><span class="op">&gt;</span></span></code></pre></div></li>
-<li><p>Además, los hijos están anidados:</p>
+<li><p>Además, los nodos están anidados, por lo que podemos hacer
+esto:</p>
 <div class="sourceCode" id="cb42"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> raiz[<span class="dv">0</span>]       <span class="co"># el primer hijo directo de raiz</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Element <span class="st">&#39;alumno&#39;</span> at <span class="bn">0x7f929c29cf90</span><span class="op">&gt;</span></span>
@@ -1749,8 +1762,8 @@ saber cuántos hijos tiene un nodo:</p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(raiz)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div></li>
-<li><p>Con todo lo dicho anteriormente, podemos concluir que los nodos
-de un árbol son <strong>secuencias</strong>.</p></li>
+<li><p>Con todo lo dicho anteriormente, podemos concluir que <strong>los
+nodos de un árbol son <em>secuencias</em></strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.6">
@@ -1763,7 +1776,7 @@ sucesivamente).</p></li>
 <li><p>Por ejemplo, el método <code>iter</code> devuelve un
 <strong>iterador</strong> que recorre todos los nodos del árbol desde el
 nodo actual (el nodo sobre el que se invoca al método) en un orden
-<em>primero en profundidad</em>.</p></li>
+<strong><em>primero en profundidad</em></strong>.</p></li>
 <li><p>Eso quiere decir que va visitando los nodos en el mismo orden en
 el que se encuentran escritos en el documento XML, incluyendo el propio
 nodo sobre el que se invoca.</p></li>
@@ -1772,7 +1785,7 @@ nodo sobre el que se invoca.</p></li>
 <section class="slide level5" data-number="3.2.0.0.7">
 
 <div class="columns">
-<div class="column">
+<div class="column" style="width:46%;">
 <ul>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb44"><pre
@@ -1797,7 +1810,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a h
 <span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>madre</span>
 <span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>dni</span></code></pre></div></li>
 </ul>
-</div><div class="column">
+</div><div class="column" style="width:54%;">
 <ul>
 <li><p>Si se le pasa una etiqueta como argumento, devolverá únicamente
 los nodos que tengan esa etiqueta:</p>
@@ -1818,12 +1831,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a h
 <li><p>El método <code>findall</code> devuelve una lista con los nodos
 que tengan una cierta etiqueta y que sean hijos directos del nodo sobre
 el que se invoca.</p>
-<p>Puede devolver una lista vacía si no hay nodos que cumplan la
+<p>Devuelve una lista vacía si no hay nodos que cumplan la
 condición.</p></li>
 <li><p>El método <code>find</code> devuelve el primer hijo directo del
 nodo sobre el que se invoca, siempre que tenga una cierta etiqueta
 indicada como argumento.</p>
-<p>Puede devolver <code
+<p>Devuelve <code
 class="sourceCode python"><span class="va">None</span></code> si el nodo
 no tiene ningún hijo con esa etiqueta.</p></li>
 <li><p>El método <code>get</code> devuelve el valor de algún atributo de

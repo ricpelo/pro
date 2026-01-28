@@ -1115,23 +1115,34 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 ---
 
 - Los hijos de un nodo están ordenados entre sí por la posición relativa que
-  ocupan sus respectivas etiquetas en el documento XML, de forma que podemos
-  decir «_el primer hijo del nodo_», «_el segundo hijo del nodo_», etcétera.
+  ocupan sus respectivas etiquetas en el documento XML, así que podemos
+  decir «_el primer hijo del nodo_», «_el segundo hijo del nodo_», etc.
 
-- Es decir, que si dos etiquetas `<A>` y `<B>` son las únicas etiquetas que
-  aparecen directamente dentro de la etiqueta `<R>` en el documento XML, y
-  `<A>` aparece antes que `<B>` en el documento XML, entonces el nodo de `A`
-  será el primer hijo de `R` en el árbol (ocupa la posición `0`), y el nodo de
-  `B` será el segundo hijo (ocupa la posición `1`).
+- Por ejemplo, supongamos que en un documento XML:
 
-- Esa posición representa el **índice** del nodo dentro de la secuencia de
+  - Hay una etiqueta `<R>`.
+
+  - Hay dos etiquetas llamadas `<A>` y `<B>`, y son las únicas etiquetas que
+    aparecen directamente dentro de la etiqueta `<R>`.
+
+  - La etiqueta `<A>` aparece antes que la `<B>` en el documento XML.
+
+  En ese caso:
+
+  - El nodo de `A` será el primer hijo de `R` en el árbol (ocupa la _posición_
+    !PYTHON(0)).
+
+  - El nodo de `B` será el segundo hijo de `R` en el árbol (ocupa la _posición_
+    !PYTHON(1)).
+
+- Esa _posición_ representa el **índice** del nodo dentro de la secuencia de
   nodos hijos que tiene su nodo padre.
 
 ---
 
 - Podemos acceder a nodos concretos a través de su índice usando
-  **indexación**, por lo que podemos afirmar que los objetos `Element` son
-  **indexables**:
+  **indexación** desde su nodo padre, por lo que podemos afirmar que los
+  objetos `Element` son **indexables**:
 
   ```python
   >>> raiz[0]       # el primer hijo directo de raiz
@@ -1140,7 +1151,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   <Element 'alumno' at 0x7f16266d0310>
   ```
 
-- Además, los hijos están anidados:
+- Además, los nodos están anidados, por lo que podemos hacer esto:
 
   ```python
   >>> raiz[0]       # el primer hijo directo de raiz
@@ -1157,8 +1168,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   3
   ```
 
-- Con todo lo dicho anteriormente, podemos concluir que los nodos de un árbol
-  son **secuencias**.
+- Con todo lo dicho anteriormente, podemos concluir que **los nodos de un árbol
+  son _secuencias_**.
 
 ---
 
@@ -1168,7 +1179,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 - Por ejemplo, el método `iter` devuelve un **iterador** que recorre todos los
   nodos del árbol desde el nodo actual (el nodo sobre el que se invoca al
-  método) en un orden _primero en profundidad_.
+  método) en un orden **_primero en profundidad_**.
 
 - Eso quiere decir que va visitando los nodos en el mismo orden en el que se
   encuentran escritos en el documento XML, incluyendo el propio nodo sobre el
@@ -1178,7 +1189,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 :::: columns
 
-::: column
+::: {.column width=46%}
 
 - Por ejemplo:
 
@@ -1207,7 +1218,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 :::
 
-::: column
+::: {.column width=54%}
 
 - Si se le pasa una etiqueta como argumento, devolverá únicamente los nodos que
   tengan esa etiqueta:
@@ -1230,13 +1241,12 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 - El método `findall` devuelve una lista con los nodos que tengan una cierta
   etiqueta y que sean hijos directos del nodo sobre el que se invoca.
 
-  Puede devolver una lista vacía si no hay nodos que cumplan la condición.
+  Devuelve una lista vacía si no hay nodos que cumplan la condición.
 
 - El método `find` devuelve el primer hijo directo del nodo sobre el que se
   invoca, siempre que tenga una cierta etiqueta indicada como argumento.
 
-  Puede devolver !PYTHON(None) si el nodo no tiene ningún hijo con esa
-  etiqueta.
+  Devuelve !PYTHON(None) si el nodo no tiene ningún hijo con esa etiqueta.
 
 - El método `get` devuelve el valor de algún atributo de la etiqueta asociada a
   ese nodo:
