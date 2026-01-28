@@ -653,8 +653,10 @@ Se dice:
   concreto a la hora de evaluar las expresiones.
 
 - En Python, el orden de evaluación es de izquierda a derecha (salvo
-  excepciones) y los operandos se evalúan antes que las operaciones:
+  excepciones) y para evaluar una operación se deben evaluar antes los datos
+  sobre los que opera.
 
+  !JUNTA
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Orden de evaluación de las expresiones:**
@@ -662,8 +664,8 @@ Se dice:
   - En general, al evaluar una expresión, las subexpresiones que la forman se
     evaluarán **de izquierda a derecha**.
 
-  - Para poder evaluar una operación, previamente hay que evaluar totalmente
-    todos sus operandos.
+  - Para poder evaluar una operación, primero hay que evaluar totalmente todos
+    los datos sobre los que opera.
 
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
