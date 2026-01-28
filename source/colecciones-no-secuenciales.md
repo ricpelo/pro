@@ -1114,8 +1114,33 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 ---
 
-- Los hijos están anidados, y podemos acceder a nodos concretos a través de su
-  índice (es decir, que los objetos `Element` son **indexables**):
+- Los hijos de un nodo están ordenados entre sí por la posición relativa que
+  ocupan sus respectivas etiquetas en el documento XML, de forma que podemos
+  decir «_el primer hijo del nodo_», «_el segundo hijo del nodo_», etcétera.
+
+- Es decir, que si dos etiquetas `<A>` y `<B>` son las únicas etiquetas que
+  aparecen directamente dentro de la etiqueta `<R>` en el documento XML, y
+  `<A>` aparece antes que `<B>` en el documento XML, entonces el nodo de `A`
+  será el primer hijo de `R` en el árbol (ocupa la posición `0`), y el nodo de
+  `B` será el segundo hijo (ocupa la posición `1`).
+
+- Esa posición representa el **índice** del nodo dentro de la secuencia de
+  nodos hijos que tiene su nodo padre.
+
+---
+
+- Podemos acceder a nodos concretos a través de su índice usando
+  **indexación**, por lo que podemos afirmar que los objetos `Element` son
+  **indexables**:
+
+  ```python
+  >>> raiz[0]       # el primer hijo directo de raiz
+  <Element 'alumno' at 0x7f929c29cf90>
+  >>> raiz[1]       # el segundo hijo directo de raiz
+  <Element 'alumno' at 0x7f16266d0310>
+  ```
+
+- Además, los hijos están anidados:
 
   ```python
   >>> raiz[0]       # el primer hijo directo de raiz
@@ -1125,6 +1150,15 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   >>> raiz[0][2].text
   '666555444'
   ```
+- Con la función !PYTHON(len) podemos saber cuántos hijos tiene un nodo:
+
+  ```python
+  >>> len(raiz)
+  3
+  ```
+
+- Con todo lo dicho anteriormente, podemos concluir que los nodos de un árbol
+  son **secuencias**.
 
 ---
 
