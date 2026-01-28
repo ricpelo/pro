@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -217,10 +219,13 @@ expresión.</p></li>
 pedirle al intérprete que <em>ejecute</em> una determinada
 <em>acción</em>.</p></li>
 </ul></li>
+<li><p>Son conceptos distintos pero combinables:</p>
+<ul>
 <li><p>Las sentencias pueden contener expresiones.</p></li>
 <li><p>En muchos lenguajes de programación, una expresión por sí sola
 también es una sentencia válida, ya que expresan la orden de calcular el
 valor de la expresión.</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
@@ -517,7 +522,7 @@ genérico.</p></li>
 </ul></li>
 <li><p><strong>Todo <em>valor</em> pertenece a un
 <em>tipo</em></strong>. <!-- (y, a veces, a más de
-  uno) --></p></li>
+uno) --></p></li>
 <li><p>Como cada tipo es un conjunto de valores, decimos que «<em>un
 valor pertenece a un tipo</em>» cuando pertenece a ese conjunto (o sea,
 cuando es uno de los elementos de ese conjunto).</p>
@@ -915,12 +920,17 @@ debería influir en el resultado de evaluar una expresión, así que
 debería dar igual elegir una u otra subexpresión.</p></li>
 <li><p>De todas formas, los lenguajes de programación suelen imponer un
 orden concreto a la hora de evaluar las expresiones.</p></li>
-<li><p>Tanto en Python como en Java (los dos lenguajes que veremos), el
-orden de evaluación es de izquierda a derecha (salvo excepciones):</p>
+<li><p>En Python, el orden de evaluación es de izquierda a derecha
+(salvo excepciones) y los operandos se evalúan antes que las
+operaciones:</p>
 <div class="caja">
 <p><strong>Orden de evaluación de las expresiones:</strong></p>
-<p>Al evaluar una expresión, las subexpresiones que la forman siempre se
-evaluarán <strong>de izquierda a derecha</strong>.</p>
+<ul>
+<li><p>En general, al evaluar una expresión, las subexpresiones que la
+forman se evaluarán <strong>de izquierda a derecha</strong>.</p></li>
+<li><p>Para poder evaluar una operación, previamente hay que evaluar
+totalmente todos sus operandos.</p></li>
+</ul>
 </div></li>
 <li><p>El orden de evaluación de las subexpresiones es un asunto más
 complejo de lo que parece, y lo estudiaremos en profundidad en
@@ -937,18 +947,17 @@ alt="Evaluación de una expresión" />
 </figure>
 </div>
 </section>
-<section id="ejemplos" class="slide level5 unnumbered unlisted">
-<h5 class="unnumbered unlisted">Ejemplos</h5>
-<ul>
-<li><p>Evaluar la expresión <code
-class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)</code>:</p>
+<section id="ejemplo-evaluar-la-expresión-2-3"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo: Evaluar la expresión <code
+class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)</code></h5>
 <ul>
 <li><p>La expresión está formada por un operador <code>+</code> que
 actúa sobre las dos subexpresiones <code
 class="sourceCode python"><span class="dv">2</span></code> y <code
-class="sourceCode python"><span class="dv">3</span></code>. Por tanto,
-habrá que evaluar primero esas dos subexpresiones, siempre de izquierda
-a derecha:</p>
+class="sourceCode python"><span class="dv">3</span></code>.</p></li>
+<li><p>Por tanto, habrá que evaluar primero esas dos subexpresiones, de
+izquierda a derecha, para poder evaluar la operación de suma:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)             <span class="co"># se evalúa primero 2 (que devuelve 2)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>)           <span class="co"># luego se evalúa 3 (que devuelve 3)</span></span>
@@ -956,7 +965,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">5</span></span></code></pre></div>
 <p>El <code>+</code> por sí solo no se evalúa, ya que no es una
 expresión válida.</p></li>
-</ul></li>
 <li><p>Por tanto, la expresión <code
 class="sourceCode python"><span class="dv">5</span></code> es la
 <em>forma normal</em> de la expresión <code
@@ -970,30 +978,33 @@ class="sourceCode python"><span class="dv">5</span></code> es la
 representa a ese valor).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.3">
-
-<ul>
-<li><p>Evaluar la expresión <code
-class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))</code>:</p>
+<section id="ejemplo-evaluar-la-expresión-2-3-5"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo: Evaluar la expresión <code
+class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))</code></h5>
 <ul>
 <li><p>La expresión está formada por un operador <code>+</code> que
 actúa sobre las dos subexpresiones <code
 class="sourceCode python"><span class="dv">2</span></code> y <code
-class="sourceCode python">(<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>)</code>.</p></li>
-<li><p>La segunda subexpresión, a su vez, está formada por un operador
+class="sourceCode python">(<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>)</code>,
+las cuales habrá que evaluar previamente antes de poder evaluar la
+operación de suma.</p></li>
+<li><p>A su vez, la segunda subexpresión está formada por un operador
 <code>*</code> que actúa sobre las dos subexpresiones <code
 class="sourceCode python"><span class="dv">3</span></code> y <code
-class="sourceCode python"><span class="dv">5</span></code>.</p></li>
-<li><p>Todas las subexpresiones se evalúan siempre de izquierda a
-derecha, a medida que se van reduciendo:</p>
+class="sourceCode python"><span class="dv">5</span></code>, las cuales
+habrá que evaluar antes de poder evaluar la operación de
+multiplicación.</p></li>
+<li><p>Todas las subexpresiones se evalúan de izquierda a derecha, a
+medida que se van reduciendo:</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))       <span class="co"># se evalúa primero 2 (que devuelve 2)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))     <span class="co"># se evalúa 3 (que devuelve 3)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))     <span class="co"># se evalúa 5 (que devuelve 5)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))     <span class="co"># se evalúa (3 * 5) (que devuelve 15)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">15</span>)          <span class="co"># se evalúa (2 + 15) (que devuelve 17)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
-</ul></li>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># para evaluar la suma, primero hay que evaluar (3 * 5)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))     <span class="co"># se evalúa 3 (que devuelve 3)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))     <span class="co"># se evalúa 5 (que devuelve 5)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> (<span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span>))     <span class="co"># se evalúa (3 * 5) (que devuelve 15)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> <span class="dv">15</span>)          <span class="co"># se evalúa (2 + 15) (que devuelve 17)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">17</span></span></code></pre></div></li>
 <li><p>Por tanto, la expresión <code
 class="sourceCode python"><span class="dv">17</span></code> es la
 <em>forma normal</em> de la expresión <code
@@ -1004,23 +1015,24 @@ class="sourceCode python"><span class="dv">17</span></code> es la
 <em>expresión canónica</em> de ese valor.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.4">
-
-<ul>
-<li><p>Evaluar la expresión <code
-class="sourceCode python">((<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">3</span>)</code>:</p>
+<section id="ejemplo-evaluar-la-expresión-2-5-3"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Ejemplo: Evaluar la expresión <code
+class="sourceCode python">((<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">3</span>)</code></h5>
 <ul>
 <li><p>La expresión está formada por un operador <code>*</code> que
 actúa sobre las dos subexpresiones <code
 class="sourceCode python">(<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>)</code>
-y <code
-class="sourceCode python"><span class="dv">3</span></code>.</p></li>
-<li><p>La primera subexpresión, a su vez, está formada por un operador
+y <code class="sourceCode python"><span class="dv">3</span></code>, las
+cuales habrá que evaluar previamente antes de poder evaluar la operación
+de multiplicación.</p></li>
+<li><p>A su vez, la primera subexpresión, está formada por un operador
 <code>+</code> que actúa sobre las dos subexpresiones <code
 class="sourceCode python"><span class="dv">2</span></code> y <code
-class="sourceCode python"><span class="dv">5</span></code>.</p></li>
-<li><p>Todas las subexpresiones se evalúan siempre de izquierda a
-derecha, a medida que se van reduciendo:</p>
+class="sourceCode python"><span class="dv">5</span></code>, las cuales
+habrá que evaluar antes de poder evaluar la operación de suma.</p></li>
+<li><p>Todas las subexpresiones se evalúan de izquierda a derecha, a
+medida que se van reduciendo:</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">3</span>)       <span class="co"># se evalúa primero 2 (que devuelve 2)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> ((<span class="dv">2</span> <span class="op">+</span> <span class="dv">5</span>) <span class="op">*</span> <span class="dv">3</span>)     <span class="co"># se evalúa 5 (que devuelve 5)</span></span>
@@ -1028,7 +1040,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">3</span>)           <span class="co"># se evalúa 3 (que devuelve 3)</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> (<span class="dv">7</span> <span class="op">*</span> <span class="dv">3</span>)           <span class="co"># se evalúa (7 * 3) (que devuelve 21)</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">=</span> <span class="dv">21</span></span></code></pre></div></li>
-</ul></li>
 <li><p>Por tanto, la expresión <code
 class="sourceCode python"><span class="dv">21</span></code> es la
 <em>forma normal</em> de la expresión <code
@@ -1039,7 +1050,7 @@ class="sourceCode python"><span class="dv">21</span></code> es la
 <em>expresión canónica</em> de ese valor.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="2.4.0.0.5">
+<section class="slide level5" data-number="2.4.0.0.3">
 
 <ul>
 <li><p>De ahora en adelante, para simplificar las explicaciones,
@@ -1418,19 +1429,6 @@ class="math inline">\mathbb{R}</span> (su conjunto imagen), lo que se
 puede representar así: <span class="math display">suma:
 \mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}</span></p></li>
 </ul>
-<!--
-
-- Esa operación puede tener forma de operador (el símbolo $+$) o de función:
-
-  ::: centered
-    $3 + 4$ devuelve $7$
-  :::
-
-  ::: centered
-    $suma(3, 4)$ devuelve $7$
-  :::
-
--->
 </section>
 <section class="slide level5" data-number="3.1.0.0.6">
 
@@ -1454,6 +1452,57 @@ nuestros programas y nuestros lenguajes de programación.</p></li>
 <li><p>Esa notación, llamada <em>signatura</em>, la estudiaremos en
 breve.</p></li>
 </ul>
+<!--
+
+## Evaluación de operaciones
+
+- Una operación puede tener forma de operador, de función o de método.
+
+- Por ejemplo, si tenemos el operador `+` o la función `suma`, la operación que
+  suma el número tres con el número cuatro se puede representar de estas dos
+  formas:
+
+  - `(3 + 4)`{.python}
+
+  - `suma(3, 4)`{.python}
+
+- Al evaluar cualquiera de esas dos expresiones, se obtiene el valor `7`.
+
+---
+
+- Para evaluar la aplicación de una operación, previamente hay que evaluar los
+  datos sobre los que actúa.
+
+- Por ejemplo, para evaluar la operación de suma representada por el operador
+  `+` en la expresión `(2 + (3 * 5))`{.python}, primero hay que evaluar las
+  expresiones que representan a los datos sobre los que actúa, que son:
+
+  - la subexpresión `2`{.python}, que ya está evaluada, y
+
+  - la subexpresión `(3 * 5)`{.python}, que todavía no está evaluada.
+
+  Por tanto, primero se debe evaluar `(3 * 5)`{.python} antes de evaluar la
+  expresión `(2 + (3 * 5))`{.python}.
+
+---
+
+- Igualmente, para evaluar una operación con forma de función (lo que se
+  denomina _aplicación de la función_ o _llamada a la función_), también se
+  deben evaluar previamente todos los datos sobre los que actúa.
+
+- Por ejemplo, para evaluar la operación de suma representada por la función
+  `suma` en la expresión `suma(2, (3 * 5))`{.python}, primero hay que
+  evaluar todas las expresiones que representan a los datos sobre los que
+  actúa, que son:
+
+  - la subexpresión `2`{.python}, que ya está evaluada,
+
+  - la subexpresión `(3 * 5)`{.python}, que todavía no está evaluada.
+
+  Por tanto, primero se debe evaluar `(3 * 5)`{.python} antes de evaluar la
+  expresión `suma(2, (3 * 5))`{.python}.
+
+-->
 </section>
 
 <section id="operadores" class="title-slide slide level2"
@@ -1501,6 +1550,10 @@ operador <code>+</code>: <span class="math display">\_\texttt{+}\_:
 \mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}</span></p></li>
 <li><p>Eso significa que el operador <code>+</code> acepta dos operandos
 (dos números reales) y devuelve un número real.</p></li>
+<li><p>Para poder evaluar una expresión en la que aparece un operador,
+se deben evaluar previamente todos sus operandos, ya que el operador
+actúa sobre valores, es decir, sobre expresiones ya evaluadas y, por
+tanto, en forma normal.</p></li>
 </ul>
 </section>
 <section id="aridad-de-operadores" class="title-slide slide level3"
@@ -2055,6 +2108,10 @@ operación.</p></li>
 <li><p>A la aplicación de una función a unos argumentos también se la
 denomina <strong>invocación</strong> de la función o
 <strong>llamada</strong> a la función.</p></li>
+<li><p>Para poder evaluar una expresión en la que aparece una llamada a
+función, se deben evaluar previamente todos sus argumentos, ya que la
+función actúa sobre valores, es decir, sobre expresiones ya evaluadas y,
+por tanto, en forma normal.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.5">
@@ -2335,6 +2392,13 @@ se realiza <strong>sustituyendo (<em>reduciendo</em>) cada llamada a
 función por su valor correspondiente</strong>, es decir, por el valor
 que dicha función <em>devuelve</em> dependiendo de sus argumentos
 (<strong>su <em>resultado</em></strong>).</p></li>
+<li><p>Recordemos que para poder evaluar una llamada a función, se deben
+evaluar previamente todos sus argumentos.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.1.0.1">
+
+<ul>
 <li><p>Por ejemplo, en la siguiente expresión se combinan varias
 funciones y operadores:</p>
 <p><code
@@ -2349,11 +2413,6 @@ argumentos <code
 class="sourceCode python"><span class="dv">13</span></code> y <code
 class="sourceCode python"><span class="dv">28</span></code>, y
 finalmente se suman los dos valores obtenidos.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.3.1.0.1">
-
-<ul>
 <li><p>¿Cómo se calcula el valor de toda la expresión anterior?</p></li>
 <li><p>En la expresión <code
 class="sourceCode python"><span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>) <span class="op">+</span> <span class="bu">max</span>(<span class="dv">13</span>, <span class="dv">28</span>)</code>
@@ -2758,25 +2817,25 @@ target="_blank">https://docs.python.org/3/library/stdtypes.html#string-methods</
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
 Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
-<em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
-Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
+<em>Structure and Interpretation of Computer Programs</em>. 2nd ed. MIT
+Press ; McGraw-Hill.
 </div>
 <div id="ref-blanco_calculo_2009" class="csl-entry" role="listitem">
 Blanco, Javier, Silvina Smith, and Damián Barsotti. 2009. <em>Cálculo de
-Programas</em>. Córdoba, Argentina: Universidad Nacional de Córdoba.
+Programas</em>. Universidad Nacional de Córdoba.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 <div id="ref-van-roy_concepts_2004" class="csl-entry" role="listitem">
 Van-Roy, Peter, and Seif Haridi. 2004. <em>Concepts, Techniques, and
-Models of Computer Programming</em>. Cambridge, Mass: MIT Press.
+Models of Computer Programming</em>. MIT Press.
 </div>
 </div>
 </section>

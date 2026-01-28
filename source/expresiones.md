@@ -22,11 +22,13 @@ nocite: |
   - **Sentencias**: son *órdenes* que sirven para pedirle al intérprete que
     *ejecute* una determinada *acción*.
 
-- Las sentencias pueden contener expresiones.
+- Son conceptos distintos pero combinables:
 
-- En muchos lenguajes de programación, una expresión por sí sola también es una
-  sentencia válida, ya que expresan la orden de calcular el valor de la
-  expresión.
+  - Las sentencias pueden contener expresiones.
+
+  - En muchos lenguajes de programación, una expresión por sí sola también es
+    una sentencia válida, ya que expresan la orden de calcular el valor de la
+    expresión.
 
 ---
 
@@ -371,18 +373,20 @@ Es **el tipo del valor** resultante de **evaluar** dicha expresión.
 
 !DOT(datos-informacion-tipos-valores.svg)(Relación entre información, datos, valores, tipos y operaciones)(width=100%)(width=100%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-rankdir = LR;
+ranksep = 0
+edge [fontsize = 14]
+node [fontsize = 16]
 I [label = "Información"];
 D [label = "Datos"]
 V [label = "Valores"];
 T [label = "Tipo"];
 O [label = "Operaciones"];
-D -> I [label = "\n\nCuando lo interpreta\nun ser humano, se obtiene"]
-I -> D [label = "Se codifica en forma de\n"]
-D -> V [label = "Poseen"]
-V -> T [label = "Pertenecen a un\n"]
-T -> V [label = "\n\nDetermina un conjunto de"]
-T -> O [label = "Determina un conjunto de"]
+D:n -> I:n [label = "Cuando los interpreta\nun ser humano,\nse obtiene", minlen = 1.0]
+I:s -> D:s [label = "Se codifica\nen forma de", minlen = 1.0]
+D:e -> V:w [label = "Poseen", minlen = 2]
+V:n -> T:n [label = "Pertenecen a un"]
+T:s -> V:s [label = "Determina\nun conjunto de"]
+T -> O [label = "Determina\nun conjunto de", minlen = 2]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJEMPLO
@@ -644,15 +648,19 @@ Se dice:
 - De todas formas, los lenguajes de programación suelen imponer un orden
   concreto a la hora de evaluar las expresiones.
 
-- Tanto en Python como en Java (los dos lenguajes que veremos), el orden de
-  evaluación es de izquierda a derecha (salvo excepciones):
+- En Python, el orden de evaluación es de izquierda a derecha (salvo
+  excepciones) y los operandos se evalúan antes que las operaciones:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Orden de evaluación de las expresiones:**
 
-  Al evaluar una expresión, las subexpresiones que la forman siempre se
-  evaluarán **de izquierda a derecha**.
+  - En general, al evaluar una expresión, las subexpresiones que la forman se
+    evaluarán **de izquierda a derecha**.
+
+  - Para poder evaluar una operación, previamente hay que evaluar totalmente
+    todos sus operandos.
+
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El orden de evaluación de las subexpresiones es un asunto más complejo de lo
@@ -669,13 +677,13 @@ endwhile (no)
 :forma normal;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!EJEMPLOS
-
-- Evaluar la expresión !PYTHON((2 + 3)):
+!UNUN(Ejemplo: Evaluar la expresión !PYTHON((2 + 3)))
 
   - La expresión está formada por un operador `+` que actúa sobre las dos
-    subexpresiones !PYTHON(2) y !PYTHON(3). Por tanto, habrá que evaluar
-    primero esas dos subexpresiones, siempre de izquierda a derecha:
+    subexpresiones !PYTHON(2) y !PYTHON(3).
+
+  - Por tanto, habrá que evaluar primero esas dos subexpresiones, de izquierda
+    a derecha, para poder evaluar la operación de suma:
 
     ```python
     (2 + 3)             # se evalúa primero 2 (que devuelve 2)
@@ -694,27 +702,28 @@ endwhile (no)
   **cinco**, de **tipo _entero_** (es la expresión que mejor representa a ese
   valor).
 
----
+!UNUN(Ejemplo: Evaluar la expresión !PYTHON((2 + (3 * 5))))
 
-- Evaluar la expresión !PYTHON((2 + (3 * 5))):
+- La expresión está formada por un operador `+` que actúa sobre las dos
+  subexpresiones !PYTHON(2) y !PYTHON((3 * 5)), las cuales habrá que evaluar
+  previamente antes de poder evaluar la operación de suma.
 
-  - La expresión está formada por un operador `+` que actúa sobre las dos
-    subexpresiones !PYTHON(2) y !PYTHON((3 * 5)).
+- A su vez, la segunda subexpresión está formada por un operador `*` que actúa
+  sobre las dos subexpresiones !PYTHON(3) y !PYTHON(5), las cuales habrá que
+  evaluar antes de poder evaluar la operación de multiplicación.
 
-  - La segunda subexpresión, a su vez, está formada por un operador `*` que
-    actúa sobre las dos subexpresiones !PYTHON(3) y !PYTHON(5).
+- Todas las subexpresiones se evalúan de izquierda a derecha, a medida que se
+  van reduciendo:
 
-  - Todas las subexpresiones se evalúan siempre de izquierda a derecha, a
-    medida que se van reduciendo:
-
-    ```python
-    (2 + (3 * 5))       # se evalúa primero 2 (que devuelve 2)
-    = (2 + (3 * 5))     # se evalúa 3 (que devuelve 3)
-    = (2 + (3 * 5))     # se evalúa 5 (que devuelve 5)
-    = (2 + (3 * 5))     # se evalúa (3 * 5) (que devuelve 15)
-    = (2 + 15)          # se evalúa (2 + 15) (que devuelve 17)
-    = 17
-    ```
+  ```python
+  (2 + (3 * 5))       # se evalúa primero 2 (que devuelve 2)
+                      # para evaluar la suma, primero hay que evaluar (3 * 5)
+  = (2 + (3 * 5))     # se evalúa 3 (que devuelve 3)
+  = (2 + (3 * 5))     # se evalúa 5 (que devuelve 5)
+  = (2 + (3 * 5))     # se evalúa (3 * 5) (que devuelve 15)
+  = (2 + 15)          # se evalúa (2 + 15) (que devuelve 17)
+  = 17
+  ```
 
 - Por tanto, la expresión !PYTHON(17) es la _forma normal_ de la expresión
   !PYTHON((2 + (3 * 5))). Ambas representan al valor **diecisiete**, que es
@@ -723,25 +732,27 @@ endwhile (no)
 
 ---
 
-- Evaluar la expresión !PYTHON(((2 + 5) * 3)):
+!UNUN(Ejemplo: Evaluar la expresión !PYTHON(((2 + 5) * 3)))
 
-  - La expresión está formada por un operador `*` que actúa sobre las dos
-    subexpresiones !PYTHON((2 + 5)) y !PYTHON(3).
+- La expresión está formada por un operador `*` que actúa sobre las dos
+  subexpresiones !PYTHON((2 + 5)) y !PYTHON(3), las cuales habrá que evaluar
+  previamente antes de poder evaluar la operación de multiplicación.
 
-  - La primera subexpresión, a su vez, está formada por un operador `+` que
-    actúa sobre las dos subexpresiones !PYTHON(2) y !PYTHON(5).
+- A su vez, la primera subexpresión, está formada por un operador `+` que actúa
+  sobre las dos subexpresiones !PYTHON(2) y !PYTHON(5), las cuales habrá que
+  evaluar antes de poder evaluar la operación de suma.
 
-  - Todas las subexpresiones se evalúan siempre de izquierda a derecha, a
-    medida que se van reduciendo:
+- Todas las subexpresiones se evalúan de izquierda a derecha, a medida que se
+  van reduciendo:
 
-    ```python
-    ((2 + 5) * 3)       # se evalúa primero 2 (que devuelve 2)
-    = ((2 + 5) * 3)     # se evalúa 5 (que devuelve 5)
-    = ((2 + 5) * 3)     # se evalúa (2 + 5) (que devuelve 7)
-    = (7 * 3)           # se evalúa 3 (que devuelve 3)
-    = (7 * 3)           # se evalúa (7 * 3) (que devuelve 21)
-    = 21
-    ```
+  ```python
+  ((2 + 5) * 3)       # se evalúa primero 2 (que devuelve 2)
+  = ((2 + 5) * 3)     # se evalúa 5 (que devuelve 5)
+  = ((2 + 5) * 3)     # se evalúa (2 + 5) (que devuelve 7)
+  = (7 * 3)           # se evalúa 3 (que devuelve 3)
+  = (7 * 3)           # se evalúa (7 * 3) (que devuelve 21)
+  = 21
+  ```
 
 - Por tanto, la expresión !PYTHON(21) es la _forma normal_ de la expresión
   !PYTHON(((2 + 5) * 3)). Ambas representan al valor **veintiuno**, que es un
@@ -1029,22 +1040,6 @@ $$
   $\mathbb{R}$ (su conjunto imagen), lo que se puede representar así: $$suma:
   \mathbb{R} \times \mathbb{R} \longrightarrow \mathbb{R}$$
 
-<!--
-
-- Esa operación puede tener forma de operador (el símbolo $+$) o de función:
-
-  !CENTRAR
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  $3 + 4$ devuelve $7$
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  !CENTRAR
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  $suma(3, 4)$ devuelve $7$
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
--->
-
 ---
 
 - En Programación, las operaciones no se definen sobre conjuntos, sino sobre
@@ -1066,6 +1061,58 @@ $$
   nuestros lenguajes de programación.
 
 - Esa notación, llamada _signatura_, la estudiaremos en breve.
+
+<!--
+
+## Evaluación de operaciones
+
+- Una operación puede tener forma de operador, de función o de método.
+
+- Por ejemplo, si tenemos el operador `+` o la función `suma`, la operación que
+  suma el número tres con el número cuatro se puede representar de estas dos
+  formas:
+
+  - !PYTHON((3 + 4))
+
+  - !PYTHON(suma(3, 4))
+
+- Al evaluar cualquiera de esas dos expresiones, se obtiene el valor `7`.
+
+---
+
+- Para evaluar la aplicación de una operación, previamente hay que evaluar los
+  datos sobre los que actúa.
+
+- Por ejemplo, para evaluar la operación de suma representada por el operador
+  `+` en la expresión !PYTHON((2 + (3 * 5))), primero hay que evaluar las
+  expresiones que representan a los datos sobre los que actúa, que son:
+
+  - la subexpresión !PYTHON{2}, que ya está evaluada, y
+
+  - la subexpresión !PYTHON((3 * 5)), que todavía no está evaluada.
+
+  Por tanto, primero se debe evaluar !PYTHON((3 * 5)) antes de evaluar la
+  expresión !PYTHON((2 + (3 * 5))).
+
+---
+
+- Igualmente, para evaluar una operación con forma de función (lo que se
+  denomina _aplicación de la función_ o _llamada a la función_), también se
+  deben evaluar previamente todos los datos sobre los que actúa.
+
+- Por ejemplo, para evaluar la operación de suma representada por la función
+  `suma` en la expresión !PYTHON(suma(2, (3 * 5))), primero hay que
+  evaluar todas las expresiones que representan a los datos sobre los que
+  actúa, que son:
+
+  - la subexpresión !PYTHON{2}, que ya está evaluada,
+
+  - la subexpresión !PYTHON((3 * 5)), que todavía no está evaluada.
+
+  Por tanto, primero se debe evaluar !PYTHON((3 * 5)) antes de evaluar la
+  expresión !PYTHON(suma(2, (3 * 5))).
+
+-->
 
 ## Operadores
 
@@ -1099,6 +1146,11 @@ $$
 
 - Eso significa que el operador `+` acepta dos operandos (dos números reales) y
   devuelve un número real.
+
+- Para poder evaluar una expresión en la que aparece un operador, se deben
+  evaluar previamente todos sus operandos, ya que el operador actúa sobre
+  valores, es decir, sobre expresiones ya evaluadas y, por tanto, en forma
+  normal.
 
 ### Aridad de operadores
 
@@ -1587,6 +1639,11 @@ $$
 - A la aplicación de una función a unos argumentos también se la denomina
   **invocación** de la función o **llamada** a la función.
 
+- Para poder evaluar una expresión en la que aparece una llamada a función, se
+  deben evaluar previamente todos sus argumentos, ya que la función actúa sobre
+  valores, es decir, sobre expresiones ya evaluadas y, por tanto, en forma
+  normal.
+
 ---
 
 - En la llamada a la función, **los argumentos _sustituyen_ a los parámetros**
@@ -1831,6 +1888,11 @@ $$
   correspondiente**, es decir, por el valor que dicha función _devuelve_
   dependiendo de sus argumentos (**su _resultado_**).
 
+- Recordemos que para poder evaluar una llamada a función, se deben evaluar
+  previamente todos sus argumentos.
+
+---
+
 - Por ejemplo, en la siguiente expresión se combinan varias funciones y
   operadores:
 
@@ -1839,8 +1901,6 @@ $$
   Aquí se llama a la función !PYTHON(abs) con el argumento !PYTHON(-12) y a la
   función !PYTHON(max) con los argumentos !PYTHON(13) y !PYTHON(28), y
   finalmente se suman los dos valores obtenidos.
-
----
 
 - ¿Cómo se calcula el valor de toda la expresión anterior?
 
