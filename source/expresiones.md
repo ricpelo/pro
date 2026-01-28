@@ -124,6 +124,10 @@ abstracto, al que denominamos el **valor** de la expresión.
   !NT(lista_argumentos) ::= !NT{expresión}(!T(,) !NT{expresión})*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Como se ve, una expresión puede estar formada por otras expresiones más
+  pequeñas, y éstas a su vez por otras más pequeñas, y así sucesivamente,
+  tantas veces como sea necesario.
+
 ---
 
 - Los símbolos terminales !T(identificador), !T(entero), !T(real) y !T(cadena)
