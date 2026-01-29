@@ -2131,12 +2131,12 @@ objeto, con el método <code>set</code>.</p></li>
 <code>nota</code> de cada alumno y añadir un atributo
 <code>modificado</code> a la etiqueta <code>nota</code>:</p>
 <div class="sourceCode" id="cb51"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> nota <span class="kw">in</span> raiz.<span class="bu">iter</span>(<span class="st">&#39;nota&#39;</span>):</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> nota <span class="kw">in</span> raiz.iterfind(<span class="st">&#39;alumno/nota&#39;</span>):</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>...     nueva_nota <span class="op">=</span> <span class="bu">int</span>(nota.text) <span class="op">+</span> <span class="dv">1</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>...     nota.text <span class="op">=</span> <span class="bu">str</span>(nueva_nota)</span>
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>...     nota.<span class="bu">set</span>(<span class="st">&#39;modificado&#39;</span>, <span class="st">&#39;si&#39;</span>)</span>
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>)</span></code></pre></div></li>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>, encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>, xml_declaration<span class="op">=</span><span class="va">True</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.2">
@@ -2144,7 +2144,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a h
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
 <div class="sourceCode" id="cb52"><pre
-class="sourceCode xml"><code class="sourceCode xml"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&quot;1.0&quot;</span><span class="fu">?&gt;</span></span>
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version=</span><span class="st">&#39;1.0&#39;</span> <span class="ot">encoding=</span><span class="st">&#39;utf-8&#39;</span><span class="fu">?&gt;</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">raiz</span>&gt;</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">alumno</span> <span class="ot">numero=</span><span class="st">&quot;111&quot;</span>&gt;</span>
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">dni</span>&gt;12312312A&lt;/<span class="kw">dni</span>&gt;</span>
@@ -2236,7 +2236,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a h
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> nota <span class="op">&lt;</span> <span class="dv">9</span>:</span>
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>...         raiz.remove(alumno)</span>
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>)</span></code></pre></div></li>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>, encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>, xml_declaration<span class="op">=</span><span class="va">True</span>)</span></code></pre></div></li>
 <li><p>Tener en cuenta que la modificación concurrente mientras se hace
 una iteración puede dar problemas, lo mismo que ocurre cuando se
 modifican listas o diccionarios mientras se itera sobre ellos.</p></li>

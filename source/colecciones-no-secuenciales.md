@@ -1463,12 +1463,12 @@ SyntaxError: cannot use absolute path on element
   añadir un atributo `modificado` a la etiqueta `nota`:
 
   ```python
-  >>> for nota in raiz.iter('nota'):
+  >>> for nota in raiz.iterfind('alumno/nota'):
   ...     nueva_nota = int(nota.text) + 1
   ...     nota.text = str(nueva_nota)
   ...     nota.set('modificado', 'si')
   ...
-  >>> arbol.write('salida.xml')
+  >>> arbol.write('salida.xml', encoding='utf-8', xml_declaration=True)
   ```
 
 ---
@@ -1476,7 +1476,7 @@ SyntaxError: cannot use absolute path on element
 - Nuestro XML tendría ahora el siguiente aspecto:
 
   ```xml
-  <?xml version="1.0"?>
+  <?xml version='1.0' encoding='utf-8'?>
   <raiz>
       <alumno numero="111">
           <dni>12312312A</dni>
@@ -1613,7 +1613,7 @@ madre -> telefono3, dni3
   ...     if nota < 9:
   ...         raiz.remove(alumno)
   ...
-  >>> arbol.write('salida.xml')
+  >>> arbol.write('salida.xml', encoding='utf-8', xml_declaration=True)
   ```
 
 - Tener en cuenta que la modificación concurrente mientras se hace una
