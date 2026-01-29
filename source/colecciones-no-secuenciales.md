@@ -1209,7 +1209,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
   - Pertenencia: !PYTHON(hijo in nodo)
 
-- Pero no soporta otras, como !PYTHON(sorted) o la comparación con `<`. 
+- Pero no soporta otras, como la concatenación, la repetición, la función
+  !PYTHON(sorted) o la comparación con `<`. 
 
 ---
 
@@ -1283,6 +1284,9 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
   Devuelve una lista vacía si no hay nodos que cumplan la condición.
 
+- El método `iterfind` funciona de forma similar pero devuelve un iterador en
+  lugar de una lista.
+
 - El método `find` devuelve el primer hijo directo del nodo sobre el que se
   invoca, siempre que tenga una cierta etiqueta indicada como argumento.
 
@@ -1330,7 +1334,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 ---
 
 - Para una especificación más sofisticada de los elementos a encontrar, se
-  pueden usar las expresiones `XPath` con los métodos `find` y `findall`:
+  pueden usar las expresiones `XPath` con `find`, `findall` o `iterfind`:
 
   ----------------------------------------------------------------------------------------------------------------------------
   Sintaxis             Significado
@@ -1349,7 +1353,7 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
                        `.//pepe` selecciona todos los nodos `pepe` que haya en todo el árbol.
 
   `..`                 Selecciona el nodo padre. Devuelve !PYTHON(None) si se intenta acceder a un ancestro del nodo de
-                       inicio (aquel sobre el que se ha llamado al método `find`).
+                       inicio (aquel sobre el que se ha llamado a `find`, `findall` o `iterfind`).
   -------------------------------------------------------------------------------------------------------------------------------
 
 ---
