@@ -907,17 +907,37 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
 -->
 
-
-
 # Documentos XML
 
 ## Definición
+
+- Un **lenguaje de intercambio de datos** es un formato para el intercambio de
+  datos entre aplicaciones informáticas de manera que no necesitan estar
+  codificados en el mismo lenguaje de programación o instalados en un mismo
+  sistema operativo.
+
+- Son formatos estandarizados que permiten la comunicación y transferencia de
+  información entre diferentes sistemas, aplicaciones o plataformas,
+  independientemente del lenguaje de programación en el que hayan sido
+  desarrollados. 
+
+- Los más utilizados en la actualidad son:
+
+  - XML.
+
+  - JSON.
+
+  - YAML.
+
+  - CSV.
+
+---
 
 :::: columns
 
 ::: {.column width=30%}
 
-- Los documentos XML se pueden considerar **datos estructurados en forma de
+- Los **documentos XML** se pueden considerar **datos estructurados en forma de
   _árbol_** (es decir, con una estructura **jerárquica** y, por tanto, **no
   secuencial**).
 
@@ -1168,8 +1188,28 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   3
   ```
 
-- Con todo lo dicho anteriormente, podemos concluir que **los nodos de un árbol
-  son _secuencias_**.
+---
+
+- Un objeto `Element` representa un nodo de un árbol XML, pero sus hijos se
+  exponen como una secuencia ordenada.
+
+- Visto así, podemos decir que _se comportan parcialmente como **secuencias**_,
+  pero no son secuencias _completas_ en el sentido en que pueden serlo
+  !PYTHON(list) o !PYTHON(tuple).
+
+- Un objeto `Element` soporta las siguientes operaciones de secuencias:
+
+  - Indexación: `nodo[`$i$`]`
+
+  - Iteración: !PYTHON(iter(nodo)), y de ahí: !PYTHON(for hijo in nodo)
+
+  - Longitud: !PYTHON(len(nodo))
+
+  - Rodajas: `nodo[`$i$`:`$j$`:`$k$`]`
+
+  - Pertenencia: !PYTHON(hijo in nodo)
+
+- Pero no soporta otras, como !PYTHON(sorted) o la comparación con `<`. 
 
 ---
 

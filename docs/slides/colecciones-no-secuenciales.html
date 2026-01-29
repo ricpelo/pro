@@ -1525,13 +1525,33 @@ Documentos XML</h1>
 data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span>
 Definición</h2>
+<ul>
+<li><p>Un <strong>lenguaje de intercambio de datos</strong> es un
+formato para el intercambio de datos entre aplicaciones informáticas de
+manera que no necesitan estar codificados en el mismo lenguaje de
+programación o instalados en un mismo sistema operativo.</p></li>
+<li><p>Son formatos estandarizados que permiten la comunicación y
+transferencia de información entre diferentes sistemas, aplicaciones o
+plataformas, independientemente del lenguaje de programación en el que
+hayan sido desarrollados.</p></li>
+<li><p>Los más utilizados en la actualidad son:</p>
+<ul>
+<li><p>XML.</p></li>
+<li><p>JSON.</p></li>
+<li><p>YAML.</p></li>
+<li><p>CSV.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
 <div class="columns">
 <div class="column" style="width:30%;">
 <ul>
-<li><p>Los documentos XML se pueden considerar <strong>datos
-estructurados en forma de <em>árbol</em></strong> (es decir, con una
-estructura <strong>jerárquica</strong> y, por tanto, <strong>no
-secuencial</strong>).</p></li>
+<li><p>Los <strong>documentos XML</strong> se pueden considerar
+<strong>datos estructurados en forma de <em>árbol</em></strong> (es
+decir, con una estructura <strong>jerárquica</strong> y, por tanto,
+<strong>no secuencial</strong>).</p></li>
 <li><p>Por ejemplo, supongamos el siguiente documento XML:</p></li>
 </ul>
 </div><div class="column" style="width:70%;">
@@ -1563,7 +1583,7 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb35-1"><a href="#
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>Podemos encontrarnos lo siguiente:</p>
@@ -1587,7 +1607,7 @@ atributos.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
 <li><p>Ese documento representaría la siguiente estructura
@@ -1762,11 +1782,42 @@ saber cuántos hijos tiene un nodo:</p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(raiz)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div></li>
-<li><p>Con todo lo dicho anteriormente, podemos concluir que <strong>los
-nodos de un árbol son <em>secuencias</em></strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.6">
+
+<ul>
+<li><p>Un objeto <code>Element</code> representa un nodo de un árbol
+XML, pero sus hijos se exponen como una secuencia ordenada.</p></li>
+<li><p>Visto así, podemos decir que <em>se comportan parcialmente como
+<strong>secuencias</strong></em>, pero no son secuencias
+<em>completas</em> en el sentido en que pueden serlo <code
+class="sourceCode python"><span class="bu">list</span></code> o <code
+class="sourceCode python"><span class="bu">tuple</span></code>.</p></li>
+<li><p>Un objeto <code>Element</code> soporta las siguientes operaciones
+de secuencias:</p>
+<ul>
+<li><p>Indexación: <code>nodo[</code><span
+class="math inline">i</span><code>]</code></p></li>
+<li><p>Iteración: <code
+class="sourceCode python"><span class="bu">iter</span>(nodo)</code>, y
+de ahí: <code
+class="sourceCode python"><span class="cf">for</span> hijo <span class="kw">in</span> nodo</code></p></li>
+<li><p>Longitud: <code
+class="sourceCode python"><span class="bu">len</span>(nodo)</code></p></li>
+<li><p>Rodajas: <code>nodo[</code><span
+class="math inline">i</span><code>:</code><span
+class="math inline">j</span><code>:</code><span
+class="math inline">k</span><code>]</code></p></li>
+<li><p>Pertenencia: <code
+class="sourceCode python">hijo <span class="kw">in</span> nodo</code></p></li>
+</ul></li>
+<li><p>Pero no soporta otras, como <code
+class="sourceCode python"><span class="bu">sorted</span></code> o la
+comparación con <code>&lt;</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.7">
 
 <ul>
 <li><p>Los objetos de tipo <code>Element</code> disponen de métodos
@@ -1782,7 +1833,7 @@ el que se encuentran escritos en el documento XML, incluyendo el propio
 nodo sobre el que se invoca.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.7">
+<section class="slide level5" data-number="3.2.0.0.8">
 
 <div class="columns">
 <div class="column" style="width:46%;">
@@ -1825,7 +1876,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a h
 </div>
 </div>
 </section>
-<section class="slide level5" data-number="3.2.0.0.8">
+<section class="slide level5" data-number="3.2.0.0.9">
 
 <ul>
 <li><p>El método <code>findall</code> devuelve una lista con los nodos
@@ -1851,7 +1902,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a h
 <span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="dv">222</span> 44455566B</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.9">
+<section class="slide level5" data-number="3.2.0.0.10">
 
 <ul>
 <li><p>Si la etiqueta no tiene el atributo indicado en el argumento de
@@ -1875,7 +1926,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a h
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>telefono<span class="op">&gt;</span><span class="dv">666555444</span><span class="op">&lt;/</span>telefono<span class="op">&gt;</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.10">
+<section class="slide level5" data-number="3.2.0.0.11">
 
 <ul>
 <li><p>Para una especificación más sofisticada de los elementos a
@@ -1932,7 +1983,7 @@ ha llamado al método <code>find</code>).</td>
 </table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.2.0.0.11">
+<section class="slide level5" data-number="3.2.0.0.12">
 
 <ul>
 <li><p>Continuación de las expresiones <code>XPath</code>:</p>
