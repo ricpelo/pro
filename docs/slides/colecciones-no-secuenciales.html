@@ -2118,9 +2118,10 @@ directamente:</p>
 <code>attrib</code>.</p></li>
 <li><p>Cambiando los atributos de la etiqueta a la que representa el
 objeto, con el método <code>set</code>.</p></li>
-<li><p>Añadiendo nuevos hijos con los métodos <code>append</code> o
-<code>insert</code>.</p></li>
-<li><p>Eliminando hijos con el método <code>remove</code>.</p></li>
+<li><p>Añadiendo nuevos hijos al nodo con los métodos
+<code>append</code> o <code>insert</code>.</p></li>
+<li><p>Quitando hijos del nodo con el método
+<code>remove</code>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -2226,7 +2227,8 @@ style="width:100.0%" /></p>
 <section class="slide level5" data-number="3.3.0.0.7">
 
 <ul>
-<li><p>Podemos eliminar elementos con el método <code>remove</code>. Por
+<li><p>Podemos sacar un elemento del árbol usando el método
+<code>remove</code> sobre el padre del nodo que deseamos sacar. Por
 ejemplo, supongamos que queremos eliminar todos los alumnos con una
 <code>nota</code> inferior a 9:</p>
 <div class="sourceCode" id="cb55"><pre
@@ -2237,19 +2239,29 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a h
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>...         raiz.remove(alumno)</span>
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>...</span>
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> arbol.write(<span class="st">&#39;salida.xml&#39;</span>, encoding<span class="op">=</span><span class="st">&#39;utf-8&#39;</span>, xml_declaration<span class="op">=</span><span class="va">True</span>)</span></code></pre></div></li>
-<li><p>Tener en cuenta que la modificación concurrente mientras se hace
-una iteración puede dar problemas, lo mismo que ocurre cuando se
+<li><p>Es importante no olvidar que quitarle un hijo a un nodo usando
+<code>remove</code> simplemente lo saca del árbol pero no elimina el
+nodo hijo de la memoria, por lo que el objeto nodo sigue existiendo si
+aún existen referencias apuntando a él.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.3.0.0.8">
+
+<ul>
+<li><p>Hay que tener en cuenta que es peligroso alterar la cantidad de
+nodos que se recorren usando un iterador, al igual que ocurre cuando se
 modifican listas o diccionarios mientras se itera sobre ellos.</p></li>
 <li><p>Por ello, el ejemplo primero recoge todos los elementos con
 <code>findall</code> y sólo entonces itera sobre la lista que
 devuelve.</p></li>
-<li><p>Si usáramos <code>iter</code> en lugar de <code>findall</code> se
-podrían dar problemas debido a que <code>iter</code> va devolviendo
-perezosamente los nodos (es un iterador) y el conjunto de nodos que
-devuelve podría verse afectado por los borrados.</p></li>
+<li><p>Si usáramos <code>iter</code> o <code>iterfind</code> en lugar de
+<code>findall</code> se podrían dar problemas debido a que el iterador
+va devolviendo perezosamente los nodos y el conjunto de nodos que
+devuelve podría verse afectado por los borrados e inserciones realizados
+durante el recorrido.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.0.0.8">
+<section class="slide level5" data-number="3.3.0.0.9">
 
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
@@ -2271,7 +2283,7 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb56-1"><a href="#
 <span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.0.0.9">
+<section class="slide level5" data-number="3.3.0.0.10">
 
 <ul>
 <li><p>Si lo que queremos es <strong>mover</strong> un nodo (es decir,
@@ -2288,7 +2300,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a h
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>alumno.append(madre)</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.0.0.10">
+<section class="slide level5" data-number="3.3.0.0.11">
 
 <ul>
 <li><p>Nuestro XML tendría ahora el siguiente aspecto:</p>
@@ -2310,7 +2322,7 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb58-1"><a href="#
 <span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">raiz</span>&gt;</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.3.0.0.11">
+<section class="slide level5" data-number="3.3.0.0.12">
 
 <ul>
 <li><p>La función <code>SubElement</code> también proporciona una forma

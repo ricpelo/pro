@@ -1453,9 +1453,9 @@ SyntaxError: cannot use absolute path on element
   - Cambiando los atributos de la etiqueta a la que representa el objeto, con
     el método `set`.
 
-  - Añadiendo nuevos hijos con los métodos `append` o `insert`.
+  - Añadiendo nuevos hijos al nodo con los métodos `append` o `insert`.
 
-  - Eliminando hijos con el método `remove`.
+  - Quitando hijos del nodo con el método `remove`.
 
 ---
 
@@ -1603,8 +1603,9 @@ madre -> telefono3, dni3
 
 ---
 
-- Podemos eliminar elementos con el método `remove`. Por ejemplo, supongamos
-  que queremos eliminar todos los alumnos con una `nota` inferior a 9:
+- Podemos sacar un elemento del árbol usando el método `remove` sobre el padre
+  del nodo que deseamos sacar. Por ejemplo, supongamos que queremos eliminar
+  todos los alumnos con una `nota` inferior a 9:
 
   ```python
   >>> for alumno in raiz.findall('alumno'):
@@ -1616,16 +1617,24 @@ madre -> telefono3, dni3
   >>> arbol.write('salida.xml', encoding='utf-8', xml_declaration=True)
   ```
 
-- Tener en cuenta que la modificación concurrente mientras se hace una
-  iteración puede dar problemas, lo mismo que ocurre cuando se modifican listas
-  o diccionarios mientras se itera sobre ellos.
+- Es importante no olvidar que quitarle un hijo a un nodo usando `remove`
+  simplemente lo saca del árbol pero no elimina el nodo hijo de la memoria, por
+  lo que el objeto nodo sigue existiendo si aún existen referencias apuntando a
+  él.
+
+---
+
+- Hay que tener en cuenta que es peligroso alterar la cantidad de nodos que se
+  recorren usando un iterador, al igual que ocurre cuando se modifican listas o
+  diccionarios mientras se itera sobre ellos.
 
 - Por ello, el ejemplo primero recoge todos los elementos con `findall` y sólo
   entonces itera sobre la lista que devuelve.
 
-- Si usáramos `iter` en lugar de `findall` se podrían dar problemas debido a
-  que `iter` va devolviendo perezosamente los nodos (es un iterador) y el
-  conjunto de nodos que devuelve podría verse afectado por los borrados.
+- Si usáramos `iter` o `iterfind` en lugar de `findall` se podrían dar
+  problemas debido a que el iterador va devolviendo perezosamente los nodos y
+  el conjunto de nodos que devuelve podría verse afectado por los borrados e
+  inserciones realizados durante el recorrido.
 
 ---
 
