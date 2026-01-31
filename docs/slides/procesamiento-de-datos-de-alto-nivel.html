@@ -474,23 +474,20 @@ class="math inline">d</span><code>)</code> devolverá el <em>hash</em> de
 class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
 </ul></li>
 </ol></li>
-<li><p>Si dos datos <em>hashables</em> son iguales, entonces deben tener
-el mismo <em>hash</em>:</p>
-<div class="caja centered">
-<p>Si <span class="math inline">x</span> <code>==</code> <span
-class="math inline">y</span>, entonces debe cumplirse que <code
-class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
-class="math inline">x</span><code>)</code> <code>==</code> <code
-class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
-class="math inline">y</span><code>)</code>.</p>
-</div>
-<p>En cambio, si dos datos son distintos, sus <em>hash</em> no tienen
-por qué serlo.</p></li>
+<li><p>El concepto de <em>hashable</em> es importante en Python ya que
+existen tipos de datos estructurados que sólo pueden contener elementos
+<em>hashables</em>.</p></li>
+<li><p>Por ejemplo, los elementos de un conjunto y las claves de un
+diccionario deben ser <em>hashables</em>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.1">
 
 <ul>
+<li><p>El <em>hash</em> de un dato es un número que <strong>representa
+al dato y a todo su contenido</strong>.</p></li>
+<li><p>En cierto modo, ese número <strong><em>resume</em> el estado del
+dato</strong> en un simple número entero.</p></li>
 <li><p>Ejemplos:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">hash</span>(<span class="st">&#39;hola&#39;</span>)</span>
@@ -510,21 +507,46 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <section class="slide level5" data-number="1.4.0.0.2">
 
 <ul>
-<li><p>Podemos separamos el estudio de los objetos <em>hashables</em>
-dependiendo de:</p>
+<li><p>Si dos datos <em>hashables</em> son iguales, entonces deben tener
+el mismo <em>hash</em>:</p>
+<div class="caja centered">
+<p>Si <span class="math inline">x</span> <code>==</code> <span
+class="math inline">y</span>, entonces debe cumplirse que <code
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
+class="math inline">x</span><code>)</code> <code>==</code> <code
+class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
+class="math inline">y</span><code>)</code>.</p>
+</div>
+<p>En cambio, si dos datos son distintos, sus <em>hash</em> no tienen
+por qué serlo.</p></li>
+<li><p>El <em>hash</em> de un dato se calcula en función de alguna
+característica intrínseca al dato, y depende del mecanismo de igualdad
+que se use para los datos de ese tipo (<em>igualdad estructural</em> o
+<em>igualdad por identidad</em>):</p>
 <ul>
-<li><p>si son <em>inmutables</em> o <em>mutables</em>, y</p></li>
-<li><p>si la comparación de igualidad se hace por contenido o por
-identidad.</p></li>
+<li><p>Si el dato usa <strong>igualdad estructural</strong>, el
+<em>hash</em> del dato dependerá de su estado interno o de su
+contenido.</p></li>
+<li><p>Si el dato usa <strong>igualdad por identidad</strong>, el
+<em>hash</em> del dato se calculará a partir de la misma.</p></li>
 </ul></li>
-<li><p>Con respecto a los inmutables, tenemos que:</p>
+<li><p>En cualquiera de ambos casos, el algoritmo concreto que se usa no
+nos preocupa por ahora.</p></li>
+<li><p>También influye el hecho de que el dato sea <em>mutable</em> o
+<em>inmutable</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.3">
+
+<ul>
+<li><p>Si el dato es <strong>inmutable</strong>:</p>
 <ul>
 <li><p>La mayoría de los valores inmutables predefinidos en Python son
 <em>hashables</em>, incluyendo los de tipo <code>int</code>,
 <code>float</code>, <code>str</code> y <code>bool</code>, así como las
 funciones y el valor <code>None</code>.</p></li>
-<li><p>En general, las <strong>colecciones inmutables</strong> son
-<em>hashables</em>. En concreto:</p>
+<li><p>En general, las <strong>colecciones inmutables</strong> también
+son <em>hashables</em>. En concreto:</p>
 <ul>
 <li><p>Los rangos siempre son <em>hashables</em>.</p></li>
 <li><p>Las tuplas y los <code
@@ -534,67 +556,28 @@ son <em>hashables</em> si sus elementos también lo son.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.3">
-
-<ul>
-<li><p>Con respecto a los mutables, tenemos que:</p>
-<ul>
-<li><p>Un objeto no puede ser hashable si su igualdad depende de su
-estado mutable.</p></li>
-<li><p>Por ese motivo, los contenedores mutables que se comparan por su
-contenido no son hashables.</p></li>
-<li><p>En cambio, los objetos mutables que se comparan por identidad (es
-decir, aquellos que son iguales cuando son <em>idénticos</em>) sí pueden
-ser hashables.</p></li>
-<li><p>Un objeto no puede ser hashable si su igualdad depende de su
-estado mutable.</p></li>
-</ul></li>
-</ul>
-</section>
 <section class="slide level5" data-number="1.4.0.0.4">
 
 <ul>
-<li><p>El concepto de <em>hashable</em> es importante en Python ya que
-existen tipos de datos estructurados que sólo pueden contener elementos
-<em>hashables</em>.</p></li>
-<li><p>Por ejemplo, los elementos de un conjunto y las claves de un
-diccionario deben ser <em>hashables</em>.</p></li>
-<li><p>La mayoría de los datos inmutables predefinidos en Python son
-<em>hashables</em>, incluyendo los valores de tipo <code>int</code>,
-<code>float</code>, <code>str</code>, <code>range</code> y
-<code>bool</code>, así como las funciones y el valor
-<code>None</code>.</p></li>
+<li><p>Si el dato es <strong>mutable</strong>:</p>
+<ul>
+<li><p>Un objeto no puede ser hashable si su igualdad depende de su
+estado mutable (es decir, si tiene <strong>igualdad
+estructural</strong>).</p></li>
+<li><p>Por ese motivo, los contenedores mutables que se comparan por su
+contenido no son hashables.</p></li>
+<li><p>En cambio, los objetos mutables que usan <strong>igualdad por
+identidad</strong> (es decir, aquellos que son iguales cuando son
+<em>idénticos</em>) sí pueden ser hashables.</p></li>
 <li><p>Las <strong>colecciones mutables</strong> (como las listas o los
 diccionarios) <strong>NO</strong> son <em>hashables</em> <strong>en
-general</strong>.</p></li>
+general</strong>, ya que esas colecciones tienen igualdad estructural y,
+por tanto, si su contenido cambia, su <em>hash</em> también cambiaría,
+lo cual está prohibido.</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.5">
-
-<ul>
-<li><p><strong>El <em>hash</em> de un dato depende del estado interno
-del dato</strong>, ya que se calcula a partir de dicho estado interno
-usando un algoritmo que no nos debe preocupar por ahora.</p>
-<p>Como el estado interno de una colección viene determinado
-principalmente por los elementos que contiene, el <em>hash</em> de una
-colección dependerá también del contenido de la colección.</p>
-<p>Y por esta razón, las colecciones mutables no son <em>hashables</em>:
-si una colección es mutable, su contenido puede cambiar y, por tanto, su
-<em>hash</em> también cambiaría, pero esto está prohibido.</p></li>
-</ul>
-<div class="caja">
-<p>El <em>hash</em> de un dato <strong>se calcula</strong> en función
-del <strong>estado interno</strong> del dato y, en caso de ser una
-colección, también en función de su <strong>contenido</strong>.</p>
-</div>
-<ul>
-<li><p>El <em>hash</em> de un dato es un número que <strong>representa
-al dato y a todo su contenido</strong>.</p></li>
-<li><p>En cierto modo, ese número <strong><em>resume</em> el estado del
-dato</strong> en un simple número entero.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.4.0.0.6">
 
 <ul>
 <li><p>El <em>hash</em> de un dato se utiliza internamente para acceder
@@ -615,10 +598,10 @@ tiempo que sería mayor cuanto más grande fuese la colección.</p></li>
 dato</strong> dentro de una colección.</p>
 </div>
 </section>
-<section class="slide level5" data-number="1.4.0.0.7">
+<section class="slide level5" data-number="1.4.0.0.6">
 
 <ul>
-<li><p>Muy en resumen, esas técnicas se basan en dividir el espacio de
+<li><p>En resumen, esas técnicas se basan en dividir el espacio de
 memoria que ocupa la colección en una serie de <em>almacenes</em>
 llamados <strong><em>buckets</em></strong>.</p></li>
 <li><p>Cada <em>bucket</em> va numerado por un posible valor de
@@ -643,13 +626,15 @@ muy rápida, con un coste que es casi constante, independientemente de la
 cantidad de elementos que haya en la colección.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.8">
+<section class="slide level5" data-number="1.4.0.0.7">
 
-<p>No se debe confundir el <code
+<ul>
+<li><p>No se debe confundir el <code
 class="sourceCode python"><span class="bu">id</span></code> de un dato
 con el <code
-class="sourceCode python"><span class="bu">hash</span></code> de un
-dato:</p>
+class="sourceCode python"><span class="bu">hash</span></code> del dato,
+aunque a veces el <em>hash</em> se calcule a partir del <code
+class="sourceCode python"><span class="bu">id</span></code>:</p>
 <table>
 <colgroup>
 <col style="width: 48%" />
@@ -707,7 +692,8 @@ tanto, de su contenido), usando una fórmula matemática.</li>
 </ul></td>
 </tr>
 </tbody>
-</table>
+</table></li>
+</ul>
 </section>
 </section>
 <section>

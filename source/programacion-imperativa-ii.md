@@ -1179,8 +1179,8 @@ y:f1 -> lista2
   contienen **el mismo valor**, no simplemente **dos valores _iguales_**),
   podríamos intentar comparar sus referencias y ver su coinciden.
 
-- Pero el lenguaje Python no nos permite comparar directamente dos referencias,
-  ya que, cuando hacemos:
+- Pero el operador `==` en Python no nos permite comparar directamente dos
+  referencias, ya que, cuando hacemos:
 
   ```python
   x == y
@@ -1305,6 +1305,56 @@ True
 >>> x is not y
 False
 ```
+
+### Identidad e igualidad
+
+- Ya hemos visto que los conceptos de _identidad_ e _igualdad_ están
+  relacionados, aunque son conceptos diferentes:
+
+- Dados dos objetos `x` e `y`:
+
+  - Si se cumple que !PYTHON(x == y), decimos que son _iguales_.
+
+    En este caso, `x` e `y` pueden ser dos objetos o ser ambas dos referencias
+    al mismo objeto.
+
+  - Si se cumple que !PYTHON(x is y), decimos que son _idénticos_.
+
+    En este caso, `x` e `y` seguro que son referencias al _mismo objeto_.
+
+- Siempre se cumple que:
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `is` $y$, entonces $x$ `==` $y$.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Esto se debe a que todo objeto es igual a sí mismo.
+
+---
+
+- Existen dos mecanismos para determinar si dos objetos son iguales,
+  dependiendo del tipo de los objetos que se están comparando:
+
+  #. **Igualdad estructural o por contenido**: Compara el **interior** de los
+     objetos.
+
+     - En este caso, los dos objetos serán iguales cuando tengan la misma
+       estructura, el mismo contenido o el mismo estado interno (o
+       combinaciones de las tres).
+
+     - Es más propio de tipos estructurados o colecciones, como tuplas, listas,
+       conjuntos, etc. Por ejemplo, dos listas son iguales si tienen los mismos
+       elementos en la misma posición.
+
+   #. **Igualdad por identidad**: Compara la **identidad** de los objetos.
+
+      - En este caso, los dos objetos serán iguales cuando sean idénticos,
+        definiendo el operador `==` como si fuera un sinónimo de `is`.
+
+      - Es más propio de tipos elementales o que no poseen estado interno,
+        aunque también hay objetos con estado interno que se comparan por
+        identidad, y tipos elementales que no se comparan por identidad.
 
 # Cambios de estado ocultos
 

@@ -227,17 +227,19 @@ $$\text{Tipos} \begin{cases}
 
      - En caso contrario, lanzará una excepción de tipo !PYTHON(TypeError).
 
-- Si dos datos *hashables* son iguales, entonces deben tener el mismo _hash_:
+- El concepto de *hashable* es importante en Python ya que existen tipos de
+  datos estructurados que sólo pueden contener elementos *hashables*.
 
-  !CAJACENTRADA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $x$ `==` $y$, entonces debe cumplirse que !PYTHON(hash)`(`$x$`)` `==`
-  !PYTHON(hash)`(`$y$`)`.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  En cambio, si dos datos son distintos, sus _hash_ no tienen por qué serlo.
+- Por ejemplo, los elementos de un conjunto y las claves de un diccionario
+  deben ser *hashables*.
 
 ---
+
+- El _hash_ de un dato es un número que **representa al dato y a todo su
+  contenido**.
+
+- En cierto modo, ese número **_resume_ el estado del dato** en un simple
+  número entero.
 
 - Ejemplos:
 
@@ -258,82 +260,65 @@ $$\text{Tipos} \begin{cases}
 
 ---
 
-- Podemos separamos el estudio de los objetos _hashables_ dependiendo de:
+- Si dos datos *hashables* son iguales, entonces deben tener el mismo _hash_:
 
-  - si son _inmutables_ o _mutables_, y
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Si $x$ `==` $y$, entonces debe cumplirse que !PYTHON(hash)`(`$x$`)` `==`
+  !PYTHON(hash)`(`$y$`)`.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  - si la comparación de igualidad se hace por contenido o por identidad.
+  En cambio, si dos datos son distintos, sus _hash_ no tienen por qué serlo.
 
-- Con respecto a los inmutables, tenemos que:
+- El _hash_ de un dato se calcula en función de alguna característica
+  intrínseca al dato, y depende del mecanismo de igualdad que se use para los
+  datos de ese tipo (_igualdad estructural_ o _igualdad por identidad_):
+
+  - Si el dato usa **igualdad estructural**, el _hash_ del dato dependerá de su
+    estado interno o de su contenido.
+
+  - Si el dato usa **igualdad por identidad**, el _hash_ del dato se calculará
+    a partir de la misma.
+
+- En cualquiera de ambos casos, el algoritmo concreto que se usa no nos
+  preocupa por ahora.
+
+- También influye el hecho de que el dato sea _mutable_ o _inmutable_.
+
+---
+
+- Si el dato es **inmutable**:
 
   - La mayoría de los valores inmutables predefinidos en Python son
     *hashables*, incluyendo los de tipo `int`, `float`, `str` y `bool`, así
     como las funciones y el valor `None`.
 
-  - En general, las **colecciones inmutables** son _hashables_. En concreto:
+  - En general, las **colecciones inmutables** también son _hashables_. En
+    concreto:
 
     - Los rangos siempre son _hashables_.
 
     - Las tuplas y los !PYTHON(frozenset)s sólo son _hashables_ si sus
       elementos también lo son.
 
-- Esto es debido a que **el _hash_ de un valor depende del estado interno del
-  valor**, ya que se calcula a partir de dicho estado interno usando un
-  algoritmo que no nos debe preocupar por ahora.
-
 ---
 
-- Con respecto a los mutables, tenemos que:
+- Si el dato es **mutable**:
 
   - Un objeto no puede ser hashable si su igualdad depende de su estado
-    mutable.
+    mutable (es decir, si tiene **igualdad estructural**).
 
   - Por ese motivo, los contenedores mutables que se comparan por su contenido
     no son hashables.
 
-  - En cambio, los objetos mutables que se comparan por identidad (es decir,
-    aquellos que son iguales cuando son _idénticos_) sí pueden ser hashables.
+  - En cambio, los objetos mutables que usan **igualdad por identidad** (es
+    decir, aquellos que son iguales cuando son _idénticos_) sí pueden ser
+    hashables.
 
-  - Un objeto no puede ser hashable si su igualdad depende de su estado
-    mutable.
-
----
-
-- El concepto de *hashable* es importante en Python ya que existen tipos de
-  datos estructurados que sólo pueden contener elementos *hashables*.
-
-- Por ejemplo, los elementos de un conjunto y las claves de un diccionario
-  deben ser *hashables*.
-
-- La mayoría de los datos inmutables predefinidos en Python son *hashables*,
-  incluyendo los valores de tipo `int`, `float`, `str`, `range` y `bool`, así
-  como las funciones y el valor `None`.
-
-- Las **colecciones mutables** (como las listas o los diccionarios) **NO** son
-  *hashables* **en general**.
-
----
-
-
-  Como el estado interno de una colección viene determinado principalmente por
-  los elementos que contiene, el _hash_ de una colección dependerá también del
-  contenido de la colección.
-
-  Y por esta razón, las colecciones mutables no son _hashables_: si una
-  colección es mutable, su contenido puede cambiar y, por tanto, su _hash_
-  también cambiaría, pero esto está prohibido.
-
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-El _hash_ de un dato **se calcula** en función del **estado interno** del dato
-y, en caso de ser una colección, también en función de su **contenido**.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- El _hash_ de un dato es un número que **representa al dato y a todo su
-  contenido**.
-
-- En cierto modo, ese número **_resume_ el estado del dato** en un simple
-  número entero.
+  - Las **colecciones mutables** (como las listas o los diccionarios) **NO**
+    son *hashables* **en general**, ya que esas colecciones tienen igualdad
+    estructural y, por tanto, si su contenido cambia, su _hash_ también
+    cambiaría, lo cual está prohibido.
 
 ---
 
@@ -357,8 +342,8 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
 
 ---
 
-- Muy en resumen, esas técnicas se basan en dividir el espacio de memoria que
-  ocupa la colección en una serie de _almacenes_ llamados **_buckets_**.
+- En resumen, esas técnicas se basan en dividir el espacio de memoria que ocupa
+  la colección en una serie de _almacenes_ llamados **_buckets_**.
 
 - Cada _bucket_ va numerado por un posible valor de _hash_, de forma que el
   _bucket_ número $n$ contendrá todos los elementos cuyo _hash_ valga $n$.
@@ -382,23 +367,24 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
 
 ---
 
-No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) de un dato:
+- No se debe confundir el !PYTHON(id) de un dato con el !PYTHON(hash) del dato,
+  aunque a veces el _hash_ se calcule a partir del !PYTHON(id):
 
-+-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| Función `id`                                                          | Función `hash`                                                             |
-+:=====================================================================:+:==========================================================================:+
-| - Devuelve la identidad de un dato.                                   | - Devuelve el _hash_ de un dato, si es _hashable_.                         |
-+-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| - Todos los datos tienen identidad.                                   | - No todos los datos son _hashables_.                                      |
-+-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| - Puede haber datos iguales pero no idénticos.                        | - Si dos datos son iguales, sus _hash_ también deben serlo.                |
-+-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| - Su valor no depende del estado interno del dato y,                  | - Su valor se obtiene a partir del estado interno del dato (y, por tanto,  |
-|   por tanto, tampoco de su contenido.                                 |   de su contenido), usando una fórmula matemática.                         |
-+-----------------------------------------------------------------------+----------------------------------------------------------------------------+
-| - Por tanto, no cambia si se modifica el dato.                        | - Por tanto, un dato mutable no puede ser _hashable_, ya que su _hash_     |
-|                                                                       |   cambiaría al cambiar su contenido o estado interno.                      |
-+-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+  +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+  | Función `id`                                                          | Función `hash`                                                             |
+  +:=====================================================================:+:==========================================================================:+
+  | - Devuelve la identidad de un dato.                                   | - Devuelve el _hash_ de un dato, si es _hashable_.                         |
+  +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+  | - Todos los datos tienen identidad.                                   | - No todos los datos son _hashables_.                                      |
+  +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+  | - Puede haber datos iguales pero no idénticos.                        | - Si dos datos son iguales, sus _hash_ también deben serlo.                |
+  +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+  | - Su valor no depende del estado interno del dato y,                  | - Su valor se obtiene a partir del estado interno del dato (y, por tanto,  |
+  |   por tanto, tampoco de su contenido.                                 |   de su contenido), usando una fórmula matemática.                         |
+  +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
+  | - Por tanto, no cambia si se modifica el dato.                        | - Por tanto, un dato mutable no puede ser _hashable_, ya que su _hash_     |
+  |                                                                       |   cambiaría al cambiar su contenido o estado interno.                      |
+  +-----------------------------------------------------------------------+----------------------------------------------------------------------------+
 
 # Flujos perezosos
 

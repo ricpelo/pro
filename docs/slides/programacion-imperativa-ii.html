@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,8 +32,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +45,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -1475,8 +1478,8 @@ podríamos hacer una de estas dos comprobaciones:</p>
 (es decir, si ambos contienen <strong>el mismo valor</strong>, no
 simplemente <strong>dos valores <em>iguales</em></strong>), podríamos
 intentar comparar sus referencias y ver su coinciden.</p></li>
-<li><p>Pero el lenguaje Python no nos permite comparar directamente dos
-referencias, ya que, cuando hacemos:</p>
+<li><p>Pero el operador <code>==</code> en Python no nos permite
+comparar directamente dos referencias, ya que, cuando hacemos:</p>
 <div class="sourceCode" id="cb35"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">==</span> y</span></code></pre></div>
 <p>en realidad estamos preguntando si son iguales sus <em>valores</em>,
@@ -1611,6 +1614,69 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a h
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
 <span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="kw">is</span> <span class="kw">not</span> y</span>
 <span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div>
+</section>
+
+<section id="identidad-e-igualidad" class="title-slide slide level3"
+data-number="1.4.2">
+<h3 data-number="1.4.2"><span class="header-section-number">1.4.2</span>
+Identidad e igualidad</h3>
+<ul>
+<li><p>Ya hemos visto que los conceptos de <em>identidad</em> e
+<em>igualdad</em> están relacionados, aunque son conceptos
+diferentes:</p></li>
+<li><p>Dados dos objetos <code>x</code> e <code>y</code>:</p>
+<ul>
+<li><p>Si se cumple que <code
+class="sourceCode python">x <span class="op">==</span> y</code>, decimos
+que son <em>iguales</em>.</p>
+<p>En este caso, <code>x</code> e <code>y</code> pueden ser dos objetos
+o ser ambas dos referencias al mismo objeto.</p></li>
+<li><p>Si se cumple que <code
+class="sourceCode python">x <span class="kw">is</span> y</code>, decimos
+que son <em>idénticos</em>.</p>
+<p>En este caso, <code>x</code> e <code>y</code> seguro que son
+referencias al <em>mismo objeto</em>.</p></li>
+</ul></li>
+<li><p>Siempre se cumple que:</p>
+<div class="caja centered">
+<p>Si <span class="math inline">x</span> <code>is</code> <span
+class="math inline">y</span>, entonces <span
+class="math inline">x</span> <code>==</code> <span
+class="math inline">y</span>.</p>
+</div>
+<p>Esto se debe a que todo objeto es igual a sí mismo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.2.0.1">
+
+<ul>
+<li><p>Existen dos mecanismos para determinar si dos objetos son
+iguales, dependiendo del tipo de los objetos que se están
+comparando:</p>
+<ol>
+<li><p><strong>Igualdad estructural o por contenido</strong>: Compara el
+<strong>interior</strong> de los objetos.</p>
+<ul>
+<li><p>En este caso, los dos objetos serán iguales cuando tengan la
+misma estructura, el mismo contenido o el mismo estado interno (o
+combinaciones de las tres).</p></li>
+<li><p>Es más propio de tipos estructurados o colecciones, como tuplas,
+listas, conjuntos, etc. Por ejemplo, dos listas son iguales si tienen
+los mismos elementos en la misma posición.</p></li>
+</ul></li>
+<li><p><strong>Igualdad por identidad</strong>: Compara la
+<strong>identidad</strong> de los objetos.</p>
+<ul>
+<li><p>En este caso, los dos objetos serán iguales cuando sean
+idénticos, definiendo el operador <code>==</code> como si fuera un
+sinónimo de <code>is</code>.</p></li>
+<li><p>Es más propio de tipos elementales o que no poseen estado
+interno, aunque también hay objetos con estado interno que se comparan
+por identidad, y tipos elementales que no se comparan por
+identidad.</p></li>
+</ul></li>
+</ol></li>
+</ul>
 </section>
 
 </section>
@@ -2530,22 +2596,22 @@ class="sourceCode console"><code class="sourceCode console"><span id="cb62-1"><a
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-aguilar_fundamentos_2008" class="csl-entry"
 role="listitem">
 Aguilar, Luis Joyanes. 2008. <em>Fundamentos de Programación</em>.
-Aravaca: McGraw-Hill Interamericana de España.
+McGraw-Hill Interamericana de España.
 </div>
 <div id="ref-pareja_flores_desarrollo_1997" class="csl-entry"
 role="listitem">
 Pareja Flores, Cristóbal, Manuel Ojeda Aciego, Ángel Andeyro Quesada,
 and Carlos Rossi Jiménez. 1997. <em>Desarrollo de Algoritmos y Técnicas
-de Programación En <span>Pascal</span></em>. Madrid: Ra-Ma.
+de Programación En <span>Pascal</span></em>. Ra-Ma.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>
