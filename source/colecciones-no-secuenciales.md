@@ -1103,8 +1103,6 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
 
   - !PYTHON(nodo.text) valdrá !PYTHON('666555444').
 
----
-
 - En nuestro caso, `raiz` es un objeto de tipo `Element` que, además,
   representa al nodo raíz del árbol XML.
 
@@ -1119,6 +1117,8 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   '\n    '              # ¿Por qué?
   ```
 
+---
+
 - Los objetos `Element` son **iterables**. Por ejemplo, el nodo raíz tiene
   **nodos hijos** (nodos que «cuelgan» directamente del nodo raíz) sobre los
   cuales se puede iterar desde el objeto `raiz`:
@@ -1131,6 +1131,11 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   alumno {'numero': '222'}
   madre {}
   ```
+
+- Dos objetos `Element` son iguales sólo si son idénticos (usan **igualdad por
+  identidad**).
+
+- Por ello, aunque son mutables, también son **_hashables_**.
 
 ---
 
