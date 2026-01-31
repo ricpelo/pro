@@ -461,8 +461,8 @@ condiciones:</p>
 <li><p>Puede compararse con otros datos usando el operador
 <code>==</code>.</p></li>
 <li><p>Tiene asociado un número entero llamado
-<strong><em>hash</em></strong> que nunca cambia durante toda la vida del
-dato.</p>
+<strong><em>hash</em></strong> que <strong>nunca cambia</strong> durante
+toda la vida del dato.</p>
 <p>Para obtener el <em>hash</em> de un dato, se usa la función <code
 class="sourceCode python"><span class="bu">hash</span></code>:</p>
 <ul>
@@ -510,6 +510,50 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <section class="slide level5" data-number="1.4.0.0.2">
 
 <ul>
+<li><p>Podemos separamos el estudio de los objetos <em>hashables</em>
+dependiendo de:</p>
+<ul>
+<li><p>si son <em>inmutables</em> o <em>mutables</em>, y</p></li>
+<li><p>si la comparación de igualidad se hace por contenido o por
+identidad.</p></li>
+</ul></li>
+<li><p>Con respecto a los inmutables, tenemos que:</p>
+<ul>
+<li><p>La mayoría de los valores inmutables predefinidos en Python son
+<em>hashables</em>, incluyendo los de tipo <code>int</code>,
+<code>float</code>, <code>str</code> y <code>bool</code>, así como las
+funciones y el valor <code>None</code>.</p></li>
+<li><p>En general, las <strong>colecciones inmutables</strong> son
+<em>hashables</em>. En concreto:</p>
+<ul>
+<li><p>Los rangos siempre son <em>hashables</em>.</p></li>
+<li><p>Las tuplas y los <code
+class="sourceCode python"><span class="bu">frozenset</span></code>s sólo
+son <em>hashables</em> si sus elementos también lo son.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.3">
+
+<ul>
+<li><p>Con respecto a los mutables, tenemos que:</p>
+<ul>
+<li><p>Un objeto no puede ser hashable si su igualdad depende de su
+estado mutable.</p></li>
+<li><p>Por ese motivo, los contenedores mutables que se comparan por su
+contenido no son hashables.</p></li>
+<li><p>En cambio, los objetos mutables que se comparan por identidad (es
+decir, aquellos que son iguales cuando son <em>idénticos</em>) sí pueden
+ser hashables.</p></li>
+<li><p>Un objeto no puede ser hashable si su igualdad depende de su
+estado mutable.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.4.0.0.4">
+
+<ul>
 <li><p>El concepto de <em>hashable</em> es importante en Python ya que
 existen tipos de datos estructurados que sólo pueden contener elementos
 <em>hashables</em>.</p></li>
@@ -520,15 +564,12 @@ diccionario deben ser <em>hashables</em>.</p></li>
 <code>float</code>, <code>str</code>, <code>range</code> y
 <code>bool</code>, así como las funciones y el valor
 <code>None</code>.</p></li>
-<li><p>Las <strong>colecciones inmutables</strong> (como las tuplas o
-los <code
-class="sourceCode python"><span class="bu">frozenset</span></code>s)
-sólo son <em>hashables</em> si sus elementos también lo son.</p></li>
 <li><p>Las <strong>colecciones mutables</strong> (como las listas o los
-diccionarios) <strong>NO</strong> son <em>hashables</em>.</p></li>
+diccionarios) <strong>NO</strong> son <em>hashables</em> <strong>en
+general</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.3">
+<section class="slide level5" data-number="1.4.0.0.5">
 
 <ul>
 <li><p><strong>El <em>hash</em> de un dato depende del estado interno
@@ -553,7 +594,7 @@ al dato y a todo su contenido</strong>.</p></li>
 dato</strong> en un simple número entero.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.4">
+<section class="slide level5" data-number="1.4.0.0.6">
 
 <ul>
 <li><p>El <em>hash</em> de un dato se utiliza internamente para acceder
@@ -574,7 +615,7 @@ tiempo que sería mayor cuanto más grande fuese la colección.</p></li>
 dato</strong> dentro de una colección.</p>
 </div>
 </section>
-<section class="slide level5" data-number="1.4.0.0.5">
+<section class="slide level5" data-number="1.4.0.0.7">
 
 <ul>
 <li><p>Muy en resumen, esas técnicas se basan en dividir el espacio de
@@ -602,7 +643,7 @@ muy rápida, con un coste que es casi constante, independientemente de la
 cantidad de elementos que haya en la colección.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.4.0.0.6">
+<section class="slide level5" data-number="1.4.0.0.8">
 
 <p>No se debe confundir el <code
 class="sourceCode python"><span class="bu">id</span></code> de un dato

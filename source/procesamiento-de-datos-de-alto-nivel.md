@@ -218,7 +218,7 @@ $$\text{Tipos} \begin{cases}
 
   #. Puede compararse con otros datos usando el operador `==`.
 
-  #. Tiene asociado un número entero llamado **_hash_** que nunca cambia
+  #. Tiene asociado un número entero llamado **_hash_** que **nunca cambia**
      durante toda la vida del dato.
 
      Para obtener el _hash_ de un dato, se usa la función !PYTHON(hash):
@@ -258,6 +258,47 @@ $$\text{Tipos} \begin{cases}
 
 ---
 
+- Podemos separamos el estudio de los objetos _hashables_ dependiendo de:
+
+  - si son _inmutables_ o _mutables_, y
+
+  - si la comparación de igualidad se hace por contenido o por identidad.
+
+- Con respecto a los inmutables, tenemos que:
+
+  - La mayoría de los valores inmutables predefinidos en Python son
+    *hashables*, incluyendo los de tipo `int`, `float`, `str` y `bool`, así
+    como las funciones y el valor `None`.
+
+  - En general, las **colecciones inmutables** son _hashables_. En concreto:
+
+    - Los rangos siempre son _hashables_.
+
+    - Las tuplas y los !PYTHON(frozenset)s sólo son _hashables_ si sus
+      elementos también lo son.
+
+- Esto es debido a que **el _hash_ de un valor depende del estado interno del
+  valor**, ya que se calcula a partir de dicho estado interno usando un
+  algoritmo que no nos debe preocupar por ahora.
+
+---
+
+- Con respecto a los mutables, tenemos que:
+
+  - Un objeto no puede ser hashable si su igualdad depende de su estado
+    mutable.
+
+  - Por ese motivo, los contenedores mutables que se comparan por su contenido
+    no son hashables.
+
+  - En cambio, los objetos mutables que se comparan por identidad (es decir,
+    aquellos que son iguales cuando son _idénticos_) sí pueden ser hashables.
+
+  - Un objeto no puede ser hashable si su igualdad depende de su estado
+    mutable.
+
+---
+
 - El concepto de *hashable* es importante en Python ya que existen tipos de
   datos estructurados que sólo pueden contener elementos *hashables*.
 
@@ -268,17 +309,11 @@ $$\text{Tipos} \begin{cases}
   incluyendo los valores de tipo `int`, `float`, `str`, `range` y `bool`, así
   como las funciones y el valor `None`.
 
-- Las **colecciones inmutables** (como las tuplas o los !PYTHON(frozenset)s)
-  sólo son *hashables* si sus elementos también lo son.
-
 - Las **colecciones mutables** (como las listas o los diccionarios) **NO** son
-  *hashables*.
+  *hashables* **en general**.
 
 ---
 
-- **El _hash_ de un dato depende del estado interno del dato**, ya que se
-  calcula a partir de dicho estado interno usando un algoritmo que no nos debe
-  preocupar por ahora.
 
   Como el estado interno de una colección viene determinado principalmente por
   los elementos que contiene, el _hash_ de una colección dependerá también del
