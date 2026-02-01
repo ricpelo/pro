@@ -578,6 +578,106 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
   [1, 2, 1, 2]
   ```
 
+## Iteradores sobre iterables mutables
+
+- Recorrer un iterable mutable tiene riesgos cuando el iterable cambia (se
+  añaden o se eliminan elementos) durante el recorrido.
+
+- Por ejemplo, si recorremos una lista con un bucle !PYTHON(for) y le
+  eliminamos elementos de la lista dentro del bucle, ocurren situaciones
+  inesperadas:
+
+:::: columns
+
+::: column
+
+- Ésto tiene sentido:
+
+  ```python
+  >>> l = ['a', 'b', 'c', 'd', 'e']
+  >>> for e in l:
+  ...     print(e)
+  ...     if 'b' in l:
+  ...         del l[1]
+  ...
+  a
+  c
+  d
+  e
+  ```
+
+:::
+
+::: column
+
+- Aquí la `b` desaparece sin motivo:
+
+  ```python
+  >>> l = ['a', 'b', 'c', 'd', 'e']
+  >>> for e in l:
+  ...     print(e)
+  ...     if 'a' in l:
+  ...         del l[0]
+  ...
+  a
+  c
+  d
+  e
+  ```
+
+:::
+
+::::
+
+---
+
+- En esos casos, es mejor hacer una instantánea (una «fotografía») del iterable
+  tal y como estaba justo antes de empezar a recorrerlo, y recorrer la
+  instantánea en lugar del iterable original:
+
+:::: columns
+
+::: column
+
+```python
+>>> l = ['a', 'b', 'c', 'd', 'e']
+>>> for e in l[:]:    # Una copia
+...     print(e)
+...     if 'b' in l:
+...         del l[1]
+...
+a
+b
+c
+d
+e
+```
+
+:::
+
+::: column
+
+```python
+>>> l = ['a', 'b', 'c', 'd', 'e']
+>>> for e in l[:]:    # Una copia
+...     print(e)
+...     if 'a' in l:
+...         del l[0]
+...
+a
+b
+c
+d
+e
+```
+
+:::
+
+::::
+
+- Al recorrer una copia de la lista en lugar de la lista original, podemos
+  modificar ésta sin que el recorrido provoque efectos indeseados.
+
 ## `range`
 
 - Los **rangos** (valores de tipo !PYTHON(range)) representan **secuencias
