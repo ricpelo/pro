@@ -1349,6 +1349,39 @@ $$\text{Paradigmas} \begin{cases}
 
 !IMG(paradigmas.png)(Principales paradigmas © 2008 Peter Van Roy)(width=100%)(width=97%)
 
+---
+
+- Las diferencias fundamentales entre los paradigmas declarativos e imperativos
+  son:
+
+  - **Paradigmas declarativos:**
+
+    - Se centran en las **propiedades y relaciones** que se establecen entre
+      los elementos que forman el problema y la solución.
+
+    - Escribir un programa declarativo consiste en describir **qué** forma
+      tiene la solución.
+
+  - **Paradigmas imperativos:**
+
+    - Se centran en los **pasos detallados** (secuencia de instrucciones) que
+      hay que realizar para obtener la solución.
+
+    - Escribir un programa imperativo consiste en describir **cómo** se debe
+      obtener la solución.
+
+---
+
+- Por ejemplo, supongamos que vamos a un restaurante porque queremos una tarta
+  de chocolate.
+
+- El enfoque declarativo sería decirle al cocinero: «_quiero una tarta de tres
+  chocolates con virutas por encima_».
+
+- En cambio, el enfoque imperativo sería darle al cocinero una lista de
+  ingredientes y una receta detallada para que la siga al pie de la letra y
+  pueda cocinar la tarta de chocolate que yo quiero.
+
 ## Imperativo
 
 - El **paradigma imperativo** está basado en el concepto de **sentencia**. Un
