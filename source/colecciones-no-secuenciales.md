@@ -405,6 +405,39 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   se va a recorrer como si estuviese ordenado, **no hay que confiar nunca** en
   que eso se vaya a cumplir siempre.
 
+---
+
+- Como los conjuntos de tipo !PYTHON(set) son mutables, no se deberían añadir o
+  eliminar elementos de un conjunto mientras se está recorriendo con un
+  iterador.
+
+- De hecho, Python genera un !PYTHON(RuntimeError) cuando se cambia el tamaño
+  de un conjunto durante el recorrido del mismo:
+
+  ```python
+  >>> s = {'a', 'b', 'c', 'd', 'e'}
+  >>> for e in s:
+  ...     print(e)
+  ...     s.remove('b')
+  ...
+  c
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  RuntimeError: Set changed size during iteration
+  ```
+
+  ```python
+  >>> s = {'a', 'b', 'c', 'd', 'e'}
+  >>> it = iter(s)
+  >>> next(it)
+  'c'
+  >>> s.remove('a')
+  >>> next(it)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  RuntimeError: Set changed size during iteration
+  ```
+
 # Diccionarios (!PYTHON(dict))
 
 ## Definición
