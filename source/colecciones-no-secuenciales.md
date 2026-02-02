@@ -637,7 +637,7 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   ```python
   >>> a['caballo']
   Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
+    File "<stdin>", line 1, in <module>
   KeyError: 'caballo'
   ```
 
@@ -939,6 +939,38 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -->
+
+---
+
+- Como los diccionarios son mutables, no se deberían añadir o eliminar
+  elementos de un diccionario mientras se está recorriendo con un iterador.
+
+- De hecho, Python genera un !PYTHON(RuntimeError) cuando se cambia el tamaño
+  de un diccionario durante el recorrido del mismo:
+
+  ```python
+  >>> d = {'a': 1, 'b': 2, 'c': 3}
+  >>> for e in d:
+  ...     print(e)
+  ...     del d['b']
+  ...
+  a
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  RuntimeError: dictionary changed size during iteration
+  ```
+
+  ```python
+  >>> d = {'a': 1, 'b': 2, 'c': 3}
+  >>> it = iter(d)
+  >>> next(it)
+  'a'
+  >>> del d['b']
+  >>> next(it)
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  RuntimeError: dictionary changed size during iteration
+  ```
 
 # Documentos XML
 
