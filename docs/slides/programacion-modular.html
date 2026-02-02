@@ -1602,8 +1602,8 @@ data-number="3.4">
 <h2 data-number="3.4"><span class="header-section-number">3.4</span> La
 librería estándar</h2>
 <ul>
-<li><p>La <strong>librería estándar de Python</strong> contiene módulos
-predefinidos que proporcionan:</p>
+<li><p>La <strong>librería estándar (o <em>biblioteca estándar</em>) de
+Python</strong> contiene módulos predefinidos que proporcionan:</p>
 <ul>
 <li><p>Acceso a funcionalidades del sistema, como operaciones de E/S
 sobre archivos.</p></li>
@@ -1634,8 +1634,245 @@ también forman parte de la librería estándar.</p></li>
 cualquier instalación de Python.</p></li>
 </ul></li>
 </ul>
+</section>
+
+<section id="paquetes" class="title-slide slide level2"
+data-number="3.5">
+<h2 data-number="3.5"><span class="header-section-number">3.5</span>
+Paquetes</h2>
+<ul>
+<li><p>Los <strong>paquetes</strong> son una forma de estructurar el
+espacio de nombres de módulos de Python usando <em>nombres de módulo con
+puntos</em>.</p></li>
+<li><p>Por ejemplo, el nombre del módulo <code>A.B</code> representa el
+submódulo <code>B</code> en un paquete llamado <code>A</code>.</p></li>
+<li><p>Así como el uso de módulos evita el <em>name clash</em> entre los
+miembros de diferentes módulos escritos por diferentes creadores, los
+nombres de módulos con puntos evita el <em>name clash</em> entre los
+nombres de los propios módulos.</p></li>
+<li><p>Esto evita que los creadores de módulos se tengan que preocupar
+por los nombres de los módulos creados por otros creadores.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.1">
+
+<ul>
+<li><p>En Python, un <strong><em>paquete</em></strong> es una unidad de
+organización del código que agrupa módulos relacionados bajo un mismo
+espacio de nombres.</p></li>
+<li><p>Dicho de forma resumida, un paquete es un directorio que contiene
+módulos Python y que puede importarse.</p></li>
+<li><p>Más concretamente, un paquete es un directorio que Python
+reconoce como importable y que:</p>
+<ul>
+<li><p>Contiene uno o más módulos (archivos <code>.py</code>).</p></li>
+<li><p>Puede contener <em>subpaquetes</em>.</p></li>
+<li><p>Define un espacio de nombres jerárquico.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.2">
+
+<ul>
+<li><p>Por ejemplo, supongamos la siguiente estructura de archivos y
+directorios:</p>
+<pre><code>sonido/                         Paquete de nivel superior
+      __init__.py               Inicializa el paquete sonido
+      formatos/                 Subpaquete de conversión entre formatos
+              __init__.py
+              wavread.py
+              wavwrite.py
+              aiffread.py
+              aiffwrite.py
+              auread.py
+              auwrite.py
+              ...
+      efectos/                  Subpaquete de efectos de sonido
+              __init__.py
+              echo.py
+              surround.py
+              reverse.py
+              ...
+      filtros/                  Subpaquete de filtros
+              __init__.py
+              equalizer.py
+              vocoder.py
+              karaoke.py
+              ...</code></pre></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.3">
+
+<ul>
+<li><p>Los usuarios del paquete pueden importar módulos individuales del
+mismo, por ejemplo:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span></code></pre></div>
+<p>Esto carga el submódulo <code>sonido.efectos.echo</code>.</p></li>
+<li><p>Para usarlo, debe hacerse referencia al mismo con el nombre
+completo (también llamado nombre <em>totalmente cualificado</em>):</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sonido.efectos.echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.4">
+
+<ul>
+<li><p>Otra alternativa para importar el submódulo es:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> echo</span></code></pre></div>
+<p>Esto también carga el submódulo <code>echo</code> y lo deja
+disponible sin su prefijo de paquete, por lo que puede usarse así:</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
+<li><p>Otra variante más es importar directamente la función o variable
+deseadas:</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos.echo <span class="im">import</span> echofilter</span></code></pre></div>
+<p>De nuevo, esto carga el submódulo <code>echo</code>, pero deja
+directamente disponible a la función <code>echofilter</code>:</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.5">
+
+<ul>
+<li><p>Nótese que al usar:</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paquete <span class="im">import</span> elemento</span></code></pre></div>
+<p>el elemento puede ser tanto un submódulo (o subpaquete) del paquete,
+como algún otro nombre definido en el paquete, por ejemplo una función,
+una clase o una variable.</p>
+<p>La declaración <code>import</code> primero verifica si el elemento
+está definido en el paquete; si no, asume que es un módulo y trata de
+cargarlo. Si no lo puede encontrar, se genera una excepción <code
+class="sourceCode python"><span class="pp">ImportError</span></code>.</p></li>
+<li><p>Por otro lado, cuando se usa la sintaxis:</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> elemento.subelemento.subsubelemento</span></code></pre></div>
+<p>cada elemento excepto el último debe ser un paquete; es último
+elemento puede ser un módulo o un paquete pero no puede ser una clase,
+función o variable definida en el elemento previo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.6">
+
+<ul>
+<li><p>Por ejemplo, si tenemos la siguiente estructura de archivos y
+directorios:</p>
+<pre><code>mi_paquete/
+│
+├── __init__.py
+├── utilidades.py
+├── modelos.py
+└── io/
+    ├── __init__.py
+    └── lector.py</code></pre>
+<p>esa estructura representa:</p>
+<ul>
+<li><p>El paquete <code>mi_paquete</code>, que contiene:</p>
+<ul>
+<li><p>Los módulos <code>utilidades</code> y
+<code>modelos</code>.</p></li>
+<li><p>El subpaquete <code>io</code>, que contiene:</p>
+<ul>
+<li>El módulo <code>lector</code>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>y podemos hacer uso de la misma, por ejemplo, así:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mi_paquete.utilidades</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete.io <span class="im">import</span> lector</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.7">
+
+<ul>
+<li><p>El archivo <strong>init</strong>.py sirve para inicializar un
+paquete y controlar su comportamiento cuando se importa.</p></li>
+<li><p>Tradicionalmente, un directorio solo era considerado un paquete
+si contenía un archivo llamado <code>__init__.py</code>.</p></li>
+<li><p>Hoy en día ya no es necesario, pero aún sigue siendo válido,
+habitual y recomendado.</p></li>
+<li><p>Además, el uso de <code>__init__.py</code> permite:</p>
+<ul>
+<li><p>Ejecutar código al importar el paquete</p></li>
+<li><p>Controlar qué se expone al usar <code>*</code> en una
+importación, como aquí:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.8">
+
+<ul>
+<li><p>Cuando se importa un paquete:</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mi_paquete</span></code></pre></div>
+<p>Python hace lo siguiente, en este orden:</p>
+<ol>
+<li><p>Localiza el paquete.</p></li>
+<li><p>Ejecuta el contenido del archivo
+<code>mi_paquete/__init__.py</code>.</p></li>
+<li><p>Crea el objeto paquete <code>mi_paquete</code>.</p></li>
+</ol></li>
+<li><p>Es decir, <code>__init__.py</code> es código Python
+normal.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.9">
+
+<ul>
+<li><p>El archivo <code>__init__.py</code> permite decidir qué «sale
+hacia fuera» cuando se importa el paquete.</p></li>
+<li><p>Por ejemplo, supongamos que el archivo
+<code>mi_paquete/__init__.py</code> contiene la siguiente línea:</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .utilidades <span class="im">import</span> suma, resta</span></code></pre></div></li>
+<li><p>Ahora, se puede hacer directamente:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete <span class="im">import</span> suma</span></code></pre></div>
+<p>sin necesidad de dar dos pasos:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete.utilidades <span class="im">import</span> suma</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.10">
+
+<ul>
+<li><p>Resumen clave:</p>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Módulo</td>
+<td>Un archivo <code>.py</code></td>
+</tr>
+<tr>
+<td>Paquete</td>
+<td>Un directorio de módulos</td>
+</tr>
+<tr>
+<td>Subpaquete</td>
+<td>Un paquete dentro de otro</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Ejemplo conceptual:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>xml                    <span class="co"># paquete</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>xml.etree              <span class="co"># subpaquete</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>xml.etree.ElementTree  <span class="co"># módulo</span></span></code></pre></div></li>
+</ul>
 <!--
-## Paquetes
 
 ## Documentación interna
 -->

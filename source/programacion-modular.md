@@ -1440,8 +1440,8 @@ E -> mcd [lhead = cluster1]
 
 ## La librería estándar
 
-- La **librería estándar de Python** contiene módulos predefinidos que
-  proporcionan:
+- La **librería estándar (o _biblioteca estándar_) de Python** contiene módulos
+  predefinidos que proporcionan:
 
   - Acceso a funcionalidades del sistema, como operaciones de E/S sobre
     archivos.
@@ -1469,8 +1469,254 @@ E -> mcd [lhead = cluster1]
   - Componentes opcionales que habitualmente podemos encontrar en cualquier
     instalación de Python.
 
-<!--
 ## Paquetes
+
+- Los **paquetes** son una forma de estructurar el espacio de nombres de
+  módulos de Python usando _nombres de módulo con puntos_.
+
+- Por ejemplo, el nombre del módulo `A.B` representa el submódulo `B` en un
+  paquete llamado `A`.
+
+- Así como el uso de módulos evita el _name clash_ entre los miembros de
+  diferentes módulos escritos por diferentes creadores, los nombres de módulos
+  con puntos evita el _name clash_ entre los nombres de los propios módulos.
+
+- Esto evita que los creadores de módulos se tengan que preocupar por los
+  nombres de los módulos creados por otros creadores.
+
+---
+
+- En Python, un **_paquete_** es una unidad de organización del código que
+  agrupa módulos relacionados bajo un mismo espacio de nombres.
+
+- Dicho de forma resumida, un paquete es un directorio que contiene módulos
+  Python y que puede importarse.
+
+- Más concretamente, un paquete es un directorio que Python reconoce como
+  importable y que:
+
+  - Contiene uno o más módulos (archivos `.py`).
+
+  - Puede contener _subpaquetes_.
+
+  - Define un espacio de nombres jerárquico.
+
+---
+
+- Por ejemplo, supongamos la siguiente estructura de archivos y directorios:
+
+    ```
+    sonido/                         Paquete de nivel superior
+          __init__.py               Inicializa el paquete sonido
+          formatos/                 Subpaquete de conversión entre formatos
+                  __init__.py
+                  wavread.py
+                  wavwrite.py
+                  aiffread.py
+                  aiffwrite.py
+                  auread.py
+                  auwrite.py
+                  ...
+          efectos/                  Subpaquete de efectos de sonido
+                  __init__.py
+                  echo.py
+                  surround.py
+                  reverse.py
+                  ...
+          filtros/                  Subpaquete de filtros
+                  __init__.py
+                  equalizer.py
+                  vocoder.py
+                  karaoke.py
+                  ...
+    ```
+
+---
+
+- Los usuarios del paquete pueden importar módulos individuales del mismo, por
+  ejemplo:
+
+  ```python
+  import sonido.efectos.echo
+  ```
+
+  Esto carga el submódulo `sonido.efectos.echo`.
+
+- Para usarlo, debe hacerse referencia al mismo con el nombre completo (también
+  llamado nombre _totalmente cualificado_):
+
+  ```python
+  sonido.efectos.echo.echofilter(input, output, delay=0.7, atten=4)
+  ```
+
+---
+
+- Otra alternativa para importar el submódulo es:
+
+  ```python
+  from sonido.efectos import echo
+  ```
+
+  Esto también carga el submódulo `echo` y lo deja disponible sin su prefijo de
+  paquete, por lo que puede usarse así:
+
+  ```python
+  echo.echofilter(input, output, delay=0.7, atten=4)
+  ```
+
+- Otra variante más es importar directamente la función o variable deseadas:
+
+  ```python
+  from sonido.efectos.echo import echofilter
+  ```
+
+  De nuevo, esto carga el submódulo `echo`, pero deja directamente disponible a
+  la función `echofilter`:
+
+  ```python
+  echofilter(input, output, delay=0.7, atten=4)
+  ```
+
+---
+
+- Nótese que al usar:
+
+  ```python
+  from paquete import elemento
+  ```
+
+  el elemento puede ser tanto un submódulo (o subpaquete) del paquete, como
+  algún otro nombre definido en el paquete, por ejemplo una función, una clase
+  o una variable.
+
+  La declaración `import` primero verifica si el elemento está definido en el
+  paquete; si no, asume que es un módulo y trata de cargarlo. Si no lo puede
+  encontrar, se genera una excepción !PYTHON(ImportError).
+
+- Por otro lado, cuando se usa la sintaxis:
+
+  ```python
+  import elemento.subelemento.subsubelemento
+  ```
+
+  cada elemento excepto el último debe ser un paquete; es último elemento puede
+  ser un módulo o un paquete pero no puede ser una clase, función o variable
+  definida en el elemento previo.
+
+---
+
+- Por ejemplo, si tenemos la siguiente estructura de archivos y directorios:
+
+  ```
+  mi_paquete/
+  │
+  ├── __init__.py
+  ├── utilidades.py
+  ├── modelos.py
+  └── io/
+      ├── __init__.py
+      └── lector.py
+  ```
+
+  esa estructura representa:
+
+  - El paquete `mi_paquete`, que contiene:
+
+    - Los módulos `utilidades` y `modelos`.
+
+    - El subpaquete `io`, que contiene:
+
+      - El módulo `lector`.
+
+  y podemos hacer uso de la misma, por ejemplo, así:
+
+  ```python
+  import mi_paquete.utilidades
+  from mi_paquete.io import lector
+  ```
+
+---
+
+- El archivo __init__.py sirve para inicializar un paquete y controlar su
+  comportamiento cuando se importa.
+
+- Tradicionalmente, un directorio solo era considerado un paquete si contenía
+  un archivo llamado `__init__.py`.
+
+- Hoy en día ya no es necesario, pero aún sigue siendo válido, habitual y
+  recomendado.
+
+- Además, el uso de `__init__.py` permite:
+
+  - Ejecutar código al importar el paquete
+
+  - Controlar qué se expone al usar `*` en una importación, como aquí:
+
+    ```python
+    from mi_paquete import *
+    ```
+
+---
+
+- Cuando se importa un paquete:
+
+  ```python
+  import mi_paquete
+  ```
+
+  Python hace lo siguiente, en este orden:
+
+  #. Localiza el paquete.
+
+  #. Ejecuta el contenido del archivo `mi_paquete/__init__.py`.
+
+  #. Crea el objeto paquete `mi_paquete`.
+
+- Es decir, `__init__.py` es código Python normal.
+
+---
+
+- El archivo `__init__.py` permite decidir qué «sale hacia fuera» cuando se
+  importa el paquete.
+
+- Por ejemplo, supongamos que el archivo `mi_paquete/__init__.py` contiene la
+  siguiente línea:
+
+  ```python
+  from .utilidades import suma, resta
+  ```
+
+- Ahora, se puede hacer directamente:
+
+  ```python
+  from mi_paquete import suma
+  ```
+
+  sin necesidad de dar dos pasos:
+
+  ```python
+  from mi_paquete.utilidades import suma
+  ```
+
+---
+
+- Resumen clave:
+
+  | Concepto   | Qué es                    |
+  | ---------- | ------------------------- |
+  | Módulo     | Un archivo `.py`          |
+  | Paquete    | Un directorio de módulos  |
+  | Subpaquete | Un paquete dentro de otro |
+
+- Ejemplo conceptual:
+
+  ```python
+  xml                    # paquete
+  xml.etree              # subpaquete
+  xml.etree.ElementTree  # módulo
+  ```
+
+<!--
 
 ## Documentación interna
 -->
