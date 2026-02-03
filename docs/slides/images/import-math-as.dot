@@ -1,0 +1,40 @@
+
+digraph {
+    graph [rankdir = LR, bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
+  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
+  edge [fontname = "Lato", fontsize = 12 ];
+
+  compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+gcd [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>gcd|<f1>⬤}"]
+mates [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>mates|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+2 [shape = circle]
+subgraph cluster2 {
+    label = "Montículo"
+    style = rounded
+    bgcolor = "grey95"
+    lambda [shape = circle, label = "λ"]
+    2
+    subgraph cluster0 {
+        style = rounded
+        label = <Módulo <font face="monospace">mates</font>>
+        bgcolor = "white"
+        gcd
+        m [shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
+    }
+}
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    mates:f1 -> gcd [lhead = cluster0, minlen = 2]
+    x
+}
+x:f1 -> 2
+gcd:f1 -> lambda
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> mates [lhead = cluster1]
+}
+
+

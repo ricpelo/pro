@@ -1,0 +1,26 @@
+
+digraph {
+    graph [rankdir = LR, bgcolor = "transparent", fontname = "Lato", fontsize = 14 ];
+  node [shape = rectangle, fillcolor = "white", style = "filled", fontname = "Lato", fontsize = 13 ];
+  edge [fontname = "Lato", fontsize = 12 ];
+
+  compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+mcd [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>mcd|<f1>⬤}"]
+x [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>x|<f1>⬤}"]
+2 [shape = circle]
+lambda [shape = circle, label = "λ"]
+subgraph cluster1 {
+    label = "Marco global del script"
+    bgcolor = white
+    mcd
+    x
+}
+mcd:f1 -> lambda
+x:f1 -> 2
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> mcd [lhead = cluster1]
+}
+
+
