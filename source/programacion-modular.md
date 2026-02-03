@@ -1785,22 +1785,56 @@ E -> mcd [lhead = cluster1]
   `reverse`, ya que este último queda sombreado por la función `reverse`
   definida localmente.
 
-<!--
 ---
 
-Si no se define __all__, la declaración from sound.effects import * no importa todos los submódulos del paquete sound.effects al espacio de nombres actual; sólo se asegura que se haya importado el paquete sound.effects (posiblemente ejecutando algún código de inicialización que haya en __init__.py) y luego importa aquellos nombres que estén definidos en el paquete. Esto incluye cualquier nombre definido (y submódulos explícitamente cargados) por __init__.py. También incluye cualquier submódulo del paquete que pudiera haber sido explícitamente cargado por declaraciones import previas. Considere este código:
+- Si no se define `__all__`, la sentencia:
 
-import sound.effects.echo
-import sound.effects.surround
-from sound.effects import *
+  ```python
+  from sonido.efectos import *
+  ```
 
-En este ejemplo, los módulos echo y surround se importan en el espacio de nombre actual porque están definidos en el paquete sound.effects cuando se ejecuta la declaración from...import. (Esto también funciona cuando se define __all__).
+  no importa todos los submódulos del paquete `sonido.efectos` al espacio de
+  nombres actual.
 
-A pesar de que ciertos módulos están diseñados para exportar solo nombres que siguen ciertos patrones cuando uses import *, también se considera una mala práctica en código de producción.
+- Lo que hace es:
 
-Recuerda, ¡no hay nada malo al usar from package import specific_submodule! De hecho, esta es la notación recomendada a menos que el módulo que importamos necesite usar submódulos con el mismo nombre desde un paquete diferente.
+  #. Asegurarse que se haya importado el paquete `sonido.efectos`, posiblemente
+     ejecutando algún código de inicialización que haya en `__init__.py`.
 
--->
+  #. Importa los nombres que estén definidos en el paquete.
+
+     Esto incluye:
+
+     - Cualquier nombre definido (y submódulos explícitamente cargados) por
+       `__init__.py`.
+
+     - Cualquier submódulo del paquete que pudiera haber sido explícitamente
+       cargado por sentencias !PYTHON(import) anteriores.
+
+---
+
+- En el siguiente ejemplo:
+
+  ```python
+  import sonido.efectos.echo
+  import sonido.efectos.surround
+  from sonido.efectos import *
+  ```
+
+  los módulos `echo` y `surround` se importan en el espacio de nombre actual
+  porque están definidos en el paquete `sonido.efectos` cuando se ejecuta la
+  sentencia !PYTHON(from ... import).
+
+  Esto también funciona cuando se define `__all__`.
+
+- A pesar de que ciertos módulos están diseñados para exportar sólo nombres que
+  siguen ciertos patrones cuando se usa !PYTHON(import !POR), se considera una
+  mala práctica en código de producción.
+
+- No hay nada malo en usar !PYTHON(from) !NT(paquete) !PYTHON(import)
+  !NT(submodulo). De hecho, esta es la notación recomendada a menos que el
+  módulo que queremos importar necesite usar submódulos con el mismo nombre
+  desde un paquete diferente.
 
 # Criterios de descomposición modular
 
