@@ -1729,15 +1729,18 @@ E -> mcd [lhead = cluster1]
 
   lo que ocurre depende de lo que haya en el `__init__.py` del paquete.
 
-- Los módulos que se importan serán los que el creador del paquete haya
-  establecido previamente. Para ello, la sentencia !PYTHON(import) sigue el
-  siguiente convenio: si el `__init__.py` del paquete contiene una lista
-  llamada `__all__`, ésta se tomará como la lista de nombres de módulos que se
-  importarán al ejecutar la sentencia !PYTHON(from) !NT(paquete) !PYTHON(import
-  *).
+- Los módulos que se importen serán los que el creador del paquete haya
+  establecido previamente.
+
+- Para ello, la sentencia !PYTHON(import) sigue el siguiente convenio: si el
+  `__init__.py` del paquete contiene una lista llamada `__all__`, ésta se
+  tomará como la lista de nombres de módulos que se importarán al ejecutar la
+  sentencia !PYTHON(from) !NT(paquete) !PYTHON(import *).
 
   El creador del paquete es responsable de mantener actualizada esta lista cada
   vez que se publique una nueva versión del paquete.
+
+---
 
 - Por ejemplo, si el archivo `sonido/efectos/__init__.py` contiene el siguiente
   código:
@@ -1746,22 +1749,44 @@ E -> mcd [lhead = cluster1]
   __all__ = ["echo", "surround", "reverse"]
   ```
 
-  entonces la siguiente sentencia importaría esos tres módulos del paquete `sonido.efectos`:
+  entonces la siguiente sentencia importaría esos tres módulos del paquete
+  `sonido.efectos`:
 
   ```python
   from sonido.efectos import *
   ```
 
-Ten en cuenta que los submódulos pueden quedar ocultos por nombres definidos localmente. Por ejemplo, si agregaste una función llamada reverse al archivo sound/effects/__init__.py, from sound.effects import * solo importaría los dos submódulos echo y surround, pero no el submódulo reverse porque queda oculto por la función reverse definida localmente:
+---
 
-__all__ = [
-    "echo",      # refers to the 'echo.py' file
-    "surround",  # refers to the 'surround.py' file
-    "reverse",   # !!! refers to the 'reverse' function now !!!
-]
+- Hay que tener en cuenta que los submódulos pueden quedar sombreados por
+  nombres definidos localmente.
 
-def reverse(msg: str):  # <-- this name shadows the 'reverse.py' submodule
-    return msg[::-1]    #     in the case of a 'from sound.effects import *'
+- Por ejemplo, si se añade una función llamada `reverse` al archivo
+  `sonido/efectos/__init__.py`:
+
+  ```python
+  __all__ = [
+      "echo",      # se refiere al archivo 'echo.py'
+      "surround",  # se refiere al archivo 'surround.py'
+      "reverse",   # ahora se refiere a la función 'reverse' (!)
+  ]
+
+  def reverse(msg: str):  # hace sombra al submódulo 'reverse.py'
+      return msg[::-1]    # si se hace 'from sonido.efectos import *'
+  ```
+
+  entonces la orden
+  
+  ```python
+  from sonido.efectos import *
+  ```
+
+  solo importaría los dos submódulos `echo` y `surround`, pero no el submódulo
+  `reverse`, ya que este último queda sombreado por la función `reverse`
+  definida localmente.
+
+<!--
+---
 
 Si no se define __all__, la declaración from sound.effects import * no importa todos los submódulos del paquete sound.effects al espacio de nombres actual; sólo se asegura que se haya importado el paquete sound.effects (posiblemente ejecutando algún código de inicialización que haya en __init__.py) y luego importa aquellos nombres que estén definidos en el paquete. Esto incluye cualquier nombre definido (y submódulos explícitamente cargados) por __init__.py. También incluye cualquier submódulo del paquete que pudiera haber sido explícitamente cargado por declaraciones import previas. Considere este código:
 
@@ -1775,9 +1800,6 @@ A pesar de que ciertos módulos están diseñados para exportar solo nombres que
 
 Recuerda, ¡no hay nada malo al usar from package import specific_submodule! De hecho, esta es la notación recomendada a menos que el módulo que importamos necesite usar submódulos con el mismo nombre desde un paquete diferente.
 
-<!--
-
-## Documentación interna
 -->
 
 # Criterios de descomposición modular
