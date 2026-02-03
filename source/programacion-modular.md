@@ -1836,6 +1836,22 @@ E -> mcd [lhead = cluster1]
   módulo que queremos importar necesite usar submódulos con el mismo nombre
   desde un paquete diferente.
 
+<!--
+
+---
+
+When packages are structured into subpackages (as with the sound package in the example), you can use absolute imports to refer to submodules of siblings packages. For example, if the module sound.filters.vocoder needs to use the echo module in the sound.effects package, it can use from sound.effects import echo.
+
+You can also write relative imports, with the from module import name form of import statement. These imports use leading dots to indicate the current and parent packages involved in the relative import. From the surround module for example, you might use:
+
+from . import echo
+from .. import formats
+from ..filters import equalizer
+
+Note that relative imports are based on the name of the current module’s package. Since the main module does not have a package, modules intended for use as the main module of a Python application must always use absolute imports.
+
+-->
+
 # Criterios de descomposición modular
 
 ## Introducción
