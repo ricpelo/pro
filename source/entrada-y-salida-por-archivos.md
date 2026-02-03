@@ -113,14 +113,14 @@ nocite: |
   - El modo predeterminado es `'r'` (abrir para lectura en modo texto, sinónimo
     de `'rt'`).
 
-  - Los modos `'a'`, `'ab'`, `'a+'` y `'a+b'` abren el archivo si ya existía
+  - Los modos `'a'`, `'ab'`, `'a+'` y `'ab+'` abren el archivo si ya existía
     previamente, o lo crean nuevo si no existía.
 
-  - Los modos `'w'`, `'wb'`, `'w+'` y `'w+b'` abren el archivo y lo vacía
+  - Los modos `'w'`, `'wb'`, `'w+'` y `'wb+'` abren el archivo y lo vacía
     (borra su contenido) si ya existía previamente, o lo crean nuevo si no
     existía.
 
-  - Los modos `'r+'` y `'r+b'` abren el archivo sin borrarlo.
+  - Los modos `'r+'` y `'rb+'` abren el archivo sin borrarlo.
 
   - El modo `'x'` abre el archivo en modo exclusivo, produciendo un error si el
     archivo ya existía.
@@ -211,7 +211,7 @@ nocite: |
   True
   ```
 
-- Observa que **no es un método** (no lleva paréntesis), **sino un _atributo_**
+- Observar que **no es un método** (no lleva paréntesis), **sino un _campo_**
   que contiene un valor lógico que el propio objeto modifica al cambiar su
   estado de abierto a cerrado o viceversa.
 
