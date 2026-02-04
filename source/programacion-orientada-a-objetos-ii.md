@@ -1000,7 +1000,7 @@ True
   ```
 
 - Lo que tenemos que hacer es definir adecuadamente un método !PYTHON(__repr__)
-  en nuestra clase.
+  en nuestra clase `Deposito`.
 
 !EJERCICIO
 @. Inténtalo primero.
