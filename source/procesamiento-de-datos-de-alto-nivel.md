@@ -1775,27 +1775,135 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(expr_gen) ::= !T{(}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(iterable) [!T(if) !NT{condición}])!MAS!T{)}
+  !NT(expr_gen) ::= !T{(}!NT{expresión} !NT{cláusula_for} (!NT{cláusula_for} | !NT{cláusula_if})!POR!T{)}
+  !NT(cláusula_for) ::= !T(for) !NT(identificadores) !T(in) !NT(iterable)
+  !NT(identificadores) ::= !T{identificador} (!T(,) !T{identificador})!POR
+  !NT(cláusula_if) ::= !T(if) !NT(condición)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Los elementos de la salida generada serán los sucesivos valores de
-  !NT(expresión).
+- Toda expresión generadora debe contener, como mínimo, una !NT(expresión)
+  seguida de una !NT(cláusula_for).
 
-- Las cláusulas !T(if) son opcionales. Si están, la !NT(expresión) sólo se
-  evaluará y añadirá al resultado cuando se cumpla la !NT(condición).
+- Luego pueden aparecer varias !NT(cláusula_for) y !NT(cláusula_if) en
+  cualquier orden y combinación.
+
+- Cada !NT(cláusula_for) introduce una o varias variables y crea un bucle que
+  afecta a las cláusulas posteriores.
+
+- Cada !NT(iterable) y cada !NT(condición) puede usar variables introducidas en
+  las !NT(cláusula_for) anteriores u otros nombres del entorno fuera de la
+  expresión generadora.
+
+- Cada !NT(cláusula_if) crea un filtro que afecta a las cláusulas posteriores.
 
 - Los paréntesis `(` y `)` alrededor de la expresión generadora se pueden
   quitar si la expresión se usa como único argumento de una función.
+
+---
+
+- Los elementos de la salida generada serán los sucesivos valores de
+  !NT(expresión) obtenidos mediante los bucles y filtros definidos por las
+  cláusulas.
 
 - Por ejemplo:
 
   ```python
   >>> sec1 = 'abc'
   >>> sec2 = (1, 2, 3)
-  >>> tuple((x, y) for x in sec1 for y in sec2)
+  >>> g = ((x, y) for x in sec1 for y in sec2)
+  >>> tuple(g)   # o directamente tuple((x, y) for x in sec1 for y in sec2)
   (('a', 1), ('a', 2), ('a', 3),
    ('b', 1), ('b', 2), ('b', 3),
    ('c', 1), ('c', 2), ('c', 3))
+  ```
+
+- La expresión generadora anterior equivale a la siguiente función con los dos
+  bucles anidados, llamada **función generadora**:
+
+  ```python
+  def g():
+      for x in sec1:
+          for y in sec2:
+              yield (x, y)
+  ```
+
+- La sentencia !PYTHON(yield) es como la !PYTHON(return) pero suspende la
+  función y la reanuda por el mismo punto.
+
+---
+
+- Ejemplo:
+
+  ```python
+  >>> g = (x + y for x in range(3) for y in range(3) if x != y)
+  >>> tuple(g)
+  (1, 2, 1, 3, 2, 3)
+  ```
+
+  equivale a la siguiente función:
+
+  ```python
+  def g():
+      for x in range(3):
+          for y in range(3):
+              if x != y:
+                  yield x + y
+  ```
+
+- Ejemplo:
+
+  ```python
+  >>> g = (x for x in range(20) if x % 2 == 0 if x > 10)
+  >>> tuple(g)
+  (12, 14, 16, 18)
+  ```
+
+  equivale a:
+
+  ```python
+  def g():
+      for x in range(20):
+          if x % 2 == 0:
+              if x > 10:
+                  yield x
+  ```
+
+---
+
+- Ejemplo:
+
+  ```python
+  >>> g = (x + y for x in range(3) for y in range(x, 3))
+  >>> tuple(g)
+  (0, 1, 2, 2, 3, 4)
+  ```
+
+  equivale a:
+
+  ```python
+  def g():
+      for x in range(3):
+          for y in range(x, 3):
+              yield x + y
+  ```
+
+  donde el segundo !PYTHON(for) usa la variable `x` introducida en el
+  !PYTHON(for) anterior.
+
+- Ejemplo:
+
+  ```python
+  >>> g = (x * y for x, y in zip(range(1, 5), "hola"))
+  >>> tuple(g)
+  ('h', 'oo', 'lll', 'aaaa')
+  ```
+
+  equivale a:
+
+  ```python
+  def g():
+      for x, y in zip(range(1, 5), "hola"):
+          yield x * y
   ```
 
 ---
