@@ -352,10 +352,10 @@ nocite: |
   es evidente que `cola1` y `cola2` hacen referencia a objetos separados y, por
   tanto, **no son _idénticos_**, ya que no se refieren *al mismo* objeto.
 
-- En cambio, sí podemos decir que **son _iguales_** ya que pertenecen a la
-  misma clase, poseen el mismo estado interno (el mismo contenido) y se
-  comportan de la misma forma al recibir la misma secuencia de mensajes en el
-  mismo orden:
+- Aunque no son idénticos, sí podemos decir que **son _iguales_** ya que
+  pertenecen a la misma clase, poseen el mismo estado interno (el mismo
+  contenido) y se comportan de la misma forma al recibir la misma secuencia de
+  mensajes en el mismo orden:
 
   ```python
   >>> cola1 = Cola([1, 2, 3])
@@ -376,7 +376,7 @@ nocite: |
 
 ---
 
-- Sin embargo, si preguntamos al intérprete si son iguales, nos dice que no:
+- Pero si preguntamos al intérprete si son iguales, nos dice que no:
 
   ```python
   >>> cola1 == cola2
@@ -390,6 +390,10 @@ nocite: |
 - Es decir: por defecto, $\underline{\textbf{\textit{x}}\ \texttt{==}\ \textbf{\textit{y}}}$
   sólo si $\underline{\textbf{\textit{x}}\ \texttt{is}\ \textbf{\textit{y}}}$.
 
+- Esto es lo que técnicamente se denomina **igualdad por identidad**.
+
+---
+
 - Para cambiar ese comportamiento predeterminado, tendremos que definir qué
   significa que dos instancias de nuestra clase son iguales.
 
@@ -399,6 +403,8 @@ nocite: |
   Podemos decir que dos colas son iguales cuando tienen el mismo estado
   interno. En este caso: _dos colas son iguales cuando tienen los mismos
   elementos en el mismo orden_.
+
+- Es lo que técnicamente se denomina **igualdad estructural**.
 
 ### `__eq__`
 
@@ -472,7 +478,7 @@ True
 
 ### `__hash__`
 
-- Recordatorio:
+- Recordemos lo que ya sabemos:
 
   - Existen datos _hashables_ y datos _no hashables_.
 
@@ -490,8 +496,8 @@ True
   - Si $x$ no es _hashable_, !PYTHON(hash)`(`$x$`)` lanza una excepción
     !PYTHON(TypeError).
 
-- Lo que hace la función !PYTHON(hash) es llamar al método !PYTHON(__hash__) de
-  su argumento.
+- Lo que hace la función !PYTHON(hash) es llamar al método !PYTHON(__hash__)
+  sobre su argumento.
 
 - Por tanto, la llamada a !PYTHON(hash)`(`$x$`)` es equivalente a hacer
   $x$!PYTHON(.__hash__()).
@@ -570,7 +576,7 @@ True
 
 5. Si las instancias de la clase son mutables y ésta define !PYTHON(__eq__), lo
    normal es que no defina !PYTHON(__hash__), ya que los objetos mutables no
-   deberían ser _hashables_, en general.
+   son _hashables_, en general.
 
    No obstante, hay casos particulares de objetos mutables que pueden ser
    _hashables_, como veremos en breve.
@@ -701,15 +707,27 @@ True
 
 ---
 
-- Aunque los objetos mutables no deberían ser _hashables_, a veces es posible
-  hacer que el valor de _hash_ de un objeto dependa de un subconjunto de
-  atributos inmutables del objeto.
+- Aunque los objetos mutables no deberían ser _hashables_, existen dos técnicas
+  que nos permiten obtener objetos que sean simultáneamente mutables y
+  _hashables_:
 
-- En ese caso, el objeto sería mutable pero podría ser _hashable_ al mismo
-  tiempo.
+  - Implementando **igualdad estructural** por comparación entre atributos
+    inmutables y calculando el _hash_ a partir de esos atributos.
+
+  - Implementando **igualdad por identidad** y calculando el _hash_ a partir de
+    la identidad del objeto.
+
+---
+
+- Si entre los atributos de un objeto hay un subconjunto de ellos que nunca
+  cambian, se puede implementar **igualidad estructural** mediante la
+  comparación de esos atributos.
+
+- En tal caso, el _hash_ se puede calcular a partir de esos atributos que nunca
+  cambian.
 
 - Por ejemplo, si el DNI de una persona nunca cambia, podríamos usarlo para
-  calcular su _hash_:
+  comprobar si dos personas son iguales y además calcular su _hash_:
 
   ```python
   class Persona:
@@ -717,12 +735,50 @@ True
           self.__dni = dni
           self.__nombre = nombre
 
+      def __eq__(self, otro):
+          if type(self) != type(otro):
+              return NotImplemented
+          return self.__dni == otro.__dni
+
       def __hash__(self):
           return hash(self.__dni)
 
       def set_nombre(self, nombre):
           self.__nombre = nombre
   ```
+
+- Así, las instancias de `Persona` serán mutables y también _hashables_.
+
+---
+
+- Por otra parte, como vimos anteriormente, si una clase no implementa su
+  propia versión de !PYTHON(__eq__) y no define !PYTHON(__hash__) `=`
+  !PYTHON(None), entonces:
+
+  - Implementa **igualidad por identidad**, de manera que dos instancias de la
+    clase serán iguales sólo si son idénticos (!PYTHON(x == y) sólo si
+    !PYTHON(x is y)).
+
+  - Sus objetos serán _hashables_.
+
+  - El _hash_ de sus instancias se calculará a partir de sus identidades.
+
+- Por ejemplo:
+
+  ```python
+  class Persona:
+      def __init__(self, dni, nombre):
+          self.__dni = dni
+          self.__nombre = nombre
+
+      def set_dni(self, dni):
+          self.__dni = dni
+
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
+  ```
+
+- Esta es otra forma de tener objetos mutables y _hashables_.
 
 ## Otros métodos mágicos
 
