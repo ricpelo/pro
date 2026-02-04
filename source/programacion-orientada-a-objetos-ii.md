@@ -110,8 +110,8 @@ nocite: |
   cambiado alguna propiedad del objeto de la primera observación a la segunda.
 
 - Por tanto, no podemos determinar si ha habido un «cambio» si no podemos
-  determinar, a priori, si dos objetos son «el mismo», y no podemos determinar
-  si son el mismo si no podemos observar los efectos de ese cambio.
+  determinar a priori si dos objetos son «el mismo», y no podemos determinar si
+  son el mismo si no podemos observar los efectos de ese cambio.
 
 - Esto nos lleva a una definición circular, donde un término depende del otro y
   viceversa.
@@ -250,13 +250,18 @@ nocite: |
 
 - Dos objetos pueden ser **iguales** y, en cambio, no ser *idénticos*.
 
-- Resumiendo:
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Resumiendo:**
 
-  - Cuando preguntamos si dos objetos son **iguales**, estamos preguntando si
-    tienen el **mismo contenido**.
+- Cuando preguntamos si dos objetos son **iguales**, estamos preguntando si
+  **_parecen_ el mismo objeto**, es decir, si tienen la misma forma y el
+  mismo contenido.
 
-  - Cuando preguntamos si son **idénticos**, estamos preguntando si son el
-    **mismo objeto**.
+- Cuando preguntamos si son **idénticos**, estamos preguntando si **_son_ el
+  mismo objeto**.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
