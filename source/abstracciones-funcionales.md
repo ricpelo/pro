@@ -416,6 +416,52 @@ nocite: |
   expresión lambda no viene determinado por ninguna característica propia de
   dicha expresión lambda.
 
+### Anotaciones de tipos en funciones
+
+- El tipo de las funciones se puede anotar usando el tipo `Callable` del módulo
+  `typing`.
+
+- Por ejemplo, el tipo de una función que sume dos números enteros se podría
+  anotar así:
+
+  ```python
+  from typing import Callable
+
+  suma: Callable[[int, int], int] = lambda x, y: x + y
+  ```
+
+- El tipo `Callable[`$a$`,`\ $b$`]` tiene dos parámetros, $a$ y $b$:
+
+  - $a$ representa el tipo de los parámetros de la función, y se define como
+    una lista de tipos separados por comas y encerrados entre corchetes.
+
+  - $b$ representa el tipo de retorno de la función.
+
+- Por ejemplo, !PYTHON(Callable[[int, int], int]) representa el tipo de las
+  funciones que tienen dos parámetros enteros y devuelven un entero.
+
+---
+
+- Igualmente, !PYTHON(Callable[[str, int], bool]) representa el tipo de las
+  funciones que tienen un primer parámetro de tipo cadena y un segundo
+  parámetro de tipo entero, y devuelven un booleano.
+
+- Más ejemplos:
+
+  +-----------------------------------------------------------------------------------+--------------------------------+-------------------+
+  | Tipo                                                                              | Tipos de los parámetros        | Tipo de retorno   |
+  +===================================================================================+================================+===================+
+  | !PYTHON(Callable[[str, int], bool])                                             | 1. !PYTHON(str)              | !PYTHON(bool)   |
+  |                                                                                   | 2. !PYTHON(int)              |                   |
+  +-----------------------------------------------------------------------------------+--------------------------------+-------------------+
+  | !PYTHON(Callable[[str], float])                                                 | 1. !PYTHON(str)              | !PYTHON(float)  |
+  |                                                                                   |                                |                   |
+  +-----------------------------------------------------------------------------------+--------------------------------+-------------------+
+  | !PYTHON(Callable[[int, int, str], str])                                         | 1. !PYTHON(int)              | !PYTHON(str)    |
+  |                                                                                   | 2. !PYTHON(int)              |                   |
+  |                                                                                   | 3. !PYTHON(str)              |                   |
+  +-----------------------------------------------------------------------------------+--------------------------------+-------------------+
+
 # Abstracciones funcionales
 
 ## Encapsulación y cajas negras
