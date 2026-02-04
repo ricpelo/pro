@@ -738,30 +738,30 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
 ---
 
-------------------------------------------------------------------------------------------------------------------------------------
-Operación                                          Resultado
--------------------------------------------------- ---------------------------------------------------------------------------------
-$d$!PYTHON(.get)`(`$c$[`,` $def$]`)`               Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
-                                                   no está, devuelve $\underline{def}$, que por defecto es !PYTHON(None)
-
-$d$!PYTHON(.pop)`(`$c$[`,` $def$]`)`               Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]` y
-                                                   elimina de $\underline{d}$ el elemento con clave $\underline{c}$; si no está,
-                                                   devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y la clave
-                                                   $\underline{c}$ no está en $\underline{d}$, lanza un !PYTHON(KeyError))
-
-$d$!PYTHON(.popitem())                             Selecciona un elemento de $\underline{d}$ siguiendo un orden LIFO, lo elimina de
-                                                   $\underline{d}$ y lo devuelve en forma de tupla `(`$clave$`, `$valor$`)` (lanza
-                                                   un !PYTHON(KeyError) si $\underline{d}$ está vacío)
-
-$d$!PYTHON(.setdefault)`(`$c$[`,` $def$]`)`        Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
-                                                   no está, inserta en $\underline{d}$ un elemento con clave $\underline{c}$ y
-                                                   valor $\underline{def}$, y devuelve $\underline{def}$ (que por defecto es
-                                                   !PYTHON(None))
-
-$d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con las parejas ($clave$, $valor$) de $\underline{o}$,
-                                                   sobreescribiendo las claves ya existentes en $\underline{d}$, y devuelve
-                                                   !PYTHON(None)
-------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+Operación                                            Resultado
+---------------------------------------------------- ---------------------------------------------------------------------------------
+$d$!PYTHON(.get)`(`$c$ [`,` $def$]`)`                Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
+                                                     no, devuelve $\underline{def}$, que por defecto es !PYTHON(None)
+                                                  
+$d$!PYTHON(.pop)`(`$c$ [`,` $def$]`)`                Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]` y
+                                                     elimina de $\underline{d}$ el elemento con clave $\underline{c}$; si no está,
+                                                     devuelve $\underline{def}$ (si no se pasa $\underline{def}$ y la clave
+                                                     $\underline{c}$ no está en $\underline{d}$, lanza un !PYTHON(KeyError))
+                                                  
+$d$!PYTHON(.popitem())                               Selecciona un elemento de $\underline{d}$ siguiendo un orden LIFO, lo elimina de
+                                                     $\underline{d}$ y lo devuelve en forma de tupla $\underline{\texttt{(}clave\texttt{,}\,valor\texttt{)}}$ (lanza
+                                                     un !PYTHON(KeyError) si $\underline{d}$ está vacío)
+                                                  
+$d$!PYTHON(.setdefault)`(`$c$ [`,` $def$]`)`         Si la clave $\underline{c}$ está en $\underline{d}$, devuelve $d$`[`$c$`]`; si
+                                                     no está, inserta en $\underline{d}$ un elemento con clave $\underline{c}$ y
+                                                     valor $\underline{def}$, y devuelve $\underline{def}$ (que por defecto es
+                                                     !PYTHON(None))
+                                                  
+$d$!PYTHON(.update)`(`$o$`)`                         Actualiza $\underline{d}$ con las parejas $\underline{\texttt{(}clave\texttt{,}\,valor\texttt{)}}$ de $\underline{o}$,
+                                                     sobreescribiendo las claves ya existentes en $\underline{d}$, y devuelve
+                                                     !PYTHON(None)
+--------------------------------------------------------------------------------------------------------------------------------------
 
 ## Recorrido de diccionarios
 
@@ -825,10 +825,9 @@ $d$!PYTHON(.update)`(`$o$`)`                       Actualiza $\underline{d}$ con
     b 2
     ```
 
-  - Usar el método !PYTHON(items) sobre el diccionario (el cual devuelve un
-    objeto que, al iterar sobre él, genera una secuencia de tuplas
-    !T{(}!NT(clave)!T(,) !NT(valor)!T{)}), y combinarlo con el **desempaquetado
-    de tuplas**:
+  - Combinar el **desempaquetado de tuplas** con el método !PYTHON(items) sobre
+    el diccionario, el cual devuelve un objeto que, al iterar sobre él, genera
+    una secuencia de tuplas !T{(}!NT(clave)!T(,) !NT(valor)!T{)}:
 
     ```python
     >>> d.items()
