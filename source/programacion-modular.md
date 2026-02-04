@@ -1504,45 +1504,20 @@ E -> mcd [lhead = cluster1]
 
   - Define un espacio de nombres jerárquico.
 
----
-
-- Por ejemplo, supongamos la siguiente estructura de archivos y directorios:
-
-    ```
-    sonido/                         Paquete de nivel superior
-          __init__.py               Inicializa el paquete sonido
-          formatos/                 Subpaquete de conversión entre formatos
-                  __init__.py
-                  wavread.py
-                  wavwrite.py
-                  aiffread.py
-                  aiffwrite.py
-                  auread.py
-                  auwrite.py
-                  ...
-          efectos/                  Subpaquete de efectos de sonido
-                  __init__.py
-                  echo.py
-                  surround.py
-                  reverse.py
-                  ...
-          filtros/                  Subpaquete de filtros
-                  __init__.py
-                  equalizer.py
-                  vocoder.py
-                  karaoke.py
-                  ...
-    ```
+  - Puede contener un archivo de inicialización y control del paquete llamado
+    `__init__.py`.
 
 ---
 
-- Resumen clave:
+- Ideas clave:
 
   | Concepto   | Qué es                    |
   | ---------- | ------------------------- |
   | Módulo     | Un archivo `.py`          |
   | Paquete    | Un directorio de módulos  |
   | Subpaquete | Un paquete dentro de otro |
+
+  !SALTO
 
 - Ejemplo conceptual:
 
@@ -1554,17 +1529,50 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Los usuarios del paquete pueden importar módulos individuales del mismo, por
-  ejemplo:
+- Por ejemplo, supongamos la siguiente estructura de archivos y directorios:
+
+    ```
+    sonido/                         <-- Paquete de nivel superior
+          __init__.py               <-- Inicializa el paquete sonido
+          utilidades.py             <-- Módulo utilidades del paquete sonido
+          formatos/                 <-- Subpaquete de conversión entre formatos
+                  __init__.py       <-- Inicializa el subpaquete formatos
+                  wavread.py        <-- Módulo wavread del subpaquete formatos
+                  wavwrite.py       <-- Módulo wavwrite del subpaquete formatos
+                  aiffread.py       <-- Módulo aiffread del subpaquete formatos
+                  aiffwrite.py      <-- Módulo aiffwrite del subpaquete formatos
+                  auread.py         <-- Módulo auread del subpaquete formatos
+                  auwrite.py        <-- Módulo auwrite del subpaquete formatos
+                  ...
+          efectos/                  <-- Subpaquete de efectos de sonido
+                  __init__.py       <-- Inicializa el subpaquete efectos
+                  echo.py           <-- Módulo echo del subpaquete efectos
+                  surround.py       <-- Módulo surround del subpaquete efectos 
+                  reverse.py        <-- Módulo reverse del subpaquete efectos
+                  ...
+          filtros/                  <-- Subpaquete de filtros
+                  __init__.py       <-- Inicializa el subpaquete filtros
+                  equalizer.py      <-- Módulo equalizer del subpaquete filtros
+                  vocoder.py        <-- Módulo vocoder del subpaquete filtros
+                  karaoke.py        <-- Módulo karaoke del subpaquete filtros
+                  ...
+    ```
+
+---
+
+- Los usuarios del paquete pueden importar módulos individuales del mismo.
+
+- Por ejemplo, la siguiente sentencia:
 
   ```python
   import sonido.efectos.echo
   ```
 
-  Esto carga el submódulo `sonido.efectos.echo`.
+  importa el módulo `sonido.efectos.echo`, es decir, el módulo `echo` del
+  subpaquete `efectos` del paquete `sonido`.
 
 - Para usarlo, debe hacerse referencia al mismo con el nombre completo (también
-  llamado nombre _totalmente cualificado_):
+  llamado _nombre totalmente cualificado_):
 
   ```python
   sonido.efectos.echo.echofilter(input, output, delay=0.7, atten=4)
@@ -1572,27 +1580,29 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Otra alternativa para importar el submódulo es:
+- Otra alternativa para importar el módulo es:
 
   ```python
   from sonido.efectos import echo
   ```
 
-  Esto también carga el submódulo `echo` y lo deja disponible sin su prefijo de
+  Esto también carga el módulo `echo` y lo deja disponible sin su prefijo de
   paquete, por lo que puede usarse así:
 
   ```python
   echo.echofilter(input, output, delay=0.7, atten=4)
   ```
 
-- Otra variante más es importar directamente la función o variable deseadas:
+- Otra variante más es importar directamente el miembro deseado (función,
+  variable, etc.) del módulo:
 
   ```python
   from sonido.efectos.echo import echofilter
   ```
 
-  De nuevo, esto carga el submódulo `echo`, pero deja directamente disponible a
-  la función `echofilter`:
+  De nuevo, esto carga el módulo `echo`, pero deja directamente disponible la
+  función `echofilter`, por lo que se puede usar sin necesidad de poner el
+  nombre del módulo como prefijo:
 
   ```python
   echofilter(input, output, delay=0.7, atten=4)
@@ -1606,12 +1616,12 @@ E -> mcd [lhead = cluster1]
   from paquete import elemento
   ```
 
-  el elemento puede ser tanto un submódulo (o subpaquete) del paquete, como
-  algún otro nombre definido en el paquete, por ejemplo una función, una clase
-  o una variable.
+  el elemento puede ser tanto un módulo (o subpaquete) del paquete, como algún
+  otro nombre definido en el paquete, como por ejemplo una función, una
+  variable o una clase.
 
-  La declaración `import` primero verifica si el elemento está definido en el
-  paquete; si no, asume que es un módulo y trata de cargarlo. Si no lo puede
+  La sentencia !PYTHON(import) primero verifica si el elemento está definido en
+  el paquete; si no, asume que es un módulo y trata de cargarlo. Si no lo puede
   encontrar, se genera una excepción !PYTHON(ImportError).
 
 - Por otro lado, cuando se usa la sintaxis:
@@ -1620,9 +1630,11 @@ E -> mcd [lhead = cluster1]
   import elemento.subelemento.subsubelemento
   ```
 
-  cada elemento excepto el último debe ser un paquete; es último elemento puede
-  ser un módulo o un paquete pero no puede ser una clase, función o variable
-  definida en el elemento previo.
+  cada elemento excepto el último debe ser un paquete; ese último elemento
+  puede ser un módulo o un paquete pero no puede ser una función, variable o
+  clase definida en el elemento previo.
+
+<!--
 
 ---
 
@@ -1656,12 +1668,14 @@ E -> mcd [lhead = cluster1]
   from mi_paquete.io import lector
   ```
 
+-->
+
 ---
 
 - El archivo `__init__.py` sirve para inicializar un paquete y controlar su
   comportamiento cuando se importa.
 
-- Tradicionalmente, un directorio solo era considerado un paquete si contenía
+- Tradicionalmente, un directorio sólo era considerado un paquete si contenía
   un archivo llamado `__init__.py`.
 
 - Hoy en día ya no es necesario, pero aún sigue siendo válido, habitual y
@@ -1669,54 +1683,55 @@ E -> mcd [lhead = cluster1]
 
 - Además, el uso de `__init__.py` permite:
 
-  - Ejecutar código al importar el paquete
+  - Ejecutar código al importar el paquete.
 
-  - Controlar qué se expone al usar `*` en una importación, como aquí:
+  - Controlar qué se expone al usar `*` en una importación, como en una
+    sentencia !PYTHON(import) así:
 
     ```python
-    from mi_paquete import *
+    from paquete import *
     ```
 
 ---
 
-- Cuando se importa un paquete:
+- Cuando se importa un paquete en sí:
 
   ```python
-  import mi_paquete
+  import sonido
   ```
 
   Python hace lo siguiente, en este orden:
 
-  #. Localiza el paquete.
+  #. Localiza el paquete `sonido`.
 
-  #. Ejecuta el contenido del archivo `mi_paquete/__init__.py`.
+  #. Ejecuta el contenido del archivo `sonido/__init__.py`.
 
-  #. Crea el objeto paquete `mi_paquete`.
+  #. Crea el objeto paquete llamado `sonido`.
 
 - Es decir, `__init__.py` es código Python normal.
 
 ---
 
 - El archivo `__init__.py` permite decidir qué «sale hacia fuera» cuando se
-  importa el paquete.
+  importa el paquete en sí.
 
-- Por ejemplo, supongamos que el archivo `mi_paquete/__init__.py` contiene la
+- Por ejemplo, supongamos que el archivo `sonido/__init__.py` contiene la
   siguiente línea:
 
   ```python
-  from .utilidades import suma, resta
+  from sonido.utilidades import suma, resta
   ```
 
 - Ahora, se puede hacer directamente:
 
   ```python
-  from mi_paquete import suma
+  from sonido import suma
   ```
 
   sin necesidad de dar dos pasos:
 
   ```python
-  from mi_paquete.utilidades import suma
+  from sonido.utilidades import suma
   ```
 
 ---
@@ -1758,8 +1773,8 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Hay que tener en cuenta que los submódulos pueden quedar sombreados por
-  nombres definidos localmente.
+- Hay que tener en cuenta que los módulos pueden quedar sombreados por nombres
+  definidos localmente.
 
 - Por ejemplo, si se añade una función llamada `reverse` al archivo
   `sonido/efectos/__init__.py`:
@@ -1771,7 +1786,7 @@ E -> mcd [lhead = cluster1]
       "reverse",   # ahora se refiere a la función 'reverse' (!)
   ]
 
-  def reverse(msg: str):  # hace sombra al submódulo 'reverse.py'
+  def reverse(msg: str):  # hace sombra al módulo 'reverse.py'
       return msg[::-1]    # si se hace 'from sonido.efectos import *'
   ```
 
@@ -1781,7 +1796,7 @@ E -> mcd [lhead = cluster1]
   from sonido.efectos import *
   ```
 
-  solo importaría los dos submódulos `echo` y `surround`, pero no el submódulo
+  solo importaría los dos módulos `echo` y `surround`, pero no el módulo
   `reverse`, ya que este último queda sombreado por la función `reverse`
   definida localmente.
 
@@ -1793,7 +1808,7 @@ E -> mcd [lhead = cluster1]
   from sonido.efectos import *
   ```
 
-  no importa todos los submódulos del paquete `sonido.efectos` al espacio de
+  no importa todos los módulos del paquete `sonido.efectos` al espacio de
   nombres actual.
 
 - Lo que hace es:
@@ -1805,10 +1820,10 @@ E -> mcd [lhead = cluster1]
 
      Esto incluye:
 
-     - Cualquier nombre definido (y submódulos explícitamente cargados) por
+     - Cualquier nombre definido (y módulos explícitamente cargados) por
        `__init__.py`.
 
-     - Cualquier submódulo del paquete que pudiera haber sido explícitamente
+     - Cualquier módulo del paquete que pudiera haber sido explícitamente
        cargado por sentencias !PYTHON(import) anteriores.
 
 ---
@@ -1833,24 +1848,41 @@ E -> mcd [lhead = cluster1]
 
 - No hay nada malo en usar !PYTHON(from) !NT(paquete) !PYTHON(import)
   !NT(submodulo). De hecho, esta es la notación recomendada a menos que el
-  módulo que queremos importar necesite usar submódulos con el mismo nombre
-  desde un paquete diferente.
-
-<!--
+  módulo que queremos importar necesite usar módulos con el mismo nombre desde
+  un paquete diferente.
 
 ---
 
-When packages are structured into subpackages (as with the sound package in the example), you can use absolute imports to refer to submodules of siblings packages. For example, if the module sound.filters.vocoder needs to use the echo module in the sound.effects package, it can use from sound.effects import echo.
+- Cuando se estructuran paquetes en subpaquetes (como en el ejemplo del paquete
+  `sonido`) los módulos pueden pueden hacer **importaciones absolutas** para
+  referirse a módulos de paquetes «hermanos».
 
-You can also write relative imports, with the from module import name form of import statement. These imports use leading dots to indicate the current and parent packages involved in the relative import. From the surround module for example, you might use:
+- Por ejemplo, si el módulo `sonido.filtros.vocoder` necesita usar el módulo
+  `echo` del paquete `sonido.efectos`, puede hacer:
 
-from . import echo
-from .. import formats
-from ..filters import equalizer
+  ```python
+  from sonido.efectos import echo
+  ```
 
-Note that relative imports are based on the name of the current module’s package. Since the main module does not have a package, modules intended for use as the main module of a Python application must always use absolute imports.
+---
 
--->
+- También se pueden hacer **importaciones relativas** usando la forma
+  !PYTHON(from) !NT(módulo) !PYTHON(import) !NT(nombre).
+
+- Estas importaciones usan puntos (`.`) para indicar el paquete actual y el
+  paquete «padre» involucrados en la importación relativa.
+
+- Por ejemplo, desde el módulo `surround` se puede hacer:
+
+  ```python
+  from . import echo
+  from .. import formatos
+  from ..filtros import equalizer
+  ```
+
+- Hay que tener en cuenta que las importaciones relativas se basan en el nombre
+  del paquete del módulo actual. Como el módulo principal de un programa Python
+  no pertenece a ningún paquete, debe usar siempre importaciones absolutas.
 
 # Criterios de descomposición modular
 

@@ -1670,43 +1670,15 @@ reconoce como importable y que:</p>
 <li><p>Contiene uno o más módulos (archivos <code>.py</code>).</p></li>
 <li><p>Puede contener <em>subpaquetes</em>.</p></li>
 <li><p>Define un espacio de nombres jerárquico.</p></li>
+<li><p>Puede contener un archivo de inicialización y control del paquete
+llamado <code>__init__.py</code>.</p></li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.2">
 
 <ul>
-<li><p>Por ejemplo, supongamos la siguiente estructura de archivos y
-directorios:</p>
-<pre><code>sonido/                         Paquete de nivel superior
-      __init__.py               Inicializa el paquete sonido
-      formatos/                 Subpaquete de conversión entre formatos
-              __init__.py
-              wavread.py
-              wavwrite.py
-              aiffread.py
-              aiffwrite.py
-              auread.py
-              auwrite.py
-              ...
-      efectos/                  Subpaquete de efectos de sonido
-              __init__.py
-              echo.py
-              surround.py
-              reverse.py
-              ...
-      filtros/                  Subpaquete de filtros
-              __init__.py
-              equalizer.py
-              vocoder.py
-              karaoke.py
-              ...</code></pre></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.5.0.0.3">
-
-<ul>
-<li><p>Resumen clave:</p>
+<li><p>Ideas clave:</p>
 <table>
 <thead>
 <tr>
@@ -1728,24 +1700,59 @@ directorios:</p>
 <td>Un paquete dentro de otro</td>
 </tr>
 </tbody>
-</table></li>
+</table>
+<p><br></p></li>
 <li><p>Ejemplo conceptual:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>xml                    <span class="co"># paquete</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>xml.etree              <span class="co"># subpaquete</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>xml.etree.ElementTree  <span class="co"># módulo</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>xml                    <span class="co"># paquete</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>xml.etree              <span class="co"># subpaquete</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>xml.etree.ElementTree  <span class="co"># módulo</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.3">
+
+<ul>
+<li><p>Por ejemplo, supongamos la siguiente estructura de archivos y
+directorios:</p>
+<pre><code>sonido/                         &lt;-- Paquete de nivel superior
+      __init__.py               &lt;-- Inicializa el paquete sonido
+      utilidades.py             &lt;-- Módulo utilidades del paquete sonido
+      formatos/                 &lt;-- Subpaquete de conversión entre formatos
+              __init__.py       &lt;-- Inicializa el subpaquete formatos
+              wavread.py        &lt;-- Módulo wavread del subpaquete formatos
+              wavwrite.py       &lt;-- Módulo wavwrite del subpaquete formatos
+              aiffread.py       &lt;-- Módulo aiffread del subpaquete formatos
+              aiffwrite.py      &lt;-- Módulo aiffwrite del subpaquete formatos
+              auread.py         &lt;-- Módulo auread del subpaquete formatos
+              auwrite.py        &lt;-- Módulo auwrite del subpaquete formatos
+              ...
+      efectos/                  &lt;-- Subpaquete de efectos de sonido
+              __init__.py       &lt;-- Inicializa el subpaquete efectos
+              echo.py           &lt;-- Módulo echo del subpaquete efectos
+              surround.py       &lt;-- Módulo surround del subpaquete efectos 
+              reverse.py        &lt;-- Módulo reverse del subpaquete efectos
+              ...
+      filtros/                  &lt;-- Subpaquete de filtros
+              __init__.py       &lt;-- Inicializa el subpaquete filtros
+              equalizer.py      &lt;-- Módulo equalizer del subpaquete filtros
+              vocoder.py        &lt;-- Módulo vocoder del subpaquete filtros
+              karaoke.py        &lt;-- Módulo karaoke del subpaquete filtros
+              ...</code></pre></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.4">
 
 <ul>
 <li><p>Los usuarios del paquete pueden importar módulos individuales del
-mismo, por ejemplo:</p>
+mismo.</p></li>
+<li><p>Por ejemplo, la siguiente sentencia:</p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span></code></pre></div>
-<p>Esto carga el submódulo <code>sonido.efectos.echo</code>.</p></li>
+<p>importa el módulo <code>sonido.efectos.echo</code>, es decir, el
+módulo <code>echo</code> del subpaquete <code>efectos</code> del paquete
+<code>sonido</code>.</p></li>
 <li><p>Para usarlo, debe hacerse referencia al mismo con el nombre
-completo (también llamado nombre <em>totalmente cualificado</em>):</p>
+completo (también llamado <em>nombre totalmente cualificado</em>):</p>
 <div class="sourceCode" id="cb26"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sonido.efectos.echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
 </ul>
@@ -1753,19 +1760,21 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a h
 <section class="slide level5" data-number="3.5.0.0.5">
 
 <ul>
-<li><p>Otra alternativa para importar el submódulo es:</p>
+<li><p>Otra alternativa para importar el módulo es:</p>
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> echo</span></code></pre></div>
-<p>Esto también carga el submódulo <code>echo</code> y lo deja
-disponible sin su prefijo de paquete, por lo que puede usarse así:</p>
+<p>Esto también carga el módulo <code>echo</code> y lo deja disponible
+sin su prefijo de paquete, por lo que puede usarse así:</p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
-<li><p>Otra variante más es importar directamente la función o variable
-deseadas:</p>
+<li><p>Otra variante más es importar directamente el miembro deseado
+(función, variable, etc.) del módulo:</p>
 <div class="sourceCode" id="cb29"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos.echo <span class="im">import</span> echofilter</span></code></pre></div>
-<p>De nuevo, esto carga el submódulo <code>echo</code>, pero deja
-directamente disponible a la función <code>echofilter</code>:</p>
+<p>De nuevo, esto carga el módulo <code>echo</code>, pero deja
+directamente disponible la función <code>echofilter</code>, por lo que
+se puede usar sin necesidad de poner el nombre del módulo como
+prefijo:</p>
 <div class="sourceCode" id="cb30"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
 </ul>
@@ -1776,111 +1785,118 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a h
 <li><p>Nótese que al usar:</p>
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paquete <span class="im">import</span> elemento</span></code></pre></div>
-<p>el elemento puede ser tanto un submódulo (o subpaquete) del paquete,
-como algún otro nombre definido en el paquete, por ejemplo una función,
-una clase o una variable.</p>
-<p>La declaración <code>import</code> primero verifica si el elemento
-está definido en el paquete; si no, asume que es un módulo y trata de
-cargarlo. Si no lo puede encontrar, se genera una excepción <code
+<p>el elemento puede ser tanto un módulo (o subpaquete) del paquete,
+como algún otro nombre definido en el paquete, como por ejemplo una
+función, una variable o una clase.</p>
+<p>La sentencia <code
+class="sourceCode python"><span class="im">import</span></code> primero
+verifica si el elemento está definido en el paquete; si no, asume que es
+un módulo y trata de cargarlo. Si no lo puede encontrar, se genera una
+excepción <code
 class="sourceCode python"><span class="pp">ImportError</span></code>.</p></li>
 <li><p>Por otro lado, cuando se usa la sintaxis:</p>
 <div class="sourceCode" id="cb32"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> elemento.subelemento.subsubelemento</span></code></pre></div>
-<p>cada elemento excepto el último debe ser un paquete; es último
-elemento puede ser un módulo o un paquete pero no puede ser una clase,
-función o variable definida en el elemento previo.</p></li>
+<p>cada elemento excepto el último debe ser un paquete; ese último
+elemento puede ser un módulo o un paquete pero no puede ser una función,
+variable o clase definida en el elemento previo.</p></li>
 </ul>
+<!--
+
+---
+
+- Por ejemplo, si tenemos la siguiente estructura de archivos y directorios:
+
+  ```
+  mi_paquete/
+  │
+  ├── __init__.py
+  ├── utilidades.py
+  ├── modelos.py
+  └── io/
+      ├── __init__.py
+      └── lector.py
+  ```
+
+  esa estructura representa:
+
+  - El paquete `mi_paquete`, que contiene:
+
+    - Los módulos `utilidades` y `modelos`.
+
+    - El subpaquete `io`, que contiene:
+
+      - El módulo `lector`.
+
+  y podemos hacer uso de la misma, por ejemplo, así:
+
+  ```python
+  import mi_paquete.utilidades
+  from mi_paquete.io import lector
+  ```
+
+-->
 </section>
 <section class="slide level5" data-number="3.5.0.0.7">
 
 <ul>
-<li><p>Por ejemplo, si tenemos la siguiente estructura de archivos y
-directorios:</p>
-<pre><code>mi_paquete/
-│
-├── __init__.py
-├── utilidades.py
-├── modelos.py
-└── io/
-    ├── __init__.py
-    └── lector.py</code></pre>
-<p>esa estructura representa:</p>
-<ul>
-<li><p>El paquete <code>mi_paquete</code>, que contiene:</p>
-<ul>
-<li><p>Los módulos <code>utilidades</code> y
-<code>modelos</code>.</p></li>
-<li><p>El subpaquete <code>io</code>, que contiene:</p>
-<ul>
-<li>El módulo <code>lector</code>.</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>y podemos hacer uso de la misma, por ejemplo, así:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mi_paquete.utilidades</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete.io <span class="im">import</span> lector</span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.5.0.0.8">
-
-<ul>
 <li><p>El archivo <code>__init__.py</code> sirve para inicializar un
 paquete y controlar su comportamiento cuando se importa.</p></li>
-<li><p>Tradicionalmente, un directorio solo era considerado un paquete
+<li><p>Tradicionalmente, un directorio sólo era considerado un paquete
 si contenía un archivo llamado <code>__init__.py</code>.</p></li>
 <li><p>Hoy en día ya no es necesario, pero aún sigue siendo válido,
 habitual y recomendado.</p></li>
 <li><p>Además, el uso de <code>__init__.py</code> permite:</p>
 <ul>
-<li><p>Ejecutar código al importar el paquete</p></li>
+<li><p>Ejecutar código al importar el paquete.</p></li>
 <li><p>Controlar qué se expone al usar <code>*</code> en una
-importación, como aquí:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+importación, como en una sentencia <code
+class="sourceCode python"><span class="im">import</span></code> así:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paquete <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.9">
+<section class="slide level5" data-number="3.5.0.0.8">
 
 <ul>
-<li><p>Cuando se importa un paquete:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mi_paquete</span></code></pre></div>
+<li><p>Cuando se importa un paquete en sí:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido</span></code></pre></div>
 <p>Python hace lo siguiente, en este orden:</p>
 <ol>
-<li><p>Localiza el paquete.</p></li>
+<li><p>Localiza el paquete <code>sonido</code>.</p></li>
 <li><p>Ejecuta el contenido del archivo
-<code>mi_paquete/__init__.py</code>.</p></li>
-<li><p>Crea el objeto paquete <code>mi_paquete</code>.</p></li>
+<code>sonido/__init__.py</code>.</p></li>
+<li><p>Crea el objeto paquete llamado <code>sonido</code>.</p></li>
 </ol></li>
 <li><p>Es decir, <code>__init__.py</code> es código Python
 normal.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.10">
+<section class="slide level5" data-number="3.5.0.0.9">
 
 <ul>
 <li><p>El archivo <code>__init__.py</code> permite decidir qué «sale
-hacia fuera» cuando se importa el paquete.</p></li>
+hacia fuera» cuando se importa el paquete en sí.</p></li>
 <li><p>Por ejemplo, supongamos que el archivo
-<code>mi_paquete/__init__.py</code> contiene la siguiente línea:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .utilidades <span class="im">import</span> suma, resta</span></code></pre></div></li>
+<code>sonido/__init__.py</code> contiene la siguiente línea:</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.utilidades <span class="im">import</span> suma, resta</span></code></pre></div></li>
 <li><p>Ahora, se puede hacer directamente:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete <span class="im">import</span> suma</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido <span class="im">import</span> suma</span></code></pre></div>
 <p>sin necesidad de dar dos pasos:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mi_paquete.utilidades <span class="im">import</span> suma</span></code></pre></div></li>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.utilidades <span class="im">import</span> suma</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.11">
+<section class="slide level5" data-number="3.5.0.0.10">
 
 <ul>
 <li><p>Cuando se intenta importar todos los módulos de un paquete:</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>lo que ocurre depende de lo que haya en el <code>__init__.py</code>
 del paquete.</p></li>
 <li><p>Los módulos que se importen serán los que el creador del paquete
@@ -1897,53 +1913,53 @@ class="sourceCode python"><span class="im">import</span> <span class="op">*</spa
 lista cada vez que se publique una nueva versión del paquete.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.12">
+<section class="slide level5" data-number="3.5.0.0.11">
 
 <ul>
 <li><p>Por ejemplo, si el archivo
 <code>sonido/efectos/__init__.py</code> contiene el siguiente
 código:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [<span class="st">&quot;echo&quot;</span>, <span class="st">&quot;surround&quot;</span>, <span class="st">&quot;reverse&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [<span class="st">&quot;echo&quot;</span>, <span class="st">&quot;surround&quot;</span>, <span class="st">&quot;reverse&quot;</span>]</span></code></pre></div>
 <p>entonces la siguiente sentencia importaría esos tres módulos del
 paquete <code>sonido.efectos</code>:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.12">
+
+<ul>
+<li><p>Hay que tener en cuenta que los módulos pueden quedar sombreados
+por nombres definidos localmente.</p></li>
+<li><p>Por ejemplo, si se añade una función llamada <code>reverse</code>
+al archivo <code>sonido/efectos/__init__.py</code>:</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;echo&quot;</span>,      <span class="co"># se refiere al archivo &#39;echo.py&#39;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;surround&quot;</span>,  <span class="co"># se refiere al archivo &#39;surround.py&#39;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;reverse&quot;</span>,   <span class="co"># ahora se refiere a la función &#39;reverse&#39; (!)</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reverse(msg: <span class="bu">str</span>):  <span class="co"># hace sombra al módulo &#39;reverse.py&#39;</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg[::<span class="op">-</span><span class="dv">1</span>]    <span class="co"># si se hace &#39;from sonido.efectos import *&#39;</span></span></code></pre></div>
+<p>entonces la orden</p>
 <div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<p>solo importaría los dos módulos <code>echo</code> y
+<code>surround</code>, pero no el módulo <code>reverse</code>, ya que
+este último queda sombreado por la función <code>reverse</code> definida
+localmente.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.13">
 
 <ul>
-<li><p>Hay que tener en cuenta que los submódulos pueden quedar
-sombreados por nombres definidos localmente.</p></li>
-<li><p>Por ejemplo, si se añade una función llamada <code>reverse</code>
-al archivo <code>sonido/efectos/__init__.py</code>:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;echo&quot;</span>,      <span class="co"># se refiere al archivo &#39;echo.py&#39;</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;surround&quot;</span>,  <span class="co"># se refiere al archivo &#39;surround.py&#39;</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;reverse&quot;</span>,   <span class="co"># ahora se refiere a la función &#39;reverse&#39; (!)</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reverse(msg: <span class="bu">str</span>):  <span class="co"># hace sombra al submódulo &#39;reverse.py&#39;</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg[::<span class="op">-</span><span class="dv">1</span>]    <span class="co"># si se hace &#39;from sonido.efectos import *&#39;</span></span></code></pre></div>
-<p>entonces la orden</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
-<p>solo importaría los dos submódulos <code>echo</code> y
-<code>surround</code>, pero no el submódulo <code>reverse</code>, ya que
-este último queda sombreado por la función <code>reverse</code> definida
-localmente.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.5.0.0.14">
-
-<ul>
 <li><p>Si no se define <code>__all__</code>, la sentencia:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
-<p>no importa todos los submódulos del paquete
-<code>sonido.efectos</code> al espacio de nombres actual.</p></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<p>no importa todos los módulos del paquete <code>sonido.efectos</code>
+al espacio de nombres actual.</p></li>
 <li><p>Lo que hace es:</p>
 <ol>
 <li><p>Asegurarse que se haya importado el paquete
@@ -1952,9 +1968,9 @@ inicialización que haya en <code>__init__.py</code>.</p></li>
 <li><p>Importa los nombres que estén definidos en el paquete.</p>
 <p>Esto incluye:</p>
 <ul>
-<li><p>Cualquier nombre definido (y submódulos explícitamente cargados)
-por <code>__init__.py</code>.</p></li>
-<li><p>Cualquier submódulo del paquete que pudiera haber sido
+<li><p>Cualquier nombre definido (y módulos explícitamente cargados) por
+<code>__init__.py</code>.</p></li>
+<li><p>Cualquier módulo del paquete que pudiera haber sido
 explícitamente cargado por sentencias <code
 class="sourceCode python"><span class="im">import</span></code>
 anteriores.</p></li>
@@ -1962,14 +1978,14 @@ anteriores.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.5.0.0.15">
+<section class="slide level5" data-number="3.5.0.0.14">
 
 <ul>
 <li><p>En el siguiente ejemplo:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.surround</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.surround</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>los módulos <code>echo</code> y <code>surround</code> se importan en
 el espacio de nombre actual porque están definidos en el paquete
 <code>sonido.efectos</code> cuando se ejecuta la sentencia <code
@@ -1985,24 +2001,47 @@ style="color:teal">⟨<em>paquete</em>⟩</span> <code
 class="sourceCode python"><span class="im">import</span></code> <span
 style="color:teal">⟨<em>submodulo</em>⟩</span>. De hecho, esta es la
 notación recomendada a menos que el módulo que queremos importar
-necesite usar submódulos con el mismo nombre desde un paquete
+necesite usar módulos con el mismo nombre desde un paquete
 diferente.</p></li>
 </ul>
-<!--
+</section>
+<section class="slide level5" data-number="3.5.0.0.15">
 
----
+<ul>
+<li><p>Cuando se estructuran paquetes en subpaquetes (como en el ejemplo
+del paquete <code>sonido</code>) los módulos pueden pueden hacer
+<strong>importaciones absolutas</strong> para referirse a módulos de
+paquetes «hermanos».</p></li>
+<li><p>Por ejemplo, si el módulo <code>sonido.filtros.vocoder</code>
+necesita usar el módulo <code>echo</code> del paquete
+<code>sonido.efectos</code>, puede hacer:</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> echo</span></code></pre></div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.16">
 
-When packages are structured into subpackages (as with the sound package in the example), you can use absolute imports to refer to submodules of siblings packages. For example, if the module sound.filters.vocoder needs to use the echo module in the sound.effects package, it can use from sound.effects import echo.
-
-You can also write relative imports, with the from module import name form of import statement. These imports use leading dots to indicate the current and parent packages involved in the relative import. From the surround module for example, you might use:
-
-from . import echo
-from .. import formats
-from ..filters import equalizer
-
-Note that relative imports are based on the name of the current module’s package. Since the main module does not have a package, modules intended for use as the main module of a Python application must always use absolute imports.
-
--->
+<ul>
+<li><p>También se pueden hacer <strong>importaciones relativas</strong>
+usando la forma <code
+class="sourceCode python"><span class="im">from</span></code> <span
+style="color:teal">⟨<em>módulo</em>⟩</span> <code
+class="sourceCode python"><span class="im">import</span></code> <span
+style="color:teal">⟨<em>nombre</em>⟩</span>.</p></li>
+<li><p>Estas importaciones usan puntos (<code>.</code>) para indicar el
+paquete actual y el paquete «padre» involucrados en la importación
+relativa.</p></li>
+<li><p>Por ejemplo, desde el módulo <code>surround</code> se puede
+hacer:</p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> . <span class="im">import</span> echo</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .. <span class="im">import</span> formatos</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ..filtros <span class="im">import</span> equalizer</span></code></pre></div></li>
+<li><p>Hay que tener en cuenta que las importaciones relativas se basan
+en el nombre del paquete del módulo actual. Como el módulo principal de
+un programa Python no pertenece a ningún paquete, debe usar siempre
+importaciones absolutas.</p></li>
+</ul>
 </section>
 </section>
 <section>
@@ -2843,8 +2882,8 @@ class="title-slide slide level1 unnumbered unlisted">
 role="list">
 <div id="ref-pressman_ingenierisoftware_2004" class="csl-entry"
 role="listitem">
-Pressman, Roger S, Darrel Ince, Rafael Ojeda Martín, and Luis Joyanes
-Aguilar. 2004. <em>Ingeniería Del Software: Un Enfoque Práctico</em>.
+Pressman, Roger S, Darrel Ince, Rafael Ojeda Martín, and Luis Joyanes
+Aguilar. 2004. <em>Ingeniería Del Software: Un Enfoque Práctico</em>.
 McGraw-Hill.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
