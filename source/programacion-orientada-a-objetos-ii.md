@@ -32,8 +32,8 @@ nocite: |
 - Cuando introducimos mutabilidad y estado en nuestro modelo computacional,
   muchos conceptos que antes eran sencillos se vuelven problemáticos.
 
-- Entre ellos, el problema de determinar si dos cosas son «la misma cosa», es
-  decir, si son _idénticos_.
+- Entre ellos, el problema de determinar si dos objetos son «el mismo objeto»,
+  es decir, si son _idénticos_.
 
 - Por ejemplo, supongamos que hacemos:
 
@@ -48,7 +48,7 @@ nocite: |
   res2 = restador(25)
   ```
 
-- ¿Son `res1` y `res2` la misma cosa?
+- ¿Son `res1` y `res2` el mismo objeto?
 
   - Es razonable decir que sí, ya que tanto `res1` como `res2` se comportan
     siempre de la misma forma (las dos son funciones que restan !PYTHON(25) a
@@ -66,7 +66,7 @@ nocite: |
   dep2 = Deposito(100)
   ```
 
-- ¿Son `dep1` y `dep2` la misma cosa?
+- ¿Son `dep1` y `dep2` el mismo objeto?
 
   - Evidentemente no, ya que podemos obtener resultados distintos al enviarles
     el mismo mensaje (uno que sabemos que no cambia el estado del objeto):
@@ -130,8 +130,8 @@ nocite: |
 
   los dos depósitos son distintos.
 
-  - Por tanto, las operaciones realizadas en el depósito de Pedro no afectarán
-    al de Pablo, y viceversa.
+  Por tanto, las operaciones realizadas en el depósito de Pedro no afectarán al
+  de Pablo, y viceversa.
 
 - En cambio, si los creamos así:
 
@@ -140,13 +140,13 @@ nocite: |
   dep_Pablo = dep_Pedro
   ```
 
-  estamos definiendo a `dep_Pablo` para que sea exactamente la misma cosa que
+  estamos definiendo a `dep_Pablo` para que sea exactamente el mismo objeto que
   `dep_Pedro`.
 
-  - Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
-    compartido, y si Pedro hace una retirada de efectivo a través de
-    `dep_Pedro`, Pablo observará que hay menos dinero en `dep_Pablo` (porque
-    son _el mismo_ depósito).
+  Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
+  compartido, y si Pedro hace una retirada de efectivo a través de `dep_Pedro`,
+  Pablo observará que hay menos dinero en `dep_Pablo` (porque son _el mismo_
+  depósito).
 
 <!--
 
@@ -305,8 +305,7 @@ nocite: |
 
 ::::
 
-- Como ya estudiamos en su día, la expresión $\underline{\textbf{\textit{o}}\ \texttt{is}\ \textbf{\textit{p}}}$
-  equivale a:
+- Como ya estudiamos en su día, la expresión \ $\underline{\textbf{\textit{o}}\ \ \texttt{is}\ \ \textbf{\textit{p}}}$ \ equivale a:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~
@@ -392,8 +391,8 @@ nocite: |
   no se diga lo contrario, dos objetos de clases _definidas por el programador_
   son iguales sólo si son idénticos**.
 
-- Es decir: por defecto, $\underline{\textbf{\textit{x}}\ \texttt{==}\ \textbf{\textit{y}}}$
-  sólo si $\underline{\textbf{\textit{x}}\ \texttt{is}\ \textbf{\textit{y}}}$.
+- Es decir: por defecto, \ $\underline{\textbf{\textit{x}}\ \ \texttt{==}\ \ \textbf{\textit{y}}}$
+  \ sólo si \ $\underline{\textbf{\textit{x}}\ \ \texttt{is}\ \ \textbf{\textit{y}}}$.
 
 - Esto es lo que técnicamente se denomina **igualdad por identidad**.
 
@@ -761,8 +760,7 @@ True
   !PYTHON(None), entonces:
 
   - Implementa **igualidad por identidad**, de manera que dos instancias de la
-    clase serán iguales sólo si son idénticos (!PYTHON(x == y) sólo si
-    !PYTHON(x is y)).
+    clase serán iguales sólo si son idénticos ($\underline{\textbf{\textit{x}}\ \ \texttt{==}\ \ \textbf{\textit{y}}}$\  sólo si \ $\underline{\textbf{\textit{x}}\ \ \texttt{is}\ \ \textbf{\textit{y}}}$).
 
   - Sus objetos serán _hashables_.
 

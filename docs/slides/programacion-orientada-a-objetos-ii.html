@@ -232,8 +232,8 @@ idénticos.</p></li>
 <li><p>Cuando introducimos mutabilidad y estado en nuestro modelo
 computacional, muchos conceptos que antes eran sencillos se vuelven
 problemáticos.</p></li>
-<li><p>Entre ellos, el problema de determinar si dos cosas son «la misma
-cosa», es decir, si son <em>idénticos</em>.</p></li>
+<li><p>Entre ellos, el problema de determinar si dos objetos son «el
+mismo objeto», es decir, si son <em>idénticos</em>.</p></li>
 <li><p>Por ejemplo, supongamos que hacemos:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> restador(cantidad):</span>
@@ -244,7 +244,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>res1 <span class="op">=</span> restador(<span class="dv">25</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>res2 <span class="op">=</span> restador(<span class="dv">25</span>)</span></code></pre></div></li>
-<li><p>¿Son <code>res1</code> y <code>res2</code> la misma cosa?</p>
+<li><p>¿Son <code>res1</code> y <code>res2</code> el mismo objeto?</p>
 <ul>
 <li><p>Es razonable decir que sí, ya que tanto <code>res1</code> como
 <code>res2</code> se comportan siempre de la misma forma (las dos son
@@ -265,7 +265,7 @@ class="sourceCode python">Deposito(<span class="dv">100</span>)</code>:</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dep1 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dep2 <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
-<li><p>¿Son <code>dep1</code> y <code>dep2</code> la misma cosa?</p>
+<li><p>¿Son <code>dep1</code> y <code>dep2</code> el mismo objeto?</p>
 <ul>
 <li><p>Evidentemente no, ya que podemos obtener resultados distintos al
 enviarles el mismo mensaje (uno que sabemos que no cambia el estado del
@@ -331,22 +331,18 @@ depende del otro y viceversa.</p></li>
 class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dep_Pablo <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
 <p>los dos depósitos son distintos.</p>
-<ul>
-<li>Por tanto, las operaciones realizadas en el depósito de Pedro no
-afectarán al de Pablo, y viceversa.</li>
-</ul></li>
+<p>Por tanto, las operaciones realizadas en el depósito de Pedro no
+afectarán al de Pablo, y viceversa.</p></li>
 <li><p>En cambio, si los creamos así:</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dep_Pablo <span class="op">=</span> dep_Pedro</span></code></pre></div>
 <p>estamos definiendo a <code>dep_Pablo</code> para que sea exactamente
-la misma cosa que <code>dep_Pedro</code>.</p>
-<ul>
-<li>Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
+el mismo objeto que <code>dep_Pedro</code>.</p>
+<p>Por tanto, ahora Pedro y Pablo son cotitulares de un mismo depósito
 compartido, y si Pedro hace una retirada de efectivo a través de
 <code>dep_Pedro</code>, Pablo observará que hay menos dinero en
-<code>dep_Pablo</code> (porque son <em>el mismo</em> depósito).</li>
-</ul></li>
+<code>dep_Pablo</code> (porque son <em>el mismo</em> depósito).</p></li>
 </ul>
 <!--
 
@@ -506,9 +502,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
 </div>
 </div>
 <ul>
-<li><p>Como ya estudiamos en su día, la expresión <span
-class="math inline">\underline{\textbf{\textit{o}}\ \texttt{is}\
-\textbf{\textit{p}}}</span> equivale a:</p>
+<li><p>Como ya estudiamos en su día, la expresión  <span
+class="math inline">\underline{\textbf{\textit{o}}\ \ \texttt{is}\ \
+\textbf{\textit{p}}}</span>  equivale a:</p>
 <div class="centered">
 <p><code>id(</code><em>o</em><code>) == id(</code><em>p</em><code>)</code></p>
 </div></li>
@@ -592,10 +588,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a h
 <em>igualdad</em> y <strong>mientras no se diga lo contrario, dos
 objetos de clases <em>definidas por el programador</em> son iguales sólo
 si son idénticos</strong>.</p></li>
-<li><p>Es decir: por defecto, <span
-class="math inline">\underline{\textbf{\textit{x}}\ \texttt{==}\
-\textbf{\textit{y}}}</span> sólo si <span
-class="math inline">\underline{\textbf{\textit{x}}\ \texttt{is}\
+<li><p>Es decir: por defecto,  <span
+class="math inline">\underline{\textbf{\textit{x}}\ \ \texttt{==}\ \
+\textbf{\textit{y}}}</span>  sólo si  <span
+class="math inline">\underline{\textbf{\textit{x}}\ \ \texttt{is}\ \
 \textbf{\textit{y}}}</span>.</p></li>
 <li><p>Esto es lo que técnicamente se denomina <strong>igualdad por
 identidad</strong>.</p></li>
@@ -1057,9 +1053,10 @@ entonces:</p>
 <ul>
 <li><p>Implementa <strong>igualidad por identidad</strong>, de manera
 que dos instancias de la clase serán iguales sólo si son idénticos
-(<code class="sourceCode python">x <span class="op">==</span> y</code>
-sólo si <code
-class="sourceCode python">x <span class="kw">is</span> y</code>).</p></li>
+(<span class="math inline">\underline{\textbf{\textit{x}}\ \
+\texttt{==}\ \ \textbf{\textit{y}}}</span>  sólo si  <span
+class="math inline">\underline{\textbf{\textit{x}}\ \ \texttt{is}\ \
+\textbf{\textit{y}}}</span>).</p></li>
 <li><p>Sus objetos serán <em>hashables</em>.</p></li>
 <li><p>El <em>hash</em> de sus instancias se calculará a partir de sus
 identidades.</p></li>
