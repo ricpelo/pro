@@ -1708,7 +1708,12 @@ E -> mcd [lhead = cluster1]
 
   #. Crea el objeto paquete llamado `sonido`.
 
-- Es decir, `__init__.py` es código Python normal.
+- Es decir:
+
+  - `__init__.py` es código Python normal.
+
+  - Importar un paquete supone, en esencia, importar el `__init__.py` del
+    paquete como si fuera un módulo.
 
 ---
 
@@ -1866,18 +1871,26 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- También se pueden hacer **importaciones relativas** usando la forma
-  !PYTHON(from) !NT(módulo) !PYTHON(import) !NT(nombre).
+- También se pueden hacer **importaciones relativas** usando la forma de
+  importación !PYTHON(from) !NT(módulo) !PYTHON(import) !NT(nombre).
 
-- Estas importaciones usan puntos (`.`) para indicar el paquete actual y el
-  paquete «padre» involucrados en la importación relativa.
+- Estas importaciones usan:
+
+  - Un punto (`.`) para indicar el paquete actual.
+
+  - Dos puntos (`..`) para indicar el paquete «padre».
+
+  - Tres puntos (`...`) para indicar el paquete «abuelo».
+
+  y así sucesivamente, en la cadena de paquetes involucrados en la importación
+  relativa.
 
 - Por ejemplo, desde el módulo `surround` se puede hacer:
 
   ```python
-  from . import echo
-  from .. import formatos
-  from ..filtros import equalizer
+  from . import echo                # importa módulo echo del paquete actual (surround)
+  from .. import formatos           # importa módulo formatos del paquete padre (sonido)
+  from ..filtros import equalizer   # importa módulo equalizer del paquete filtros
   ```
 
 - Hay que tener en cuenta que las importaciones relativas se basan en el nombre
