@@ -1261,6 +1261,10 @@ importado y el propio módulo, el cual es <strong>es un objeto de tipo
 <code class="sourceCode python">module</code></strong>.</p></li>
 <li><p>De esta forma, lo que se importa dentro del espacio de nombres
 actual es una <strong>referencia</strong> al objeto módulo.</p></li>
+<li><p>Se recomienda por regla de estilo (aunque no es obligatorio)
+colocar todas las sentencias <code
+class="sourceCode python"><span class="im">import</span></code> al
+principio del módulo importador.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.1">
@@ -1270,7 +1274,7 @@ actual es una <strong>referencia</strong> al objeto módulo.</p></li>
 módulos, que es lo mismo en Python) <code>uno.py</code> y
 <code>dos.py</code>, y empezamos a ejecutar <code>uno.py</code>:</p>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:45%;">
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode numberSource python number-lines"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># uno.py</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
@@ -1280,9 +1284,9 @@ class="sourceCode numberSource python number-lines"><code class="sourceCode pyth
 <span id="cb7-6"><a href="#cb7-6"></a></span>
 <span id="cb7-7"><a href="#cb7-7"></a>a <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb7-8"><a href="#cb7-8"></a>b <span class="op">=</span> <span class="dv">3</span></span></code></pre></div>
-</div><div class="column" style="width:10%;">
+</div><div class="column" style="width:5%;">
 
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:45%;">
 <div class="sourceCode" id="cb8"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1295,7 +1299,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a hr
 <div class="centered">
 <figure>
 <img data-src="images/import-modulo-entorno-linea3.svg" class="plain"
-style="width:40.0%" alt="Entorno en la línea 3 del módulo uno" />
+style="width:50.0%" alt="Entorno en la línea 3 del módulo uno" />
 <figcaption aria-hidden="true">Entorno en la línea 3 del módulo
 <code>uno</code></figcaption>
 </figure>
@@ -1315,7 +1319,7 @@ global de <code>uno</code>) no estarán en el entorno:</li>
 <div class="centered">
 <figure>
 <img data-src="images/import-modulo-dentro-dos.svg" class="plain"
-style="width:40.0%"
+style="width:60.0%"
 alt="Ejecución de dos durante su importación en uno" />
 <figcaption aria-hidden="true">Ejecución de <code>dos</code> durante su
 importación en <code>uno</code></figcaption>
@@ -1361,18 +1365,20 @@ alt="Entorno justo al final de la ejecución de uno" />
 <section class="slide level5" data-number="3.2.0.0.5">
 
 <ul>
-<li>Recordemos que, siempre que tengamos una referencia a un objeto,
+<li><p>Recordemos que, siempre que tengamos una referencia a un objeto,
 podemos acceder a los atributos que contiene usando el operador punto
 (<code>.</code>), indicando el objeto y el nombre del atributo al que
-queramos acceder:</li>
-</ul>
+queramos acceder:</p>
+<div class="centered">
 <p><em>objeto</em><code>.</code><em>atributo</em></p>
-<ul>
-<li>Por tanto, para acceder al contenido del módulo importado,
+</div></li>
+<li><p>Por tanto, para acceder al contenido del módulo importado,
 indicaremos el nombre de ese módulo seguido de un punto (<code>.</code>)
-y el nombre del contenido al que queramos acceder:</li>
-</ul>
+y el nombre del contenido al que queramos acceder:</p>
+<div class="centered">
 <p><em>módulo</em><code>.</code><em>contenido</em></p>
+</div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.6">
 
@@ -1387,19 +1393,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 </ul>
 <div class="centered">
 <figure>
-<img data-src="images/import-math.svg" class="plain" style="width:60.0%"
+<img data-src="images/import-math.svg" class="plain" style="width:75.0%"
 alt="Entorno tras ejecutar las dos sentencias anteriores" />
 <figcaption aria-hidden="true">Entorno tras ejecutar las dos sentencias
 anteriores</figcaption>
 </figure>
 </div>
-<p><br></p>
-<ul>
-<li>Se recomienda por regla de estilo (aunque no es obligatorio) colocar
-todas las sentencias <code
-class="sourceCode python"><span class="im">import</span></code> al
-principio del módulo importador.</li>
-</ul>
 </section>
 <section class="slide level5" data-number="3.2.0.0.7">
 
@@ -1420,7 +1419,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a h
 <div class="centered">
 <figure>
 <img data-src="images/import-math-as.svg" class="plain"
-style="width:60.0%"
+style="width:70.0%"
 alt="Resultado de ejecutar las dos líneas anteriores" />
 <figcaption aria-hidden="true">Resultado de ejecutar las dos líneas
 anteriores</figcaption>
@@ -1448,7 +1447,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a h
 <div class="centered">
 <figure>
 <img data-src="images/from-math-import-gcd.svg" class="plain"
-style="width:30.0%"
+style="width:50.0%"
 alt="Resultado de ejecutar las dos líneas anteriores" />
 <figcaption aria-hidden="true">Resultado de ejecutar las dos líneas
 anteriores</figcaption>
@@ -1490,7 +1489,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a h
 <div class="centered">
 <figure>
 <img data-src="images/from-math-import-gcd-as-mcd.svg" class="plain"
-style="width:30.0%"
+style="width:50.0%"
 alt="Resultado de ejecutar las dos líneas anteriores" />
 <figcaption aria-hidden="true">Resultado de ejecutar las dos líneas
 anteriores</figcaption>
@@ -2027,7 +2026,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a h
 
 <ul>
 <li><p>También se pueden hacer <strong>importaciones relativas</strong>
-usando la forma de importación <code
+usando sólo la forma de importación <code
 class="sourceCode python"><span class="im">from</span></code> <span
 style="color:teal">⟨<em>módulo</em>⟩</span> <code
 class="sourceCode python"><span class="im">import</span></code> <span

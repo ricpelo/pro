@@ -953,6 +953,9 @@ saluda(nombre)
 - De esta forma, lo que se importa dentro del espacio de nombres actual es una
   **referencia** al objeto módulo.
 
+- Se recomienda por regla de estilo (aunque no es obligatorio) colocar todas
+  las sentencias !PYTHON(import) al principio del módulo importador.
+
 ---
 
 - Por ejemplo, si tenemos los siguientes _scripts_ (o módulos, que es lo mismo
@@ -960,7 +963,7 @@ saluda(nombre)
 
   :::: columns
 
-  ::: {.column width=40%}
+  ::: {.column width=45%}
 
   ```{.python .number-lines}
   # uno.py
@@ -975,11 +978,11 @@ saluda(nombre)
 
   :::
 
-  ::: {.column width=10%}
+  ::: {.column width=5%}
 
   :::
 
-  ::: {.column width=40%}
+  ::: {.column width=45%}
 
   ```python
   # dos.py
@@ -996,7 +999,7 @@ saluda(nombre)
 
 - Al ejecutar la línea 3 tendremos el siguiente entorno:
 
-!DOT(import-modulo-entorno-linea3.svg)(Entorno en la línea 3 del módulo `uno`)(width=40%)(width=40%)
+!DOT(import-modulo-entorno-linea3.svg)(Entorno en la línea 3 del módulo `uno`)(width=50%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1019,7 +1022,7 @@ E -> x [lhead = cluster0]
   marco global de `dos`. Los marcos creados hasta ahora durante la ejecución de
   `uno` (incluyendo el marco global de `uno`) no estarán en el entorno:
 
-!DOT(import-modulo-dentro-dos.svg)(Ejecución de `dos` durante su importación en `uno`)(width=40%)(width=40%)
+!DOT(import-modulo-dentro-dos.svg)(Ejecución de `dos` durante su importación en `uno`)(width=60%)(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1053,7 +1056,7 @@ E -> xl [lhead = cluster0]
   identificador `dos` en el marco global de `uno`, que volverá a estar en el
   entorno y pasará a ser de nuevo el marco global del entorno:
 
-!DOT(import-modulo-sale-dos.svg)(Entorno tras ejecutar `import dos`)(width=70%)(width=60%)
+!DOT(import-modulo-sale-dos.svg)(Entorno tras ejecutar `import dos`)(width=70%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1087,7 +1090,7 @@ E -> x [lhead = cluster1]
 - Finalmente, tras ejecutar todo el script `uno.py` tendríamos el siguiente
   entorno:
 
-!DOT(import-modulo-sigue-uno.svg)(Entorno justo al final de la ejecución de `uno`)(width=70%)(width=60%)
+!DOT(import-modulo-sigue-uno.svg)(Entorno justo al final de la ejecución de `uno`)(width=70%)(width=65%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1095,8 +1098,6 @@ node [fontname = "monospace"]
 7 [shape = circle]
 5 [shape = circle]
 9 [shape = circle]
-4 [shape = circle]
-3 [shape = circle]
 x:f1 -> 7
 dos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dos|<f1>⬤}"]
 subgraph cluster0 {
@@ -1114,12 +1115,14 @@ subgraph cluster1 {
     b [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = true, label = "{<f0>b|<f1>⬤}"]
     dos:f1 -> xl [lhead = cluster0, minlen = 2]
 }
-a:f1:e -> 4
-b:f1 -> 3
 xl:f1 -> 9
 y:f1 -> 5
+4 [shape = circle]
+3 [shape = circle]
+a:f1:e -> 4
+b:f1 -> 3
 E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-E -> dos [lhead = cluster1]
+E -> x [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1128,13 +1131,19 @@ E -> dos [lhead = cluster1]
   acceder a los atributos que contiene usando el operador punto (`.`),
   indicando el objeto y el nombre del atributo al que queramos acceder:
 
-*objeto*`.`*atributo*
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  *objeto*`.`*atributo*
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por tanto, para acceder al contenido del módulo importado, indicaremos el
   nombre de ese módulo seguido de un punto (`.`) y el nombre del contenido al
   que queramos acceder:
 
-*módulo*`.`*contenido*
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  *módulo*`.`*contenido*
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -1147,7 +1156,7 @@ E -> dos [lhead = cluster1]
   x = math.gcd(16, 6)
   ```
 
-!DOT(import-math.svg)(Entorno tras ejecutar las dos sentencias anteriores)(width=60%)(width=65%)
+!DOT(import-math.svg)(Entorno tras ejecutar las dos sentencias anteriores)(width=75%)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1182,11 +1191,6 @@ E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
 E -> math [lhead = cluster1]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-!SALTOHTML
-
-- Se recomienda por regla de estilo (aunque no es obligatorio) colocar todas
-  las sentencias !PYTHON(import) al principio del módulo importador.
-
 ---
 
 - Se puede importar un módulo dándole otro nombre dentro del espacio de nombres
@@ -1206,7 +1210,7 @@ E -> math [lhead = cluster1]
   x = mates.gcd(16, 6)
   ```
 
-!DOT(import-math-as.svg)(Resultado de ejecutar las dos líneas anteriores)(width=60%)(width=65%)
+!DOT(import-math-as.svg)(Resultado de ejecutar las dos líneas anteriores)(width=70%)(width=70%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1261,7 +1265,7 @@ E -> mates [lhead = cluster1]
   x = gcd(16, 6)
   ```
 
-!DOT(from-math-import-gcd.svg)(Resultado de ejecutar las dos líneas anteriores)(width=30%)(width=35%)
+!DOT(from-math-import-gcd.svg)(Resultado de ejecutar las dos líneas anteriores)(width=50%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1319,7 +1323,7 @@ E -> gcd [lhead = cluster1]
   x = mcd(16, 6)
   ```
 
-!DOT(from-math-import-gcd-as-mcd.svg)(Resultado de ejecutar las dos líneas anteriores)(width=30%)(width=35%)
+!DOT(from-math-import-gcd-as-mcd.svg)(Resultado de ejecutar las dos líneas anteriores)(width=50%)(width=50%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1871,7 +1875,7 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- También se pueden hacer **importaciones relativas** usando la forma de
+- También se pueden hacer **importaciones relativas** usando sólo la forma de
   importación !PYTHON(from) !NT(módulo) !PYTHON(import) !NT(nombre).
 
 - Estas importaciones usan:
