@@ -431,25 +431,15 @@ Conjuntos por comprensión</h2>
 comprensión</strong> usando la misma sintaxis de las <strong>expresiones
 generadoras</strong> y las <strong>listas por comprensión</strong>, pero
 esta vez encerrando la expresión entre llaves.</p></li>
-<li><p>Su sintaxis es:</p>
-<div class="line-block"><span
-style="color:teal">⟨<em>conj_comp</em>⟩</span> ::=
-<strong><code>{</code></strong><span
-style="color:teal">⟨<em>expresión</em>⟩</span>
-(<strong><code>for</code></strong> <span
-style="color:teal">⟨<em>identificador</em>⟩</span>
-<strong><code>in</code></strong> <span
-style="color:teal">⟨<em>secuencia</em>⟩</span>
-[<strong><code>if</code></strong> <span
-style="color:teal">⟨<em>condición</em>⟩</span>])<span
-class="math inline">^+</span><strong><code>}</code></strong></div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]}</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>}</span></code></pre></div></li>
 <li><p>El resultado es directamente un valor de tipo <code
 class="sourceCode python"><span class="bu">set</span></code>, no un
-iterador.</p></li>
+iterador, cosa que habrá que tener en cuenta para evitar consumir más
+memoria de la necesaria o generar elementos que al final no sean
+necesarios.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.0.0.1">
@@ -1136,29 +1126,15 @@ comprensión</strong> usando una sintaxis análoga a la de los
 <strong>conjuntos por comprensión</strong> (encerrando la expresión
 entre llaves), pero de forma que los elementos estén formados por
 parejas de clave y valor separados por <code>:</code>.</p></li>
-<li><p>Su sintaxis es:</p>
-<div class="line-block"><span
-style="color:teal">⟨<em>dicc_comp</em>⟩</span> ::=
-<strong><code>{</code></strong><span
-style="color:teal">⟨<em>clave</em>⟩</span><strong><code>:</code></strong><span
-style="color:teal">⟨<em>valor</em>⟩</span>
-(<strong><code>for</code></strong> <span
-style="color:teal">⟨<em>identificador</em>⟩</span>
-<strong><code>in</code></strong> <span
-style="color:teal">⟨<em>secuencia</em>⟩</span>
-[<strong><code>if</code></strong> <span
-style="color:teal">⟨<em>condición</em>⟩</span>])<span
-class="math inline">^+</span><strong><code>}</code></strong></div>
-<p>donde <span style="color:teal">⟨<em>clave</em>⟩</span> debe ser una
-expresión que devuelva valores <em>hashables</em>, y <span
-style="color:teal">⟨<em>valor</em>⟩</span> puede ser una expresión
-cualquiera.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb26"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> {x: x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]}</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>{<span class="dv">1</span>: <span class="dv">1</span>, <span class="dv">2</span>: <span class="dv">4</span>, <span class="dv">3</span>: <span class="dv">9</span>}</span></code></pre></div>
 <p>devuelve el diccionario que asocia a cada número 1, 2 y 3 con su
 correspondiente cuadrado.</p></li>
+<li><p>Al devolver directamente un diccionario y no un iterador, se ha
+de ser cuidadoso para evitar consumir más memoria de la necesaria o
+generar elementos que al final no sean necesarios.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.1">

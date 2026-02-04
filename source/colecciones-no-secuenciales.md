@@ -184,13 +184,6 @@ nocite: |
   sintaxis de las **expresiones generadoras** y las **listas por comprensión**,
   pero esta vez encerrando la expresión entre llaves.
 
-- Su sintaxis es:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(conj_comp) ::= !T[{]!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T[}]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 - Por ejemplo:
 
   ```python
@@ -198,7 +191,9 @@ nocite: |
   {1, 4, 9}
   ```
 
-- El resultado es directamente un valor de tipo !PYTHON(set), no un iterador.
+- El resultado es directamente un valor de tipo !PYTHON(set), no un iterador,
+  cosa que habrá que tener en cuenta para evitar consumir más memoria de la
+  necesaria o generar elementos que al final no sean necesarios.
 
 ---
 
@@ -648,16 +643,6 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
   entre llaves), pero de forma que los elementos estén formados por parejas de
   clave y valor separados por `:`.
 
-- Su sintaxis es:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(dicc_comp) ::= !T[{]!NT[clave]!T[:]!NT[valor] (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T[}]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  donde !NT(clave) debe ser una expresión que devuelva valores _hashables_, y
-  !NT(valor) puede ser una expresión cualquiera.
-
 - Por ejemplo:
 
   ```python
@@ -667,6 +652,10 @@ $s$!PYTHON(.clear())             Elimina todos los elementos de $\underline{s}$
 
   devuelve el diccionario que asocia a cada número 1, 2 y 3 con su
   correspondiente cuadrado.
+
+- Al devolver directamente un diccionario y no un iterador, se ha de ser
+  cuidadoso para evitar consumir más memoria de la necesaria o generar
+  elementos que al final no sean necesarios.
 
 ---
 

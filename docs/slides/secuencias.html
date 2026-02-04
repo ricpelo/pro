@@ -2103,18 +2103,6 @@ Listas por comprensión</h3>
 usando la misma sintaxis de las <strong>expresiones generadoras</strong>
 pero encerrando la expresión entre corchetes en lugar de entre
 paréntesis.</p></li>
-<li><p>Su sintaxis es:</p>
-<div class="line-block"><span
-style="color:teal">⟨<em>lista_comp</em>⟩</span> ::=
-<strong><code>[</code></strong><span
-style="color:teal">⟨<em>expresión</em>⟩</span>
-(<strong><code>for</code></strong> <span
-style="color:teal">⟨<em>identificador</em>⟩</span>
-<strong><code>in</code></strong> <span
-style="color:teal">⟨<em>secuencia</em>⟩</span>
-[<strong><code>if</code></strong> <span
-style="color:teal">⟨<em>condición</em>⟩</span>])<span
-class="math inline">^+</span><strong><code>]</code></strong></div></li>
 <li><p>Por ejemplo:</p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
@@ -2133,15 +2121,15 @@ sean necesarios.</p></li>
 <ul>
 <li><p>Por ejemplo, la siguiente expresión generadora:</p>
 <div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>res_gen <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10_000_000_000_000</span>))</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>exp_gen <span class="op">=</span> (x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10_000_000_000_000</span>))</span></code></pre></div>
 <p>es mucho más eficiente en tiempo y espacio que la lista por
 comprensión:</p>
 <div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>res_list <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10_000_000_000_000</span>)]</span></code></pre></div>
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>list_comp <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10_000_000_000_000</span>)]</span></code></pre></div>
 <p>ya que la expresión generadora devuelve un <strong>iterador</strong>
 que irá generando los valores de uno en uno a medida que los vayamos
 recorriendo con <code
-class="sourceCode python"><span class="bu">next</span>(res_gen)</code>.</p>
+class="sourceCode python"><span class="bu">next</span>(exp_gen)</code>.</p>
 <p>En cambio, la lista por comprensión genera todos los valores de la
 lista a la vez y los almacena todos juntos en la memoria.</p></li>
 <li><p>A cambio, la ventaja de tener una lista frente a tener un

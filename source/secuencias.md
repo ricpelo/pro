@@ -1398,13 +1398,6 @@ Métodos sobre objetos patrón  Finalidad
   de las **expresiones generadoras** pero encerrando la expresión entre
   corchetes en lugar de entre paréntesis.
 
-- Su sintaxis es:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(lista_comp) ::= !T{[}!NT{expresión} (!T(for) !NT(identificador) !T(in) !NT(secuencia) [!T(if) !NT{condición}])!MAS!T{]}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 - Por ejemplo:
 
   ```python
@@ -1424,18 +1417,18 @@ Métodos sobre objetos patrón  Finalidad
 - Por ejemplo, la siguiente expresión generadora:
 
   ```python
-  res_gen = (x ** 2 for x in range(0, 10_000_000_000_000))
+  exp_gen = (x ** 2 for x in range(0, 10_000_000_000_000))
   ```
 
   es mucho más eficiente en tiempo y espacio que la lista por comprensión:
 
   ```python
-  res_list = [x ** 2 for x in range(0, 10_000_000_000_000)]
+  list_comp = [x ** 2 for x in range(0, 10_000_000_000_000)]
   ```
 
   ya que la expresión generadora devuelve un **iterador** que irá generando los
   valores de uno en uno a medida que los vayamos recorriendo con
-  !PYTHON(next(res_gen)).
+  !PYTHON(next(exp_gen)).
 
   En cambio, la lista por comprensión genera todos los valores de la lista a la
   vez y los almacena todos juntos en la memoria.
