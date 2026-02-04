@@ -22,12 +22,12 @@ nocite: |
   parte** de otros objetos.
 
 - Finalmente, a veces las relaciones entre los objetos son meramente
-  **conceptuales**:
+  **conceptuales**.
 
-  - Son relaciones que **no se reflejan** directamente **en el código fuente**
-    del programa, sino que aparecen durante el **análisis** del problema a
-    resolver o como parte del **diseño** de la solución, en las etapas de
-    análisis y diseño del sistema.
+  Esas relaciones **no se reflejan** directamente **en el código fuente** del
+  programa, sino que aparecen durante el **análisis** del problema a resolver o
+  como parte del **diseño** de la solución, en las etapas de análisis y diseño
+  del sistema.
 
 ---
 
@@ -54,12 +54,12 @@ nocite: |
 
 ---
 
-!UML(ejemplo-diagrama-clases.png)(Ejemplo de diagrama de clases)(width=25%)
+!UML(ejemplo-diagrama-clases.png)(Ejemplo de diagrama de clases)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Usuario "1" -- "0..*" Tuit : escribe
-Usuario "1..*" --o "0..*" Grupo : pertenece
-Grupo "1" *-- "0..*" Discusión
-Discusión "1" *--- "0..*" Tuit
+Usuario "1" -left- "0..*" Tuit : escribe
+Usuario "1..*" -left-o "0..*" Grupo : pertenece
+Grupo "1" *-left- "0..*" Discusión
+Discusión "1" *-- "0..*" Tuit
 class Usuario {
     -nombre: String
     -apellidos: String
@@ -567,19 +567,21 @@ Trabajador <|--- PAS
     otra clase intermedia entre `A` y `B` en la relación), decimos que `A` es
     **subclase directa** de `B` o que `B` es una **superclase directa** de `A`.
 
-    !UML(subclase-directa.png)()(width=20%)(width=20%)
+    !UML(subclase-directa.png)()(width=25%)(width=25%)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    B <|- A
+    left to right direction
+    B <|-- A
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - Si una clase `A` es subclase directa de una clase `B` y `B` es subclase
     directa de otra clase `C`, pero `A` no es subclase directa de `C`, decimos
     que `A` es **subclase indirecta** de `C` (a través de `B`).
 
-    !UML(subclase-indirecta.png)()(width=30%)(width=30%)
+    !UML(subclase-indirecta.png)()(width=40%)(width=40%)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    C <|- B
-    B <|- A
+    left to right direction
+    C <|-- B
+    B <|-- A
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Cuando decimos simplemente que `A` es subclase de `B`, puede que sea subclase
@@ -1157,11 +1159,12 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 - En el ejemplo anterior de los trabajadores, docentes e investigadores, en
   realidad tendríamos la siguiente jerarquía de clases:
 
-!UML(object-trabajador-docente-investigador.png)()(width=70%)
+!UML(object-trabajador-docente-investigador.png)()(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Investigador -|> Docente
-Docente -|> Trabajador
-Trabajador -|> object
+left to right direction
+Investigador --|> Docente
+Docente --|> Trabajador
+Trabajador --|> object
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Como todas las clases, predefinidas o definidas por el programador, son
@@ -1206,7 +1209,7 @@ Trabajador -|> object
 - Por tanto, podríamos modelarlo usando herencia múltiple de la siguiente
   manera:
 
-!UML[animales-anfibios.png][Los anfibios son terrestres y acuáticos al mismo tiempo (herencia múltiple)][width=30%]
+!UML[animales-anfibios.png][Los anfibios son terrestres y acuáticos al mismo tiempo (herencia múltiple)][width=35%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Animal <|-- Terrestre
 Animal <|-- Acuatico
@@ -1284,7 +1287,7 @@ Acuatico <|-- Anfibio
 
 - Tenemos, por tanto, la siguiente situación:
 
-!UML[animales-anfibios-mover.png][El método `mover` está en `Terrestre` y `Acuatico`][width=60%][width=35%]
+!UML[animales-anfibios-mover.png][El método `mover` está en `Terrestre` y `Acuatico`][width=65%][width=35%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Terrestre {
     +mover()
