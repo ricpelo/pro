@@ -2596,7 +2596,7 @@ compontentes intermedios.
 
   - Facilita la integración progresiva del sistema.
 
-## Principios _SOLID_
+## Principios *SOLID*
 
 - Los **principios _SOLID_** son un conjunto de cinco principios de diseño
   modular cuyo objetivo es hacer el software más mantenible, extensible,
