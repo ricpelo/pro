@@ -1175,7 +1175,7 @@ subgraph cluster2 {
         style = rounded
         bgcolor = "white"
         gcd
-        m [shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
+        m [shape = plaintext, fillcolor = transparent, label="(más miembros...)"]
     }
     2
 }
@@ -1230,7 +1230,7 @@ subgraph cluster2 {
         label = <Módulo <font face="monospace">mates</font>>
         bgcolor = "white"
         gcd
-        m [shape = plaintext, fillcolor = transparent, label="(más definiciones...)"]
+        m [shape = plaintext, fillcolor = transparent, label="(más miembros...)"]
     }
 }
 subgraph cluster1 {
@@ -1248,8 +1248,8 @@ E -> mates [lhead = cluster1]
 ---
 
 - Existe una variante de la sentencia !PYTHON(import) que nos permite importar
-  directamente las definiciones de un módulo en lugar del propio módulo. Para
-  ello, se usa la orden !PYTHON(from).
+  directamente los miembros de un módulo en lugar del propio módulo. Para ello,
+  se usa la orden !PYTHON(from).
   
 - Por ejemplo, para importar sólo la función `gcd` del módulo `math`, y no el
   módulo en sí, haremos:
@@ -1346,20 +1346,19 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Existe incluso una variante para importar todas las definiciones de un
-  módulo:
+- Existe incluso una variante para importar todos los miembros de un módulo:
 
   ```python
   from math import *
   ```
 
-- Con esta sintaxis importaremos todas las definiciones del módulo excepto
-  aquellas cuyo nombre comience por un guión bajo (`_`).
+- Con esta sintaxis importaremos todos los miembros del módulo excepto aquellos
+  cuyo nombre comience por un guión bajo (`_`).
   
-  Las definiciones con nombres que comienzan por `_` son consideradas
-  **privadas** o internas al módulo, lo que significa que no están concebidas
-  para ser usadas por los usuarios del módulo y que, por tanto, no forman parte
-  de su **interfaz** (no deben usarse _fuera_ del módulo).
+  Los miembros con nombres que comienzan por `_` son considerados **privadas**
+  o internos al módulo, lo que significa que no están concebidos para ser
+  usadas por los usuarios del módulo y que, por tanto, no forman parte de su
+  **interfaz** (no deben usarse _fuera_ del módulo).
   
 - En general, los programadores no suelen usar esta funcionalidad ya que puede
   introducir todo un conjunto de definiciones desconocidas dentro del módulo
@@ -1368,8 +1367,8 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Para saber qué definiciones (públicas o privadas) contiene un módulo, se
-  puede usar la funcion !PYTHON(dir):
+- Para saber qué miembros (públicos o privados) contiene un módulo, se puede
+  usar la funcion !PYTHON(dir):
 
   ```python
   >>> import math
@@ -1391,7 +1390,7 @@ E -> mcd [lhead = cluster1]
 - Cuando se ejecuta un módulo Python desde la línea de órdenes como:
 
   ```console
-  $ python3 fact.py <argumentos>
+  $ python fact.py <argumentos>
   ```
 
   se ejecutará el módulo como un *script*, igual que si se hubiera importado
@@ -1434,7 +1433,7 @@ E -> mcd [lhead = cluster1]
   sistema operativo:
 
   ```console
-  $ python3 fac.py 4
+  $ python fac.py 4
   24
   ```
 
