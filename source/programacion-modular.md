@@ -139,16 +139,19 @@ nocite: |
   nombres**:
 
   - Los módulos introducen su propio **ámbito léxico**, por lo que las
-    definiciones que se ejecuten dentro del módulo serán locales a éste.
+    definiciones que se ejecuten dentro del módulo serán **locales** a éste.
 
-  - Los módulos están **encapsulados**, lo que hace que sea aún más independiente
-    de los demás módulos que forman el programa, ya que un elemento local al
-    módulo sólo será visible directamente dentro de éste, y sólo se podrá ver
-    desde fuera si se **exporta**.
+    Además, el ámbito del módulo representa el **ámbito global** para todas las
+    definiciones que se ejecuten dentro del módulo.
+
+  - Los módulos están **encapsulados**, lo que hace que sea aún más
+    independiente de los demás módulos que forman el programa, ya que un
+    elemento local al módulo sólo será visible directamente dentro de éste, y
+    sólo se podrá ver desde fuera si se **exporta**.
 
   - Finalmente, los módulos tienen su propio **espacio de nombres** separado
-    del resto, donde se almacenan sus ligaduras locales, es decir, las ligaduras
-    creadas dentro de ese módulo.
+    del resto, donde se almacenan sus ligaduras locales, es decir, las
+    ligaduras creadas dentro de ese módulo.
 
 ---
 
@@ -267,9 +270,9 @@ nocite: |
 - Para ello, un módulo debe tener un único propósito y una interfaz estrecha
   con otros módulos.
 
-- Además, es conveniente diseñar módulos que sean reutilizables (es decir, que
-  puedan incorporarse a muchos programas) y modificables sin forzar cambios en
-  otros módulos.
+- Además, es conveniente diseñar módulos que sean _reutilizables_ (es decir,
+  que puedan incorporarse a muchos programas) y modificables sin forzar cambios
+  en otros módulos.
 
 ---
 
@@ -1383,7 +1386,61 @@ E -> mcd [lhead = cluster1]
   ```
 
 - La función !PYTHON(dir) puede usarse con cualquier objeto al que podamos
-  acceder a través de una referencia.
+  acceder a través de una referencia, aunque también podemos llamarla sin
+  argumentos, y en ese caso mostrará los miembros del módulo actual:
+
+  ```python
+  >>> import math
+  >>> dir()
+  ['__annotations__', '__builtins__', '__cached__', '__doc__', '__file__',
+  '__loader__', '__name__', '__package__', '__spec__', 'math']
+  ```
+
+---
+
+- Todos los objetos tienen un atributo llamado !PYTHON(__dict__) que contiene
+  un diccionario que almacena los atributos del objeto.
+
+- Los módulos son objetos y, por tanto, también tienen el atributo
+  !PYTHON(__dict__), que en este caso representa, a todos los efectos, al
+  **espacio de nombres** del módulo:
+
+  ```python
+  >>> import math
+  >>> math.__dict__
+  {'__name__': 'math', '__doc__': 'This module provides access to the
+  mathematical functions\ndefined by the C standard.', '__package__': '',
+  '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__':
+  ModuleSpec(name='math', loader=<class '_frozen_importlib.BuiltinImporter'>,
+  origin='built-in'), 'acos': <built-in function acos>, 'acosh': <built-in
+  function acosh>, 'asin': <built-in function asin>, 'asinh': <built-in
+  function asinh>, 'atan': <built-in function atan>, 'atan2': <built-in
+  function atan2>, 'atanh': <built-in function atanh>, 'cbrt': <built-in
+  function cbrt>, 'ceil': <built-in function ceil>, 'copysign': <built-in
+  function copysign>, 'cos': <built-in function cos>, 'cosh': <built-in
+  function cosh>, 'degrees': <built-in function degrees>, 'dist': <built-in
+  function dist>, 'erf': <built-in function erf>, 'erfc': <built-in function
+  erfc>, 'exp': <built-in function exp>, ...}
+  ```
+
+- !PYTHON(dir(math)) equivale a !PYTHON(sorted(math.__dict__.keys())).
+
+---
+
+- También disponemos de la función !PYTHON(globals), la cual devuelve un
+  diccionario que contiene las definiciones globales del ámbito actual:
+
+  ```python
+  >>> globals()
+  {'__name__': '__main__', '__doc__': None, '__package__': '_pyrepl',
+  '__loader__': None, '__spec__': None, '__annotations__': {}, '__builtins__':
+  <module 'builtins' (built-in)>, '__file__':
+  '/usr/lib/python3.13/_pyrepl/__main__.py', '__cached__':
+  '/usr/lib/python3.13/_pyrepl/__pycache__/__main__.cpython-313.pyc', 'math':
+  <module 'math' (built-in)>}
+  ```
+
+- !PYTHON(dir()) equivale a !PYTHON(sorted(globals().keys())).
 
 ## Módulos como *scripts*
 
