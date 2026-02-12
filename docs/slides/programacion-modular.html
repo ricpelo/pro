@@ -1929,13 +1929,16 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a h
 <li><p>Localiza el paquete <code>sonido</code>.</p></li>
 <li><p>Ejecuta el contenido del archivo
 <code>sonido/__init__.py</code>.</p></li>
-<li><p>Crea el objeto paquete llamado <code>sonido</code>.</p></li>
+<li><p>Crea el objeto llamado <code>sonido</code>, que representa al
+paquete.</p></li>
 </ol></li>
 <li><p>Es decir:</p>
 <ul>
 <li><p><code>__init__.py</code> es código Python normal.</p></li>
 <li><p>Importar un paquete supone, en esencia, importar el
 <code>__init__.py</code> del paquete como si fuera un módulo.</p></li>
+<li><p>De hecho, el objeto que representa al paquete es de tipo
+<em>módulo</em>.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -1971,8 +1974,8 @@ class="sourceCode python"><span class="im">import</span></code> sigue el
 siguiente convenio: si el <code>__init__.py</code> del paquete contiene
 una lista llamada <code>__all__</code>, ésta se tomará como la lista de
 nombres de módulos que se importarán al ejecutar la sentencia <code
-class="sourceCode python"><span class="im">from</span></code> <span
-style="color:teal">⟨<em>paquete</em>⟩</span> <code
+class="sourceCode python"><span class="im">from</span></code>  <span
+style="color:teal">⟨<em>paquete</em>⟩</span>  <code
 class="sourceCode python"><span class="im">import</span> <span class="op">*</span></code>.</p>
 <p>El creador del paquete es responsable de mantener actualizada esta
 lista cada vez que se publique una nueva versión del paquete.</p></li>
@@ -2058,11 +2061,14 @@ class="sourceCode python"><span class="im">from</span> ... <span class="im">impo
 <p>Esto también funciona cuando se define <code>__all__</code>.</p></li>
 <li><p>A pesar de que ciertos módulos están diseñados para exportar sólo
 nombres que siguen ciertos patrones cuando se usa <code
+class="sourceCode python"><span class="im">from</span></code>  <span
+style="color:teal">⟨<em>paquete</em>⟩</span><br />
+<code
 class="sourceCode python"><span class="im">import</span> <span class="op">*</span></code>,
 se considera una mala práctica en código de producción.</p></li>
 <li><p>No hay nada malo en usar <code
-class="sourceCode python"><span class="im">from</span></code> <span
-style="color:teal">⟨<em>paquete</em>⟩</span> <code
+class="sourceCode python"><span class="im">from</span></code>  <span
+style="color:teal">⟨<em>paquete</em>⟩</span>  <code
 class="sourceCode python"><span class="im">import</span></code> <span
 style="color:teal">⟨<em>submodulo</em>⟩</span>. De hecho, esta es la
 notación recomendada a menos que el módulo que queremos importar
@@ -2074,9 +2080,12 @@ diferente.</p></li>
 
 <ul>
 <li><p>Cuando se estructuran paquetes en subpaquetes (como en el ejemplo
-del paquete <code>sonido</code>) los módulos pueden pueden hacer
+del paquete <code>sonido</code>) los módulos pueden hacer
 <strong>importaciones absolutas</strong> para referirse a módulos de
 paquetes «hermanos».</p></li>
+<li><p>Las importaciones absolutas consisten en usar el nombre completo
+del módulo, incluyendo todo el camino desde el paquete principal hasta
+el módulo a importar.</p></li>
 <li><p>Por ejemplo, si el módulo <code>sonido.filtros.vocoder</code>
 necesita usar el módulo <code>echo</code> del paquete
 <code>sonido.efectos</code>, puede hacer:</p>
@@ -2157,13 +2166,15 @@ diseño basada en la división de problemas, sería posible concluir que si
 el programa se dividiera indefinidamente, cada vez se necesitaría menos
 esfuerzo hasta llegar a cero.</p></li>
 <li><p>Evidentemente, esto no es así, ya que hay otras fuerzas que
-entran en juego.</p></li>
+entran en juego:</p>
+<ul>
 <li><p>El coste de desarrollar un módulo individual disminuye conforme
 aumenta el número de módulos.</p></li>
 <li><p>Por otra parte, dado el mismo conjunto de requisitos funcionales,
 cuantos más módulos hay, más pequeños son.</p></li>
 <li><p>Sin embargo, cuantos más módulos hay, más cuesta
 integrarlos.</p></li>
+</ul></li>
 <li><p>El tamaño de cada módulo debe ser el adecuado: si es demasiado
 grande, será difícil hacer cambios en él; si es demasiado pequeño, no
 merecerá la pena tratarlo como un módulo, sino más bien como parte de
@@ -2201,7 +2212,8 @@ facilidad, que las pruebas y la depuración se efectúen con mayor
 eficiencia y que el mantenimiento a largo plazo se lleve a cabo sin
 efectos indeseados de importancia.</p></li>
 <li><p>Para ello nos basaremos en los siguientes
-<strong>criterios</strong>.</p></li>
+<strong>criterios</strong>: abstracción, ocultación de información,
+independencia funcional y reusabilidad.</p></li>
 </ul>
 </section>
 

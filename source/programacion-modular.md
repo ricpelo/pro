@@ -1766,7 +1766,7 @@ E -> mcd [lhead = cluster1]
 
   #. Ejecuta el contenido del archivo `sonido/__init__.py`.
 
-  #. Crea el objeto paquete llamado `sonido`.
+  #. Crea el objeto llamado `sonido`, que representa al paquete.
 
 - Es decir:
 
@@ -1774,6 +1774,8 @@ E -> mcd [lhead = cluster1]
 
   - Importar un paquete supone, en esencia, importar el `__init__.py` del
     paquete como si fuera un módulo.
+
+  - De hecho, el objeto que representa al paquete es de tipo _módulo_.
 
 ---
 
@@ -1815,7 +1817,7 @@ E -> mcd [lhead = cluster1]
 - Para ello, la sentencia !PYTHON(import) sigue el siguiente convenio: si el
   `__init__.py` del paquete contiene una lista llamada `__all__`, ésta se
   tomará como la lista de nombres de módulos que se importarán al ejecutar la
-  sentencia !PYTHON(from) !NT(paquete) !PYTHON(import *).
+  sentencia !PYTHON(from)\  !NT(paquete)\  !PYTHON(import !POR).
 
   El creador del paquete es responsable de mantener actualizada esta lista cada
   vez que se publique una nueva versión del paquete.
@@ -1908,10 +1910,10 @@ E -> mcd [lhead = cluster1]
   Esto también funciona cuando se define `__all__`.
 
 - A pesar de que ciertos módulos están diseñados para exportar sólo nombres que
-  siguen ciertos patrones cuando se usa !PYTHON(import !POR), se considera una
-  mala práctica en código de producción.
+  siguen ciertos patrones cuando se usa !PYTHON(from)\  !NT(paquete)\
+  !PYTHON(import !POR), se considera una mala práctica en código de producción.
 
-- No hay nada malo en usar !PYTHON(from) !NT(paquete) !PYTHON(import)
+- No hay nada malo en usar !PYTHON(from)\  !NT(paquete)\  !PYTHON(import)
   !NT(submodulo). De hecho, esta es la notación recomendada a menos que el
   módulo que queremos importar necesite usar módulos con el mismo nombre desde
   un paquete diferente.
@@ -1919,8 +1921,12 @@ E -> mcd [lhead = cluster1]
 ---
 
 - Cuando se estructuran paquetes en subpaquetes (como en el ejemplo del paquete
-  `sonido`) los módulos pueden pueden hacer **importaciones absolutas** para
-  referirse a módulos de paquetes «hermanos».
+  `sonido`) los módulos pueden hacer **importaciones absolutas** para referirse
+  a módulos de paquetes «hermanos».
+
+- Las importaciones absolutas consisten en usar el nombre completo del módulo,
+  incluyendo todo el camino desde el paquete principal hasta el módulo a
+  importar.
 
 - Por ejemplo, si el módulo `sonido.filtros.vocoder` necesita usar el módulo
   `echo` del paquete `sonido.efectos`, puede hacer:
@@ -1987,16 +1993,16 @@ E -> mcd [lhead = cluster1]
   dividiera indefinidamente, cada vez se necesitaría menos esfuerzo hasta
   llegar a cero.
 
-- Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego.
+- Evidentemente, esto no es así, ya que hay otras fuerzas que entran en juego:
 
-- El coste de desarrollar un módulo individual disminuye conforme aumenta el
-  número de módulos.
+  - El coste de desarrollar un módulo individual disminuye conforme aumenta el
+    número de módulos.
 
-- Por otra parte, dado el mismo conjunto de requisitos funcionales, cuantos más
-  módulos hay, más pequeños son.
+  - Por otra parte, dado el mismo conjunto de requisitos funcionales, cuantos
+    más módulos hay, más pequeños son.
 
-- Sin embargo, cuantos más módulos hay, más cuesta integrarlos.
- 
+  - Sin embargo, cuantos más módulos hay, más cuesta integrarlos.
+     
 - El tamaño de cada módulo debe ser el adecuado: si es demasiado grande, será
   difícil hacer cambios en él; si es demasiado pequeño, no merecerá la pena
   tratarlo como un módulo, sino más bien como parte de otros módulos.
@@ -2025,7 +2031,8 @@ E -> mcd [lhead = cluster1]
   mantenimiento a largo plazo se lleve a cabo sin efectos indeseados de
   importancia.
 
-- Para ello nos basaremos en los siguientes **criterios**.
+- Para ello nos basaremos en los siguientes **criterios**: abstracción,
+  ocultación de información, independencia funcional y reusabilidad.
 
 ## Abstracción
 
