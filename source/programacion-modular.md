@@ -2192,7 +2192,8 @@ Es decir: cada módulo debe ser una cápsula recelosa de su privacidad que tiene
   - La **ocultación de información** es un **principio de diseño** que, al
     igual que la abstracción, nos proporciona una guía para identificar **qué
     detalles debe ocultar el módulo y qué debe exponer a los demás**. Es decir:
-    qué detalles internos deben conocerse de un módulo para poder usarlo.
+    qué detalles internos deben conocerse de un módulo para poder usarlo (en
+    teoría, ninguna decisión de diseño).
 
     Además, también nos ayuda a ver **en qué módulo va cada elemento del
     programa**. Es decir: qué elementos deben formar parte de un módulo y
@@ -2553,8 +2554,8 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
      integrándolos unos con otros.
 
      En la práctica, consiste en hacer que el componente que estamos
-     programando ahora, utilice a otros que ya hemos programado (nosotros u
-     otros programadores).
+     programando en un momento dado, utilice a otros que ya hemos programado
+     (nosotros u otros programadores).
 
   #. Finalmente, se integran todos los componentes para formar el sistema
      completo.
@@ -2576,8 +2577,8 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
      construyendo el programa _de abajo arriba_.
 
    - El diseño global del programa puede cambiar a medida que se van conectando
-     los componentes unos con otros, por lo que el diseño ascendente es menos
-     sensible a cambios en la arquitectura del programa.
+     los componentes unos con otros, por lo que el diseño ascendente es más
+     flexible y es menos sensible a cambios en la arquitectura del programa.
 
 ---
 
@@ -2608,10 +2609,10 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
      por requisitos funcionales claros) y que se van a tener que combinar entre
      sí.
 
-  #. **Integración en el medio (_sándwich_)**: Los módulos grandes (_top-down_)
-     se implementan usando los componentes pequeños (_bottom-up_), asegurando
-     coherencia entre la visión global que ofrece el _top-down_ y detalles
-     prácticos que ofrece el _bottom-up_.
+  #. **Integración en el medio (_sándwich_)**: Los componentes de más alto
+  nivel (_top-down_) se implementan usando los de más bajo nivel (_bottom-up_),
+  asegurando coherencia entre la visión global que ofrece el _top-down_ y
+  y los aspectos prácticos que ofrece el _bottom-up_.
 
 ---
 
@@ -2639,7 +2640,7 @@ compontentes intermedios.
      otras partes, de forma que se puedan escribir y probar ya, sin esperar a
      tener más partes funcionando.
 
-  #. Estos componentes se usan para terminar de programas los algoritmos que se
+  #. Estos componentes se usan para terminar de programar los algoritmos que se
      concretaron _a medias_ en el paso 2 anterior, de forma que los del paso 2
      llaman o usan a los del paso 3.
 
