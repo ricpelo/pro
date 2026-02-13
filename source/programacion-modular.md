@@ -2112,7 +2112,7 @@ Nivel $n$    (Más detalle)
   !CAJA
   ~~~~~~~~~~~~~~~~~
   La **abstracción** nos ayuda a **definir qué módulos constituyen nuestro
-  programa** considerando la relación que se establece entre los *creadores* y
+  programa** a partir de la relación que se establece entre los *creadores* y
   los *usuarios* de los módulos.
   ~~~~~~~~~~~~~~~~~
 
@@ -2160,10 +2160,10 @@ Nivel $n$    (Más detalle)
     ~~~~~~~~~~~~~~~~~~~~
     El uso del módulo debe realizarse únicamente por medio de **interfaces**
     bien definidas que no cambien (o cambien poco) con el tiempo y que no
-    expongan detalles internos al exterior.
+    expongan decisiones de diseño al exterior.
     ~~~~~~~~~~~~~~~~~~~~
 
-  - Por tanto, *B* debe **ocultar** al exterior sus detalles internos de
+  - Por tanto, *B* debe **ocultar** al exterior sus decisiones de
     **implementación** y exponer sólo lo necesario para que otros lo puedan
     utilizar.
   
@@ -2172,8 +2172,8 @@ Nivel $n$    (Más detalle)
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~
-Es decir: cada módulo debe ser una **caja negra** recelosa de su privacidad que
-tiene «aversión» por exponer sus interioridades a los demás.
+Es decir: cada módulo debe ser una cápsula recelosa de su privacidad que tiene
+«aversión» por exponer sus decisiones internas a los demás.
 ~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2184,23 +2184,19 @@ tiene «aversión» por exponer sus interioridades a los demás.
     un método para descomponer el programa en módulos**. Es decir: nos ayuda a
     decidir **qué módulos debe tener el programa**.
 
-    Pero **también nos dice qué debe ocultar y qué debe exponer** cada módulo,
+    Pero **también nos dice qué debe exponer y qué debe ocultar** cada módulo,
     porque afirma que la _interfaz_ debe estar formada, precisamente, por lo
     elementos que responden al «_qué_» hace el módulo, y la _implementación_
     por los que responden al «_cómo_» lo hace.
 
-  - La **ocultación de información** es un **principio de diseño** que se basa
-    en que los módulos deben ocultar a los demás módulos sus decisiones de
-    diseño y exponer sólo la información estrictamente necesaria para que los
-    demás puedan usarlos.
+  - La **ocultación de información** es un **principio de diseño** que, al
+    igual que la abstracción, nos proporciona una guía para identificar **qué
+    detalles debe ocultar el módulo y qué debe exponer a los demás**. Es decir:
+    qué detalles internos deben conocerse de un módulo para poder usarlo.
 
-    Por tanto, nos ayuda a identificar **qué detalles debe ocultar el módulo y
-    qué información debe exponer a los demás**. Es decir: qué detalles internos
-    deben conocerse de un módulo para poder usarlo.
-
-    También nos ayuda a ver **en qué módulo va cada elemento del programa**. Es
-    decir: qué elementos deben formar parte de un módulo y cuáles deben formar
-    parte de otros módulos.
+    Además, también nos ayuda a ver **en qué módulo va cada elemento del
+    programa**. Es decir: qué elementos deben formar parte de un módulo y
+    cuáles deben formar parte de otros módulos.
 
 ---
 
