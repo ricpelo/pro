@@ -2032,7 +2032,8 @@ E -> mcd [lhead = cluster1]
   importancia.
 
 - Para ello nos basaremos en los siguientes **criterios**: abstracción,
-  ocultación de información, independencia funcional y reusabilidad.
+  ocultación de información, independencia funcional, reusabilidad y principios
+  _SOLID_.
 
 ## Abstracción
 
@@ -2693,7 +2694,8 @@ compontentes intermedios.
 
   - **Principio de Segregación de la Interfaz (ISP)**: los módulos sólo deben
     exponer la mínima funcionalidad que sea relevante para sus usuarios, y los
-    usuarios no deben depender de interfaces que no usan.
+    usuarios no deben depender de interfaces que no usan (es decir: la interfaz
+    debe ser mínima).
 
   - **Principio de Inversión de Dependencias (DIP)**: los módulos deben
     depender de abstracciones y no de concreciones.
