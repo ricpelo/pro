@@ -2366,6 +2366,31 @@ Es decir: cada módulo debe ser una cápsula recelosa de su privacidad que tiene
     de su módulo y cambiar de opinión sobre las mismas _más adelante_ sin
     afectar a los usuarios de su módulo.
 
+---
+
+- La clave está en combinar adecuadamente las dos técnicas.
+
+- Para ello, se suele seguir una regla de tres pasos que pueden aplicarse
+  recursivamente en caso necesario:
+
+  #. Se deducen las abstracciones más generales a partir del modelo del
+     dominio.
+
+  #. Se preven las decisiones de diseño que habrá que tomar para implementar
+     dichas abstracciones y en qué medida pueden cambiar.
+
+  #. Se rompen esas abstracciones en módulos, según los posibles cambios en las
+     decisiones de diseño.
+
+- Así se empieza por abstracciones, pero luego se modulariza por decisiones que
+  pueden cambiar.
+
+- Modularizar por abstracciones tiene la ventaja de que produce un código más
+  comprensible, pero suele generar módulos que cambian mucho.
+
+- En cambio, modularizar por decisiones cambiantes lleva a un mantenimiento más
+  fácil aunque resulta menos intuitivo al principio.
+
 ## Independencia funcional
 
 - La **independencia funcional** es otro criterio a seguir para obtener una
