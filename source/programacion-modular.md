@@ -2141,10 +2141,15 @@ Nivel $n$    (Más detalle)
   de diseño*, deben pertenecer al mismo módulo.
   ~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Al ocultar la información de esa manera se evita que los usuarios de un
-  módulo necesiten de un conocimiento íntimo del diseño interno del mismo para
-  poder usarlo, y los aísla de los posibles efectos de cambiar esas decisiones
-  posteriormente.
+---
+
+- Al ocultar la información de esa manera:
+
+  - Se evita que los usuarios de un módulo necesiten de un conocimiento íntimo
+    del diseño interno del mismo para poder usarlo.
+
+  - Los aísla de los posibles efectos de cambiar esas decisiones
+    posteriormente.
 
 - Implica que la modularidad efectiva se logra **definiendo un conjunto de
   módulos independientes que intercambien sólo aquella información
@@ -2166,7 +2171,7 @@ Nivel $n$    (Más detalle)
 
   - Por tanto, *B* debe **ocultar** al exterior sus decisiones de
     **implementación** y exponer sólo lo necesario para que otros lo puedan
-    utilizar.
+    utilizar por medio de una interfaz estable.
   
     Ésto aísla a los usuarios de los posibles cambios internos que pueda haber
     posteriormente en *B*.
@@ -2179,26 +2184,163 @@ Es decir: cada módulo debe ser una cápsula recelosa de su privacidad que tiene
 
 ---
 
-- La **abstracción** y la **ocultación de información** se complementan:
+- Antes de Parnas, los programas se dividían en módulos pensando en:
 
-  - La **abstracción** puede usarse como una **técnica de diseño** que **nos da
-    un método para descomponer el programa en módulos**. Es decir: nos ayuda a
-    decidir **qué módulos debe tener el programa**.
+  - qué funciones hacían, o
 
-    Pero **también nos dice qué debe exponer y qué debe ocultar** cada módulo,
-    porque afirma que la _interfaz_ debe estar formada, precisamente, por lo
-    elementos que responden al «_qué_» hace el módulo, y la _implementación_
-    por los que responden al «_cómo_» lo hace.
+  - cómo fluían los datos.
 
-  - La **ocultación de información** es un **principio de diseño** que, al
-    igual que la abstracción, nos proporciona una guía para identificar **qué
-    detalles debe ocultar el módulo y qué debe exponer a los demás**. Es decir:
-    qué detalles internos deben conocerse de un módulo para poder usarlo (en
-    teoría, ninguna decisión de diseño).
+- Él propuso otro criterio mucho más potente:
 
-    Además, también nos ayuda a ver **en qué módulo va cada elemento del
-    programa**. Es decir: qué elementos deben formar parte de un módulo y
-    cuáles deben formar parte de otros módulos.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Dividir el programa según lo que pueda cambiar, no según lo que hace.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- O, dicho de otra forma:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  No diseñes módulos por lo que hacen, sino por lo que quieres proteger del
+  cambio.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Según este principio, un módulo es una **decisión de diseño aislada**.
+
+---
+
+- «_Ocultar información_» no significa esconder datos por seguridad.
+
+- Significa:
+
+  - Ocultar decisiones internas que puedan cambiar en el futuro, como:
+
+    - Estructuras de datos.
+
+    - Algoritmos.
+
+    - Formatos de almacenamiento.
+
+    - Detalles técnicos.
+
+  - Y exponer sólo:
+
+    - Operaciones públicas claras.
+
+---
+
+- El principio de ocultación de información tiene las siguientes
+  **consecuencias prácticas**:
+
+  - Reduce dependencias entre módulos.
+
+  - Facilita el mantenimiento del programa.
+
+  - Evita que los cambios y errores en un módulo se propaguen al resto del
+    programa.
+
+  - Permite la evolución del sistema.
+
+---
+
+- La **abstracción**, la **encapsulación** y la **ocultación de información**
+  se complementan.
+
+- Es importante no confundir _encapsulación_ con _ocultación de
+  información_:
+
+  - La **ocultación de información** es un principio de diseño, es un criterio
+    que guía la descomposición del programa en módulos.
+
+  - La **encapsulación** es un mecanismo de agrupamiento y protección que crea
+    cápsulas que aíslan elementos del exterior.
+
+- En ese sentido:
+
+  - La ocultación de información es el proceso mental.
+
+  - La encapsulación es la herramienta para implementar la ocultación.
+
+- La _abstracción_ y la _ocultación de información_ sirven de guía para:
+
+  - Descomponer un programa en módulos.
+
+  - Determinar qué elementos van en cada módulo.
+
+  - Decidir qué elementos exporta y qué elementos oculta cada módulo.
+
+---
+
+- La **abstracción** puede usarse como una **técnica de diseño** que **nos da
+  un método para descomponer el programa en módulos**.
+
+- La idea clave no es esconder cambios, sino **simplificar la complejidad**.
+
+- Se basa en preguntarse:
+
+  - Qué conceptos principales forman el sistema.
+
+  - Cómo se ven esos conceptos desde un punto de vista abstracto, es decir,
+    desde el punto de vista del _qué_ hacen y no del _cómo_.
+
+  - De qué manera se pueden descomponer esos conceptos por niveles de
+    abstracción para ir bajando el nivel de detalle.
+
+  - Qué es esencial y qué puede ignorarse en un determinado nivel.
+
+---
+
+- Por tanto, nos ayuda a decidir:
+
+  - Qué módulos debe tener el programa.
+
+  - Qué información debe exponer y qué debe ocultar cada módulo, porque afirma
+    que:
+
+    - La _interfaz_ debe estar formada, precisamente, por los elementos que
+      responden a «_qué_» hace el módulo.
+
+    - La _implementación_ debe estar formada por los que responden a «_cómo_»
+      lo hace.
+
+---
+
+- La **ocultación de información** es un **principio de diseño** que, al igual
+  que la abstracción, nos proporciona una guía para la descomposición de un
+  programa en módulos.
+
+- La idea clave es **proteger contra el cambio**.
+
+- Se basa en preguntarse:
+
+  - Qué decisiones de diseño pueden cambiar en el futuro.
+
+  - Cómo afectarían esos cambios a los elementos de que forman el programa.
+
+  - Qué partes del programa necesitan realmente conocer esas decisiones de
+    diseño.
+
+---
+
+- Por tanto, nos ayuda a decidir:
+
+  - Qué módulos debe tener un programa:
+
+    Aquí, los módulos que salgan serán aquellos que se obtengan al preguntarnos
+    qué decisiones de diseño pueden cambiar.
+
+  - Qué detalles debe ocultar un módulo y qué debe exponer a los demás, es
+    decir, qué detalles internos deben conocerse de un módulo para poder
+    usarlo:
+
+    Aquí, las decisiones de diseño deberán ir ocultas y hay que crear
+    interfaces limpias que no expongan ninguna decisión de diseño.
+
+  - En qué módulo va cada elemento del programa, es decir, qué elementos deben
+    formar parte de un módulo y cuáles deben formar parte de otros módulos:
+
+    Aquí, los elementos que necesiten conocer las mismas decisiones de diseño
+    irán en el mismo módulo.
 
 ---
 
@@ -2214,30 +2356,35 @@ Es decir: cada módulo debe ser una cápsula recelosa de su privacidad que tiene
 
 - Al **creador** de un módulo...
 
-  - ... le interesa la **abstracción** porque le ayuda a determinar qué módulos
-    deben formar parte del programa.
+  - ... le interesa la **abstracción** y la **ocultación de información**
+    porque le ayudan a determinar qué módulos deben formar parte del programa,
+    qué elementos deben formar parte de su módulo y qué elementos deben
+    exportarse u ocultarse al exterior.
 
-  - ... le interesa la **ocultación de información** porque le ayuda a
-    determinar qué elementos deben formar parte de su módulo y qué información
-    debe ocultar su módulo al exterior. Además, cuantos menos detalles
-    necesiten conocer los usuarios para poder usar su módulo, más libertad
-    tendrá él para cambiar esos detalles en el futuro (cuando lo necesite o lo
-    desee) sin afectar a los usuarios de su módulo.
+    Además, también le interesa la **ocultación de información** porque le
+    permite tomar decisiones de diseño _ahora_ sobre el funcionamiento interno
+    de su módulo y cambiar de opinión sobre las mismas _más adelante_ sin
+    afectar a los usuarios de su módulo.
 
 ## Independencia funcional
 
 - La **independencia funcional** es otro criterio a seguir para obtener una
   modularidad efectiva.
 
-- La independencia funcional se logra desarrollando módulos de manera **que
-  cada módulo resuelva una funcionalidad específica y tenga una interfaz
-  sencilla** cuando se vea desde otras partes de del programa (idealmente,
-  mediante paso de parámetros).
+- Se obtiene una modularidad efectiva cuando los módulos son **_funcionalmente
+  independientes_**.
 
-  - De hecho, **la interfaz del módulo debe estar destinada únicamente a
-    cumplir con esa funcionalidad**.
+- Esto se logra desarrollando módulos de manera que:
 
-- Al limitar su objetivo, el módulo necesita menos ayuda de otros módulos.
+  - Cada módulo resuelva **una funcionalidad específica**, es decir, que se
+    dedique a una cosa cosa y que tenga una finalidad concreta.
+
+  - Tenga una **interfaz sencilla** cuando se vea desde otras partes del
+    programa (idealmente, mediante paso de parámetros) y que esté **destinada
+    únicamente a cumplir con esa funcionalidad**.
+
+- Al limitar su objetivo a una sola tarea o finalidad, el módulo necesita menos
+  ayuda de otros módulos.
 
 ---
 
@@ -2284,7 +2431,7 @@ módulos**.
 - La **cohesión** mide la fuerza con la que se relacionan los componentes de un
   módulo.
 
-- Cuanto más cohesivo sea un módulo, mejor será nuestro diseño modular.
+- Cuanto más cohesivo sean nuestros módulos, mejor será nuestro diseño modular.
 
 - Un módulo cohesivo realiza una sola función, por lo que requiere interactuar
   poco con otros componentes en otras partes del programa.
@@ -2386,7 +2533,8 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
 
   - El punto en el que se entra o se hace referencia a un módulo.
   
-  - Los datos que se pasan a través de la interfaz.
+  - La cantidad y complejidad de los datos que se pasan a través de la
+    interfaz.
 
 - Lo deseable es tener módulos con poco acoplamiento, es decir, módulos que
   dependan poco unos de otros.
@@ -2407,8 +2555,12 @@ relacionados entre ellos y mantiene fuera (*repele*) al resto.
     mucho unos de otros.
 
   - Un módulo particular resulta más difícil de reutilizar o probar debido a
-    que hay que incluir en el lote a los módulos de los que depende éste (no se
-    puede reutilizar o probar por separado).
+    que hay que incluir en el lote a todos los módulos de los que depende éste,
+    que además suelen ser muchos.
+
+    Los módulos se puede reutilizar o probar por separado ya que todos los
+    módulos que dependen entre sí forman un _pack_ y sólo funcionan cuando van
+    todos juntos.
 
 ---
 
