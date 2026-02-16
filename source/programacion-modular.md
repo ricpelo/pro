@@ -2382,6 +2382,8 @@ Es decir: cada módulo debe ser una cápsula recelosa de su privacidad que tiene
   #. Se rompen esas abstracciones en módulos, según los posibles cambios en las
      decisiones de diseño.
 
+---
+
 - Así se empieza por abstracciones, pero luego se modulariza por decisiones que
   pueden cambiar.
 
