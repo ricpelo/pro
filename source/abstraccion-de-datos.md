@@ -52,7 +52,8 @@ nocite: |
   algo que creamos y que puede formar parte de un programa.
 
 - Hasta ahora, las únicas abstracciones que hemos utilizado y creado son las
-  **funciones**, también llamadas **abstracciones funcionales**.
+  **funciones** (también llamadas **abstracciones funcionales**) y los módulos
+  (las **abstracciones modulares**).
 
 - **Una función es una abstracción** porque, para usarla, el usuario sólo
   necesita conocer la **especificación** de la abstracción (el *qué* hace) y en
@@ -68,8 +69,8 @@ nocite: |
 
 ---
 
-- Las abstracciones funcionales son un mecanismo que funciona llevando a cabo
-  estos pasos, en este orden:
+- Las **_abstracciones funcionales_** son un mecanismo que funciona llevando a
+  cabo estos pasos, en este orden:
 
   #. **Se compone una _instrucción compleja_** combinando otras instrucciones
      más simples.
@@ -88,6 +89,40 @@ nocite: |
 
 - Una vez que la función se ha diseñado y se está utilizando, se puede
   sustituir por cualquier otra que tenga el mismo comportamiento observable.
+
+---
+
+- Por otra parte, las **_abstracciones modulares_** son una generalización de
+  las abstracciones funcionales en el sentido en que se basan en combinar
+  elementos dentro de una cápsula, pero esta vez:
+
+  - Los elementos pueden ser de muy diversos tipos, no solo instrucciones:
+    variables, funciones, tipos, etc.
+
+  - La cápsula exporta algunos y oculta otros.
+
+- Además, pueden contener otras instrucciones que se ejecutan cuando se usa (o
+  _importa_) el módulo por primera vez.
+
+---
+
+- Es decir: el módulo realiza una composición estructural o arquitectónica por
+  agrupación y encapsulación de elementos, incluyendo otras abstracciones.
+
+- En comparación:
+
+  - Una función es una composición computacional en el tiempo (qué se ejecuta y
+    cuándo).
+
+  - Un módulo es una composición conceptual en el espacio (cómo se organiza el
+    sistema).
+
+- Luego, a todo ese conjunto encapsulado se le da un nombre para poder hacer
+  referencia a él.
+
+- Si el módulo exporta justo lo que se necesita saber para usar el módulo (el
+  _qué_) y oculta lo que no es necesario saber (el _cómo_), entonces decimos
+  que ese módulo representa una _abstracción_, y se puede usar como tal.
 
 ---
 

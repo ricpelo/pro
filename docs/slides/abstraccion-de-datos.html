@@ -14,6 +14,9 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -29,8 +32,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +45,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +100,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -260,8 +263,9 @@ también llamamos así al <strong><em>producto</em></strong> que se
 obtiene como resultado de aplicar dicho proceso. Es algo que creamos y
 que puede formar parte de un programa.</p></li>
 <li><p>Hasta ahora, las únicas abstracciones que hemos utilizado y
-creado son las <strong>funciones</strong>, también llamadas
-<strong>abstracciones funcionales</strong>.</p></li>
+creado son las <strong>funciones</strong> (también llamadas
+<strong>abstracciones funcionales</strong>) y los módulos (las
+<strong>abstracciones modulares</strong>).</p></li>
 <li><p><strong>Una función es una abstracción</strong> porque, para
 usarla, el usuario sólo necesita conocer la
 <strong>especificación</strong> de la abstracción (el <em>qué</em> hace)
@@ -278,8 +282,8 @@ forma en como está implementada esa función.</p></li>
 <section class="slide level5" data-number="1.1.0.0.3">
 
 <ul>
-<li><p>Las abstracciones funcionales son un mecanismo que funciona
-llevando a cabo estos pasos, en este orden:</p>
+<li><p>Las <strong><em>abstracciones funcionales</em></strong> son un
+mecanismo que funciona llevando a cabo estos pasos, en este orden:</p>
 <ol>
 <li><p><strong>Se compone una <em>instrucción compleja</em></strong>
 combinando otras instrucciones más simples.</p></li>
@@ -301,6 +305,43 @@ observable.</p></li>
 <section class="slide level5" data-number="1.1.0.0.4">
 
 <ul>
+<li><p>Por otra parte, las <strong><em>abstracciones
+modulares</em></strong> son una generalización de las abstracciones
+funcionales en el sentido en que se basan en combinar elementos dentro
+de una cápsula, pero esta vez:</p>
+<ul>
+<li><p>Los elementos pueden ser de muy diversos tipos, no solo
+instrucciones: variables, funciones, tipos, etc.</p></li>
+<li><p>La cápsula exporta algunos y oculta otros.</p></li>
+</ul></li>
+<li><p>Además, pueden contener otras instrucciones que se ejecutan
+cuando se usa (o <em>importa</em>) el módulo por primera vez.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.5">
+
+<ul>
+<li><p>Es decir: el módulo realiza una composición estructural o
+arquitectónica por agrupación y encapsulación de elementos, incluyendo
+otras abstracciones.</p></li>
+<li><p>En comparación:</p>
+<ul>
+<li><p>Una función es una composición computacional en el tiempo (qué se
+ejecuta y cuándo).</p></li>
+<li><p>Un módulo es una composición conceptual en el espacio (cómo se
+organiza el sistema).</p></li>
+</ul></li>
+<li><p>Luego, a todo ese conjunto encapsulado se le da un nombre para
+poder hacer referencia a él.</p></li>
+<li><p>Si el módulo exporta justo lo que se necesita saber para usar el
+módulo (el <em>qué</em>) y oculta lo que no es necesario saber (el
+<em>cómo</em>), entonces decimos que ese módulo representa una
+<em>abstracción</em>, y se puede usar como tal.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.6">
+
+<ul>
 <li><p>Además de combinar operaciones, también podemos <strong>combinar
 datos</strong>.</p></li>
 <li><p>Los <strong>datos compuestos o estructurados</strong> son un
@@ -314,7 +355,7 @@ que conocer cómo está construido.</p></li>
 abstracciones.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.5">
+<section class="slide level5" data-number="1.1.0.0.7">
 
 <ul>
 <li><p>Por ejemplo, podemos representar un número racional <span
@@ -339,7 +380,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ????</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.6">
+<section class="slide level5" data-number="1.1.0.0.8">
 
 <ul>
 <li><p>Así que podríamos representar esa pareja de números usando un
@@ -371,7 +412,7 @@ representa internamente con una tupla, y que el numerador es el primer
 elemento y que el denominador es el segundo elemento.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.7">
+<section class="slide level5" data-number="1.1.0.0.9">
 
 <ul>
 <li><p>De hecho, si definiéramos la función usando anotaciones de tipos,
@@ -386,7 +427,7 @@ implementación.</p></li>
 tiene que conocer la representación interna de un racional.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.8">
+<section class="slide level5" data-number="1.1.0.0.10">
 
 <ul>
 <li><p>En Python podemos definir <strong>sinónimos de tipos</strong>,
@@ -409,7 +450,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a hr
 que saber que un racional es una tupla de dos enteros.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.9">
+<section class="slide level5" data-number="1.1.0.0.11">
 
 <ul>
 <li><p>Nos interesa que nuestro programa sea capaz de expresar el
@@ -433,7 +474,7 @@ de <em>cómo se representan</em> los datos de las partes que se ocupan de
 llamada <strong>abstracción de datos</strong>.</p>
 </div>
 </section>
-<section class="slide level5" data-number="1.1.0.0.10">
+<section class="slide level5" data-number="1.1.0.0.12">
 
 <ul>
 <li><p>La <strong>abstracción de datos</strong> es una
@@ -453,7 +494,7 @@ la misma forma que los tipos predefinidos del lenguaje, es decir, sin
 necesidad de saber cómo están hechos por dentro.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.11">
+<section class="slide level5" data-number="1.1.0.0.13">
 
 <ul>
 <li><p>Por ejemplo, <code>set</code> es un tipo primitivo en Python que
@@ -475,7 +516,7 @@ permite cambiar la representación interna sin afectar a las demás partes
 del programa que utilizan dicho tipo abstracto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.12">
+<section class="slide level5" data-number="1.1.0.0.14">
 
 <ul>
 <li><p>La abstracción de datos se parece a la abstracción funcional:</p>
@@ -499,7 +540,7 @@ de datos.</p></li>
 detalles internos de implementación.</p>
 </div>
 </section>
-<section class="slide level5" data-number="1.1.0.0.13">
+<section class="slide level5" data-number="1.1.0.0.15">
 
 <table>
 <colgroup>
@@ -536,7 +577,7 @@ abstractos)</td>
 </tbody>
 </table>
 </section>
-<section class="slide level5" data-number="1.1.0.0.14">
+<section class="slide level5" data-number="1.1.0.0.16">
 
 <ul>
 <li><p>El concepto de <strong>abstracción de datos</strong> (o
@@ -560,7 +601,7 @@ abstracto se definen también como
 <em>operaciones</em></strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.15">
+<section class="slide level5" data-number="1.1.0.0.17">
 
 <ul>
 <li><p><strong>Un tipo abstracto debe cumplir</strong> las siguientes
@@ -574,7 +615,7 @@ valores aquellas operaciones previstas en la especificación.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.16">
+<section class="slide level5" data-number="1.1.0.0.18">
 
 <ul>
 <li><p>El programador de un tipo abstracto debe crear, por tanto, dos
@@ -603,7 +644,7 @@ operaciones</strong>.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.17">
+<section class="slide level5" data-number="1.1.0.0.19">
 
 <blockquote>
 <p>«Son las especificaciones, y no los programas, los que realmente
@@ -3122,24 +3163,24 @@ ninguna o muy poca modificación.</p></li>
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-abelson_structure_1996" class="csl-entry" role="listitem">
 Abelson, Harold, Gerald Jay Sussman, and Julie Sussman. 1996.
-<em>Structure and Interpretation of Computer Programs</em>. 2nd ed.
-Cambridge, Mass. : New York: MIT Press ; McGraw-Hill.
+<em>Structure and Interpretation of Computer Programs</em>. 2nd ed. MIT
+Press ; McGraw-Hill.
 </div>
 <div id="ref-denero_composing_nodate" class="csl-entry" role="listitem">
-DeNero, John. n.d. <span>“Composing <span>Programs</span>.”</span> <a
+DeNero, John. n.d. <em>Composing <span>Programs</span></em>. <a
 href="http://www.composingprograms.com">http://www.composingprograms.com</a>.
 </div>
 <div id="ref-pena_mari_diseno_2003" class="csl-entry" role="listitem">
-Peña Marí, Ricardo. 2003. <em>Diseño de Programas: Formalismo y
-Abstracción</em>. Madrid: Prentice Hall.
+Peña Marí, Ricardo. 2003. <em>Diseño de Programas: Formalismo y
+Abstracción</em>. Prentice Hall.
 </div>
 <div id="ref-python_software_foundation_sitio_nodate" class="csl-entry"
 role="listitem">
-Python Software Foundation. n.d. <span>“Sitio Web de Documentación de
-<span>Python</span>.”</span> <a
+Python Software Foundation. n.d. <em>Sitio Web de Documentación de
+<span>Python</span></em>. <a
 href="https://docs.python.org/3">https://docs.python.org/3</a>.
 </div>
 </div>
