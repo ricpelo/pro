@@ -96,26 +96,31 @@ nocite: |
   las abstracciones funcionales en el sentido en que se basan en combinar
   elementos dentro de una cápsula, pero esta vez:
 
-  - Los elementos pueden ser de muy diversos tipos, no solo instrucciones:
-    variables, funciones, tipos, etc.
+  - Los elementos pueden ser de muy diversa naturaleza, no sólo instrucciones:
+    
+    - Variables.
 
-  - La cápsula exporta algunos y oculta otros.
+    - Funciones.
 
-- Además, pueden contener otras instrucciones que se ejecutan cuando se usa (o
-  _importa_) el módulo por primera vez.
+    - Tipos.
+
+    - Etcétera.
+
+  - El creador del módulo puede elegir qué elementos exporta la cápsula y
+    cuáles oculta.
 
 ---
 
 - Es decir: el módulo realiza una composición estructural o arquitectónica por
   agrupación y encapsulación de elementos, incluyendo otras abstracciones.
 
-- En comparación:
+- Si comparamos:
 
-  - Una función es una composición computacional en el tiempo (qué se ejecuta y
-    cuándo).
+  - Una **función** es una _composición computacional en el tiempo_ (qué se
+    ejecuta y cuándo).
 
-  - Un módulo es una composición conceptual en el espacio (cómo se organiza el
-    sistema).
+  - Un **módulo** es una _composición conceptual en el espacio_ (cómo se
+    organiza el sistema).
 
 - Luego, a todo ese conjunto encapsulado se le da un nombre para poder hacer
   referencia a él.
@@ -136,7 +141,7 @@ nocite: |
   implementación al usuario**, sino que éste tiene que conocer cómo está
   construido.
 
-- Es decir: los datos compuestos, así sin más, no funcionan como abstracciones.
+- Es decir: los datos compuestos, así sin más, no son abstracciones.
 
 ---
 
@@ -166,7 +171,7 @@ nocite: |
 
 - Así que podríamos representar esa pareja de números usando un único valor,
   mediante una lista como `[`$a$`, ` $b$`]`, o una tupla `(`$a$`, ` $b$`)`, o
-  incluso un diccionario \ `{'numer': ` $a$`, 'denom': ` $b$`}`.
+  incluso un diccionario como \ `{'numer': ` $a$`, 'denom': ` $b$`}`.
 
 - Esto está mejor, pero ahora estaríamos obligando al usuario de nuestros
   números racionales a tener que saber cómo representamos los racionales a
@@ -190,6 +195,14 @@ nocite: |
 
 ---
 
+- De esta forma, tanto dentro como fuera de la función, el programa tiene que
+  conocer la representación interna de un racional.
+
+- Esto es una violación del principio de ocultación de información, ya que la
+  representación de un número racional es una decisión de diseño que puede
+  cambiar en el futuro y, cuando ocurra, afectará a todos los usuarios del
+  racional.
+
 - De hecho, si definiéramos la función usando anotaciones de tipos, quedaría de
   la siguiente forma:
 
@@ -201,31 +214,29 @@ nocite: |
   lo que resalta aún más el hecho de que los racionales se representan mediante
   tuplas de enteros, que es un detalle de implementación.
 
-- De esta forma, tanto dentro como fuera de la función, el programa tiene que
-  conocer la representación interna de un racional.
-
 ---
 
-- En Python podemos definir **sinónimos de tipos**, que son otros nombres para
-  tipos ya existentes.
+- En Python podemos definir **sinónimos de tipos** (o **_alias_ de tipos**),
+  que son otros nombres para tipos ya existentes.
 
 - Con ello, **no estaríamos creando un nuevo tipo**, sino más bien un nuevo
   nombre para otro tipo ya conocido.
 
-- Para ello, se usa la palabra clave `type`, indicando el nuevo nombre del tipo
-  y el tipo sobre el que se define, como si fuera una sentencia de definición.
+- Para ello, en Python 3.12 se introdujo la palabra clave `type`, que asocia el
+  nuevo nombre del tipo con el tipo sobre el que se define, como si fuera una
+  sentencia de definición.
 
-- Por ejemplo, así definimos el tipo `rac` como el tipo _tupla de dos enteros_:
+- Por ejemplo, así definimos el tipo `Rac` como el tipo _tupla de dos enteros_:
 
   ```python
-  type rac = tuple[int, int]
+  type Rac = tuple[int, int]
   ```
 
 - Con este nuevo sinónimo de tipo, podemos definir la función `mult_rac` de la
   siguiente forma:
 
   ```python
-  def mult_rac(r1: rac, r2: rac) -> rac:
+  def mult_rac(r1: Rac, r2: Rac) -> Rac:
       return (r1[0] * r2[0], r1[1] * r2[1])
   ```
 
@@ -239,9 +250,9 @@ nocite: |
   existencia propia y definida**, no simplemente como parejas de números
   enteros, **independientemente de su representación interna**.
 
-- Para todo esto, es importante que el programa que utilice los números
-  racionales **no necesite conocer los detalles internos** de cómo está
-  representado internamente un número racional.
+- Para todo esto, es importante que las partes del programa que utilicen los
+  números racionales **no necesiten conocer los detalles internos** de cómo
+  está representado internamente un número racional.
 
 - Es decir: que los números racionales se pueden representar internamente como
   una lista de dos números, o como una tupla, o como un diccionario, o de
@@ -267,7 +278,7 @@ datos es una poderosa metodología de diseño llamada **abstracción de datos**.
 
 - Por tanto, las abstracciones de datos son construcciones que acaban formando
   parte del programa, de la misma manera que ocurre con las abstracciones
-  funcionales.
+  funcionales o las abstracciones modulares en general.
 
 - El objetivo es poder crear tipos de datos que se puedan usar de la misma
   forma que los tipos predefinidos del lenguaje, es decir, sin necesidad de
@@ -286,14 +297,27 @@ datos es una poderosa metodología de diseño llamada **abstracción de datos**.
     conjuntos en la memoria del ordenador. Ese es un detalle interno del
     intérprete.
 
+- Igualmente, al crear nuevos tipos abstractos pretendemos crear tipos que sean
+  prácticamente indistinguibles de un tipo primitivo de Python.
+
+---
+
 - En general, el programador que usa un tipo abstracto puede no saber (e
-  incluso se le impide saber) cómo se representan los elementos del tipo de
-  datos.
+  incluso se le impide saber) cómo se representan los valores de ese tipo.
 
 - Esa **barrera de abstracción** que se crea entre cómo se usa y cómo se
   representa el tipo abstracto es muy útil porque permite cambiar la
   representación interna sin afectar a las demás partes del programa que
   utilizan dicho tipo abstracto.
+
+- Aquí se combina la abstracción con la ocultación de información:
+
+  - El tipo es abstracto porque se puede usar sin tener que saber cómo está
+    hecho por dentro, por lo que se ignoran detalles innecesarios (control de
+    la complejidad).
+
+  - Se ocultan decisiones de diseño que pueden cambiar en el futuro, lo que
+    aísla de esos cambios a los usuarios del tipo (control de cambios).
 
 ---
 
@@ -343,7 +367,7 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~
-  **Tipo abstracto de datos**
+  **Tipo abstracto de datos:**
 
   Un **tipo abstracto de datos** (o **_abstracción de datos_**) es un conjunto
   de valores y de operaciones que se definen mediante una **especificación**
@@ -386,8 +410,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
          **ecuaciones** o directamente en lenguaje natural.
 
   #. **La _implementación_ del tipo:** conocida sólo por el programador del
-     mismo y que consiste en la **_representación_ del tipo** por medio de
-     otros tipos y en la **implementación de las operaciones**.
+     mismo y que consiste en 1) la **_representación_ del tipo** por medio de
+     otros tipos y 2) la **implementación de las operaciones**.
 
 ---
 
@@ -540,9 +564,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   representar listas de una forma más cómoda.
 
 - Lo interesante de estas operaciones es que no se simplifican más, es decir,
-  que `[]` coincide con su forma normal y que ($x$ `:` $l$) también coincide
-  con su forma normal para cualquier valor de $\underline{x}$ y
-  $\underline{l}$.
+  que `[]` coincide con su forma normal y que $\underline{x\, \texttt{:}\, l}$
+  también coincide con su forma normal para cualquier valor de $\underline{x}$
+  y $\underline{l}$.
 
 - Por otra parte, las listas definidas según esta especificación no resultan
   muy útiles, ya que podemos crear listas de elementos pero no disponemos de
@@ -558,14 +582,17 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   - En lugar de cambiar el estado de un dato compuesto, se crea un nuevo dato
     con los cambios aplicados.
 
-- Por ejemplo: la operación `:` (que añade un elemento al principio de una
+- Por ejemplo: la operación «`:`» (que añade un elemento al principio de una
   lista) realmente no modifica dicha lista sino que crea una nueva lista con el
   elemento situado al principio, y la devuelve.
 
 - Esto lo podemos expresar en la especificación de la lista con la siguiente
   ecuación (siendo $\underline{x}$ un elemento y $\underline{l}$ una lista):
 
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   $x$ `:` $l$ $\equiv$ `[`$x$`]` `++` $l$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Se puede observar que no se modifica la lista $\underline{l}$ para añadir el
   elemento $\underline{x}$ al principio, sino que se crea una lista nueva por
@@ -685,10 +712,9 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
      $\equiv$ $l$
      ----------------------- ---------------------------------
 
-  b. Caso $l$ = $x$ `:` $l_1$ (caso inductivo):
-
-     Suponemos que la propiedad se cumple para $l_1$ (hipótesis inductiva), es
-     decir, que $l_1$ `++` `[]` $\equiv$ $l_1$. En tal caso, tenemos:
+  b. Caso $l$ = $x$ `:` $l_1$ (caso inductivo): Suponemos que la propiedad se
+     cumple para $l_1$, que es más «_pequeña_» que $l$ (hipótesis inductiva),
+     es decir, que $l_1$ `++` `[]` $\equiv$ $l_1$. En tal caso, tenemos:
 
      ---------------------------------- ----------------------------------
      $l$ `++` `[]`                      # _por definición de $l$_
@@ -707,6 +733,11 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 - Como hemos demostrado que $l$ `++` `[]` $\equiv$ $l$ para cualquiera de las
   dos formas posibles que puede tener $l$, hemos logrado demostrar la propiedad
   para cualquier valor de $l$.
+
+- Por tanto, como hemos podido demostrarla a partir de otras propiedades que ya
+  sabíamos que son ciertas, podemos afirmar que esa propiedad es un
+  **teorema**, y lo podemos sacar de la lista de ecuaciones que definen nuestro
+  tipo abstracto.
 
 ---
 
@@ -770,7 +801,8 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   _pila_, pero su dominio no contiene a todas las pilas, ya que no está
   definida para el valor `pvacia` (que también es una pila).
 
-- Por tanto, el dominio de `cima` es ( _pila_ $\setminus\ \{$ `pvacia` $\}$ ).
+- Por tanto, el dominio de `cima`
+  es\  $\underline{pila \setminus \{\, \texttt{pvacia}\, \}}$.
 
 - Las operaciones que no son parciales se denominan **operaciones _totales_**.
 
@@ -1117,6 +1149,22 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
   resto del programa se vea afectado. Sólo habría que cambiar la implementación
   del tipo abstracto.
 
+---
+
+- Por supuesto, estamos dejando a un lado otras posibles implementaciones que
+  no usan listas, como por ejemplo:
+
+  - Usar tuplas de dos enteros: !PYTHON((3, 4)).
+
+  - Usar diccionarios con dos elementos: !PYTHON({'num': 3, 'den': 4}).
+
+  - Incluso usar una cadena con un separador: !PYTHON("3/4").
+
+- Todas tienes sus ventajas y sus inconvenientes, y todas deberían poder ser
+  intercambiables en cualquier momento sin que los usuarios del tipo abstracto
+  se vean afectados.
+
+
 # Niveles y barreras de abstracción
 
 ## Niveles de abstracción
@@ -1246,8 +1294,8 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   definidas sobre *datos* (numeradores, denominadores y racionales) cuyo
   comportamiento está definido por las funciones `racional`, `numer` y `denom`.
 
-- Pero... ¿qué es un *dato*? No basta con decir que es «cualquier cosa
-  implementada mediante ciertos constructores y selectores».
+- Pero... ¿qué es un *dato*? No basta con decir que es «_cualquier cosa
+  implementada mediante ciertos constructores y selectores_».
 
 - Siguiendo con el mismo ejemplo: es evidente que cualquier grupo de tres
   funciones (un constructor y dos selectores) no sirve para representar
@@ -1276,9 +1324,9 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   mediante una colección de constructores y selectores junto con algunas
   _propiedades_ que los datos abstractos deben cumplir**.
 
-- Mientras se cumplan dichas propiedades (como la anterior de la división), los
-  constructores y selectores constituyen una representación válida de un tipo
-  de datos abstracto.
+- Mientras se cumplan dichas propiedades (como la anterior de la división),
+  esos constructores y selectores constituyen una representación válida de un
+  tipo de datos abstracto.
 
 ---
 
