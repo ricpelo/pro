@@ -347,8 +347,8 @@ módulo (el <em>qué</em>) y oculta lo que no es necesario saber (el
 <section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
-<li><p>Además de combinar operaciones, también podemos <strong>combinar
-datos</strong>.</p></li>
+<li><p>Además de combinar instrucciones, también podemos
+<strong>combinar datos</strong>.</p></li>
 <li><p>Los <strong>datos compuestos o estructurados</strong> son un
 mecanismo que nos permite crear un <strong>dato complejo</strong>
 combinando otros datos más simples, formando una única unidad
@@ -478,10 +478,11 @@ diccionario, o de cualquier otro modo, pero ese detalle interno debe
 quedar oculto para los usuarios de los números racionales.</p></li>
 </ul>
 <div class="caja">
-<p>La técnica general de aislar las partes de un programa que se ocupan
-de <em>cómo se representan</em> los datos de las partes que se ocupan de
-<em>cómo se usan</em> los datos es una poderosa metodología de diseño
-llamada <strong>abstracción de datos</strong>.</p>
+<p>La <strong>técnica</strong> general de aislar las partes de un
+programa que se ocupan de <strong><em>cómo</em> se representan</strong>
+los datos de las partes que se ocupan de <strong><em>cómo</em> se
+usan</strong> los datos es una poderosa <strong>metodología de
+diseño</strong> llamada <strong>abstracción de datos</strong>.</p>
 </div>
 </section>
 <section class="slide level5" data-number="1.1.0.0.12">
@@ -573,9 +574,9 @@ detalles internos de implementación.</p>
 
 <table>
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 34%" />
 <col style="width: 30%" />
+<col style="width: 38%" />
+<col style="width: 31%" />
 </colgroup>
 <thead>
 <tr>
@@ -587,14 +588,15 @@ detalles internos de implementación.</p>
 <tbody>
 <tr>
 <td style="text-align: left;">Primitivas</td>
-<td style="text-align: left;">Definiciones y sentencias simples</td>
+<td style="text-align: left;">Sentencias simples (las expresiones
+simples son datos)</td>
 <td style="text-align: left;">Literales y datos simples (enteros,
 reales, booleanos…)</td>
 </tr>
 <tr>
 <td style="text-align: left;">Mecanismos de combinación</td>
-<td style="text-align: left;">Expresiones y sentencias compuestas
-(estructuras de control)</td>
+<td style="text-align: left;">Expresiones compuestas (con operaciones) y
+sentencias compuestas (estructuras de control)</td>
 <td style="text-align: left;">Datos compuestos (listas, tuplas…)</td>
 </tr>
 <tr>
@@ -633,20 +635,6 @@ abstracto se definen también como
 <section class="slide level5" data-number="1.1.0.0.18">
 
 <ul>
-<li><p><strong>Un tipo abstracto debe cumplir</strong> las siguientes
-dos <strong>propiedades</strong>:</p>
-<ul>
-<li><p><strong>Privacidad de la representación</strong>: los usuarios no
-conocen cómo se representan los valores del tipo abstracto en la memoria
-del ordenador.</p></li>
-<li><p><strong>Protección</strong>: sólo se pueden utilizar con sus
-valores aquellas operaciones previstas en la especificación.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.1.0.0.19">
-
-<ul>
 <li><p>El programador de un tipo abstracto debe crear, por tanto, dos
 partes bien diferenciadas:</p>
 <ol>
@@ -673,7 +661,7 @@ operaciones</strong>.</p></li>
 </ol></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.20">
+<section class="slide level5" data-number="1.1.0.0.19">
 
 <blockquote>
 <p>«Son las especificaciones, y no los programas, los que realmente
@@ -1491,6 +1479,20 @@ data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span>
 Implementaciones</h2>
 <ul>
+<li><p>La implementación de un tipo abstracto <strong>debe cumplir dos
+propiedades</strong>:</p>
+<ul>
+<li><p><strong>Privacidad de la representación</strong>: los usuarios no
+conocen ni deben conocer cómo se representan los valores del tipo
+abstracto en la memoria del ordenador.</p></li>
+<li><p><strong>Protección</strong>: sólo se pueden utilizar con sus
+valores aquellas operaciones previstas en la especificación.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.1.0.0.1">
+
+<ul>
 <li><p>Una posible implementación en Python de las operaciones
 <code>suma</code>, <code>mult</code>, <code>imprimir</code> e
 <code>iguales?</code> a partir de <code>racional</code>,
@@ -1515,7 +1517,7 @@ las funciones <code>racional</code>, <code>numer</code> y
 <code>denom</code>, funcionará perfectamente.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.1">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>Ahora tenemos las operaciones sobre números racionales
@@ -1531,7 +1533,7 @@ nos permita manipular cada valor por separado cuando sea
 necesario.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
 <li><p>Por ejemplo, podemos usar una lista de dos números enteros para
@@ -1563,7 +1565,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="op">/</span><span class="dv">9</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
 <li><p>Como muestra el ejemplo anterior, nuestra implementación de
@@ -1586,7 +1588,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a h
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">/</span><span class="dv">3</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.4">
+<section class="slide level5" data-number="3.1.0.0.5">
 
 <ul>
 <li><p>Lo interesante es que este cambio sólo ha afectado al constructor
@@ -1599,7 +1601,7 @@ necesitan conocer la <strong>especificación</strong> de
 <code>racional</code>, la cual no ha cambiado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.5">
+<section class="slide level5" data-number="3.1.0.0.6">
 
 <ul>
 <li><p>Otra posible implementación sería simplificar el racional no
@@ -1630,7 +1632,7 @@ necesitan ser modificadas.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.6">
+<section class="slide level5" data-number="3.1.0.0.7">
 
 <ul>
 <li><p>Hacer que la representación dependa sólo de unas cuantas
@@ -1648,7 +1650,7 @@ selectores sin que el resto del programa se vea afectado. Sólo habría
 que cambiar la implementación del tipo abstracto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.7">
+<section class="slide level5" data-number="3.1.0.0.8">
 
 <ul>
 <li><p>Por supuesto, estamos dejando a un lado otras posibles

@@ -131,7 +131,7 @@ nocite: |
 
 ---
 
-- Además de combinar operaciones, también podemos **combinar datos**.
+- Además de combinar instrucciones, también podemos **combinar datos**.
 
 - Los **datos compuestos o estructurados** son un mecanismo que nos permite
   crear un **dato complejo** combinando otros datos más simples, formando una
@@ -261,9 +261,10 @@ nocite: |
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~
-La técnica general de aislar las partes de un programa que se ocupan de *cómo
-se representan* los datos de las partes que se ocupan de *cómo se usan* los
-datos es una poderosa metodología de diseño llamada **abstracción de datos**.
+La **técnica** general de aislar las partes de un programa que se ocupan de
+**_cómo_ se representan** los datos de las partes que se ocupan de **_cómo_ se
+usan** los datos es una poderosa **metodología de diseño** llamada
+**abstracción de datos**.
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -343,20 +344,21 @@ de implementación.
 
 ---
 
---------------------------------------------------------------------------------
-Elementos del lenguaje      Instrucciones               Datos
---------------------------- --------------------------- ------------------------
-Primitivas                  Definiciones y sentencias   Literales y datos
-                            simples                     simples (enteros,
-                                                        reales, booleanos...)
-
-Mecanismos de combinación   Expresiones y sentencias    Datos compuestos
-                            compuestas (estructuras     (listas, tuplas...)
-                            de control)
-
-Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
-                            (funciones)                 (tipos abstractos)
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+Elementos del lenguaje      Instrucciones                      Datos                      
+--------------------------- ---------------------------------- ----------------------------
+Primitivas                  Sentencias simples                 Literales y datos          
+                            (las expresiones simples           simples (enteros,          
+                            son datos)                         reales, booleanos...)      
+                                                                                          
+Mecanismos de combinación   Expresiones compuestas             Datos compuestos           
+                            (con operaciones) y                (listas, tuplas...)        
+                            sentencias compuestas                                         
+                            (estructuras de control)                                      
+                                                                                          
+Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de datos     
+                            (funciones)                        (tipos abstractos)         
+-------------------------------------------------------------------------------------------
 
 ---
 
@@ -379,16 +381,6 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 
 - Esto es así porque **los _valores_ de un tipo abstracto se definen también
   como _operaciones_**.
-
----
-
-- **Un tipo abstracto debe cumplir** las siguientes dos **propiedades**:
-
-  - **Privacidad de la representación**: los usuarios no conocen cómo se
-    representan los valores del tipo abstracto en la memoria del ordenador.
-
-  - **Protección**: sólo se pueden utilizar con sus valores aquellas
-    operaciones previstas en la especificación.
 
 ---
 
@@ -993,6 +985,17 @@ Mecanismos de abstracción   Abstracciones funcionales   Abstracciones de datos
 # Implementaciones
 
 ## Implementaciones
+
+- La implementación de un tipo abstracto **debe cumplir dos propiedades**:
+
+  - **Privacidad de la representación**: los usuarios no conocen ni deben
+    conocer cómo se representan los valores del tipo abstracto en la memoria
+    del ordenador.
+
+  - **Protección**: sólo se pueden utilizar con sus valores aquellas
+    operaciones previstas en la especificación.
+
+---
 
 - Una posible implementación en Python de las operaciones `suma`, `mult`,
   `imprimir` e `iguales?` a partir de `racional`, `numer` y `denom` podría ser
