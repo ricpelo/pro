@@ -1683,8 +1683,7 @@ E -> mcd [lhead = cluster1]
      ```
 
   #. Al terminar de ejecutarse el módulo `uno`, se saca su marco de la pila
-     pero no se elimina, sino que se almacena en el montículo, ya que ese marco
-     pertenece al entorno de definición de `f`.
+     pero no se elimina, sino que se almacena en el montículo.
 
   #. En el marco de `dos`, se crea la ligadura entre `f` y la función.
 

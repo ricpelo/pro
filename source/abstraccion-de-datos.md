@@ -1910,7 +1910,7 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 ---
 
-- Cuando el módulo se importa usando !PYTHON(import módulo):
+- Cuando el módulo se importa usando !PYTHON(import) !NT(módulo):
 
   #. Se mete su marco en la pila.
 
