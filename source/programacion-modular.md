@@ -1442,6 +1442,329 @@ E -> mcd [lhead = cluster1]
 
 - !PYTHON(dir()) equivale a !PYTHON(sorted(globals().keys())).
 
+- El ámbito del _script_ donde se almacena un módulo constituye
+  el ámbito global de ese módulo y, al importar un módulo, su marco global
+  debe permanecer en la memoria para que los miembros del módulo puedan acceder
+  a otros elementos del mismo.
+
+---
+
+- En concreto, cuando el módulo se importa usando !PYTHON(import) !NT(módulo):
+
+  #. Se mete su marco en la pila.
+
+  #. Se ejecutan sus sentencias, y sus definiciones crean ligaduras y variables
+     que se almacenan en ese marco.
+
+  #. Cuando se acaba, se saca el módulo de la pila y se convierte en un objeto
+     en el montículo que representa al módulo.
+
+---
+
+- El módulo representa el marco global para todas las funciones definidas
+  dentro de ese módulo.
+
+- Esto es debido a que las funciones definidas dentro del módulo recuerdan las
+  ligaduras globales del módulo en el que se han definido por medio del
+  atributo `__globals__` de la función.
+
+- Para ello, lo que hace el intérprete básicamente es lo siguiente:
+
+  !CAJACENTRADA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(func)`.__globals__` `=` !NT(módulo)`.__dict__`
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  para todas las funciones !NT(func) definidas en el módulo !NT(módulo).
+
+- El marco del módulo importador NO está dentro del entorno de esas funciones.
+
+---
+
+:::: columns
+
+::: {.column width=37%}
+
+- Por ejemplo:
+
+  ```python
+  # uno.py:
+
+  x = 1
+
+  def f():
+      return x
+  ```
+
+  ```python
+  # dos.py:
+
+  import uno
+
+  print(uno.f()) # imprime 1
+  ```
+
+:::
+
+::: {.column width=3%}
+
+:::
+
+::: {.column width=60%}
+
+- Al hacer !PYTHON(import uno):
+
+  #. Se crea un marco para `uno` en la pila.
+  #. Se ejecutan sus sentencias, que almacenan las ligaduras y variables de `x`
+     y `f` en ese marco.
+  #. Se hace:
+     ```python
+     f.__globals__ = uno.__dict__
+     ```
+  #. Cuando se termina de ejecutar el módulo, se saca su marco de la pila y se
+     almacena como un objeto en el montículo.
+  #. Se crea en el marco de `dos` una ligadura que hace referencia a ese
+     objeto.
+
+:::
+
+::::
+
+- En la llamada `uno.f()`, el entorno de `f` está formado por su propio marco y
+  por el marco global de `uno`, por lo que `f` tiene toda la información que
+  necesita para funcionar.
+
+---
+
+- El entorno de `f` NO contiene el marco global de `dos`.
+
+- Por ejemplo:
+
+  :::: columns
+
+  ::: {.column width=35%}
+
+  ```python
+  # uno.py:
+
+  x = 1
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=55%}
+
+  ```python
+  # dos.py:
+
+  import uno
+
+  x = 35         # crea una nueva x en dos
+
+  print(uno.f()) # sigue imprimiendo 1
+  ```
+
+  :::
+
+  ::::
+
+- Aquí, la llamada `uno.f()` sigue devolviendo `1` y no `35`, ya que `f` sigue
+  recordando que `x` vale `1`.
+
+- Recordemos que el entorno de `f` está formado por su marco y por el marco
+  global de `uno` (el cual recuerda a través de su atributo `__globals__`).
+
+---
+
+- Y en este caso:
+
+  :::: columns
+
+  ::: {.column width=35%}
+
+  ```python
+  # uno.py:
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=55%}
+
+  ```python
+  # dos.py:
+
+  import uno
+
+  x = 35         # crea una nueva x en uno
+
+  print(uno.f()) # da error
+  ```
+
+  :::
+
+  ::::
+
+- Aquí, la llamada `uno.f()` da un error porque el entorno de `f` no contiene
+  ninguna `x`, ya que ese entorno está formado por su marco y por el marco
+  global de `uno` (NO contiene al marco global de `dos`).
+
+---
+
+- Si usamos !PYTHON(from ... import ...):
+
+  :::: columns
+
+  ::: {.column width=45%}
+
+  ```python
+  # uno.py:
+
+  x = 1
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=45%}
+
+  ```python
+  # dos.py:
+
+  from uno import f
+
+  print(f()) # imprime 1
+  ```
+
+  :::
+
+  ::::
+
+- Al hacer !PYTHON(from uno import f), estamos importando sólo la función `f`,
+  no el módulo `uno` como tal, pero al hacerlo ya estaríamos perdiendo el marco
+  global del módulo `uno`, que contiene información que necesita la función `f`
+  (en este caso, la variable `x`).
+
+- Para que la llamada `f()` funcione correctamente en `dos`, el intérprete debe
+  conservar el marco del módulo `uno` y enlazar su `__dict__` con `f` mediante
+  el atributo `__globals__` de `f`.
+
+---
+
+- En detalle, cuando el intérprete ejecuta !PYTHON(from uno import f):
+
+  #. Crea el marco de `uno` en la pila y ejecuta sus sentencias.
+
+  #. En el marco de `uno` se guardan las ligaduras y variables de `x` y `f`.
+
+  #. Se hace:
+
+     ```python
+     f.__globals__ = uno.__dict__
+     ```
+
+  #. Al terminar de ejecutarse el módulo `uno`, se saca su marco de la pila
+     pero no se elimina, sino que se almacena en el montículo, ya que ese marco
+     pertenece al entorno de definición de `f`.
+
+  #. En el marco de `dos`, se crea la ligadura entre `f` y la función.
+
+---
+
+- Si ahora hacemos !PYTHON(x = 99) en el módulo `dos`:
+
+  :::: columns
+
+  ::: {.column width=44%}
+
+  ```python
+  # uno.py:
+
+  x = 1   # variable global de uno
+
+  def f():
+      return x
+  ```
+
+  :::
+
+  ::: {.column width=4%}
+
+  :::
+
+  ::: {.column width=52%}
+
+  ```python
+  # dos.py:
+
+  from uno import f
+
+  x = 99      # crea una nueva x en dos
+
+  print(f())  # sigue imprimiendo 1
+  ```
+
+  :::
+
+  ::::
+
+- El resultado sigue siendo el mismo que antes, porque:
+
+  - La asignación !PYTHON(x = 99) que se ejecuta dentro del módulo `dos` crea
+    una nueva variable `x` en el marco de `dos`, y no modifica la `x` de `uno`.
+
+  - La `f` importada en `dos` recuerda sus variables globales a través de su
+    atributo `__globals__`, por lo que recuerda que `x` valía `1` cuando se
+    definió al ejecutarse la sentencia !PYTHON(from uno import f).
+
+  - Cuando se ejecuta `f`, su entorno está formado por su marco y el marco
+    global de `uno`, en ese orden.
+
+  - Por tanto, `f` accede a la `x` de `uno`, no la de `dos`.
+
+---
+
+- Es importante también tener en cuenta que el entorno de `f` NO incluye el
+  marco global de `dos`.
+
+- Por tanto, lo siguiente daría error:
+
+  ```python
+  # uno.py:
+
+  def f():
+      return x   # Una variable que no está en uno
+  ```
+
+  ```python
+  # dos.py:
+
+  from uno import f
+
+  x = 99         # crea una nueva x en dos
+
+  print(f())     # da error porque la x de dos no está en el entorno de f
+  ```
+
 ## Módulos como *scripts*
 
 - Cuando se ejecuta un módulo Python desde la línea de órdenes como:

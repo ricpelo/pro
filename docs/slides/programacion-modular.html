@@ -1599,6 +1599,292 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a h
 class="sourceCode python"><span class="bu">dir</span>()</code> equivale
 a <code
 class="sourceCode python"><span class="bu">sorted</span>(<span class="bu">globals</span>().keys())</code>.</p></li>
+<li><p>El ámbito del <em>script</em> donde se almacena un módulo
+constituye el ámbito global de ese módulo y, al importar un módulo, su
+marco global debe permanecer en la memoria para que los miembros del
+módulo puedan acceder a otros elementos del mismo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.15">
+
+<ul>
+<li><p>En concreto, cuando el módulo se importa usando <code
+class="sourceCode python"><span class="im">import</span></code> <span
+style="color:teal">⟨<em>módulo</em>⟩</span>:</p>
+<ol>
+<li><p>Se mete su marco en la pila.</p></li>
+<li><p>Se ejecutan sus sentencias, y sus definiciones crean ligaduras y
+variables que se almacenan en ese marco.</p></li>
+<li><p>Cuando se acaba, se saca el módulo de la pila y se convierte en
+un objeto en el montículo que representa al módulo.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.16">
+
+<ul>
+<li><p>El módulo representa el marco global para todas las funciones
+definidas dentro de ese módulo.</p></li>
+<li><p>Esto es debido a que las funciones definidas dentro del módulo
+recuerdan las ligaduras globales del módulo en el que se han definido
+por medio del atributo <code>__globals__</code> de la función.</p></li>
+<li><p>Para ello, lo que hace el intérprete básicamente es lo
+siguiente:</p>
+<div class="caja centered">
+<p><span
+style="color:teal">⟨<em>func</em>⟩</span><code>.__globals__</code>
+<code>=</code> <span
+style="color:teal">⟨<em>módulo</em>⟩</span><code>.__dict__</code></p>
+</div>
+<p>para todas las funciones <span
+style="color:teal">⟨<em>func</em>⟩</span> definidas en el módulo <span
+style="color:teal">⟨<em>módulo</em>⟩</span>.</p></li>
+<li><p>El marco del módulo importador NO está dentro del entorno de esas
+funciones.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.17">
+
+<div class="columns">
+<div class="column" style="width:37%;">
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># imprime 1</span></span></code></pre></div></li>
+</ul>
+</div><div class="column" style="width:3%;">
+
+</div><div class="column" style="width:60%;">
+<ul>
+<li><p>Al hacer <code
+class="sourceCode python"><span class="im">import</span> uno</code>:</p>
+<ol>
+<li><p>Se crea un marco para <code>uno</code> en la pila.</p></li>
+<li><p>Se ejecutan sus sentencias, que almacenan las ligaduras y
+variables de <code>x</code> y <code>f</code> en ese marco.</p></li>
+<li><p>Se hace:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>f.__globals__ <span class="op">=</span> uno.__dict__</span></code></pre></div></li>
+<li><p>Cuando se termina de ejecutar el módulo, se saca su marco de la
+pila y se almacena como un objeto en el montículo.</p></li>
+<li><p>Se crea en el marco de <code>dos</code> una ligadura que hace
+referencia a ese objeto.</p></li>
+</ol></li>
+</ul>
+</div>
+</div>
+<ul>
+<li>En la llamada <code>uno.f()</code>, el entorno de <code>f</code>
+está formado por su propio marco y por el marco global de
+<code>uno</code>, por lo que <code>f</code> tiene toda la información
+que necesita para funcionar.</li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.18">
+
+<ul>
+<li><p>El entorno de <code>f</code> NO contiene el marco global de
+<code>dos</code>.</p></li>
+<li><p>Por ejemplo:</p>
+<div class="columns">
+<div class="column" style="width:35%;">
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:55%;">
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">35</span>         <span class="co"># crea una nueva x en dos</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># sigue imprimiendo 1</span></span></code></pre></div>
+</div>
+</div></li>
+<li><p>Aquí, la llamada <code>uno.f()</code> sigue devolviendo
+<code>1</code> y no <code>35</code>, ya que <code>f</code> sigue
+recordando que <code>x</code> vale <code>1</code>.</p></li>
+<li><p>Recordemos que el entorno de <code>f</code> está formado por su
+marco y por el marco global de <code>uno</code> (el cual recuerda a
+través de su atributo <code>__globals__</code>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.19">
+
+<ul>
+<li><p>Y en este caso:</p>
+<div class="columns">
+<div class="column" style="width:35%;">
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:55%;">
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">35</span>         <span class="co"># crea una nueva x en uno</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># da error</span></span></code></pre></div>
+</div>
+</div></li>
+<li><p>Aquí, la llamada <code>uno.f()</code> da un error porque el
+entorno de <code>f</code> no contiene ninguna <code>x</code>, ya que ese
+entorno está formado por su marco y por el marco global de
+<code>uno</code> (NO contiene al marco global de
+<code>dos</code>).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.20">
+
+<ul>
+<li><p>Si usamos <code
+class="sourceCode python"><span class="im">from</span> ... <span class="im">import</span> ...</code>:</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:45%;">
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f()) <span class="co"># imprime 1</span></span></code></pre></div>
+</div>
+</div></li>
+<li><p>Al hacer <code
+class="sourceCode python"><span class="im">from</span> uno <span class="im">import</span> f</code>,
+estamos importando sólo la función <code>f</code>, no el módulo
+<code>uno</code> como tal, pero al hacerlo ya estaríamos perdiendo el
+marco global del módulo <code>uno</code>, que contiene información que
+necesita la función <code>f</code> (en este caso, la variable
+<code>x</code>).</p></li>
+<li><p>Para que la llamada <code>f()</code> funcione correctamente en
+<code>dos</code>, el intérprete debe conservar el marco del módulo
+<code>uno</code> y enlazar su <code>__dict__</code> con <code>f</code>
+mediante el atributo <code>__globals__</code> de
+<code>f</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.21">
+
+<ul>
+<li><p>En detalle, cuando el intérprete ejecuta <code
+class="sourceCode python"><span class="im">from</span> uno <span class="im">import</span> f</code>:</p>
+<ol>
+<li><p>Crea el marco de <code>uno</code> en la pila y ejecuta sus
+sentencias.</p></li>
+<li><p>En el marco de <code>uno</code> se guardan las ligaduras y
+variables de <code>x</code> y <code>f</code>.</p></li>
+<li><p>Se hace:</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>f.__globals__ <span class="op">=</span> uno.__dict__</span></code></pre></div></li>
+<li><p>Al terminar de ejecutarse el módulo <code>uno</code>, se saca su
+marco de la pila pero no se elimina, sino que se almacena en el
+montículo, ya que ese marco pertenece al entorno de definición de
+<code>f</code>.</p></li>
+<li><p>En el marco de <code>dos</code>, se crea la ligadura entre
+<code>f</code> y la función.</p></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.22">
+
+<ul>
+<li><p>Si ahora hacemos <code
+class="sourceCode python">x <span class="op">=</span> <span class="dv">99</span></code>
+en el módulo <code>dos</code>:</p>
+<div class="columns">
+<div class="column" style="width:44%;">
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span>   <span class="co"># variable global de uno</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:52%;">
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">99</span>      <span class="co"># crea una nueva x en dos</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f())  <span class="co"># sigue imprimiendo 1</span></span></code></pre></div>
+</div>
+</div></li>
+<li><p>El resultado sigue siendo el mismo que antes, porque:</p>
+<ul>
+<li><p>La asignación <code
+class="sourceCode python">x <span class="op">=</span> <span class="dv">99</span></code>
+que se ejecuta dentro del módulo <code>dos</code> crea una nueva
+variable <code>x</code> en el marco de <code>dos</code>, y no modifica
+la <code>x</code> de <code>uno</code>.</p></li>
+<li><p>La <code>f</code> importada en <code>dos</code> recuerda sus
+variables globales a través de su atributo <code>__globals__</code>, por
+lo que recuerda que <code>x</code> valía <code>1</code> cuando se
+definió al ejecutarse la sentencia <code
+class="sourceCode python"><span class="im">from</span> uno <span class="im">import</span> f</code>.</p></li>
+<li><p>Cuando se ejecuta <code>f</code>, su entorno está formado por su
+marco y el marco global de <code>uno</code>, en ese orden.</p></li>
+<li><p>Por tanto, <code>f</code> accede a la <code>x</code> de
+<code>uno</code>, no la de <code>dos</code>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.2.0.0.23">
+
+<ul>
+<li><p>Es importante también tener en cuenta que el entorno de
+<code>f</code> NO incluye el marco global de <code>dos</code>.</p></li>
+<li><p>Por tanto, lo siguiente daría error:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x   <span class="co"># Una variable que no está en uno</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">99</span>         <span class="co"># crea una nueva x en dos</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f())     <span class="co"># da error porque la x de dos no está en el entorno de f</span></span></code></pre></div></li>
 </ul>
 </section>
 
@@ -1609,8 +1895,8 @@ Módulos como <em>scripts</em></h2>
 <ul>
 <li><p>Cuando se ejecuta un módulo Python desde la línea de órdenes
 como:</p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python fact.py <span class="co">&lt;argumentos&gt;</span></span></code></pre></div>
 <p>se ejecutará el módulo como un <em>script</em>, igual que si se
 hubiera importado con un <code
 class="sourceCode python"><span class="im">import</span></code> dentro
@@ -1622,9 +1908,9 @@ class="sourceCode python"><span class="st">&quot;__main__&quot;</span></code>.</
 principal</strong> (en inglés, <em>main module</em>) del
 programa.</p></li>
 <li><p>Por eso, si se añade este código al final del módulo:</p>
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;sentencias&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &lt;sentencias&gt;</span></span></code></pre></div>
 <p>esas sentencias se ejecutarán únicamente cuando el módulo se ejecute
 como el módulo principal del programa.</p></li>
 </ul>
@@ -1634,23 +1920,23 @@ como el módulo principal del programa.</p></li>
 <ul>
 <li><p>Por ejemplo, supongamos el siguiente módulo
 <code>fact.py</code>:</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fac(n):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fac(n <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fac(n):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n <span class="op">*</span> fac(n <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(fac(<span class="bu">int</span>(sys.argv[<span class="dv">1</span>])))</span></code></pre></div></li>
 <li><p>Este módulo se podrá usar como un <em>script</em> separado o como
 un módulo que se puede importar dentro de otro.</p></li>
 <li><p>Si se usa como <em>script</em>, podremos llamarlo desde la línea
 de órdenes del sistema operativo:</p>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode console"><code class="sourceCode console"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python fac.py 4</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>24</span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode console"><code class="sourceCode console"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>python fac.py 4</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>24</span></code></pre></div></li>
 <li><p>Y si importamos el módulo dentro de otro, la condición del último
 <code class="sourceCode python"><span class="cf">if</span></code> no se
 cumplirá, por lo que su único efecto será el de incorporar la definición
@@ -1764,10 +2050,10 @@ llamado <code>__init__.py</code>.</p></li>
 </table>
 <p><br></p></li>
 <li><p>Ejemplo conceptual:</p>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>xml                    <span class="co"># paquete</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>xml.etree              <span class="co"># subpaquete</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>xml.etree.ElementTree  <span class="co"># módulo</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>xml                    <span class="co"># paquete</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>xml.etree              <span class="co"># subpaquete</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>xml.etree.ElementTree  <span class="co"># módulo</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.3">
@@ -1807,45 +2093,45 @@ directorios:</p>
 <li><p>Los usuarios del paquete pueden importar módulos individuales del
 mismo.</p></li>
 <li><p>Por ejemplo, la siguiente sentencia:</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span></code></pre></div>
 <p>importa el módulo <code>sonido.efectos.echo</code>, es decir, el
 módulo <code>echo</code> del subpaquete <code>efectos</code> del paquete
 <code>sonido</code>.</p></li>
 <li><p>Para usarlo, debe hacerse referencia al mismo con el nombre
 completo (también llamado <em>nombre totalmente cualificado</em>):</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sonido.efectos.echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sonido.efectos.echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.5">
 
 <ul>
 <li><p>Otra alternativa para importar el módulo es:</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> echo</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> echo</span></code></pre></div>
 <p>Esto también carga el módulo <code>echo</code> y lo deja disponible
 sin su prefijo de paquete, por lo que puede usarse así:</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>echo.echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
 <li><p>Otra variante más es importar directamente el miembro deseado
 (función, variable, etc.) del módulo:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos.echo <span class="im">import</span> echofilter</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos.echo <span class="im">import</span> echofilter</span></code></pre></div>
 <p>De nuevo, esto carga el módulo <code>echo</code>, pero deja
 directamente disponible la función <code>echofilter</code>, por lo que
 se puede usar sin necesidad de poner el nombre del módulo como
 prefijo:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>echofilter(<span class="bu">input</span>, output, delay<span class="op">=</span><span class="fl">0.7</span>, atten<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.6">
 
 <ul>
 <li><p>Nótese que al usar:</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paquete <span class="im">import</span> elemento</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paquete <span class="im">import</span> elemento</span></code></pre></div>
 <p>el elemento puede ser tanto un módulo (o subpaquete) del paquete,
 como algún otro nombre definido en el paquete, como por ejemplo una
 función, una variable o una clase.</p>
@@ -1856,8 +2142,8 @@ un módulo y trata de cargarlo. Si no lo puede encontrar, se genera una
 excepción <code
 class="sourceCode python"><span class="pp">ImportError</span></code>.</p></li>
 <li><p>Por otro lado, cuando se usa la sintaxis:</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> elemento.subelemento.subsubelemento</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> elemento.subelemento.subsubelemento</span></code></pre></div>
 <p>cada elemento excepto el último debe ser un paquete; ese último
 elemento puede ser un módulo o un paquete pero no puede ser una función,
 variable o clase definida en el elemento previo.</p></li>
@@ -1913,8 +2199,8 @@ habitual y recomendado.</p></li>
 <li><p>Controlar qué se expone al usar <code>*</code> en una
 importación, como en una sentencia <code
 class="sourceCode python"><span class="im">import</span></code> así:</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paquete <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> paquete <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
@@ -1922,8 +2208,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a h
 
 <ul>
 <li><p>Cuando se importa un paquete en sí:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido</span></code></pre></div>
 <p>Python hace lo siguiente, en este orden:</p>
 <ol>
 <li><p>Localiza el paquete <code>sonido</code>.</p></li>
@@ -1949,22 +2235,22 @@ paquete.</p></li>
 hacia fuera» cuando se importa el paquete en sí.</p></li>
 <li><p>Por ejemplo, supongamos que el archivo
 <code>sonido/__init__.py</code> contiene la siguiente línea:</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.utilidades <span class="im">import</span> suma, resta</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.utilidades <span class="im">import</span> suma, resta</span></code></pre></div></li>
 <li><p>Ahora, se puede hacer directamente:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido <span class="im">import</span> suma</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido <span class="im">import</span> suma</span></code></pre></div>
 <p>sin necesidad de dar dos pasos:</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.utilidades <span class="im">import</span> suma</span></code></pre></div></li>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.utilidades <span class="im">import</span> suma</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.10">
 
 <ul>
 <li><p>Cuando se intenta importar todos los módulos de un paquete:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>lo que ocurre depende de lo que haya en el <code>__init__.py</code>
 del paquete.</p></li>
 <li><p>Los módulos que se importen serán los que el creador del paquete
@@ -1987,12 +2273,12 @@ lista cada vez que se publique una nueva versión del paquete.</p></li>
 <li><p>Por ejemplo, si el archivo
 <code>sonido/efectos/__init__.py</code> contiene el siguiente
 código:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [<span class="st">&quot;echo&quot;</span>, <span class="st">&quot;surround&quot;</span>, <span class="st">&quot;reverse&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [<span class="st">&quot;echo&quot;</span>, <span class="st">&quot;surround&quot;</span>, <span class="st">&quot;reverse&quot;</span>]</span></code></pre></div>
 <p>entonces la siguiente sentencia importaría esos tres módulos del
 paquete <code>sonido.efectos</code>:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.12">
@@ -2002,18 +2288,18 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a h
 por nombres definidos localmente.</p></li>
 <li><p>Por ejemplo, si se añade una función llamada <code>reverse</code>
 al archivo <code>sonido/efectos/__init__.py</code>:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;echo&quot;</span>,      <span class="co"># se refiere al archivo &#39;echo.py&#39;</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;surround&quot;</span>,  <span class="co"># se refiere al archivo &#39;surround.py&#39;</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;reverse&quot;</span>,   <span class="co"># ahora se refiere a la función &#39;reverse&#39; (!)</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reverse(msg: <span class="bu">str</span>):  <span class="co"># hace sombra al módulo &#39;reverse.py&#39;</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg[::<span class="op">-</span><span class="dv">1</span>]    <span class="co"># si se hace &#39;from sonido.efectos import *&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;echo&quot;</span>,      <span class="co"># se refiere al archivo &#39;echo.py&#39;</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;surround&quot;</span>,  <span class="co"># se refiere al archivo &#39;surround.py&#39;</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;reverse&quot;</span>,   <span class="co"># ahora se refiere a la función &#39;reverse&#39; (!)</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reverse(msg: <span class="bu">str</span>):  <span class="co"># hace sombra al módulo &#39;reverse.py&#39;</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg[::<span class="op">-</span><span class="dv">1</span>]    <span class="co"># si se hace &#39;from sonido.efectos import *&#39;</span></span></code></pre></div>
 <p>entonces la orden</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>solo importaría los dos módulos <code>echo</code> y
 <code>surround</code>, pero no el módulo <code>reverse</code>, ya que
 este último queda sombreado por la función <code>reverse</code> definida
@@ -2024,8 +2310,8 @@ localmente.</p></li>
 
 <ul>
 <li><p>Si no se define <code>__all__</code>, la sentencia:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>no importa todos los módulos del paquete <code>sonido.efectos</code>
 al espacio de nombres actual.</p></li>
 <li><p>Lo que hace es:</p>
@@ -2050,10 +2336,10 @@ anteriores.</p></li>
 
 <ul>
 <li><p>En el siguiente ejemplo:</p>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.surround</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.echo</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sonido.efectos.surround</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> <span class="op">*</span></span></code></pre></div>
 <p>los módulos <code>echo</code> y <code>surround</code> se importan en
 el espacio de nombre actual porque están definidos en el paquete
 <code>sonido.efectos</code> cuando se ejecuta la sentencia <code
@@ -2089,8 +2375,8 @@ el módulo a importar.</p></li>
 <li><p>Por ejemplo, si el módulo <code>sonido.filtros.vocoder</code>
 necesita usar el módulo <code>echo</code> del paquete
 <code>sonido.efectos</code>, puede hacer:</p>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> echo</span></code></pre></div></li>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sonido.efectos <span class="im">import</span> echo</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.16">
@@ -2115,10 +2401,10 @@ actual.</p></li>
 importación relativa.</p></li>
 <li><p>Por ejemplo, desde el módulo <code>surround</code> se puede
 hacer:</p>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> . <span class="im">import</span> echo                <span class="co"># importa módulo echo del paquete actual (surround)</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .. <span class="im">import</span> formatos           <span class="co"># importa módulo formatos del paquete padre (sonido)</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ..filtros <span class="im">import</span> equalizer   <span class="co"># importa módulo equalizer del paquete filtros</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> . <span class="im">import</span> echo                <span class="co"># importa módulo echo del paquete actual (surround)</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .. <span class="im">import</span> formatos           <span class="co"># importa módulo formatos del paquete padre (sonido)</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ..filtros <span class="im">import</span> equalizer   <span class="co"># importa módulo equalizer del paquete filtros</span></span></code></pre></div></li>
 <li><p>Hay que tener en cuenta que las importaciones relativas se basan
 en el nombre del paquete del módulo actual. Como el módulo principal de
 un programa Python no pertenece a ningún paquete, debe usar siempre
