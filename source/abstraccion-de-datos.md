@@ -1070,7 +1070,7 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 
 ---
 
-- Como muestra el ejemplo anterior, nuestra implementación de números
+- En el ejemplo anterior, vemos que nuestra implementación de números
   racionales no simplifica las fracciones resultantes.
 
 - Podemos corregir ese defecto simplemente cambiando la implementación de
@@ -1115,12 +1115,10 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
       return [n, d]
 
   def numer(x):
-      g = gcd(x[0], x[1])
-      return x[0] // g
+      return x[0] // gcd(x[0], x[1])
 
   def denom(x):
-      g = gcd(x[0], x[1])
-      return x[1] // g
+      return x[1] // gcd(x[0], x[1])
   ```
 
 - La diferencia entre esta implementación y la anterior está en cuándo se
@@ -1176,17 +1174,17 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
   ejemplo de los números racionales.
 
 - Hemos definido todas las operaciones de *rac* en términos de un constructor
-  `racional` y dos selectores `numer` y `denom`.
+  (`racional`) y dos selectores (`numer` y `denom`).
 
   En general, la idea que hay detrás de la **abstracción de datos** es la de:
 
-  #. definir un **nuevo tipo de datos** (abstracto),
+  #. Definir un **nuevo tipo de datos** (abstracto).
 
-  #. identificar un **conjunto básico de operaciones** sobre las cuales se
-     expresarán todas las operaciones que manipulen los valores de ese tipo, y
-     luego
+  #. Identificar un **conjunto básico de operaciones** sobre las cuales se
+     expresarán todas las demás operaciones que manipulen los valores de ese
+     tipo.
 
-  #. **obligar a usar sólo esas operaciones** para manipular los datos.
+  #. **Obligar a usar sólo esas operaciones** para manipular los datos.
 
 - Al obligar a usar los datos únicamente a través de sus operaciones, es mucho
   más fácil cambiar luego la representación interna de los datos abstractos o
@@ -1201,20 +1199,20 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 
 !SALTO
 
-+--------------------------------+---------------------------------+------------------------------+
-| Las partes del programa que... | Tratan a los racionales como... | Usando sólo...               |
-+================================+=================================+==============================+
-| Usan números racionales        | Valores de datos completos,     | `suma`, `mult`, `iguales`,   |
-| para realizar cálculos         | un todo                         | `imprimir`                   |
-+--------------------------------+---------------------------------+------------------------------+
-| Crean racionales o             | Numeradores y denominadores     | `racional`, `numer`, `denom` |
-| implementan operaciones        |                                 |                              |
-| sobre racionales               |                                 |                              |
-+--------------------------------+---------------------------------+------------------------------+
-| Implementan selectores         | Parejas de números              | Literales de tipo lista      |
-| y constructores de             | representadas como listas       | `[`\_`]` e indexación        |
-| racionales                     | de dos elementos                | \_`[`\_`]`                   |
-+--------------------------------+---------------------------------+------------------------------+
++--------------------------------+---------------------------------+-------------------------------+
+| Las partes del programa que... | Tratan a los racionales como... | Usando sólo...                |
++================================+=================================+===============================+
+| Usan números racionales        | Valores de datos completos,     | `suma`, `mult`, `iguales`,    |
+| para realizar cálculos.        | un todo.                        | `imprimir`.                   |
++--------------------------------+---------------------------------+-------------------------------+
+| Crean racionales o             | Numeradores y denominadores.    | `racional`, `numer`, `denom`. |
+| implementan operaciones        |                                 |                               |
+| sobre racionales.              |                                 |                               |
++--------------------------------+---------------------------------+-------------------------------+
+| Implementan selectores         | Parejas de números              | Literales de tipo lista       |
+| y constructores de             | representadas como listas       | `[`\_`]` e indexación         |
+| racionales.                    | de dos elementos.               | \_`[`\_`]`.                   |
++--------------------------------+---------------------------------+-------------------------------+
 
 ## Barreras de abstracción
 
@@ -1222,8 +1220,8 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
   abstracción, de forma que cada nivel usa las operaciones y las facilidades
   ofrecidas por el nivel inmediatamente inferior.
 
-- Dicho de otra forma: en cada nivel, las funciones que aparecen en la última
-  columna imponen una **barrera de abstracción**. Estas funciones son usadas
+- Dicho de otra forma: en cada nivel, las operaciones que aparecen en la última
+  columna imponen una **barrera de abstracción**. Estas operaciones son usadas
   desde un nivel más alto de abstracción e implementadas usando un nivel más
   bajo de abstracción.
 
@@ -1234,16 +1232,16 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 ---
 
 - Se produce una **_violación_ de una barrera de abstracción** cada vez que una
-  parte del programa que puede utilizar una función de un determinado nivel,
-  utiliza una función de un nivel más bajo.
+  parte del programa que puede utilizar una operación de un determinado nivel,
+  utiliza una operación de un nivel más bajo.
 
-- Por ejemplo, una función que calcula el cuadrado de un número racional se
+- Por ejemplo, una operación que calcula el cuadrado de un número racional se
   implementa mejor en términos de `mult`, que no necesita suponer nada sobre
   cómo se implementa un número racional:
 
   ```python
-  def cuadrado(x):
-      return mult(x,x)
+  def cuadrado(r):
+      return mult(r, r)
   ```
 
 ---
@@ -1252,16 +1250,16 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
   estaríamos violando una barrera de abstracción:
 
   ```python
-  def cuadrado_viola_una_barrera(x):
-      return racional(numer(x) * numer(x), denom(x) * denom(x))
+  def cuadrado_viola_una_barrera(r):
+      return racional(numer(r) * numer(r), denom(r) * denom(r))
   ```
 
 - Y si usamos el conocimiento de que los racionales se representan como listas,
   estaríamos violando dos barreras de abstracción:
 
   ```python
-  def cuadrado_viola_dos_barreras(x):
-      return [x[0] * x[0], x[1] * x[1]]
+  def cuadrado_viola_dos_barreras(r):
+      return [r[0] * r[0], r[1] * r[1]]
   ```
 
 !CAJA
@@ -1274,48 +1272,52 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 - Las barreras de abstracción hacen que los programas sean más fáciles de
   mantener y modificar.
 
-- Cuantas menos funciones dependan de una representación particular, menos
+- Cuantas menos operaciones dependan de una representación particular, menos
   cambios se necesitarán cuando se quiera cambiar esa representación.
 
 - Todas las implementaciones de `cuadrado` que acabamos de ver se comportan
   correctamente, pero sólo la primera es lo bastante robusta como para soportar
   bien los futuros cambios de los niveles inferiores.
 
-- La función `cuadrado` no tendrá que cambiarse incluso aunque cambiemos la
+- La operación `cuadrado` no tendrá que cambiarse incluso aunque cambiemos la
   representación interna de los números racionales.
 
-- Por el contrario, `cuadrado_viola_una_barrera` tendrá que cambiarse cada vez
-  que cambien las especificaciones del constructor o los selectores, y
-  `cuadrado_viola_dos_barreras` tendrá que cambiarse cada vez que cambie la
-  representación interna de los números racionales.
+- Por el contrario:
+
+  - `cuadrado_viola_una_barrera` tendrá que cambiarse cada vez que cambien las
+    especificaciones del constructor o los selectores.
+  
+  - `cuadrado_viola_dos_barreras` tendrá que cambiarse cada vez que cambie la
+    representación interna de los números racionales.
 
 ## Propiedades de los datos
 
 - Las barreras de abstracción definen de qué forma pensamos sobre los datos.
 
 - Por ejemplo, podemos pensar que las operaciones `suma`, `mult`, etc. están
-  definidas sobre *datos* (numeradores, denominadores y racionales) cuyo
-  comportamiento está definido por las funciones `racional`, `numer` y `denom`.
+  definidas sobre datos (numeradores, denominadores y racionales) cuyo
+  comportamiento está definido por las operaciones `racional`, `numer` y
+  `denom`.
 
 - Pero... ¿qué es un *dato*? No basta con decir que es «_cualquier cosa
   implementada mediante ciertos constructores y selectores_».
 
-- Siguiendo con el mismo ejemplo: es evidente que cualquier grupo de tres
-  funciones (un constructor y dos selectores) no sirve para representar
+- Siguiendo con el mismo ejemplo, es evidente que cualquier grupo de tres
+  operaciones (un constructor y dos selectores) no sirve para representar
   adecuadamente a los números racionales.
 
   Además, se tiene que garantizar que, entre el constructor `racional` y los
   selectores `numer` y `denum`, se cumple la siguiente propiedad:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Si $x$ `=` `racional(`$n$`,`&nbsp; $d$`)`, entonces `numer(`$x$`)/denom(`$x$`)`
-  `==` $n/d$ .
+  Si $r$ `=` `racional(`$n$`,`&nbsp; $d$`)`, entonces `numer(`$r$`)` `/` `denom(`$r$`)`
+  `==`\  $\!^{n}\!\,/_{d}$ .
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- De hecho, esta es la única condición que deben cumplir las tres funciones
+- De hecho, esta es la única condición que deben cumplir las tres operaciones
   para poder representar adecuadamente a los números racionales.
 
 - Una representación válida de un número racional no está limitada a ninguna
@@ -1323,13 +1325,16 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   sino que nos sirve cualquier implementación que satisfaga la propiedad
   anterior.
 
-- En general, podemos decir que **los tipos de datos abstractos se definen
-  mediante una colección de constructores y selectores junto con algunas
-  _propiedades_ que los datos abstractos deben cumplir**.
+- En general, podemos decir que **los tipos abstractos de datos se definen
+  mediante**:
 
-- Mientras se cumplan dichas propiedades (como la anterior de la división),
-  esos constructores y selectores constituyen una representación válida de un
-  tipo de datos abstracto.
+  - una colección de **constructores y selectores**, junto con
+
+  - algunas **_propiedades_ que los datos abstractos deben cumplir**.
+
+- Mientras se cumplan dichas propiedades (como la que aparece dentro de la caja
+  anterior), esos constructores y selectores constituyen una representación
+  válida del tipo abstracto de datos.
 
 ---
 
@@ -1344,7 +1349,9 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 
 - En realidad, tampoco hace falta que sea una lista. Nos basta con cualquier
   representación que agrupe una pareja de valores juntos y que nos permita
-  acceder a cada valor de una pareja por separado. Es decir, la propiedad que
+  acceder a cada valor de una pareja por separado.
+
+- Es decir, la propiedad que
   tienen que cumplir las parejas es que:
 
   !CAJA
@@ -1362,18 +1369,23 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 
 - Anteriormente, hemos dicho que los datos se caracterizan por las
   **operaciones** (constructoras y selectoras) con las que se manipulan y por
-  las **propiedades** que cumplen dichas operaciones, de manera que **podemos
+  las **propiedades** que cumplen dichas operaciones, de forma que **podemos
   cambiar los detalles de implementación** bajo una barrera de abstracción
-  siempre que no cambiemos su comportamiento observable.
+  siempre que no cambiemos su comportamiento observable por encima de ella.
 
 - Por tanto, bajo esa barrera de abstracción podemos usar cualquier
-  implementación siempre y cuando logren que las operaciones que definen dicha
+  implementación siempre y cuando logre que las operaciones que definen dicha
   barrera satisfagan las propiedades que deben cumplir.
 
-- Por ejemplo, para representar a los números racionales usamos parejas de
-  números, pero esas parejas se pueden representar de muchas maneras. Podemos
-  usar listas, pero en general nos sirve cualquier dato definido por un
-  constructor `pareja` y un selector `select` que cumpla:
+---
+
+- Por ejemplo, podemos representar a los números racionales usando parejas de
+  números, pero esas parejas, a su vez, se pueden representar de muchas
+  maneras.
+
+- Podemos usar listas, tuplas, diccionarios..., pero en general nos sirve
+  cualquier dato definido por un constructor `pareja` y un selector `select`
+  que cumplan la siguiente propiedad:
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1383,9 +1395,9 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 
 ---
 
-- Esas dos operaciones, `pareja` y `select`, que deben cumplir la condición
-  antes indicada, formarían otra barrera de abstracción sobre la cual se
-  podrían implementar los números racionales:
+- Esas dos operaciones, `pareja` y `select`, deben cumplir la condición antes
+  indicada y formarían otra barrera de abstracción sobre la cual se podrían
+  implementar los números racionales:
 
   ```python
   def racional(x, y):
@@ -1398,12 +1410,21 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
       return select(r, 1)
   ```
 
-- Igualmente, para implementar las parejas, nos valdría cualquier
-  implementación que satisfaga la propiedad que deben cumplir las parejas.
+- Así, las operaciones constructoras y selectoras de los racionales se
+  definirían en función de las operaciones constructora y selectora de las
+  parejas, que constituyen su barrera de abstracción.
 
-- Por ejemplo, cualquier estructura de datos o tipo compuesto que permita
-  almacenar dos elementos juntos y seleccionar cada elemento por separado, como
-  una lista, una tupla o algo similar:
+---
+
+- Igualmente, para implementar las parejas, nos valdría cualquier
+  implementación que satisfaga la propiedad que deben cumplir todas las
+  parejas.
+
+- Por ejemplo, nos sirve cualquier estructura de datos o tipo compuesto que
+  permita almacenar dos elementos juntos y seleccionar cada elemento por
+  separado, como una lista, una tupla o algo similar.
+
+- En el caso de usar listas, podríamos implementar las parejas así:
 
   ```python
   def pareja(x, y):
@@ -1419,7 +1440,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   parejas de números.
 
 - Podemos implementar dos funciones `pareja` y `select` que cumplan con la
-  propiedad anterior tan bien como una lista de dos elementos:
+  propiedad anterior tan bien como una lista:
 
   ```python
   def pareja(x, y):
@@ -1878,9 +1899,9 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   módulos.
 
 - Si la clausura se define en un módulo y éste se importa en otro módulo,
-  entonces el entorno de definición de la clausura acabará en el marco global
-  del módulo donde se ha definido la clausura y no contendrá el marco global
-  del módulo importador.
+  entonces el entorno de definición de la clausura finalizará en el marco
+  global del módulo donde se ha definido la clausura y no contendrá el marco
+  global del módulo importador.
 
 - Recordemos que el ámbito del _script_ donde se almacena un módulo constituye
   el ámbito global de ese módulo, y que, al importar un módulo, su marco global
@@ -2246,7 +2267,8 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 - A esto se le denomina **representación funcional**.
 
-- Ese dato abstracto tiene un constructor (`pareja`) y un selector (`select`).
+- Su correspondiente tipo abstracto tiene un constructor (`pareja`) y un
+  selector (`select`).
 
 - El uso de funciones de orden superior para representar datos no se
   corresponde con nuestra idea intuitiva de lo que deben ser los datos.
@@ -2254,12 +2276,12 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 - Sin embargo, **las funciones son perfectamente capaces de representar datos
   compuestos**.
 
-  En nuestro caso, estas funciones son suficientes para representar parejas en
+- En nuestro caso, estas funciones son suficientes para representar parejas en
   nuestros programas.
 
 ---
 
-- Esto no quiere decir que Python realmente implemente las listas mediante
+- Esto no quiere decir que Python realmente implemente sus colecciones mediante
   funciones. En realidad las implementa de otra forma por razones de
   eficiencia, pero podría implementarlas con funciones sin ningún problema.
 
@@ -2268,7 +2290,7 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   funciones.
 
 - La representación funcional, aunque pueda parecer extraña, es una forma
-  perfectamente adecuada de representar parejas, ya que cumple las propiedades
+  perfectamente correcta de representar parejas, ya que cumple las propiedades
   que deben cumplir las parejas.
 
 - Este ejemplo también demuestra que la capacidad de manipular funciones como
@@ -2283,9 +2305,8 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 - Por ejemplo:
 
-  - Una **lista** posee un estado interno que se corresponde con su
-    **contenido**, es decir, con los **elementos que contiene** en un momento
-    dado.
+  - Una **lista** posee un estado interno que incluye su **contenido**, es
+    decir, los **elementos que contiene** en un momento dado.
 
   - Esos elementos pueden **cambiar** durante la ejecución del programa:
     podemos añadir elementos a la lista, eliminar elementos de la lista o
@@ -2305,14 +2326,14 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   la **programación imperativa**.
 
 - Esto nos va a **impedir representar un _dato abstracto mutable_ usando las
-  especificaciones algebraicas** que hemos usado hasta hoy, ya que, a partir de
-  ahora, el resultado de una operación puede depender no sólo de lo que dicten
-  las ecuaciones de la especificación sino también de la historia previa que
-  haya tenido el dato abstracto (es decir, de su estado interno).
+  especificaciones algebraicas** que hemos usado hasta ahora, ya que, a partir
+  de este momento, el resultado de una operación puede depender no sólo de lo
+  que dicten las ecuaciones de la especificación sino también de la historia
+  previa que haya tenido el dato abstracto (es decir, de su estado interno).
 
 - Y, por supuesto, nos va a **impedir usar el modelo de sustitución** para
-  razonar sobre nuestros datos, por lo que tendremos que usar el modelo de
-  **máquina de estados**.
+  razonar sobre nuestros datos, por lo que tendremos que usar el modelo
+  computacional de **máquina de estados**.
 
 ---
 
@@ -2327,7 +2348,8 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
     pasando por distintos estados a medida que se opera con ellos.
 
 - Para ello, aprovecharemos una característica aún no explorada hasta ahora:
-  **las funciones también pueden tener estado interno**.
+  **las funciones también pueden tener estado interno**, gracias al uso de las
+  **clausuras**.
 
 ---
 
@@ -2373,7 +2395,7 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 ---
 
-- Por tanto, a partir de ahora, un tipo abtracto de datos podrá tener las
+- Por tanto, a partir de ahora, un tipo abstracto de datos podrá tener las
   siguientes operaciones:
 
   - **Constructoras**: operaciones que devuelven un valor de tipo $T$.
@@ -2396,14 +2418,14 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 ---
 
-- Para que `retirar` funcione, debe empezarse con un saldo inicial.
+- Para que `retirar` funcione, hay que empezar con un saldo inicial.
 
 - La función `deposito` es una función de orden superior que recibe como
   argumento un saldo inicial y devuelve la propia función `retirar`, pero de
   forma que esa función **recuerda** el saldo inicial.
 
   ```python
-  >>> retirar = deposito(100)
+  retirar = deposito(100)
   ```
 
 - La implementación de `deposito` requiere un **acceso no local** al valor de

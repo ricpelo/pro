@@ -1568,7 +1568,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 <section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
-<li><p>Como muestra el ejemplo anterior, nuestra implementación de
+<li><p>En el ejemplo anterior, vemos que nuestra implementación de
 números racionales no simplifica las fracciones resultantes.</p></li>
 <li><p>Podemos corregir ese defecto simplemente cambiando la
 implementación de <code>racional</code>.</p></li>
@@ -1612,12 +1612,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a h
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [n, d]</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> numer(x):</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> gcd(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x[<span class="dv">0</span>] <span class="op">//</span> g</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> denom(x):</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> gcd(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x[<span class="dv">1</span>] <span class="op">//</span> g</span></code></pre></div></li>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x[<span class="dv">0</span>] <span class="op">//</span> gcd(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> denom(x):</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x[<span class="dv">1</span>] <span class="op">//</span> gcd(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span></code></pre></div></li>
 <li><p>La diferencia entre esta implementación y la anterior está en
 cuándo se calcula el máximo común divisor.</p>
 <ul>
@@ -1684,17 +1682,17 @@ Niveles de abstracción</h2>
 <li><p>Parémonos ahora a considerar algunos de las cuestiones planteadas
 en el ejemplo de los números racionales.</p></li>
 <li><p>Hemos definido todas las operaciones de <em>rac</em> en términos
-de un constructor <code>racional</code> y dos selectores
-<code>numer</code> y <code>denom</code>.</p>
+de un constructor (<code>racional</code>) y dos selectores
+(<code>numer</code> y <code>denom</code>).</p>
 <p>En general, la idea que hay detrás de la <strong>abstracción de
 datos</strong> es la de:</p>
 <ol>
-<li><p>definir un <strong>nuevo tipo de datos</strong>
-(abstracto),</p></li>
-<li><p>identificar un <strong>conjunto básico de operaciones</strong>
-sobre las cuales se expresarán todas las operaciones que manipulen los
-valores de ese tipo, y luego</p></li>
-<li><p><strong>obligar a usar sólo esas operaciones</strong> para
+<li><p>Definir un <strong>nuevo tipo de datos</strong>
+(abstracto).</p></li>
+<li><p>Identificar un <strong>conjunto básico de operaciones</strong>
+sobre las cuales se expresarán todas las demás operaciones que manipulen
+los valores de ese tipo.</p></li>
+<li><p><strong>Obligar a usar sólo esas operaciones</strong> para
 manipular los datos.</p></li>
 </ol></li>
 <li><p>Al obligar a usar los datos únicamente a través de sus
@@ -1715,7 +1713,7 @@ como se describe en esta tabla:</li>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 34%" />
-<col style="width: 31%" />
+<col style="width: 32%" />
 </colgroup>
 <thead>
 <tr>
@@ -1726,21 +1724,21 @@ como se describe en esta tabla:</li>
 </thead>
 <tbody>
 <tr>
-<td>Usan números racionales para realizar cálculos</td>
-<td>Valores de datos completos, un todo</td>
+<td>Usan números racionales para realizar cálculos.</td>
+<td>Valores de datos completos, un todo.</td>
 <td><code>suma</code>, <code>mult</code>, <code>iguales</code>,
-<code>imprimir</code></td>
+<code>imprimir</code>.</td>
 </tr>
 <tr>
-<td>Crean racionales o implementan operaciones sobre racionales</td>
-<td>Numeradores y denominadores</td>
-<td><code>racional</code>, <code>numer</code>, <code>denom</code></td>
+<td>Crean racionales o implementan operaciones sobre racionales.</td>
+<td>Numeradores y denominadores.</td>
+<td><code>racional</code>, <code>numer</code>, <code>denom</code>.</td>
 </tr>
 <tr>
-<td>Implementan selectores y constructores de racionales</td>
-<td>Parejas de números representadas como listas de dos elementos</td>
+<td>Implementan selectores y constructores de racionales.</td>
+<td>Parejas de números representadas como listas de dos elementos.</td>
 <td>Literales de tipo lista <code>[</code>_<code>]</code> e indexación
-_<code>[</code>_<code>]</code></td>
+_<code>[</code>_<code>]</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -1754,10 +1752,11 @@ Barreras de abstracción</h2>
 <li><p>Cada una de las filas de la tabla anterior representa un nivel de
 abstracción, de forma que cada nivel usa las operaciones y las
 facilidades ofrecidas por el nivel inmediatamente inferior.</p></li>
-<li><p>Dicho de otra forma: en cada nivel, las funciones que aparecen en
-la última columna imponen una <strong>barrera de abstracción</strong>.
-Estas funciones son usadas desde un nivel más alto de abstracción e
-implementadas usando un nivel más bajo de abstracción.</p></li>
+<li><p>Dicho de otra forma: en cada nivel, las operaciones que aparecen
+en la última columna imponen una <strong>barrera de
+abstracción</strong>. Estas operaciones son usadas desde un nivel más
+alto de abstracción e implementadas usando un nivel más bajo de
+abstracción.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.1">
@@ -1775,14 +1774,14 @@ style="width:75.0%" alt="Barreras de abstracción" />
 <ul>
 <li><p>Se produce una <strong><em>violación</em> de una barrera de
 abstracción</strong> cada vez que una parte del programa que puede
-utilizar una función de un determinado nivel, utiliza una función de un
-nivel más bajo.</p></li>
-<li><p>Por ejemplo, una función que calcula el cuadrado de un número
+utilizar una operación de un determinado nivel, utiliza una operación de
+un nivel más bajo.</p></li>
+<li><p>Por ejemplo, una operación que calcula el cuadrado de un número
 racional se implementa mejor en términos de <code>mult</code>, que no
 necesita suponer nada sobre cómo se implementa un número racional:</p>
 <div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado(x):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mult(x,x)</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado(r):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mult(r, r)</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.2.0.0.3">
@@ -1791,13 +1790,13 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a h
 <li><p>Si hiciéramos referencia directa a los numeradores y los
 denominadores, estaríamos violando una barrera de abstracción:</p>
 <div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_una_barrera(x):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> racional(numer(x) <span class="op">*</span> numer(x), denom(x) <span class="op">*</span> denom(x))</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_una_barrera(r):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> racional(numer(r) <span class="op">*</span> numer(r), denom(r) <span class="op">*</span> denom(r))</span></code></pre></div></li>
 <li><p>Y si usamos el conocimiento de que los racionales se representan
 como listas, estaríamos violando dos barreras de abstracción:</p>
 <div class="sourceCode" id="cb15"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_dos_barreras(x):</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [x[<span class="dv">0</span>] <span class="op">*</span> x[<span class="dv">0</span>], x[<span class="dv">1</span>] <span class="op">*</span> x[<span class="dv">1</span>]]</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_dos_barreras(r):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [r[<span class="dv">0</span>] <span class="op">*</span> r[<span class="dv">0</span>], r[<span class="dv">1</span>] <span class="op">*</span> r[<span class="dv">1</span>]]</span></code></pre></div></li>
 </ul>
 <div class="caja">
 <p>Cuantas menos barreras de abstracción se crucen al escribir
@@ -1809,21 +1808,25 @@ programas, mejor.</p>
 <ul>
 <li><p>Las barreras de abstracción hacen que los programas sean más
 fáciles de mantener y modificar.</p></li>
-<li><p>Cuantas menos funciones dependan de una representación
+<li><p>Cuantas menos operaciones dependan de una representación
 particular, menos cambios se necesitarán cuando se quiera cambiar esa
 representación.</p></li>
 <li><p>Todas las implementaciones de <code>cuadrado</code> que acabamos
 de ver se comportan correctamente, pero sólo la primera es lo bastante
 robusta como para soportar bien los futuros cambios de los niveles
 inferiores.</p></li>
-<li><p>La función <code>cuadrado</code> no tendrá que cambiarse incluso
-aunque cambiemos la representación interna de los números
+<li><p>La operación <code>cuadrado</code> no tendrá que cambiarse
+incluso aunque cambiemos la representación interna de los números
 racionales.</p></li>
-<li><p>Por el contrario, <code>cuadrado_viola_una_barrera</code> tendrá
-que cambiarse cada vez que cambien las especificaciones del constructor
-o los selectores, y <code>cuadrado_viola_dos_barreras</code> tendrá que
-cambiarse cada vez que cambie la representación interna de los números
+<li><p>Por el contrario:</p>
+<ul>
+<li><p><code>cuadrado_viola_una_barrera</code> tendrá que cambiarse cada
+vez que cambien las especificaciones del constructor o los
+selectores.</p></li>
+<li><p><code>cuadrado_viola_dos_barreras</code> tendrá que cambiarse
+cada vez que cambie la representación interna de los números
 racionales.</p></li>
+</ul></li>
 </ul>
 </section>
 
@@ -1835,27 +1838,27 @@ Propiedades de los datos</h2>
 <li><p>Las barreras de abstracción definen de qué forma pensamos sobre
 los datos.</p></li>
 <li><p>Por ejemplo, podemos pensar que las operaciones
-<code>suma</code>, <code>mult</code>, etc. están definidas sobre
-<em>datos</em> (numeradores, denominadores y racionales) cuyo
-comportamiento está definido por las funciones <code>racional</code>,
-<code>numer</code> y <code>denom</code>.</p></li>
+<code>suma</code>, <code>mult</code>, etc. están definidas sobre datos
+(numeradores, denominadores y racionales) cuyo comportamiento está
+definido por las operaciones <code>racional</code>, <code>numer</code> y
+<code>denom</code>.</p></li>
 <li><p>Pero… ¿qué es un <em>dato</em>? No basta con decir que es
 «<em>cualquier cosa implementada mediante ciertos constructores y
 selectores</em>».</p></li>
-<li><p>Siguiendo con el mismo ejemplo: es evidente que cualquier grupo
-de tres funciones (un constructor y dos selectores) no sirve para
+<li><p>Siguiendo con el mismo ejemplo, es evidente que cualquier grupo
+de tres operaciones (un constructor y dos selectores) no sirve para
 representar adecuadamente a los números racionales.</p>
 <p>Además, se tiene que garantizar que, entre el constructor
 <code>racional</code> y los selectores <code>numer</code> y
 <code>denum</code>, se cumple la siguiente propiedad:</p>
-<div class="caja">
-<p>Si <span class="math inline">x</span> <code>=</code>
+<div class="caja centered">
+<p>Si <span class="math inline">r</span> <code>=</code>
 <code>racional(</code><span class="math inline">n</span><code>,</code> 
 <span class="math inline">d</span><code>)</code>, entonces
-<code>numer(</code><span
-class="math inline">x</span><code>)/denom(</code><span
-class="math inline">x</span><code>)</code> <code>==</code> <span
-class="math inline">n/d</span> .</p>
+<code>numer(</code><span class="math inline">r</span><code>)</code>
+<code>/</code> <code>denom(</code><span
+class="math inline">r</span><code>)</code> <code>==</code>  <span
+class="math inline">\!^{n}\!\,/_{d}</span> .</p>
 </div></li>
 </ul>
 </section>
@@ -1863,19 +1866,23 @@ class="math inline">n/d</span> .</p>
 
 <ul>
 <li><p>De hecho, esta es la única condición que deben cumplir las tres
-funciones para poder representar adecuadamente a los números
+operaciones para poder representar adecuadamente a los números
 racionales.</p></li>
 <li><p>Una representación válida de un número racional no está limitada
 a ninguna implementación particular (como, por ejemplo, una lista de dos
 elementos), sino que nos sirve cualquier implementación que satisfaga la
 propiedad anterior.</p></li>
-<li><p>En general, podemos decir que <strong>los tipos de datos
-abstractos se definen mediante una colección de constructores y
-selectores junto con algunas <em>propiedades</em> que los datos
-abstractos deben cumplir</strong>.</p></li>
-<li><p>Mientras se cumplan dichas propiedades (como la anterior de la
-división), esos constructores y selectores constituyen una
-representación válida de un tipo de datos abstracto.</p></li>
+<li><p>En general, podemos decir que <strong>los tipos abstractos de
+datos se definen mediante</strong>:</p>
+<ul>
+<li><p>una colección de <strong>constructores y selectores</strong>,
+junto con</p></li>
+<li><p>algunas <strong><em>propiedades</em> que los datos abstractos
+deben cumplir</strong>.</p></li>
+</ul></li>
+<li><p>Mientras se cumplan dichas propiedades (como la que aparece
+dentro de la caja anterior), esos constructores y selectores constituyen
+una representación válida del tipo abstracto de datos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.2">
@@ -1891,8 +1898,9 @@ siendo correcto.</p></li>
 listas que hemos usado para implementar números racionales.</p></li>
 <li><p>En realidad, tampoco hace falta que sea una lista. Nos basta con
 cualquier representación que agrupe una pareja de valores juntos y que
-nos permita acceder a cada valor de una pareja por separado. Es decir,
-la propiedad que tienen que cumplir las parejas es que:</p>
+nos permita acceder a cada valor de una pareja por separado.</p></li>
+<li><p>Es decir, la propiedad que tienen que cumplir las parejas es
+que:</p>
 <div class="caja">
 <p>Si <span class="math inline">p</span> <code>=</code>
 <code>pareja(</code><span class="math inline">x</span><code>,</code> 
@@ -1924,17 +1932,23 @@ Clausuras</h2>
 <li><p>Anteriormente, hemos dicho que los datos se caracterizan por las
 <strong>operaciones</strong> (constructoras y selectoras) con las que se
 manipulan y por las <strong>propiedades</strong> que cumplen dichas
-operaciones, de manera que <strong>podemos cambiar los detalles de
+operaciones, de forma que <strong>podemos cambiar los detalles de
 implementación</strong> bajo una barrera de abstracción siempre que no
-cambiemos su comportamiento observable.</p></li>
+cambiemos su comportamiento observable por encima de ella.</p></li>
 <li><p>Por tanto, bajo esa barrera de abstracción podemos usar cualquier
-implementación siempre y cuando logren que las operaciones que definen
+implementación siempre y cuando logre que las operaciones que definen
 dicha barrera satisfagan las propiedades que deben cumplir.</p></li>
-<li><p>Por ejemplo, para representar a los números racionales usamos
-parejas de números, pero esas parejas se pueden representar de muchas
-maneras. Podemos usar listas, pero en general nos sirve cualquier dato
-definido por un constructor <code>pareja</code> y un selector
-<code>select</code> que cumpla:</p>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.0.0.1">
+
+<ul>
+<li><p>Por ejemplo, podemos representar a los números racionales usando
+parejas de números, pero esas parejas, a su vez, se pueden representar
+de muchas maneras.</p></li>
+<li><p>Podemos usar listas, tuplas, diccionarios…, pero en general nos
+sirve cualquier dato definido por un constructor <code>pareja</code> y
+un selector <code>select</code> que cumplan la siguiente propiedad:</p>
 <div class="caja">
 <p>Si <span class="math inline">p</span> <code>=</code>
 <code>pareja(</code><span class="math inline">x</span><code>,</code> 
@@ -1947,11 +1961,11 @@ class="math inline">y</span>.</p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.1">
+<section class="slide level5" data-number="5.1.0.0.2">
 
 <ul>
 <li><p>Esas dos operaciones, <code>pareja</code> y <code>select</code>,
-que deben cumplir la condición antes indicada, formarían otra barrera de
+deben cumplir la condición antes indicada y formarían otra barrera de
 abstracción sobre la cual se podrían implementar los números
 racionales:</p>
 <div class="sourceCode" id="cb16"><pre
@@ -1963,12 +1977,23 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a h
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> denom(r):</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> select(r, <span class="dv">1</span>)</span></code></pre></div></li>
+<li><p>Así, las operaciones constructoras y selectoras de los racionales
+se definirían en función de las operaciones constructora y selectora de
+las parejas, que constituyen su barrera de abstracción.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.0.0.3">
+
+<ul>
 <li><p>Igualmente, para implementar las parejas, nos valdría cualquier
-implementación que satisfaga la propiedad que deben cumplir las
+implementación que satisfaga la propiedad que deben cumplir todas las
 parejas.</p></li>
-<li><p>Por ejemplo, cualquier estructura de datos o tipo compuesto que
-permita almacenar dos elementos juntos y seleccionar cada elemento por
-separado, como una lista, una tupla o algo similar:</p>
+<li><p>Por ejemplo, nos sirve cualquier estructura de datos o tipo
+compuesto que permita almacenar dos elementos juntos y seleccionar cada
+elemento por separado, como una lista, una tupla o algo
+similar.</p></li>
+<li><p>En el caso de usar listas, podríamos implementar las parejas
+así:</p>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pareja(x, y):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [x, y]</span>
@@ -1977,14 +2002,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a h
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p[i]</span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.2">
+<section class="slide level5" data-number="5.1.0.0.4">
 
 <ul>
 <li><p>Pero, de hecho, ni siquiera necesitamos estructuras de datos para
 representar parejas de números.</p></li>
 <li><p>Podemos implementar dos funciones <code>pareja</code> y
 <code>select</code> que cumplan con la propiedad anterior tan bien como
-una lista de dos elementos:</p>
+una lista:</p>
 <div class="sourceCode" id="cb18"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pareja(x, y):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve una función que representa una pareja.&quot;&quot;&quot;</span></span>
@@ -2020,7 +2045,7 @@ target="_blank">Ver en Pythontutor</a></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.3">
+<section class="slide level5" data-number="5.1.0.0.5">
 
 <ul>
 <li><p>Cuando se llama a la función <code>pareja</code>, ésta devuelve
@@ -2043,7 +2068,7 @@ entorno.</p></li>
 <code>x</code> e <code>y</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.4">
+<section class="slide level5" data-number="5.1.0.0.6">
 
 <div class="centered">
 <figure>
@@ -2069,7 +2094,7 @@ no se elimine de la memoria cuando finalice la ejecución de
 problema.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.5">
+<section class="slide level5" data-number="5.1.0.0.7">
 
 <ul>
 <li><p>El <strong>entorno de definición</strong> (o
@@ -2094,7 +2119,7 @@ denomina <strong>clausura</strong>.</p>
 que puede que la función necesite para poder funcionar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.6">
+<section class="slide level5" data-number="5.1.0.0.8">
 
 <ul>
 <li><p>Después de hacer:</p>
@@ -2122,7 +2147,7 @@ activa en este momento.</p></li>
 para poder acceder a las variables que contiene.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.7">
+<section class="slide level5" data-number="5.1.0.0.9">
 
 <ul>
 <li><p>Para no perder el marco de la función <code>pareja</code> cuando
@@ -2141,7 +2166,7 @@ marcos que sean necesarios para el funcionamiento de alguna clausura, y
 los enlazará con otros marcos formando entornos de definición.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.8">
+<section class="slide level5" data-number="5.1.0.0.10">
 
 <ul>
 <li>Las clausuras las representaremos gráficamente como una función de
@@ -2166,7 +2191,7 @@ al entorno de definición de la clausura, que aquí está formado por el
 marco de <code>pareja</code> y el marco global (en ese orden).</li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.9">
+<section class="slide level5" data-number="5.1.0.0.11">
 
 <ul>
 <li><p>Por tanto, la clausura almacenada en <code>p</code> contiene la
@@ -2186,7 +2211,7 @@ seguido del marco global (almacenado en la pila).</p></li>
 mientras esté activa la llamada a <code>p</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.10">
+<section class="slide level5" data-number="5.1.0.0.12">
 
 <ul>
 <li><p>Por ejemplo, si hacemos:</p>
@@ -2206,7 +2231,7 @@ de <code>x = p(0)</code></figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.1.0.0.11">
+<section class="slide level5" data-number="5.1.0.0.13">
 
 <ul>
 <li><p>Si tenemos dos clausuras <code>p</code> y <code>q</code> creadas
@@ -2225,7 +2250,7 @@ style="width:70.0%" alt="Estado del programa tras crear p y q" />
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.1.0.0.12">
+<section class="slide level5" data-number="5.1.0.0.14">
 
 <ul>
 <li><p>Al llamar a <code>select(p, i)</code> se llama luego a
@@ -2258,22 +2283,22 @@ class="sourceCode python"><span class="dv">6</span></code>.</p></li>
 misma cosa.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.13">
+<section class="slide level5" data-number="5.1.0.0.15">
 
 <ul>
 <li><p>El funcionamiento de las clausuras está muy relacionado con el de
 los módulos.</p></li>
 <li><p>Si la clausura se define en un módulo y éste se importa en otro
-módulo, entonces el entorno de definición de la clausura acabará en el
-marco global del módulo donde se ha definido la clausura y no contendrá
-el marco global del módulo importador.</p></li>
+módulo, entonces el entorno de definición de la clausura finalizará en
+el marco global del módulo donde se ha definido la clausura y no
+contendrá el marco global del módulo importador.</p></li>
 <li><p>Recordemos que el ámbito del <em>script</em> donde se almacena un
 módulo constituye el ámbito global de ese módulo, y que, al importar un
 módulo, su marco global debe permanecer en la memoria para que los
 miembros del módulo puedan acceder a otros elementos del mismo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.14">
+<section class="slide level5" data-number="5.1.0.0.16">
 
 <ul>
 <li><p>Cuando el módulo se importa usando <code
@@ -2294,7 +2319,7 @@ el marco de ese módulo.</p></li>
 funciones.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.15">
+<section class="slide level5" data-number="5.1.0.0.17">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -2335,7 +2360,7 @@ está formado por su propio marco y por el marco global de
 que necesita para funcionar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.16">
+<section class="slide level5" data-number="5.1.0.0.18">
 
 <ul>
 <li><p>El entorno de <code>f</code> NO contiene el marco global de
@@ -2370,7 +2395,7 @@ sigue recordando que <code>x</code> vale <code>1</code>.</p></li>
 marco y por el marco global de <code>uno</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.17">
+<section class="slide level5" data-number="5.1.0.0.19">
 
 <ul>
 <li><p>Y en este caso:</p>
@@ -2401,7 +2426,7 @@ entorno está formado por su marco y por el marco global de
 <code>dos</code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.18">
+<section class="slide level5" data-number="5.1.0.0.20">
 
 <ul>
 <li><p>Si usamos <code
@@ -2441,7 +2466,7 @@ se llama a <code>f</code> desde el módulo <code>dos</code>.</p></li>
 <code>uno</code> y enlazarlo con <code>f</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.19">
+<section class="slide level5" data-number="5.1.0.0.21">
 
 <ul>
 <li><p>En detalle, cuando el intérprete ejecuta <code
@@ -2463,7 +2488,7 @@ montículo, ya que ese marco pertenece al entorno de definición de
 únicamente por el marco del módulo <code>uno</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.20">
+<section class="slide level5" data-number="5.1.0.0.22">
 
 <ul>
 <li><p>Si ahora hacemos <code
@@ -2509,7 +2534,7 @@ marco y el marco global de <code>uno</code>, en ese orden.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.21">
+<section class="slide level5" data-number="5.1.0.0.23">
 
 <ul>
 <li><p>Es importante también tener en cuenta que el entorno de
@@ -2530,7 +2555,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a h
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f())     <span class="co"># da error porque la x de dos no está en el entorno de f</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.22">
+<section class="slide level5" data-number="5.1.0.0.24">
 
 <ul>
 <li><p>Otro ejemplo, con funciones locales:</p>
@@ -2580,29 +2605,29 @@ argumento.</p></li>
 una pareja</strong>, es decir, un <strong>dato</strong>.</p></li>
 <li><p>A esto se le denomina <strong>representación
 funcional</strong>.</p></li>
-<li><p>Ese dato abstracto tiene un constructor (<code>pareja</code>) y
-un selector (<code>select</code>).</p></li>
+<li><p>Su correspondiente tipo abstracto tiene un constructor
+(<code>pareja</code>) y un selector (<code>select</code>).</p></li>
 <li><p>El uso de funciones de orden superior para representar datos no
 se corresponde con nuestra idea intuitiva de lo que deben ser los
 datos.</p></li>
 <li><p>Sin embargo, <strong>las funciones son perfectamente capaces de
-representar datos compuestos</strong>.</p>
-<p>En nuestro caso, estas funciones son suficientes para representar
+representar datos compuestos</strong>.</p></li>
+<li><p>En nuestro caso, estas funciones son suficientes para representar
 parejas en nuestros programas.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.2.0.0.1">
 
 <ul>
-<li><p>Esto no quiere decir que Python realmente implemente las listas
-mediante funciones. En realidad las implementa de otra forma por razones
-de eficiencia, pero podría implementarlas con funciones sin ningún
-problema.</p></li>
+<li><p>Esto no quiere decir que Python realmente implemente sus
+colecciones mediante funciones. En realidad las implementa de otra forma
+por razones de eficiencia, pero podría implementarlas con funciones sin
+ningún problema.</p></li>
 <li><p>La práctica de la abstracción de datos nos permite cambiar
 fácilmente unas representaciones por otras, y una de esas
 representaciones puede ser mediante funciones.</p></li>
 <li><p>La representación funcional, aunque pueda parecer extraña, es una
-forma perfectamente adecuada de representar parejas, ya que cumple las
+forma perfectamente correcta de representar parejas, ya que cumple las
 propiedades que deben cumplir las parejas.</p></li>
 <li><p>Este ejemplo también demuestra que la capacidad de manipular
 funciones como valores (mediante funciones de orden superior)
@@ -2620,9 +2645,9 @@ consistente en información que el dato almacena (o <em>recuerda</em>) y
 que puede cambiar durante la ejecución del programa.</p></li>
 <li><p>Por ejemplo:</p>
 <ul>
-<li><p>Una <strong>lista</strong> posee un estado interno que se
-corresponde con su <strong>contenido</strong>, es decir, con los
-<strong>elementos que contiene</strong> en un momento dado.</p></li>
+<li><p>Una <strong>lista</strong> posee un estado interno que incluye su
+<strong>contenido</strong>, es decir, los <strong>elementos que
+contiene</strong> en un momento dado.</p></li>
 <li><p>Esos elementos pueden <strong>cambiar</strong> durante la
 ejecución del programa: podemos añadir elementos a la lista, eliminar
 elementos de la lista o cambiar un elemento de la lista por otro
@@ -2644,13 +2669,13 @@ decir, que <strong>los datos ahora son mutables</strong>, y la
 imperativa</strong>.</p></li>
 <li><p>Esto nos va a <strong>impedir representar un <em>dato abstracto
 mutable</em> usando las especificaciones algebraicas</strong> que hemos
-usado hasta hoy, ya que, a partir de ahora, el resultado de una
+usado hasta ahora, ya que, a partir de este momento, el resultado de una
 operación puede depender no sólo de lo que dicten las ecuaciones de la
 especificación sino también de la historia previa que haya tenido el
 dato abstracto (es decir, de su estado interno).</p></li>
 <li><p>Y, por supuesto, nos va a <strong>impedir usar el modelo de
 sustitución</strong> para razonar sobre nuestros datos, por lo que
-tendremos que usar el modelo de <strong>máquina de
+tendremos que usar el modelo computacional de <strong>máquina de
 estados</strong>.</p></li>
 </ul>
 </section>
@@ -2670,7 +2695,8 @@ a medida que se opera con ellos.</p></li>
 </ul></li>
 <li><p>Para ello, aprovecharemos una característica aún no explorada
 hasta ahora: <strong>las funciones también pueden tener estado
-interno</strong>.</p></li>
+interno</strong>, gracias al uso de las
+<strong>clausuras</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.0.0.3">
@@ -2721,7 +2747,7 @@ el propio dato</strong>, las llamaremos
 <section class="slide level5" data-number="5.3.0.0.5">
 
 <ul>
-<li><p>Por tanto, a partir de ahora, un tipo abtracto de datos podrá
+<li><p>Por tanto, a partir de ahora, un tipo abstracto de datos podrá
 tener las siguientes operaciones:</p>
 <ul>
 <li><p><strong>Constructoras</strong>: operaciones que devuelven un
@@ -2747,14 +2773,14 @@ class="math inline">T</span>.</p></li>
 <section class="slide level5" data-number="5.3.0.0.6">
 
 <ul>
-<li><p>Para que <code>retirar</code> funcione, debe empezarse con un
+<li><p>Para que <code>retirar</code> funcione, hay que empezar con un
 saldo inicial.</p></li>
 <li><p>La función <code>deposito</code> es una función de orden superior
 que recibe como argumento un saldo inicial y devuelve la propia función
 <code>retirar</code>, pero de forma que esa función
 <strong>recuerda</strong> el saldo inicial.</p>
 <div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
 <li><p>La implementación de <code>deposito</code> requiere un
 <strong>acceso no local</strong> al valor de los fondos iniciales y una
 <strong>función local</strong> que actualiza y devuelve dicho valor:</p>
