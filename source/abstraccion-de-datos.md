@@ -828,7 +828,7 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
   print(cima(p))      # imprime 4
   p = desapilar(p)    # desapila el valor 4 de la pila p
   print(vacia(p))     # imprime True
-  print(cima(pvacia)) # error
+  print(cima(p))      # error
   ```
 
 - El programa usa la pila a través de las operaciones sin necesidad de conocer
