@@ -469,7 +469,7 @@ def deposito(fondos):
 
 - En la línea 10 tendríamos el siguiente entorno:
 
-  !DOT(entorno-clase-linea10.svg)()(width=80%)(width=45%)
+  !DOT(entorno-clase-linea10.svg)()(width=80%)(width=65%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
@@ -837,7 +837,7 @@ dep = Deposito(100)
   dentro de éste, por lo que representan *variables locales* al objeto en su
   espacio de nombres.
 
-!DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=40%)(width=45%)
+!DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=40%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -1428,7 +1428,7 @@ class Deposito:
 
   !SALTO
 
-  !DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=100%)(width=70%)
+  !DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=100%)(width=80%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
@@ -1505,7 +1505,7 @@ class Deposito:
 - Durante la ejecución del método `ingresar` (digamos, en la línea 12 del
   código anterior), la situación en la memoria sería:
 
-  !DOT(entorno-clase-linea12.svg)()(width=85%)(width=70%)
+  !DOT(entorno-clase-linea12.svg)()(width=85%)(width=85%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
