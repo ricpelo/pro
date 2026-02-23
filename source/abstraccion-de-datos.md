@@ -2093,7 +2093,7 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 ---
 
-- Si usamos !PYTHON(from ... import ...):
+- Si usamos !PYTHON(from)\  !NT(módulo)\  !PYTHON(import)\  !NT(miembro):
 
   :::: columns
 

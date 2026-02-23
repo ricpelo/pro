@@ -1624,7 +1624,7 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Si usamos !PYTHON(from ... import ...):
+- Si usamos !PYTHON(from)\  !NT(módulo)\  !PYTHON(import)\  !NT(miembro):
 
   :::: columns
 
@@ -2227,7 +2227,7 @@ E -> mcd [lhead = cluster1]
 
   los módulos `echo` y `surround` se importan en el espacio de nombre actual
   porque están definidos en el paquete `sonido.efectos` cuando se ejecuta la
-  sentencia !PYTHON(from ... import).
+  sentencia !PYTHON(from)\  !NT(módulo)\  !PYTHON(import).
 
   Esto también funciona cuando se define `__all__`.
 
@@ -2260,7 +2260,7 @@ E -> mcd [lhead = cluster1]
 ---
 
 - También se pueden hacer **importaciones relativas** usando sólo la forma de
-  importación !PYTHON(from) !NT(módulo) !PYTHON(import) !NT(nombre).
+  importación !PYTHON(from)\  !NT(módulo)\  !PYTHON(import)\  !NT(nombre).
 
 - Estas importaciones usan:
 
