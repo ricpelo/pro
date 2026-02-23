@@ -149,13 +149,16 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
 - El objeto almacena atributos porque un objeto representa un espacio de
   nombres.
 
-- Cuando se crea un objeto, se le asocia en el montículo una zona de memoria
-  que, entre otras cosas, contiene la estructura en forma de diccionario que
-  representa el espacio de nombres del objeto.
+- En concreto, cuando se crea un objeto:
 
-- Esa estructura en forma de diccionario almacena los atributos del objeto,
-  asociando el nombre de cada atributo con el valor que tiene ese atributo en
-  el objeto.
+  #. Se guarda el montículo.
+
+  #. Se crea un diccionario y se vincula con el objeto recién creado a través
+     del atributo `__dict__` de éste.
+
+     Ese diccionario representa el espacio de nombres del objeto y, por tanto,
+     almacenará los atributos de éste, asociando el nombre de cada atributo con
+     el valor que tiene ese atributo en el objeto.
 
 - Los atributos pueden almacenar valores de cualquier tipo, incluyendo
   funciones, ya que las funciones son valores como cualquier otro.
@@ -184,6 +187,21 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
   >>> math.pi
   3.141592653589793
   >>> math.cos(3)
+  -0.9899924966004454
+  ```
+
+---
+
+- Como los atributos de un objeto se almacenan en un diccionario al que se
+  accede mediante el atributo `__dict__`, podemos usar éste para acceder a los
+  atributos del objeto, aunque es una práctica muy poco común y, en general, no
+  recomendable:
+
+  ```python
+  >>> import math
+  >>> math.__dict__['pi']
+  3.141592653589793
+  >>> math.__dict__['cos'](3)
   -0.9899924966004454
   ```
 
