@@ -932,12 +932,18 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 - Por eso no devuelve ningún valor, cosa que se refleja en su signatura usando
   $\emptyset$ como tipo de retorno de la operación:
 
-`imprimir` : _rac_ $\rightarrow$ $\emptyset$
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `imprimir` : _rac_ $\rightarrow$ $\emptyset$
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Y el *efecto* que produce se indica entre llaves en el apartado de
   ecuaciones:
 
-`imprimir`($r$) \ \ \{ imprime el racional $r$ \}
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  `imprimir`($r$) \ \ \{ imprime el racional $r$ \}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Introducir **operaciones _impuras_** amplía la funcionalidad de nuestro tipo
   abstracto, pero hay que tener cuidado porque se pierde la transparencia
@@ -957,7 +963,8 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
   - `denom(`$x$`)`: devuelve el denominador del número racional $x$.
 
 - Todas las demás operaciones se podrían definir como funciones a partir de
-  éstas tres.
+  éstas tres **operaciones básicas**, que son las únicas que necesitan conocer
+  cómo están representados los racionales internamente.
 
 - Estamos usando una estrategia poderosa para diseñar programas: el
   **pensamiento optimista**, ya que todavía no hemos dicho cómo se representa
@@ -969,33 +976,22 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 ---
 
 - Así, podemos definir las funciones `suma`, `mult`, `imprimir` e `iguales?` a
-  partir de `racional`, `numer` y `denom` sin necesidad de saber cómo están
-  implementadas esas tres funciones ni cómo se representa internamente un
-  número racional.
+  partir de `racional`, `numer` y `denom` (las _operaciones básicas_) sin
+  necesidad de saber cómo están implementadas esas tres funciones ni cómo se
+  representa internamente un número racional.
 
-- Esos detalles de implementación quedan ocultos y son innecesarios para
-  definir las funciones `suma`, `mult`, `imprimir` e `iguales?`, ya que
-  bastaría con saber *qué* hacen las funciones `racional`, `numer` y `denom` y
-  no *cómo* lo hacen.
+- Esos detalles de implementación quedan ocultos debajo de `racional`, `numer`
+  y `denom`, y son innecesarios para definir las demás funciones `suma`,
+  `mult`, `imprimir` e `iguales?`, ya que bastaría con saber *qué* hacen las
+  funciones `racional`, `numer` y `denom` y no *cómo* lo hacen.
 
-- Hasta el punto de que ni siquiera hace falta tener implementadas ya las
-  funciones `racional`, `numer` y `denom` para poder definir las demás.
-  **Suponemos** que las tenemos (*pensamiento optimista*).
+- De hecho, ni siquiera hace falta tener implementadas ya las funciones
+  `racional`, `numer` y `denom` para poder definir las demás. Basta con
+  **suponer** que las tenemos (*pensamiento optimista*).
 
 # Implementaciones
 
 ## Implementaciones
-
-- La implementación de un tipo abstracto **debe cumplir dos propiedades**:
-
-  - **Privacidad de la representación**: los usuarios no conocen ni deben
-    conocer cómo se representan los valores del tipo abstracto en la memoria
-    del ordenador.
-
-  - **Protección**: sólo se pueden utilizar con sus valores aquellas
-    operaciones previstas en la especificación.
-
----
 
 - Una posible implementación en Python de las operaciones `suma`, `mult`,
   `imprimir` e `iguales?` a partir de `racional`, `numer` y `denom` podría ser
@@ -1165,13 +1161,9 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
   intercambiables en cualquier momento sin que los usuarios del tipo abstracto
   se vean afectados.
 
-
 # Niveles y barreras de abstracción
 
 ## Niveles de abstracción
-
-- Parémonos ahora a considerar algunos de las cuestiones planteadas en el
-  ejemplo de los números racionales.
 
 - Hemos definido todas las operaciones de *rac* en términos de un constructor
   (`racional`) y dos selectores (`numer` y `denom`).
@@ -1180,16 +1172,19 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 
   #. Definir un **nuevo tipo de datos** (abstracto).
 
-  #. Identificar un **conjunto básico de operaciones** sobre las cuales se
-     expresarán todas las demás operaciones que manipulen los valores de ese
-     tipo.
+  #. Identificar las **operaciones básicas**, es decir, el conjunto mínimo de
+     operaciones que necesitan conocer la representación interna del tipo
+     abstracto.
 
-  #. **Obligar a usar sólo esas operaciones** para manipular los datos.
+  #. Expresar **a partir de ellas** todas las demás operaciones que manipulen
+     los valores de ese tipo.
 
-- Al obligar a usar los datos únicamente a través de sus operaciones, es mucho
-  más fácil cambiar luego la representación interna de los datos abstractos o
-  la implementación de las operaciones básicas sin tener que cambiar el resto
-  del programa.
+  #. **Obligar a usar sólo esas operaciones** para manipular los datos,
+     impidiendo el acceso directo a su representación interna.
+
+     De esta forma, es mucho más fácil cambiar luego la representación interna
+     de los datos abstractos o la implementación de las operaciones básicas sin
+     tener que cambiar el resto del programa.
 
 ---
 
@@ -1262,9 +1257,10 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
       return [r[0] * r[0], r[1] * r[1]]
   ```
 
-!CAJA
+!CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
+Cuantas menos barreras de abstracción se crucen\
+al escribir programas, mejor.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1300,7 +1296,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   `denom`.
 
 - Pero... ¿qué es un *dato*? No basta con decir que es «_cualquier cosa
-  implementada mediante ciertos constructores y selectores_».
+  implementada mediante ciertas operaciones básicas_».
 
 - Siguiendo con el mismo ejemplo, es evidente que cualquier grupo de tres
   operaciones (un constructor y dos selectores) no sirve para representar
@@ -1328,13 +1324,13 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 - En general, podemos decir que **los tipos abstractos de datos se definen
   mediante**:
 
-  - una colección de **constructores y selectores**, junto con
+  - una colección de **operaciones básicas**, junto con
 
   - algunas **_propiedades_ que los datos abstractos deben cumplir**.
 
 - Mientras se cumplan dichas propiedades (como la que aparece dentro de la caja
-  anterior), esos constructores y selectores constituyen una representación
-  válida del tipo abstracto de datos.
+  anterior), esas operaciones básicas constituyen una representación válida del
+  tipo abstracto de datos.
 
 ---
 
@@ -1351,10 +1347,9 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   representación que agrupe una pareja de valores juntos y que nos permita
   acceder a cada valor de una pareja por separado.
 
-- Es decir, la propiedad que
-  tienen que cumplir las parejas es que:
+- Es decir, la propiedad que tienen que cumplir las parejas es que:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~
   Si $p$ `=` `pareja(`$x$`,`&nbsp; $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
   y `select(`$p$`, 1)` `==` $y$.
@@ -1368,10 +1363,10 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
 ## Clausuras
 
 - Anteriormente, hemos dicho que los datos se caracterizan por las
-  **operaciones** (constructoras y selectoras) con las que se manipulan y por
-  las **propiedades** que cumplen dichas operaciones, de forma que **podemos
-  cambiar los detalles de implementación** bajo una barrera de abstracción
-  siempre que no cambiemos su comportamiento observable por encima de ella.
+  **operaciones básicas** con las que se manipulan y por las **propiedades**
+  que cumplen dichas operaciones, de forma que **podemos cambiar los detalles
+  de implementación** bajo una barrera de abstracción siempre que no cambiemos
+  su comportamiento observable por encima de ella.
 
 - Por tanto, bajo esa barrera de abstracción podemos usar cualquier
   implementación siempre y cuando logre que las operaciones que definen dicha
@@ -1387,7 +1382,7 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   cualquier dato definido por un constructor `pareja` y un selector `select`
   que cumplan la siguiente propiedad:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~
   Si $p$ `=` `pareja(`$x$`,`&nbsp; $y$`)`, entonces `select(`$p$`, 0)` `==` $x$ \
   y `select(`$p$`, 1)` `==` $y$.
@@ -1410,15 +1405,14 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
       return select(r, 1)
   ```
 
-- Así, las operaciones constructoras y selectoras de los racionales se
-  definirían en función de las operaciones constructora y selectora de las
-  parejas, que constituyen su barrera de abstracción.
+- Así, las operaciones básicas de los racionales se definirían en función de
+  las operaciones constructora y selectora de las parejas, que constituyen su
+  barrera de abstracción.
 
 ---
 
-- Igualmente, para implementar las parejas, nos valdría cualquier
-  implementación que satisfaga la propiedad que deben cumplir todas las
-  parejas.
+- Y para implementar las parejas, nos valdría cualquier implementación que
+  satisfaga la propiedad que deben cumplir todas las parejas.
 
 - Por ejemplo, nos sirve cualquier estructura de datos o tipo compuesto que
   permita almacenar dos elementos juntos y seleccionar cada elemento por
@@ -1433,6 +1427,35 @@ Cuantas menos barreras de abstracción se crucen al escribir programas, mejor.
   def select(p, i):
       return p[i]
   ```
+
+- El inconveniente de usar una representación de este tipo es que no impide que
+  los usuarios puedan acceder directamente a la representación interna del dato
+  abstracto en forma de lista:
+
+  ```python
+  >>> p = pareja(2, 3)
+  >>> p
+  [2, 3]
+  >>> type(p)
+  <class 'list'>
+  >>> p[0] = 5
+  >>> p
+  [5, 3]
+  ```
+
+---
+
+- La implementación de un tipo abstracto **debe cumplir dos propiedades**:
+
+  - **Privacidad de la representación**: los usuarios no conocen ni deben
+    conocer cómo se representan los valores del tipo abstracto en la memoria
+    del ordenador.
+
+  - **Protección**: sólo se pueden utilizar con sus valores aquellas
+    operaciones previstas en la especificación.
+
+- Y la representación usando un tipo convencional como las listas no satisface
+  ninguna de estas dos propiedades.
 
 ---
 
@@ -2382,8 +2405,9 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 - Por lo tanto, la función `retirar` **no es pura**.
 
 - Llamar a la función no sólo devuelve un valor, sino que también tiene el
-  **efecto lateral** de cambiar la función de alguna manera, de modo que la
-  siguiente llamada con el mismo argumento devolverá un resultado diferente.
+  **efecto lateral** de cambiar internamente a la función de alguna forma, por
+  lo que la siguiente llamada con el mismo argumento devolverá un resultado
+  distinto.
 
 - Este efecto lateral es el resultado de retirar dinero de los fondos
   disponibles **provocando un cambio en el estado de una variable** que
@@ -2392,6 +2416,10 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 - A las operaciones modificadoras que no devuelven un valor nuevo de un
   determinado tipo abstracto, sino que **modifica directamente el propio
   dato**, las llamaremos **mutadoras**.
+
+- Estas operaciones normalmente necesitan conocer la representación interna del
+  dato abstracto, ya que no lo modifican creando un valor nuevo sino que lo
+  transforman internamente sin cambiar su identidad.
 
 ---
 
@@ -2414,7 +2442,7 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
     tipo $T$ y que no devuelven un valor de tipo $T$.
 
   - **Mutadoras**: operaciones que modifican directamente el estado interno de
-    un valor de tipo $T$.
+    un valor de tipo $T$ sin construir un nuevo valor ni cambiar su identidad.
 
 ---
 

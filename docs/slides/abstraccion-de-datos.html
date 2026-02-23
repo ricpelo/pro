@@ -1397,22 +1397,23 @@ finalidad es la de provocar el <strong>efecto lateral</strong> de
 imprimir por la salida un número racional de forma «bonita».</p></li>
 <li><p>Por eso no devuelve ningún valor, cosa que se refleja en su
 signatura usando <span class="math inline">\emptyset</span> como tipo de
-retorno de la operación:</p></li>
-</ul>
+retorno de la operación:</p>
+<div class="centered">
 <p><code>imprimir</code> : <em>rac</em> <span
 class="math inline">\rightarrow</span> <span
 class="math inline">\emptyset</span></p>
-<ul>
-<li>Y el <em>efecto</em> que produce se indica entre llaves en el
-apartado de ecuaciones:</li>
-</ul>
+</div></li>
+<li><p>Y el <em>efecto</em> que produce se indica entre llaves en el
+apartado de ecuaciones:</p>
+<div class="centered">
 <p><code>imprimir</code>(<span class="math inline">r</span>)   { imprime
 el racional <span class="math inline">r</span> }</p>
-<ul>
-<li>Introducir <strong>operaciones <em>impuras</em></strong> amplía la
-funcionalidad de nuestro tipo abstracto, pero hay que tener cuidado
+</div></li>
+<li><p>Introducir <strong>operaciones <em>impuras</em></strong> amplía
+la funcionalidad de nuestro tipo abstracto, pero hay que tener cuidado
 porque se pierde la transparencia referencial y, con ello, nuestra
-capacidad para razonar matemáticamente sobre las especificaciones.</li>
+capacidad para razonar matemáticamente sobre las
+especificaciones.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.14">
@@ -1435,7 +1436,9 @@ class="math inline">x</span><code>)</code>: devuelve el denominador del
 número racional <span class="math inline">x</span>.</p></li>
 </ul></li>
 <li><p>Todas las demás operaciones se podrían definir como funciones a
-partir de éstas tres.</p></li>
+partir de éstas tres <strong>operaciones básicas</strong>, que son las
+únicas que necesitan conocer cómo están representados los racionales
+internamente.</p></li>
 <li><p>Estamos usando una estrategia poderosa para diseñar programas: el
 <strong>pensamiento optimista</strong>, ya que todavía no hemos dicho
 cómo se representa un número racional, o cómo se deben implementar las
@@ -1451,19 +1454,20 @@ las tenemos.</p></li>
 <li><p>Así, podemos definir las funciones <code>suma</code>,
 <code>mult</code>, <code>imprimir</code> e <code>iguales?</code> a
 partir de <code>racional</code>, <code>numer</code> y <code>denom</code>
-sin necesidad de saber cómo están implementadas esas tres funciones ni
-cómo se representa internamente un número racional.</p></li>
-<li><p>Esos detalles de implementación quedan ocultos y son innecesarios
-para definir las funciones <code>suma</code>, <code>mult</code>,
-<code>imprimir</code> e <code>iguales?</code>, ya que bastaría con saber
-<em>qué</em> hacen las funciones <code>racional</code>,
-<code>numer</code> y <code>denom</code> y no <em>cómo</em> lo
-hacen.</p></li>
-<li><p>Hasta el punto de que ni siquiera hace falta tener implementadas
-ya las funciones <code>racional</code>, <code>numer</code> y
-<code>denom</code> para poder definir las demás.
-<strong>Suponemos</strong> que las tenemos (<em>pensamiento
-optimista</em>).</p></li>
+(las <em>operaciones básicas</em>) sin necesidad de saber cómo están
+implementadas esas tres funciones ni cómo se representa internamente un
+número racional.</p></li>
+<li><p>Esos detalles de implementación quedan ocultos debajo de
+<code>racional</code>, <code>numer</code> y <code>denom</code>, y son
+innecesarios para definir las demás funciones <code>suma</code>,
+<code>mult</code>, <code>imprimir</code> e <code>iguales?</code>, ya que
+bastaría con saber <em>qué</em> hacen las funciones
+<code>racional</code>, <code>numer</code> y <code>denom</code> y no
+<em>cómo</em> lo hacen.</p></li>
+<li><p>De hecho, ni siquiera hace falta tener implementadas ya las
+funciones <code>racional</code>, <code>numer</code> y <code>denom</code>
+para poder definir las demás. Basta con <strong>suponer</strong> que las
+tenemos (<em>pensamiento optimista</em>).</p></li>
 </ul>
 </section>
 </section>
@@ -1478,20 +1482,6 @@ Implementaciones</h1>
 data-number="3.1">
 <h2 data-number="3.1"><span class="header-section-number">3.1</span>
 Implementaciones</h2>
-<ul>
-<li><p>La implementación de un tipo abstracto <strong>debe cumplir dos
-propiedades</strong>:</p>
-<ul>
-<li><p><strong>Privacidad de la representación</strong>: los usuarios no
-conocen ni deben conocer cómo se representan los valores del tipo
-abstracto en la memoria del ordenador.</p></li>
-<li><p><strong>Protección</strong>: sólo se pueden utilizar con sus
-valores aquellas operaciones previstas en la especificación.</p></li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.1.0.0.1">
-
 <ul>
 <li><p>Una posible implementación en Python de las operaciones
 <code>suma</code>, <code>mult</code>, <code>imprimir</code> e
@@ -1517,7 +1507,7 @@ las funciones <code>racional</code>, <code>numer</code> y
 <code>denom</code>, funcionará perfectamente.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.2">
+<section class="slide level5" data-number="3.1.0.0.1">
 
 <ul>
 <li><p>Ahora tenemos las operaciones sobre números racionales
@@ -1533,7 +1523,7 @@ nos permita manipular cada valor por separado cuando sea
 necesario.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.3">
+<section class="slide level5" data-number="3.1.0.0.2">
 
 <ul>
 <li><p>Por ejemplo, podemos usar una lista de dos números enteros para
@@ -1565,7 +1555,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span><span class="op">/</span><span class="dv">9</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.4">
+<section class="slide level5" data-number="3.1.0.0.3">
 
 <ul>
 <li><p>En el ejemplo anterior, vemos que nuestra implementación de
@@ -1588,7 +1578,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a h
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">/</span><span class="dv">3</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.5">
+<section class="slide level5" data-number="3.1.0.0.4">
 
 <ul>
 <li><p>Lo interesante es que este cambio sólo ha afectado al constructor
@@ -1601,7 +1591,7 @@ necesitan conocer la <strong>especificación</strong> de
 <code>racional</code>, la cual no ha cambiado.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.6">
+<section class="slide level5" data-number="3.1.0.0.5">
 
 <ul>
 <li><p>Otra posible implementación sería simplificar el racional no
@@ -1630,7 +1620,7 @@ necesitan ser modificadas.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.7">
+<section class="slide level5" data-number="3.1.0.0.6">
 
 <ul>
 <li><p>Hacer que la representación dependa sólo de unas cuantas
@@ -1648,7 +1638,7 @@ selectores sin que el resto del programa se vea afectado. Sólo habría
 que cambiar la implementación del tipo abstracto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.1.0.0.8">
+<section class="slide level5" data-number="3.1.0.0.7">
 
 <ul>
 <li><p>Por supuesto, estamos dejando a un lado otras posibles
@@ -1679,8 +1669,6 @@ data-number="4.1">
 <h2 data-number="4.1"><span class="header-section-number">4.1</span>
 Niveles de abstracción</h2>
 <ul>
-<li><p>Parémonos ahora a considerar algunos de las cuestiones planteadas
-en el ejemplo de los números racionales.</p></li>
 <li><p>Hemos definido todas las operaciones de <em>rac</em> en términos
 de un constructor (<code>racional</code>) y dos selectores
 (<code>numer</code> y <code>denom</code>).</p>
@@ -1689,16 +1677,18 @@ datos</strong> es la de:</p>
 <ol>
 <li><p>Definir un <strong>nuevo tipo de datos</strong>
 (abstracto).</p></li>
-<li><p>Identificar un <strong>conjunto básico de operaciones</strong>
-sobre las cuales se expresarán todas las demás operaciones que manipulen
-los valores de ese tipo.</p></li>
+<li><p>Identificar las <strong>operaciones básicas</strong>, es decir,
+el conjunto mínimo de operaciones que necesitan conocer la
+representación interna del tipo abstracto.</p></li>
+<li><p>Expresar <strong>a partir de ellas</strong> todas las demás
+operaciones que manipulen los valores de ese tipo.</p></li>
 <li><p><strong>Obligar a usar sólo esas operaciones</strong> para
-manipular los datos.</p></li>
+manipular los datos, impidiendo el acceso directo a su representación
+interna.</p>
+<p>De esta forma, es mucho más fácil cambiar luego la representación
+interna de los datos abstractos o la implementación de las operaciones
+básicas sin tener que cambiar el resto del programa.</p></li>
 </ol></li>
-<li><p>Al obligar a usar los datos únicamente a través de sus
-operaciones, es mucho más fácil cambiar luego la representación interna
-de los datos abstractos o la implementación de las operaciones básicas
-sin tener que cambiar el resto del programa.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.1">
@@ -1798,9 +1788,9 @@ como listas, estaríamos violando dos barreras de abstracción:</p>
 class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuadrado_viola_dos_barreras(r):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [r[<span class="dv">0</span>] <span class="op">*</span> r[<span class="dv">0</span>], r[<span class="dv">1</span>] <span class="op">*</span> r[<span class="dv">1</span>]]</span></code></pre></div></li>
 </ul>
-<div class="caja">
-<p>Cuantas menos barreras de abstracción se crucen al escribir
-programas, mejor.</p>
+<div class="caja centered">
+<p>Cuantas menos barreras de abstracción se crucen<br />
+al escribir programas, mejor.</p>
 </div>
 </section>
 <section class="slide level5" data-number="4.2.0.0.4">
@@ -1843,8 +1833,8 @@ los datos.</p></li>
 definido por las operaciones <code>racional</code>, <code>numer</code> y
 <code>denom</code>.</p></li>
 <li><p>Pero… ¿qué es un <em>dato</em>? No basta con decir que es
-«<em>cualquier cosa implementada mediante ciertos constructores y
-selectores</em>».</p></li>
+«<em>cualquier cosa implementada mediante ciertas operaciones
+básicas</em>».</p></li>
 <li><p>Siguiendo con el mismo ejemplo, es evidente que cualquier grupo
 de tres operaciones (un constructor y dos selectores) no sirve para
 representar adecuadamente a los números racionales.</p>
@@ -1875,14 +1865,14 @@ propiedad anterior.</p></li>
 <li><p>En general, podemos decir que <strong>los tipos abstractos de
 datos se definen mediante</strong>:</p>
 <ul>
-<li><p>una colección de <strong>constructores y selectores</strong>,
-junto con</p></li>
+<li><p>una colección de <strong>operaciones básicas</strong>, junto
+con</p></li>
 <li><p>algunas <strong><em>propiedades</em> que los datos abstractos
 deben cumplir</strong>.</p></li>
 </ul></li>
 <li><p>Mientras se cumplan dichas propiedades (como la que aparece
-dentro de la caja anterior), esos constructores y selectores constituyen
-una representación válida del tipo abstracto de datos.</p></li>
+dentro de la caja anterior), esas operaciones básicas constituyen una
+representación válida del tipo abstracto de datos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.3.0.0.2">
@@ -1901,7 +1891,7 @@ cualquier representación que agrupe una pareja de valores juntos y que
 nos permita acceder a cada valor de una pareja por separado.</p></li>
 <li><p>Es decir, la propiedad que tienen que cumplir las parejas es
 que:</p>
-<div class="caja">
+<div class="caja centered">
 <p>Si <span class="math inline">p</span> <code>=</code>
 <code>pareja(</code><span class="math inline">x</span><code>,</code> 
 <span class="math inline">y</span><code>)</code>, entonces
@@ -1930,11 +1920,11 @@ data-number="5.1">
 Clausuras</h2>
 <ul>
 <li><p>Anteriormente, hemos dicho que los datos se caracterizan por las
-<strong>operaciones</strong> (constructoras y selectoras) con las que se
-manipulan y por las <strong>propiedades</strong> que cumplen dichas
-operaciones, de forma que <strong>podemos cambiar los detalles de
-implementación</strong> bajo una barrera de abstracción siempre que no
-cambiemos su comportamiento observable por encima de ella.</p></li>
+<strong>operaciones básicas</strong> con las que se manipulan y por las
+<strong>propiedades</strong> que cumplen dichas operaciones, de forma
+que <strong>podemos cambiar los detalles de implementación</strong> bajo
+una barrera de abstracción siempre que no cambiemos su comportamiento
+observable por encima de ella.</p></li>
 <li><p>Por tanto, bajo esa barrera de abstracción podemos usar cualquier
 implementación siempre y cuando logre que las operaciones que definen
 dicha barrera satisfagan las propiedades que deben cumplir.</p></li>
@@ -1949,7 +1939,7 @@ de muchas maneras.</p></li>
 <li><p>Podemos usar listas, tuplas, diccionarios…, pero en general nos
 sirve cualquier dato definido por un constructor <code>pareja</code> y
 un selector <code>select</code> que cumplan la siguiente propiedad:</p>
-<div class="caja">
+<div class="caja centered">
 <p>Si <span class="math inline">p</span> <code>=</code>
 <code>pareja(</code><span class="math inline">x</span><code>,</code> 
 <span class="math inline">y</span><code>)</code>, entonces
@@ -1977,15 +1967,15 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a h
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> denom(r):</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> select(r, <span class="dv">1</span>)</span></code></pre></div></li>
-<li><p>Así, las operaciones constructoras y selectoras de los racionales
-se definirían en función de las operaciones constructora y selectora de
-las parejas, que constituyen su barrera de abstracción.</p></li>
+<li><p>Así, las operaciones básicas de los racionales se definirían en
+función de las operaciones constructora y selectora de las parejas, que
+constituyen su barrera de abstracción.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.0.0.3">
 
 <ul>
-<li><p>Igualmente, para implementar las parejas, nos valdría cualquier
+<li><p>Y para implementar las parejas, nos valdría cualquier
 implementación que satisfaga la propiedad que deben cumplir todas las
 parejas.</p></li>
 <li><p>Por ejemplo, nos sirve cualquier estructura de datos o tipo
@@ -2000,9 +1990,37 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a h
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> select(p, i):</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p[i]</span></code></pre></div></li>
+<li><p>El inconveniente de usar una representación de este tipo es que
+no impide que los usuarios puedan acceder directamente a la
+representación interna del dato abstracto en forma de lista:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> pareja(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">type</span>(p)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span><span class="kw">class</span> <span class="st">&#39;list&#39;</span><span class="op">&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>, <span class="dv">3</span>]</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.1.0.0.4">
+
+<ul>
+<li><p>La implementación de un tipo abstracto <strong>debe cumplir dos
+propiedades</strong>:</p>
+<ul>
+<li><p><strong>Privacidad de la representación</strong>: los usuarios no
+conocen ni deben conocer cómo se representan los valores del tipo
+abstracto en la memoria del ordenador.</p></li>
+<li><p><strong>Protección</strong>: sólo se pueden utilizar con sus
+valores aquellas operaciones previstas en la especificación.</p></li>
+</ul></li>
+<li><p>Y la representación usando un tipo convencional como las listas
+no satisface ninguna de estas dos propiedades.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="5.1.0.0.5">
 
 <ul>
 <li><p>Pero, de hecho, ni siquiera necesitamos estructuras de datos para
@@ -2010,29 +2028,29 @@ representar parejas de números.</p></li>
 <li><p>Podemos implementar dos funciones <code>pareja</code> y
 <code>select</code> que cumplan con la propiedad anterior tan bien como
 una lista:</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pareja(x, y):</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve una función que representa una pareja.&quot;&quot;&quot;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get(indice):</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> indice <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> x</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> indice <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> y</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> get</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> select(p, i):</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve el elemento situado en el índice i de la pareja p.&quot;&quot;&quot;</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p(i)</span></code></pre></div></li>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pareja(x, y):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve una función que representa una pareja.&quot;&quot;&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get(indice):</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> indice <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> x</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> indice <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> y</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> get</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> select(p, i):</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve el elemento situado en el índice i de la pareja p.&quot;&quot;&quot;</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p(i)</span></code></pre></div></li>
 <li><p>Con esta implementación, podemos crear y manipular parejas:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">0</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">1</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">0</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> select(p, <span class="dv">1</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span></span></code></pre></div>
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:40%;">
@@ -2045,7 +2063,7 @@ target="_blank">Ver en Pythontutor</a></p>
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.5">
+<section class="slide level5" data-number="5.1.0.0.6">
 
 <ul>
 <li><p>Cuando se llama a la función <code>pareja</code>, ésta devuelve
@@ -2068,7 +2086,7 @@ entorno.</p></li>
 <code>x</code> e <code>y</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.6">
+<section class="slide level5" data-number="5.1.0.0.7">
 
 <div class="centered">
 <figure>
@@ -2094,7 +2112,7 @@ no se elimine de la memoria cuando finalice la ejecución de
 problema.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.7">
+<section class="slide level5" data-number="5.1.0.0.8">
 
 <ul>
 <li><p>El <strong>entorno de definición</strong> (o
@@ -2119,12 +2137,12 @@ denomina <strong>clausura</strong>.</p>
 que puede que la función necesite para poder funcionar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.8">
+<section class="slide level5" data-number="5.1.0.0.9">
 
 <ul>
 <li><p>Después de hacer:</p>
-<div class="sourceCode" id="cb20"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span></code></pre></div>
 <p>tenemos que <code>p</code> contiene una clausura.</p></li>
 <li><p>Esa clausura esta formada por:</p>
 <ul>
@@ -2147,7 +2165,7 @@ activa en este momento.</p></li>
 para poder acceder a las variables que contiene.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.9">
+<section class="slide level5" data-number="5.1.0.0.10">
 
 <ul>
 <li><p>Para no perder el marco de la función <code>pareja</code> cuando
@@ -2166,7 +2184,7 @@ marcos que sean necesarios para el funcionamiento de alguna clausura, y
 los enlazará con otros marcos formando entornos de definición.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.10">
+<section class="slide level5" data-number="5.1.0.0.11">
 
 <ul>
 <li>Las clausuras las representaremos gráficamente como una función de
@@ -2191,7 +2209,7 @@ al entorno de definición de la clausura, que aquí está formado por el
 marco de <code>pareja</code> y el marco global (en ese orden).</li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.11">
+<section class="slide level5" data-number="5.1.0.0.12">
 
 <ul>
 <li><p>Por tanto, la clausura almacenada en <code>p</code> contiene la
@@ -2211,13 +2229,13 @@ seguido del marco global (almacenado en la pila).</p></li>
 mientras esté activa la llamada a <code>p</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.12">
+<section class="slide level5" data-number="5.1.0.0.13">
 
 <ul>
 <li><p>Por ejemplo, si hacemos:</p>
-<div class="sourceCode" id="cb21"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> p(<span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> p(<span class="dv">0</span>)</span></code></pre></div>
 <p>durante la ejecución de <code
 class="sourceCode python">p(<span class="dv">0</span>)</code> tendremos
 lo siguiente:</p></li>
@@ -2231,14 +2249,14 @@ de <code>x = p(0)</code></figcaption>
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.1.0.0.13">
+<section class="slide level5" data-number="5.1.0.0.14">
 
 <ul>
 <li><p>Si tenemos dos clausuras <code>p</code> y <code>q</code> creadas
 de la siguiente manera:</p>
-<div class="sourceCode" id="cb22"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> pareja(<span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pareja(<span class="dv">20</span>, <span class="dv">14</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> pareja(<span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div>
 <p>en memoria tendremos lo siguiente:</p></li>
 </ul>
 <div class="centered">
@@ -2250,7 +2268,7 @@ style="width:70.0%" alt="Estado del programa tras crear p y q" />
 </figure>
 </div>
 </section>
-<section class="slide level5" data-number="5.1.0.0.14">
+<section class="slide level5" data-number="5.1.0.0.15">
 
 <ul>
 <li><p>Al llamar a <code>select(p, i)</code> se llama luego a
@@ -2283,7 +2301,7 @@ class="sourceCode python"><span class="dv">6</span></code>.</p></li>
 misma cosa.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.15">
+<section class="slide level5" data-number="5.1.0.0.16">
 
 <ul>
 <li><p>El funcionamiento de las clausuras está muy relacionado con el de
@@ -2298,7 +2316,7 @@ módulo, su marco global debe permanecer en la memoria para que los
 miembros del módulo puedan acceder a otros elementos del mismo.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.16">
+<section class="slide level5" data-number="5.1.0.0.17">
 
 <ul>
 <li><p>Cuando el módulo se importa usando <code
@@ -2320,28 +2338,28 @@ el marco de ese módulo.</p></li>
 funciones.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.17">
+<section class="slide level5" data-number="5.1.0.0.18">
 
 <ul>
 <li><p>Por ejemplo:</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="sourceCode" id="cb23"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:45%;">
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># imprime 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># imprime 1</span></span></code></pre></div>
 </div>
 </div></li>
 <li><p>Al hacer <code
@@ -2361,7 +2379,7 @@ está formado por su propio marco y por el marco global de
 que necesita para funcionar.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.18">
+<section class="slide level5" data-number="5.1.0.0.19">
 
 <ul>
 <li><p>El entorno de <code>f</code> NO contiene el marco global de
@@ -2369,24 +2387,24 @@ que necesita para funcionar.</p></li>
 <li><p>Por ejemplo:</p>
 <div class="columns">
 <div class="column" style="width:35%;">
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:55%;">
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">35</span>         <span class="co"># crea una nueva x en dos</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># sigue imprimiendo 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">35</span>         <span class="co"># crea una nueva x en dos</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># sigue imprimiendo 1</span></span></code></pre></div>
 </div>
 </div></li>
 <li><p>Aquí, al llamar a <code>uno.f()</code> se observa que sigue
@@ -2396,28 +2414,28 @@ sigue recordando que <code>x</code> vale <code>1</code>.</p></li>
 marco y por el marco global de <code>uno</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.19">
+<section class="slide level5" data-number="5.1.0.0.20">
 
 <ul>
 <li><p>Y en este caso:</p>
 <div class="columns">
 <div class="column" style="width:35%;">
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:55%;">
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">35</span>         <span class="co"># crea una nueva x en uno</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># da error</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uno</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">35</span>         <span class="co"># crea una nueva x en uno</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(uno.f()) <span class="co"># da error</span></span></code></pre></div>
 </div>
 </div></li>
 <li><p>Aquí, al llamar a <code>uno.f()</code> da un error porque el
@@ -2427,29 +2445,29 @@ entorno está formado por su marco y por el marco global de
 <code>dos</code>).</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.20">
+<section class="slide level5" data-number="5.1.0.0.21">
 
 <ul>
 <li><p>Si usamos <code
 class="sourceCode python"><span class="im">from</span> ... <span class="im">import</span> ...</code>:</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:45%;">
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f()) <span class="co"># imprime 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f()) <span class="co"># imprime 1</span></span></code></pre></div>
 </div>
 </div></li>
 <li><p>Al hacer <code
@@ -2467,7 +2485,7 @@ se llama a <code>f</code> desde el módulo <code>dos</code>.</p></li>
 <code>uno</code> y enlazarlo con <code>f</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.21">
+<section class="slide level5" data-number="5.1.0.0.22">
 
 <ul>
 <li><p>En detalle, cuando el intérprete ejecuta <code
@@ -2489,7 +2507,7 @@ montículo, ya que ese marco pertenece al entorno de definición de
 únicamente por el marco del módulo <code>uno</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.22">
+<section class="slide level5" data-number="5.1.0.0.23">
 
 <ul>
 <li><p>Si ahora hacemos <code
@@ -2497,24 +2515,24 @@ class="sourceCode python">x <span class="op">=</span> <span class="dv">99</span>
 en el módulo <code>dos</code>:</p>
 <div class="columns">
 <div class="column" style="width:44%;">
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span>   <span class="co"># variable global de uno</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span>   <span class="co"># variable global de uno</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div>
 </div><div class="column" style="width:4%;">
 
 </div><div class="column" style="width:52%;">
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">99</span>      <span class="co"># crea una nueva x en dos</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f())  <span class="co"># sigue imprimiendo 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">99</span>      <span class="co"># crea una nueva x en dos</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f())  <span class="co"># sigue imprimiendo 1</span></span></code></pre></div>
 </div>
 </div></li>
 <li><p>El resultado sigue siendo el mismo que antes, porque:</p>
@@ -2535,54 +2553,54 @@ marco y el marco global de <code>uno</code>, en ese orden.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.23">
+<section class="slide level5" data-number="5.1.0.0.24">
 
 <ul>
 <li><p>Es importante también tener en cuenta que el entorno de
 <code>f</code> NO incluye el marco global de <code>dos</code>.</p></li>
 <li><p>Por tanto, lo siguiente daría error:</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x   <span class="co"># Una variable que no está en uno</span></span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">99</span>         <span class="co"># crea una nueva x en dos</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f())     <span class="co"># da error porque la x de dos no está en el entorno de f</span></span></code></pre></div></li>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x   <span class="co"># Una variable que no está en uno</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dos.py:</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uno <span class="im">import</span> f</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">99</span>         <span class="co"># crea una nueva x en dos</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(f())     <span class="co"># da error porque la x de dos no está en el entorno de f</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.1.0.0.24">
+<section class="slide level5" data-number="5.1.0.0.25">
 
 <ul>
 <li><p>Otro ejemplo, con funciones locales:</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> padre(a):</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> hijo(b):</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">global</span> x</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        x <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">+</span> b <span class="op">+</span> x</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> hijo</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># uno.py:</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> padre(a):</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> hijo(b):</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">global</span> x</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        x <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">+</span> b <span class="op">+</span> x</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> hijo</span></code></pre></div>
 </div><div class="column" style="width:4%;">
 
 </div><div class="column" style="width:45%;">
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> uno <span class="im">import</span> padre</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> padre(<span class="dv">2</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f(<span class="dv">3</span>)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f(<span class="dv">3</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f(<span class="dv">4</span>)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> uno <span class="im">import</span> padre</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> padre(<span class="dv">2</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f(<span class="dv">3</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f(<span class="dv">3</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f(<span class="dv">4</span>)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div>
 </div>
 </div></li>
 <li><p>El entorno de definición de la clausura <code>f</code> lo forma
@@ -2713,15 +2731,15 @@ producirá el error <code>'Fondos insuficientes'</code>.</p></li>
 <li><p>Por ejemplo, si empezamos con 100 € en la cuenta, nos gustaría
 obtener la siguiente secuencia de valores de retorno al ir llamando a
 <code>retirar</code>:</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">60</span>)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">15</span>)</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="dv">35</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="dv">50</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">60</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">15</span>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="dv">35</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.0.0.4">
@@ -2732,9 +2750,9 @@ produce valores diferentes.</p></li>
 <li><p>Por lo tanto, la función <code>retirar</code> <strong>no es
 pura</strong>.</p></li>
 <li><p>Llamar a la función no sólo devuelve un valor, sino que también
-tiene el <strong>efecto lateral</strong> de cambiar la función de alguna
-manera, de modo que la siguiente llamada con el mismo argumento
-devolverá un resultado diferente.</p></li>
+tiene el <strong>efecto lateral</strong> de cambiar internamente a la
+función de alguna forma, por lo que la siguiente llamada con el mismo
+argumento devolverá un resultado distinto.</p></li>
 <li><p>Este efecto lateral es el resultado de retirar dinero de los
 fondos disponibles <strong>provocando un cambio en el estado de una
 variable</strong> que almacena dichos fondos y que se encuentra
@@ -2743,6 +2761,10 @@ variable</strong> que almacena dichos fondos y que se encuentra
 de un determinado tipo abstracto, sino que <strong>modifica directamente
 el propio dato</strong>, las llamaremos
 <strong>mutadoras</strong>.</p></li>
+<li><p>Estas operaciones normalmente necesitan conocer la representación
+interna del dato abstracto, ya que no lo modifican creando un valor
+nuevo sino que lo transforman internamente sin cambiar su
+identidad.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.0.0.5">
@@ -2767,7 +2789,8 @@ uno o más valores de tipo <span class="math inline">T</span> y que no
 devuelven un valor de tipo <span class="math inline">T</span>.</p></li>
 <li><p><strong>Mutadoras</strong>: operaciones que modifican
 directamente el estado interno de un valor de tipo <span
-class="math inline">T</span>.</p></li>
+class="math inline">T</span> sin construir un nuevo valor ni cambiar su
+identidad.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -2780,22 +2803,22 @@ saldo inicial.</p></li>
 que recibe como argumento un saldo inicial y devuelve la propia función
 <code>retirar</code>, pero de forma que esa función
 <strong>recuerda</strong> el saldo inicial.</p>
-<div class="sourceCode" id="cb38"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>retirar <span class="op">=</span> deposito(<span class="dv">100</span>)</span></code></pre></div></li>
 <li><p>La implementación de <code>deposito</code> requiere un
 <strong>acceso no local</strong> al valor de los fondos iniciales y una
 <strong>función local</strong> que actualiza y devuelve dicho valor:</p>
-<div class="sourceCode" id="cb39"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve una función que reduce los fondos en cada llamada.&quot;&quot;&quot;</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> deposito_local(cantidad):</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad  <span class="co"># Asignación a variable no local</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deposito_local</span></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Devuelve una función que reduce los fondos en cada llamada.&quot;&quot;&quot;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> deposito_local(cantidad):</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad  <span class="co"># Asignación a variable no local</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deposito_local</span></code></pre></div></li>
 </ul>
 </section>
 
@@ -2820,34 +2843,34 @@ función que <strong>despacha</strong> las operaciones en función del
 </section>
 <section class="slide level5" data-number="5.4.0.0.1">
 
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> retirar</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ingresar</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> saldo</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="op">==</span> <span class="st">&#39;retirar&#39;</span>:</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> retirar</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;ingresar&#39;</span>:</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> ingresar</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> mensaje <span class="op">==</span> <span class="st">&#39;saldo&#39;</span>:</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> saldo</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
 </section>
 <section class="slide level5" data-number="5.4.0.0.2">
 
@@ -2866,28 +2889,28 @@ def saldo(dep):
 <ul>
 <li><p>Ahora, un depósito se representa internamente como una función
 que recibe mensajes y los despacha a la función correspondiente:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function deposito.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.despacho at <span class="bn">0x7f0de1300e18</span><span class="op">&gt;</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;retirar&#39;</span>)(<span class="dv">25</span>)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;ingresar&#39;</span>)(<span class="dv">200</span>)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;saldo&#39;</span>)()</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
-<li><p>También podemos hacer:</p>
 <div class="sourceCode" id="cb42"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> dep(<span class="st">&#39;retirar&#39;</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar <span class="op">=</span> dep(<span class="st">&#39;ingresar&#39;</span>)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo <span class="op">=</span> dep(<span class="st">&#39;saldo&#39;</span>)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar(<span class="dv">200</span>)</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo()</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function deposito.<span class="op">&lt;</span><span class="bu">locals</span><span class="op">&gt;</span>.despacho at <span class="bn">0x7f0de1300e18</span><span class="op">&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;retirar&#39;</span>)(<span class="dv">25</span>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;ingresar&#39;</span>)(<span class="dv">200</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep(<span class="st">&#39;saldo&#39;</span>)()</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
+<li><p>También podemos hacer:</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> deposito(<span class="dv">100</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar <span class="op">=</span> dep(<span class="st">&#39;retirar&#39;</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar <span class="op">=</span> dep(<span class="st">&#39;ingresar&#39;</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo <span class="op">=</span> dep(<span class="st">&#39;saldo&#39;</span>)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> retirar(<span class="dv">25</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="dv">75</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ingresar(<span class="dv">200</span>)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> saldo()</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="dv">275</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.4.0.0.3">
@@ -2896,32 +2919,32 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a h
 <li>Una variante de esta técnica es la de usar un diccionario para
 asociar a cada mensaje con cada operación:</li>
 </ul>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>    dic <span class="op">=</span> {<span class="st">&#39;retirar&#39;</span>: retirar, <span class="st">&#39;ingresar&#39;</span>: ingresar, <span class="st">&#39;saldo&#39;</span>: saldo}</span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="kw">in</span> dic:</span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> dic[mensaje]</span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
-<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deposito(fondos):</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ingresar(cantidad):</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">+=</span> cantidad</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo():</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>    dic <span class="op">=</span> {<span class="st">&#39;retirar&#39;</span>: retirar, <span class="st">&#39;ingresar&#39;</span>: ingresar, <span class="st">&#39;saldo&#39;</span>: saldo}</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> despacho(mensaje):</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mensaje <span class="kw">in</span> dic:</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> dic[mensaje]</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Mensaje incorrecto&#39;</span>)</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> despacho</span></code></pre></div>
 </section>
 <section class="slide level5" data-number="5.4.0.0.4">
 
