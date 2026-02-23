@@ -2640,7 +2640,7 @@ def deposito(fondos):
   !SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
   !SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
   !SPC(6)    **ecuaciones**
-  !SPC(12)          $f < c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ $error$
+  !SPC(12)          $f < c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ **error**
   !SPC(12)          $f \geq c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
   !SPC(12)          `ingresar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f + c$)
   !SPC(12)          `saldo`(`depósito`($f$)) $\equiv$ $f$
@@ -2667,17 +2667,17 @@ def deposito(fondos):
 **espec** _depósito_
 !SPC(6)    **operaciones**
 !SPC(12)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
-!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\empty$
-!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\empty$
+!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\emptyset$
+!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\emptyset$
 !SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
 !SPC(6)    **var**
 !SPC(12)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
 !SPC(6)    **ecuaciones**
 !SPC(12)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
-!SPC(47)                                     y lo devuelve }
+!SPC(47)                                 y lo devuelve }
 !SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
 !SPC(12)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
-!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
+!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ **error**
 !SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2689,9 +2689,9 @@ def deposito(fondos):
   Toda operación _impura_ debe indicar sus efectos entre llaves.
 
 - La signatura de las operaciones `retirar` e `ingresar` indican mediante
-  «$\longrightarrow \empty$» que son operaciones que no devuelven ningún valor, ya
-  que su cometido es el de provocar un efecto lateral (en este caso, modificar
-  el estado interno del **Depósito**).
+  «$\longrightarrow \emptyset$» que son operaciones que no devuelven ningún
+  valor, ya que su cometido es el de provocar un efecto lateral (en este caso,
+  modificar el estado interno del **Depósito**).
 
 - En concreto, los efectos que producen dichas operaciones son los de cambiar
   los fondos del depósito, restándole o sumándole una cantidad.
@@ -2725,7 +2725,7 @@ def deposito(fondos):
 !SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
 !SPC(12)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
 !SPC(88)                                                                               y devuelve el saldo que queda \}
-!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
+!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ **error**
 !SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
 !SPC(52)                                      y devuelve el saldo que queda \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

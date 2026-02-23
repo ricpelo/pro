@@ -3729,8 +3729,8 @@ class Deposito:
 !SPC(12)          _elemento_
 !SPC(6)    **operaciones**
 !SPC(12)          `pila` : $\longrightarrow$ _pila_
-!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ $\empty$
-!SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ $\empty$
+!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ $\emptyset$
+!SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ $\emptyset$
 !SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
 !SPC(12)          `vacía?` : _pila_ $\longrightarrow$ $\mathbb{B}$
 !SPC(12)          _ `==` _ : _pila_ $\times$ _pila_ $\longrightarrow$ $\mathbb{B}$
@@ -3780,14 +3780,14 @@ class Deposito:
 
   Crea una pila vacía (es decir, sin elementos) y la devuelve.
 
-- `apilar(`$p$: _pila_, $elem$`)` $\longrightarrow$ $\empty$
+- `apilar(`$p$: _pila_, $elem$`)` $\longrightarrow$ $\emptyset$
 
   Introduce el elemento $elem$ encima de la pila $p$. Ese elemento pasa a
   estar ahora en la cima de la pila, por lo que tras su ejecución se debe
   cumplir que `cima(`$p$`)` `==` $elem$. La operación no devuelve ningún
   resultado.
 
-- `desapilar(`$p$: _pila_`)` $\longrightarrow$ $\empty$
+- `desapilar(`$p$: _pila_`)` $\longrightarrow$ $\emptyset$
 
   Extrae de la pila $p$ el elemento situado en la cima. Si $p$ está vacía, da
   error. El elemento que queda ahora en la cima es el que había justo antes
