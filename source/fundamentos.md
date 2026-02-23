@@ -171,11 +171,14 @@ author: Ricardo Pérez López
   - $\mathbb{N^+} = \{1, 2, \ldots\}$: el conjunto $\mathbb{N}$ menos el cero.
 
   - $\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots\}$: el conjunto de los
-  números enteros.
+    números enteros.
 
   - $\mathbb{Q}$: el conjunto de los números racionales.
 
   - $\mathbb{R}$: el conjunto de los números reales.
+
+  - $\emptyset$: el **conjunto vacío**, es decir, el que no contiene ningún
+    elemento.
 
 ### Cardinal de un conjunto
 
@@ -186,6 +189,8 @@ author: Ricardo Pérez López
   Por ejemplo, si $C = \{2, 3, 5, 7\}$, entonces $|C| = 4$ y, por tanto, es un
   conjunto _finito_. En cambio, $|\mathbb{N}| = \infty$ y, por tanto, es un
   conjunto _infinito_.
+
+- El cardinal del conjunto vacío es cero: $|\emptyset| = 0$.
 
 ### Subconjuntos
 
@@ -200,6 +205,8 @@ author: Ricardo Pérez López
   $B$ y se escribe: $$A \subset B$$
 
 - Está claro que $A \subseteq B, B \subseteq A \iff A = B$.
+
+- El conjunto vacío $\emptyset$ es subconjunto de cualquier conjunto.
 
 ## Secuencias
 
