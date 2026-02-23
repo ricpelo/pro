@@ -219,10 +219,10 @@ Los **pilares fundamentales** de la _POO_ son los siguientes:
   indicando una referencia al objeto y el nombre del atributo al que se desea
   acceder:
 
-!CENTRAR
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*objeto*`.`*atributo*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(objeto)`.`!NT(atributo)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, si importamos el módulo `math` usando `import` obtenemos un
   objeto al que se puede acceder a través de su nombre, de forma que los
@@ -868,10 +868,10 @@ subgraph cluster2 {
 - Recordemos que debemos usar el operador punto (`.`) para acceder a un
   atributo del objeto a partir de una referencia suya usando la sintaxis:
 
-!CENTRAR
-~~~~~~~~~~~~~~~~~~~~~
-*objeto*`.`*atributo*
-~~~~~~~~~~~~~~~~~~~~~
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~
+  !NT(objeto)`.`!NT(atributo)
+  ~~~~~~~~~~~~~~~~~~~~~
 
 - Por ejemplo, para acceder al atributo `fondos` (que aquí es una variable de
   instancia) de un objeto `dep` de la clase `Deposito`, se usaría la expresión

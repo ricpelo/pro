@@ -1136,16 +1136,16 @@ E -> x [lhead = cluster1]
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
-  *objeto*`.`*atributo*
+  !NT(objeto)`.`!NT(atributo)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por tanto, para acceder al contenido del módulo importado, indicaremos el
-  nombre de ese módulo seguido de un punto (`.`) y el nombre del contenido al
-  que queramos acceder:
+- Por tanto, para acceder a un miembro del módulo importado, indicaremos el
+  nombre de ese módulo seguido de un punto (`.`) y el nombre del miembro al que
+  queramos acceder:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
-  *módulo*`.`*contenido*
+  !NT(módulo)`.`!NT(miembro)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1197,7 +1197,7 @@ E -> math [lhead = cluster1]
 ---
 
 - Se puede importar un módulo dándole otro nombre dentro del espacio de nombres
-  actual, usando la sentencia !PYTHON(import ... as).
+  actual, usando la sentencia !PYTHON(import)\  !NT(módulo)\  !PYTHON(as).
 
 - Por ejemplo:
 
