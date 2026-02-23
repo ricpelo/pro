@@ -1027,7 +1027,8 @@ Determinar cuál es el máximo de dos números
 
 ---
 
-- Todo problema $P$ lleva asociada una función $f_P: D \rightarrow R$, donde:
+- Todo problema $P$ lleva asociada una función $f_P: D \longrightarrow R$,
+  donde:
 
   - $D$ es el conjunto de los datos de entrada.
 

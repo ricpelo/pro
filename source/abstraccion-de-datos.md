@@ -496,11 +496,11 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
     **parámetros**
           _elemento_
     **operaciones**
-          `[]` : $\rightarrow$ _lista_
-          `[`_`]` : _elemento_ $\rightarrow$ _lista_
-          \_`++`\_ : _lista_ $\times$ _lista_ $\rightarrow$ _lista_
-          \_`:`\_ : _elemento_ $\times$ _lista_ $\rightarrow$ _lista_
-          `len` : _lista_ $\rightarrow$ $\mathbb{N}$
+          `[]` : $\longrightarrow$ _lista_
+          `[`_`]` : _elemento_ $\longrightarrow$ _lista_
+          \_`++`\_ : _lista_ $\times$ _lista_ $\longrightarrow$ _lista_
+          \_`:`\_ : _elemento_ $\times$ _lista_ $\longrightarrow$ _lista_
+          `len` : _lista_ $\longrightarrow$ $\mathbb{N}$
     **var**
           $x$ : _elemento_; $l, l_1, l_2, l_3$ : _lista_
     **ecuaciones**
@@ -621,11 +621,11 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
     **parámetros**
           _elemento_
     **operaciones**
-          `[]` : $\rightarrow$ _lista_
-          \_`:`\_ : _elemento_ $\times$ _lista_ $\rightarrow$ _lista_
-          `[`_`]` : _elemento_ $\rightarrow$ _lista_
-          \_`++`\_ : _lista_ $\times$ _lista_ $\rightarrow$ _lista_
-          `len` : _lista_ $\rightarrow$ $\mathbb{N}$
+          `[]` : $\longrightarrow$ _lista_
+          \_`:`\_ : _elemento_ $\times$ _lista_ $\longrightarrow$ _lista_
+          `[`_`]` : _elemento_ $\longrightarrow$ _lista_
+          \_`++`\_ : _lista_ $\times$ _lista_ $\longrightarrow$ _lista_
+          `len` : _lista_ $\longrightarrow$ $\mathbb{N}$
     **var**
           $x$ : _elemento_; $l, l_1, l_2$ : _lista_
     **ecuaciones**
@@ -745,11 +745,11 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
     **parámetros**
           _elemento_
     **operaciones**
-          `pvacia` : $\rightarrow$ _pila_
-          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
-          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
-          **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
-          `vacia?` : _pila_ $\rightarrow$ $\mathbb{B}$
+          `pvacia` : $\longrightarrow$ _pila_
+          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ _pila_
+          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
+          **parcial** `desapilar` : _pila_ $\longrightarrow$ _pila_
+          `vacia?` : _pila_ $\longrightarrow$ $\mathbb{B}$
     **var**
           $p$ : _pila_; $x$ : _elemento_
     **ecuaciones**
@@ -807,7 +807,7 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `cima` : _pila_ $\setminus\ \{$ `pvacia` $\}$ $\rightarrow$ _elemento_
+  `cima` : _pila_ $\setminus\ \{$ `pvacia` $\}$ $\longrightarrow$ _elemento_
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El problema es que eso no resulta práctico porque normalmente los lenguajes
@@ -871,13 +871,13 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
     **parámetros**
           _elemento_
     **operaciones**
-          `[]` : $\rightarrow$ _lista_
-          \_`:`\_ : _elemento_ $\times$ _lista_ $\rightarrow$ _lista_
-          `[`_`]` : _elemento_ $\rightarrow$ _lista_
-          \_`++`\_ : _lista_ $\times$ _lista_ $\rightarrow$ _lista_
-          **parcial** `primero` : _lista_ $\rightarrow$ _elemento_
-          **parcial** `resto` : _lista_ $\rightarrow$ _lista_
-          `len` : _lista_ $\rightarrow$ $\mathbb{N}$
+          `[]` : $\longrightarrow$ _lista_
+          \_`:`\_ : _elemento_ $\times$ _lista_ $\longrightarrow$ _lista_
+          `[`_`]` : _elemento_ $\longrightarrow$ _lista_
+          \_`++`\_ : _lista_ $\times$ _lista_ $\longrightarrow$ _lista_
+          **parcial** `primero` : _lista_ $\longrightarrow$ _elemento_
+          **parcial** `resto` : _lista_ $\longrightarrow$ _lista_
+          `len` : _lista_ $\longrightarrow$ $\mathbb{N}$
     **var**
           $x$ : _elemento_; $l, l_1, l_2$ : _lista_
     **ecuaciones**
@@ -904,13 +904,13 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _rac_
     **operaciones**
-          **parcial** `racional` : $\mathbb{Z}$ $\times$ $\mathbb{Z}$ $\rightarrow$ _rac_
-          `numer` : _rac_ $\rightarrow$ $\mathbb{Z}$
-          `denom` : _rac_ $\rightarrow$ $\mathbb{Z}$
-          `suma`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
-          `mult`  : _rac_ $\times$ _rac_ $\rightarrow$ _rac_
-          `iguales?` : _rac_ $\times$ _rac_ $\rightarrow$ $\mathbb{B}$
-          `imprimir` : _rac_ $\rightarrow$ $\emptyset$
+          **parcial** `racional` : $\mathbb{Z}$ $\times$ $\mathbb{Z}$ $\longrightarrow$ _rac_
+          `numer` : _rac_ $\longrightarrow$ $\mathbb{Z}$
+          `denom` : _rac_ $\longrightarrow$ $\mathbb{Z}$
+          `suma`  : _rac_ $\times$ _rac_ $\longrightarrow$ _rac_
+          `mult`  : _rac_ $\times$ _rac_ $\longrightarrow$ _rac_
+          `iguales?` : _rac_ $\times$ _rac_ $\longrightarrow$ $\mathbb{B}$
+          `imprimir` : _rac_ $\longrightarrow$ $\emptyset$
     **var**
           $r$ : _rac_; $n$, $d$, $n_1$, $n_2$, $d_1$, $d_2$ : $\mathbb{Z}$
     **ecuaciones**
@@ -934,7 +934,7 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  `imprimir` : _rac_ $\rightarrow$ $\emptyset$
+  `imprimir` : _rac_ $\longrightarrow$ $\emptyset$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Y el *efecto* que produce se indica entre llaves en el apartado de
@@ -1670,7 +1670,7 @@ E -> i [lhead = cluster1]
   sale una flecha que va hasta el primer marco de su entorno de definición, que
   es el marco del ámbito donde se definió esa función.
 
-!DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=70%)(width=65%)
+!DOT(pila-pareja-get.svg)(Pila de control después de hacer `p = pareja(20, 14)`)(width=80%)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -2635,13 +2635,13 @@ def deposito(fondos):
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **espec** _depósito_
   !SPC(6)    **operaciones**
-  !SPC(12)          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
-  !SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-  !SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-  !SPC(12)          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+  !SPC(12)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
+  !SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+  !SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+  !SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
   !SPC(6)    **ecuaciones**
-  !SPC(12)          $f < c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ $error$
-  !SPC(12)          $f \geq c$ $\Rightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
+  !SPC(12)          $f < c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ $error$
+  !SPC(12)          $f \geq c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
   !SPC(12)          `ingresar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f + c$)
   !SPC(12)          `saldo`(`depósito`($f$)) $\equiv$ $f$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2666,18 +2666,18 @@ def deposito(fondos):
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _depósito_
 !SPC(6)    **operaciones**
-!SPC(12)          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
-!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
-!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\empty$
-!SPC(12)          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+!SPC(12)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
+!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\empty$
+!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\empty$
+!SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
 !SPC(6)    **var**
 !SPC(12)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
 !SPC(6)    **ecuaciones**
 !SPC(12)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
 !SPC(47)                                     y lo devuelve }
 !SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
-!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
-!SPC(12)          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
+!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
+!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
 !SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2689,7 +2689,7 @@ def deposito(fondos):
   Toda operación _impura_ debe indicar sus efectos entre llaves.
 
 - La signatura de las operaciones `retirar` e `ingresar` indican mediante
-  «$\rightarrow \empty$» que son operaciones que no devuelven ningún valor, ya
+  «$\longrightarrow \empty$» que son operaciones que no devuelven ningún valor, ya
   que su cometido es el de provocar un efecto lateral (en este caso, modificar
   el estado interno del **Depósito**).
 
@@ -2713,21 +2713,21 @@ def deposito(fondos):
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _depósito_
 !SPC(6)    **operaciones**
-!SPC(12)          `depósito` : $\mathbb{R}$ $\rightarrow$ _depósito_
-!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\rightarrow$ $\mathbb{R}$
-!SPC(12)          `saldo` : _depósito_ $\rightarrow$ $\mathbb{R}$
+!SPC(12)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
+!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+!SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
 !SPC(6)    **var**
 !SPC(12)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
 !SPC(6)    **ecuaciones**
 !SPC(12)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
-!SPC(47)                                     y lo devuelve }
+!SPC(47)                                 y lo devuelve }
 !SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
-!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Rightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
-!SPC(85)                                                                  y devuelve el saldo que queda \}
-!SPC(12)          `saldo`($d$) $<$ $c$ $\Rightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
+!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
+!SPC(88)                                                                               y devuelve el saldo que queda \}
+!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ $error$
 !SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
-!SPC(52)                                         y devuelve el saldo que queda \}
+!SPC(52)                                      y devuelve el saldo que queda \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Abstracción de datos y modularidad

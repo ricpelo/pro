@@ -3702,11 +3702,11 @@ class Deposito:
 !SPC(6)    **parámetros**
 !SPC(12)          _elemento_
 !SPC(6)    **operaciones**
-!SPC(12)          `pvacia` : $\rightarrow$ _pila_
-!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ _pila_
-!SPC(12)          **parcial** `desapilar` : _pila_ $\rightarrow$ _pila_
-!SPC(12)          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
-!SPC(12)          `vacia?` : _pila_ $\rightarrow$ $\mathbb{B}$
+!SPC(12)          `pvacia` : $\longrightarrow$ _pila_
+!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ _pila_
+!SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ _pila_
+!SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
+!SPC(12)          `vacia?` : _pila_ $\longrightarrow$ $\mathbb{B}$
 !SPC(6)    **var**
 !SPC(12)          $p$ : _pila_; $x$ : _elemento_
 !SPC(6)    **ecuaciones**
@@ -3728,12 +3728,12 @@ class Deposito:
 !SPC(6)    **parámetros**
 !SPC(12)          _elemento_
 !SPC(6)    **operaciones**
-!SPC(12)          `pila` : $\rightarrow$ _pila_
-!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\rightarrow$ $\empty$
-!SPC(12)          **parcial** `desapilar` : _pila_ $\rightarrow$ $\empty$
-!SPC(12)          **parcial** `cima` : _pila_ $\rightarrow$ _elemento_
-!SPC(12)          `vacía?` : _pila_ $\rightarrow$ $\mathbb{B}$
-!SPC(12)          _ `==` _ : _pila_ $\times$ _pila_ $\rightarrow$ $\mathbb{B}$
+!SPC(12)          `pila` : $\longrightarrow$ _pila_
+!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ $\empty$
+!SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ $\empty$
+!SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
+!SPC(12)          `vacía?` : _pila_ $\longrightarrow$ $\mathbb{B}$
+!SPC(12)          _ `==` _ : _pila_ $\times$ _pila_ $\longrightarrow$ $\mathbb{B}$
 !SPC(6)    **var**
 !SPC(12)          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
 !SPC(6)    **ecuaciones**
@@ -3742,8 +3742,8 @@ class Deposito:
 !SPC(12)          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
 !SPC(12)          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \}
 !SPC(12)          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
-!SPC(12)          `vacía?`($p$) $\Rightarrow$ `desapilar`($p$) $\equiv$ **error**
-!SPC(12)          `vacía?`($p$) $\Rightarrow$ `cima`($p$) $\equiv$ **error**
+!SPC(12)          `vacía?`($p$) $\Longrightarrow$ `desapilar`($p$) $\equiv$ **error**
+!SPC(12)          `vacía?`($p$) $\Longrightarrow$ `cima`($p$) $\equiv$ **error**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -3776,18 +3776,18 @@ class Deposito:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Operaciones constructoras y modificadoras:**
 
-- `pila()` $\rightarrow$ _pila_
+- `pila()` $\longrightarrow$ _pila_
 
   Crea una pila vacía (es decir, sin elementos) y la devuelve.
 
-- `apilar(`$p$: _pila_, $elem$`)` $\rightarrow$ $\empty$
+- `apilar(`$p$: _pila_, $elem$`)` $\longrightarrow$ $\empty$
 
   Introduce el elemento $elem$ encima de la pila $p$. Ese elemento pasa a
   estar ahora en la cima de la pila, por lo que tras su ejecución se debe
   cumplir que `cima(`$p$`)` `==` $elem$. La operación no devuelve ningún
   resultado.
 
-- `desapilar(`$p$: _pila_`)` $\rightarrow$ $\empty$
+- `desapilar(`$p$: _pila_`)` $\longrightarrow$ $\empty$
 
   Extrae de la pila $p$ el elemento situado en la cima. Si $p$ está vacía, da
   error. El elemento que queda ahora en la cima es el que había justo antes
@@ -3802,18 +3802,18 @@ class Deposito:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Operaciones selectoras:**
 
-- $p_1$: _pila_ `==` $p_2$: _pila_ $\rightarrow$ $\mathbb{B}$
+- $p_1$: _pila_ `==` $p_2$: _pila_ $\longrightarrow$ $\mathbb{B}$
 
   Devuelve $V$ si $p_1$ y $p_2$ son dos pilas iguales, y $F$ en caso
   contrario.
 
   Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.
 
-- `vacía?(`$p$: _pila_`)` $\rightarrow$ $\mathbb{B}$
+- `vacía?(`$p$: _pila_`)` $\longrightarrow$ $\mathbb{B}$
 
   Devuelve $V$ si la pila $p$ no tiene elementos, y $F$ en caso contrario.
 
-- `cima(`$p$: _pila_`)` $\rightarrow$ $cualquiera$
+- `cima(`$p$: _pila_`)` $\longrightarrow$ $cualquiera$
 
   Devuelve el elemento situado en la cima de la pila. Si la pila está vacía,
   da error.
