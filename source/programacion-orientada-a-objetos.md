@@ -74,10 +74,10 @@ nocite: |
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Definición:**
 
-La **programación orientada a objetos** es un paradigma de programación en el
-que los programas se ven como formados por entidades llamadas **objetos** que
-recuerdan su propio **estado interno** y que se comunican entre sí mediante el
-**paso de mensajes** que se intercambian entre ellos con la finalidad de:
+La **programación orientada a objetos** (_POO_) es un paradigma de programación
+en el que los programas se ven como formados por entidades llamadas **objetos**
+que recuerdan su propio **estado interno** y que se comunican entre sí mediante
+el **paso de mensajes** que se intercambian entre ellos con la finalidad de:
 
 - cambiar sus estados internos,
 
@@ -90,9 +90,30 @@ recuerdan su propio **estado interno** y que se comunican entre sí mediante el
 
 ---
 
-- La **programación orientada a objetos** (también llamada **OOP**, del inglés
-  *Object-Oriented Programming*) es un método para organizar programas que
-  reúne muchas de las ideas vistas hasta ahora.
+\begingroup
+\setlist[itemize,1]{labelindent=0pt, label=--}
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Los **pilares fundamentales** de la _POO_ son los siguientes:
+
+- Abstracción.
+
+- Identidad.
+
+- Encapsulación.
+
+- Herencia.
+
+- Polimorfismo.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\endgroup
+
+---
+
+- La **programación orientada a objetos** (también llamada _POO_, o bien _OOP_,
+  del inglés *Object-Oriented Programming*) es un método para organizar
+  programas que reúne muchas de las ideas vistas hasta ahora.
 
 - Al igual que las funciones en las abstracciones de datos, los objetos imponen
   **barreras de abstracción** entre el uso y la implementación de los datos.
