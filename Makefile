@@ -84,6 +84,7 @@ PRAC_OBJECTS_PDF := $(patsubst $(PRAC_SRCDIR)/%,$(PRAC_BUILDDIR_PDF)/%,$(PRAC_SO
 all: $(POO) $(DIAPOS) $(UDRACE_CSV) html pdf apuntes prog ejercicios practicas limpiar
 
 $(POO): $(SRCDIR)/$(POO_I_MD) $(SRCDIR)/$(POO_II_MD)
+	@echo "Generando $@..."
 	@echo "---\ntitle: Programación orientada a objetos\nauthor: Ricardo Pérez López\n!DATE\nnocite: |\n  @python_software_foundation_sitio_nodate, @denero_composing_nodate, @abelson_structure_1996\n---\n" > $@
 	@tail -n +9 $(SRCDIR)/$(POO_I_MD) | head -n -1 >> $@
 	@tail -n +9 $(SRCDIR)/$(POO_II_MD) | head -n -1 >> $@
