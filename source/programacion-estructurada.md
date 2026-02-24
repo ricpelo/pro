@@ -1180,6 +1180,33 @@ while not salida:
       !NT(sentencia)]
 ~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- Existen dos estrategias generales de gestión de errores:
+
+  - «**Mirar antes de saltar**» (**_Look Before You Leap_**, _LBYL_): Este
+    estilo de código se basa en comprobar explícitamente las precondiciones
+    antes de realizar acciones que puedan fallar, y se caracteriza por la
+    presencia de muchas sentencias !PYTHON(if).
+
+    En un entorno multihilo, esta estrategia puede introducir condiciones de
+    carrera entre el «mirar» y el «saltar». Por ejemplo, este código:
+
+    ```python
+    if clave in diccionario:
+        return diccionario[clave]
+    ```
+
+    puede fallar si otro hilo borra la clave tras la comprobación de la
+    condición pero antes de acceder al diccionario. Se puede resolver con
+    bloqueos o usando la otra estrategia.
+
+  - «**Es más fácil pedir perdón que pedir permiso**» (**_Easier to ask for
+    forgiveness than permission_**, _EAFP_): Este estilo, más común en Python,
+    supone que todo va a ir bien y captura excepciones si algo acaba yendo mal.
+    Es un estilo limpio y rápido que se caracteriza por la presencia de muchas
+    sentencias !PYTHON(try ... except).
+  
 #### Lanzamiento de excepciones
 
 - Podemos lanzar una excepción en cualquier momento usando la sentencia
