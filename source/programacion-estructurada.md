@@ -1074,10 +1074,9 @@ while not salida:
 
 - Es posible escribir programas que gestionen excepciones concretas.
 
-- Para ello se utiliza una estructura de control llamada
-  !PYTHON(try ... except).
+- Para ello se utiliza la estructura de control !PYTHON(try ... except).
 
-- La sintaxis es:
+- Su sintaxis básica es:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
