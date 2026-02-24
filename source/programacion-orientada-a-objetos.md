@@ -144,8 +144,9 @@ Los **pilares fundamentales** de la _POO_ son los siguientes:
   del inglés *Object-Oriented Programming*) es un método para organizar
   programas que reúne muchas de las ideas vistas hasta ahora.
 
-- Al igual que las funciones en las abstracciones de datos, los objetos imponen
-  **barreras de abstracción** entre el uso y la implementación de los datos.
+- Al igual que las operaciones en las abstracciones de datos, los objetos
+  imponen **barreras de abstracción** entre el uso y la implementación de los
+  datos.
 
 - Al igual que los diccionarios y funciones de despacho, los objetos responden
   a peticiones que otros objetos les hacen en forma de **mensajes** para que se
@@ -273,8 +274,8 @@ En programación orientada a objetos:
 
 - Una **clase** es la **implementación de un tipo abstracto de datos**.
 
-- Las clases definen **tipos de datos** de pleno derecho en el lenguaje de
-  programación.
+- Las clases definen nuevos **tipos de datos** de pleno derecho en el lenguaje
+  de programación.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \endgroup
