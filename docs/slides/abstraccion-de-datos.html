@@ -2662,9 +2662,12 @@ data-number="5.3">
 <h2 data-number="5.3"><span class="header-section-number">5.3</span>
 Estado interno</h2>
 <ul>
-<li><p>Ciertos datos pueden tener un <strong>estado interno</strong>
-consistente en información que el dato almacena (o <em>recuerda</em>) y
-que puede cambiar durante la ejecución del programa.</p></li>
+<li><p>Los datos pueden tener un <strong>estado interno</strong>
+consistente en información que el dato almacena (o
+<em>recuerda</em>).</p></li>
+<li><p>Asimismo, decimos que es un <strong>estado interno
+mutable</strong> cuando puede cambiar durante la ejecución del
+programa.</p></li>
 <li><p>Por ejemplo:</p>
 <ul>
 <li><p>Una <strong>lista</strong> posee un estado interno que incluye su
@@ -2677,18 +2680,19 @@ distinto.</p></li>
 <li><p>Cada vez que efectuamos alguna de estas operaciones sobre una
 lista estamos cambiando su estado interno.</p></li>
 </ul></li>
-<li><p>Por tanto, la palabra «estado» implica un proceso evolutivo en el
-tiempo, durante el cual ese estado puede ir cambiando.</p></li>
+<li><p>Por tanto, al hablar de «estado mutable», nos referimos a un
+proceso evolutivo en el tiempo, durante el cual ese estado puede ir
+cambiando.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="5.3.0.0.1">
 
 <ul>
-<li><p>Al introducir el concepto de «estado interno» en nuestros datos,
-estamos introduciendo también la capacidad de cambiar dicho estado, es
-decir, que <strong>los datos ahora son mutables</strong>, y la
-<em>mutabilidad</em> es un concepto propio de la <strong>programación
-imperativa</strong>.</p></li>
+<li><p>Al introducir el concepto de «estado interno mutable» en nuestros
+datos, estamos introduciendo también la capacidad de cambiar dicho
+estado, es decir, que, ahora, <strong>los datos abstractos también
+pueden ser mutables</strong>, y la <em>mutabilidad</em> es un concepto
+propio de la <strong>programación imperativa</strong>.</p></li>
 <li><p>Esto nos va a <strong>impedir representar un <em>dato abstracto
 mutable</em> usando las especificaciones algebraicas</strong> que hemos
 usado hasta ahora, ya que, a partir de este momento, el resultado de una
@@ -2724,8 +2728,8 @@ interno</strong>, gracias al uso de las
 <section class="slide level5" data-number="5.3.0.0.3">
 
 <ul>
-<li><p>Por ejemplo, definamos una función que simule el proceso de
-retirar dinero de una cuenta bancaria.</p></li>
+<li><p>Supongamos que queremos definir una función que simule el proceso
+de retirar dinero de una cuenta bancaria.</p></li>
 <li><p>Crearemos una función llamada <code>retirar</code>, que tome como
 argumento una cantidad a retirar. Si hay suficiente dinero en la cuenta
 para permitir la retirada, <code>retirar</code> devolverá el saldo
@@ -2756,13 +2760,13 @@ pura</strong>.</p></li>
 tiene el <strong>efecto lateral</strong> de cambiar internamente a la
 función de alguna forma, por lo que la siguiente llamada con el mismo
 argumento devolverá un resultado distinto.</p></li>
-<li><p>Este efecto lateral es el resultado de retirar dinero de los
-fondos disponibles <strong>provocando un cambio en el estado de una
+<li><p>Este efecto lateral consiste en retirar dinero de los fondos
+disponibles <strong>provocando un cambio en el estado de una
 variable</strong> que almacena dichos fondos y que se encuentra
-<strong>fuera del marco actual</strong>.</p></li>
+<strong>fuera del marco de la función</strong>.</p></li>
 <li><p>A las operaciones modificadoras que no devuelven un valor nuevo
-de un determinado tipo abstracto, sino que <strong>modifica directamente
-el propio dato</strong>, las llamaremos
+de un determinado tipo abstracto, sino que <strong>modifican
+directamente el propio dato</strong>, las llamaremos
 <strong>mutadoras</strong>.</p></li>
 <li><p>Estas operaciones normalmente necesitan conocer la representación
 interna del dato abstracto, ya que no lo modifican creando un valor

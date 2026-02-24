@@ -2322,9 +2322,11 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 ## Estado interno
 
-- Ciertos datos pueden tener un **estado interno** consistente en información
-  que el dato almacena (o *recuerda*) y que puede cambiar durante la ejecución
-  del programa.
+- Los datos pueden tener un **estado interno** consistente en información
+  que el dato almacena (o *recuerda*).
+
+- Asimismo, decimos que es un **estado interno mutable** cuando puede cambiar
+  durante la ejecución del programa.
 
 - Por ejemplo:
 
@@ -2338,15 +2340,15 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   - Cada vez que efectuamos alguna de estas operaciones sobre una lista estamos
     cambiando su estado interno.
 
-- Por tanto, la palabra «estado» implica un proceso evolutivo en el tiempo,
-  durante el cual ese estado puede ir cambiando.
+- Por tanto, al hablar de «estado mutable», nos referimos a un proceso
+  evolutivo en el tiempo, durante el cual ese estado puede ir cambiando.
 
 ---
 
-- Al introducir el concepto de «estado interno» en nuestros datos, estamos
-  introduciendo también la capacidad de cambiar dicho estado, es decir, que
-  **los datos ahora son mutables**, y la _mutabilidad_ es un concepto propio de
-  la **programación imperativa**.
+- Al introducir el concepto de «estado interno mutable» en nuestros datos,
+  estamos introduciendo también la capacidad de cambiar dicho estado, es decir,
+  que, ahora, **los datos abstractos también pueden ser mutables**, y la
+  _mutabilidad_ es un concepto propio de la **programación imperativa**.
 
 - Esto nos va a **impedir representar un _dato abstracto mutable_ usando las
   especificaciones algebraicas** que hemos usado hasta ahora, ya que, a partir
@@ -2376,8 +2378,8 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
 
 ---
 
-- Por ejemplo, definamos una función que simule el proceso de retirar dinero de
-  una cuenta bancaria.
+- Supongamos que queremos definir una función que simule el proceso de retirar
+  dinero de una cuenta bancaria.
 
 - Crearemos una función llamada `retirar`, que tome como argumento una cantidad
   a retirar. Si hay suficiente dinero en la cuenta para permitir la retirada,
@@ -2409,12 +2411,12 @@ q:f0:s -> y1:f0:w [lhead = cluster1, ltail = cluster2, dir = back, minlen = 2]
   lo que la siguiente llamada con el mismo argumento devolverá un resultado
   distinto.
 
-- Este efecto lateral es el resultado de retirar dinero de los fondos
-  disponibles **provocando un cambio en el estado de una variable** que
-  almacena dichos fondos y que se encuentra **fuera del marco actual**.
+- Este efecto lateral consiste en retirar dinero de los fondos disponibles
+  **provocando un cambio en el estado de una variable** que almacena dichos
+  fondos y que se encuentra **fuera del marco de la función**.
 
 - A las operaciones modificadoras que no devuelven un valor nuevo de un
-  determinado tipo abstracto, sino que **modifica directamente el propio
+  determinado tipo abstracto, sino que **modifican directamente el propio
   dato**, las llamaremos **mutadoras**.
 
 - Estas operaciones normalmente necesitan conocer la representación interna del
