@@ -1398,12 +1398,8 @@ E -> mcd [lhead = cluster1]
 
 ---
 
-- Todos los objetos tienen un atributo llamado !PYTHON(__dict__) que contiene
-  un diccionario que almacena los atributos del objeto.
-
-- Los módulos son objetos y, por tanto, también tienen el atributo
-  !PYTHON(__dict__), que en este caso representa, a todos los efectos, al
-  **espacio de nombres** del módulo:
+- Los módulos tienen un atributo llamado !PYTHON(__dict__) que contiene un
+  diccionario que representa al **espacio de nombres** del módulo:
 
   ```python
   >>> import math
@@ -1442,10 +1438,10 @@ E -> mcd [lhead = cluster1]
 
 - !PYTHON(dir()) equivale a !PYTHON(sorted(globals().keys())).
 
-- El ámbito del _script_ donde se almacena un módulo constituye
-  el ámbito global de ese módulo y, al importar un módulo, su marco global
-  debe permanecer en la memoria para que los miembros del módulo puedan acceder
-  a otros elementos del mismo.
+- El ámbito del _script_ donde se almacena un módulo constituye el ámbito
+  global de ese módulo y, al importar un módulo, su marco global debe
+  permanecer en la memoria para que los miembros del módulo puedan acceder a
+  otros elementos del mismo.
 
 ---
 

@@ -194,29 +194,13 @@ Los **pilares fundamentales** de la _POO_ son los siguientes:
 
 ## Atributos
 
-- Los **atributos** de un objeto representan los elementos que el objeto
-  contiene dentro de sí mismo.
+- Los **atributos** de un objeto son los nombres asociados a un objeto que
+  permiten acceder a su estado o a su comportamiento.
 
-- El objeto almacena atributos porque un objeto representa un espacio de
-  nombres.
+- Un objeto representa un **espacio de nombres**, y por eso puede haber varios
+  atributos con el mismo nombre en objetos distintos.
 
-- En concreto, cuando se crea un objeto:
-
-  #. Se guarda el montículo.
-
-  #. Se crea un diccionario y se vincula con el objeto recién creado a través
-     del atributo `__dict__` de éste.
-
-     Ese diccionario representa el espacio de nombres del objeto y, por tanto,
-     almacenará los atributos de éste, asociando el nombre de cada atributo con
-     el valor que tiene ese atributo en el objeto.
-
-- Los atributos pueden almacenar valores de cualquier tipo, incluyendo
-  funciones, ya que las funciones son valores como cualquier otro.
-
----
-
-- A los atributos de un objeto se puede acceder usando el operador punto (`.`),
+- Se puede acceder a los atributos de un objeto usando el operador punto (`.`),
   indicando una referencia al objeto y el nombre del atributo al que se desea
   acceder:
 
@@ -225,36 +209,14 @@ Los **pilares fundamentales** de la _POO_ son los siguientes:
   !NT(objeto)`.`!NT(atributo)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por ejemplo, si importamos el módulo `math` usando `import` obtenemos un
-  objeto al que se puede acceder a través de su nombre, de forma que los
-  elementos que contiene el módulo se convierten en **atributos** del objeto
-  `math`.
+- Existen dos grandes tipos de atributos:
 
-- Entre ellos, hay atributos que representan variables y otros que representan
-  funciones:
+  - **Atributos de datos (_campos_)**: representan el estado del objeto.
+    Normalmente están almacenados dentro del objeto.
 
-  ```python
-  >>> import math
-  >>> math.pi
-  3.141592653589793
-  >>> math.cos(3)
-  -0.9899924966004454
-  ```
-
----
-
-- Como los atributos de un objeto se almacenan en un diccionario al que se
-  accede mediante el atributo `__dict__`, podemos usar éste para acceder a los
-  atributos del objeto, aunque es una práctica muy poco común y, en general, no
-  recomendable:
-
-  ```python
-  >>> import math
-  >>> math.__dict__['pi']
-  3.141592653589793
-  >>> math.__dict__['cos'](3)
-  -0.9899924966004454
-  ```
+  - **Atributos de función (_métodos_)**: son funciones asociadas al objeto,
+    que se invocan sobre éste. Normalmente NO están almacenados dentro del
+    objeto.
 
 ## Clases
 
