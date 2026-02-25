@@ -1372,7 +1372,7 @@ True
     atributos formando una _cápsula_, de forma que, para poder acceder al
     interior, hay que hacerlo necesariamente a través de esas operaciones.
 
-!IMGP(operaciones-capsula.png)(Las operaciones forman una _cápsula_)(width=30%)(width=20%)
+!IMGP(operaciones-capsula.png)(Las operaciones forman una _cápsula_)(width=30%)(width=40%)
 
 ---
 
@@ -1380,7 +1380,7 @@ True
   abstracto y, por tanto, definen de qué manera podemos manipular al objeto
   desde el exterior del mismo.
 
-!IMG(operaciones-capsula.jpg)(Las operaciones forman una _cápsula_)(width=50%)(width=40%)
+!IMG(operaciones-capsula.jpg)(Las operaciones forman una _cápsula_)(width=50%)(width=50%)
 
 #### Visibilidad
 
@@ -1415,7 +1415,7 @@ $$\text{Visibilidad} \begin{cases}
 
 ---
 
-!IMGP(encapsulacion.png)(Miembros _públicos_ y _privados_)(width=60%)(width=50%)
+!IMGP(encapsulacion.png)(Miembros _públicos_ y _privados_)(width=60%)(width=60%)
 
 ---
 
