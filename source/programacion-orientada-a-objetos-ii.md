@@ -1329,7 +1329,7 @@ True
 
   - Los objetos encapsulan:
 
-    - sus _datos_ (su estado interno) y
+    - sus _datos_ (incluyendo su estado interno) y
 
     - sus _operaciones_ (los mensajes a los que puede responder)
 
@@ -1359,7 +1359,7 @@ True
 
 - Los objetos son datos abstractos y, por tanto, su estado interno debería
   manejarse únicamente mediante operaciones definidas a tal efecto, impidiendo
-  el acceso directo a los atributos internos del objeto.
+  el acceso directo a los demás atributos del objeto.
 
 ---
 
@@ -1667,7 +1667,7 @@ $$\text{Visibilidad} \begin{cases}
 
 ---
 
-!CAJA
+!CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Las condiciones que deben cumplir en todo momento las instancias de una clase
 se denominan **invariantes de la clase**.
@@ -1680,7 +1680,9 @@ se denominan **invariantes de la clase**.
 
   ```python
   class Persona:
-      """Invariante: todas las personas deben tener edad no negativa."""
+      """
+      Invariante: todas las personas deben tener edad no negativa.
+      """
       def __init__(self, nombre, edad):
           self.set_nombre(nombre)
           self.set_edad(edad)
@@ -1695,6 +1697,7 @@ se denominan **invariantes de la clase**.
           if edad < 0:
               raise ValueError("La edad no puede ser negativa")
           self.__edad = edad
+
 
   p = Persona("Manuel", 30)   # Es correcto
   print(p.set_nombre())       # Imprime 'Manuel'
@@ -1731,7 +1734,7 @@ se denominan **invariantes de la clase**.
   **especificación** del tipo abstracto (y, por tanto, se deben cumplir
   independientemente de la implementación).
 
-!CAJA
+!CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Cuando implementamos un tipo abstracto mediante una clase, **algunas de esas
 propiedades se traducen en invariantes** de la clase.
@@ -1848,10 +1851,10 @@ propiedades se traducen en invariantes** de la clase.
 - El código anterior quedaría así usando !PYTHON(assert):
 
   ```python
-  """
-  Invariante: todas las personas deben tener edad no negativa.
-  """
   class Persona:
+      """
+      Invariante: todas las personas deben tener edad no negativa.
+      """
       def __init__(self, nombre, edad):
           self.set_nombre(nombre)
           self.set_edad(edad)
@@ -1917,7 +1920,7 @@ class Deposito:
 
     def retirar(self, cantidad):
         if cantidad > self.fondos:                    # Si no hay fondos:
-            raise ValueError("Fondos insuficientes")  # Error
+            raise ValueError('Fondos insuficientes')  # Error
         self.fondos -= cantidad
         return self.fondos
 
@@ -1975,7 +1978,9 @@ class Deposito:
 
   ```python
   class Cola:
-      """Invariante: self.__cantidad == len(self.__items)."""
+      """
+      Invariante: self.__cantidad == len(self.__items).
+      """
       def __init__(self):
           self.__cantidad = 0
           self.__items = []
@@ -1994,17 +1999,17 @@ class Deposito:
           return self.__items
   ```
 
+---
+
 - Se supone que la variable de instancia `__items` es privada y, por tanto,
   sólo se puede acceder a ella desde el interior de la clase.
 
 - El método `get_items` es un _getter_ para la variable de instancia `__items`.
 
----
-
 - En teoría, los únicos métodos con los que podemos modificar el contenido de
   la variable de instancia `__items` son `meter` y `sacar`.
 
-- Sin embargo, podemos hacer así:
+- Sin embargo, podemos hacer ésto:
 
   ```python
   c = Cola()
@@ -2018,8 +2023,8 @@ class Deposito:
   dentro de la instancia de `Cola`, con lo cual podemos modificar la lista
   desde el exterior sin necesidad de usar los _setters_.
 
-- Por tanto, podemos romper los invariantes de la clase, ya que ahora se cumple
-  que `c.__cantidad` vale 2 y !PYTHON(len)`(c.__items)` vale !PYTHON{1} (no
+- Por tanto, podemos romper los invariantes de la clase, ya que ahora
+  `c.__cantidad` vale 2 y !PYTHON(len)`(c.__items)` vale !PYTHON{1} (no
   coinciden).
 
 ---
@@ -2124,11 +2129,11 @@ class Deposito:
 
   Crea una pila vacía (es decir, sin elementos) y la devuelve.
 
-- `apilar(`$p$: _pila_, $elem$`)` $\longrightarrow$ $\emptyset$
+- `apilar(`$p$: _pila_, $e$: _cualquiera_`)` $\longrightarrow$ $\emptyset$
 
   Introduce el elemento $elem$ encima de la pila $p$. Ese elemento pasa a
   estar ahora en la cima de la pila, por lo que tras su ejecución se debe
-  cumplir que `cima(`$p$`)` `==` $elem$. La operación no devuelve ningún
+  cumplir que `cima(`$p$`)` `==` $e$. La operación no devuelve ningún
   resultado.
 
 - `desapilar(`$p$: _pila_`)` $\longrightarrow$ $\emptyset$
@@ -2157,7 +2162,7 @@ class Deposito:
 
   Devuelve $V$ si la pila $p$ no tiene elementos, y $F$ en caso contrario.
 
-- `cima(`$p$: _pila_`)` $\longrightarrow$ $cualquiera$
+- `cima(`$p$: _pila_`)` $\longrightarrow$ _cualquiera_
 
   Devuelve el elemento situado en la cima de la pila. Si la pila está vacía,
   da error.
@@ -2241,10 +2246,6 @@ class Pila:
 
 ---
 
-:::: columns
-
-::: {.column width=60%}
-
 - Las variables de clase se pueden crear y modificar mediante **sentencias de
   asignación** directamente en el _cuerpo_ de la clase, fuera de cualquier
   definición de método:
@@ -2258,7 +2259,7 @@ class Deposito:
 
     def retirar(self, cantidad):
         if cantidad > self.fondos:
-            return 'Fondos insuficientes'
+            raise ValueError('Fondos insuficientes')
         self.fondos -= cantidad
         return self.fondos
 
@@ -2270,9 +2271,7 @@ class Deposito:
         return self.fondos
 ```
 
-:::
-
-::: {.column width=40%}
+---
 
 - Fuera de la clase, o dentro de un método de la clase, estas variables también
   se pueden crear y manipular a través de una referencia a la clase usando la
@@ -2293,10 +2292,6 @@ _clase_`.`_atributo_
 
 - Esto nos indica que las variables de clase se almacenan en la propia clase,
   es decir, en el objeto que representa a la clase.
-
-:::
-
-::::
 
 ---
 
@@ -2352,35 +2347,36 @@ _clase_`.`_atributo_
 ---
 
 - Para acceder al valor de una variable de clase dentro de un método, aunque
-  sea de la misma clase, usaremos la misma sintaxis _clase_`.`_variable_, ya
-  que de lo contrario la variable no estará en el entorno:
+  sea de la misma clase, debemos usar la misma sintaxis \
+  !NT(clase)`.`!NT(variable); de lo contrario, la variable no estará en el
+  entorno:
 
-```python
-class Deposito:
-    interes = 0.02   # Una variable de clase
+  ```python
+  class Deposito:
+      interes = 0.02   # Una variable de clase
 
-    def __init__(self, fondos):
-        self.fondos = fondos
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            return 'Fondos insuficientes'
-        self.fondos -= cantidad
-        return self.fondos
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              raise ValueError('Fondos insuficientes')
+          self.fondos -= cantidad
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def saldo(self):
-        return self.fondos
+      def saldo(self):
+          return self.fondos
 
-    def total(self):
-        # Accede a la variable de clase Deposito.interes para calcular
-        # el saldo total más los intereses (no funciona si intentamos
-        # poner interes en lugar de Deposito.interes):
-        return self.saldo() * (1 + Deposito.interes)
-```
+      def total(self):
+          # Accede a la variable de clase Deposito.interes para calcular
+          # el saldo total más los intereses (no funciona si intentamos
+          # poner interes en lugar de Deposito.interes):
+          return self.saldo() * (1 + Deposito.interes)
+  ```
 
 ---
 
@@ -2402,10 +2398,11 @@ class Deposito:
 
 - En realidad, un método estático es básicamente **una función normal definida
   dentro de una clase** y que está pensada para ser ejecutada como cualquier
-  otra función.
+  otra función, no sobre una instancia como un método.
 
 - Por contraste, los métodos que se ejecutan sobre un objeto se denominan
-  **métodos de instancia**, para distinguirlos de los estáticos.
+  **métodos no estáticos** o **métodos de instancia**, para distinguirlos de
+  los estáticos.
 
 - Al estar definida dentro de la clase, para acceder a un método estático desde
   fuera de la clase o desde un método de la propia clase, hay que usar el
@@ -2415,7 +2412,7 @@ class Deposito:
 
 - Por ejemplo, supongamos una clase `Numero` que representa números.
 
-  Una manera de implementarla sin métodos estáticos sería suponer que cada
+- Una manera de implementarla (sin métodos estáticos) sería suponer que cada
   instancia de la clase representa un número y que las operaciones modifican
   ese número, recibiendo el resto de operandos mediante argumentos:
 
@@ -2445,20 +2442,34 @@ class Deposito:
 
 ---
 
-- Para crear un método estático dentro de una clase:
+- El problema es que no resulta natural entender que un número «cambia» al
+  realizar operaciones con él (por ejemplo, no tiene sentido que `n` pase de
+  ser !PYTHON(4) a ser !PYTHON(7)).
+
+- Es más lógico pensar que las operaciones actúan sobre números pero devuelven
+  nuevos números como resultado.
+
+- Para ello, podemos definir una clase `Calculadora` que ni siquiera hará
+  falta instanciar y que contendrá las operaciones a realizar con números.
+
+- Esas operaciones se definirán como métodos estáticos dentro de la clase
+  `Calculadora`.
+
+- Al estar definidos dentro de la clase `Calculadora`, para acceder a ellos
+  habrá que usar el operador punto (`.`).
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Para **crear un método estático** dentro de una clase:
 
   - Se añade el **decorador** !PYTHON(@staticmethod) justo encima de la
     definición del método.
 
   - El método no debe recibir el parámetro !PYTHON(self).
 
-- Sabiendo eso, podemos crear una clase `Calculadora` que ni siquiera haría
-  falta instanciar y que contendría las operaciones a realizar con los números.
-
-- Esas operaciones serían métodos estáticos.
-
-- Al estar definidos dentro de la clase `Calculadora`, para acceder a ellos
-  habrá que usar el operador punto (`.`).
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -2474,9 +2485,9 @@ class Deposito:
       def mult(x, y):
           return x * y
 
-  s = Calculadora.suma(4, 7)   # Llamamos al método suma directamente sobre la clase
+  s = Calculadora.suma(4, 7)   # Llamamos al método suma directamente desde la clase
   print(s)                     # Imprime 11
-  m = Calculadora.mult(11, 5)  # Llamamos al método mult directamente sobre la clase
+  m = Calculadora.mult(11, 5)  # Llamamos al método mult directamente desde la clase
   print(m)                     # Imprime 55
   ```
 
@@ -2519,9 +2530,9 @@ class Deposito:
 
 ::: column
 
-- En cambio, en la clase `Calculadora`, el método `suma` es estático, no hay
-  objeto _sobre_ el que actuar, así que no se pasa automáticamente ninguna
-  referencia.
+- En cambio, en la clase `Calculadora`, el método `suma` es estático, por lo
+  que no hay objeto _sobre_ el que actuar, así que no se pasa automáticamente
+  ninguna referencia.
 
 - Todos los argumentos deben pasarse expresamente al método:
 
@@ -2546,7 +2557,12 @@ class Deposito:
 
 - En cambio, un método estático sí puede acceder a variables de clase o a otros
   métodos estáticos (de la misma clase o de cualquier otra clase) usando el
-  operador punto (`.`).
+  operador punto (`.`) con el nombre de la clase.
+
+- Asimismo, un método de instancia puede acceder a todos los miembros de su
+  clase, ya sean estáticos o no estáticos, puesto que tiene acceso tanto a la
+  instancia (a través de !PYTHON(self)) como a la clase (a través de su
+  nombre).
 
 ---
 
@@ -2702,9 +2718,11 @@ m = Numero.mult_es(7, 8)
 
 - Ventajas de hacer que la clase sea genérica:
 
-  - Puedes crear `Pila[int]`, `Pila[str]`, `Pila[float]`, etc.
+  - Puedes crear !PYTHON(Pila[int]), !PYTHON(Pila[str]), !PYTHON(Pila[float]),
+    etc.
 
-  - El verificador de tipos (`mypy`, `pyright`) sabrá qué tipo de dato se
-    espera en cada instancia y marcará errores si se intenta usar otro.
+  - El verificador de tipos (`mypy`, `pyright` o cualquier otro) sabrá qué tipo
+    de dato se espera en cada instancia y marcará errores si se intenta usar
+    otro.
 
 !BIBLIOGRAFIA
