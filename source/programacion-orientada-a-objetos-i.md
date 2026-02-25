@@ -94,6 +94,8 @@ el **paso de mensajes** que se intercambian entre ellos con la finalidad de:
 
 ::: {.column width=45%}
 
+!JUNTA
+
 \begingroup
 \setlist[itemize,1]{labelindent=0pt, label=--}
 !CAJA
