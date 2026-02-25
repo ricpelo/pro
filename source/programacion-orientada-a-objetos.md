@@ -310,43 +310,39 @@ En programación orientada a objetos:
 - Recordemos el ejemplo del tema anterior en el que implementamos el tipo
   abstracto de datos **Depósito** mediante la siguiente **función**:
 
-```python
-def deposito(fondos):
-    def retirar(cantidad):
-        nonlocal fondos
-        if cantidad > fondos:
-            raise ValueError('Fondos insuficientes')
-        fondos -= cantidad
-        return fondos
+  ```python
+  def deposito(fondos):
+      def retirar(cantidad):
+          nonlocal fondos
+          if cantidad > fondos:
+              raise ValueError('Fondos insuficientes')
+          fondos -= cantidad
+          return fondos
 
-    def ingresar(cantidad):
-        nonlocal fondos
-        fondos += cantidad
-        return fondos
+      def ingresar(cantidad):
+          nonlocal fondos
+          fondos += cantidad
+          return fondos
 
-    def saldo():
-        return fondos
+      def saldo():
+          return fondos
 
-    def despacho(mensaje):
-        if mensaje == 'retirar':
-            return retirar
-        elif mensaje == 'ingresar':
-            return ingresar
-        elif mensaje == 'saldo':
-            return saldo
-        else:
-            raise ValueError('Mensaje incorrecto')
+      def despacho(mensaje):
+          if mensaje == 'retirar':
+              return retirar
+          elif mensaje == 'ingresar':
+              return ingresar
+          elif mensaje == 'saldo':
+              return saldo
+          else:
+              raise ValueError('Mensaje incorrecto')
 
-    return despacho
-```
+      return despacho
+  ```
 
 ---
 
-- Ese mismo TAD se puede implementar como una **clase** de la siguiente forma:
-
-:::: columns
-
-::: {.column width=60%}
+- Ese mismo TAD se puede implementar como una **clase** así:
 
   ```python
   class Deposito:
@@ -367,16 +363,8 @@ def deposito(fondos):
           return self.fondos
   ```
 
-:::
-
-::: {.column width=40%}
-
 - En el momento en que se ejecute esta definición, el intérprete incorporará
   al sistema un nuevo tipo llamado `Deposito`.
-
-:::
-
-::::
 
 - Más tarde estudiaremos los detalles técnicos que diferencian ambas
   implementaciones, pero ya apreciamos que por cada operación sigue habiendo
@@ -493,9 +481,11 @@ def deposito(fondos):
           return self.fondos
   ```
 
+---
+
 - En la línea 10 tendríamos el siguiente entorno:
 
-  !DOT(entorno-clase-linea10.svg)()(width=80%)(width=65%)
+  !DOT(entorno-clase-linea10.svg)()(width=95%)(width=65%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   compound = true
   graph [rankdir = LR]
@@ -538,6 +528,8 @@ def deposito(fondos):
 
 - En cambio, si hacemos una definición a partir de otra, el orden sí importará.
   Por ejemplo, aquí sí es importante que `hola` se defina antes que `saludo`:
+
+  !JUNTA
 
   ```python
   class Prueba:
@@ -583,7 +575,9 @@ def deposito(fondos):
   programa, y se liga al nombre de la clase en el espacio de nombres actual
   (que normalmente será el marco global).
 
-!IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=55%)(width=70%)
+---
+
+!IMGP(clase-estructura.png)(La clase `Deposito` en memoria)(width=85%)(width=70%)
 
 ---
 
@@ -735,10 +729,6 @@ Los **objetos** tienen tres **características** básicas:
 
 - Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28'Fondos%20insuficientes'%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al definir la clase y al instanciar dicha clase en un nuevo objeto:
 
-:::: columns
-
-::: {.column width=57%}
-
 ```python
 class Deposito:
     def __init__(self, fondos):
@@ -760,18 +750,12 @@ class Deposito:
 dep = Deposito(100)
 ```
 
-:::
-
-::: {.column width=43%}
-
-!IMGP(clase-objeto-estructura.png)(La clase `Deposito` y el objeto `dep` en memoria)(width=100%)(width=70%)
-
-:::
-
-::::
+---
 
 - Se aprecia claramente que la clase almacena los métodos y la instancia
-  almacena sus fondos, y todo son atributos.
+  almacena sus fondos, y todo son atributos:
+
+  !IMGP(clase-objeto-estructura.png)(La clase `Deposito` y el objeto `dep` en memoria)(width=100%)(width=70%)
 
 ---
 
@@ -866,7 +850,7 @@ dep = Deposito(100)
   dentro de éste, por lo que representan *variables locales* al objeto en su
   espacio de nombres.
 
-!DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=40%)(width=55%)
+!DOT(objeto-atributos.svg)(Objeto `dep` y su atributo `fondos`)(width=50%)(width=55%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -925,16 +909,28 @@ subgraph cluster2 {
 - Por supuesto, dos objetos distintos pueden tener valores distintos en sus
   atributos, ya que cada atributo pertenece a un objeto determinado:
 
-  ```python
-  >>> dep1 = Deposito(100)
-  >>> dep2 = Deposito(400)
-  >>> dep1.fondos          # el atributo fondos del objeto dep1 vale 100
-  100
-  >>> dep2.fondos          # el atributo fondos del objeto dep2 vale 400
-  400
-  ```
+:::: columns
 
-!IMGP(clase-dos-objetos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` en memoria)(width=50%)(width=70%)
+::: {.column width=40%}
+
+```python
+>>> dep1 = Deposito(100)
+>>> dep2 = Deposito(400)
+>>> dep1.fondos
+100
+>>> dep2.fondos
+400
+```
+
+:::
+
+::: {.column width=60%}
+
+!IMGP(clase-dos-objetos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` en memoria)(width=95%)(width=70%)
+
+:::
+
+::::
 
 ---
 
@@ -1007,43 +1003,33 @@ subgraph cluster2 {
 
 - Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28'Fondos%20insuficientes'%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20'hola'%0Adep2.otro%20%3D%20'adi%C3%B3s'&cumulative=false&curInstr=11&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar lo que ocurre al instanciar dos objetos y crear atributos distintos en cada objeto:
 
-:::: columns
+  ```python
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-::: {.column width=57%}
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              raise ValueError('Fondos insuficientes')
+          self.fondos -= cantidad
+          return self.fondos
 
-```python
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            raise ValueError('Fondos insuficientes')
-        self.fondos -= cantidad
-        return self.fondos
+      def saldo(self):
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+  dep1 = Deposito(100)
+  dep2 = Deposito(400)
+  dep1.uno = 'hola'
+  dep2.otro = 'adiós'
+  ```
 
-    def saldo(self):
-        return self.fondos
+---
 
-dep1 = Deposito(100)
-dep2 = Deposito(400)
-dep1.uno = 'hola'
-dep2.otro = 'adiós'
-```
-
-:::
-
-::: {.column width=43%}
-
-!IMGP(clase-dos-objetos-atributos-distintos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` con distintos atributos)(width=100%)(width=70%)
-
-:::
-
-::::
+!IMGP(clase-dos-objetos-atributos-distintos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` con distintos atributos)(width=75%)(width=70%)
 
 <!--
 
