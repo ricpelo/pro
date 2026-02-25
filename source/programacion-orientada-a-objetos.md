@@ -1147,6 +1147,9 @@ dep2.otro = 'adiós'
 - Esto no nos pilla de sorpresa, ya que sabíamos que `retirar` es un método
   para el objeto `dep` pero es una función para la clase `Deposito`.
 
+- Las funciones definidas dentro de una clase son métodos para las instancias
+  de esa clase.
+
 ## Ejecución de métodos
 
 - Como las clases implementan las operaciones como métodos, el paso de mensajes
