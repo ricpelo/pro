@@ -514,7 +514,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(cantidad):</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">nonlocal</span> fondos</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> fondos:</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        fondos <span class="op">-=</span> cantidad</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fondos</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -553,7 +553,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -597,7 +597,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Retira una cantidad de dinero del depósito.&quot;&quot;&quot;</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
@@ -678,7 +678,7 @@ class="sourceCode numberSource python number-lines"><code class="sourceCode pyth
 <span id="cb4-4"><a href="#cb4-4"></a></span>
 <span id="cb4-5"><a href="#cb4-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
 <span id="cb4-6"><a href="#cb4-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb4-7"><a href="#cb4-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb4-8"><a href="#cb4-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
 <span id="cb4-9"><a href="#cb4-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb4-10"><a href="#cb4-10"></a></span>
@@ -746,7 +746,7 @@ menos, una referencia que apunte a él.</p></li>
 
 <ul>
 <li><p>Si ejecutamos la anterior definición en el <a
-href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28&#39;Fondos%20insuficientes&#39;%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&amp;cumulative=false&amp;curInstr=1&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Pythontutor</a>, observamos que se crea en memoria un
 objeto que, como cualquier otro objeto, contiene su propio espacio de
 nombres representado con una estructura similar al <strong>diccionario
@@ -927,7 +927,7 @@ debería, al menos) a la hora de escribir nuestros programas.</p></li>
 
 <ul>
 <li>Con <a
-href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28&#39;Fondos%20insuficientes&#39;%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Pythontutor</a> podemos observar las estructuras que se
 forman al definir la clase y al instanciar dicha clase en un nuevo
 objeto:</li>
@@ -941,7 +941,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -1217,7 +1217,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a h
 
 <ul>
 <li>Con <a
-href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20&#39;hola&#39;%0Adep2.otro%20%3D%20&#39;adi%C3%B3s&#39;&amp;cumulative=false&amp;curInstr=11&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28&#39;Fondos%20insuficientes&#39;%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20&#39;hola&#39;%0Adep2.otro%20%3D%20&#39;adi%C3%B3s&#39;&amp;cumulative=false&amp;curInstr=11&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Pythontutor</a> podemos observar lo que ocurre al
 instanciar dos objetos y crear atributos distintos en cada objeto:</li>
 </ul>
@@ -1230,7 +1230,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a h
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -1482,10 +1482,11 @@ data-number="3.3">
 Definición de métodos</h2>
 <ul>
 <li><p>Esa es la razón por la que los métodos se definen siempre con un
-parámetro extra que representa el objeto sobre el que se invoca el
-método (o, dicho de otra forma, el objeto que recibe el
+primer parámetro extra que representa el objeto sobre el que se invoca
+el método (o, dicho de otra forma, el objeto que recibe el
 mensaje).</p></li>
-<li><p>Ese parámetro extra (por regla de estilo) se llama siempre <code
+<li><p>Por regla de estilo y como convenio entre programadores Python,
+ese primer parámetro extra se llama siempre <code
 class="sourceCode python"><span class="va">self</span></code>, si bien
 ese nombre no es ninguna palabra clave y se podría usar cualquier
 otro.</p></li>
@@ -1510,7 +1511,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a h
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -1649,10 +1650,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a h
 <section class="slide level5" data-number="3.3.1.0.2">
 
 <ul>
-<li><p>Por ejemplo: en el siguiente código, al invocar al método
-<code>uno</code> sobre el objeto <code>a</code> de la clase
-<code>A</code>, se tienen los siguientes entornos antes y durante la
-invocación del método:</p>
+<li>En este código, al invocar al método <code>uno</code> sobre el
+objeto <code>a</code> de la clase <code>A</code>, se tienen estos
+entornos antes y durante la invocación del método:</li>
+</ul>
 <div class="columns">
 <div class="column" style="width:35%;">
 <div class="sourceCode" id="cb35"><pre
@@ -1666,24 +1667,25 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a h
 <div class="centered">
 <figure>
 <img data-src="images/entorno-antes-uno.svg" class="plain"
-style="width:80.0%" alt="Entorno antes de la invocación de uno" />
+style="width:85.0%" alt="Entorno antes de la invocación de uno" />
 <figcaption aria-hidden="true">Entorno antes de la invocación de
 <code>uno</code></figcaption>
 </figure>
 </div>
-<p><br></p>
+</div>
+</div>
 <div class="centered">
 <figure>
 <img data-src="images/entorno-durante-uno.svg" class="plain"
-style="width:100.0%" alt="Entorno durante la invocación de uno" />
+style="width:80.0%" alt="Entorno durante la invocación de uno" />
 <figcaption aria-hidden="true">Entorno durante la invocación de
 <code>uno</code></figcaption>
 </figure>
 </div>
-</div>
-</div></li>
-<li><p>El entorno del método no incluye a la propia clase <code>A</code>
-ni al objeto sobre el que se invoca el método.</p></li>
+<p><br></p>
+<ul>
+<li>El entorno del método no incluye a la propia clase <code>A</code> ni
+al objeto sobre el que se invoca el método.</li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.3.1.0.3">
@@ -1698,7 +1700,7 @@ class="sourceCode numberSource python number-lines"><code class="sourceCode pyth
 <span id="cb36-4"><a href="#cb36-4"></a></span>
 <span id="cb36-5"><a href="#cb36-5"></a>    <span class="kw">def</span> retirar(<span class="va">self</span>, cantidad):</span>
 <span id="cb36-6"><a href="#cb36-6"></a>        <span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="va">self</span>.fondos:</span>
-<span id="cb36-7"><a href="#cb36-7"></a>            <span class="cf">return</span> <span class="st">&#39;Fondos insuficientes&#39;</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&#39;Fondos insuficientes&#39;</span>)</span>
 <span id="cb36-8"><a href="#cb36-8"></a>        <span class="va">self</span>.fondos <span class="op">-=</span> cantidad</span>
 <span id="cb36-9"><a href="#cb36-9"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb36-10"><a href="#cb36-10"></a></span>
@@ -1745,12 +1747,13 @@ un comportamiento especial.</p></li>
 class="sourceCode python"><span class="fu">__init__</span></code> se
 invoca automáticamente cada vez que se instancia un nuevo objeto a
 partir de una clase.</p></li>
-<li><p>Coloquialmente, se le suele llamar el
-<strong>constructor</strong> de la clase, y es el responsable de
-<em>inicializar</em> el objeto de forma que tenga un estado inicial
-adecuado desde el momento de su creación.</p></li>
+<li><p>Coloquialmente, se le suele llamar el <strong>constructor de la
+clase</strong>, y es el responsable de <em>inicializar</em> el objeto de
+forma que tenga un estado inicial adecuado desde el momento de su
+creación.</p></li>
 <li><p>Entre otras cosas, el constructor se encarga de asignarle los
-valores iniciales adecuados a los atributos del objeto.</p></li>
+valores iniciales adecuados a las variables de instancia del
+objeto.</p></li>
 <li><p>Ese método recibe como argumentos (además del <code
 class="sourceCode python"><span class="va">self</span></code>) los
 argumentos indicados en la llamada a la clase que se usó para instanciar
@@ -1769,9 +1772,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a h
 <li><p>Ese método <code
 class="sourceCode python"><span class="fu">__init__</span></code> se
 encarga de crear el atributo <code>fondos</code> del objeto que se acaba
-de crear (y que recibe a través del parámetro <code>self</code>),
+de crear (el cual recibe a través del parámetro <code>self</code>),
 asignándole el valor del parámetro <code>fondos</code>.</p>
-<p>¡Cuidado! No confudir la expresión <code
+<p><strong>¡Cuidado!</strong> No confudir la expresión <code
 class="sourceCode python"><span class="va">self</span>.fondos</code> con
 <code>fondos</code>. La primera se refiere al atributo
 <code>fondos</code> del objeto <code
@@ -1784,8 +1787,7 @@ que la segunda se refiere al parámetro <code>fondos</code>.</p></li>
 <ul>
 <li><p>Cuando se crea un nuevo objeto de la clase <code>Deposito</code>,
 llamando a la clase como si fuera una función, se debe indicar entre
-paréntesis (como argumento) el valor del parámetro que luego va a
-recibir el método <code
+paréntesis (como argumento) el valor del otro parámetro del método <code
 class="sourceCode python"><span class="fu">__init__</span></code> (en
 este caso, los fondos iniciales):</p>
 <div class="sourceCode" id="cb38"><pre
@@ -1820,7 +1822,7 @@ devuelve la referencia al objeto.</p></li>
 <h5 class="unnumbered unlisted">Ejercicio</h5>
 <ol start="2" class="example" type="1">
 <li>Comprobar el funcionamiento del constructor en <a
-href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20&#39;Fondos%20insuficientes&#39;%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&amp;cumulative=true&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
+href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28&#39;Fondos%20insuficientes&#39;%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&amp;cumulative=true&amp;curInstr=0&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Pythontutor</a>.</li>
 </ol>
 </section>
@@ -1842,6 +1844,12 @@ referencia al objeto recién creado.</p></li>
 class="math inline">a_1</span><code>,</code><span
 class="math inline">a_2</span><code>,</code><span
 class="math inline">\ldots</span><code>,</code><span
+class="math inline">a_n</span><code>)</code></p>
+<p>Esta llamada se traduce automáticamente a:</p>
+<p><em>C</em><code>.__init__(</code><em>ref</em><code>,</code><span
+class="math inline">a_1</span><code>,</code><span
+class="math inline">a_2</span><code>,</code><span
+class="math inline">\ldots</span><code>,</code><span
 class="math inline">a_n</span><code>)</code></p></li>
 <li><p>Devuelve <em>ref</em>.</p></li>
 </ol></li>
@@ -1854,8 +1862,11 @@ class="math inline">a_n</span><code>)</code></p></li>
 clase se enviarán al método <code
 class="sourceCode python"><span class="fu">__init__</span></code> de la
 clase, lo que significa que tendremos que indicar tantos argumentos (y
-del tipo apropiado) como espere el método <code
-class="sourceCode python"><span class="fu">__init__</span></code>.</p>
+del tipo apropiado) como parámetros tenga el método <code
+class="sourceCode python"><span class="fu">__init__</span></code>
+(<strong>excepto <code
+class="sourceCode python"><span class="va">self</span></code>, que se
+envía automáticamente</strong>).</p>
 <p>En caso contrario, tendremos un error:</p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep <span class="op">=</span> Deposito()  <span class="co"># no indicamos ningún argumento cuando se espera uno</span></span>

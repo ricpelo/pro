@@ -315,7 +315,7 @@ def deposito(fondos):
     def retirar(cantidad):
         nonlocal fondos
         if cantidad > fondos:
-            return 'Fondos insuficientes'
+            raise ValueError('Fondos insuficientes')
         fondos -= cantidad
         return fondos
 
@@ -355,7 +355,7 @@ def deposito(fondos):
 
       def retirar(self, cantidad):
           if cantidad > self.fondos:
-              return 'Fondos insuficientes'
+              raise ValueError('Fondos insuficientes')
           self.fondos -= cantidad
           return self.fondos
 
@@ -401,7 +401,7 @@ def deposito(fondos):
       def retirar(self, cantidad):
           """Retira una cantidad de dinero del depósito."""
           if cantidad > self.fondos:
-              return 'Fondos insuficientes'
+              raise ValueError('Fondos insuficientes')
           self.fondos -= cantidad
           return self.fondos
 
@@ -481,7 +481,7 @@ def deposito(fondos):
 
       def retirar(self, cantidad):
           if cantidad > self.fondos:
-              return 'Fondos insuficientes'
+              raise ValueError('Fondos insuficientes')
           self.fondos -= cantidad
           return self.fondos
 
@@ -572,7 +572,7 @@ def deposito(fondos):
 ---
 
 - Si ejecutamos la anterior definición en el
-  [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"},
+  [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28'Fondos%20insuficientes'%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos&cumulative=false&curInstr=1&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"},
   observamos que se crea en memoria un objeto que, como cualquier otro objeto,
   contiene su propio espacio de nombres representado con una estructura similar
   al **diccionario de despacho** que creábamos antes a mano, el cual almacena
@@ -733,7 +733,7 @@ Los **objetos** tienen tres **características** básicas:
 
 ---
 
-- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al definir la clase y al instanciar dicha clase en un nuevo objeto:
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28'Fondos%20insuficientes'%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al definir la clase y al instanciar dicha clase en un nuevo objeto:
 
 :::: columns
 
@@ -746,7 +746,7 @@ class Deposito:
 
     def retirar(self, cantidad):
         if cantidad > self.fondos:
-            return 'Fondos insuficientes'
+            raise ValueError('Fondos insuficientes')
         self.fondos -= cantidad
         return self.fondos
 
@@ -1005,7 +1005,7 @@ subgraph cluster2 {
 
 ---
 
-- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20'hola'%0Adep2.otro%20%3D%20'adi%C3%B3s'&cumulative=false&curInstr=11&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar lo que ocurre al instanciar dos objetos y crear atributos distintos en cada objeto:
+- Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28'Fondos%20insuficientes'%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29%0Adep2%20%3D%20Deposito%28400%29%0Adep1.uno%20%3D%20'hola'%0Adep2.otro%20%3D%20'adi%C3%B3s'&cumulative=false&curInstr=11&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar lo que ocurre al instanciar dos objetos y crear atributos distintos en cada objeto:
 
 :::: columns
 
@@ -1018,7 +1018,7 @@ class Deposito:
 
     def retirar(self, cantidad):
         if cantidad > self.fondos:
-            return 'Fondos insuficientes'
+            raise ValueError('Fondos insuficientes')
         self.fondos -= cantidad
         return self.fondos
 
@@ -1252,12 +1252,13 @@ dep2.otro = 'adiós'
 
 ## Definición de métodos
 
-- Esa es la razón por la que los métodos se definen siempre con un parámetro
-  extra que representa el objeto sobre el que se invoca el método (o, dicho de
-  otra forma, el objeto que recibe el mensaje).
+- Esa es la razón por la que los métodos se definen siempre con un primer
+  parámetro extra que representa el objeto sobre el que se invoca el método (o,
+  dicho de otra forma, el objeto que recibe el mensaje).
 
-- Ese parámetro extra (por regla de estilo) se llama siempre !PYTHON(self), si
-  bien ese nombre no es ninguna palabra clave y se podría usar cualquier otro.
+- Por regla de estilo y como convenio entre programadores Python, ese primer
+  parámetro extra se llama siempre !PYTHON(self), si bien ese nombre no es
+  ninguna palabra clave y se podría usar cualquier otro.
 
 - Por tanto, siempre que definamos un método, lo haremos como una función que
   tendrá siempre un parámetro extra que será siempre el primero de sus
@@ -1275,7 +1276,7 @@ class Deposito:
 
     def retirar(self, cantidad):
         if cantidad > self.fondos:
-            return 'Fondos insuficientes'
+            raise ValueError('Fondos insuficientes')
         self.fondos -= cantidad
         return self.fondos
 
@@ -1407,103 +1408,102 @@ class Deposito:
 
 ---
 
-- Por ejemplo: en el siguiente código, al invocar al método `uno` sobre el
-  objeto `a` de la clase `A`, se tienen los siguientes entornos antes y durante
-  la invocación del método:
+- En este código, al invocar al método `uno` sobre el objeto `a` de la clase
+  `A`, se tienen estos entornos antes y durante la invocación del método:
 
-  :::: columns
+:::: columns
 
-  ::: {.column width=35%}
+::: {.column width=35%}
 
-  ```python
-  class A:
-      def uno(self):
-          print('Soy uno')
+```python
+class A:
+    def uno(self):
+        print('Soy uno')
 
-  a = A()
-  a.uno()
-  ```
+a = A()
+a.uno()
+```
 
-  :::
+:::
 
-  ::: {.column width=65%}
+::: {.column width=65%}
 
-  !DOT(entorno-antes-uno.svg)(Entorno antes de la invocación de `uno`)(width=80%)(width=70%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  compound = true
-  graph [rankdir = LR]
-  node [fontname = "monospace"]
-  l1 [shape = circle, label = "λ"]
-  subgraph cluster0 {
-      label = "Marco global"
-      bgcolor = white
-      a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
-      A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
-  }
-  A:f1:e -> uno:s [lhead = cluster2, minlen = 2]
-  subgraph cluster1 {
-      label = "Objeto"
-      bgcolor = white
-      style = rounded
-      __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
-  }
-  subgraph cluster2 {
-      label = <Clase <b>A</b>>
-      bgcolor = white
-      style = rounded
-      uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
-  }
-  uno:f1 -> l1
-  __class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
-  a:f1 -> __class__ [lhead = cluster1, minlen = 2]
-  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-  E -> a [lhead = cluster0]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!DOT(entorno-antes-uno.svg)(Entorno antes de la invocación de `uno`)(width=85%)(width=70%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+l1 [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = white
+    a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
+    A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
+}
+A:f1:e -> uno:s [lhead = cluster2, minlen = 2]
+subgraph cluster1 {
+    label = "Objeto"
+    bgcolor = white
+    style = rounded
+    __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+}
+subgraph cluster2 {
+    label = <Clase <b>A</b>>
+    bgcolor = white
+    style = rounded
+    uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
+}
+uno:f1 -> l1
+__class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
+a:f1 -> __class__ [lhead = cluster1, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> a [lhead = cluster0]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  !SALTO
+:::
 
-  !DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=100%)(width=80%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  compound = true
-  graph [rankdir = LR]
-  node [fontname = "monospace"]
-  l1 [shape = circle, label = "λ"]
-  subgraph cluster0 {
-      label = "Marco global"
-      bgcolor = white
-      a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
-      A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
-  }
-  A:f1:e -> uno:n [lhead = cluster2, minlen = 2]
-  subgraph cluster1 {
-      label = <Marco de <b>uno</b>>
-      bgcolor = white
-      self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
-  }
-  self -> A:w [lhead = cluster0, ltail = cluster1, minlen = 2]
-  subgraph cluster2 {
-      label = <Clase <b>A</b>>
-      bgcolor = white
-      style = rounded
-      uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
-  }
-  subgraph cluster3 {
-      label = "Objeto"
-      bgcolor = white
-      style = rounded
-      __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
-  }
-  uno:f1 -> l1
-  self:f1:s -> __class__ [lhead = cluster3, minlen = 2]
-  a:f1 -> __class__ [lhead = cluster3, minlen = 2]
-  __class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
-  E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
-  E -> self [lhead = cluster1]
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+::::
 
-  :::
+!DOT(entorno-durante-uno.svg)(Entorno durante la invocación de `uno`)(width=80%)(width=80%)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compound = true
+graph [rankdir = LR]
+node [fontname = "monospace"]
+l1 [shape = circle, label = "λ"]
+subgraph cluster0 {
+    label = "Marco global"
+    bgcolor = white
+    a [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>a|<f1>⬤}"]
+    A [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>A|<f1>⬤}"]
+}
+A:f1:e -> uno:n [lhead = cluster2, minlen = 2]
+subgraph cluster1 {
+    label = <Marco de <b>uno</b>>
+    bgcolor = white
+    self [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>self|<f1>⬤}"]
+}
+self -> A:w [lhead = cluster0, ltail = cluster1, minlen = 2]
+subgraph cluster2 {
+    label = <Clase <b>A</b>>
+    bgcolor = white
+    style = rounded
+    uno [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>uno|<f1>⬤}"]
+}
+subgraph cluster3 {
+    label = "Objeto"
+    bgcolor = white
+    style = rounded
+    __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+}
+uno:f1 -> l1
+self:f1:s -> __class__ [lhead = cluster3, minlen = 2]
+a:f1 -> __class__ [lhead = cluster3, minlen = 2]
+__class__:f1:e -> uno:f1:w [lhead = cluster2, minlen = 2]
+E [shape = plaintext, fillcolor = transparent, margin = 0.1, width = 0.1]
+E -> self [lhead = cluster1]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  ::::
+!SALTO
 
 - El entorno del método no incluye a la propia clase `A` ni al objeto sobre el
   que se invoca el método.
@@ -1519,7 +1519,7 @@ class Deposito:
 
       def retirar(self, cantidad):
           if cantidad > self.fondos:
-              return 'Fondos insuficientes'
+              raise ValueError('Fondos insuficientes')
           self.fondos -= cantidad
           return self.fondos
 
@@ -1609,12 +1609,12 @@ class Deposito:
 - En concreto, el método !PYTHON(__init__) se invoca automáticamente cada vez
   que se instancia un nuevo objeto a partir de una clase.
 
-- Coloquialmente, se le suele llamar el **constructor** de la clase, y es el
+- Coloquialmente, se le suele llamar el **constructor de la clase**, y es el
   responsable de *inicializar* el objeto de forma que tenga un estado inicial
   adecuado desde el momento de su creación.
 
 - Entre otras cosas, el constructor se encarga de asignarle los valores
-  iniciales adecuados a los atributos del objeto.
+  iniciales adecuados a las variables de instancia del objeto.
 
 - Ese método recibe como argumentos (además del !PYTHON(self)) los argumentos
   indicados en la llamada a la clase que se usó para instanciar el objeto.
@@ -1631,10 +1631,10 @@ class Deposito:
   ```
 
 - Ese método !PYTHON(__init__) se encarga de crear el atributo `fondos` del
-  objeto que se acaba de crear (y que recibe a través del parámetro `self`),
+  objeto que se acaba de crear (el cual recibe a través del parámetro `self`),
   asignándole el valor del parámetro `fondos`.
 
-  ¡Cuidado! No confudir la expresión !PYTHON(self.fondos) con `fondos`. La
+  **¡Cuidado!** No confudir la expresión !PYTHON(self.fondos) con `fondos`. La
   primera se refiere al atributo `fondos` del objeto !PYTHON(self), mientras
   que la segunda se refiere al parámetro `fondos`.
 
@@ -1642,8 +1642,8 @@ class Deposito:
 
 - Cuando se crea un nuevo objeto de la clase `Deposito`, llamando a la clase
   como si fuera una función, se debe indicar entre paréntesis (como argumento)
-  el valor del parámetro que luego va a recibir el método !PYTHON{__init__} (en
-  este caso, los fondos iniciales):
+  el valor del otro parámetro del método !PYTHON{__init__} (en este caso, los
+  fondos iniciales):
 
   ```python
   dep = Deposito(100)
@@ -1668,7 +1668,7 @@ class Deposito:
 
 !EJERCICIO
 
-@. Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20'Fondos%20insuficientes'%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&cumulative=true&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}.
+@. Comprobar el funcionamiento del constructor en [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28'Fondos%20insuficientes'%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep1%20%3D%20Deposito%28100%29&cumulative=true&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target=\_blank}.
 
 ---
 
@@ -1682,14 +1682,19 @@ class Deposito:
 
   2. Invoca a *ref*`.__init__(`$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
 
+     Esta llamada se traduce automáticamente a:
+
+     *C*`.__init__(`*ref*`, `$a_1$`, `$a_2$`, `$\ldots$`, `$a_n$`)`
+
   3. Devuelve *ref*.
 
 ---
 
 - En consecuencia, los argumentos que se indican al instanciar una clase se
   enviarán al método !PYTHON(__init__) de la clase, lo que significa que
-  tendremos que indicar tantos argumentos (y del tipo apropiado) como espere el
-  método !PYTHON(__init__).
+  tendremos que indicar tantos argumentos (y del tipo apropiado) como
+  parámetros tenga el método !PYTHON{__init__} (**excepto !PYTHON(self), que se
+  envía automáticamente**).
 
   En caso contrario, tendremos un error:
 
