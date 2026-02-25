@@ -2510,14 +2510,15 @@ Es decir: cada módulo debe ser una cápsula recelosa de su privacidad que tiene
 
 - Él propuso otro criterio mucho más potente:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Dividir el programa según lo que pueda cambiar, no según lo que hace.
+  Dividir el programa según lo que pueda cambiar,\
+  no según lo que hace.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - O, dicho de otra forma:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   No diseñes módulos por lo que hacen, sino por lo que quieres proteger del
   cambio.
