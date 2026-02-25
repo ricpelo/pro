@@ -1307,14 +1307,14 @@ class Deposito:
 - Dentro del programa, la expresión `dep.saldo()` se traducirá como
   `Deposito.saldo(dep)`.
 
-- Es importante recordar que **el parámetro !PYTHON(self) se pasa
-  automáticamente** durante la llamada al método y, por tanto, **no debemos
-  pasarlo nosotros** o se producirá un error por intentar pasar más parámetros
-  de los requeridos por el método.
+- Es importante recordar que **el parámetro !PYTHON(self) recibe
+  automáticamente su argumento** durante la llamada al método y, por tanto,
+  **no debemos pasarlo nosotros** o se producirá un error por intentar pasar más
+  argumentos de los requeridos por el método.
 
 ---
 
-- El método `ingresar` tiene otro argumento además del !PYTHON(self), que es la
+- El método `ingresar` tiene otro parámetro además del !PYTHON(self), que es la
   cantidad a ingresar:
 
   ```python
