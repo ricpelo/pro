@@ -226,39 +226,52 @@ Los **pilares fundamentales** de la _POO_ son los siguientes:
 
 - Existen cuatro tipos principales de atributos:
 
-  - Datos (_campos_): representan el estado interno del objeto.
+  - **Datos (_campos_)**: representan el estado interno del objeto.
+
+    Pueden ser:
 
     - Variables.
 
     - Constantes.
 
-  - Comportamiento: representan el comportamiento del objeto, es decir, qué
+  - **Comportamiento**: representan el comportamiento del objeto, es decir, qué
     puede hacer el objeto o qué mensajes puede recibir.
 
-    - Funciones del objeto.
+    Pueden ser:
+
+    - Funciones internas del objeto.
 
     - Métodos.
 
 ---
 
-- **Atributos de datos (_campos_)**:
+- **Variables**:
+
+  - También llamadas **variables de instancia**.
 
   - Representan el estado interno del objeto.
 
-  - Pueden ser variables o constantes.
+  - Normalmente, se almacenan dentro del objeto, en su espacio de nombres.
 
-  - Normalmente, las variables se almacenan dentro del objeto (en su espacio de
-    nombres), pero las constantes suelen guardarse en un espacio de nombres
-    común a todos los objetos del mismo tipo.
+- **Constantes**:
 
-- **Atributos de función**:
+  - También llamadas **constantes de instancia**.
+
+  - Normalmente suelen guardarse en un espacio de nombres común a todos los
+    objetos del mismo tipo.
+
+---
+
+- **Funciones internas del objeto**:
 
   - Son funciones almacenadas dentro del objeto, por lo que sus ligaduras se
     guardan en su espacio de nombres.
 
   - Actúan como cualquier otra función y se invocan como tal.
 
-- **Atributos de _métodos_**:
+- **Métodos**:
+
+  - También llamados **métodos de instancia**.
 
   - Son funciones que se invocan sobre el objeto, como un argumento
     destacado.
@@ -842,9 +855,12 @@ dep = Deposito(100)
 ### Variables de instancia
 
 - En terminología orientada a objetos, el estado de un objeto se almacena en
-  variables denominadas **variables de instancia**, **campos** o
-  **propiedades** del objeto (si bien, en Python el concepto de _propiedad_
-  tiene un significado específico).
+  variables denominadas **variables de instancia** o **propiedades** del objeto
+  (si bien, en Python el concepto de _propiedad_ tiene un significado
+  específico).
+
+  Las constantes de instancia también pueden considerarse parte del estado de
+  un objeto, si bien nunca cambian durante la vida de éste.
 
 - Esas variables de instancia se almacenan como **atributos** del objeto,
   dentro de éste, por lo que representan *variables locales* al objeto en su
@@ -923,7 +939,7 @@ subgraph cluster2 {
 ---
 
 - En Python es posible acceder directamente al estado interno de un objeto (o,
-  lo que es lo mismo, al valor de sus atributos) desde el exterior del mismo,
+  lo que es lo mismo, al valor de sus campos) desde el exterior del mismo,
   cosa que, en principio, podría considerarse una _violación_ del **principio
   de ocultación de información** y del concepto mismo de **abstracción de
   datos**.
@@ -1082,6 +1098,8 @@ dep2.otro = 'adiós'
   #. Si lo encuentra, devuelve su valor.
 
   #. En caso contrario, lo busca en la clase del objeto.
+
+- Puede haber más clases involucradas, como veremos posteriormente.
 
 ---
 

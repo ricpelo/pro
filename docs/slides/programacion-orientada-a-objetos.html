@@ -429,16 +429,19 @@ nombre en objetos distintos.</p></li>
 <ul>
 <li><p>Existen cuatro tipos principales de atributos:</p>
 <ul>
-<li><p>Datos (<em>campos</em>): representan el estado interno del
-objeto.</p>
+<li><p><strong>Datos (<em>campos</em>)</strong>: representan el estado
+interno del objeto.</p>
+<p>Pueden ser:</p>
 <ul>
 <li><p>Variables.</p></li>
 <li><p>Constantes.</p></li>
 </ul></li>
-<li><p>Comportamiento: representan el comportamiento del objeto, es
-decir, qué puede hacer el objeto o qué mensajes puede recibir.</p>
+<li><p><strong>Comportamiento</strong>: representan el comportamiento
+del objeto, es decir, qué puede hacer el objeto o qué mensajes puede
+recibir.</p>
+<p>Pueden ser:</p>
 <ul>
-<li><p>Funciones del objeto.</p></li>
+<li><p>Funciones internas del objeto.</p></li>
 <li><p>Métodos.</p></li>
 </ul></li>
 </ul></li>
@@ -447,23 +450,36 @@ decir, qué puede hacer el objeto o qué mensajes puede recibir.</p>
 <section class="slide level5" data-number="2.1.0.0.3">
 
 <ul>
-<li><p><strong>Atributos de datos (<em>campos</em>)</strong>:</p>
+<li><p><strong>Variables</strong>:</p>
 <ul>
+<li><p>También llamadas <strong>variables de
+instancia</strong>.</p></li>
 <li><p>Representan el estado interno del objeto.</p></li>
-<li><p>Pueden ser variables o constantes.</p></li>
-<li><p>Normalmente, las variables se almacenan dentro del objeto (en su
-espacio de nombres), pero las constantes suelen guardarse en un espacio
-de nombres común a todos los objetos del mismo tipo.</p></li>
+<li><p>Normalmente, se almacenan dentro del objeto, en su espacio de
+nombres.</p></li>
 </ul></li>
-<li><p><strong>Atributos de función</strong>:</p>
+<li><p><strong>Constantes</strong>:</p>
+<ul>
+<li><p>También llamadas <strong>constantes de
+instancia</strong>.</p></li>
+<li><p>Normalmente suelen guardarse en un espacio de nombres común a
+todos los objetos del mismo tipo.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="2.1.0.0.4">
+
+<ul>
+<li><p><strong>Funciones internas del objeto</strong>:</p>
 <ul>
 <li><p>Son funciones almacenadas dentro del objeto, por lo que sus
 ligaduras se guardan en su espacio de nombres.</p></li>
 <li><p>Actúan como cualquier otra función y se invocan como
 tal.</p></li>
 </ul></li>
-<li><p><strong>Atributos de <em>métodos</em></strong>:</p>
+<li><p><strong>Métodos</strong>:</p>
 <ul>
+<li><p>También llamados <strong>métodos de instancia</strong>.</p></li>
 <li><p>Son funciones que se invocan sobre el objeto, como un argumento
 destacado.</p></li>
 <li><p>NO están almacenados dentro del objeto, ya que el comportamiento
@@ -1069,9 +1085,12 @@ Variables de instancia</h3>
 <ul>
 <li><p>En terminología orientada a objetos, el estado de un objeto se
 almacena en variables denominadas <strong>variables de
-instancia</strong>, <strong>campos</strong> o
-<strong>propiedades</strong> del objeto (si bien, en Python el concepto
-de <em>propiedad</em> tiene un significado específico).</p></li>
+instancia</strong> o <strong>propiedades</strong> del objeto (si bien,
+en Python el concepto de <em>propiedad</em> tiene un significado
+específico).</p>
+<p>Las constantes de instancia también pueden considerarse parte del
+estado de un objeto, si bien nunca cambian durante la vida de
+éste.</p></li>
 <li><p>Esas variables de instancia se almacenan como
 <strong>atributos</strong> del objeto, dentro de éste, por lo que
 representan <em>variables locales</em> al objeto en su espacio de
@@ -1140,8 +1159,8 @@ objetos <code>dep1</code> y <code>dep2</code> en memoria</figcaption>
 
 <ul>
 <li><p>En Python es posible acceder directamente al estado interno de un
-objeto (o, lo que es lo mismo, al valor de sus atributos) desde el
-exterior del mismo, cosa que, en principio, podría considerarse una
+objeto (o, lo que es lo mismo, al valor de sus campos) desde el exterior
+del mismo, cosa que, en principio, podría considerarse una
 <em>violación</em> del <strong>principio de ocultación de
 información</strong> y del concepto mismo de <strong>abstracción de
 datos</strong>.</p></li>
@@ -1319,6 +1338,8 @@ el intérprete es lo siguiente:</p>
 <li><p>Si lo encuentra, devuelve su valor.</p></li>
 <li><p>En caso contrario, lo busca en la clase del objeto.</p></li>
 </ol></li>
+<li><p>Puede haber más clases involucradas, como veremos
+posteriormente.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.1.0.0.1">
