@@ -194,11 +194,12 @@ Los **pilares fundamentales** de la _POO_ son los siguientes:
 
 ## Atributos
 
-- Los **atributos** de un objeto son los nombres asociados a un objeto que
-  permiten acceder a su estado o a su comportamiento.
+- Los **atributos** o **miembros** de un objeto son los nombres asociados a un
+  objeto que permiten acceder a sus características principales, es decir:
 
-- Un objeto representa un **espacio de nombres**, y por eso puede haber varios
-  atributos con el mismo nombre en objetos distintos.
+  - su estado y
+
+  - su comportamiento.
 
 - Se puede acceder a los atributos de un objeto usando el operador punto (`.`),
   indicando una referencia al objeto y el nombre del atributo al que se desea
@@ -209,14 +210,63 @@ Los **pilares fundamentales** de la _POO_ son los siguientes:
   !NT(objeto)`.`!NT(atributo)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Existen dos grandes tipos de atributos:
+---
 
-  - **Atributos de datos (_campos_)**: representan el estado del objeto.
-    Normalmente están almacenados dentro del objeto.
+- Los objetos llevan asociado su propio **espacio de nombres**.
 
-  - **Atributos de función (_métodos_)**: son funciones asociadas al objeto,
-    que se invocan sobre éste. Normalmente NO están almacenados dentro del
-    objeto.
+- El proceso de localizar (si es que existe) la ligadura adecuada que liga,
+  para un objeto concreto, a un nombre de atributo con su valor se denomina
+  **resolución del atributo**, y es un proceso en el que participa el espacio
+  de nombres del objeto pero posiblemente también otros.
+
+- Esto permite que pueda haber atributos distintos con el mismo nombre en
+  objetos distintos.
+
+---
+
+- Existen cuatro tipos principales de atributos:
+
+  - Datos (_campos_): representan el estado interno del objeto.
+
+    - Variables.
+
+    - Constantes.
+
+  - Comportamiento: representan el comportamiento del objeto, es decir, qué
+    puede hacer el objeto o qué mensajes puede recibir.
+
+    - Funciones del objeto.
+
+    - Métodos.
+
+---
+
+- **Atributos de datos (_campos_)**:
+
+  - Representan el estado interno del objeto.
+
+  - Pueden ser variables o constantes.
+
+  - Normalmente, las variables se almacenan dentro del objeto (en su espacio de
+    nombres), pero las constantes suelen guardarse en un espacio de nombres
+    común a todos los objetos del mismo tipo.
+
+- **Atributos de función**:
+
+  - Son funciones almacenadas dentro del objeto, por lo que sus ligaduras se
+    guardan en su espacio de nombres.
+
+  - Actúan como cualquier otra función y se invocan como tal.
+
+- **Atributos de _métodos_**:
+
+  - Son funciones que se invocan sobre el objeto, como un argumento
+    destacado.
+
+  - NO están almacenados dentro del objeto, ya que el comportamiento suele
+    ser el mismo entre todos los objetos del mismo tipo, por lo que se
+    almacenan en otro espacio de nombres común a todos los objetos del mismo
+    tipo.
 
 ## Clases
 
