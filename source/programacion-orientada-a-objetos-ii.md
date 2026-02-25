@@ -15,17 +15,20 @@ nocite: |
 - La **identidad** describe la propiedad que tienen los objetos de distinguirse
   de los demás objetos.
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~
-  Dos objetos del mismo tipo son **idénticos** si un cambio en cualquiera de
-  los dos objetos provoca también el mismo cambio en el otro objeto.
-  ~~~~~~~~~~~~~~~~
+!CAJACENTRADA
+~~~~~~~~~~~~~~~~
+Dos objetos del mismo tipo son **idénticos** si un cambio en cualquiera de
+los dos objetos provoca también el mismo cambio en el otro objeto.
+~~~~~~~~~~~~~~~~
 
 - Dicho de otra forma: dos objetos son idénticos si son intercambiables en el
   código fuente del programa sin que se vea afectado el comportamiento del
   mismo.
 
-- Es evidente que dos objetos de distinto tipo no pueden ser idénticos.
+- Intuitivamente, se refiere al hecho de que los dos objetos sean en realidad
+  **_el mismo_ objeto**.
+
+- Es evidente que **dos objetos de distinto tipo no pueden ser idénticos**.
 
 ---
 
@@ -34,6 +37,10 @@ nocite: |
 
 - Entre ellos, el problema de determinar si dos objetos son «el mismo objeto»,
   es decir, si son _idénticos_.
+
+- De hecho, el problema de la identidad no se da con objetos inmutables.
+
+---
 
 - Por ejemplo, supongamos que hacemos:
 
@@ -56,6 +63,9 @@ nocite: |
 
   - De hecho, `res1` puede sustituirse por `res2` (y viceversa) en cualquier
     lugar del programa sin que afecte a su funcionamiento.
+
+- Como los objetos así creados son **inmutables** y se han creado iguales, no
+  importa demasiado si son el mismo objeto o no.
 
 ---
 
@@ -80,15 +90,14 @@ nocite: |
     100
     ```
 
-  - Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales» en el
+  - Incluso aunque podamos pensar que `dep1` y `dep2` son «iguales», en el
     sentido de que ambos han sido creados evaluando la misma expresión
-    (!PYTHON(Deposito(100))), no es verdad que podamos sustituir `dep1` por
-    `dep2` (o viceversa) en cualquier parte del programa sin afectar a su
-    funcionamiento.
+    (!PYTHON(Deposito(100))), no podemos sustituir `dep1` por `dep2` (o
+    viceversa) en ninguna parte del programa sin afectar a su funcionamiento.
 
 ---
 
-- Es otra forma de decir que **los objetos no tienen transparencia
+- Es otra forma de decir que, en general, **los objetos no tienen transparencia
   referencial**, ya que se pierde en el momento en que incorporamos **estado y
   mutabilidad** en nuestro modelo computacional.
 
@@ -128,10 +137,12 @@ nocite: |
   dep_Pablo = Deposito(100)
   ```
 
-  los dos depósitos son distintos.
+  estaremos creando dos depósitos separados e independientes.
 
   Por tanto, las operaciones realizadas en el depósito de Pedro no afectarán al
   de Pablo, y viceversa.
+
+---
 
 - En cambio, si los creamos así:
 
@@ -199,11 +210,11 @@ nocite: |
 
 - Si Pedro y Pablo sólo pudieran comprobar los saldos de sus depósitos y no
   pudieran realizar operaciones que cambiaran sus fondos, entonces no haría
-  falta comprobar si los dos depósitos son distintos o si por el contrario son
-  realmente el mismo depósito. Daría igual.
+  falta comprobar si los dos depósitos son realmente dos objetos separados o
+  si por el contrario son el mismo depósito. Daría igual.
 
 - En general, siempre que no se puedan modificar los objetos, podemos suponer
-  que un objeto compuesto se define como la suma de sus partes.
+  que un objeto compuesto se define e identifica como la suma de sus partes.
 
 - Pero esto deja de ser válido cuando incorporamos mutabilidad, porque entonces
   un objeto compuesto tiene una «identidad» que es algo diferente de las partes
@@ -234,6 +245,9 @@ nocite: |
 - Pero también podemos tener dos depósitos distintos con el mismo estado
   interno.
 
+- No olvidemos que dos objetos pueden ser **iguales** y, en cambio, no ser
+  *idénticos*.
+
 - Esta complicación es consecuencia, no de nuestro lenguaje de programación,
   sino de nuestra percepción del depósito bancario como un objeto.
 
@@ -247,8 +261,6 @@ nocite: |
 - Esto es así ya que, por lo general, las referencias se corresponden con
   direcciones de memoria. Es decir: una referencia a un objeto normalmente
   representa la dirección de memoria donde se empieza a almacenar dicho objeto.
-
-- Dos objetos pueden ser **iguales** y, en cambio, no ser *idénticos*.
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -268,7 +280,7 @@ nocite: |
 - La forma de comprobar en Python si dos objetos son *idénticos* es usar el
   operador `is` que ya conocemos:
 
-  !CAJA
+  !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~
   La expresión $\underline{\textbf{\textit{o}}\ \texttt{is}\ \textbf{\textit{p}}}$
   devolverá `True` si tanto **_o_** como **_p_** son referencias al mismo
@@ -2106,7 +2118,7 @@ class Deposito:
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Operaciones constructoras y modificadoras:**
+**Operaciones constructoras y mutadoras:**
 
 - `pila()` $\longrightarrow$ _pila_
 

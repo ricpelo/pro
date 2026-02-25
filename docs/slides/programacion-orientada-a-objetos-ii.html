@@ -213,17 +213,21 @@ Identidad</h2>
 <li><p>Ya hemos dicho que los objetos tienen existencia propia e
 independiente.</p></li>
 <li><p>La <strong>identidad</strong> describe la propiedad que tienen
-los objetos de distinguirse de los demás objetos.</p>
-<div class="caja">
+los objetos de distinguirse de los demás objetos.</p></li>
+</ul>
+<div class="caja centered">
 <p>Dos objetos del mismo tipo son <strong>idénticos</strong> si un
 cambio en cualquiera de los dos objetos provoca también el mismo cambio
 en el otro objeto.</p>
-</div></li>
+</div>
+<ul>
 <li><p>Dicho de otra forma: dos objetos son idénticos si son
 intercambiables en el código fuente del programa sin que se vea afectado
 el comportamiento del mismo.</p></li>
-<li><p>Es evidente que dos objetos de distinto tipo no pueden ser
-idénticos.</p></li>
+<li><p>Intuitivamente, se refiere al hecho de que los dos objetos sean
+en realidad <strong><em>el mismo</em> objeto</strong>.</p></li>
+<li><p>Es evidente que <strong>dos objetos de distinto tipo no pueden
+ser idénticos</strong>.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
@@ -234,6 +238,13 @@ computacional, muchos conceptos que antes eran sencillos se vuelven
 problemáticos.</p></li>
 <li><p>Entre ellos, el problema de determinar si dos objetos son «el
 mismo objeto», es decir, si son <em>idénticos</em>.</p></li>
+<li><p>De hecho, el problema de la identidad no se da con objetos
+inmutables.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.2">
+
+<ul>
 <li><p>Por ejemplo, supongamos que hacemos:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> restador(cantidad):</span>
@@ -255,9 +266,12 @@ argumento).</p></li>
 <code>res2</code> (y viceversa) en cualquier lugar del programa sin que
 afecte a su funcionamiento.</p></li>
 </ul></li>
+<li><p>Como los objetos así creados son <strong>inmutables</strong> y se
+han creado iguales, no importa demasiado si son el mismo objeto o
+no.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.2">
+<section class="slide level5" data-number="1.1.0.0.3">
 
 <ul>
 <li><p>En cambio, supongamos que hacemos dos llamadas a <code
@@ -278,22 +292,22 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dep2.saldo()  <span class="co"># El mismo mensaje, da un resultado distinto en dep2</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span></span></code></pre></div></li>
 <li><p>Incluso aunque podamos pensar que <code>dep1</code> y
-<code>dep2</code> son «iguales» en el sentido de que ambos han sido
+<code>dep2</code> son «iguales», en el sentido de que ambos han sido
 creados evaluando la misma expresión (<code
 class="sourceCode python">Deposito(<span class="dv">100</span>)</code>),
-no es verdad que podamos sustituir <code>dep1</code> por
-<code>dep2</code> (o viceversa) en cualquier parte del programa sin
-afectar a su funcionamiento.</p></li>
+no podemos sustituir <code>dep1</code> por <code>dep2</code> (o
+viceversa) en ninguna parte del programa sin afectar a su
+funcionamiento.</p></li>
 </ul></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.3">
+<section class="slide level5" data-number="1.1.0.0.4">
 
 <ul>
-<li><p>Es otra forma de decir que <strong>los objetos no tienen
-transparencia referencial</strong>, ya que se pierde en el momento en
-que incorporamos <strong>estado y mutabilidad</strong> en nuestro modelo
-computacional.</p></li>
+<li><p>Es otra forma de decir que, en general, <strong>los objetos no
+tienen transparencia referencial</strong>, ya que se pierde en el
+momento en que incorporamos <strong>estado y mutabilidad</strong> en
+nuestro modelo computacional.</p></li>
 <li><p>Pero al perder la transparencia referencial, se vuelve más
 difícil de definir de una manera formal y rigurosa qué es lo que
 significa que dos objetos sean «el mismo objeto».</p></li>
@@ -306,7 +320,7 @@ observando a continuación si el otro ha cambiado de la misma
 forma.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.4">
+<section class="slide level5" data-number="1.1.0.0.5">
 
 <ul>
 <li><p>Pero la única manera de saber si un objeto ha «cambiado» es
@@ -321,7 +335,7 @@ cambio.</p></li>
 depende del otro y viceversa.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.5">
+<section class="slide level5" data-number="1.1.0.0.6">
 
 <ul>
 <li><p>Por ejemplo, supongamos que Pedro y Pablo tienen un depósito con
@@ -330,9 +344,14 @@ depende del otro y viceversa.</p></li>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dep_Pablo <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
-<p>los dos depósitos son distintos.</p>
+<p>estaremos creando dos depósitos separados e independientes.</p>
 <p>Por tanto, las operaciones realizadas en el depósito de Pedro no
 afectarán al de Pablo, y viceversa.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.7">
+
+<ul>
 <li><p>En cambio, si los creamos así:</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dep_Pedro <span class="op">=</span> Deposito(<span class="dv">100</span>)</span>
@@ -375,7 +394,7 @@ compartido, y si Pedro hace una retirada de efectivo a través de
 
 -->
 </section>
-<section class="slide level5" data-number="1.1.0.0.6">
+<section class="slide level5" data-number="1.1.0.0.8">
 
 <ul>
 <li><p>Estas dos situaciones, similares pero distintas, pueden provocar
@@ -389,25 +408,25 @@ recordar buscar también los sitios donde se cambie a
 <code>dep_Pablo</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.7">
+<section class="slide level5" data-number="1.1.0.0.9">
 
 <ul>
 <li><p>Los problemas de identidad sólo se da cuando permitimos que los
 objetos sean mutables.</p></li>
 <li><p>Si Pedro y Pablo sólo pudieran comprobar los saldos de sus
 depósitos y no pudieran realizar operaciones que cambiaran sus fondos,
-entonces no haría falta comprobar si los dos depósitos son distintos o
-si por el contrario son realmente el mismo depósito. Daría
+entonces no haría falta comprobar si los dos depósitos son realmente dos
+objetos separados o si por el contrario son el mismo depósito. Daría
 igual.</p></li>
 <li><p>En general, siempre que no se puedan modificar los objetos,
-podemos suponer que un objeto compuesto se define como la suma de sus
-partes.</p></li>
+podemos suponer que un objeto compuesto se define e identifica como la
+suma de sus partes.</p></li>
 <li><p>Pero esto deja de ser válido cuando incorporamos mutabilidad,
 porque entonces un objeto compuesto tiene una «identidad» que es algo
 diferente de las partes que lo componen.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.8">
+<section class="slide level5" data-number="1.1.0.0.10">
 
 <ul>
 <li><p>Por ejemplo, un número racional viene definido por su numerador y
@@ -427,19 +446,21 @@ class="math inline">\frac{4}{3}</span> modificado. Éste ya no
 está.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.9">
+<section class="slide level5" data-number="1.1.0.0.11">
 
 <ul>
 <li><p>En cambio, un depósito sigue siendo «el mismo» depósito aunque
 cambiemos sus fondos haciendo una retirada de efectivo.</p></li>
 <li><p>Pero también podemos tener dos depósitos distintos con el mismo
 estado interno.</p></li>
+<li><p>No olvidemos que dos objetos pueden ser <strong>iguales</strong>
+y, en cambio, no ser <em>idénticos</em>.</p></li>
 <li><p>Esta complicación es consecuencia, no de nuestro lenguaje de
 programación, sino de nuestra percepción del depósito bancario como un
 objeto.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.10">
+<section class="slide level5" data-number="1.1.0.0.12">
 
 <ul>
 <li><p>Como usamos <strong>referencias</strong> para referirnos a un
@@ -451,8 +472,6 @@ iguales, es que estamos ante un único objeto.</strong></p></li>
 corresponden con direcciones de memoria. Es decir: una referencia a un
 objeto normalmente representa la dirección de memoria donde se empieza a
 almacenar dicho objeto.</p></li>
-<li><p>Dos objetos pueden ser <strong>iguales</strong> y, en cambio, no
-ser <em>idénticos</em>.</p></li>
 </ul>
 <div class="caja">
 <p><strong>Resumiendo:</strong></p>
@@ -466,13 +485,13 @@ preguntando si <strong><em>son</em> el mismo objeto</strong>.</p></li>
 </ul>
 </div>
 </section>
-<section class="slide level5" data-number="1.1.0.0.11">
+<section class="slide level5" data-number="1.1.0.0.13">
 
 <ul>
 <li><p>La forma de comprobar en Python si dos objetos son
 <em>idénticos</em> es usar el operador <code>is</code> que ya
 conocemos:</p>
-<div class="caja">
+<div class="caja centered">
 <p>La expresión <span
 class="math inline">\underline{\textbf{\textit{o}}\ \texttt{is}\
 \textbf{\textit{p}}}</span> devolverá <code>True</code> si tanto
@@ -2558,7 +2577,7 @@ mismo orden.</p></li>
 <section class="slide level5" data-number="2.1.2.7.3">
 
 <div class="caja">
-<p><strong>Operaciones constructoras y modificadoras:</strong></p>
+<p><strong>Operaciones constructoras y mutadoras:</strong></p>
 <ul>
 <li><p><code>pila()</code> <span
 class="math inline">\longrightarrow</span> <em>pila</em></p>
