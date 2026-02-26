@@ -11,35 +11,46 @@ nocite: |
 ## Introducción
 
 - Los objetos de un programa interactúan entre sí durante la ejecución del
-  mismo, por lo que decimos que **los objetos se relacionan entre sí**.
+  mismo, por lo que decimos que **los objetos _se relacionan_ entre sí**.
 
-- Las **relaciones entre objetos** pueden ser de varios tipos.
+- Las **relaciones entre objetos** pueden ser de varios tipos:
 
-- Por ejemplo, cuando un objeto **envía un mensaje** a otro, tenemos un ejemplo
-  de relación del tipo **usa** (el primer objeto «usa» al segundo).
+  - Por ejemplo, cuando un objeto **envía un mensaje** a otro, tenemos un
+    ejemplo de relación del tipo **usa** (el primer objeto «usa» al segundo).
 
-- Otras veces, los objetos **contienen** a otros objetos, o bien **forman
-  parte** de otros objetos.
+  - Otras veces, los objetos **contienen** a otros objetos, o bien **forman
+    parte** de otros objetos.
 
-- Finalmente, a veces las relaciones entre los objetos son meramente
-  **conceptuales**.
+  - Finalmente, a veces las relaciones entre los objetos son meramente
+    **conceptuales**.
 
-  Esas relaciones **no se reflejan** directamente **en el código fuente** del
-  programa, sino que aparecen durante el **análisis** del problema a resolver o
-  como parte del **diseño** de la solución, en las etapas de análisis y diseño
-  del sistema.
+    Esas relaciones **no se reflejan** directamente **en el código fuente** del
+    programa, sino que aparecen durante el **análisis** del problema a resolver
+    o como parte del **diseño** de la solución, en las etapas de análisis y
+    diseño del sistema.
 
 ---
 
 - A la relación específica que se da entre dos objetos concretos se denomina
   **enlace**.
 
-- Cuando una o varias instancias de una clase está relacionada con una o varias
-  instancias de otra clase, también podemos decir que ambas clases están
-  relacionadas.
+- Cuando una o varias instancias de una clase están relacionadas (es decir,
+  _enlazadas_) con una o varias instancias de otra clase, también podemos decir
+  que **ambas clases están relacionadas**.
 
-- Una **relación entre clases** representa un conjunto de posibles relaciones
-  entre instancias de esas clases (un **conjunto de _enlaces_**).
+- Una **relación entre clases** representa un conjunto de posibles enlaces
+  entre instancias de esas clases.
+
+- Es decir:
+
+  - Los _enlaces_ son relaciones entre objetos.
+
+  - Si hay enlaces entre instancias de la clase _A_ e instancias de la clase
+    _B_, ambas clases están relacionadas, y la relación entre ellas es el
+    conjunto de posibles enlaces que se pueden establecer entre instancias de
+    _A_ y de _B_.
+
+---
 
 - Las relaciones entre clases se pueden representar gráficamente en los
   llamados **diagramas de clases**.
@@ -56,8 +67,8 @@ nocite: |
 
 !UML(ejemplo-diagrama-clases.png)(Ejemplo de diagrama de clases)(width=75%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Usuario "1" -left- "0..*" Tuit : escribe
-Usuario "1..*" -left-o "0..*" Grupo : pertenece
+Usuario "1" -left- "0..*" Tuit : escribe >
+Usuario "1..*" -left-o "0..*" Grupo : pertenece >
 Grupo "1" *-left- "0..*" Discusión
 Discusión "1" *-- "0..*" Tuit
 class Usuario {
@@ -81,8 +92,8 @@ class Tuit {
 ---
 
 - La **multiplicidad de una clase en una relación** representa la cantidad de
-  instancias de esa clase que se pueden relacionar con una instancia de la otra
-  clase en esa relación.
+  instancias de esa clase que se pueden relacionar (mediante _enlaces_) con una
+  instancia de la otra clase en esa relación.
 
 - El lenguaje UML también describe la sintaxis y la semántica de las posibles
   _multiplicidades_ que se pueden dar en una relación entre clases.
@@ -91,13 +102,17 @@ class Tuit {
 
 - Ejemplos de sintaxis:
 
-  - $n$: exactamente $n$ instancias (siendo $n$ un número entero).
+  ----------------------------------------------------------------------------
+  Sintaxis         Significado
+  ---------------- -----------------------------------------------------------
+  $n$              Exactamente $n$ instancias (siendo $n$ un número entero).
 
-  - $*$: cualquier número de instancias.
+  `*`              Cualquier número de instancias.
 
-  - $n..m$: de $n$ a $m$ instancias.
+  $n$`..`$m$       De $n$ a $m$ instancias.
 
-  - $n..*$: de $n$ instancias en adelante.
+  $n$`..*`         De $n$ instancias en adelante.
+  ----------------------------------------------------------------------------
 
 ---
 
@@ -121,8 +136,8 @@ class Tuit {
 
 ## Asociación
 
-- Una **asociación** simple es una relación _genérica_ que se establece entre
-  dos clases.
+- Una **asociación** simple es una **relación _genérica_** que se establece
+  entre dos clases.
 
 - Se utiliza cuando se quiere representar el hecho de que las dos clases están
   relacionadas de alguna manera **distinta a la de otros tipos de relaciones
@@ -159,7 +174,7 @@ class Tuit {
 
 !UML(calculadora-asocia-numero.png)()(width=50%)(width=20%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Calculadora -- Numero : manipula
+Calculadora -- Numero : " manipula"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -220,7 +235,7 @@ Calculadora -- Numero : manipula
 
   !UML(calculadora-dependencia-numero.png)()(width=20%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Calculadora ..> Numero : <<usa>>
+  Calculadora ..> Numero : " <<usa>>"
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - En lugar del estereotipo _«usa»_, también podríamos haber usado el
@@ -280,9 +295,9 @@ Calculadora -- Numero : manipula
 
 ::: column
 
-!UML(grupo-agrega-alumno.png)()(width=30%)(width=15%)
+!UML(grupo-agrega-alumno.png)()(width=40%)(width=15%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Grupo "0..*" o--- "0..*" Alumno
+Grupo "0..*" o-- "0..*" Alumno
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -366,16 +381,16 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
   una cuenta, pero no pueden pertenecer a más de una cuenta al mismo tiempo.
   Cuando se elimina una cuenta, se eliminan todos sus tuits.
 
-- Junto al rombo relleno siempre habrá una multiplicidad de "1", ya que un
+- Junto al rombo relleno siempre habrá una multiplicidad de «1», ya que un
   componente sólo puede formar parte de un objeto compuesto.
 
 :::
 
 ::: column
 
-!UML(cuenta-se-compone-de-tuits.png)()(width=30%)(width=12%)
+!UML(cuenta-se-compone-de-tuits.png)()(width=40%)(width=12%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Cuenta "1" *--- "0..*" Tuit
+Cuenta "1" *-- "0..*" Tuit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -386,107 +401,107 @@ Cuenta "1" *--- "0..*" Tuit
 
 - La clase `Tuit` podría ser tan sencilla como:
 
-```python
-class Tuit:
-    def __init__(self, texto):
-        self.__texto = texto
-        self.__ident = id(self)
+  ```python
+  class Tuit:
+      def __init__(self, texto):
+          self.__texto = texto
+          self.__ident = id(self)
 
-    def get_ident(self):
-        return self.__ident
-```
+      def get_ident(self):
+          return self.__ident
+  ```
 
 ---
 
 - Primera opción, donde la clase `Cuenta` se encarga de crear el tuit:
 
-```python
-class Cuenta:
-    def __init__(self):
-        self.__tuits = []  # Guarda una lista de referencias a Tuits
+  ```python
+  class Cuenta:
+      def __init__(self):
+          self.__tuits = []  # Guarda una lista de referencias a Tuits
 
-    def get_tuits(self):
-        return self.__tuits[:]    # Devuelve una copia
+      def get_tuits(self):
+          return self.__tuits[:]    # Devuelve una copia
 
-    def crear_tuit(self, texto):
-        t = Tuit(texto)           # El tuit se crea dentro de la cuenta
-        self.__tuits.append(t)    # La cuenta almacena el tuit
-        return t.get_ident()      # Devuelve el id del tuit
+      def crear_tuit(self, texto):
+          t = Tuit(texto)           # El tuit se crea dentro de la cuenta
+          self.__tuits.append(t)    # La cuenta almacena el tuit
+          return t.get_ident()      # Devuelve el id del tuit
 
-    def eliminar_tuit(self, ident):
-        for t in self.__tuits:
-            if t.get_ident() == ident:
-                self.__tuits.remove(t)
-                return
-        raise ValueError("No existe ningún tuit con ese id")
+      def eliminar_tuit(self, ident):
+          for t in self.__tuits:
+              if t.get_ident() == ident:
+                  self.__tuits.remove(t)
+                  return
+          raise ValueError("No existe ningún tuit con ese id")
 
-c1 = Cuenta()
-id1 = c1.crear_tuit("Este módulo es muy bonito")
-id2 = c1.crear_tuit("Me encanta DAW")
-c2 = Cuenta()
-id3 = c2.crear_tuit("Odio Programación")
-```
+  c1 = Cuenta()
+  id1 = c1.crear_tuit("Este módulo es muy bonito")
+  id2 = c1.crear_tuit("Me encanta DAW")
+  c2 = Cuenta()
+  id3 = c2.crear_tuit("Odio Programación")
+  ```
 
 ---
 
 - Segunda opción, donde el tuit se crea fuera de la clase `Cuenta` y luego se
   envía a ésta:
 
-```python
-class Cuenta:
-    def __init__(self):
-        self.__tuits = []  # Guarda una lista de referencias a Tuits
+  ```python
+  class Cuenta:
+      def __init__(self):
+          self.__tuits = []  # Guarda una lista de referencias a Tuits
 
-    def get_tuits(self):
-        return self.__tuits[:]       # Devuelve una copia
+      def get_tuits(self):
+          return self.__tuits[:]       # Devuelve una copia
 
-    def guardar_tuit(self, tuit):
-        self.__tuits.append(tuit)    # La cuenta almacena el tuit
-        return tuit.get_ident()
+      def guardar_tuit(self, tuit):
+          self.__tuits.append(tuit)    # La cuenta almacena el tuit
+          return tuit.get_ident()
 
-    def eliminar_tuit(self, ident):
-        for t in self.__tuits:
-            if t.get_ident() == ident:
-                self.__tuits.remove(t)
-                return
-        raise ValueError("No existe ningún tuit con ese id")
+      def eliminar_tuit(self, ident):
+          for t in self.__tuits:
+              if t.get_ident() == ident:
+                  self.__tuits.remove(t)
+                  return
+          raise ValueError("No existe ningún tuit con ese id")
 
-# Los tuits se crean fuera de la clase Cuenta, pero justo a continuación
-# se envían a la cuenta. Así, el objeto cuenta es el único que almacena
-# una referencia al tuit (es la única referencia que existe de ese tuit):
-c1 = Cuenta()
-id1 = c1.guardar_tuit(Tuit("Este módulo es muy bonito"))
-id2 = c1.guardar_tuit(Tuit("Me encanta DAW"))
-c2 = Cuenta()
-id3 = c2.guardar_tuit(Tuit("Odio Programación"))
-```
+  # Los tuits se crean fuera de la clase Cuenta, pero justo a continuación
+  # se envían a la cuenta. Así, el objeto cuenta es el único que almacena
+  # una referencia al tuit (es la única referencia que existe de ese tuit):
+  c1 = Cuenta()
+  id1 = c1.guardar_tuit(Tuit("Este módulo es muy bonito"))
+  id2 = c1.guardar_tuit(Tuit("Me encanta DAW"))
+  c2 = Cuenta()
+  id3 = c2.guardar_tuit(Tuit("Odio Programación"))
+  ```
 
-#### Resumen
+!UNUN(Resumen)
 
-  ------------------------------------------------------------------
-                                       Agregación     Composición
-  --------------------------------- --------------- ----------------
-  Al todo se le llama:                Agregador(a)    Compuesto/a
-
-  A la parte se le llama:             Agregado/a      Componente
-
-  Una parte puede pertenecer a:       Varios todos    Un único todo
-
-  Una parte puede existir aunque          Sí              No
-  no pertenezca a un todo:
-
-  El todo es responsable de crear         No          Normalmente
-  la parte:                                           sí, pero no
-                                                      es necesario
-
-  El todo es responsable de               No              Sí
-  almacenar la parte:
-
-  Cuando se destruye el todo, se          No              Sí
-  debe destruir la parte:
-
-  Multiplicidad en el todo:           Cualquiera          1
-  ------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+                                                  Agregación     Composición
+  -------------------------------------------- --------------- ----------------
+  Al todo se le llama...                         Agregador(a)    Compuesto/a
+                                          
+  A la parte se le llama...                      Agregado/a      Componente
+                                          
+  Una parte puede pertenecer a...                Varios todos    Sólo un todo
+                                          
+  ¿Una parte puede existir aunque                    Sí              No
+  no pertenezca a un todo?                
+                                          
+  ¿El todo es responsable de crear                   No          Normalmente
+  la parte?                                                      sí, pero no
+                                                                 es necesario
+                                          
+  ¿El todo es responsable de                         No              Sí
+  almacenar la parte?                     
+                                          
+  Cuando se destruye el todo, ¿se                    No              Sí
+  debe destruir la parte?                 
+                                          
+  La multiplicidad en el todo es...               Cualquiera          1
+  -----------------------------------------------------------------------------
 
 # Herencia
 
@@ -496,8 +511,8 @@ id3 = c2.guardar_tuit(Tuit("Odio Programación"))
   clase (la **superclase** o **clase base**) y otra clase (la **subclase** o
   **clase derivada**).
 
-- Representa la relación «**es un(a)**»: una instancia de la subclase también
-  _es una_ instancia de la superclase.
+- Representa la relación «**es un**» o «**es una**»: una instancia de la
+  subclase también _es una_ instancia de la superclase.
 
 - También se puede decir que:
 
@@ -537,6 +552,7 @@ Por ejemplo:
 
 !UML(trabajador-generaliza-docente-pas.png)()(width=60%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+skinparam linetype none
 Trabajador <|--- Docente
 Trabajador <|--- PAS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -653,6 +669,7 @@ Trabajador <|-- Docente
 
 !UML[doble-herencia-simple.png][][width=25%][width=25%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+skinparam linetype none
 A <|-- B
 A <|-- C
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -666,6 +683,7 @@ A <|-- C
 
 !UML[herencia-multiple.png][Una subclase con dos superclases directas (herencia múltiple)][width=30%][width=25%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+skinparam linetype none
 A <|-- C
 B <|-- C
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1211,6 +1229,7 @@ Trabajador --|> object
 
 !UML[animales-anfibios.png][Los anfibios son terrestres y acuáticos al mismo tiempo (herencia múltiple)][width=35%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+skinparam linetype none
 Animal <|-- Terrestre
 Animal <|-- Acuatico
 Terrestre <|-- Anfibio
@@ -1289,6 +1308,7 @@ Acuatico <|-- Anfibio
 
 !UML[animales-anfibios-mover.png][El método `mover` está en `Terrestre` y `Acuatico`][width=65%][width=35%]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+skinparam linetype none
 class Terrestre {
     +mover()
 }
@@ -2003,10 +2023,21 @@ class Rectangulo:
 - Así, en la expresión !PYTHON(t.despedir()), sabemos que se ejecutará el
   método `despedir` más apropiado según el tipo de trabajador que sea `t`.
 
-- En general, el método a invocar se determinará en tiempo de ejecución en
-  función del tipo de objeto que reciba el mensaje.
+- En general, **el método a invocar se determinará en tiempo de ejecución en
+  función del tipo más específico que tenga el objeto que reciba el mensaje**.
 
 - A este mecanismo se le denomina **despacho dinámico**.
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Despacho dinámico:**
+
+El mecanismo por el cual el método a invocar se determina **en tiempo de
+ejecución** en función del **tipo más específico** que tenga el objeto que
+recibe el mensaje.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJEMPLO
 
@@ -2745,7 +2776,8 @@ class Rectangulo:
 
 ---
 
-- Ventajas de la composición:
+- Ventajas de la composición (incluyendo aquí la agregación como un caso menos
+  restringido):
 
   - La composición consiste en delegar tareas a otros objetos a través de
     relaciones «tiene».

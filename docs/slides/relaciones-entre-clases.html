@@ -211,10 +211,11 @@ data-number="1.1">
 Introducción</h2>
 <ul>
 <li><p>Los objetos de un programa interactúan entre sí durante la
-ejecución del mismo, por lo que decimos que <strong>los objetos se
-relacionan entre sí</strong>.</p></li>
+ejecución del mismo, por lo que decimos que <strong>los objetos <em>se
+relacionan</em> entre sí</strong>.</p></li>
 <li><p>Las <strong>relaciones entre objetos</strong> pueden ser de
-varios tipos.</p></li>
+varios tipos:</p>
+<ul>
 <li><p>Por ejemplo, cuando un objeto <strong>envía un mensaje</strong> a
 otro, tenemos un ejemplo de relación del tipo <strong>usa</strong> (el
 primer objeto «usa» al segundo).</p></li>
@@ -227,6 +228,7 @@ meramente <strong>conceptuales</strong>.</p>
 durante el <strong>análisis</strong> del problema a resolver o como
 parte del <strong>diseño</strong> de la solución, en las etapas de
 análisis y diseño del sistema.</p></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.1">
@@ -234,12 +236,25 @@ análisis y diseño del sistema.</p></li>
 <ul>
 <li><p>A la relación específica que se da entre dos objetos concretos se
 denomina <strong>enlace</strong>.</p></li>
-<li><p>Cuando una o varias instancias de una clase está relacionada con
-una o varias instancias de otra clase, también podemos decir que ambas
-clases están relacionadas.</p></li>
+<li><p>Cuando una o varias instancias de una clase están relacionadas
+(es decir, <em>enlazadas</em>) con una o varias instancias de otra
+clase, también podemos decir que <strong>ambas clases están
+relacionadas</strong>.</p></li>
 <li><p>Una <strong>relación entre clases</strong> representa un conjunto
-de posibles relaciones entre instancias de esas clases (un
-<strong>conjunto de <em>enlaces</em></strong>).</p></li>
+de posibles enlaces entre instancias de esas clases.</p></li>
+<li><p>Es decir:</p>
+<ul>
+<li><p>Los <em>enlaces</em> son relaciones entre objetos.</p></li>
+<li><p>Si hay enlaces entre instancias de la clase <em>A</em> e
+instancias de la clase <em>B</em>, ambas clases están relacionadas, y la
+relación entre ellas es el conjunto de posibles enlaces que se pueden
+establecer entre instancias de <em>A</em> y de <em>B</em>.</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.2">
+
+<ul>
 <li><p>Las relaciones entre clases se pueden representar gráficamente en
 los llamados <strong>diagramas de clases</strong>.</p></li>
 <li><p>Esos diagramas se construyen usando un <strong>lenguaje de
@@ -251,7 +266,7 @@ sistema orientado a objetos y cómo se representan y se identifican
 gráficamente.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.2">
+<section class="slide level5" data-number="1.1.0.0.3">
 
 <div class="centered">
 <figure>
@@ -263,33 +278,59 @@ clases</figcaption>
 </div>
 <!--*-->
 </section>
-<section class="slide level5" data-number="1.1.0.0.3">
+<section class="slide level5" data-number="1.1.0.0.4">
 
 <ul>
 <li><p>La <strong>multiplicidad de una clase en una relación</strong>
 representa la cantidad de instancias de esa clase que se pueden
-relacionar con una instancia de la otra clase en esa relación.</p></li>
+relacionar (mediante <em>enlaces</em>) con una instancia de la otra
+clase en esa relación.</p></li>
 <li><p>El lenguaje UML también describe la sintaxis y la semántica de
 las posibles <em>multiplicidades</em> que se pueden dar en una relación
 entre clases.</p></li>
 <li><p>Esas multiplicidades también aparecen en los diagramas de
 clases.</p></li>
 <li><p>Ejemplos de sintaxis:</p>
-<ul>
-<li><p><span class="math inline">n</span>: exactamente <span
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Sintaxis</th>
+<th style="text-align: left;">Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span class="math inline">n</span></td>
+<td style="text-align: left;">Exactamente <span
 class="math inline">n</span> instancias (siendo <span
-class="math inline">n</span> un número entero).</p></li>
-<li><p><span class="math inline">*</span>: cualquier número de
-instancias.</p></li>
-<li><p><span class="math inline">n..m</span>: de <span
-class="math inline">n</span> a <span class="math inline">m</span>
-instancias.</p></li>
-<li><p><span class="math inline">n..*</span>: de <span
-class="math inline">n</span> instancias en adelante.</p></li>
-</ul></li>
+class="math inline">n</span> un número entero).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>*</code></td>
+<td style="text-align: left;">Cualquier número de instancias.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">n</span><code>..</code><span
+class="math inline">m</span></td>
+<td style="text-align: left;">De <span class="math inline">n</span> a
+<span class="math inline">m</span> instancias.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span
+class="math inline">n</span><code>..*</code></td>
+<td style="text-align: left;">De <span class="math inline">n</span>
+instancias en adelante.</td>
+</tr>
+</tbody>
+</table></li>
 </ul>
 </section>
-<section class="slide level5" data-number="1.1.0.0.4">
+<section class="slide level5" data-number="1.1.0.0.5">
 
 <ul>
 <li><p>En el módulo de <em>Programación</em> sólo trabajaremos con las
@@ -315,8 +356,8 @@ data-number="1.2">
 <h2 data-number="1.2"><span class="header-section-number">1.2</span>
 Asociación</h2>
 <ul>
-<li><p>Una <strong>asociación</strong> simple es una relación
-<em>genérica</em> que se establece entre dos clases.</p></li>
+<li><p>Una <strong>asociación</strong> simple es una <strong>relación
+<em>genérica</em></strong> que se establece entre dos clases.</p></li>
 <li><p>Se utiliza cuando se quiere representar el hecho de que las dos
 clases están relacionadas de alguna manera <strong>distinta a la de
 otros tipos de relaciones más específicas</strong> (dependencia,
@@ -479,7 +520,7 @@ grupo.</p></li>
 </div><div class="column">
 <div class="centered">
 <p><img data-src="images/grupo-agrega-alumno.png" class="plain"
-style="width:30.0%" /></p>
+style="width:40.0%" /></p>
 </div>
 </div>
 </div>
@@ -564,14 +605,14 @@ sus objetos componentes.</p></li>
 pertenecer a una cuenta, pero no pueden pertenecer a más de una cuenta
 al mismo tiempo. Cuando se elimina una cuenta, se eliminan todos sus
 tuits.</p></li>
-<li><p>Junto al rombo relleno siempre habrá una multiplicidad de “1”, ya
+<li><p>Junto al rombo relleno siempre habrá una multiplicidad de «1», ya
 que un componente sólo puede formar parte de un objeto
 compuesto.</p></li>
 </ul>
 </div><div class="column">
 <div class="centered">
 <p><img data-src="images/cuenta-se-compone-de-tuits.png" class="plain"
-style="width:30.0%" /></p>
+style="width:40.0%" /></p>
 </div>
 </div>
 </div>
@@ -579,8 +620,7 @@ style="width:30.0%" /></p>
 <section class="slide level5" data-number="1.5.0.0.2">
 
 <ul>
-<li>La clase <code>Tuit</code> podría ser tan sencilla como:</li>
-</ul>
+<li><p>La clase <code>Tuit</code> podría ser tan sencilla como:</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Tuit:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, texto):</span>
@@ -588,14 +628,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ident <span class="op">=</span> <span class="bu">id</span>(<span class="va">self</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ident(<span class="va">self</span>):</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ident</span></code></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ident</span></code></pre></div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="1.5.0.0.3">
 
 <ul>
-<li>Primera opción, donde la clase <code>Cuenta</code> se encarga de
-crear el tuit:</li>
-</ul>
+<li><p>Primera opción, donde la clase <code>Cuenta</code> se encarga de
+crear el tuit:</p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Cuenta:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
@@ -620,14 +660,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a hr
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>id1 <span class="op">=</span> c1.crear_tuit(<span class="st">&quot;Este módulo es muy bonito&quot;</span>)</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>id2 <span class="op">=</span> c1.crear_tuit(<span class="st">&quot;Me encanta DAW&quot;</span>)</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>c2 <span class="op">=</span> Cuenta()</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>id3 <span class="op">=</span> c2.crear_tuit(<span class="st">&quot;Odio Programación&quot;</span>)</span></code></pre></div>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>id3 <span class="op">=</span> c2.crear_tuit(<span class="st">&quot;Odio Programación&quot;</span>)</span></code></pre></div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="1.5.0.0.4">
 
 <ul>
-<li>Segunda opción, donde el tuit se crea fuera de la clase
-<code>Cuenta</code> y luego se envía a ésta:</li>
-</ul>
+<li><p>Segunda opción, donde el tuit se crea fuera de la clase
+<code>Cuenta</code> y luego se envía a ésta:</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Cuenta:</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
@@ -654,17 +694,16 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a hr
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>id1 <span class="op">=</span> c1.guardar_tuit(Tuit(<span class="st">&quot;Este módulo es muy bonito&quot;</span>))</span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>id2 <span class="op">=</span> c1.guardar_tuit(Tuit(<span class="st">&quot;Me encanta DAW&quot;</span>))</span>
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>c2 <span class="op">=</span> Cuenta()</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>id3 <span class="op">=</span> c2.guardar_tuit(Tuit(<span class="st">&quot;Odio Programación&quot;</span>))</span></code></pre></div>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>id3 <span class="op">=</span> c2.guardar_tuit(Tuit(<span class="st">&quot;Odio Programación&quot;</span>))</span></code></pre></div></li>
+</ul>
 </section>
-<section id="resumen" class="title-slide slide level4"
-data-number="1.5.0.1">
-<h4 data-number="1.5.0.1"><span
-class="header-section-number">1.5.0.1</span> Resumen</h4>
-<table style="width:93%;">
+<section id="resumen" class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Resumen</h5>
+<table style="width:98%;">
 <colgroup>
-<col style="width: 47%" />
-<col style="width: 22%" />
-<col style="width: 23%" />
+<col style="width: 56%" />
+<col style="width: 20%" />
+<col style="width: 21%" />
 </colgroup>
 <thead>
 <tr>
@@ -675,50 +714,49 @@ class="header-section-number">1.5.0.1</span> Resumen</h4>
 </thead>
 <tbody>
 <tr>
-<td>Al todo se le llama:</td>
+<td>Al todo se le llama…</td>
 <td style="text-align: center;">Agregador(a)</td>
 <td style="text-align: center;">Compuesto/a</td>
 </tr>
 <tr>
-<td>A la parte se le llama:</td>
+<td>A la parte se le llama…</td>
 <td style="text-align: center;">Agregado/a</td>
 <td style="text-align: center;">Componente</td>
 </tr>
 <tr>
-<td>Una parte puede pertenecer a:</td>
+<td>Una parte puede pertenecer a…</td>
 <td style="text-align: center;">Varios todos</td>
-<td style="text-align: center;">Un único todo</td>
+<td style="text-align: center;">Sólo un todo</td>
 </tr>
 <tr>
-<td>Una parte puede existir aunque no pertenezca a un todo:</td>
+<td>¿Una parte puede existir aunque no pertenezca a un todo?</td>
 <td style="text-align: center;">Sí</td>
 <td style="text-align: center;">No</td>
 </tr>
 <tr>
-<td>El todo es responsable de crear la parte:</td>
+<td>¿El todo es responsable de crear la parte?</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Normalmente sí, pero no es
 necesario</td>
 </tr>
 <tr>
-<td>El todo es responsable de almacenar la parte:</td>
+<td>¿El todo es responsable de almacenar la parte?</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Sí</td>
 </tr>
 <tr>
-<td>Cuando se destruye el todo, se debe destruir la parte:</td>
+<td>Cuando se destruye el todo, ¿se debe destruir la parte?</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Sí</td>
 </tr>
 <tr>
-<td>Multiplicidad en el todo:</td>
+<td>La multiplicidad en el todo es…</td>
 <td style="text-align: center;">Cualquiera</td>
 <td style="text-align: center;">1</td>
 </tr>
 </tbody>
 </table>
 </section>
-
 </section>
 <section>
 <section id="herencia" class="title-slide slide level1" data-number="2">
@@ -735,9 +773,9 @@ Generalización</h2>
 relación que se da entre una clase (la <strong>superclase</strong> o
 <strong>clase base</strong>) y otra clase (la <strong>subclase</strong>
 o <strong>clase derivada</strong>).</p></li>
-<li><p>Representa la relación «<strong>es un(a)</strong>»: una instancia
-de la subclase también <em>es una</em> instancia de la
-superclase.</p></li>
+<li><p>Representa la relación «<strong>es un</strong>» o «<strong>es
+una</strong>»: una instancia de la subclase también <em>es una</em>
+instancia de la superclase.</p></li>
 <li><p>También se puede decir que:</p>
 <ul>
 <li><p>La subclase <em>es una</em> forma <strong>más
@@ -2220,11 +2258,21 @@ objeto que reciba el mensaje.</p></li>
 class="sourceCode python">t.despedir()</code>, sabemos que se ejecutará
 el método <code>despedir</code> más apropiado según el tipo de
 trabajador que sea <code>t</code>.</p></li>
-<li><p>En general, el método a invocar se determinará en tiempo de
-ejecución en función del tipo de objeto que reciba el mensaje.</p></li>
+<li><p>En general, <strong>el método a invocar se determinará en tiempo
+de ejecución en función del tipo más específico que tenga el objeto que
+reciba el mensaje</strong>.</p></li>
 <li><p>A este mecanismo se le denomina <strong>despacho
 dinámico</strong>.</p></li>
 </ul>
+</section>
+<section class="slide level5" data-number="3.4.1.0.2">
+
+<div class="caja">
+<p><strong>Despacho dinámico:</strong></p>
+<p>El mecanismo por el cual el método a invocar se determina <strong>en
+tiempo de ejecución</strong> en función del <strong>tipo más
+específico</strong> que tenga el objeto que recibe el mensaje.</p>
+</div>
 </section>
 <section id="ejemplo-2" class="slide level5 unnumbered unlisted">
 <h5 class="unnumbered unlisted">Ejemplo</h5>
@@ -2970,7 +3018,8 @@ por vida.</p></li>
 <section class="slide level5" data-number="5.1.0.0.1">
 
 <ul>
-<li><p>Ventajas de la composición:</p>
+<li><p>Ventajas de la composición (incluyendo aquí la agregación como un
+caso menos restringido):</p>
 <ul>
 <li><p>La composición consiste en delegar tareas a otros objetos a
 través de relaciones «tiene».</p></li>
