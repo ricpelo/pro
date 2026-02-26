@@ -13,7 +13,6 @@ DEFINICIONES GENERALES
 scale 2
 skinparam backgroundColor transparent
 skinparam defaultFontName Lato
-skinparam classBackgroundColor white
 skinparam ArrowColor black
 skinparam classBorderColor black
 skinparam linetype ortho

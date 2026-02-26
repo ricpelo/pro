@@ -676,6 +676,9 @@ Se dice:
 
 !UML(evaluacion.svg)(Evaluación de una expresión)(width=40%)(width=30%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+skinparam ActivityBorderColor black
+skinparam ActivityDiamondBorderColor black
+skinparam DecisionBorderColor black
 :expresión;
 while (¿es posible reducir?) is (sí)
   :aplicar una reducción;
