@@ -132,6 +132,8 @@ nocite: |
 - Gracias a sus variables locales, un módulo almacena y recuerda su propio
   **estado interno**, el cual puede cambiar durante la ejecución del programa.
 
+  Por eso se dice que **los módulos tienen _memoria_**.
+
 ---
 
 - Para que todo esto funcione, los módulos deben introducir su propio **ámbito
@@ -197,8 +199,8 @@ nocite: |
 
   - Un subprograma no puede usar elementos locales de otros subprogramas.
 
-  - Un subprograma no tiene estado interno que se conserve y recuerde durante
-    la ejecución del programa.
+  - Un subprograma no tiene memoria, es decir, no tiene estado interno que se
+    conserve y recuerde durante la ejecución del programa.
 
   (Si bien en temas posteriores veremos que algunas de estas limitaciones se
   pueden superar con el uso de _clausuras_.)
