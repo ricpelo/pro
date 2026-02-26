@@ -303,7 +303,7 @@ author:
    contrario. Escribir un pequeño programa principal para controlar su
    funcionamiento.
 
-#. Modelar una coasa con muchas bombillas, de forma que cada bombilla se puede
+#. Modelar una casa con muchas bombillas, de forma que cada bombilla se puede
    encender o apagar individualmente. Para ello, hacer una clase `Bombilla` con
    una variable privada que indique si está encendida o apagada, así como un
    método que nos diga el estado de una bombilla concreta. Además, queremos
