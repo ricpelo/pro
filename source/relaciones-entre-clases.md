@@ -2776,8 +2776,7 @@ recibe el mensaje.
 
 ---
 
-- Ventajas de la composición (incluyendo aquí la agregación como un caso menos
-  restringido):
+- Ventajas de la composición:
 
   - La composición consiste en delegar tareas a otros objetos a través de
     relaciones «tiene».
@@ -2792,6 +2791,10 @@ recibe el mensaje.
 - Inconvenientes de la composición:
 
   - La composición no es polimórfica, pero se puede arreglar mediante
-    _interfaces_ y _duck typing_.
+    _interfaces_ (en un lenguaje como Java) o _duck typing_ (en un lenguaje
+    como Python).
+
+(Aquí, cuando hablamos de _composición_, incluimos también la _agregación_ como
+un caso menos restringido.)
 
 !BIBLIOGRAFIA
