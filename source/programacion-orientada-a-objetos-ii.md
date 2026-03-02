@@ -803,31 +803,35 @@ True
   canónica** de un valor, es decir, la cadena de símbolos que mejor
   **representa** a ese valor.
 
-:::: columns
+  :::: columns
 
-::: column
+  ::: {.column width=47%}
 
-```python
->>> repr(2 + 3)
-'5'
->>> 2 + 3
-5
-```
+  ```python
+  >>> repr(2 + 3)
+  '5'
+  >>> 2 + 3
+  5
+  ```
 
-:::
+  :::
 
-::: column
+  ::: {.column width=3%}
 
-```python
->>> repr(3.50)
-'3.5'
->>> 3.5
-3.5
-```
+  :::
 
-:::
+  ::: {.column width=47%}
 
-::::
+  ```python
+  >>> repr(3.50)
+  '3.5'
+  >>> 3.5
+  3.5
+  ```
+
+  :::
+
+  ::::
 
 - La expresión que vaya en esa cadena debe ser sintáctica y semánticamente
   **correcta** según las reglas del lenguaje.
@@ -1882,24 +1886,24 @@ propiedades se traducen en invariantes** de la clase.
 - Para ello, usamos la opción `-O` al llamar al intérprete de Python desde la
   línea de comandos del sistema operativo:
 
-```python
-# prueba.py
-print("Antes")
-assert 1 == 0
-print("Después")
-```
+  ```python
+  # prueba.py
+  print("Antes")
+  assert 1 == 0
+  print("Después")
+  ```
 
-```console
-$ python prueba.py
-Antes
-Traceback (most recent call last):
-  File "prueba.py", line 2, in <module>
-    assert False
-AssertionError
-$ python -O prueba.py
-Antes
-Después
-```
+  ```console
+  $ python prueba.py
+  Antes
+  Traceback (most recent call last):
+    File "prueba.py", line 2, in <module>
+      assert False
+  AssertionError
+  $ python -O prueba.py
+  Antes
+  Después
+  ```
 
 - Con la opción `-O` (de «**O**ptimizado») podemos elegir entre mayor
   rendimiento o mayor seguridad al ejecutar nuestros programas.
@@ -1913,24 +1917,24 @@ Después
 - Por ejemplo, si intentamos retirar fondos de un depósito pero no hay saldo
   suficiente, eso se debería comprobar siempre:
 
-```python
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
+  ```python
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:                    # Si no hay fondos:
-            raise ValueError('Fondos insuficientes')  # Error
-        self.fondos -= cantidad
-        return self.fondos
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:                    # Si no hay fondos:
+              raise ValueError('Fondos insuficientes')  # Error
+          self.fondos -= cantidad
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def saldo(self):
-        return self.fondos
-```
+      def saldo(self):
+          return self.fondos
+  ```
 
 ---
 
@@ -1972,7 +1976,10 @@ class Deposito:
 
 ---
 
+!CENTRAR
+~~~~~~~~~~~~~~~~~~~~~
 **¡CUIDADO!**
+~~~~~~~~~~~~~~~~~~~~~
 
 - Supogamos que tenemos el siguiente código que implementa colas:
 
@@ -2041,59 +2048,59 @@ class Deposito:
       return self.__items[:]
   ```
 
-#### Un ejemplo completo
+!UNUN(Un ejemplo completo)
 
 - Recordemos la especificación del tipo _pila_ **inmutable**:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**espec** _pila_
-!SPC(6)    **parámetros**
-!SPC(12)          _elemento_
-!SPC(6)    **operaciones**
-!SPC(12)          `pvacia` : $\longrightarrow$ _pila_
-!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ _pila_
-!SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ _pila_
-!SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
-!SPC(12)          `vacia?` : _pila_ $\longrightarrow$ $\mathbb{B}$
-!SPC(6)    **var**
-!SPC(12)          $p$ : _pila_; $x$ : _elemento_
-!SPC(6)    **ecuaciones**
-!SPC(12)          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
-!SPC(12)          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
-!SPC(12)          `vacia?`(`pvacia`) $\equiv$ $V$
-!SPC(12)          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
-!SPC(12)          `cima`(`pvacia`) $\equiv$ **error**
-!SPC(12)          `desapilar`(`pvacia`) $\equiv$ **error**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **espec** _pila_
+  !SPC(6)    **parámetros**
+  !SPC(12)          _elemento_
+  !SPC(6)    **operaciones**
+  !SPC(12)          `pvacia` : $\longrightarrow$ _pila_
+  !SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ _pila_
+  !SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ _pila_
+  !SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
+  !SPC(12)          `vacia?` : _pila_ $\longrightarrow$ $\mathbb{B}$
+  !SPC(6)    **var**
+  !SPC(12)          $p$ : _pila_; $x$ : _elemento_
+  !SPC(6)    **ecuaciones**
+  !SPC(12)          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
+  !SPC(12)          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
+  !SPC(12)          `vacia?`(`pvacia`) $\equiv$ $V$
+  !SPC(12)          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
+  !SPC(12)          `cima`(`pvacia`) $\equiv$ **error**
+  !SPC(12)          `desapilar`(`pvacia`) $\equiv$ **error**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
 - La especificación del mismo tipo _pila_ pero **mutable** podría ser:
 
-!ALGO
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**espec** _pila_
-!SPC(6)    **parámetros**
-!SPC(12)          _elemento_
-!SPC(6)    **operaciones**
-!SPC(12)          `pila` : $\longrightarrow$ _pila_
-!SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ $\emptyset$
-!SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ $\emptyset$
-!SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
-!SPC(12)          `vacía?` : _pila_ $\longrightarrow$ $\mathbb{B}$
-!SPC(12)          _ `==` _ : _pila_ $\times$ _pila_ $\longrightarrow$ $\mathbb{B}$
-!SPC(6)    **var**
-!SPC(12)          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
-!SPC(6)    **ecuaciones**
-!SPC(12)          $p_1$ `==` $p_2$ $\equiv$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
-!SPC(12)          `vacía?`($p$) $\equiv$ $p$ `==` `pila`
-!SPC(12)          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
-!SPC(12)          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \}
-!SPC(12)          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
-!SPC(12)          `vacía?`($p$) $\Longrightarrow$ `desapilar`($p$) $\equiv$ **error**
-!SPC(12)          `vacía?`($p$) $\Longrightarrow$ `cima`($p$) $\equiv$ **error**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !ALGO
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **espec** _pila_
+  !SPC(6)    **parámetros**
+  !SPC(12)          _elemento_
+  !SPC(6)    **operaciones**
+  !SPC(12)          `pila` : $\longrightarrow$ _pila_
+  !SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ $\emptyset$
+  !SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ $\emptyset$
+  !SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
+  !SPC(12)          `vacía?` : _pila_ $\longrightarrow$ $\mathbb{B}$
+  !SPC(12)          _ `==` _ : _pila_ $\times$ _pila_ $\longrightarrow$ $\mathbb{B}$
+  !SPC(6)    **var**
+  !SPC(12)          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
+  !SPC(6)    **ecuaciones**
+  !SPC(12)          $p_1$ `==` $p_2$ $\equiv$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
+  !SPC(12)          `vacía?`($p$) $\equiv$ $p$ `==` `pila`
+  !SPC(12)          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
+  !SPC(12)          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \}
+  !SPC(12)          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
+  !SPC(12)          `vacía?`($p$) $\Longrightarrow$ `desapilar`($p$) $\equiv$ **error**
+  !SPC(12)          `vacía?`($p$) $\Longrightarrow$ `cima`($p$) $\equiv$ **error**
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -2105,19 +2112,19 @@ class Deposito:
   natural** del tipo abstracto _pila_ explicando qué funcionalidad tiene y las
   operaciones que contiene:
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Tipo**: _pila_
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Tipo**: _pila_
 
-- Define una pila de elementos, de forma que se van almacenando en el orden
-  en que han sido introducidos y se van extrayendo en orden contrario
-  siguiendo una estrategia _LIFO_ (*L*ast *I*n, *F*irst *O*ut).
+  - Define una pila de elementos, de forma que se van almacenando en el orden
+    en que han sido introducidos y se van extrayendo en orden contrario
+    siguiendo una estrategia _LIFO_ (*L*ast *I*n, *F*irst *O*ut).
 
-- Los elementos pueden ser de cualquier tipo.
+  - Los elementos pueden ser de cualquier tipo.
 
-- Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.
+  - Dos pilas son iguales si tienen los mismos elementos y en el mismo orden.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -2175,32 +2182,32 @@ class Deposito:
 
 - Una posible implementación con una clase Python podría ser:
 
-```python
-class Pila:
-   def __init__(self):
-       self.__elems = []
+  ```python
+  class Pila:
+     def __init__(self):
+         self.__elems = []
 
-   def __eq__(self, otra):
-       if type(self) != type(otra):
-           return NotImplemented
-       return self.__elems == otra.__elems
+     def __eq__(self, otra):
+         if type(self) != type(otra):
+             return NotImplemented
+         return self.__elems == otra.__elems
 
-   def vacia(self):
-       return self.__elems == []
+     def vacia(self):
+         return self.__elems == []
 
-   def apilar(self, elem):
-       self.__elems.append(elem)
+     def apilar(self, elem):
+         self.__elems.append(elem)
 
-   def desapilar(self):
-       if self.vacia():
-           raise ValueError('No se puede desapilar una pila vacía')
-       self.__elems.pop()
+     def desapilar(self):
+         if self.vacia():
+             raise ValueError('No se puede desapilar una pila vacía')
+         self.__elems.pop()
 
-   def cima(self):
-       if self.vacia():
-           raise ValueError('Una pila vacía no tiene cima')
-       return self.__elems[-1]
-```
+     def cima(self):
+         if self.vacia():
+             raise ValueError('Una pila vacía no tiene cima')
+         return self.__elems[-1]
+  ```
 
 ---
 
@@ -2250,26 +2257,26 @@ class Pila:
   asignación** directamente en el _cuerpo_ de la clase, fuera de cualquier
   definición de método:
 
-```python
-class Deposito:
-    interes = 0.02  # Una variable de clase
+  ```python
+  class Deposito:
+      interes = 0.02  # Una variable de clase
 
-    def __init__(self, fondos):
-        self.fondos = fondos
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            raise ValueError('Fondos insuficientes')
-        self.fondos -= cantidad
-        return self.fondos
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              raise ValueError('Fondos insuficientes')
+          self.fondos -= cantidad
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def saldo(self):
-        return self.fondos
-```
+      def saldo(self):
+          return self.fondos
+  ```
 
 ---
 
@@ -2277,18 +2284,21 @@ class Deposito:
   se pueden crear y manipular a través de una referencia a la clase usando la
   sintaxis:
 
-_clase_`.`_atributo_
+  !CENTRAR
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !NT(clase)`.`!NT(atributo)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-```python
->>> Deposito.interes
-0.02
->>> Deposito.interes = 0.08
->>> Deposito.interes
-0.08
->>> Deposito.nueva = 5
->>> Deposito.nueva
-5
-```
+  ```python
+  >>> Deposito.interes
+  0.02
+  >>> Deposito.interes = 0.08
+  >>> Deposito.interes
+  0.08
+  >>> Deposito.nueva = 5
+  >>> Deposito.nueva
+  5
+  ```
 
 - Esto nos indica que las variables de clase se almacenan en la propia clase,
   es decir, en el objeto que representa a la clase.
@@ -2324,18 +2334,18 @@ _clase_`.`_atributo_
   lo que ocurre en realidad es que **creamos una nueva variable de instancia
   con el mismo nombre** que la variable de clase:
 
-```python
->>> Deposito.interes
-0.02
->>> d1 = Deposito(100)
->>> d1.interes
-0.02
->>> d1.interes = 0.08         # Crea una nueva variable de instancia
->>> d1.interes                # Accede a la variable de instancia
-0.08
->>> Deposito.interes          # Accede a la variable de clase
-0.02
-```
+  ```python
+  >>> Deposito.interes
+  0.02
+  >>> d1 = Deposito(100)
+  >>> d1.interes
+  0.02
+  >>> d1.interes = 0.08         # Crea una nueva variable de instancia
+  >>> d1.interes                # Accede a la variable de instancia
+  0.08
+  >>> Deposito.interes          # Accede a la variable de clase
+  0.02
+  ```
 
 - Esto ocurre porque la variable de instancia se almacena en el objeto, no en
   la clase, y al acceder desde el objeto tiene preferencia.
