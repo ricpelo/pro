@@ -1033,6 +1033,28 @@ subgraph cluster2 {
 
 !IMGP(clase-dos-objetos-atributos-distintos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` con distintos atributos)(width=75%)(width=70%)
 
+---
+
+\begingroup
+\setlist[itemize,1]{labelindent=0pt, label=--}
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**En resumen:**
+
+- Las clases son plantillas que describen el comportamiento común de todas las
+  instancias de esa clase.
+
+- Todas las instancias de la misma clase tienen el mismo comportamiento, ya que
+  las operaciones (es decir, los métodos) se almacenan en la clase, y no en las
+  instancias.
+
+- Cada instancia tiene su propio estado interno, represetado por sus campos
+  (variables de instancia y constantes).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\endgroup
+
 <!--
 
 ---
