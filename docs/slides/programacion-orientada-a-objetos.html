@@ -585,8 +585,8 @@ class="sourceCode python"><span class="fu">__init__</span></code>.</p></li>
 <section class="slide level5" data-number="2.2.0.0.3">
 
 <ul>
-<li><p>Podemos usar <em>docstrings</em> para documentar tanto la propia
-clase como los métodos de la misma:</p>
+<li><p>Podemos usar <em>docstrings</em> para documentar la clase y sus
+métodos:</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;</span></span>
@@ -612,11 +612,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Devuelve el saldo del depósito.&quot;&quot;&quot;</span></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
-<ul>
-<li>Por convenio, el <em>docstring</em> de una clase siempre se escribe
+<p>Por convenio, el <em>docstring</em> de una clase siempre se escribe
 usando el estilo <em>multilínea</em>, al igual que pasa con los
-módulos.</li>
-</ul></li>
+módulos.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.2.0.0.4">
@@ -937,12 +935,11 @@ debería, al menos) a la hora de escribir nuestros programas.</p></li>
 <section class="slide level5" data-number="2.2.1.0.5">
 
 <ul>
-<li>Con <a
+<li><p>Con <a
 href="http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28&#39;Fondos%20insuficientes&#39;%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&amp;cumulative=false&amp;curInstr=5&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false"
 target="_blank">Pythontutor</a> podemos observar las estructuras que se
 forman al definir la clase y al instanciar dicha clase en un nuevo
-objeto:</li>
-</ul>
+objeto:</p>
 <div class="sourceCode" id="cb9"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
@@ -961,7 +958,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>dep <span class="op">=</span> Deposito(<span class="dv">100</span>)</span></code></pre></div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="2.2.1.0.6">
 
@@ -1011,9 +1009,8 @@ mismo, sino una referencia a éste.</p></li>
 <section class="slide level5" data-number="2.2.1.0.8">
 
 <ul>
-<li>Gráficamente, el caso anterior se puede representar de la siguiente
-forma:</li>
-</ul>
+<li><p>Gráficamente, el caso anterior se puede representar de la
+siguiente forma:</p>
 <div class="centered">
 <figure>
 <img data-src="images/dos-referencias-iguales.png" class="plain"
@@ -1022,7 +1019,8 @@ alt="Dos variables (dep1 y dep2) que apuntan al mismo objeto" />
 <figcaption aria-hidden="true">Dos variables (<code>dep1</code> y
 <code>dep2</code>) que <em>apuntan</em> al mismo objeto</figcaption>
 </figure>
-</div>
+</div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="2.2.1.0.9">
 
@@ -1132,10 +1130,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a h
 <section class="slide level5" data-number="2.3.1.0.2">
 
 <ul>
-<li>Por supuesto, dos objetos distintos pueden tener valores distintos
-en sus atributos, ya que cada atributo pertenece a un objeto
-determinado:</li>
-</ul>
+<li><p>Por supuesto, dos objetos distintos pueden tener valores
+distintos en sus atributos, ya que cada atributo pertenece a un objeto
+determinado:</p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="sourceCode" id="cb16"><pre
@@ -1156,7 +1153,8 @@ objetos <code>dep1</code> y <code>dep2</code> en memoria</figcaption>
 </figure>
 </div>
 </div>
-</div>
+</div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="2.3.1.0.3">
 
@@ -1526,11 +1524,10 @@ class="sourceCode python"><span class="va">self</span></code>.</p></li>
 <section class="slide level5" data-number="3.3.0.0.1">
 
 <ul>
-<li>Por ejemplo, en la clase <code>Deposito</code>, obsérvese que todos
-los métodos tienen <code
+<li><p>Por ejemplo, en la clase <code>Deposito</code>, obsérvese que
+todos los métodos tienen <code
 class="sourceCode python"><span class="va">self</span></code> como
-primer parámetro:</li>
-</ul>
+primer parámetro:</p>
 <div class="sourceCode" id="cb30"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos):</span>
@@ -1547,7 +1544,8 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a h
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> saldo(<span class="va">self</span>):</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fondos</span></code></pre></div></li>
+</ul>
 </section>
 <section class="slide level5" data-number="3.3.0.0.2">
 

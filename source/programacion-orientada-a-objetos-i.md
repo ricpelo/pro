@@ -375,8 +375,7 @@ En programación orientada a objetos:
 
 ---
 
-- Podemos usar _docstrings_ para documentar tanto la propia clase como los
-  métodos de la misma:
+- Podemos usar _docstrings_ para documentar la clase y sus métodos:
 
   ```python
   class Deposito:
@@ -405,7 +404,7 @@ En programación orientada a objetos:
           return self.fondos
   ```
 
-  - Por convenio, el _docstring_ de una clase siempre se escribe usando el
+  Por convenio, el _docstring_ de una clase siempre se escribe usando el
     estilo _multilínea_, al igual que pasa con los módulos.
 
 ---
@@ -731,26 +730,26 @@ Los **objetos** tienen tres **características** básicas:
 
 - Con [Pythontutor](http://pythontutor.com/visualize.html#code=class%20Deposito%3A%0A%20%20%20%20def%20__init__%28self,%20fondos%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%3D%20fondos%0A%0A%20%20%20%20def%20retirar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20if%20cantidad%20%3E%20self.fondos%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ValueError%28'Fondos%20insuficientes'%29%0A%20%20%20%20%20%20%20%20self.fondos%20-%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20ingresar%28self,%20cantidad%29%3A%0A%20%20%20%20%20%20%20%20self.fondos%20%2B%3D%20cantidad%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%0A%20%20%20%20def%20saldo%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.fondos%0A%20%20%20%20%20%20%20%20%0Adep%20%3D%20Deposito%28100%29&cumulative=false&curInstr=5&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false){target="\_blank"} podemos observar las estructuras que se forman al definir la clase y al instanciar dicha clase en un nuevo objeto:
 
-```python
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
+  ```python
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            raise ValueError('Fondos insuficientes')
-        self.fondos -= cantidad
-        return self.fondos
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              raise ValueError('Fondos insuficientes')
+          self.fondos -= cantidad
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def saldo(self):
-        return self.fondos
+      def saldo(self):
+          return self.fondos
 
-dep = Deposito(100)
-```
+  dep = Deposito(100)
+  ```
 
 ---
 
@@ -795,7 +794,7 @@ dep = Deposito(100)
 
 - Gráficamente, el caso anterior se puede representar de la siguiente forma:
 
-!IMGP(dos-referencias-iguales.png)(Dos variables (`dep1` y `dep2`) que *apuntan* al mismo objeto)(width=80%)(width=70%)
+  !IMGP(dos-referencias-iguales.png)(Dos variables (`dep1` y `dep2`) que *apuntan* al mismo objeto)(width=80%)(width=70%)
 
 ---
 
@@ -911,28 +910,28 @@ subgraph cluster2 {
 - Por supuesto, dos objetos distintos pueden tener valores distintos en sus
   atributos, ya que cada atributo pertenece a un objeto determinado:
 
-:::: columns
+  :::: columns
 
-::: {.column width=40%}
+  ::: {.column width=40%}
 
-```python
->>> dep1 = Deposito(100)
->>> dep2 = Deposito(400)
->>> dep1.fondos
-100
->>> dep2.fondos
-400
-```
+  ```python
+  >>> dep1 = Deposito(100)
+  >>> dep2 = Deposito(400)
+  >>> dep1.fondos
+  100
+  >>> dep2.fondos
+  400
+  ```
 
-:::
+  :::
 
-::: {.column width=60%}
+  ::: {.column width=60%}
 
-!IMGP(clase-dos-objetos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` en memoria)(width=95%)(width=70%)
+  !IMGP(clase-dos-objetos-estructura.png)(La clase `Deposito` y los objetos `dep1` y `dep2` en memoria)(width=95%)(width=70%)
 
-:::
+  :::
 
-::::
+  ::::
 
 ---
 
@@ -1279,24 +1278,24 @@ subgraph cluster2 {
 - Por ejemplo, en la clase `Deposito`, obsérvese que todos los métodos tienen
   !PYTHON(self) como primer parámetro:
 
-```python
-class Deposito:
-    def __init__(self, fondos):
-        self.fondos = fondos
+  ```python
+  class Deposito:
+      def __init__(self, fondos):
+          self.fondos = fondos
 
-    def retirar(self, cantidad):
-        if cantidad > self.fondos:
-            raise ValueError('Fondos insuficientes')
-        self.fondos -= cantidad
-        return self.fondos
+      def retirar(self, cantidad):
+          if cantidad > self.fondos:
+              raise ValueError('Fondos insuficientes')
+          self.fondos -= cantidad
+          return self.fondos
 
-    def ingresar(self, cantidad):
-        self.fondos += cantidad
-        return self.fondos
+      def ingresar(self, cantidad):
+          self.fondos += cantidad
+          return self.fondos
 
-    def saldo(self):
-        return self.fondos
-```
+      def saldo(self):
+          return self.fondos
+  ```
 
 ---
 
