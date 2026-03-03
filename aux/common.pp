@@ -263,8 +263,8 @@ LAS SIGUIENTES MACROS SON AUXILIARES, NO PARA USO GENERAL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 !ifdef(HTML)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-::: centered
-  !1:::
+<div class="centered">
+  !1</div>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \begingroup

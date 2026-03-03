@@ -1308,30 +1308,34 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 
 :::: columns
 
-::: column
+::: {.column width=49%}
 
 - Tenemos, por tanto, la siguiente situación:
 
-!UML(animales-anfibios-mover.png)(El método `mover` está en `Terrestre` y `Acuatico`)(width=65%)(width=35%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-skinparam linetype none
-class Terrestre {
-    +mover()
-}
+  !UML(animales-anfibios-mover.png)(El método `mover` está en `Terrestre` y `Acuatico`)(width=65%)(width=35%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  skinparam linetype none
+  class Terrestre {
+      +mover()
+  }
 
-class Acuatico {
-    +mover()
-}
+  class Acuatico {
+      +mover()
+  }
 
-Animal <|-- Terrestre
-Animal <|-- Acuatico
-Terrestre <|-- Anfibio
-Acuatico <|-- Anfibio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Animal <|-- Terrestre
+  Animal <|-- Acuatico
+  Terrestre <|-- Anfibio
+  Acuatico <|-- Anfibio
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
 
-::: column
+::: {.column width=3%}
+
+:::
+
+::: {.column width=48%}
 
 - La pregunta es: ¿cuál de los métodos `mover` heredará `Anfibio`?
 
@@ -1792,39 +1796,43 @@ Acuatico <|-- Anfibio
   clases `Ventana` y `Rectangulo` pueden ser clases totalmente independientes,
   sin relación entre sí:
 
-:::: columns
+  :::: columns
 
-::: column
+  ::: {.column width=49%}
 
-```python
-class Ventana:
-    def get_ancho(self):
-        # ...
+  ```python
+  class Ventana:
+      def get_ancho(self):
+          # ...
 
-    def get_alto(self):
-        # ...
+      def get_alto(self):
+          # ...
 
-    # ... resto de la clase
-```
+      # ... resto de la clase
+  ```
 
-:::
+  :::
 
-::: column
+  ::: {.column width=2%}
 
-```python
-class Rectangulo:
-    def get_ancho(self):
-        # ...
+  :::
 
-    def get_alto(self):
-        # ...
+  ::: {.column width=49%}
 
-    # ... resto de la clase
-```
+  ```python
+  class Rectangulo:
+      def get_ancho(self):
+          # ...
 
-:::
+      def get_alto(self):
+          # ...
 
-::::
+      # ... resto de la clase
+  ```
+
+  :::
+
+  ::::
 
 ---
 
