@@ -168,29 +168,29 @@ class Tuit {
 - Dicha asociación se puede representar así en un diagrama de clases, usando el
   lenguaje UML:
 
-:::: columns
+  :::: columns
 
-::: column
+  ::: column
 
-!UML(calculadora-asocia-numero.png)()(width=50%)(width=20%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Calculadora -- Numero : " manipula"
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML(calculadora-asocia-numero.png)()(width=50%)(width=20%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Calculadora -- Numero : " manipula"
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:::
+  :::
 
-::: column
+  ::: column
 
-- La asociación se llama _manipula_ y representa una relación que se da
-  conceptualmente en el modelo que estamos haciendo de nuestra aplicación.
+  - La asociación se llama _manipula_ y representa una relación que se da
+    conceptualmente en el modelo que estamos haciendo de nuestra aplicación.
 
-- No hay más pistas sobre qué quiere decir _manipular_ números.
+  - No hay más pistas sobre qué quiere decir _manipular_ números.
 
-- Puede ser útil durante el análisis pero no nos ayuda mucho en _Programación_.
+  - Puede ser útil durante el análisis pero no nos ayuda mucho en _Programación_.
 
-:::
+  :::
 
-::::
+  ::::
 
 ## Dependencia
 
@@ -524,9 +524,7 @@ Cuenta "1" *-- "0..*" Tuit
   subclases a partir de otras clases, creando lo que se denominan **jerarquías
   de generalización**.
 
----
-
-Por ejemplo:
+!EJEMPLO
 
 - En un Instituto hay dos tipos de trabajadores: docentes y PAS (personal de
   administración y servicios).
@@ -652,10 +650,10 @@ Trabajador <|--- PAS
   la clase `Docente` sólo es subclase directa de `Trabajador` (y no tiene más
   superclases directas).
 
-!UML(trabajador-generaliza-docente.png)()(width=20%)(width=17%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Trabajador <|-- Docente
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML(trabajador-generaliza-docente.png)()(width=20%)(width=17%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Trabajador <|-- Docente
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -667,12 +665,12 @@ Trabajador <|-- Docente
   relaciones de generalización separadas, pero ninguna subclase tiene más de
   una superclase directa:
 
-!UML[doble-herencia-simple.png][][width=25%][width=25%]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-skinparam linetype none
-A <|-- B
-A <|-- C
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML[doble-herencia-simple.png][][width=25%][width=25%]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  skinparam linetype none
+  A <|-- B
+  A <|-- C
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Por tanto, lo que tenemos son dos herencias simples, no una herencia
   múltiple.
@@ -681,12 +679,12 @@ A <|-- C
 
 - Ésto, en cambio, no sería herencia simple, sino múltiple:
 
-!UML[herencia-multiple.png][Una subclase con dos superclases directas (herencia múltiple)][width=30%][width=25%]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-skinparam linetype none
-A <|-- C
-B <|-- C
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML[herencia-multiple.png][Una subclase con dos superclases directas (herencia múltiple)][width=30%][width=25%]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  skinparam linetype none
+  A <|-- C
+  B <|-- C
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -695,81 +693,85 @@ B <|-- C
 
 - Por ejemplo, aquí tenemos **dos** relaciones de generalización simple:
 
-:::: columns
+  :::: columns
 
-::: column
+  ::: column
 
-!UML(trabajador-docente-investigador.png)()(width=40%)(width=15%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Trabajador <|-- Docente
-Docente <|-- Investigador
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML(trabajador-docente-investigador.png)()(width=40%)(width=15%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Trabajador <|-- Docente
+  Docente <|-- Investigador
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:::
+  :::
 
-::: column
+  ::: column
 
-- `Trabajador` es **superclase _directa_** de `Docente` y **superclase
-  _indirecta_** de `Investigador`.
+  - `Trabajador` es **superclase _directa_** de `Docente` y **superclase
+    _indirecta_** de `Investigador`.
 
-- `Docente` es subclase _directa_ de `Trabajador` y superclase _directa_ de
-  `Investigador`.
+  - `Docente` es subclase _directa_ de `Trabajador` y superclase _directa_ de
+    `Investigador`.
 
-- `Investigador` es **subclase _directa_** de `Docente` y **subclase
-  _indirecta_** de `Trabajador`.
+  - `Investigador` es **subclase _directa_** de `Docente` y **subclase
+    _indirecta_** de `Trabajador`.
 
-:::
+  :::
 
-::::
+  ::::
 
 ---
 
 - La forma de codificar la herencia simple en Python es especificar el nombre
   de la superclase directa detrás del nombre de la subclase, entre paréntesis:
 
-:::: columns
+  :::: columns
 
-::: {.column width=60%}
+  ::: {.column width=55%}
 
-```python
-class Trabajador:
-    """Trabajador es la superclase"""
-    def set_nombre(self, nombre):
-        self.__nombre = nombre
+  ```python
+  class Trabajador:
+      """Trabajador es la superclase"""
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
 
-    def get_nombre(self):
-        return self.__nombre
+      def get_nombre(self):
+          return self.__nombre
 
-class Docente(Trabajador):
-    """Docente es subclase de Trabajador"""
-    def set_nrp(self, nrp):
-        self.__nrp = nrp
+  class Docente(Trabajador):
+      """Docente es subclase de Trabajador"""
+      def set_nrp(self, nrp):
+          self.__nrp = nrp
 
-    def get_nrp(self, nrp):
-        return self.__nrp
-```
+      def get_nrp(self, nrp):
+          return self.__nrp
+  ```
 
-:::
+  :::
 
-::: {.column width=40%}
+  ::: {.column width=1%}
 
-- Con este código podemos crear instancias de las clases `Trabajador` y
-  `Docente`:
+  :::
 
-```python
->>> t = Trabajador()
->>> t.set_nombre("Manolo")
->>> t.get_nombre()
-'Manolo'
->>> d = Docente()
->>> d.set_nrp(273849)
->>> d.get_nrp()
-273849
-```
+  ::: {.column width=38%}
 
-:::
+  - Con este código podemos crear instancias de las clases `Trabajador` y
+    `Docente`:
 
-::::
+    ```python
+    >>> t = Trabajador()
+    >>> t.set_nombre("Manolo")
+    >>> t.get_nombre()
+    'Manolo'
+    >>> d = Docente()
+    >>> d.set_nrp(273849)
+    >>> d.get_nrp()
+    273849
+    ```
+
+  :::
+
+  ::::
 
 ---
 
@@ -777,49 +779,53 @@ class Docente(Trabajador):
   características de la superclase, por lo que la clase `Docente` también
   dispone de los métodos `set_nombre` y `get_nombre` heredados de `Trabajador`:
 
-:::: columns
+  :::: columns
 
-::: {.column width=60%}
+  ::: {.column width=59%}
 
-```python
-class Trabajador:
-    """Trabajador es la superclase"""
-    def set_nombre(self, nombre):
-        self.__nombre = nombre
+  ```python
+  class Trabajador:
+      """Trabajador es la superclase"""
+      def set_nombre(self, nombre):
+          self.__nombre = nombre
 
-    def get_nombre(self):
-        return self.__nombre
+      def get_nombre(self):
+          return self.__nombre
 
-class Docente(Trabajador):
-    """Docente es subclase de Trabajador"""
-    def set_nrp(self, nrp):
-        self.__nrp = nrp
+  class Docente(Trabajador):
+      """Docente es subclase de Trabajador"""
+      def set_nrp(self, nrp):
+          self.__nrp = nrp
 
-    def get_nrp(self, nrp):
-        return self.__nrp
-```
+      def get_nrp(self, nrp):
+          return self.__nrp
+  ```
 
-:::
+  :::
 
-::: {.column width=40%}
+  ::: {.column width=2%}
 
-```python
->>> t = Trabajador()
->>> t.set_nombre("Manolo")
->>> t.get_nombre()
-'Manolo'
->>> d = Docente()
->>> d.set_nrp(273849)
->>> d.get_nrp()
-273849
->>> d.set_nombre("Juan")
->>> d.get_nombre()
-'Juan'
-```
+  :::
 
-:::
+  ::: {.column width=38%}
 
-::::
+  ```python
+  >>> t = Trabajador()
+  >>> t.set_nombre("Manolo")
+  >>> t.get_nombre()
+  'Manolo'
+  >>> d = Docente()
+  >>> d.set_nrp(273849)
+  >>> d.get_nrp()
+  273849
+  >>> d.set_nombre("Juan")
+  >>> d.get_nombre()
+  'Juan'
+  ```
+
+  :::
+
+  ::::
 
 - Es como si el código de los métodos `set_nombre` y `get_nombre` se hubiesen
   «copiado y pegado» dentro de la clase `Docente`.
@@ -867,7 +873,7 @@ class Docente(Trabajador):
 
 ---
 
-!DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=50%)(width=45%)
+!DOT(cadena-herencia-simple.svg)(Cadena de herencia simple)(width=60%)(width=45%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 compound = true
 graph [rankdir = LR]
@@ -907,14 +913,14 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   `set_nombre`, el intérprete busca el método recorriendo la cadena de herencia
   representada en la lista de clases:
 
-  - Primero busca en el propio objeto un atributo que se llame `set_nombre`.
+  #. Primero busca en el propio objeto un atributo que se llame `set_nombre`.
 
-  - Como no lo encuentra, a continuación lo busca en la clase `Docente`.
+  #. Como no lo encuentra, a continuación lo busca en la clase `Docente`.
 
-  - Como no lo encuentra, a continuación lo busca en la clase `Trabajador`.
+  #. Como no lo encuentra, a continuación lo busca en la clase `Trabajador`.
 
-  - Como ahora sí lo ha encontrado, lo ejecuta como si el método hubiese estado
-    definido directamente en la clase `Docente`.
+  #. Como ahora sí lo ha encontrado, lo ejecuta como si el método hubiese
+     estado definido directamente en la clase `Docente`.
 
 ---
 
@@ -1177,13 +1183,13 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 - En el ejemplo anterior de los trabajadores, docentes e investigadores, en
   realidad tendríamos la siguiente jerarquía de clases:
 
-!UML(object-trabajador-docente-investigador.png)()(width=75%)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-left to right direction
-Investigador --|> Docente
-Docente --|> Trabajador
-Trabajador --|> object
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML(object-trabajador-docente-investigador.png)()(width=78%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  left to right direction
+  Investigador --|> Docente
+  Docente --|> Trabajador
+  Trabajador --|> object
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Como todas las clases, predefinidas o definidas por el programador, son
   subclases de !PYTHON(object) ya sea directa o indirectamente, todas las
@@ -1227,14 +1233,14 @@ Trabajador --|> object
 - Por tanto, podríamos modelarlo usando herencia múltiple de la siguiente
   manera:
 
-!UML[animales-anfibios.png][Los anfibios son terrestres y acuáticos al mismo tiempo (herencia múltiple)][width=35%]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-skinparam linetype none
-Animal <|-- Terrestre
-Animal <|-- Acuatico
-Terrestre <|-- Anfibio
-Acuatico <|-- Anfibio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  !UML[animales-anfibios.png][Los anfibios son terrestres y acuáticos al mismo tiempo (herencia múltiple)][width=35%]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  skinparam linetype none
+  Animal <|-- Terrestre
+  Animal <|-- Acuatico
+  Terrestre <|-- Anfibio
+  Acuatico <|-- Anfibio
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -1306,7 +1312,7 @@ Acuatico <|-- Anfibio
 
 - Tenemos, por tanto, la siguiente situación:
 
-!UML[animales-anfibios-mover.png][El método `mover` está en `Terrestre` y `Acuatico`][width=65%][width=35%]
+!UML(animales-anfibios-mover.png)(El método `mover` está en `Terrestre` y `Acuatico`)(width=65%)(width=35%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 skinparam linetype none
 class Terrestre {
