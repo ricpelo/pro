@@ -786,13 +786,15 @@ data-number="1.2.2">
 <h3 data-number="1.2.2"><span class="header-section-number">1.2.2</span>
 <code>__hash__</code></h3>
 <ul>
-<li><p>Recordemos lo que ya sabemos:</p>
-<ul>
 <li><p>Existen datos <em>hashables</em> y datos <em>no
 hashables</em>.</p></li>
-<li><p>Los datos <em>hashables</em> son aquellos que se pueden comparar
-entre sí con <code>==</code> y además llevan asociado un número entero
-llamado <em>hash</em>.</p></li>
+<li><p>Un dato <em>hashable</em> es aquel que:</p>
+<ol>
+<li><p>se puede comparar con otro dato usando <code>==</code>, y
+además</p></li>
+<li><p>lleva asociado un número entero llamado <em>hash</em> que nunca
+cambia durante la vida del dato.</p></li>
+</ol></li>
 <li><p>Los datos <em>hashables</em> pueden guardarse en un conjunto o
 usarse como claves de un diccionario.</p></li>
 <li><p>Los datos mutables no pueden ser <em>hashables</em>.</p></li>
@@ -806,12 +808,11 @@ class="math inline">x</span>.</p></li>
 class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> lanza una excepción <code
 class="sourceCode python"><span class="pp">TypeError</span></code>.</p></li>
-</ul></li>
-<li><p>Lo que hace la función <code
-class="sourceCode python"><span class="bu">hash</span></code> es llamar
-al método <code
-class="sourceCode python"><span class="fu">__hash__</span></code> sobre
-su argumento.</p></li>
+<li><p>La función <code
+class="sourceCode python"><span class="bu">hash</span></code> llama al
+método <code
+class="sourceCode python"><span class="fu">__hash__</span></code> de su
+argumento.</p></li>
 <li><p>Por tanto, la llamada a <code
 class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">x</span><code>)</code> es equivalente a hacer <span
@@ -825,8 +826,8 @@ class="sourceCode python">.<span class="fu">__hash__</span>()</code>.</p></li>
 <li><p>Los métodos <code
 class="sourceCode python"><span class="fu">__eq__</span></code> y <code
 class="sourceCode python"><span class="fu">__hash__</span></code> están
-relacionados entre sí, porque siempre se tiene que cumplir la siguiente
-condición:</p>
+relacionados entre sí mediante un <strong>contrato</strong>, porque
+siempre se tiene que cumplir lo siguiente:</p>
 <div class="caja centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <code
@@ -1051,8 +1052,8 @@ costoso.</p></li>
 class="sourceCode python"><span class="fu">__hash__</span></code> de una
 clase sería usar el <code
 class="sourceCode python"><span class="bu">hash</span></code> de una
-tupla que contenga las variables de estado de la clase (siempre que
-estas sean <em>hashables</em> también):</p>
+tupla que contenga los valores de los campos del objeto (siempre que
+estos sean <em>hashables</em> también):</p>
 <div class="sourceCode" id="cb18"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__hash__</span>(<span class="va">self</span>):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">hash</span>((<span class="va">self</span>.nombre, <span class="va">self</span>.apellidos))</span></code></pre></div></li>
@@ -1123,19 +1124,16 @@ usarlo para comprobar si dos personas son iguales y además calcular su
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni, nombre):</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__dni <span class="op">=</span> dni</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.dni <span class="op">=</span> dni</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">NotImplemented</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__dni <span class="op">==</span> otro.__dni</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.dni <span class="op">==</span> otro.dni</span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__hash__</span>(<span class="va">self</span>):</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">hash</span>(<span class="va">self</span>.__dni)</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span></code></pre></div></li>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">hash</span>(<span class="va">self</span>.dni)</span></code></pre></div></li>
 <li><p>Así, las instancias de <code>Persona</code> serán mutables y
 también <em>hashables</em>.</p></li>
 </ul>
@@ -1166,14 +1164,8 @@ identidades.</p></li>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni, nombre):</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__dni <span class="op">=</span> dni</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_dni(<span class="va">self</span>, dni):</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__dni <span class="op">=</span> dni</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span></code></pre></div></li>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.dni <span class="op">=</span> dni</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span></code></pre></div></li>
 <li><p>Esta es otra forma de tener objetos mutables y
 <em>hashables</em>.</p></li>
 </ul>

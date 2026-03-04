@@ -572,34 +572,35 @@ True
 
 ### `__hash__`
 
-- Recordemos lo que ya sabemos:
+- Existen datos _hashables_ y datos _no hashables_.
 
-  - Existen datos _hashables_ y datos _no hashables_.
+- Un dato _hashable_ es aquel que:
 
-  - Los datos _hashables_ son aquellos que se pueden comparar entre sí con `==`
-    y además llevan asociado un número entero llamado _hash_.
+  #. se puede comparar con otro dato usando `==`, y además
 
-  - Los datos _hashables_ pueden guardarse en un conjunto o usarse como claves
-    de un diccionario.
+  #. lleva asociado un número entero llamado _hash_ que nunca cambia durante
+     la vida del dato.
 
-  - Los datos mutables no pueden ser _hashables_.
+- Los datos _hashables_ pueden guardarse en un conjunto o usarse como claves
+  de un diccionario.
 
-  - Si $x$ es _hashable_, !PYTHON(hash)`(`$x$`)` debe devolver un número que
-    nunca cambie durante la vida de $x$.
+- Los datos mutables no pueden ser _hashables_.
 
-  - Si $x$ no es _hashable_, !PYTHON(hash)`(`$x$`)` lanza una excepción
-    !PYTHON(TypeError).
+- Si $x$ es _hashable_, !PYTHON(hash)`(`$x$`)` debe devolver un número que
+  nunca cambie durante la vida de $x$.
 
-- Lo que hace la función !PYTHON(hash) es llamar al método !PYTHON(__hash__)
-  sobre su argumento.
+- Si $x$ no es _hashable_, !PYTHON(hash)`(`$x$`)` lanza una excepción
+  !PYTHON(TypeError).
+
+- La función !PYTHON(hash) llama al método !PYTHON(__hash__) de su argumento.
 
 - Por tanto, la llamada a !PYTHON(hash)`(`$x$`)` es equivalente a hacer
   $x$!PYTHON(.__hash__()).
 
 ---
 
-- Los métodos !PYTHON(__eq__) y !PYTHON(__hash__) están relacionados entre sí,
-  porque siempre se tiene que cumplir la siguiente condición:
+- Los métodos !PYTHON(__eq__) y !PYTHON(__hash__) están relacionados entre sí
+  mediante un **contrato**, porque siempre se tiene que cumplir lo siguiente:
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -759,8 +760,8 @@ True
 ---
 
 - Una forma sencilla de crear el !PYTHON(__hash__) de una clase sería usar el
-  !PYTHON(hash) de una tupla que contenga las variables de estado de la clase
-  (siempre que estas sean _hashables_ también):
+  !PYTHON(hash) de una tupla que contenga los valores de los campos del objeto
+  (siempre que estos sean _hashables_ también):
 
   ```python
   def __hash__(self):
@@ -826,19 +827,16 @@ True
   ```python
   class Persona:
       def __init__(self, dni, nombre):
-          self.__dni = dni
-          self.__nombre = nombre
+          self.dni = dni
+          self.nombre = nombre
 
       def __eq__(self, otro):
           if type(self) != type(otro):
               return NotImplemented
-          return self.__dni == otro.__dni
+          return self.dni == otro.dni
 
       def __hash__(self):
-          return hash(self.__dni)
-
-      def set_nombre(self, nombre):
-          self.__nombre = nombre
+          return hash(self.dni)
   ```
 
 - Así, las instancias de `Persona` serán mutables y también _hashables_.
@@ -861,14 +859,8 @@ True
   ```python
   class Persona:
       def __init__(self, dni, nombre):
-          self.__dni = dni
-          self.__nombre = nombre
-
-      def set_dni(self, dni):
-          self.__dni = dni
-
-      def set_nombre(self, nombre):
-          self.__nombre = nombre
+          self.dni = dni
+          self.nombre = nombre
   ```
 
 - Esta es otra forma de tener objetos mutables y _hashables_.
