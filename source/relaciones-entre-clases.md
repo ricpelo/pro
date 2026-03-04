@@ -1533,10 +1533,13 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 
 ---
 
-- Por ejemplo:
+- Ejemplos:
 
   ```python
   >>> class A:
+  ...     pass
+  ...
+  >>> class B(A):
   ...     pass
   ...
   >>> issubclass(A, object)     # 'A' es subclase de 'object'
@@ -1552,6 +1555,13 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   True
   >>> isinstance(a, int)        # 'a' NO es instancia de 'int'
   False
+  >>> type(a)                   # 'a' es instancia (directa) de 'A'
+  <class 'A'>
+  >>> b = B()                   # Creamos 'b' instanciando 'B'
+  >>> type(b)                   # 'b' es instancia (directa) de 'B'
+  <class 'B'>
+  >>> isinstance(b, A)          # 'b' es instancia (indirecta) de 'A'
+  True
   ```
 
 ## Principio de sustitución de Liskov
@@ -2215,12 +2225,13 @@ recibe el mensaje.
   ```python
   def __eq__(self, otro):
       if type(self) != type(otro):
-          return NotImplemented   # no tiene sentido comparar objetos de distinto tipo
-      return self.items == otro.items  # son iguales si tienen los mismos elementos
+          return NotImplemented
+      return self.items == otro.items
   ```
 
 - Es decir: preguntamos primero si los tipos de los objetos a comparar
-  coinciden y, en caso contrario, decidimos que no se pueden comparar.
+  coinciden y, en caso contrario, decidimos que la clase no sabe comparar una
+  instancia suya con otro objeto que no es una instancia suya.
 
 - Pero, ¿qué pasa cuando los objetos que estamos comparando pertenencen a
   clases que son subclase una de la otra? Es decir, objetos que no son del
@@ -2337,19 +2348,16 @@ recibe el mensaje.
 
 - Concretamente, el orden de evaluación es el siguiente:
 
-  1. Si el tipo de `b` es una _subclase propia_ del tipo de `a`, y `b` tiene su
-     propio !PYTHON(__eq__), entonces se invoca a éste haciendo
-     !PYTHON{b.__eq__(a)} (o sea, le da la vuelta a los argumentos) y se
-     devuelve el valor que corresponda si la comparación está implementada*.
+  1. Si el tipo de `b` es una _subclase propia_ del tipo de `a`, entonces se
+     invoca a !PYTHON{b.__eq__(a)} (o sea, le da la vuelta a los argumentos) y
+     se devuelve el valor que corresponda si la comparación está implementada*.
 
-  2. En caso contrario, si `a` tiene su propio !PYTHON(__eq__), entonces se
-     invoca a éste haciendo !PYTHON(a.__eq__(b)) y se devuelve el valor que
-     corresponda si la comparación está implementada*.
+  2. En caso contrario, se invoca a !PYTHON(a.__eq__(b)) y se devuelve el valor
+     que corresponda si la comparación está implementada*.
 
-  3. En caso contrario, si `b` tiene su propio !PYTHON(__eq__), entonces se
-     invoca a éste haciendo !PYTHON{b.__eq__(a)} (o sea, dándole la vuelta a
-     sus argumentos) y se devuelve el valor que corresponda si la comparación
-     está implementada*.
+  3. En caso contrario, se invoca a !PYTHON{b.__eq__(a)} (o sea, dándole la
+     vuelta a sus argumentos) y se devuelve el valor que corresponda si la
+     comparación está implementada*.
 
   4. En caso contrario, finalmente, se lleva a cabo la comparación de sus
      identidades usando !PYTHON(is).
@@ -2358,6 +2366,24 @@ recibe el mensaje.
   !PYTHON(NotImplemented).
 
 ---
+
+- En código Python, sería:
+
+  ```python
+  if type(a) != type(b) and issubclass(type(b), type(a)):  # NUEVO
+      res = b.__eq__(a)                                    # NUEVO
+      if res in (True, False):                             # NUEVO
+          return res                                       # NUEVO
+  res = a.__eq__(b)
+  if res in (True, False):
+      return res
+  elif res == NotImplemented:
+      res = b.__eq__(a)
+      if res in (True, False):
+          return res
+      elif res == NotImplemented:
+          return a is b
+  ```
 
 - En resumen:
 
