@@ -854,23 +854,23 @@ Trabajador <|--- PAS
 
 - Al llamar a un método sobre un objeto, el intérprete:
 
-  - Primero busca dentro del objeto un atributo que se llame igual que el
-    método.
+  #. Primero busca dentro del objeto un atributo que se llame igual que el
+     método.
 
-    Si lo encuentra, lo usa como una _función_ contenida dentro del objeto.
+     Si lo encuentra, lo usa como una _función_ contenida dentro del objeto.
 
-  - Si no lo encuentra, busca el método dentro de la clase del objeto (la clase
-    que se instanció para crear el objeto).
+  #. Si no lo encuentra, busca el método dentro de la clase del objeto (la
+     clase que se instanció para crear el objeto).
 
-    Si lo encuentra, lo usa.
+     Si lo encuentra, lo usa.
 
-  - Si no lo encuentra, sigue subiendo por la lista enlazada para localizar la
-    siguiente clase (que será su superclase directa), buscando ahí el método
-    solicitado.
+  #. Si no lo encuentra, sigue subiendo por la lista enlazada para localizar la
+     siguiente clase (que será su superclase directa), buscando ahí el método
+     solicitado.
 
-    El intérprete continuará buscando en el resto de la lista hasta que
-    encuentre el método o se acabe la cadena de herencia, en cuyo caso dará un
-    error !PYTHON(AttributeError) por método no encontrado.
+     El intérprete continuará buscando en el resto de la lista hasta que
+     encuentre el método o se acabe la cadena de herencia, en cuyo caso dará un
+     error !PYTHON(AttributeError) por método no encontrado.
 
 ---
 
