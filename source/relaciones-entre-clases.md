@@ -859,11 +859,12 @@ Trabajador <|--- PAS
 
     Si lo encuentra, lo usa como una _función_ contenida dentro del objeto.
 
-  - Si no lo encuentra, busca el método dentro de la clase del objeto.
+  - Si no lo encuentra, busca el método dentro de la clase del objeto (la clase
+    que se instanció para crear el objeto).
 
     Si lo encuentra, lo usa.
 
-  - Si no lo encuentra, sigue subiendo por la lista enlazada localizando la
+  - Si no lo encuentra, sigue subiendo por la lista enlazada para localizar la
     siguiente clase (que será su superclase directa), buscando ahí el método
     solicitado.
 
@@ -1484,9 +1485,9 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 
 ## Concepto
 
-- El **polimorfismo** es una de las características básicas de la Programación
-  Orientada a Objetos, si bien es un concepto que no pertenece únicamente a
-  este paradigma.
+- El **polimorfismo** es una de las características básicas de la programación
+  orientada a objetos, si bien es un concepto que no es exclusivo de este
+  paradigma.
 
 - Decimos que **los objetos son _polimórficos_**.
 
@@ -1509,6 +1510,26 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   incluso puede pertenecer a varias clases al mismo tiempo.
 
 -->
+
+---
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Existen **tres formas de polimorfismo**:
+
+  - **Polimorfismo _ad-hoc_**: la sobrecarga de operaciones.
+
+  - **Polimorfismo paramétrico**: las operaciones genéricas y los tipos
+    genéricos, ambos definidos mediante parámetros de tipo.
+
+  - **Polimorfismo de subtipos**: una subclase es un subtipo de sus
+    superclases.
+
+El _polimorfismo de subtipos_ es la forma de polimorfismo que, por lo general,
+se tiene en mente cuando se habla de «polimorfismo» en el contexto de la
+programación orientada a objetos.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
