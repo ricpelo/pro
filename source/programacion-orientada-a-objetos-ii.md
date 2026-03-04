@@ -437,6 +437,8 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
 - No es necesario definir un método para el operador `!=`, ya que Python 3 lo
   define automáticamente a partir del `==`.
 
+<!--
+
 ---
 
 - En concreto:
@@ -450,12 +452,53 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
   - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que
     !PYTHON[cola1 is cola2] (igualdad por identidad), como acabamos de ver.
 
+-->
+
 ---
 
-- Para crear una posible implementación del método !PYTHON(__eq__), podemos
-  aprovecharnos del hecho de que dos listas son iguales cuando tienen
-  exactamente los mismos elementos en el mismo orden (justo lo que necesitamos
-  para nuestras colas):
+- En caso de que la clase no defina una implementación propia del método
+  !PYTHON(__eq__), la implementación predeterminada de ese método es la
+  siguiente:
+
+  ```python
+  def __eq__(self, other):
+      if self is other:
+          return True        # Deuelve True si son el mismo objeto
+      return NotImplemented  # No sabe cómo compararse con el otro objeto
+  ```
+
+- El valor !PYTHON(NotImplemented) se usa para expresar el hecho de que un
+  objeto no sabe compararse con el otro, normalmente porque es de otro tipo.
+
+- En cambio, es posible que el otro objeto sí que sepa compararse con el que no
+  sabe.
+
+---
+
+- Supongamos que tenemos dos objetos, `a` y `b`, y hacemos !PYTHON(a == b).
+
+- El **algoritmo (_simplificado_)** que sigue el intérprete es el siguiente:
+
+  #. Invoca !PYTHON(a.__eq__(b)):
+
+     a. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de la
+        comparación. **Fin.**
+
+     b. Si devuelve !PYTHON(NotImplemented), entonces invoca
+        !PYTHON(b.__eq__(a)):
+
+        i. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de
+           la comparación. **Fin.**
+
+        ii. Si devuelve !PYTHON(NotImplemented), entonces el resultado de la
+            comparación es !PYTHON(False). **Fin.**
+
+---
+
+- Para crear una posible implementación del método !PYTHON(__eq__) en la clase
+  `Cola`, podemos aprovecharnos del hecho de que dos listas son iguales cuando
+  tienen exactamente los mismos elementos en el mismo orden (justo lo que
+  necesitamos para nuestras colas):
 
   ```python
   def __eq__(self, otro):
@@ -501,32 +544,6 @@ True
 :::
 
 ::::
-
----
-
-- El valor !PYTHON(NotImplemented) se usa para expresar el hecho de que un
-  objeto no sabe compararse con el otro, normalmente porque es de otro tipo.
-
-- En cambio, es posible que el otro objeto sí que sepa compararse con el que no
-  sabe.
-
-- Supongamos que tenemos dos objetos, `a` y `b`, y hacemos !PYTHON(a == b).
-
-- El **algoritmo (_simplificado_)** que sigue el intérprete es el siguiente:
-
-  #. Invoca !PYTHON(a.__eq__(b)):
-
-     a. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de la
-        comparación. **Fin.**
-
-     b. Si devuelve !PYTHON(NotImplemented), entonces invoca
-        !PYTHON(b.__eq__(a)):
-
-        i. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de
-           la comparación. **Fin.**
-
-        ii. Si devuelve !PYTHON(NotImplemented), entonces el resultado de la
-            comparación es !PYTHON(False). **Fin.**
 
 ---
 
