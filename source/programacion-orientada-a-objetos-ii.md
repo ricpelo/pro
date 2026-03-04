@@ -427,20 +427,28 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
 - Para implementar nuestra propia lógica de igualdad en nuestra clase, debemos
   definir en ella el método mágico !PYTHON(__eq__).
 
-- Este método se invoca automáticamente cuando se hace una comparación con el
-  operador `==` y el operando izquierdo es una instancia de nuestra clase. El
-  operando derecho se envía como argumento en la llamada al método.
+- Simplificando mucho, este método se invoca automáticamente cuando se hace una
+  comparación con el operador `==` y el operando izquierdo es una instancia de
+  nuestra clase.
 
-- Dicho de otra forma:
+  En ese caso, el operando derecho se envía como argumento en la llamada al
+  método.
+
+- No es necesario definir un método para el operador `!=`, ya que Python 3 lo
+  define automáticamente a partir del `==`.
+
+---
+
+- En concreto:
 
   - Si la clase de `cola1` tiene definido el método `__eq__`, entonces
     `cola1 == cola2` equivale a !PYTHON(cola1.__eq__(cola2)).
 
-  - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que
-    !PYTHON(cola1 is cola2), como acabamos de ver.
+    (Posteriormente veremos que esto es una simplificación y que la cosa se
+    complicará cuando incorporemos _subclases_ y _generalización_).
 
-- No es necesario definir el operador `!=`, ya que Python 3 lo define
-  automáticamente a partir del `==`.
+  - En caso contrario, `cola1 == cola2` seguirá valiendo lo mismo que
+    !PYTHON[cola1 is cola2] (igualdad por identidad), como acabamos de ver.
 
 ---
 
@@ -452,15 +460,17 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
   ```python
   def __eq__(self, otro):
       if type(self) != type(otro):
-          return NotImplemented   # no tiene sentido comparar objetos de distinto tipo
-      return self.items == otro.items  # son iguales si tienen los mismos elementos
+          # No se sabe cómo compararlo con objetos de otro tipo:
+          return NotImplemented
+      # Son iguales si tienen los mismos elementos:
+      return self.items == otro.item
   ```
 
-  Se devuelve el valor especial !PYTHON(NotImplemented) cuando no tiene sentido
+  Se devuelve el valor especial !PYTHON(NotImplemented) cuando no se sabe cómo
   comparar un objeto de la clase `Cola` con un objeto de otro tipo.
 
 - Si introducimos este método dentro de la definición de la clase `Cola`,
-  tendremos el resultado deseado:
+  obtendremos el resultado deseado:
 
 :::: columns
 
@@ -491,6 +501,50 @@ True
 :::
 
 ::::
+
+---
+
+- El valor !PYTHON(NotImplemented) se usa para expresar el hecho de que un
+  objeto no sabe compararse con el otro, normalmente porque es de otro tipo.
+
+- En cambio, es posible que el otro objeto sí que sepa compararse con el que no
+  sabe.
+
+- Supongamos que tenemos dos objetos, `a` y `b`, y hacemos !PYTHON(a == b).
+
+- El **algoritmo (_simplificado_)** que sigue el intérprete es el siguiente:
+
+  #. Invoca !PYTHON(a.__eq__(b)):
+
+     a. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de la
+        comparación. **Fin.**
+
+     b. Si devuelve !PYTHON(NotImplemented), entonces invoca
+        !PYTHON(b.__eq__(a)):
+
+        i. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de
+           la comparación. **Fin.**
+
+        ii. Si devuelve !PYTHON(NotImplemented), entonces el resultado de la
+            comparación es !PYTHON(False). **Fin.**
+
+---
+
+- El valor !PYTHON(NotImplemented) pertenece al tipo
+  !PYTHON(NotImplementedType) definido en el módulo !PYTHON(types), por lo que
+  podemos definir el método !PYTHON(__eq__) usando la siguiente anotación de
+  tipos en el valor de retorno:
+
+  ```python
+  from types import NotImplementedType
+
+  def __eq__(self, otro) -> bool | NotImplementedType:
+     # definición del método
+     ...
+  ```
+
+- Con esto estamos declarando que el método !PYTHON(__eq__) puede devolver un
+  valor _booleano_ o bien el valor especial !PYTHON(NotImplemented).
 
 ### `__hash__`
 
