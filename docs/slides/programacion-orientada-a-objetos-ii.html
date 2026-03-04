@@ -641,9 +641,12 @@ class="sourceCode python"><span class="fu">__eq__</span></code>.</p></li>
 <li><p>Simplificando mucho, este método se invoca automáticamente cuando
 se hace una comparación con el operador <code>==</code> y el operando
 izquierdo es una instancia de nuestra clase.</p>
-<p>En ese caso, el operando derecho se envía como argumento en la
-llamada al método.</p>
-<p>Ese operando derecho puede ser un objeto de cualquier tipo.</p></li>
+<ul>
+<li><p>En ese caso, el operando derecho se envía como argumento en la
+llamada al método.</p></li>
+<li><p>Ese operando derecho puede ser un objeto de cualquier
+tipo.</p></li>
+</ul></li>
 <li><p>No es necesario definir un método para el operador
 <code>!=</code>, ya que Python 3 lo define automáticamente a partir del
 <code>==</code>.</p></li>
@@ -695,15 +698,15 @@ comparación <code>a == b</code>.</p></li>
 <li><p>El <strong>algoritmo (<em>simplificado</em>)</strong> que sigue
 el intérprete es el siguiente:</p>
 <div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> a.<span class="fu">__eq__</span>(b)             <span class="co"># Prueba con el __eq__ de la clase de a</span></span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> a.<span class="fu">__eq__</span>(b)                <span class="co"># Prueba con el __eq__ de la clase de a</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res <span class="kw">in</span> (<span class="va">True</span>, <span class="va">False</span>):</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> res <span class="op">==</span> <span class="va">NotImplemented</span>:</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)         <span class="co"># Prueba con el __eq__ de la clase de b</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)            <span class="co"># Prueba con el __eq__ de la clase de b</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> res <span class="kw">in</span> (<span class="va">True</span>, <span class="va">False</span>):</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> res <span class="op">==</span> <span class="va">NotImplemented</span>:</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span></code></pre></div></li>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="kw">is</span> b            <span class="co"># Son iguales si son idénticos</span></span></code></pre></div></li>
 <li><p>Evidentemente, se supone que <code
 class="sourceCode python"><span class="fu">__eq__</span></code> sólo
 puede devolver <code
@@ -826,8 +829,8 @@ class="sourceCode python">.<span class="fu">__hash__</span>()</code>.</p></li>
 <li><p>Los métodos <code
 class="sourceCode python"><span class="fu">__eq__</span></code> y <code
 class="sourceCode python"><span class="fu">__hash__</span></code> están
-relacionados entre sí mediante un <strong>contrato</strong>, porque
-siempre se tiene que cumplir lo siguiente:</p>
+relacionados entre sí mediante un <strong>contrato</strong>, que dice
+que siempre se tiene que cumplir lo siguiente:</p>
 <div class="caja centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <code
@@ -836,7 +839,7 @@ class="math inline">x</span><code>)</code> debe ser igual que <code
 class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code>.</p>
 </div></li>
-<li><p>Por tanto, siempre se tiene que cumplir que:</p>
+<li><p>O, dicho de otra forma:</p>
 <div class="caja centered">
 <p>Si <span class="math inline">x</span> <code>==</code> <span
 class="math inline">y</span>, entonces <span
@@ -988,7 +991,7 @@ condición con el mayor número de objetos posible.</p></li>
 <strong>colisión</strong>.</p></li>
 <li><p>Es decir: tenemos una colisión cuando varios objetos distintos
 tienen el mismo valor de <em>hash</em>.</p></li>
-<li><p>En tal caso, tenemos que:</p>
+<li><p>En ese caso, tenemos que:</p>
 <div class="centered">
 <p><span class="math inline">x</span> <code>!=</code> <span
 class="math inline">y</span>, pero <code
@@ -1000,8 +1003,7 @@ class="math inline">y</span><code>)</code>.</p>
 <li><p>Como dijimos antes, las colisiones son prácticamente inevitables,
 pero hay que procurar implementar nuestro <code
 class="sourceCode python"><span class="fu">__hash__</span></code> de
-forma que se produzcan lo menos posible, ya que mejora el
-rendimiento.</p></li>
+forma que sean poco frecuentes, ya que mejora el rendimiento.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.2.2.0.6">
@@ -1018,7 +1020,7 @@ class="math inline">x</span><code>)</code> <code>==</code> <code
 class="sourceCode python"><span class="bu">hash</span></code><code>(</code><span
 class="math inline">y</span><code>)</code></p>
 </div>
-<p>pero, al mismo tiempo, debe procurar cumplir <strong>siempre que
+<p>pero, al mismo tiempo, debe procurar cumplir <strong>siempre que se
 pueda</strong>:</p>
 <div class="centered">
 <p>Si <span class="math inline">x</span> <code>!=</code> <span
@@ -1066,7 +1068,7 @@ class="sourceCode python"><span class="fu">__eq__</span></code> en la
 clase, el intérprete automáticamente hará <code
 class="sourceCode python"><span class="fu">__hash__</span></code>
 <code>=</code> <code
-class="sourceCode python"><span class="va">None</span></code> y
+class="sourceCode python"><span class="va">None</span></code>, lo que
 convertirá a las colas en <em>no hashables</em>.</p></li>
 </ul>
 </section>
@@ -1102,8 +1104,8 @@ existen dos técnicas que nos permiten obtener objetos que sean
 simultáneamente mutables y <em>hashables</em>:</p>
 <ul>
 <li><p>Implementando <strong>igualdad estructural</strong> por
-comparación entre atributos inmutables y calculando el <em>hash</em> a
-partir de esos atributos.</p></li>
+comparación entre campos que no cambien durante la vida del objeto, y
+calculando el <em>hash</em> a partir de esos campos.</p></li>
 <li><p>Implementando <strong>igualdad por identidad</strong> y
 calculando el <em>hash</em> a partir de la identidad del
 objeto.</p></li>
@@ -1113,11 +1115,11 @@ objeto.</p></li>
 <section class="slide level5" data-number="1.2.2.0.10">
 
 <ul>
-<li><p>Si entre los atributos de un objeto hay un subconjunto de ellos
-que nunca cambian, se puede implementar <strong>igualidad
-estructural</strong> mediante la comparación de esos atributos.</p></li>
+<li><p>Si entre los campos de un objeto hay un subconjunto de ellos que
+nunca cambian, se puede implementar <strong>igualidad
+estructural</strong> mediante la comparación de esos campos.</p></li>
 <li><p>En tal caso, el <em>hash</em> se puede calcular a partir de esos
-atributos que nunca cambian.</p></li>
+campos que nunca cambian.</p></li>
 <li><p>Por ejemplo, si el DNI de una persona nunca cambia, podríamos
 usarlo para comprobar si dos personas son iguales y además calcular su
 <em>hash</em>:</p>
@@ -1201,7 +1203,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a h
 <div class="sourceCode" id="cb23"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">repr</span>(<span class="fl">3.50</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;3.5&#39;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="fl">3.5</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="fl">3.50</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fl">3.5</span></span></code></pre></div>
 </div>
 </div></li>
@@ -1228,7 +1230,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a h
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&lt;built-in function max&gt;&#39;</span></span></code></pre></div>
 <p>En este caso, lo que nos devuelve <code
 class="sourceCode python"><span class="bu">repr</span></code> no tiene
-la información suficiente como para construir la función <code
+la información suficiente para construir la función <code
 class="sourceCode python"><span class="bu">max</span></code>.</p>
 <p>De hecho, ni siquiera es una expresión válida en el lenguaje:</p>
 <div class="sourceCode" id="cb26"><pre
@@ -3074,7 +3076,7 @@ del método (el que normalmente se llama <code
 class="sourceCode python"><span class="va">self</span></code>).</li>
 </ul>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:49%;">
 <ul>
 <li><p>Por ejemplo, con la clase <code>Numero</code>, si tenemos
 que:</p>
@@ -3091,7 +3093,9 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a h
 <p>(Esta última forma no se usa nunca, ya que confunde al
 lector.)</p></li>
 </ul>
-</div><div class="column">
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:49%;">
 <ul>
 <li><p>En cambio, en la clase <code>Calculadora</code>, el método
 <code>suma</code> es estático, por lo que no hay objeto <em>sobre</em>

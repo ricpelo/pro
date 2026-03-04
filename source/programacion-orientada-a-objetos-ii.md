@@ -431,10 +431,10 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
   comparación con el operador `==` y el operando izquierdo es una instancia de
   nuestra clase.
 
-  En ese caso, el operando derecho se envía como argumento en la llamada al
-  método.
+  - En ese caso, el operando derecho se envía como argumento en la llamada al
+    método.
 
-  Ese operando derecho puede ser un objeto de cualquier tipo.
+  - Ese operando derecho puede ser un objeto de cualquier tipo.
 
 - No es necesario definir un método para el operador `!=`, ya que Python 3 lo
   define automáticamente a partir del `==`.
@@ -483,15 +483,15 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
 - El **algoritmo (_simplificado_)** que sigue el intérprete es el siguiente:
 
   ```python
-  res = a.__eq__(b)             # Prueba con el __eq__ de la clase de a
+  res = a.__eq__(b)                # Prueba con el __eq__ de la clase de a
   if res in (True, False):
       return res
   elif res == NotImplemented:
-      res = b.__eq__(a)         # Prueba con el __eq__ de la clase de b
+      res = b.__eq__(a)            # Prueba con el __eq__ de la clase de b
       if res in (True, False):
           return res
       elif res == NotImplemented:
-          return False
+          return a is b            # Son iguales si son idénticos
   ```
 
 - Evidentemente, se supone que !PYTHON(__eq__) sólo puede devolver
@@ -600,7 +600,8 @@ True
 ---
 
 - Los métodos !PYTHON(__eq__) y !PYTHON(__hash__) están relacionados entre sí
-  mediante un **contrato**, porque siempre se tiene que cumplir lo siguiente:
+  mediante un **contrato**, que dice que siempre se tiene que cumplir lo
+  siguiente:
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -608,7 +609,7 @@ True
   !PYTHON(hash)`(`$y$`)`.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Por tanto, siempre se tiene que cumplir que:
+- O, dicho de otra forma:
 
   !CAJACENTRADA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -717,7 +718,7 @@ True
 - Es decir: tenemos una colisión cuando varios objetos distintos tienen el
   mismo valor de _hash_.
 
-- En tal caso, tenemos que:
+- En ese caso, tenemos que:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -725,8 +726,8 @@ True
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Como dijimos antes, las colisiones son prácticamente inevitables, pero hay
-  que procurar implementar nuestro !PYTHON(__hash__) de forma que se produzcan
-  lo menos posible, ya que mejora el rendimiento.
+  que procurar implementar nuestro !PYTHON(__hash__) de forma que sean poco
+  frecuentes, ya que mejora el rendimiento.
 
 ---
 
@@ -737,7 +738,7 @@ True
   Si $x$ `==` $y$, entonces !PYTHON(hash)`(`$x$`)` `==` !PYTHON(hash)`(`$y$`)`
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  pero, al mismo tiempo, debe procurar cumplir **siempre que pueda**:
+  pero, al mismo tiempo, debe procurar cumplir **siempre que se pueda**:
 
   !CENTRAR
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -772,8 +773,8 @@ True
   definiremos ningún método !PYTHON(__hash__) en la clase `Cola`.
 
 - De esta forma, como sí hemos definido un método !PYTHON(__eq__) en la clase,
-  el intérprete automáticamente hará !PYTHON(__hash__) `=` !PYTHON(None) y
-  convertirá a las colas en _no hashables_.
+  el intérprete automáticamente hará !PYTHON(__hash__) `=` !PYTHON(None), lo
+  que convertirá a las colas en _no hashables_.
 
 ---
 
@@ -806,19 +807,20 @@ True
   que nos permiten obtener objetos que sean simultáneamente mutables y
   _hashables_:
 
-  - Implementando **igualdad estructural** por comparación entre atributos
-    inmutables y calculando el _hash_ a partir de esos atributos.
+  - Implementando **igualdad estructural** por comparación entre campos que no
+    cambien durante la vida del objeto, y calculando el _hash_ a partir de esos
+    campos.
 
   - Implementando **igualdad por identidad** y calculando el _hash_ a partir de
     la identidad del objeto.
 
 ---
 
-- Si entre los atributos de un objeto hay un subconjunto de ellos que nunca
+- Si entre los campos de un objeto hay un subconjunto de ellos que nunca
   cambian, se puede implementar **igualidad estructural** mediante la
-  comparación de esos atributos.
+  comparación de esos campos.
 
-- En tal caso, el _hash_ se puede calcular a partir de esos atributos que nunca
+- En tal caso, el _hash_ se puede calcular a partir de esos campos que nunca
   cambian.
 
 - Por ejemplo, si el DNI de una persona nunca cambia, podríamos usarlo para
@@ -895,7 +897,7 @@ True
   ```python
   >>> repr(3.50)
   '3.5'
-  >>> 3.5
+  >>> 3.50
   3.5
   ```
 
@@ -928,7 +930,7 @@ True
   ```
 
   En este caso, lo que nos devuelve !PYTHON(repr) no tiene la información
-  suficiente como para construir la función !PYTHON(max).
+  suficiente para construir la función !PYTHON(max).
 
   De hecho, ni siquiera es una expresión válida en el lenguaje:
 
@@ -2582,7 +2584,7 @@ Para **crear un método estático** dentro de una clase:
 
 :::: columns
 
-::: column
+::: {.column width=49%}
 
 - Por ejemplo, con la clase `Numero`, si tenemos que:
 
@@ -2608,7 +2610,11 @@ Para **crear un método estático** dentro de una clase:
 
 :::
 
-::: column
+::: {.column width=2%}
+
+:::
+
+::: {.column width=49%}
 
 - En cambio, en la clase `Calculadora`, el método `suma` es estático, por lo
   que no hay objeto _sobre_ el que actuar, así que no se pasa automáticamente
