@@ -2150,6 +2150,8 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
   En ese caso, el operando derecho se envía como argumento en la llamada al
   método.
 
+  Ese operando derecho puede ser un objeto de cualquier tipo.
+
 - No es necesario definir un método para el operador `!=`, ya que Python 3 lo
   define automáticamente a partir del `==`.
 
@@ -2173,41 +2175,46 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
 ---
 
 - En caso de que la clase no defina una implementación propia del método
-  !PYTHON(__eq__), la implementación predeterminada de ese método es la
-  siguiente:
+  !PYTHON(__eq__), la implementación predeterminada es la siguiente:
 
   ```python
-  def __eq__(self, other):
-      if self is other:
-          return True        # Deuelve True si son el mismo objeto
+  def __eq__(self, otro):
+      if self is otro:
+          return True        # Devuelve True si son el mismo objeto
       return NotImplemented  # No sabe cómo compararse con el otro objeto
   ```
 
-- El valor !PYTHON(NotImplemented) se usa para expresar el hecho de que un
-  objeto no sabe compararse con el otro, normalmente porque es de otro tipo.
+- El valor !PYTHON(NotImplemented) es un valor especial que se usa para
+  expresar el hecho de que **un objeto no sabe compararse con el otro**,
+  normalmente porque es de otro tipo.
 
 - En cambio, es posible que el otro objeto sí que sepa compararse con el que no
   sabe.
 
 ---
 
-- Supongamos que tenemos dos objetos, `a` y `b`, y hacemos !PYTHON(a == b).
+- Supongamos que tenemos dos objetos, `a` y `b`, y queremos calcular el
+  resultado de evaluar la comparación `a == b`.
 
 - El **algoritmo (_simplificado_)** que sigue el intérprete es el siguiente:
 
-  #. Invoca !PYTHON(a.__eq__(b)):
+  ```python
+  res = a.__eq__(b)             # Prueba con el __eq__ de la clase de a
+  if res in (True, False):
+      return res
+  elif res == NotImplemented:
+      res = b.__eq__(a)         # Prueba con el __eq__ de la clase de b
+      if res in (True, False):
+          return res
+      elif res == NotImplemented:
+          return False
+  ```
 
-     a. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de la
-        comparación. **Fin.**
+- Evidentemente, se supone que !PYTHON(__eq__) sólo puede devolver
+  !PYTHON(True), !PYTHON(False) o !PYTHON(NotImplemented).
 
-     b. Si devuelve !PYTHON(NotImplemented), entonces invoca
-        !PYTHON(b.__eq__(a)):
-
-        i. Si devuelve !PYTHON(True) o !PYTHON(False), ese es el resultado de
-           la comparación. **Fin.**
-
-        ii. Si devuelve !PYTHON(NotImplemented), entonces el resultado de la
-            comparación es !PYTHON(False). **Fin.**
+- De este modo, el intérprete da la oportunidad a ambos objetos a dar su
+  opinión en caso de que el otro no sepa cómo compararse con él.
 
 ---
 
@@ -2219,7 +2226,7 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
   ```python
   def __eq__(self, otro):
       if type(self) != type(otro):
-          # No se sabe cómo compararlo con objetos de otro tipo:
+          # No sabe cómo compararse con objetos de otro tipo:
           return NotImplemented
       # Son iguales si tienen los mismos elementos:
       return self.items == otro.item
