@@ -1428,10 +1428,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a h
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">hash</span>(<span class="va">self</span>.dni)</span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>dni<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">}</span><span class="ss">)&#39;</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span></code></pre></div></li>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>dni<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">}</span><span class="ss">)&#39;</span></span></code></pre></div></li>
 <li><p>Pero obtendríamos un resultado incorrecto, porque el DNI y el
 nombre de la persona deberían ir entre comillas, ya que son cadenas
 literales:</p>
@@ -1502,6 +1499,23 @@ estaría pensado para ser usado de forma habitual al crear objetos
 <code>Deposito</code>.</p></li>
 </ul>
 </section>
+<section class="slide level5" data-number="1.3.1.0.12">
+
+<ul>
+<li><p>En resumen:</p>
+<div class="caja">
+<p>El método <code
+class="sourceCode python"><span class="fu">__repr__</span></code> debe
+cumplir estas dos propiedades:</p>
+<ul>
+<li><p>La expresión que devuelve debe reconstruir completamente el
+objeto original.</p></li>
+<li><p><code>eval(repr(</code><em>objeto</em><code>))</code>
+<code>==</code> <em>objeto</em></p></li>
+</ul>
+</div></li>
+</ul>
+</section>
 
 <section id="str__" class="title-slide slide level3"
 data-number="1.3.2">
@@ -1534,28 +1548,25 @@ a cadena su argumento antes de imprimirlo.</p></li>
 <section class="slide level5" data-number="1.3.2.0.1">
 
 <ul>
-<li><p>Si la clase del objeto <code>v</code> no tiene definido el método
+<li>Si la clase del objeto <code>v</code> no tiene definido el método
 <code class="sourceCode python"><span class="fu">__str__</span></code>,
 por defecto se entiende que se tiene <code
 class="sourceCode python"><span class="fu">__str__</span></code> = <code
 class="sourceCode python"><span class="fu">__repr__</span></code>. Por
 tanto, en tal caso se llama en su lugar al método <code
-class="sourceCode python"><span class="fu">__repr__</span></code>.</p></li>
-<li><p>¿Cuál es la diferencia entre <code
-class="sourceCode python"><span class="fu">__repr__</span></code> y
-<code
-class="sourceCode python"><span class="fu">__str__</span></code>?</p>
+class="sourceCode python"><span class="fu">__repr__</span></code>.</li>
+</ul>
+<div class="caja">
+<p><strong>En resumen</strong>:</p>
 <ul>
 <li><p>La finalidad de <code
 class="sourceCode python"><span class="fu">__repr__</span></code> es ser
-<strong>no ambiguo</strong> y deberíamos implementarlo siempre en todas
-nuestras clases (cuando sea posible).</p></li>
+<strong>no ambiguo</strong>.</p></li>
 <li><p>La finalidad de <code
 class="sourceCode python"><span class="fu">__str__</span></code> es ser
-<strong>legible para el usuario</strong> y no es estrictamente necesario
-implementarlo.</p></li>
-</ul></li>
+<strong>legible para el usuario</strong>.</p></li>
 </ul>
+</div>
 </section>
 <section class="slide level5" data-number="1.3.2.0.2">
 

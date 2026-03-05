@@ -1133,9 +1133,6 @@ True
 
       def __repr__(self):
           return f'Persona({self.dni}, {self.nombre})'
-
-      def set_nombre(self, nombre):
-          self.nombre = nombre
   ```
 
 - Pero obtendríamos un resultado incorrecto, porque el DNI y el nombre de la
@@ -1210,6 +1207,21 @@ True
 - Ese parámetro sólo se usaría en ese caso, es decir, que no estaría pensado
   para ser usado de forma habitual al crear objetos `Deposito`.
 
+---
+
+- En resumen:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  El método !PYTHON(__repr__) debe cumplir estas dos propiedades:
+
+  - La expresión que devuelve debe reconstruir completamente el objeto
+    original.
+
+  - `eval(repr(`_objeto_`))` `==` _objeto_
+   
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ### `__str__`
 
 - El método !PYTHON(__str__) se invoca automáticamente cuando se necesita
@@ -1246,13 +1258,16 @@ True
   defecto se entiende que se tiene !PYTHON(__str__) = !PYTHON(__repr__). Por
   tanto, en tal caso se llama en su lugar al método !PYTHON(__repr__).
 
-- ¿Cuál es la diferencia entre !PYTHON(__repr__) y !PYTHON(__str__)?
 
-  - La finalidad de !PYTHON(__repr__) es ser **no ambiguo** y deberíamos
-    implementarlo siempre en todas nuestras clases (cuando sea posible).
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**En resumen**:
 
-  - La finalidad de !PYTHON(__str__) es ser **legible para el usuario** y no es
-    estrictamente necesario implementarlo.
+- La finalidad de !PYTHON(__repr__) es ser **no ambiguo**.
+
+- La finalidad de !PYTHON(__str__) es ser **legible para el usuario**.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
