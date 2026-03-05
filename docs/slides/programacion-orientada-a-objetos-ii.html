@@ -1186,10 +1186,12 @@ data-number="1.3.1">
 <code>__repr__</code></h3>
 <ul>
 <li><p>Existe una función llamada <code
-class="sourceCode python"><span class="bu">repr</span></code> que
-devuelve la <strong>expresión canónica</strong> de un valor, es decir,
-la cadena de símbolos que mejor <strong>representa</strong> a ese
-valor.</p>
+class="sourceCode python"><span class="bu">repr</span></code> que recibe
+una expresión y que devuelve la <strong>forma normal</strong> de esa
+expresión, es decir, la cadena de símbolos que mejor
+<strong>representa</strong> al valor de esa expresión.</p></li>
+<li><p>Otra forma de decirlo es que devuelve la <strong>expresión
+canónica</strong> del valor de la expresión.</p>
 <div class="columns">
 <div class="column" style="width:47%;">
 <div class="sourceCode" id="cb22"><pre
@@ -1207,22 +1209,22 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a h
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fl">3.5</span></span></code></pre></div>
 </div>
 </div></li>
-<li><p>La expresión que vaya en esa cadena debe ser sintáctica y
-semánticamente <strong>correcta</strong> según las reglas del
-lenguaje.</p></li>
+<li><p>La expresión que vaya dentro de la cadena que devuelve debe ser
+sintáctica y semánticamente <strong>correcta</strong> según las reglas
+del lenguaje.</p></li>
 <li><p>Además, esa expresión debe contener toda la información necesaria
 para <strong>reconstruir el valor</strong>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.3.1.0.1">
+
+<ul>
 <li><p>El intérprete interactivo de Python usa <code
 class="sourceCode python"><span class="bu">repr</span></code> cuando le
 pedimos que evalúe una expresión:</p>
 <div class="sourceCode" id="cb24"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>  <span class="co"># devuelve lo mismo que repr(2 + 3) pero sin comillas</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="1.3.1.0.1">
-
-<ul>
 <li><p>Recordemos que no todo valor tiene expresión canónica; por
 ejemplo, las funciones:</p>
 <div class="sourceCode" id="cb25"><pre
@@ -1419,17 +1421,17 @@ clase <code>Persona</code>, podríamos probar a hacer:</p>
 <div class="sourceCode" id="cb40"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni, nombre):</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__dni <span class="op">=</span> dni</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.dni <span class="op">=</span> dni</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__hash__</span>(<span class="va">self</span>):</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">hash</span>(<span class="va">self</span>.__dni)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">hash</span>(<span class="va">self</span>.dni)</span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>__dni<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>__nombre<span class="sc">}</span><span class="ss">)&#39;</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>dni<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">}</span><span class="ss">)&#39;</span></span>
 <span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nombre(<span class="va">self</span>, nombre):</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span></code></pre></div></li>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nombre <span class="op">=</span> nombre</span></code></pre></div></li>
 <li><p>Pero obtendríamos un resultado incorrecto, porque el DNI y el
 nombre de la persona deberían ir entre comillas, ya que son cadenas
 literales:</p>
@@ -1449,12 +1451,12 @@ class="sourceCode python"><span class="bu">repr</span></code> también a
 los argumentos del constructor de <code>Persona</code>:</p>
 <div class="sourceCode" id="cb42"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="bu">repr</span>(<span class="va">self</span>.__dni)<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="bu">repr</span>(<span class="va">self</span>.__nombre)<span class="sc">}</span><span class="ss">)&#39;</span></span></code></pre></div></li>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="bu">repr</span>(<span class="va">self</span>.dni)<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="bu">repr</span>(<span class="va">self</span>.nombre)<span class="sc">}</span><span class="ss">)&#39;</span></span></code></pre></div></li>
 <li><p>Esto se puede abreviar haciendo uso de la <em>conversión</em>
 <code>r</code> en los campos de sustitución de la <em>f-string</em>:</p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>__dni<span class="sc">!r}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>__nombre<span class="sc">!r}</span><span class="ss">)&#39;</span></span></code></pre></div></li>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f&#39;Persona(</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>dni<span class="sc">!r}</span><span class="ss">, </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>nombre<span class="sc">!r}</span><span class="ss">)&#39;</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.3.1.0.10">
@@ -1484,7 +1486,7 @@ constructor de la clase pudiera recibir un parámetro adicional
 <em>opcional</em> que contenga ese historial:</p>
 <div class="sourceCode" id="cb44"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Deposito:</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos, historial<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, fondos, historial <span class="op">=</span> <span class="va">None</span>):</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>       <span class="va">self</span>.fondos <span class="op">=</span> fondos</span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span> historial <span class="kw">is</span> <span class="va">None</span>:</span>
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>           <span class="va">self</span>.historial <span class="op">=</span> []</span>

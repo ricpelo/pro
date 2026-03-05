@@ -2587,9 +2587,12 @@ True
 
 ### `__repr__`
 
-- Existe una función llamada !PYTHON(repr) que devuelve la **expresión
-  canónica** de un valor, es decir, la cadena de símbolos que mejor
-  **representa** a ese valor.
+- Existe una función llamada !PYTHON(repr) que recibe una expresión y que
+  devuelve la **forma normal** de esa expresión, es decir, la cadena de
+  símbolos que mejor **representa** al valor de esa expresión.
+
+- Otra forma de decirlo es que devuelve la **expresión canónica** del valor de
+  la expresión.
 
   :::: columns
 
@@ -2621,11 +2624,13 @@ True
 
   ::::
 
-- La expresión que vaya en esa cadena debe ser sintáctica y semánticamente
-  **correcta** según las reglas del lenguaje.
+- La expresión que vaya dentro de la cadena que devuelve debe ser sintáctica y
+  semánticamente **correcta** según las reglas del lenguaje.
 
 - Además, esa expresión debe contener toda la información necesaria para
   **reconstruir el valor**.
+
+---
 
 - El intérprete interactivo de Python usa !PYTHON(repr) cuando le pedimos que
   evalúe una expresión:
@@ -2634,8 +2639,6 @@ True
   >>> 2 + 3  # devuelve lo mismo que repr(2 + 3) pero sin comillas
   5
   ```
-
----
 
 - Recordemos que no todo valor tiene expresión canónica; por ejemplo, las
   funciones:
@@ -2838,17 +2841,17 @@ True
   ```python
   class Persona:
       def __init__(self, dni, nombre):
-          self.__dni = dni
-          self.__nombre = nombre
+          self.dni = dni
+          self.nombre = nombre
 
       def __hash__(self):
-          return hash(self.__dni)
+          return hash(self.dni)
 
       def __repr__(self):
-          return f'Persona({self.__dni}, {self.__nombre})'
+          return f'Persona({self.dni}, {self.nombre})'
 
       def set_nombre(self, nombre):
-          self.__nombre = nombre
+          self.nombre = nombre
   ```
 
 - Pero obtendríamos un resultado incorrecto, porque el DNI y el nombre de la
@@ -2869,7 +2872,7 @@ True
 
   ```python
   def __repr__(self):
-      return f'Persona({repr(self.__dni)}, {repr(self.__nombre)})'
+      return f'Persona({repr(self.dni)}, {repr(self.nombre)})'
   ```
 
 - Esto se puede abreviar haciendo uso de la _conversión_ `r` en los campos de
@@ -2877,7 +2880,7 @@ True
 
   ```python
   def __repr__(self):
-      return f'Persona({self.__dni!r}, {self.__nombre!r})'
+      return f'Persona({self.dni!r}, {self.nombre!r})'
   ```
 
 ---
@@ -2907,7 +2910,7 @@ True
 
   ```python
   class Deposito:
-     def __init__(self, fondos, historial=None):
+     def __init__(self, fondos, historial = None):
          self.fondos = fondos
          if historial is None:
              self.historial = []
