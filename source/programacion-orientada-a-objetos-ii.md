@@ -1773,12 +1773,45 @@ $$\text{Visibilidad} \begin{cases}
   p.edad = -1     # ValueError
   ```
 
-- Usamos `__edad` como atributo privado para evitar recursión y señalar que no
-  debe tocarse desde fuera (_encapsulación_).
+- Usamos `__edad` como atributo privado para evitar recursividad y señalar que
+  no debe tocarse desde fuera (_encapsulación_).
 
 ---
 
-- Propiedad de sólo lectura:
+- Por desgracia, todavía podemos crear una persona con una edad negativa:
+
+  ```python
+  p = Persona(-30)
+  ```
+
+- Para corregirlo, podemos usar la propiedad también en el constructor, con lo
+  que estaremos llamando implícitamente al _setter_ también desde allí:
+
+  ```python
+  class Persona:
+      def __init__(self, edad):
+          self.edad = edad     # llama al setter
+
+      @property
+      def edad(self):
+          return self.__edad   # getter
+
+      @edad.setter
+      def edad(self, valor):
+          if valor < 0:
+              raise ValueError("La edad no puede ser negativa")
+          self.__edad = valor  # setter
+  ```
+
+- Ejemplo de uso:
+
+  ```python
+  p = Persona(-30)      # ValueError
+  ```
+
+---
+
+- También podemos crear una propiedad de sólo lectura:
 
   ```python
   from math import pi
@@ -1802,7 +1835,7 @@ $$\text{Visibilidad} \begin{cases}
 
 ---
 
-- Usar `property()` como función en lugar de usar decoradores:
+- Y usar `property()` como función en lugar de usar decoradores:
 
   ```python
   class Persona:
