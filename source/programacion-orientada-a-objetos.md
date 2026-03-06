@@ -3055,21 +3055,46 @@ True
 
 ---
 
-- Nosotros vamos a estudiar la encapsulación como dos **mecanismos**
-  distintos pero relacionados:
+- En general, la encapsulación es un mecanismo que proporciona los lenguajes de
+  programación y que permite agrupar (encapsular) varios elementos dentro de
+  una cápsula que:
 
-  - Por una parte, la encapsulación es un **mecanismo** de los lenguajes de
-    programación que permite que **los datos y las operaciones** que se puedan
-    realizar sobre esos datos **se agrupen juntos en una sola _unidad
-    sintáctica_**.
+  - se puede manipular como una unidad, y
 
-  - Por otra parte, la encapsulación es un **mecanismo** de los lenguajes de
-    programación por el cual **sólo se puede acceder al interior de un objeto
-    mediante las operaciones** que forman su **barrera de abstracción**,
-    impidiendo acceder directamente a los datos internos del mismo y
-    garantizando así la **protección de datos**.
+  - es permeable, por lo que permite que algunos elementos sean visibles y
+    accesibles desde fuera de la cápsula, mientras que los demás quedan ocultos
+    e inaccesibles desde el exterior.
 
-    En definitiva, nos referimos a un mecanismo que garantiza que los objetos
+- Según esa definición, la encapsulación se puede ver como la combinación de
+  dos mecanismos distintos pero relacionados:
+
+  - Es un mecanismo de agrupamiento porque permite agrupar varios elementos
+    formando una sola unidad lógica que se puede manipular como un todo.
+
+  - Es un mecanismo de protección porque permite el acceso a algunos elementos
+    desde fuera de la cápsula al tiempo que se impide el acceso a los otros.
+
+---
+
+- En el contexto de la programación orientada a objetos, la encapsulación se
+  puede entender así:
+
+  - Por una parte, un objeto agrupa en una sola unidad:
+
+    - los datos que representan su estado interno, junto con
+
+    - las operaciones que manipulan esos datos
+
+    de manera que todos ellos aparecen en forma de atributos del objeto.
+
+  - Por otra parte, para garantizar la protección de datos:
+
+    - **Sólo se debería poder acceder al interior de un objeto mediante las
+      operaciones** que forman su **barrera de abstracción**,
+    
+    - Se debe impedir el acceso directo a los datos internos del mismo.
+
+- En definitiva, la encapsulación es un mecanismo que garantiza que los objetos
     actúan como **datos abstractos**.
 
   <!--
@@ -3084,23 +3109,72 @@ True
     mecanismos que proporcione el lenguaje.
   -->
 
-- Vamos a ver cada uno de ellos con más detalle.
-
 ### La encapsulación como mecanismo de agrupamiento
 
-- El mecanismo de las **clases** nos permite crear estructuras que **agrupan
-  datos y operaciones en una misma unidad**.
+- Las **clases** son estructuras sintácticas que nos permiten implementar tipos
+  abstractos de datos agrupando operaciones (y posiblemente más cosas, como
+  veremos luego) en una misma unidad.
 
-- Al instanciar esas clases, aparecen los **objetos**, que conservan esa misma
-  característica de agrupar datos (estado interno) y operaciones en una sola
-  cosa.
+- Al instanciar esas clases, aparecen los **objetos**, que también encapsulan
+  datos y operaciones en una sola unidad, pero repartidos entre varios espacios
+  de nombres:
 
-- De esta forma, las operaciones acompañan a los datos allá donde vaya el
-  objeto.
+  - El objeto almacena su estado interno en forma de variables y constantes,
+    que son los datos que contiene el objeto.
 
-- Por tanto, al pasar un objeto a alguna otra parte del programa, estamos
-  también pasando las operaciones que se pueden realizar sobre ese objeto, o lo
-  que es lo mismo, los mensajes a los que puede responder.
+  - El objeto está ligado a la clase de la que es instancia mediante su
+    atributo `__class__`.
+
+  - La clase almacena las operaciones comunes a todas sus instancias.
+
+  - Por tanto, al pasar un objeto a alguna otra parte del programa, también
+    estamos «arrastrando» con él a su clase y, en consecuencia, también a las
+    operaciones que se pueden realizar sobre ese objeto, y todo eso simplemente
+    desde una única referencia al objeto.
+
+---
+
+- Tanto los datos como las operaciones se muestran como atributos del objeto,
+  aunque sabemos que las operaciones no se almacenan en el propio objeto sino
+  en su clase, para ahorrar memoria.
+
+- El mecanismo de resolución de atributos permite el acceso a los datos y las
+  operaciones de un objeto de forma transparente y uniforme, ya que
+  intérprete busca automáticamente la ligadura adecuada para ese atributo
+  primero en el objeto y luego en la(s) clase(s) correspondiente(s).
+
+---
+
+- Las operaciones se definen como funciones dentro de la clase pero actúan como
+  métodos cuando son invocados desde un objeto.
+
+- En ese caso, el intérprete crea lo que se llama un **método ligado** (_bound
+  method_), que guarda la operación y el objeto sobre el que se está invocando
+  en los atributos `__func__` y `__self__`, respectivamente:
+
+  ```python
+  >>> class A:
+  ...     def hola(self):
+  ...         print("Hola")
+  ...
+  >>> A.hola
+  <function A.hola at 0x7fe1d0efc720>
+  >>> a = A()
+  >>> a
+  <__main__.A object at 0x7fe1d0e9d160>
+  >>> a.hola
+  <bound method A.hola of <__main__.A object at 0x7fe1d0e9d160>>
+  >>> a.hola.__func__ is A.hola
+  True
+  >>> a.hola.__self__ is a
+  True
+  >>> A.hola()
+  Traceback (most recent call last):
+    File "<python-input-15>", line 1, in <module>
+  TypeError: A.hola() missing 1 required positional argument: 'self'
+  >>> a.hola()
+  Hola
+  ```
 
 ---
 
@@ -3120,7 +3194,8 @@ True
   las _referencias_, y éstas se pueden pasar como argumento, devolver como
   resultado y asignarse a una variable.
 
-- Por tanto, **los objetos son _ciudadanos de primera clase_**.
+- Por tanto, **los objetos son _ciudadanos de primera clase_** en un lenguaje
+  orientado a objetos.
 
 ---
 
@@ -3143,8 +3218,8 @@ True
 
     - sus _operaciones_ (los mensajes a los que puede responder)
 
-    juntos en una sola unidad sintáctica, a la que podemos acceder usando una
-    sencilla referencia, como `dep1` o `dep2`.
+    juntos en una sola unidad sintáctica y semántica, a la que podemos acceder
+    usando una sencilla referencia, como `dep1` o `dep2`.
 
   - Para obtener el saldo no se usa una función externa al objeto, sino que se
     le pregunta a este a través de la operación `saldo` contenida dentro del
@@ -3154,13 +3229,18 @@ True
 
 - En resumen, decir que los objetos están encapsulados es decir que:
 
-  - Agrupan datos y operaciones en una sola unidad.
+  - Conceptualmente, agrupan datos y operaciones en una sola unidad.
 
   - Son ciudadanos de primera clase.
 
   - Es posible manipularlos por completo usando simplemente una referencia.
 
   - La referencia representa al objeto.
+
+- Aunque la implementación interna almacene las operaciones en la clase y no en
+  el objeto para ahorrar memoria, en la práctica tanto los datos como las
+  operaciones son accesibles desde la misma referencia al objeto usando la
+  resolución de atributos.
 
 ### La encapsulación como mecanismo de protección de datos
 
