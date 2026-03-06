@@ -1339,15 +1339,15 @@ True
 
 ---
 
-- En general, la encapsulación es un mecanismo que proporciona los lenguajes de
-  programación y que permite agrupar (encapsular) varios elementos dentro de
-  una cápsula que:
+- En general, la **encapsulación** es un **mecanismo** que proporciona los
+  lenguajes de programación y que permite **agrupar (más técnicamente,
+  «_encapsular_»)** varios elementos dentro de una **cápsula** que:
 
-  - se puede manipular como una unidad, y
+  - se puede manipular como **una unidad**, y
 
-  - es permeable, por lo que permite que algunos elementos sean visibles y
-    accesibles desde fuera de la cápsula, mientras que los demás quedan ocultos
-    e inaccesibles desde el exterior.
+  - su membrana es **permeable**, lo que permite que algunos elementos sean
+    **visibles y accesibles** desde fuera de la cápsula, mientras que los otros
+    quedan ocultos e **inaccesibles** desde el exterior.
 
 - Según esa definición, la encapsulación se puede ver como la combinación de
   dos mecanismos distintos pero relacionados:
@@ -1361,8 +1361,8 @@ True
 
 ---
 
-- En el contexto de la programación orientada a objetos, la encapsulación se
-  puede entender así:
+- En el contexto de la **programación orientada a objetos**, la encapsulación
+  se puede entender así:
 
   - Por una parte, un objeto **agrupa** en una sola unidad:
 
@@ -1414,10 +1414,10 @@ True
 
   - **La clase almacena las operaciones** comunes a todas sus instancias.
 
-  - Por tanto, al pasar un objeto a alguna otra parte del programa, también
+  - Por tanto, al mover un objeto a alguna otra parte del programa, también
     estamos «arrastrando» con él a su clase y, en consecuencia, también a las
-    operaciones que se pueden realizar sobre ese objeto, y todo eso simplemente
-    desde una única referencia al objeto.
+    operaciones que se pueden realizar sobre ese objeto, y todo ello
+    simplemente desde una única referencia al objeto.
 
 ---
 
@@ -1522,12 +1522,14 @@ True
 
   - Es posible manipularlos por completo usando simplemente una referencia.
 
+  - Los miembros del objeto aparecen como atributos del objeto.
+
   - La referencia representa al objeto.
 
-- Aunque la implementación interna almacene las operaciones en la clase y no en
-  el objeto para ahorrar memoria, en la práctica tanto los datos como las
-  operaciones son accesibles desde una misma referencia al objeto usando la
-  resolución de atributos.
+- Aunque la implementación interna almacena las operaciones en la clase y no en
+  el objeto para ahorrar memoria, tanto los datos como las operaciones son
+  accesibles como atributos partiendo de una misma referencia al objeto usando
+  la resolución de atributos.
 
 ### La encapsulación como mecanismo de protección de datos
 
@@ -1543,11 +1545,12 @@ True
 - Según esto, podemos imaginar que:
 
   - Los atributos que almacenan el estado interno del objeto están
-    _encapsulados_ dentro del mismo.
+    _encapsulados_ dentro del mismo, agrupados dentro de su núcleo.
 
   - Las operaciones con las que se puede manipular el objeto _rodean_ a esos
     atributos formando una _cápsula_, de forma que, para poder acceder al
-    interior, hay que hacerlo necesariamente a través de esas operaciones.
+    núcleo interior, hay que hacerlo necesariamente a través de esas
+    operaciones.
 
 !IMGP(operaciones-capsula.png)(Las operaciones forman una _cápsula_)(width=30%)(width=40%)
 
