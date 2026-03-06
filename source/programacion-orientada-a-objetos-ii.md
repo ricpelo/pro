@@ -1421,6 +1421,48 @@ True
 
 ---
 
+- De este modo, a partir de una simple referencia al objeto tenemos acceso a
+  todos sus atributos:
+
+  !DOT(objeto-clase-encapsulacion.svg)(El objeto guarda sus datos y «arrastra» su clase con sus operaciones)(width=85%)(width=85%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  compound = true
+  graph [rankdir = LR]
+  node [fontname = "monospace"]
+  l1 [shape = circle, label = "λ"]
+  l2 [shape = circle, label = "λ"]
+  l3 [shape = circle, label = "λ"]
+  l4 [shape = circle, label = "λ"]
+  p3 [shape = circle, label = "100"]
+  subgraph cluster2 {
+      label = <Clase <b>Deposito</b>>
+      bgcolor = white
+      style = rounded
+      init [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__init__|<f1>⬤}"]
+      retirar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>retirar|<f1>⬤}"]
+      ingresar [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>ingresar|<f1>⬤}"]
+      saldo [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>saldo|<f1>⬤}"]
+  }
+  subgraph cluster3 {
+      label = <Objeto>
+      bgcolor = white
+      style = rounded
+      fondos [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>fondos|<f1>⬤}"]
+      __class__ [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>__class__|<f1>⬤}"]
+
+  }
+  __class__:f1 -> init [lhead = cluster2, minlen = 2]
+  dep [shape = record, fillcolor = white, width = 0.5, height = 0.3, fixedsize = false, label = "{<f0>dep|<f1>⬤}"]
+  dep:f1 -> fondos [lhead = cluster3, minlen = 2]
+  fondos:f1 -> p3
+  init:f1 -> l1
+  retirar:f1 -> l2
+  ingresar:f1 -> l3
+  saldo:f1 -> l4
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
 - **Tanto los datos como las operaciones se muestran como atributos del
   objeto**, aunque sabemos que las operaciones no se almacenan en el propio
   objeto sino en su clase, para ahorrar memoria.
