@@ -3751,7 +3751,7 @@ propiedades se traducen en invariantes** de la clase.
       las operaciones del tipo abstracto.
 
     - **Invariantes** de la clase, algunas de las cuales se implementarán como
-      postcondiciones de métodos de la clase.
+      precondiciones o postcondiciones de métodos de la clase.
 
   - El **usuario de la clase** es **responsable** de garantizar que se cumple
     la **precondición** de un método cuando lo invoca.
