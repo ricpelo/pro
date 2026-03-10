@@ -3840,18 +3840,17 @@ data-number="5.1.2.3">
 class="header-section-number">5.1.2.3</span> Propiedades</h4>
 <ul>
 <li><p>En Python, una <strong>propiedad</strong> (<em>property</em>) es
-una forma elegante de definir atributos con <em>getters</em> y
+una forma elegante de definir campos con <em>getters</em> y
 <em>setters</em> sin perder la sintaxis de acceso usando el operador
 punto (<code>.</code>).</p></li>
 <li><p>Son útiles cuando:</p>
 <ul>
-<li><p>Quieres validar o transformar el valor al asignarlo.</p></li>
-<li><p>Necesitas que un atributo sea de solo lectura.</p></li>
-<li><p>Quieres exponer un atributo «calculado» como si fuera
-normal.</p></li>
-<li><p>Tienes un atributo pero necesitas añadir control.</p></li>
-<li><p>Quieres que un atributo calculado se acceda como uno
+<li><p>Quieres validar o transformar el valor del campo al
+asignarlo.</p></li>
+<li><p>Necesitas que un campo sea de solo lectura.</p></li>
+<li><p>Quieres exponer un campo «calculado» como si fuera
 almacenado.</p></li>
+<li><p>Tienes un campo pero necesitas añadir control adicional.</p></li>
 <li><p>No quieres romper la <em>interfaz de la clase</em> (un concepto
 que veremos a continuación) si después necesitas validación.</p></li>
 </ul></li>
@@ -3860,22 +3859,27 @@ que veremos a continuación) si después necesitas validación.</p></li>
 <section class="slide level5" data-number="5.1.2.3.1">
 
 <ul>
-<li><p>Definición básica con <code
-class="sourceCode python"><span class="at">@property</span></code>:</p>
+<li><p>Definición usando los <em>decoradores</em>  <code
+class="sourceCode python"><span class="at">@property</span></code> y
+<code
+class="sourceCode python"><span class="at">@nombre.setter</span></code>:</p>
 <div class="sourceCode" id="cb98"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, edad):</span>
 <span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> edad   <span class="co"># atributo privado</span></span>
 <span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@property</span></span>
-<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>):</span>
-<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__edad   <span class="co"># getter</span></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>):          <span class="co"># getter</span></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__edad</span>
 <span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">@edad.setter</span></span>
-<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>, valor):</span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>, valor):   <span class="co"># setter</span></span>
 <span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> valor <span class="op">&lt;</span> <span class="dv">0</span>:</span>
 <span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
-<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> valor  <span class="co"># setter</span></span></code></pre></div></li>
+<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> valor</span></code></pre></div></li>
+<li><p>Los métodos <em>getter</em> y <em>setter</em> de la misma
+propiedad deben llamarse igual, y ese nombre determina el nombre de la
+propiedad (en este caso, <code>edad</code>).</p></li>
 <li><p>Ejemplo de uso:</p>
 <div class="sourceCode" id="cb99"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Persona(<span class="dv">30</span>)</span>
@@ -3904,14 +3908,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb101-1"><a 
 <span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.edad <span class="op">=</span> edad     <span class="co"># llama al setter</span></span>
 <span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@property</span></span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>):</span>
-<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__edad   <span class="co"># getter</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>):          <span class="co"># getter</span></span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__edad</span>
 <span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">@edad.setter</span></span>
-<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>, valor):</span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> edad(<span class="va">self</span>, valor):   <span class="co"># setter</span></span>
 <span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> valor <span class="op">&lt;</span> <span class="dv">0</span>:</span>
 <span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">&quot;La edad no puede ser negativa&quot;</span>)</span>
-<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> valor  <span class="co"># setter</span></span></code></pre></div></li>
+<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__edad <span class="op">=</span> valor</span></code></pre></div></li>
 <li><p>Ejemplo de uso:</p>
 <div class="sourceCode" id="cb102"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Persona(<span class="op">-</span><span class="dv">30</span>)      <span class="co"># ValueError</span></span></code></pre></div></li>
@@ -3929,7 +3933,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb103-1"><a 
 <span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.radio <span class="op">=</span> radio</span>
 <span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">@property</span></span>
-<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):</span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>):   <span class="co"># getter</span></span>
 <span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pi <span class="op">*</span> <span class="va">self</span>.radio <span class="op">**</span> <span class="dv">2</span></span></code></pre></div></li>
 <li><p>Ejemplo de uso:</p>
 <div class="sourceCode" id="cb104"><pre
@@ -3941,7 +3945,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a 
 <section class="slide level5" data-number="5.1.2.3.4">
 
 <ul>
-<li><p>Y usar <code>property()</code> como función en lugar de usar
+<li><p>Y usar <code>property</code> como función en lugar de usar
 decoradores:</p>
 <div class="sourceCode" id="cb105"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Persona:</span>
@@ -3976,8 +3980,8 @@ ya que permite acceder al interior de un objeto directamente, en lugar
 de hacerlo a través de operaciones.</p></li>
 <li><p>Ya sabemos que con eso se rompe con el principio de
 <em>ocultación de información</em>, ya que exponemos públicamente el
-tipo y la representación del dato, por lo que nos resultará muy difícil
-cambiarlos posteriormente si en el futuro nos hace falta
+tipo y la representación interna del dato, por lo que nos resultará muy
+difícil cambiarlos posteriormente si en el futuro nos hace falta
 hacerlo.</p></li>
 <li><p>Pero además, los <em>setters</em> nos garantizan que los valores
 que se almacenan en una variable de instancia cumplen con las
@@ -4097,10 +4101,11 @@ indicando sus <strong>operaciones</strong> y las
 operaciones.</p></li>
 <li><p>Esas propiedades se traducirán en:</p>
 <ul>
-<li><p><strong>Invariantes</strong> de la clase.</p></li>
 <li><p><strong>Precondiciones</strong> o
 <strong>postcondiciones</strong> de los métodos que implementan las
 operaciones del tipo abstracto.</p></li>
+<li><p><strong>Invariantes</strong> de la clase, algunas de las cuales
+se implementarán como postcondiciones de métodos de la clase.</p></li>
 </ul></li>
 <li><p>El <strong>usuario de la clase</strong> es
 <strong>responsable</strong> de garantizar que se cumple la
@@ -4309,9 +4314,9 @@ que se debe cumplir justo al finalizar la ejecución del método.</p></li>
 <li><p>Un <strong>aserto</strong> es una condición que se debe cumplir
 en un determinado punto del programa.</p></li>
 <li><p>Para <strong>implementar invariantes de clase, precondiciones o
-postcondiciones de métodos</strong> se pueden usar excepciones, asertos
-y sentencias <code
-class="sourceCode python"><span class="cf">assert</span></code> en
+postcondiciones de métodos</strong> se pueden usar excepciones y asertos
+(mediante sentencias <code
+class="sourceCode python"><span class="cf">assert</span></code>) en
 puntos adecuados del código fuente de la clase.</p></li>
 </ul></li>
 </ul>

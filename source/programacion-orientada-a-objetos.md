@@ -3489,27 +3489,26 @@ $$\text{Visibilidad} \begin{cases}
 #### Propiedades
 
 - En Python, una **propiedad** (_property_) es una forma elegante de definir
-  atributos con _getters_ y _setters_ sin perder la sintaxis de acceso usando
-  el operador punto (`.`).
+  campos con _getters_ y _setters_ sin perder la sintaxis de acceso usando el
+  operador punto (`.`).
 
 - Son útiles cuando:
 
-  - Quieres validar o transformar el valor al asignarlo.
+  - Quieres validar o transformar el valor del campo al asignarlo.
 
-  - Necesitas que un atributo sea de solo lectura.
+  - Necesitas que un campo sea de solo lectura.
 
-  - Quieres exponer un atributo «calculado» como si fuera normal.
+  - Quieres exponer un campo «calculado» como si fuera almacenado.
 
-  - Tienes un atributo pero necesitas añadir control.
-
-  - Quieres que un atributo calculado se acceda como uno almacenado.
+  - Tienes un campo pero necesitas añadir control adicional.
 
   - No quieres romper la _interfaz de la clase_ (un concepto que veremos a
     continuación) si después necesitas validación.
 
 ---
 
-- Definición básica con !PYTHON(@property):
+- Definición usando los _decoradores_\  !PYTHON(@property) y
+  !PYTHON(@nombre.setter):
 
   ```python
   class Persona:
@@ -3517,15 +3516,18 @@ $$\text{Visibilidad} \begin{cases}
           self.__edad = edad   # atributo privado
 
       @property
-      def edad(self):
-          return self.__edad   # getter
+      def edad(self):          # getter
+          return self.__edad
 
       @edad.setter
-      def edad(self, valor):
+      def edad(self, valor):   # setter
           if valor < 0:
               raise ValueError("La edad no puede ser negativa")
-          self.__edad = valor  # setter
+          self.__edad = valor
   ```
+
+- Los métodos _getter_ y _setter_ de la misma propiedad deben llamarse igual, y
+  ese nombre determina el nombre de la propiedad (en este caso, `edad`).
 
 - Ejemplo de uso:
 
@@ -3557,14 +3559,14 @@ $$\text{Visibilidad} \begin{cases}
           self.edad = edad     # llama al setter
 
       @property
-      def edad(self):
-          return self.__edad   # getter
+      def edad(self):          # getter
+          return self.__edad
 
       @edad.setter
-      def edad(self, valor):
+      def edad(self, valor):   # setter
           if valor < 0:
               raise ValueError("La edad no puede ser negativa")
-          self.__edad = valor  # setter
+          self.__edad = valor
   ```
 
 - Ejemplo de uso:
@@ -3585,7 +3587,7 @@ $$\text{Visibilidad} \begin{cases}
           self.radio = radio
 
       @property
-      def area(self):
+      def area(self):   # getter
           return pi * self.radio ** 2
   ```
 
@@ -3599,7 +3601,7 @@ $$\text{Visibilidad} \begin{cases}
 
 ---
 
-- Y usar `property()` como función en lugar de usar decoradores:
+- Y usar `property` como función en lugar de usar decoradores:
 
   ```python
   class Persona:
@@ -3629,9 +3631,9 @@ $$\text{Visibilidad} \begin{cases}
     operaciones.
 
   - Ya sabemos que con eso se rompe con el principio de _ocultación de
-    información_, ya que exponemos públicamente el tipo y la representación del
-    dato, por lo que nos resultará muy difícil cambiarlos posteriormente si en
-    el futuro nos hace falta hacerlo.
+    información_, ya que exponemos públicamente el tipo y la representación
+    interna del dato, por lo que nos resultará muy difícil cambiarlos
+    posteriormente si en el futuro nos hace falta hacerlo.
 
   - Pero además, los _setters_ nos garantizan que los valores que se almacenan
     en una variable de instancia cumplen con las **condiciones** necesarias.
@@ -3745,10 +3747,11 @@ propiedades se traducen en invariantes** de la clase.
 
   - Esas propiedades se traducirán en:
 
-    - **Invariantes** de la clase.
-
     - **Precondiciones** o **postcondiciones** de los métodos que implementan
       las operaciones del tipo abstracto.
+
+    - **Invariantes** de la clase, algunas de las cuales se implementarán como
+      postcondiciones de métodos de la clase.
 
   - El **usuario de la clase** es **responsable** de garantizar que se cumple
     la **precondición** de un método cuando lo invoca.
@@ -3938,8 +3941,8 @@ propiedades se traducen en invariantes** de la clase.
     del programa.
 
   - Para **implementar invariantes de clase, precondiciones o postcondiciones
-    de métodos** se pueden usar excepciones, asertos y sentencias
-    !PYTHON(assert) en puntos adecuados del código fuente de la clase.
+    de métodos** se pueden usar excepciones y asertos (mediante sentencias
+    !PYTHON(assert)) en puntos adecuados del código fuente de la clase.
 
 ---
 
