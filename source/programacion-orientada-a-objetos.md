@@ -3488,22 +3488,28 @@ $$\text{Visibilidad} \begin{cases}
 
 #### Propiedades
 
-- En Python, una **propiedad** (_property_) es una forma elegante de definir
-  campos con _getters_ y _setters_ sin perder la sintaxis de acceso usando el
-  operador punto (`.`).
+- En Python, una **propiedad** (_property_) es un azúcar sintáctico que permite
+  de manera elegante la definición de **campos con _getters_ y _setters_
+  relacionados** que se invocan de forma transparente al usar la propiedad como
+  si fuera un campo.
 
 - Son útiles cuando:
 
   - Quieres validar o transformar el valor del campo al asignarlo.
 
-  - Necesitas que un campo sea de solo lectura.
+  - Se necesita que un campo sea de sólo lectura.
 
-  - Quieres exponer un campo «calculado» como si fuera almacenado.
+  - Se desea exponer un campo calculado como si fuera almacenado.
 
-  - Tienes un campo pero necesitas añadir control adicional.
+  - Se dispone de un campo pero se necesita añadir control adicional.
 
-  - No quieres romper la _interfaz de la clase_ (un concepto que veremos a
-    continuación) si después necesitas validación.
+  - No se desea romper la _interfaz de la clase_ (un concepto que veremos a
+    continuación) si después se va a necesitar validación.
+
+- Desde fuera, las propiedades parecen campos y se usan como tales, pero
+  internamente el intérprete invoca a sus correspondientes _getters_ y
+  _setters_ de manera automática y sin que el usuario sepa que internamente se
+  están invocando esos métodos.
 
 ---
 
