@@ -4235,29 +4235,30 @@ propiedades se traducen en invariantes** de la clase.
 
   ```python
   class Deposito:
-      interes = 0.02  # Una variable de clase
+      interes = 0.02                    # Una variable de clase
+      doble_interes = interes * 2       # Otra variable de clase
 
       def __init__(self, fondos):
-          self.fondos = fondos
+          self.__fondos = fondos
 
       def retirar(self, cantidad):
-          if cantidad > self.fondos:
+          if cantidad > self.__fondos:
               raise ValueError('Fondos insuficientes')
-          self.fondos -= cantidad
-          return self.fondos
+          self.__fondos -= cantidad
+          return self.__fondos
 
       def ingresar(self, cantidad):
-          self.fondos += cantidad
-          return self.fondos
+          self.__fondos += cantidad
+          return self.__fondos
 
       def saldo(self):
-          return self.fondos
+          return self.__fondos
   ```
 
 ---
 
-- Fuera de la clase, o dentro de un método de la clase, estas variables también
-  se pueden crear y manipular a través de una referencia a la clase usando la
+- Fuera de la clase, o dentro de un método de la clase, estas variables se
+  deben crear y manipular a través de una referencia a la clase usando la
   sintaxis:
 
   !CENTRAR
