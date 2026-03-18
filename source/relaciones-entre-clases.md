@@ -942,13 +942,13 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 - La visibilidad de los miembros de una clase afecta al modo en como se heredan
   dichos miembros:
 
-  - Los miembros públicos de una clase son heredados por sus subclases, ya que
-    esos miembros son visibles dentro y fuera de la clase en la que se han
+  - **Los miembros públicos de una clase son heredados por sus subclases**, ya
+    que esos miembros son visibles dentro y fuera de la clase en la que se han
     definido.
 
-  - En cambio, los miembros privados de una clase no son heredados por sus
-    subclases, ya que esos miembros sólo son visibles dentro de la clase en la
-    que se han definido.
+  - En cambio, **los miembros privados de una clase NO son heredados por sus
+    subclases**, ya que esos miembros sólo son visibles dentro de la clase en
+    la que se han definido.
 
     Recordemos que, en Python, el convenio es marcar a los miembros privados
     haciendo que su nombre empiece (pero no acabe) por `__`.
@@ -998,17 +998,42 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   AttributeError: 'Docente' object has no attribute '_Docente__nombre'
   ```
 
-- Lo que hace el intérprete de Python es cambiar el nombre de los miembros
-  privados (aquellos que empiezan, pero no acaban, por `__`), de forma que les
-  concatena por delante un `_` y el nombre de la clase a la que pertenecen.
+- Cuando el intérprete:
 
-  En nuestro caso, el miembro `__nombre` queda sustituido por
-  `_Docente__nombre`.
+  #. está evaluando una expresión que está contenida dentro del código fuente
+     de una determinada clase, y
+
+  #. dentro de esa expresión se está intentando acceder a un atributo privado
+     (es decir, uno cuyo nombre empieza, pero no acaba, por `__`),
+
+  lo que hace el intérprete es **traducir automáticamente el nombre de ese
+  atributo**, concatenándole por delante un `_` y el nombre de esa clase.
+
+  En el ejemplo anterior, el atributo `__nombre` se traduce por
+  `_Docente__nombre` cuando se intenta acceder a `__nombre` dentro de la clase
+  `Docente`, de forma que, a efectos prácticos, es como si en el código fuente
+  de `imprimir_nombre` estuviera escrito `_Docente__nombre` en lugar de
+  `__nombre`.
 
 - A este proceso se le denomina **_name mangling_**.
 
-- Eso significa que, dentro de la clase `Trabajador`, las dos expresiones
+---
+
+- Eso significa que, dentro de la clase `Docente`, las dos expresiones
   siguientes son equivalentes:
+
+  ```python
+  self.__nombre
+  ```
+
+  ```python
+  self._Docente__nombre
+  ```
+
+  Pero fuera de la clase `Docente`, sólo funciona la segunda expresión.
+
+- Y dentro de la clase `Trabajador`, las dos expresiones siguientes son
+  equivalentes:
 
   ```python
   self.__nombre
@@ -1018,18 +1043,28 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   self._Trabajador__nombre
   ```
 
-- Fuera de la clase `Trabajador`, sólo funciona la segunda expresión.
+  Pero fuera de la clase `Trabajador`, sólo funciona la segunda expresión.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El _name mangling_ sólo ocurre si:
+
+- el nombre del atributo empieza (pero no acaba) por `__`, y además
+
+- estamos dentro de una clase.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- El _name mangling_ es un mecanismo sencillo que cumple dos objetivos:
+- El _name mangling_ es un mecanismo sencillo que **cumple dos objetivos**:
 
-  #. Emular la visibilidad privada de miembros en lenguajes que (como Python)
-     no dispone de mecanismos de control de acceso a miembros.
+  #. **Emular la visibilidad privada de miembros** en lenguajes que no disponen
+     de mecanismos de control de acceso a miembros.
 
-     En nuestro caso, no podemos acceder al miembro `__nombre` desde fuera de
-     la clase porque, en realidad, el intérprete lo renombra a
-     `_Docente__nombre`:
+     Así, no podemos acceder al miembro `__nombre` desde fuera de la clase
+     porque, en realidad, el intérprete lo había renombrado a
+     `_Trabajador__nombre` al crearlo dentro de la clase `Trabajador`.
 
      ```python
      >>> t = Trabajador('Manolo')
@@ -1037,8 +1072,8 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
      AttributeError: 'Trabajador' object has no attribute '__nombre'
      ```
 
-     Pero, curiosamente, sí que podremos acceder a él desde fuera de la clase
-     usando su nuevo nombre:
+     Aunque, curiosamente, sí podremos acceder a él desde fuera de la clase
+     usando su verdadero nombre, si no somos disciplinados:
 
      ```python
      >>> t = Trabajador('Manolo')
@@ -1046,8 +1081,9 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
      Manolo
      ```
 
-  #. Permitir que una subclase tenga miembros privados con el mismo nombre que
-     otros miembros privados de alguna de sus superclases.
+  #. **Evitar colisiones de nombres** al permitir que una subclase tenga
+     miembros privados con el mismo nombre que otros miembros privados de
+     alguna de sus superclases.
 
 ---
 
@@ -1103,11 +1139,11 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   ```
 
   ```python
-  self._nombre    # atributo protegido
+  self._nombre    # atributo protegido (aviso para humanos)
   ```
 
   ```python
-  self.__nombre   # atributo privado
+  self.__nombre   # atributo privado (protección contra colisiones de nombres)
   ```
 
 - Debemos tener claro que no es más que un convenio, ya que **el intérprete de
@@ -1142,12 +1178,36 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
           print(self._nombre)      # acceso a un atributo protegido heredado
   ```
 
-- Así, esto funcionaría perfectamente:
+---
+
+- Con el código anterior, esto funcionaría perfectamente:
+
+  ```python
+  t = Trabajador('Manolo')
+  t.get_nombre()
+  ```
+
+- Y esto también funcionaría:
+
+  ```python
+  d = Docente()
+  d.set_nombre('Manolo')
+  d.imprimir_nombre()
+  ```
+
+- Pero hay que tener cuidado y ser disciplinado, porque esto también
+  funcionaría aunque no se debe hacer:
 
   ```python
   t = Trabajador('Manolo')
   t._nombre = 'Juan'
   ```
+
+  No se debe hacer porque el atributo `_nombre` no debería ser accesible desde
+  fuera de las clases `Trabajador` y `Docente`.
+
+  El intérprete no lo comprueba, así que el programador debe ser disciplinado y
+  no hacerlo.
 
 ### La clase `object`
 
@@ -2816,42 +2876,45 @@ recibe el mensaje.
 
 ## Herencia vs. composición
 
-- Ventajas de la herencia:
+- **Ventajas de la herencia:**
 
-  - Es atractiva porque permite reutilizar código de una manera rápida,
+  - Es atractiva porque permite **reutilizar código** de una manera rápida,
     sencilla y evidente.
 
-  - Es poderosa porque me permite jugar con el polimorfismo con facilidad.
+  - Es poderosa porque me permite jugar con el **polimorfismo** con facilidad.
 
-  - Me permite sobrescribir métodos, así que si algo no es exactamente como
+  - Me permite **sobrescribir métodos**, así que si algo no es exactamente como
     espero siempre puedo cambiarlo si fuera necesario, por lo que es versátil.
 
-- Inconvenientes de la herencia:
+- **Inconvenientes de la herencia:**
 
-  - La herencia tiene cabida donde existe una relación «es un(a)», pero esa
-    relación es más fuerte de lo que creemos, porque ha de ser de por vida.
+  - La herencia tiene cabida donde existe una relación «es un(a)», pero **esa
+    relación es más fuerte de lo que creemos**, porque ha de ser de por vida y,
+    en un sistema, **prácticamente nada dura eternamente**.
 
-  - En un sistema, prácticamente nada dura eternamente.
+  - Existe un **alto acoplamiento** entre las superclases y las subclases.
 
 ---
 
-- Ventajas de la composición:
+- **Ventajas de la composición:**
 
-  - La composición consiste en delegar tareas a otros objetos a través de
+  - La composición consiste en **delegar tareas a otros objetos** a través de
     relaciones «tiene».
 
-  - Eso implica que la composición también es reutilización de código, pero
-    mucho más flexible, ya que los componentes de un objeto pueden cambiar
+  - Eso implica que **la composición también es reutilización de código, pero
+    mucho más flexible**, ya que los componentes de un objeto pueden cambiar
     siempre que sea necesario.
 
-  - Permite cambiar el comportamiento en tiempo de ejecución, simplemente
+  - Permite cambiar el comportamiento **en tiempo de ejecución**, simplemente
     cambiando algún componente.
 
-- Inconvenientes de la composición:
+- **Inconvenientes de la composición:**
 
-  - La composición no es polimórfica, pero se puede arreglar mediante
+  - La composición **no es polimórfica**, pero se puede arreglar mediante
     _interfaces_ (en un lenguaje como Java) o _duck typing_ (en un lenguaje
     como Python).
+
+- Lenguajes modernos, como Go, favorecen la composición sobre la herencia.
 
 (Aquí, cuando hablamos de _composición_, incluimos también la _agregación_ como
 un caso menos restringido.)
