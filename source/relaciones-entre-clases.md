@@ -580,22 +580,23 @@ Trabajador <|--- PAS
     !UML(subclase-directa.png)()(width=25%)(width=25%)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     left to right direction
-    B <|-- A
+    A --|> B
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   - Si una clase `A` es subclase directa de una clase `B` y `B` es subclase
     directa de otra clase `C`, pero `A` no es subclase directa de `C`, decimos
-    que `A` es **subclase indirecta** de `C` (a través de `B`).
+    que `A` es **subclase indirecta** de `C` (a través de `B`) o que `C` es
+    **superclase indirecta** de `A` (a través de `B`).
 
     !UML(subclase-indirecta.png)()(width=40%)(width=40%)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     left to right direction
-    C <|-- B
-    B <|-- A
+    B --|> C
+    A --|> B
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Cuando decimos simplemente que `A` es subclase de `B`, puede que sea subclase
-  directa o indirecta.
+- Cuando decimos simplemente que «**`A` es subclase de `B`**», puede que sea
+  subclase _directa_ o _indirecta_.
 
 ## Herencia
 
@@ -921,8 +922,8 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
 
 ---
 
-- Al igual que ocurre con los _métodos_, las **variables de clase** también se
-  heredan de una clase a sus subclases:
+- Al igual que ocurre con los _métodos_, las **variables de clase (o
+  _estáticas_)** también se heredan de una clase a sus subclases:
 
   ```python
   class A:
@@ -1192,9 +1193,10 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   subclases de !PYTHON(object) ya sea directa o indirectamente, todas las
   clases heredarán los atributos de la clase !PYTHON(object).
 
-- La mayoría son métodos mágicos o variables mágicas (sus nombres empiezan y
-  acaban por `__`) que traen implementaciones predeterminadas para varias
-  operaciones básicas como `==`, `!=`, `<=`, `<`, etc.
+- La mayoría de esos atributos son métodos mágicos o variables mágicas (sus
+  nombres empiezan y acaban por `__`) que traen implementaciones
+  predeterminadas para varias operaciones básicas como `==`, `!=`, `<=`, `<`,
+  etc.
 
 - Entre ellos están `__eq__`, `__hash__` y otros.
 
