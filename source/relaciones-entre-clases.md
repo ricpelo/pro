@@ -221,7 +221,7 @@ class Tuit {
   ```python
   class Calculadora:
       @staticmethod
-      def suma(x, y):
+      def suma(x: Numero, y: Numero):
           """Devuelve la suma de dos instancias de la clase Numero."""
           return x.get_valor() + y.get_valor()
   ```
@@ -418,22 +418,20 @@ Cuenta "1" *-- "0..*" Tuit
   ```python
   class Cuenta:
       def __init__(self):
-          self.__tuits = []  # Guarda una lista de referencias a Tuits
+          self.__tuits = {}             # Guarda referencias a tuits
 
       def get_tuits(self):
-          return self.__tuits[:]    # Devuelve una copia
+          return self.__tuits.values()  # Devuelve los tuis de la cuenta
 
       def crear_tuit(self, texto):
-          t = Tuit(texto)           # El tuit se crea dentro de la cuenta
-          self.__tuits.append(t)    # La cuenta almacena el tuit
-          return t.get_ident()      # Devuelve el id del tuit
+          t = Tuit(texto)               # El tuit se crea dentro de la cuenta
+          ident = t.get_ident()
+          self.__tuits[ident] = t       # La cuenta almacena el tuit
+          return ident                  # Devuelve el id del tuit
 
       def eliminar_tuit(self, ident):
-          for t in self.__tuits:
-              if t.get_ident() == ident:
-                  self.__tuits.remove(t)
-                  return
-          raise ValueError("No existe ningún tuit con ese id")
+          return self.__tuits[ident]
+
 
   c1 = Cuenta()
   id1 = c1.crear_tuit("Este módulo es muy bonito")
@@ -450,23 +448,21 @@ Cuenta "1" *-- "0..*" Tuit
   ```python
   class Cuenta:
       def __init__(self):
-          self.__tuits = []  # Guarda una lista de referencias a Tuits
+          self.__tuits = {}             # Guarda referencias a tuits
 
       def get_tuits(self):
-          return self.__tuits[:]       # Devuelve una copia
+          return self.__tuits.values()  # Devuelve los tuits de la cuenta
 
       def guardar_tuit(self, tuit):
-          self.__tuits.append(tuit)    # La cuenta almacena el tuit
-          return tuit.get_ident()
+          ident = tuit.get_ident()
+          self.__tuits[ident] = tuit    # La cuenta almacena el tuit
+          return ident
 
       def eliminar_tuit(self, ident):
-          for t in self.__tuits:
-              if t.get_ident() == ident:
-                  self.__tuits.remove(t)
-                  return
-          raise ValueError("No existe ningún tuit con ese id")
+          del self.__tuits[ident]
 
-  # Los tuits se crean fuera de la clase Cuenta, pero justo a continuación
+
+  # Los tuits se crean fuera de la clase Cuenta pero, justo a continuación,
   # se envían a la cuenta. Así, el objeto cuenta es el único que almacena
   # una referencia al tuit (es la única referencia que existe de ese tuit):
   c1 = Cuenta()
