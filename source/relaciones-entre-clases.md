@@ -308,16 +308,16 @@ Grupo "0..*" o-- "0..*" Alumno
 
 ```python
 class Grupo:
-    def __init__(self):
+    def __init__(self) -> None:
         self.__alumnos = []  # Guarda una lista de referencias a Alumnos
 
-    def get_alumnos(self):
+    def get_alumnos(self) -> list[Alumno]:
         return self.__alumnos
 
-    def meter_alumno(self, alumno):
+    def meter_alumno(self, alumno: Alumno) -> None:
         self.__alumnos.append(alumno)
 
-    def sacar_alumno(self, alumno):
+    def sacar_alumno(self, alumno: Alumno) -> None:
         try:
             self.__alumnos.remove(alumno)
         except ValueError:
@@ -403,11 +403,11 @@ Cuenta "1" *-- "0..*" Tuit
 
   ```python
   class Tuit:
-      def __init__(self, texto):
+      def __init__(self, texto: str) -> None:
           self.__texto = texto
           self.__ident = id(self)
 
-      def get_ident(self):
+      def get_ident(self) -> int:
           return self.__ident
   ```
 
@@ -417,19 +417,19 @@ Cuenta "1" *-- "0..*" Tuit
 
   ```python
   class Cuenta:
-      def __init__(self):
+      def __init__(self) -> None:
           self.__tuits = {}             # Guarda referencias a tuits
 
       def get_tuits(self):
           return self.__tuits.values()  # Devuelve los tuis de la cuenta
 
-      def crear_tuit(self, texto):
+      def crear_tuit(self, texto: str) -> int:
           t = Tuit(texto)               # El tuit se crea dentro de la cuenta
           ident = t.get_ident()
           self.__tuits[ident] = t       # La cuenta almacena el tuit
           return ident                  # Devuelve el id del tuit
 
-      def eliminar_tuit(self, ident):
+      def eliminar_tuit(self, ident: int) -> Tuit:
           return self.__tuits[ident]
 
 
@@ -447,18 +447,18 @@ Cuenta "1" *-- "0..*" Tuit
 
   ```python
   class Cuenta:
-      def __init__(self):
+      def __init__(self) -> None:
           self.__tuits = {}             # Guarda referencias a tuits
 
       def get_tuits(self):
           return self.__tuits.values()  # Devuelve los tuits de la cuenta
 
-      def guardar_tuit(self, tuit):
+      def guardar_tuit(self, tuit: Tuit) -> int:
           ident = tuit.get_ident()
           self.__tuits[ident] = tuit    # La cuenta almacena el tuit
           return ident
 
-      def eliminar_tuit(self, ident):
+      def eliminar_tuit(self, ident: int) -> None:
           del self.__tuits[ident]
 
 
@@ -724,33 +724,33 @@ Trabajador <|--- PAS
 
   :::: columns
 
-  ::: {.column width=55%}
+  ::: {.column width=59%}
 
   ```python
   class Trabajador:
       """Trabajador es la superclase"""
-      def set_nombre(self, nombre):
+      def set_nombre(self, nombre: str) -> None:
           self.__nombre = nombre
 
-      def get_nombre(self):
+      def get_nombre(self) -> str:
           return self.__nombre
 
   class Docente(Trabajador):
       """Docente es subclase de Trabajador"""
-      def set_nrp(self, nrp):
+      def set_nrp(self, nrp: int) -> None:
           self.__nrp = nrp
 
-      def get_nrp(self, nrp):
+      def get_nrp(self) -> int:
           return self.__nrp
   ```
 
   :::
 
-  ::: {.column width=1%}
+  ::: {.column width=2%}
 
   :::
 
-  ::: {.column width=38%}
+  ::: {.column width=39%}
 
   - Con este código podemos crear instancias de las clases `Trabajador` y
     `Docente`:
@@ -761,9 +761,9 @@ Trabajador <|--- PAS
     >>> t.get_nombre()
     'Manolo'
     >>> d = Docente()
-    >>> d.set_nrp(273849)
+    >>> d.set_nrp(123)
     >>> d.get_nrp()
-    273849
+    123
     ```
 
   :::
@@ -783,18 +783,18 @@ Trabajador <|--- PAS
   ```python
   class Trabajador:
       """Trabajador es la superclase"""
-      def set_nombre(self, nombre):
+      def set_nombre(self, nombre: str) -> None:
           self.__nombre = nombre
 
-      def get_nombre(self):
+      def get_nombre(self) -> str:
           return self.__nombre
 
   class Docente(Trabajador):
       """Docente es subclase de Trabajador"""
-      def set_nrp(self, nrp):
+      def set_nrp(self, nrp: str) -> None:
           self.__nrp = nrp
 
-      def get_nrp(self, nrp):
+      def get_nrp(self) -> int:
           return self.__nrp
   ```
 
@@ -812,9 +812,9 @@ Trabajador <|--- PAS
   >>> t.get_nombre()
   'Manolo'
   >>> d = Docente()
-  >>> d.set_nrp(273849)
+  >>> d.set_nrp(123)
   >>> d.get_nrp()
-  273849
+  123
   >>> d.set_nombre("Juan")
   >>> d.get_nombre()
   'Juan'
@@ -930,7 +930,7 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
       cadena = "Hola"
 
   class B(A):
-      def saluda(self):
+      def saluda(self) -> None:
           print(B.cadena)
 
   b = B()
@@ -965,24 +965,24 @@ set_nrp -> set_nombre [lhead = cluster0, ltail = cluster1, minlen = 2]
   ```python
   class Trabajador:
       """Trabajador es la superclase"""
-      def __init__(self, nombre):
+      def __init__(self, nombre: str) -> None:
           self.set_nombre(nombre)
 
-      def set_nombre(self, nombre):
+      def set_nombre(self, nombre: str) -> None:
           self.__nombre = nombre
 
-      def get_nombre(self):
+      def get_nombre(self) -> str:
           return self.__nombre
 
   class Docente(Trabajador):
       """Docente es subclase de Trabajador"""
-      def set_nrp(self, nrp):
+      def set_nrp(self, nrp: int) -> None:
           self.__nrp = nrp
 
-      def get_nrp(self, nrp):
+      def get_nrp(self) -> int:
           return self.__nrp
 
-      def imprimir_nombre(self):
+      def imprimir_nombre(self) -> None:
           print(self.__nombre)   # Intenta acceder a un atributo privado de Trabajador
 
   d = Docente('Manolo')
@@ -1157,24 +1157,24 @@ El _name mangling_ sólo ocurre si:
   ```python
   class Trabajador:
       """Trabajador es la superclase"""
-      def __init__(self, nombre):
+      def __init__(self, nombre: str) -> None:
           self.set_nombre(nombre)
 
-      def set_nombre(self, nombre):
+      def set_nombre(self, nombre: str) -> None:
           self._nombre = nombre    # _nombre es un atributo protegido
 
-      def get_nombre(self):
+      def get_nombre(self) -> str:
           return self._nombre
 
   class Docente(Trabajador):
       """Docente es subclase de Trabajador"""
-      def set_nrp(self, nrp):
+      def set_nrp(self, nrp: int) -> None:
           self.__nrp = nrp
 
-      def get_nrp(self, nrp):
+      def get_nrp(self) -> int:
           return self.__nrp
 
-      def imprimir_nombre(self):
+      def imprimir_nombre(self) -> None:
           print(self._nombre)      # acceso a un atributo protegido heredado
   ```
 
@@ -1184,14 +1184,14 @@ El _name mangling_ sólo ocurre si:
 
   ```python
   t = Trabajador('Manolo')
-  t.get_nombre()
+  print(t.get_nombre())
   ```
 
 - Y esto también funcionaría:
 
   ```python
-  d = Docente()
-  d.set_nombre('Manolo')
+  d = Docente('Manolo')
+  d.set_nombre('Manuel')
   d.imprimir_nombre()
   ```
 
@@ -1665,32 +1665,32 @@ programación orientada a objetos.
 
 ---
 
-- Por ejemplo, supongamos que tenemos una operación (una función o un método)
-  que recibe dos objetos de la clase `Trabajador` y calcula la diferencia entre
-  sus salarios.
+- Supongamos que tenemos una operación (una función, por ejemplo) que recibe
+  dos objetos de la clase `Trabajador` y calcula la diferencia entre sus
+  salarios.
 
 - En Python, podría tener este aspecto:
 
   ```python
   class Trabajador:
-      def __init__(self, nombre, salario):
+      def __init__(self, nombre: str, salario: float) -> None:
           self.set_nombre(nombre)
           self.set_salario(salario)
 
-      def set_nombre(self, nombre):
+      def set_nombre(self, nombre: str) -> None:
           self.__nombre = nombre
 
-      def get_nombre(self):
+      def get_nombre(self) -> str:
           return self.__nombre
 
-      def set_salario(self, salario):
+      def set_salario(self, salario: float) -> None:
           self.__salario = salario
 
-      def get_salario(self):
+      def get_salario(self) -> float:
           return self.__salario
 
-  def diferencia_salarios(t1, t2):
-      """t1 y t2 son instancias de Trabajador"""
+
+  def diferencia_salarios(t1: Trabajador, t2: Trabajador) -> float:
       return t1.get_salario() - t2.get_salario()
   ```
 
@@ -1702,21 +1702,21 @@ programación orientada a objetos.
   puede calcular su diferencia:
 
   ```python
-  >>> pepe = Trabajador("Pepe", 12500)
-  >>> juan = Trabajador("Juan", 8300)
+  >>> pepe = Trabajador("Pepe", 12500.0)
+  >>> juan = Trabajador("Juan", 8300.0)
   >>> diferencia_salarios(pepe, juan)
-  4200
+  4200.0
   ```
 
 - Recordemos que un docente también es un trabajador (es una subclase suya):
 
   ```python
   class Docente(Trabajador):
-      def get_especialidad(self):
-          return self.__especialidad
+      def get_nrp(self) -> int:
+          return self.__nrp
 
-      def set_especialidad(self, especialidad):
-          self.__especialidad = especialidad
+      def set_nrp(self, nrp: int) -> None:
+          self.__nrp = nrp
   ```
 
 - Por tanto, `Docente` hereda los métodos de `Trabajador`, incluyendo
@@ -1729,10 +1729,10 @@ programación orientada a objetos.
   de la clase `Trabajador`:
 
   ```python
-  >>> maria = Docente("María", 18000)      # Se llama al __init__ heredado de Trabajador
-  >>> antonio = Docente("Antonio", 15000)  # Igual
+  >>> maria = Docente("María", 18000.0)      # Llama al __init__ heredado de Trabajador
+  >>> antonio = Docente("Antonio", 15000.0)  # Igual
   >>> diferencia_salarios(maria, antonio)
-  3000
+  3000.0
   ```
 
 - Funciona porque `diferencia_salarios` llama al método `get_salario` de los
@@ -1754,8 +1754,7 @@ programación orientada a objetos.
 - En el código de la función `diferencia_salarios`:
 
   ```python
-  def diferencia_salarios(t1, t2):
-      """t1 y t2 son instancias de Trabajador"""
+  def diferencia_salarios(t1: Trabajador, t2: Trabajador) -> float:
       return t1.get_salario() - t2.get_salario()
   ```
 
@@ -1826,23 +1825,24 @@ programación orientada a objetos.
 - En un lenguaje de tipado dinámico como Python, el principio de sustitución y
   el polimorfismo adoptan un enfoque aún más extremo.
 
-- Si volvemos al código de la función `diferencia_salarios`:
+- Si quitamos las anotaciones de tipos en los parámetros de la función
+  `diferencia_salarios`:
 
   ```python
-  def diferencia_salarios(t1, t2):
-      """t1 y t2 son instancias de Trabajador"""
+  def diferencia_salarios(t1, t2) -> float:
       return t1.get_salario() - t2.get_salario()
   ```
 
-  observamos que en ningún momento se exige que `t1` y `t2` sean instancias
-  (directas o indirectas) de la clase `Trabajador`.
+  observamos que la función seguiría funcionando correctamente aunque en ningún
+  momento se exija que `t1` y `t2` sean instancias (directas o indirectas) de
+  la clase `Trabajador` (o de cualquier otra clase).
 
 - En realidad, lo único que necesita la función es que tanto `t1` como `t2`
-  respondan al mensaje `get_salario` sin recibir ningún argumento y devolviendo
+  respondan al mensaje `get_salario` sin argumentos y que ese mensaje devuelva
   un número (para que luego se puedan restar).
 
-- Por tanto, cualquier objeto de cualquier clase nos valdría siempre que
-  cumpliera la condición anterior; no hace falta que sean trabajadores.
+- Por tanto, cualquier objeto de cualquier clase nos valdría siempre que cumpla
+  la condición anterior; no hace falta que sean trabajadores.
 
 ---
 
@@ -1874,7 +1874,7 @@ programación orientada a objetos.
   disponen de los métodos `get_ancho` y `get_alto`:
 
   ```python
-  def area(rect):
+  def area(rect) -> float:
       return rect.get_ancho() * rect.get_alto()
   ```
 
@@ -1891,10 +1891,10 @@ programación orientada a objetos.
 
   ```python
   class Ventana:
-      def get_ancho(self):
+      def get_ancho(self) -> float:
           # ...
 
-      def get_alto(self):
+      def get_alto(self) -> float:
           # ...
 
       # ... resto de la clase
@@ -1910,10 +1910,10 @@ programación orientada a objetos.
 
   ```python
   class Rectangulo:
-      def get_ancho(self):
+      def get_ancho(self) -> float:
           # ...
 
-      def get_alto(self):
+      def get_alto(self) -> float:
           # ...
 
       # ... resto de la clase
@@ -1929,12 +1929,12 @@ programación orientada a objetos.
   y cualquier otra cosa que tenga ancho y alto:
 
   ```python
-  >>> v = Ventana(4, 3)
+  >>> v = Ventana(4.0, 3.0)
   >>> area(v)
-  12
-  >>> r = Rectangulo(8, 5)
+  12.0
+  >>> r = Rectangulo(8.0, 5.0)
   >>> area(r)
-  40
+  40.0
   ```
 
 - La función `area` se aprovecha del hecho de que los objetos a los que se les
@@ -1973,7 +1973,7 @@ programación orientada a objetos.
 
   ```python
   class Trabajador:
-      def despedir(self):
+      def despedir(self) -> None:
           print("Adiós")
 
       # ... resto de código
@@ -1985,7 +1985,7 @@ programación orientada a objetos.
 - Al despedir a un docente, éste dice adiós:
 
   ```python
-  >>> pepe = Docente("Pepe", 18500)
+  >>> pepe = Docente("Pepe", 18500.0)
   >>> pepe.despedir()
   Adiós
   ```
@@ -2002,7 +2002,7 @@ programación orientada a objetos.
 
   ```python
   class Directivo(Trabajador):
-     def despedir(self):
+     def despedir(self) -> None:
          print("De aquí no me voy")
 
      # ... resto de código
@@ -2013,7 +2013,7 @@ programación orientada a objetos.
   que se ha heredado de `Trabajador`:
 
   ```python
-  >>> juan = Directivo("Juan", 250000)
+  >>> juan = Directivo("Juan", 250_000.0)
   >>> juan.despedir()
   De aquí no me voy
   ```
@@ -2052,7 +2052,7 @@ programación orientada a objetos.
   ```
 
   ```python
-  >>> jefe = Jefe("Bill Gates", 2384921)
+  >>> jefe = Jefe("Bill Gates", 2_384_921.0)
   >>> jefe.despedir()
   De aquí no me voy
   ```
@@ -2073,14 +2073,14 @@ programación orientada a objetos.
 
   ```python
   class Jefe(Directivo):
-      def despedir(self):
+      def despedir(self) -> None:
           print("Despedido tú")
 
       # ... resto de código
   ```
 
   ```python
-  >>> jefe = Jefe("Bill Gates", 2384921)
+  >>> jefe = Jefe("Bill Gates", 2_384_921.0)
   >>> jefe.despedir()
   Despedido tú
   ```
@@ -2155,18 +2155,19 @@ recibe el mensaje.
       pass
 
   class Terrestre(Animal):
-      def camina(self):
+      def camina(self) -> None:
           print('Voy caminando')
 
   class Acuatico(Animal):
-      def nada(self):
+      def nada(self) -> None:
           print('Voy nadando')
 
   class Ave(Animal):
-      def vuela(self):
+      def vuela(self) -> None:
           print('Voy volando')
 
-  def desplazar(a):
+
+  def desplazar(a: Animal) -> None:
       if isinstance(a, Terrestre):
           a.camina()
       elif isinstance(a, Acuatico):
@@ -2185,22 +2186,23 @@ recibe el mensaje.
 
   ```python
   class Animal:
-      def mover(self):
+      def mover(self) -> None:
           print('No sé qué soy')
 
   class Terrestre(Animal):
-      def mover(self):
+      def mover(self) -> None:
           print('Voy caminando')
 
   class Acuatico(Animal):
-      def mover(self):
+      def mover(self) -> None:
           print('Voy nadando')
 
   class Ave(Animal):
-      def mover(self):
+      def mover(self) -> None:
           print('Voy volando')
 
-  def desplazar(a):
+
+  def desplazar(a: Animal) -> None:
       a.mover()
   ```
 
@@ -2230,26 +2232,26 @@ recibe el mensaje.
 
   ```python
   class Trabajador:
-      def descripcion(self):
-          return f"Soy {self.nombre}"
+      def descripcion(self) -> str:
+          return f"Soy {self.get_nombre()}"
 
       # ... resto de código
 
   class Docente(Trabajador):
-      def descripcion(self):
-          return super().descripcion() + f" y mi especialidad es {self.especialidad}"
+      def descripcion(self) -> str:
+          return super().descripcion() + f" y mi NRP es {self.get_nrp()}"
 
       # ... resto de código
   ```
 
   ```python
-  >>> manolo = Trabajador("Manolo", 3500)
+  >>> manolo = Trabajador("Manolo", 3500.0)
   >>> manolo.descripcion()
   'Soy Manolo'
-  >>> pepe = Docente("Pepe", 18500)
-  >>> pepe.set_especialidad("Informática")
+  >>> pepe = Docente("Pepe", 18500.0)
+  >>> pepe.set_nrp(123)
   >>> pepe.descripcion()
-  'Soy Pepe y mi especialidad es Informática'
+  'Soy Pepe y mi NRP es 123'
   ```
 
 ## Sobreescritura de constructores
@@ -2270,28 +2272,28 @@ recibe el mensaje.
 
   ```python
   class Trabajador:
-      def __init__(self, nombre, salario):
+      def __init__(self, nombre: str, salario: float) -> None:
           self.set_nombre(nombre)
           self.set_salario(salario)
 
-      def set_nombre(self, nombre):
-          self.nombre = nombre
+      def set_nombre(self, nombre: str) -> None:
+          self.__nombre = nombre
 
-      def set_salario(self, salario):
+      def set_salario(self, salario: float) -> None:
           assert salario >= 0
-          self.salario = salario
+          self.__salario = salario
 
       # ... resto de código
 
   class Docente(Trabajador):
-      def __init__(self, nombre, salario, especialidad):
+      def __init__(self, nombre: str, salario: float, nrp: int) -> None:
           # Llama al constructor de la superclase
           # para que inicialice el nombre y el salario:
           super().__init__(nombre, salario)
-          self.set_especialidad(especialidad)
+          self.set_nrp(nrp)
 
-      def set_especialidad(self, especialidad):
-          self.especialidad = especialidad
+      def set_nrp(self, nrp: int) -> None:
+          self.__nrp = nrp
 
       # resto de código
   ```
@@ -2327,11 +2329,15 @@ recibe el mensaje.
 
   ```python
   class Trabajador:
-      def __init__(self, dni):
+      def __init__(self, dni: str, nombre: str) -> None:
           self.__dni = dni
+          self.__nombre = nombre
 
-      def get_dni(self):
+      def get_dni(self) -> str:
           return self.__dni
+
+      def get_nombre(self) -> str:
+          return self.__nombre
 
       def __eq__(self, otro):
           if type(self) != type(otro):
@@ -2339,12 +2345,12 @@ recibe el mensaje.
           return self.get_dni() == otro.get_dni()
 
   class Docente(Trabajador):
-      def __init__(self, dni, especialidad):
-          super().__init__(dni)
-          self.__especialidad = especialidad
+      def __init__(self, dni: str, nombre: str, nrp: int) -> None:
+          super().__init__(dni, nombre)
+          self.__nrp = nrp
 
-      def get_especialidad(self):
-          return self.__especialidad
+      def get_nrp(self) -> int:
+          return self.__nrp
   ```
 
 ---
@@ -2352,8 +2358,8 @@ recibe el mensaje.
 - Si ahora hacemos:
 
   ```python
-  t = Trabajador('123')
-  d = Docente('123', 'Informático')
+  t = Trabajador('111A', 'Manolo')
+  d = Docente('111A', 'Manolo', 185)
   print(t == d)
   ```
 
@@ -2386,8 +2392,8 @@ recibe el mensaje.
 - De este modo, si ahora hacemos:
 
   ```python
-  t = Trabajador('123')
-  d = Docente('123', 'Informático')
+  t = Trabajador('111A', 'Manolo')
+  d = Docente('111A', 'Manolo', 123)
   print(t == d)
   ```
 
@@ -2610,23 +2616,23 @@ recibe el mensaje.
 
   :::: columns
 
-  ::: {.column width=45%}
+  ::: {.column width=49%}
 
   ```python
   class Triangulo:
-      def set_ancho(self, ancho):
+      def set_ancho(self, ancho: float) -> None:
           self.ancho = ancho
 
-      def set_alto(self, alto):
+      def set_alto(self, alto: float) -> None:
           self.alto = alto
 
-      def get_ancho(self):
+      def get_ancho(self) -> float:
           return self.ancho
 
-      def get_alto(self):
+      def get_alto(self) -> float:
           return self.alto
 
-      def dibujar(self):
+      def dibujar(self) -> None:
           print("  *  ")
           print(" *** ")
           print("*****")
@@ -2636,27 +2642,27 @@ recibe el mensaje.
 
   :::
 
-  ::: {.column width=5%}
+  ::: {.column width=1%}
 
   :::
 
-  ::: {.column width=45%}
+  ::: {.column width=49%}
 
   ```python
   class Rectangulo:
-      def set_ancho(self, ancho):
+      def set_ancho(self, ancho: float) -> None:
           self.ancho = ancho
 
-      def set_alto(self, alto):
+      def set_alto(self, alto: float) -> None:
           self.alto = alto
 
-      def get_ancho(self):
+      def get_ancho(self) -> float:
           return self.ancho
 
-      def get_alto(self):
+      def get_alto(self) -> float:
           return self.alto
 
-      def dibujar(self):
+      def dibujar(self) -> None:
           print("*****")
           print("*****")
           print("*****")
@@ -2676,38 +2682,42 @@ recibe el mensaje.
 
   ::: columns
 
-  ::: {.column width=47%}
+  ::: {.column width=69%}
 
   ```python
   class Figura:
-      def __init__(self, ancho, alto):
+      def __init__(
+          self,
+          ancho: float,
+          alto: float
+      ) -> None:
           self.set_ancho(ancho)
           self.set_alto(alto)
 
-      def set_ancho(self, ancho):
+      def set_ancho(self, ancho: float) -> None:
           self.ancho = ancho
 
-      def set_alto(self, alto):
+      def set_alto(self, alto: float) -> None:
           self.alto = alto
 
-      def get_ancho(self):
+      def get_ancho(self) -> float:
           return self.ancho
 
-      def get_alto(self):
+      def get_alto(self) -> float:
           return self.alto
   ```
 
   :::
 
-  ::: {.column width=2%}
+  ::: {.column width=1%}
 
   :::
 
-  ::: {.column width=47%}
+  ::: {.column width=46%}
 
   ```python
   class Triangulo(Figura):
-      def dibujar(self):
+      def dibujar(self) -> None:
           print("  *  ")
           print(" *** ")
           print("*****")
@@ -2715,7 +2725,7 @@ recibe el mensaje.
       # resto de código
 
   class Rectangulo(Figura):
-      def dibujar(self):
+      def dibujar(self) -> None:
           print("*****")
           print("*****")
           print("*****")
@@ -2745,7 +2755,7 @@ recibe el mensaje.
 
   ```python
   class Figura:
-      def area(self):
+      def area(self) -> float:
           # ¿Qué ponemos aquí?
   ```
 
@@ -2775,24 +2785,24 @@ recibe el mensaje.
   from abc import ABC, abstractmethod    # importamos del módulo abc
 
   class Figura(ABC):                     # Figura es subclase de ABC
-      def __init__(self, ancho, alto):
+      def __init__(self, ancho: float, alto: float) -> None:
           self.set_ancho(ancho)
           self.set_alto(alto)
 
-      def set_ancho(self, ancho):
+      def set_ancho(self, ancho: float) -> None:
           self.ancho = ancho
 
-      def set_alto(self, alto):
+      def set_alto(self, alto: float) -> None:
           self.alto = alto
 
-      def get_ancho(self):
+      def get_ancho(self) -> float:
           return self.ancho
 
-      def get_alto(self):
+      def get_alto(self) -> float:
           return self.alto
 
       @abstractmethod                    # declaramos el método como abstracto
-      def area(self):
+      def area(self) -> float:
           ...                            # representa que no tiene cuerpo
 
       # resto de código
@@ -2834,10 +2844,10 @@ recibe el mensaje.
 
   ```python
   class Triangulo(Figura):
-      def area(self):
-          return self.get_ancho() * self.get_alto() / 2
+      def area(self) -> float:
+          return self.get_ancho() * self.get_alto() / 2.0
 
-      def dibujar(self):
+      def dibujar(self) -> None:
           print("  *  ")
           print(" *** ")
           print("*****")
@@ -2845,10 +2855,10 @@ recibe el mensaje.
       # resto de código
 
   class Rectangulo(Figura):
-      def area(self):
+      def area(self) -> float:
           return self.get_ancho() * self.get_alto()
 
-      def dibujar(self):
+      def dibujar(self) -> None:
           print("*****")
           print("*****")
           print("*****")
