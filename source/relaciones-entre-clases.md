@@ -2621,16 +2621,16 @@ recibe el mensaje.
   ```python
   class Triangulo:
       def set_ancho(self, ancho: float) -> None:
-          self.ancho = ancho
+          self.__ancho = ancho
 
       def set_alto(self, alto: float) -> None:
-          self.alto = alto
+          self.__alto = alto
 
       def get_ancho(self) -> float:
-          return self.ancho
+          return self.__ancho
 
       def get_alto(self) -> float:
-          return self.alto
+          return self.__alto
 
       def dibujar(self) -> None:
           print("  *  ")
@@ -2651,16 +2651,16 @@ recibe el mensaje.
   ```python
   class Rectangulo:
       def set_ancho(self, ancho: float) -> None:
-          self.ancho = ancho
+          self.__ancho = ancho
 
       def set_alto(self, alto: float) -> None:
-          self.alto = alto
+          self.__alto = alto
 
       def get_ancho(self) -> float:
-          return self.ancho
+          return self.__ancho
 
       def get_alto(self) -> float:
-          return self.alto
+          return self.__alto
 
       def dibujar(self) -> None:
           print("*****")
@@ -2695,16 +2695,16 @@ recibe el mensaje.
           self.set_alto(alto)
 
       def set_ancho(self, ancho: float) -> None:
-          self.ancho = ancho
+          self.__ancho = ancho
 
       def set_alto(self, alto: float) -> None:
-          self.alto = alto
+          self.__alto = alto
 
       def get_ancho(self) -> float:
-          return self.ancho
+          return self.__ancho
 
       def get_alto(self) -> float:
-          return self.alto
+          return self.__alto
   ```
 
   :::
@@ -2790,16 +2790,16 @@ recibe el mensaje.
           self.set_alto(alto)
 
       def set_ancho(self, ancho: float) -> None:
-          self.ancho = ancho
+          self.__ancho = ancho
 
       def set_alto(self, alto: float) -> None:
-          self.alto = alto
+          self.__alto = alto
 
       def get_ancho(self) -> float:
-          return self.ancho
+          return self.__ancho
 
       def get_alto(self) -> float:
-          return self.alto
+          return self.__alto
 
       @abstractmethod                    # declaramos el método como abstracto
       def area(self) -> float:
