@@ -46,8 +46,8 @@ author:
     - `__init__(`_hora_`, `_minutos_`, `_segundos_`)`: construye un objeto con
       los datos pasados como argumentos.
 
-    - `set_segundos(`_valor_`)`: asigna un valor (si está comprendido entre 0 y
-      59) a los segundos. Devuelve `True` o `False` según se haya podido
+    - `set_segundos(`_valor_`)`: asigna un valor (si está comprendido entre 
+      0 y 59) a los segundos. Devuelve `True` o `False` según se haya podido
       cambiar los segundos o no.
 
     - `inc()`: incrementa la hora en un segundo.
