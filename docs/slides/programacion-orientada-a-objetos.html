@@ -2411,15 +2411,13 @@ comparación <code>a == b</code>.</p></li>
 <li><p>El <strong>algoritmo (<em>simplificado</em>)</strong> que sigue
 el intérprete es el siguiente:</p>
 <div class="sourceCode" id="cb52"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> a.<span class="fu">__eq__</span>(b)                <span class="co"># Prueba con el __eq__ de la clase de a</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res <span class="kw">in</span> (<span class="va">True</span>, <span class="va">False</span>):</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> a.<span class="fu">__eq__</span>(b)            <span class="co"># Prueba con el __eq__ de la clase de a</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> res <span class="op">==</span> <span class="va">NotImplemented</span>:</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)            <span class="co"># Prueba con el __eq__ de la clase de b</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> res <span class="kw">in</span> (<span class="va">True</span>, <span class="va">False</span>):</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> res <span class="op">==</span> <span class="va">NotImplemented</span>:</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="kw">is</span> b            <span class="co"># Son iguales si son idénticos</span></span></code></pre></div></li>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)            <span class="co"># Prueba con el __eq__ de la clase de b</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> a <span class="kw">is</span> b                <span class="co"># Son iguales si son idénticos</span></span></code></pre></div></li>
 <li><p>Evidentemente, se supone que <code
 class="sourceCode python"><span class="fu">__eq__</span></code> sólo
 puede devolver <code

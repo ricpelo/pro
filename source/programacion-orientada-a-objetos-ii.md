@@ -483,15 +483,13 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
 - El **algoritmo (_simplificado_)** que sigue el intérprete es el siguiente:
 
   ```python
-  res = a.__eq__(b)                # Prueba con el __eq__ de la clase de a
-  if res in (True, False):
+  res = a.__eq__(b)            # Prueba con el __eq__ de la clase de a
+  if res != NotImplemented:
       return res
-  elif res == NotImplemented:
-      res = b.__eq__(a)            # Prueba con el __eq__ de la clase de b
-      if res in (True, False):
-          return res
-      elif res == NotImplemented:
-          return a is b            # Son iguales si son idénticos
+  res = b.__eq__(a)            # Prueba con el __eq__ de la clase de b
+  if res != NotImplemented:
+      return res
+  return a is b                # Son iguales si son idénticos
   ```
 
 - Evidentemente, se supone que !PYTHON(__eq__) sólo puede devolver
