@@ -2101,13 +2101,13 @@ programación orientada a objetos.
   «Adiós», mientras que un directivo dirá que nanay y un jefe te despedirá a
   ti.
 
+---
+
 - Una de las principales ventajas del polimorfismo es que nosotros no nos
   tenemos que preocupar del detalle interno de qué método concreto se
   ejecutará. Simplemente le mandamos el mensaje al objeto y éste responderá
   ejecutando el método que corresponda dependiendo de la clase a la que
   pertenece ese objeto.
-
----
 
 - Por tanto, el polimorfismo en orientación a objetos, más que referirse a que
   **algo puede _tener varias formas_**, se refiere a que **algo _se puede
@@ -2118,6 +2118,8 @@ programación orientada a objetos.
 - Cuando mandamos un mensaje a un objeto, éste se comportará de una forma u
   otra (ejecutará un método u otro) según el objeto que sea, es decir, según la
   clase que se haya instanciado para crear el objeto.
+
+---
 
 - Al emisor del mensaje no le preocupa qué método concreto se ejecutará, porque
   sabe que en todo momento se seleccionará automáticamente el método más
@@ -2140,6 +2142,9 @@ programación orientada a objetos.
 El mecanismo por el cual el método a invocar se determina **en tiempo de
 ejecución** en función del **tipo más específico** que tenga el objeto que
 recibe el mensaje.
+
+El _tipo más específico_ de un objeto es la clase que se usó para instanciar
+ese objeto.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !EJEMPLO
@@ -2168,11 +2173,11 @@ recibe el mensaje.
 
 
   def desplazar(a: Animal) -> None:
-      if isinstance(a, Terrestre):
+      if type(a) == Terrestre:
           a.camina()
-      elif isinstance(a, Acuatico):
+      elif type(a) == Acuatico:
           a.nada()
-      elif isinstance(a, Ave):
+      elif type(a) == Ave:
           a.vuela()
       else:
           print('No sé qué es')
@@ -2218,13 +2223,29 @@ recibe el mensaje.
 - Al llamar a la función, ésta devuelve un _objeto intermediario_ («_proxy_»)
   que **delega** las llamadas a métodos a una superclase de la clase actual.
 
-- En caso de estar usando herencia simple, la expresión !PYTHON(super())
+- Ese objeto _proxy_ es el mismo objeto !PYTHON{self} (es decir, la instancia
+  no cambia) pero, **a la hora de buscar un método, actúa como si perteneciera
+  a la superclase**.
+
+- Lo que hace es cambiar el **mecanismo de resolución de atributos** para que
+  **se salte la clase actual**.
+
+- Por tanto, cuando se busque un atributo desde !PYTHON(super()):
+
+  1. Primero lo buscará en la instancia.
+
+  2. Si no lo encuentra, buscará en las clases según el _MRO_, pero
+     **saltándose la clase actual**.
+
+---
+
+- En caso de estar usando **herencia simple**, la expresión !PYTHON(super())
   devuelve directamente un objeto intermediario de la superclase directa de la
   clase actual.
 
-- En el caso de estar usando herencia múltiple, !PYTHON(super()) devolverá un
-  objeto intermediario que será instancia de la clase que sigue a la clase
-  actual en el MRO.
+- En el caso de estar usando **herencia múltiple**, !PYTHON(super()) devolverá
+  un objeto intermediario que será instancia de la clase que sigue a la clase
+  actual en el _MRO_.
 
 ---
 
@@ -2280,7 +2301,6 @@ recibe el mensaje.
           self.__nombre = nombre
 
       def set_salario(self, salario: float) -> None:
-          assert salario >= 0
           self.__salario = salario
 
       # ... resto de código

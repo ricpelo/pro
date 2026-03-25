@@ -2313,16 +2313,16 @@ reciba el mensaje) dependerá de qué tipo de objeto sea (es decir, de la
 clase a la que pertenezca el objeto). Por ejemplo, un trabajador básico
 simplemente dirá «Adiós», mientras que un directivo dirá que nanay y un
 jefe te despedirá a ti.</p></li>
-<li><p>Una de las principales ventajas del polimorfismo es que nosotros
-no nos tenemos que preocupar del detalle interno de qué método concreto
-se ejecutará. Simplemente le mandamos el mensaje al objeto y éste
-responderá ejecutando el método que corresponda dependiendo de la clase
-a la que pertenece ese objeto.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.4.1.0.1">
 
 <ul>
+<li><p>Una de las principales ventajas del polimorfismo es que nosotros
+no nos tenemos que preocupar del detalle interno de qué método concreto
+se ejecutará. Simplemente le mandamos el mensaje al objeto y éste
+responderá ejecutando el método que corresponda dependiendo de la clase
+a la que pertenece ese objeto.</p></li>
 <li><p>Por tanto, el polimorfismo en orientación a objetos, más que
 referirse a que <strong>algo puede <em>tener varias
 formas</em></strong>, se refiere a que <strong>algo <em>se puede
@@ -2333,6 +2333,11 @@ método.</p></li>
 forma u otra (ejecutará un método u otro) según el objeto que sea, es
 decir, según la clase que se haya instanciado para crear el
 objeto.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.4.1.0.2">
+
+<ul>
 <li><p>Al emisor del mensaje no le preocupa qué método concreto se
 ejecutará, porque sabe que en todo momento se seleccionará
 automáticamente el método más adecuado dependiendo, en este caso, del
@@ -2348,13 +2353,15 @@ reciba el mensaje</strong>.</p></li>
 dinámico</strong>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="3.4.1.0.2">
+<section class="slide level5" data-number="3.4.1.0.3">
 
 <div class="caja">
 <p><strong>Despacho dinámico:</strong></p>
 <p>El mecanismo por el cual el método a invocar se determina <strong>en
 tiempo de ejecución</strong> en función del <strong>tipo más
 específico</strong> que tenga el objeto que recibe el mensaje.</p>
+<p>El <em>tipo más específico</em> de un objeto es la clase que se usó
+para instanciar ese objeto.</p>
 </div>
 </section>
 <section id="ejemplo-3" class="slide level5 unnumbered unlisted">
@@ -2381,11 +2388,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a h
 <span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> desplazar(a: Animal) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(a, Terrestre):</span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(a) <span class="op">==</span> Terrestre:</span>
 <span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>        a.camina()</span>
-<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">isinstance</span>(a, Acuatico):</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">type</span>(a) <span class="op">==</span> Acuatico:</span>
 <span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a>        a.nada()</span>
-<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">isinstance</span>(a, Ave):</span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">type</span>(a) <span class="op">==</span> Ave:</span>
 <span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>        a.vuela()</span>
 <span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;No sé qué es&#39;</span>)</span></code></pre></div></li>
@@ -2431,17 +2438,37 @@ nombre.</p></li>
 <li><p>Al llamar a la función, ésta devuelve un <em>objeto
 intermediario</em> («<em>proxy</em>») que <strong>delega</strong> las
 llamadas a métodos a una superclase de la clase actual.</p></li>
-<li><p>En caso de estar usando herencia simple, la expresión <code
-class="sourceCode python"><span class="bu">super</span>()</code>
-devuelve directamente un objeto intermediario de la superclase directa
-de la clase actual.</p></li>
-<li><p>En el caso de estar usando herencia múltiple, <code
-class="sourceCode python"><span class="bu">super</span>()</code>
-devolverá un objeto intermediario que será instancia de la clase que
-sigue a la clase actual en el MRO.</p></li>
+<li><p>Ese objeto <em>proxy</em> es el mismo objeto <code
+class="sourceCode python"><span class="va">self</span></code> (es decir,
+la instancia no cambia) pero, <strong>a la hora de buscar un método,
+actúa como si perteneciera a la superclase</strong>.</p></li>
+<li><p>Lo que hace es cambiar el <strong>mecanismo de resolución de
+atributos</strong> para que <strong>se salte la clase
+actual</strong>.</p></li>
+<li><p>Por tanto, cuando se busque un atributo desde <code
+class="sourceCode python"><span class="bu">super</span>()</code>:</p>
+<ol type="1">
+<li><p>Primero lo buscará en la instancia.</p></li>
+<li><p>Si no lo encuentra, buscará en las clases según el <em>MRO</em>,
+pero <strong>saltándose la clase actual</strong>.</p></li>
+</ol></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.5.0.0.1">
+
+<ul>
+<li><p>En caso de estar usando <strong>herencia simple</strong>, la
+expresión <code
+class="sourceCode python"><span class="bu">super</span>()</code>
+devuelve directamente un objeto intermediario de la superclase directa
+de la clase actual.</p></li>
+<li><p>En el caso de estar usando <strong>herencia múltiple</strong>,
+<code class="sourceCode python"><span class="bu">super</span>()</code>
+devolverá un objeto intermediario que será instancia de la clase que
+sigue a la clase actual en el <em>MRO</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.5.0.0.2">
 
 <ul>
 <li><p>Por ejemplo:</p>
@@ -2499,22 +2526,21 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a h
 <span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
 <span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_salario(<span class="va">self</span>, salario: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> salario <span class="op">&gt;=</span> <span class="dv">0</span></span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__salario <span class="op">=</span> salario</span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre: <span class="bu">str</span>, salario: <span class="bu">float</span>, nrp: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Llama al constructor de la superclase</span></span>
-<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># para que inicialice el nombre y el salario:</span></span>
-<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(nombre, salario)</span>
-<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nrp(nrp)</span>
-<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nrp(<span class="va">self</span>, nrp: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nrp <span class="op">=</span> nrp</span>
-<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__salario <span class="op">=</span> salario</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... resto de código</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, nombre: <span class="bu">str</span>, salario: <span class="bu">float</span>, nrp: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Llama al constructor de la superclase</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># para que inicialice el nombre y el salario:</span></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(nombre, salario)</span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_nrp(nrp)</span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_nrp(<span class="va">self</span>, nrp: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nrp <span class="op">=</span> nrp</span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
 </ul>
 </section>
 
