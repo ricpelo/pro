@@ -2239,16 +2239,6 @@ ese objeto.
 
 ---
 
-- En caso de estar usando **herencia simple**, la expresión !PYTHON(super())
-  devuelve directamente un objeto intermediario de la superclase directa de la
-  clase actual.
-
-- En el caso de estar usando **herencia múltiple**, !PYTHON(super()) devolverá
-  un objeto intermediario que será instancia de la clase que sigue a la clase
-  actual en el _MRO_.
-
----
-
 - Por ejemplo:
 
   ```python
