@@ -1964,6 +1964,11 @@ programación orientada a objetos.
 - Otra forma de expresarlo es decir que el mismo método tiene **varias
   implementaciones distintas** en clases diferentes.
 
+- En general, el método sobreescrito y el método «sobreescritor» no sólo
+  deberían tener el mismo nombre, sino también la misma signatura; por tanto,
+  podemos resumir diciendo que, **en la sobreescritura, ambos métodos tienen
+  _la misma signatura pero distintos cuerpos_**.
+
 ---
 
 - Por ejemplo, supongamos que la clase `Trabajador` define el método
