@@ -2874,21 +2874,45 @@ Clases abstractas y métodos abstractos</h2>
 <li><p>Una <strong>clase abstracta</strong> es aquella que no se puede
 instanciar porque contiene, al menos, un <em>método
 abstracto</em>.</p></li>
-<li><p>Los <strong>métodos abstractos</strong> son aquellos métodos
-definidos únicamente por su signatura: su nombre y sus parámetros. Por
-tanto, <strong>no tienen implementación</strong>, o sea, <strong>les
+<li><p>Los <strong>métodos abstractos</strong> son aquellos métodos que
+sólo tienen signatura (es decir: nombre, parámetros y tipo de retorno).
+Por tanto, <strong>no tienen implementación</strong> porque <strong>les
 falta el cuerpo</strong>.</p></li>
-<li><p>Cuando una clase abstracta define un método abstracto, está
-obligando a cualquier subclase suya que quiera poder ser instanciada a
-proporcionarle un cuerpo a ese método abstracto que ha heredado de la
-clase abstracta.</p></li>
-<li><p>Es decir: para poder instanciar una clase, ésta debe proporcionar
-un cuerpo a todos los métodos abstractos que haya heredado de todas sus
-superclases. De lo contrario, ella misma será considerada una clase
-abstracta y no se podrá instanciar.</p></li>
+<li><p>El propósito principal de una clase abstracta es el es servir de
+clase base a partir de la cual derivar otras subclases con estructura y
+comportamiento comunes que sí se podrán instanciar.</p></li>
+<li><p>Esos elementos comunes a todas las subclases formarían parte en
+la clase abstracta.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.1">
+
+<ul>
+<li><p>Pero además, una clase abstracta expresa el hecho de que las
+subclases deben indicar su propia versión de ciertos métodos (los
+métodos abstractos) que se deberán concretar en cada subclase de forma
+específica.</p></li>
+<li><p>Esos métodos abstractos no tienen implementación en la clase
+abstracta porque no tiene sentido que tengan una definición
+genérica.</p></li>
+<li><p>Las clases abstractas nos permiten estructurar mejor nuestros
+modelos y sirven como un mecanismo de compartición de código evitando
+las repeticiones innecesarias.</p></li>
+</ul>
+<!--
+
+- Cuando una clase abstracta define un método abstracto, está obligando a
+  cualquier subclase suya que quiera poder ser instanciada a proporcionarle un
+  cuerpo a ese método abstracto que ha heredado de la clase abstracta.
+
+- Es decir: para poder instanciar una clase, ésta debe proporcionar un cuerpo a
+  todos los métodos abstractos que haya heredado de todas sus superclases. De
+  lo contrario, ella misma será considerada una clase abstracta y no se podrá
+  instanciar.
+
+-->
+</section>
+<section class="slide level5" data-number="4.1.0.0.2">
 
 <ul>
 <li><p>Que un método sea abstracto y, por tanto, no tenga cuerpo, puede
@@ -2944,14 +2968,14 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a h
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.2">
+<section class="slide level5" data-number="4.1.0.0.3">
 
 <ul>
 <li><p>Los métodos <code>set_ancho</code>, <code>set_alto</code>,
 <code>get_ancho</code> y <code>get_alto</code> son comunes a ambas
-clases, así que podríamos una superclase <code>Figura</code> que
-almacenara esos elementos comunes que luego las subclases recibirían
-mediante herencia:</p>
+clases, así que podríamos crear una superclase <code>Figura</code> que
+almacenara esos elementos comunes, de forma que las subclases recibirían
+esos elementos mediante herencia:</p>
 <div class="columns">
 <div class="column" style="width:69%;">
 <div class="sourceCode" id="cb81"><pre
@@ -2998,7 +3022,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a h
 </div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.3">
+<section class="slide level5" data-number="4.1.0.0.4">
 
 <ul>
 <li><p>Ahora supongamos que queremos expresar el hecho de que todas las
@@ -3019,7 +3043,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a h
 <span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ¿Qué ponemos aquí?</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.4">
+<section class="slide level5" data-number="4.1.0.0.5">
 
 <ul>
 <li><p>En realidad, el cálculo del área lo deberíamos dejar en manos de
@@ -3027,7 +3051,7 @@ cada figura concreta (triángulo, rectángulo, etc.).</p></li>
 <li><p>Definiremos el método <code>area</code> en la clase
 <code>Figura</code> como un método abstracto, y las subclases
 <code>Triangulo</code> y <code>Rectangulo</code> están obligadas a darle
-un cuerpo si quieren que se puedan crear instancias suyas.</p></li>
+un cuerpo si queremos crear instancias suyas.</p></li>
 <li><p>Para definir un método como abstracto en Python, se usa el
 decorador <code
 class="sourceCode python"><span class="at">@abstractmethod</span></code>
@@ -3040,7 +3064,7 @@ llamada <code>ABC</code> (de <em>Abstract Base Class</em>) del módulo
 <code>abc</code>.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.5">
+<section class="slide level5" data-number="4.1.0.0.6">
 
 <ul>
 <li><p>En Python se haría así:</p>
@@ -3071,13 +3095,13 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a h
 <span id="cb84-24"><a href="#cb84-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.6">
+<section class="slide level5" data-number="4.1.0.0.7">
 
 <ul>
 <li><p>Si intentamos instanciar la clase <code>Figura</code>, obtenemos
 un mensaje de error:</p>
 <div class="sourceCode" id="cb85"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fig <span class="op">=</span> Figura()</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fig <span class="op">=</span> Figura(<span class="fl">4.0</span>, <span class="fl">3.0</span>)</span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Figura with abstract methods area</span></span></code></pre></div></li>
@@ -3090,13 +3114,13 @@ clases heredarán el método abstracto <code>area</code> y, por tanto, no
 se podrán instanciar a menos que le proporcionen un cuerpo.</p></li>
 <li><p>Eso significa que también serán clases abstractas:</p>
 <div class="sourceCode" id="cb86"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tri <span class="op">=</span> Triangulo()</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tri <span class="op">=</span> Triangulo(<span class="fl">4.0</span>, <span class="fl">3.0</span>)</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
 <span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
 <span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Triangulo with abstract methods area</span></span></code></pre></div></li>
 </ul>
 </section>
-<section class="slide level5" data-number="4.1.0.0.7">
+<section class="slide level5" data-number="4.1.0.0.8">
 
 <ul>
 <li><p>Para que las clases <code>Triangulo</code> y
@@ -3125,23 +3149,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a h
 <span id="cb87-19"><a href="#cb87-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
 <span id="cb87-20"><a href="#cb87-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb87-21"><a href="#cb87-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="4.1.0.0.8">
-
-<ul>
-<li><p>El propósito principal de una clase abstracta es el es servir de
-clase base a partir de la cual derivar otras subclases con estructura y
-comportamiento comunes.</p></li>
-<li><p>Esos elementos comunes a todas las subclases formarían parte en
-la clase abstracta.</p></li>
-<li><p>Pero además, una clase abstracta expresa el hecho de que las
-subclases deben indicar su propia versión de ciertos métodos (los
-métodos abstractos) que se deberán concretar en cada subclase de forma
-específica.</p></li>
-<li><p>Esos métodos abstractos no tienen implementación en la clase
-abstracta porque no tiene sentido que tengan una definición
-genérica.</p></li>
 </ul>
 </section>
 </section>

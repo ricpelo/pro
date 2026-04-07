@@ -2647,9 +2647,31 @@ En una comparación de igualidad:
 - Una **clase abstracta** es aquella que no se puede instanciar porque
   contiene, al menos, un _método abstracto_.
 
-- Los **métodos abstractos** son aquellos métodos definidos únicamente por su
-  signatura: su nombre y sus parámetros. Por tanto, **no tienen
-  implementación**, o sea, **les falta el cuerpo**.
+- Los **métodos abstractos** son aquellos métodos que sólo tienen signatura (es
+  decir: nombre, parámetros y tipo de retorno). Por tanto, **no tienen
+  implementación** porque **les falta el cuerpo**.
+
+- El propósito principal de una clase abstracta es el es servir de clase base a
+  partir de la cual derivar otras subclases con estructura y comportamiento
+  comunes que sí se podrán instanciar.
+
+- Esos elementos comunes a todas las subclases formarían parte en la clase
+  abstracta.
+
+---
+
+- Pero además, una clase abstracta expresa el hecho de que las subclases deben
+  indicar su propia versión de ciertos métodos (los métodos abstractos) que se
+  deberán concretar en cada subclase de forma específica. 
+
+- Esos métodos abstractos no tienen implementación en la clase abstracta porque
+  no tiene sentido que tengan una definición genérica.
+
+- Las clases abstractas nos permiten estructurar mejor nuestros modelos y
+  sirven como un mecanismo de compartición de código evitando las repeticiones
+  innecesarias.
+
+<!--
 
 - Cuando una clase abstracta define un método abstracto, está obligando a
   cualquier subclase suya que quiera poder ser instanciada a proporcionarle un
@@ -2659,6 +2681,8 @@ En una comparación de igualidad:
   todos los métodos abstractos que haya heredado de todas sus superclases. De
   lo contrario, ella misma será considerada una clase abstracta y no se podrá
   instanciar.
+
+-->
 
 ---
 
@@ -2731,8 +2755,9 @@ En una comparación de igualidad:
 ---
 
 - Los métodos `set_ancho`, `set_alto`, `get_ancho` y `get_alto` son comunes a
-  ambas clases, así que podríamos una superclase `Figura` que almacenara esos
-  elementos comunes que luego las subclases recibirían mediante herencia:
+  ambas clases, así que podríamos crear una superclase `Figura` que almacenara
+  esos elementos comunes, de forma que las subclases recibirían esos elementos
+  mediante herencia:
 
   ::: columns
 
@@ -2820,7 +2845,7 @@ En una comparación de igualidad:
 
 - Definiremos el método `area` en la clase `Figura` como un método abstracto, y
   las subclases `Triangulo` y `Rectangulo` están obligadas a darle un cuerpo si
-  quieren que se puedan crear instancias suyas.
+  queremos crear instancias suyas.
 
 - Para definir un método como abstracto en Python, se usa el decorador
   !PYTHON(@abstractmethod) del módulo `abc` y se marca el cuerpo con tres
@@ -2867,7 +2892,7 @@ En una comparación de igualidad:
 - Si intentamos instanciar la clase `Figura`, obtenemos un mensaje de error:
 
   ```python
-  >>> fig = Figura()
+  >>> fig = Figura(4.0, 3.0)
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   TypeError: Can't instantiate abstract class Figura with abstract methods area
@@ -2883,7 +2908,7 @@ En una comparación de igualidad:
 - Eso significa que también serán clases abstractas:
 
   ```python
-  >>> tri = Triangulo()
+  >>> tri = Triangulo(4.0, 3.0)
   Traceback (most recent call last):
     File "<stdin>", line 1, in <module>
   TypeError: Can't instantiate abstract class Triangulo with abstract methods area
@@ -2919,22 +2944,6 @@ En una comparación de igualidad:
 
       # resto de código
   ```
-
----
-
-- El propósito principal de una clase abstracta es el es servir de clase base a
-  partir de la cual derivar otras subclases con estructura y comportamiento
-  comunes.
-
-- Esos elementos comunes a todas las subclases formarían parte en la clase
-  abstracta.
-
-- Pero además, una clase abstracta expresa el hecho de que las subclases deben
-  indicar su propia versión de ciertos métodos (los métodos abstractos) que se
-  deberán concretar en cada subclase de forma específica. 
-
-- Esos métodos abstractos no tienen implementación en la clase abstracta porque
-  no tiene sentido que tengan una definición genérica.
 
 # Herencia vs. composición
 
