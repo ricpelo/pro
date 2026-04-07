@@ -17,10 +17,6 @@ author:
    entre las clases. Indicar de qué tipo son las relaciones (dependencia,
    agregación o composición) que se establecen entre las clases.
 
-@. Usando herencia, crear las clases `ColeccionItems` y `ColeccionConexiones`,
-   que sean subclases de `Coleccion`. Usarlas donde corresponda en lugar de
-   `Coleccion`.
-
 @. Diseñar la clase `Hora`, que representa un instante de tiempo compuesto por
    la hora (de 0 a 23) y los minutos. Dispone de los métodos:
 
