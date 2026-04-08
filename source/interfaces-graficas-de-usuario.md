@@ -521,10 +521,9 @@ nocite: |
 ## Introducción
 
 - Tkinter no posiciona los widgets automáticamente. Para ello se usan
-  **gestores de geometría**.
+  **gestores de geometría** (_geometry managers_).
 
-- En Tkinter, `pack`, `grid` y `place` son gestores de geometría (_geometry
-  managers_).
+- Los gestores de geometría en Tkinter son `pack`, `grid` y `place`.
 
 - Su función es decidir dónde y cómo se colocan los widgets dentro de un
   contenedor (una ventana `Tk` o un `Frame`).
@@ -559,7 +558,7 @@ nocite: |
 - Ejemplo con `pack`:
 
   ```python
-  label.pack(side="top", fill="x")
+  label.pack(side=tk.TOP, fill="x")
   ```
 
 - Ejemplo con `grid`:
@@ -572,15 +571,47 @@ nocite: |
 - No se deben mezclar distintos gestores de geometría **en el mismo
   contenedor**.
 
-## Uso de `Frame` para dividir la ventana
+---
 
+- Valores posibles del parámetro `side` en el método `grid`:
+
+  ------------------------------------------------------------------------------------
+  Valor	                         Significado
+  ------------------------------ -----------------------------------------------------
+  `tk.TOP` (por defecto)         Coloca el widget en la parte superior del contenedor
+                               
+  `tk.BOTTOM`                    Coloca el widget en la parte inferior
+                               
+  `tk.LEFT`                      Coloca el widget a la izquierda
+                               
+  `tk.RIGHT`                     Coloca el widget a la derecha
+  ------------------------------------------------------------------------------------
+
+---
+
+- Valores posibles del parámetro `fill` en el método `grid`:
+
+  ------------------------------------------------------------------------------------
+  Valor	                         Significado
+  ------------------------------ -----------------------------------------------------
+  `tk.NONE` (por defecto)        No se expande; el widget mantiene su tamaño natural
+
+  `tk.X`                         Se expande horizontalmente, ocupando todo el ancho disponible
+
+  `tk.Y`                         Se expande verticalmente, ocupando todo el alto disponible
+
+  `tk.BOTH`                      Se expande en ambas direcciones (ancho y alto)  
+  ------------------------------------------------------------------------------------
+  
+## Uso de `Frame` para dividir la ventana
+  
 - `Frame` es un contenedor que permite agrupar widgets y estructurar la
   interfaz.
-
+  
   ```python
   frame = tk.Frame(root)
   frame.pack()
-
+  
   label = tk.Label(frame, text="Dentro del frame")
   label.pack()
   ```
@@ -607,6 +638,105 @@ nocite: |
   root.columnconfigure(0, weight=1)
   root.rowconfigure(0, weight=1)
   ```
+
+!UNUN(Uso básico de `pack`)
+
+- Cuando usas `pack` para colocar un widget:
+
+  ```python
+  widget.pack()
+  ```
+
+- Por defecto:
+
+  - El widget se coloca en la dirección indicada (`side='top'` por defecto).
+
+  - Su tamaño se ajusta al contenido.
+
+  - No crece si la ventana se redimensiona.
+
+!UNUN(`fill`)
+
+- El argumento `fill` indica en qué dirección debe crecer el widget cuando la
+  ventana cambia de tamaño.
+
+- Puede ser:
+
+  - `fill=tk.X`: se expande horizontalmente.
+
+  - `fill=tk.Y`:  se expande verticalmente.
+
+  - `fill=tk.BOTH`: se expande en ambas direcciones.
+
+- Por ejemplo:
+
+  ```python
+  import tkinter as tk
+
+  root = tk.Tk()
+  root.geometry("300x200")
+
+  frame = tk.Frame(root, bg="blue")
+  frame.pack(fill=tk.X)  # Se expande horizontalmente
+
+  root.mainloop()
+  ```
+
+- Si cambias el tamaño de la ventana, el frame solo se hace más ancho, no más
+  alto.
+
+!UNUN(`expand`)
+
+- `expand` indica si el espacio extra disponible debe ser asignado al widget:
+
+  - `expand=False`: no toma espacio extra.
+
+  - `expand=True`: toma espacio extra disponible.
+
+- Por ejemplo:
+
+  ```python
+  frame.pack(fill=tk.BOTH, expand=True)
+  ```
+
+  Resultado:
+
+  - El frame se expande en ambas direcciones (`fill=tk.BOTH`).
+
+  - Además, ocupa todo el espacio extra (`expand=True`).
+
+- Esto permite que un widget se adapte al redimensionado de la ventana,
+  logrando un diseño _responsive_.
+
+!UNUN(Combinación típica)
+
+- Por ejemplo:
+
+  ```python
+  import tkinter as tk
+
+  root = tk.Tk()
+  root.geometry("400x300")
+
+  top_frame = tk.Frame(root, bg="red", height=50)
+  top_frame.pack(side=tk.TOP, fill=tk.X)  # Barra horizontal
+
+  left_frame = tk.Frame(root, bg="green", width=100)
+  left_frame.pack(side=tk.LEFT, fill=tk.Y)  # Barra lateral vertical
+
+  main_frame = tk.Frame(root, bg="blue")
+  main_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)  # Área principal
+
+  root.mainloop()
+  ```
+
+- Resultado:
+
+  - `top_frame`: se ajusta horizontalmente.
+
+  - `left_frame`: se ajusta verticalmente.
+
+  - `main_frame`: ocupa todo el espacio restante y se adapta al redimensionado.
 
 # Eventos y funciones asociadas
 
