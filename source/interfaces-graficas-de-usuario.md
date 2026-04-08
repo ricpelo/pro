@@ -38,11 +38,11 @@ nocite: |
   ```
 
   desde la línea de comandos del sistema operativo, se debería abrir una
-  ventana que demuestre una interfaz Tk simple para saber si tkinter está
+  ventana que muestre una interfaz Tk simple para saber si Tkinter está
   instalado correctamente en su sistema.
 
-- También muestra qué versión de Tcl/Tk está instalada para que pueda leer la
-  documentación de Tcl/Tk específica de esa versión.
+- También muestra qué versión de Tcl/Tk está instalada para que sepamos qué
+  versión específica de la documentación tenemos que consultar.
 
 ## Recursos y documentación
 
