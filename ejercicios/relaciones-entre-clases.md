@@ -11,11 +11,59 @@ author:
 
 \renewcommand{\arraystretch}{0}
 
+@. Crear la clase `Persona` con campos `nombre` y `edad`, y un método
+   `saludar()` que imprima «Hola, soy !NT(nombre)». Crear varias instancias.
+
+@. Ampliar la clase `Persona` del ejercicio anterior con un método
+   `es_mayor_de_edad()` que devuelva `True` o `False`.
+
+@. Crear una clase `CuentaBancaria` con:
+
+    - Campos: `titular` y `saldo`.
+
+    - Métodos:
+
+      - `ingresar(`_cantidad_`)`
+
+      - `retirar(`_cantidad_`)`
+
+    No permitir saldo negativo.
+
+@. Modificar la clase `CuentaBancaria` del ejercicio anterior de la siguiente
+   forma:
+
+    - El saldo debe ser privado (`__saldo`).
+
+    - Crear los siguientes métodos:
+
+      - `get_saldo()`
+
+      - `set_saldo(`_valor_`)` (sólo si es positivo)
+
+    Definir el saldo como una propiedad.
+
+@. Escribir una función que reciba una lista de figuras y que calcule la suma
+   de las áreas de cada figura sin que necesite saber de qué tipo es cada una
+   (aplicar polimorfismo).
+
 @. Dibujar un diagrama de clases UML que represente el modelo estático de cada
    uno de los sistemas del boletín de ejercicios de _Programación orientada a
    objetos_, incluyendo las clases, sus atributos, sus métodos y las relaciones
    entre las clases. Indicar de qué tipo son las relaciones (dependencia,
    agregación o composición) que se establecen entre las clases.
+
+@. Crear la clase abstracta `Animal` con el método abstracto `emitir_sonido`, y
+   dos subclases suyas `Perro` y `Gato` que implementen ese método abstracto
+   para permitir que las clases sean instanciables.
+
+@. Crear la clase abstracta `Volador` con el método abstracto `volar()`, y dos
+   subclases suyas `Pajaro` y `Avion` que implementen ese método abstracto para
+   permitir que las clases sean instanciables.
+
+@. Crear la clase `Vehiculo` cuyo constructor reciba la marca y el modelo, y
+   una subclase suya `Coche` cuyo constructor reciba, además de los dos
+   anteriores, el número de puertas. Usar `super()` en el constructor de la
+   subclase para inicializar adecuadamente los atributos de `Vehiculo`.
 
 @. Diseñar la clase `Hora`, que representa un instante de tiempo compuesto por
    la hora (de 0 a 23) y los minutos. Dispone de los métodos:
@@ -57,7 +105,9 @@ author:
    `add` añade nuevas notas musicales. La clase también dispone del método
    abstracto `interpretar` con la siguiente signatura:
 
-    $\texttt{interpretar()\;->\;\,None}$
+    ```python
+    interpretar() -> None
+    ```
 
     que, en cada subclase que herede de `Instrumento`, mostrará por la salida
     las notas musicales según las interprete. Las notas serán constantes
@@ -77,3 +127,47 @@ author:
 @. Crear la clase `Piano` como subclase de la clase `Instrumento` del ejercicio
    anterior.
 
+@. Diseñar un **sistema de gestión de biblioteca** con las siguientes clases:
+
+    - Libro
+ 
+    - Usuario
+ 
+    - Prestamo
+ 
+    Requisitos:
+ 
+    - Un usuario puede tener varios préstamos (asociación).
+ 
+    - Un préstamo incluye un libro (composición o agregación, a decidir).
+ 
+    Métodos:
+ 
+    - Prestar libro.
+ 
+    - Devolver libro.
+ 
+    - Mostrar libros prestados.
+ 
+    Añadir:
+ 
+    - Encapsulación.
+ 
+    - Generalización (por ejemplo, `UsuarioPremium`).
+ 
+    - Polimorfismo.
+
+@. Diseñar un videojuego de lucha con distintos tipos de personajes. El sistema
+   estará formado por:
+
+    - Una clase abstracta `Personaje` con un método abstracto `atacar()`.
+
+    - Subclases `Guerrero`, `Mago` y `Arquero`.
+
+    Añadir:
+
+    - Composición: inventario de armas.
+
+    - Polimorfismo en combate.
+
+    - Encapsulación de vida.
