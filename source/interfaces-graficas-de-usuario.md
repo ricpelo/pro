@@ -71,7 +71,7 @@ nocite: |
   ```python
   import tkinter as tk                        # Importa el módulo tkinter con el nombre tk
   raiz = tk.Tk()                              # Crea la ventana principal
-  tk.Button(raiz, text="Hola, mundo").grid()  # Crea un botón dentro de la ventana principal
+  tk.Button(raiz, text="Hola, mundo").pack()  # Crea un botón dentro de la ventana principal
   raiz.mainloop()                             # Activa el bucle principal
   ```
 
