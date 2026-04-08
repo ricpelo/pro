@@ -178,10 +178,15 @@ nocite: |
 - Los más comunes son:
 
   - `Label`: muestra texto o imágenes
+
   - `Button`: botón pulsable
+
   - `Entry`: campo de texto de una sola línea
+
   - `Text`: área de texto multilínea
+
   - `Checkbutton`: casilla de verificación
+
   - `Radiobutton`: botón de opción (selección exclusiva)
 
 ## `Label`
