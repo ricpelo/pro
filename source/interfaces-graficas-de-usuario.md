@@ -649,7 +649,7 @@ nocite: |
 
 - Por defecto:
 
-  - El widget se coloca en la dirección indicada (`side='top'` por defecto).
+  - El widget se coloca en la dirección indicada (`side=tk.TOP` por defecto).
 
   - Su tamaño se ajusta al contenido.
 
