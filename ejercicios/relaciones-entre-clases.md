@@ -11,46 +11,15 @@ author:
 
 \renewcommand{\arraystretch}{0}
 
-@. Crear la clase `Persona` con campos `nombre` y `edad`, y un método
-   `saludar()` que imprima «Hola, soy !NT(nombre)». Crear varias instancias.
-
-@. Ampliar la clase `Persona` del ejercicio anterior con un método
-   `es_mayor_de_edad()` que devuelva `True` o `False`.
-
-@. Crear una clase `CuentaBancaria` con:
-
-    - Campos: `titular` y `saldo`.
-
-    - Métodos:
-
-      - `ingresar(`_cantidad_`)`
-
-      - `retirar(`_cantidad_`)`
-
-    No permitir saldo negativo.
-
-@. Modificar la clase `CuentaBancaria` del ejercicio anterior de la siguiente
-   forma:
-
-    - El saldo debe ser privado (`__saldo`).
-
-    - Crear los siguientes métodos:
-
-      - `get_saldo()`
-
-      - `set_saldo(`_valor_`)` (sólo si es positivo)
-
-    Definir el saldo como una propiedad.
-
-@. Escribir una función que reciba una lista de figuras y que calcule la suma
-   de las áreas de cada figura sin que necesite saber de qué tipo es cada una
-   (aplicar polimorfismo).
-
 @. Dibujar un diagrama de clases UML que represente el modelo estático de cada
    uno de los sistemas del boletín de ejercicios de _Programación orientada a
    objetos_, incluyendo las clases, sus atributos, sus métodos y las relaciones
    entre las clases. Indicar de qué tipo son las relaciones (dependencia,
    agregación o composición) que se establecen entre las clases.
+
+@. Escribir una función que reciba una lista de figuras y que calcule la suma
+   de las áreas de cada figura sin que necesite saber de qué tipo es cada una
+   (aplicar polimorfismo).
 
 @. Crear la clase abstracta `Animal` con el método abstracto `emitir_sonido`, y
    dos subclases suyas `Perro` y `Gato` que implementen ese método abstracto

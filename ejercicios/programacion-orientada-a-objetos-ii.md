@@ -11,6 +11,32 @@ author:
 
 \renewcommand{\arraystretch}{0}
 
+#. Crear una clase `CuentaBancaria` con:
+
+    - Campos: `titular` y `saldo`.
+
+    - Métodos:
+
+      - `ingresar(`_cantidad_`)`
+
+      - `retirar(`_cantidad_`)`
+
+    No permitir saldo negativo.
+
+#. Modificar la clase `CuentaBancaria` del ejercicio anterior de la siguiente
+   forma:
+
+    - El saldo debe ser privado (`__saldo`).
+
+    - Crear los siguientes métodos:
+
+      - `get_saldo()`
+
+      - `set_saldo(`_valor_`)` (sólo si es positivo)
+
+    Definir el saldo como una propiedad.
+
+
 #. Diseñar y codificar un modelo orientado a objetos de un banco donde hay
    cuentas corrientes que tienen un titular y unos movimientos. Los titulares
    son clientes del banco. Los clientes del banco pueden ser titulares de
