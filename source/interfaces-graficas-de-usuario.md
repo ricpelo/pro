@@ -578,7 +578,7 @@ nocite: |
 
 ---
 
-- Valores posibles del parámetro `side` en el método `grid`:
+- Valores posibles del parámetro `side` en el método `pack`:
 
   ------------------------------------------------------------------------------------
   Valor	                         Significado
@@ -594,7 +594,7 @@ nocite: |
 
 ---
 
-- Valores posibles del parámetro `fill` en el método `grid`:
+- Valores posibles del parámetro `fill` en el método `pack`:
 
   ------------------------------------------------------------------------------------
   Valor	                         Significado
