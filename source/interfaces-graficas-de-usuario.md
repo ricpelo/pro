@@ -563,7 +563,7 @@ nocite: |
 - Ejemplo con `pack`:
 
   ```python
-  label.pack(side=tk.TOP, fill="x")
+  label.pack(side=tk.TOP, fill=tk.X)
   ```
 
 - Ejemplo con `grid`:
