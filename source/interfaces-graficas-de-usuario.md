@@ -252,6 +252,7 @@ nocite: |
 
   ```python
   button.config(text="Nuevo texto")
+  button["text"] = "Nuevo texto"
   ```
 
 ## `Entry`
@@ -302,8 +303,7 @@ nocite: |
 - Insertar y borrar contenido:
 
   ```python
-  text.insert("1.0", "Hola
-  ")
+  text.insert("1.0", "Hola")
   text.delete("1.0", tk.END)
   ```
 
@@ -398,6 +398,7 @@ nocite: |
 
   ```python
   label.config(text="Nuevo texto")
+  label["text"] = "Nuevo texto"
   ```
 
 #### Color (`fg` y `bg`)
