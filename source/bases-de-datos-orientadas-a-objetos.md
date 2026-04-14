@@ -68,13 +68,21 @@ author: Ricardo Pérez López
 
 ## Instalación y configuración
 
-```python
-mkdir proyecto
-cd proyecto
-python -m venv env
-source env/bin/activate
-pip install ZODB BTrees
-```
+- Activar entorno virtual e instalar paquetes:
+
+  ```console
+  $ mkdir proyecto
+  $ cd proyecto
+  $ python -m venv env
+  $ source env/bin/activate
+  $ pip install ZODB BTrees
+  ```
+
+- Desactivar entorno virtual:
+
+  ```console
+  $ deactivate
+  ```
 
 ### Estructura básica de un proyecto con ZODB
 
