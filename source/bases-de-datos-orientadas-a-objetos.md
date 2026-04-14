@@ -68,6 +68,14 @@ author: Ricardo Pérez López
 
 ## Instalación y configuración
 
+```python
+mkdir proyecto
+cd proyecto
+python -m venv env
+source env/bin/activate
+pip install ZODB BTrees
+```
+
 ### Estructura básica de un proyecto con ZODB
 
 ## Persistencia de objetos en ZODB
