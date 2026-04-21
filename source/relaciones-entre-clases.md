@@ -1406,7 +1406,8 @@ El _name mangling_ sólo ocurre si:
 
 - Ahí tenemos una ambigüedad que hay que resolver de alguna manera.
 
-- A este problema se le denomina **problema del diamante**.
+- Este problema es una versión preliminar del **problema del diamante**, que
+  estudiaremos luego con el _polimorfismo_.
 
 - El mecanismo para resolver esa ambigüedad depende del lenguaje.
 
@@ -1538,6 +1539,52 @@ El _name mangling_ sólo ocurre si:
   >>> Anfibio.mro()
   [Anfibio, Terrestre, Acuatico, Animal, object]
   ```
+
+---
+
+- Es importante entender que el orden de resolución de métodos no se aplica
+  únicamente a la hora de resolver métodos (como podría hacernos pensar su
+  nombre), sino al resolver cualquier tipo de atributo, incluyendo campos.
+
+- Por ejemplo, si tenemos una rana (instancia de la clase `Anfibio`) y hacemos:
+
+  ```python
+  rana.color
+  ```
+
+  el intérprete buscará el atributo `color` primero en el propio objeto `rana`
+  y, si no lo encuentra, lo buscará en las clases implicadas siguiendo el orden
+  de resolución de métodos (`Anfibio`, `Terrestre`, `Acuatico`, `Animal` y
+  `object`, en este orden).
+
+---
+
+- Otro ejemplo más abstracto:
+
+  ```python
+  class A:
+      x = 1
+
+  class B(A):
+      x = 2
+  
+  class C(A):
+      x = 3
+  
+  class D(B, C):
+      pass
+  
+  d = D()
+  print(d.x)
+  ```
+
+  imprimirá:
+
+  ```
+  2
+  ```
+
+  porque encuentra `x` en `B` antes que en `C`.
 
 # Polimorfismo
 
@@ -2312,6 +2359,88 @@ ese objeto.
 
       # resto de código
   ```
+
+## El problema del diamante con sobreescritura de métodos
+
+- Por si fuera poco, aún tenemos otro problema que con la herencia simple no
+  teníamos, y que es aún más complicado.
+
+- Supongamos que la clase `Animal` dispone de un método `mover`, de forma que
+  todos los animales se mueven.
+
+- Y supongamos también que tanto la clase `Terrestre` como `Acuatico`
+  sobreescriben el método `mover` que heredan de `Animal`, de forma que todos
+  los animales terrestres se mueven caminando, mientras que los acuáticos lo
+  hacen nadando.
+
+- Por tanto, ambas clases disponen de una implementación distinta del mismo
+  método `mover`.
+
+- Son métodos que tienen la misma signatura pero que se comportan de distinta
+  forma.
+
+---
+
+:::: columns
+
+::: {.column width=49%}
+
+- Tenemos, por tanto, la siguiente situación:
+
+  !UML(animales-anfibios-mover-sobreescritura.png)(El método `mover` está en `Terrestre` y `Acuatico`)(width=65%)(width=35%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  skinparam linetype none
+  class Animal {
+      +mover()
+  }
+
+  class Terrestre {
+      +mover()
+  }
+
+  class Acuatico {
+      +mover()
+  }
+
+  class Anfibio {
+      +???()
+  }
+
+  Animal <|-- Terrestre
+  Animal <|-- Acuatico
+  Terrestre <|-- Anfibio
+  Acuatico <|-- Anfibio
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:::
+
+::: {.column width=3%}
+
+:::
+
+::: {.column width=48%}
+
+- La pregunta es: ¿cuál de los métodos `mover` heredará `Anfibio`?:
+
+  - ¿El de `Terrestre`?
+
+  - ¿El de `Acuatico`?
+
+  - ¿El de `Animal`?
+
+  - ¿Varios a la vez? ¿Todos a la vez?
+
+- Ahí tenemos una ambigüedad que hay que resolver de alguna manera.
+
+- A este problema se le denomina **problema del diamante**.
+
+- El mecanismo para resolver esa ambigüedad depende del lenguaje.
+
+:::
+
+::::
+
+
 
 ## Igualdad polimórfica
 
