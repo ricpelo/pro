@@ -2587,9 +2587,9 @@ class="title-slide slide level2" data-number="3.7">
 <h2 data-number="3.7"><span class="header-section-number">3.7</span> El
 problema del diamante con polimorfismo</h2>
 <ul>
-<li><p>El problema del diamante que estudiamos en apartados anteriores
-se complica cuando se incorpora el polimorfismo y la posibilidad de
-sobreescribir métodos.</p></li>
+<li><p>El problema del diamante (que estudiamos en apartados anteriores
+al hablar de la herencia múltiple) se complica cuando se incorpora el
+polimorfismo y la posibilidad de sobreescribir métodos.</p></li>
 <li><p>Por ejemplo, supongamos que la clase <code>Animal</code> dispone
 de un método <code>mover</code>, de forma que todos los animales se
 mueven.</p></li>
@@ -2610,9 +2610,10 @@ nadando.</p></li>
 <figure>
 <img data-src="images/animales-anfibios-mover-sobreescritura.png"
 class="plain" style="width:65.0%"
-alt="El método mover está en Terrestre y Acuatico" />
+alt="El método mover está en Animal y se sobreescribe en Terrestre y Acuatico" />
 <figcaption aria-hidden="true">El método <code>mover</code> está en
-<code>Terrestre</code> y <code>Acuatico</code></figcaption>
+<code>Animal</code> y se sobreescribe en <code>Terrestre</code> y
+<code>Acuatico</code></figcaption>
 </figure>
 </div></li>
 </ul>
@@ -2620,22 +2621,261 @@ alt="El método mover está en Terrestre y Acuatico" />
 
 </div><div class="column" style="width:48%;">
 <ul>
-<li><p>La pregunta es: ¿cuál de los métodos <code>mover</code> heredará
-<code>Anfibio</code>?:</p>
+<li><p>La primera pregunta es: ¿cuál de los métodos <code>mover</code>
+heredará <code>Anfibio</code>?:</p>
 <ul>
 <li><p>¿El de <code>Terrestre</code>?</p></li>
 <li><p>¿El de <code>Acuatico</code>?</p></li>
 <li><p>¿El de <code>Animal</code>?</p></li>
 <li><p>¿Varios a la vez? ¿Todos a la vez?</p></li>
 </ul></li>
-<li><p>Como ya vimos, el mecanismo para resolver esa ambigüedad depende
-del lenguaje.</p></li>
+<li><p>Y la segunda pregunta es: ¿el constructor de <code>Animal</code>
+se ejecuta una vez o dos?</p></li>
 </ul>
 </div>
 </div>
 </section>
 <section class="slide level5" data-number="3.7.0.0.2">
 
+<ul>
+<li><p>Python resuelve el problema mediante el
+<strong><em>MRO</em></strong>.</p></li>
+<li><p>Por ejemplo, el siguiente código:</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> metodo(<span class="va">self</span>):</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;A&quot;</span>)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> metodo(<span class="va">self</span>):</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;B&quot;</span>)</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> C(A):</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> metodo(<span class="va">self</span>):</span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;C&quot;</span>)</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D(B, C):</span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> D()</span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>d.metodo()</span></code></pre></div>
+<p>imprime:</p>
+<pre><code>B</code></pre>
+<p>porque el <em>MRO</em> de <code>D</code> es <code
+class="sourceCode python">[D, B, C, A, <span class="bu">object</span>]</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.3">
+
+<ul>
+<li><p>Otro ejemplo con atributos estáticos:</p>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> C(A):</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D(B, C):</span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> D()</span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(d.x)</span></code></pre></div>
+<p>imprime:</p>
+<pre><code>2</code></pre>
+<p>porque el intérprete encuentra <code>x</code> en <code>B</code> antes
+que en <code>C</code>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.4">
+
+<ul>
+<li><p>El <em>MRO</em> no evita duplicación de variables de instancias
+creadas en el constructor si no se hace correctamente.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>        A.<span class="fu">__init__</span>(<span class="va">self</span>)</span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> C(A):</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>        A.<span class="fu">__init__</span>(<span class="va">self</span>)</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D(B, C):</span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>        B.<span class="fu">__init__</span>(<span class="va">self</span>)</span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a>        C.<span class="fu">__init__</span>(<span class="va">self</span>)</span>
+<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> D()</span>
+<span id="cb67-21"><a href="#cb67-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(d.x)</span></code></pre></div></li>
+</ul>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:55%;">
+<ul>
+<li><p>Imprime:</p>
+<pre><code>3</code></pre></li>
+<li><p>¿Por qué ocurre esto?</p>
+<ul>
+<li><p><code
+class="sourceCode python">A.<span class="fu">__init__</span>()</code> se
+ha llamado dos veces.</p></li>
+<li><p><code
+class="sourceCode python"><span class="va">self</span>.x</code> se ha
+sobrescrito varias veces.</p></li>
+<li><p>El último en ejecutarse gana.</p></li>
+</ul></li>
+</ul>
+</div>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.5">
+
+<ul>
+<li><p>La solución correcta en Python pasa por el uso colaborativo de
+<code
+class="sourceCode python"><span class="bu">super</span>()</code>.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><p>Por ejemplo:</p>
+<div class="sourceCode" id="cb69"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> C(A):</span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D(B, C):</span>
+<span id="cb69-17"><a href="#cb69-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb69-18"><a href="#cb69-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb69-19"><a href="#cb69-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-20"><a href="#cb69-20" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> D()</span>
+<span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(d.x)</span></code></pre></div></li>
+</ul>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:55%;">
+<ul>
+<li><p>Imprime:</p>
+<pre><code>2</code></pre></li>
+<li><p>Aquí:</p>
+<ul>
+<li><p>El <em>MRO</em> controla el orden de llamadas a <code
+class="sourceCode python"><span class="bu">super</span>()</code>.</p></li>
+<li><p>Cada <code
+class="sourceCode python"><span class="fu">__init__</span></code> se
+ejecuta una sola vez.</p></li>
+<li><p>No hay duplicación accidental.</p></li>
+</ul></li>
+</ul>
+</div>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.6">
+
+<ul>
+<li><p>La clave aquí está en recordar que <code
+class="sourceCode python"><span class="bu">super</span>()</code> no
+significa «llamar al padre», sino «llamar al siguiente en el
+<em>MRO</em>».</p></li>
+<li><p>Por tanto, cuando se hace:</p>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="bu">super</span>().<span class="fu">__init__</span>()</span></code></pre></div>
+<p>no se está llamando «al <code
+class="sourceCode python"><span class="fu">__init__</span></code> de
+<code>B</code>» o «de <code>A</code>», sino al siguiente en la cadena
+del <em>MRO</em>.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="3.7.0.0.7">
+
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><p>Por ejemplo, el siguiente código:</p>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;A&quot;</span>)</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;B&quot;</span>)</span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> C(A):</span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;C&quot;</span>)</span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> D(B, C):</span>
+<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;D&quot;</span>)</span>
+<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb72-20"><a href="#cb72-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-21"><a href="#cb72-21" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> D()</span></code></pre></div></li>
+</ul>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:55%;">
+<ul>
+<li><p>Imprime:</p>
+<pre><code>D
+B
+C
+A</code></pre></li>
+<li><p>Secuencia de llamadas:</p>
+<ol type="1">
+<li><p><code
+class="sourceCode python">D.<span class="fu">__init__</span>()</code>
+llama a <code
+class="sourceCode python"><span class="bu">super</span>()</code></p>
+<p>→ el siguiente en MRO es <code>B</code>.</p></li>
+<li><p><code
+class="sourceCode python">B.<span class="fu">__init__</span>()</code>
+llama a <code
+class="sourceCode python"><span class="bu">super</span>()</code></p>
+<p>→ el siguiente en MRO es <code>C</code>.</p></li>
+<li><p><code
+class="sourceCode python">C.<span class="fu">__init__</span>()</code>
+llama a <code
+class="sourceCode python"><span class="bu">super</span>()</code></p>
+<p>→ el siguiente en MRO es <code>A</code>.</p></li>
+<li><p><code
+class="sourceCode python">A.<span class="fu">__init__</span>()</code>
+llama a <code
+class="sourceCode python"><span class="bu">super</span>()</code></p>
+<p>→ el siguiente en MRO es <code>object</code>.</p></li>
+</ol></li>
+</ul>
+</div>
+</div>
 </section>
 
 <section id="igualdad-polimórfica" class="title-slide slide level2"
@@ -2646,11 +2886,11 @@ Igualdad polimórfica</h2>
 <li><p>Anteriormente vimos que una forma de implementar nuestro método
 <code class="sourceCode python"><span class="fu">__eq__</span></code>
 sería algo similar a ésto:</p>
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.items <span class="op">==</span> otro.items    <span class="co"># Cualquier lógica de igualidad</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.items <span class="op">==</span> otro.items    <span class="co"># Cualquier lógica de igualidad</span></span></code></pre></div></li>
 <li><p>Es decir: preguntamos primero si los tipos de los objetos a
 comparar coinciden y, en caso contrario, decidimos que la clase no sabe
 comparar una instancia suya con otro objeto que no es una instancia
@@ -2669,40 +2909,40 @@ son.</p></li>
 <code>Docente</code>s, y queremos que, al comparar cualquier pareja de
 trabajadores (sean del tipo que sean), Python nos diga que son iguales
 si tienen el mismo DNI:</p>
-<div class="sourceCode" id="cb64"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni: <span class="bu">str</span>, nombre: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__dni <span class="op">=</span> dni</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_dni(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__dni</span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
-<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">NotImplemented</span></span>
-<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_dni() <span class="op">==</span> otro.get_dni()</span>
-<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
-<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni: <span class="bu">str</span>, nombre: <span class="bu">str</span>, nrp: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(dni, nombre)</span>
-<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nrp <span class="op">=</span> nrp</span>
-<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nrp(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
-<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nrp</span></code></pre></div></li>
+<div class="sourceCode" id="cb75"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Trabajador:</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni: <span class="bu">str</span>, nombre: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__dni <span class="op">=</span> dni</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nombre <span class="op">=</span> nombre</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_dni(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__dni</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nombre(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nombre</span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">NotImplemented</span></span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_dni() <span class="op">==</span> otro.get_dni()</span>
+<span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Docente(Trabajador):</span>
+<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dni: <span class="bu">str</span>, nombre: <span class="bu">str</span>, nrp: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(dni, nombre)</span>
+<span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__nrp <span class="op">=</span> nrp</span>
+<span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-22"><a href="#cb75-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_nrp(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb75-23"><a href="#cb75-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__nrp</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.8.0.0.2">
 
 <ul>
 <li><p>Si ahora hacemos:</p>
-<div class="sourceCode" id="cb65"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Trabajador(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> Docente(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="dv">185</span>)</span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t <span class="op">==</span> d)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Trabajador(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> Docente(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="dv">185</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t <span class="op">==</span> d)</span></code></pre></div>
 <p>nos imprimirá <code
 class="sourceCode python"><span class="va">False</span></code>, porque
 los tipos de los objetos no coinciden (<code
@@ -2730,16 +2970,16 @@ class="sourceCode python"><span class="bu">isinstance</span></code> en
 lugar de <code
 class="sourceCode python"><span class="bu">type</span></code> al
 comparar los tipos de ambos objetos:</p>
-<div class="sourceCode" id="cb66"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(otro, <span class="bu">type</span>(<span class="va">self</span>)):</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.get_dni() <span class="op">==</span> otro.get_dni()</span></code></pre></div></li>
+<div class="sourceCode" id="cb77"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(otro, <span class="bu">type</span>(<span class="va">self</span>)):</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.get_dni() <span class="op">==</span> otro.get_dni()</span></code></pre></div></li>
 <li><p>De este modo, si ahora hacemos:</p>
-<div class="sourceCode" id="cb67"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Trabajador(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> Docente(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="dv">123</span>)</span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t <span class="op">==</span> d)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> Trabajador(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> Docente(<span class="st">&#39;111A&#39;</span>, <span class="st">&#39;Manolo&#39;</span>, <span class="dv">123</span>)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(t <span class="op">==</span> d)</span></code></pre></div>
 <p>sí nos imprimirá correctamente <code
 class="sourceCode python"><span class="va">True</span></code>.</p></li>
 </ul>
@@ -2758,18 +2998,18 @@ class="sourceCode python"><span class="bu">object</span></code>) usa
 devuelve <code
 class="sourceCode python"><span class="va">NotImplemented</span></code>
 en caso de que la comparación no se cumpla:</p>
-<div class="sourceCode" id="cb68"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span> <span class="cf">if</span> <span class="va">self</span> <span class="kw">is</span> otro <span class="cf">else</span> <span class="va">NotImplemented</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb79"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span> <span class="cf">if</span> <span class="va">self</span> <span class="kw">is</span> otro <span class="cf">else</span> <span class="va">NotImplemented</span></span></code></pre></div></li>
 <li><p>En general, cabría esperar que:</p>
-<div class="sourceCode" id="cb69"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">==</span> b</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">==</span> b</span></code></pre></div>
 <p>invoque a:</p>
-<div class="sourceCode" id="cb70"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>a.<span class="fu">__eq__</span>(b)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>a.<span class="fu">__eq__</span>(b)</span></code></pre></div>
 <p>o bien, a:</p>
-<div class="sourceCode" id="cb71"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(a).<span class="fu">__eq__</span>(a, b)</span></code></pre></div></li>
+<div class="sourceCode" id="cb82"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(a).<span class="fu">__eq__</span>(a, b)</span></code></pre></div></li>
 <li><p>Sin embargo, <strong>este no es siempre el
 caso</strong>.</p></li>
 </ul>
@@ -2808,21 +3048,21 @@ class="sourceCode python"><span class="va">NotImplemented</span></code>.</p></li
 <ul>
 <li><p>La implementación del algoritmo en lenguaje Python podría ser
 algo similar a lo siguiente:</p>
-<div class="sourceCode" id="cb72"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>ya_invocado <span class="op">=</span> <span class="va">False</span>                                      <span class="co"># NUEVO</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">type</span>(a) <span class="op">!=</span> <span class="bu">type</span>(b) <span class="kw">and</span> <span class="bu">issubclass</span>(<span class="bu">type</span>(b), <span class="bu">type</span>(a)):  <span class="co"># NUEVO</span></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>    ya_invocado <span class="op">=</span> <span class="va">True</span>                                   <span class="co"># NUEVO</span></span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)                                    <span class="co"># NUEVO</span></span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:                            <span class="co"># NUEVO</span></span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res                                       <span class="co"># NUEVO</span></span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> a.<span class="fu">__eq__</span>(b)</span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:</span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
-<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> ya_invocado:                                      <span class="co"># NUEVO</span></span>
-<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)</span>
-<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:</span>
-<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
-<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> a <span class="kw">is</span> b</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>ya_invocado <span class="op">=</span> <span class="va">False</span>                                      <span class="co"># NUEVO</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">type</span>(a) <span class="op">!=</span> <span class="bu">type</span>(b) <span class="kw">and</span> <span class="bu">issubclass</span>(<span class="bu">type</span>(b), <span class="bu">type</span>(a)):  <span class="co"># NUEVO</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>    ya_invocado <span class="op">=</span> <span class="va">True</span>                                   <span class="co"># NUEVO</span></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)                                    <span class="co"># NUEVO</span></span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:                            <span class="co"># NUEVO</span></span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res                                       <span class="co"># NUEVO</span></span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> a.<span class="fu">__eq__</span>(b)</span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:</span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> ya_invocado:                                      <span class="co"># NUEVO</span></span>
+<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> b.<span class="fu">__eq__</span>(a)</span>
+<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> res <span class="op">!=</span> <span class="va">NotImplemented</span>:</span>
+<span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
+<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> a <span class="kw">is</span> b</span></code></pre></div>
 <p>donde se ha marcado con la etiqueta <code>#NUEVO</code> las líneas
 que se han añadido al algoritmo codificado en temas anteriores.</p></li>
 </ul>
@@ -2845,30 +3085,30 @@ invocada.</p></li>
 
 <ul>
 <li><p>Por ejemplo, partiendo del siguiente código:</p>
-<div class="sourceCode" id="cb73"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.valor <span class="op">=</span> valor</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de A&#39;</span>)</span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
-<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de B&#39;</span>)</span>
-<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
-<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span></code></pre></div></li>
+<div class="sourceCode" id="cb84"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.valor <span class="op">=</span> valor</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de A&#39;</span>)</span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de B&#39;</span>)</span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.9.0.0.5">
 
 <ul>
 <li><p>Si hacemos lo siguiente:</p>
-<div class="sourceCode" id="cb74"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">==</span> b</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">==</span> b</span></code></pre></div>
 <p>obtendremos la siguiente salida antes de que la expresión devuelva
 <code
 class="sourceCode python"><span class="va">False</span></code>:</p>
@@ -2876,9 +3116,9 @@ class="sourceCode python"><span class="va">False</span></code>:</p>
 self.valor = b, otro.valor = a</code></pre></li>
 <li><p>Obtenemos el mismo resultado si hacemos la comparación
 invirtiendo los operandos. Por tanto, si hacemo ésto:</p>
-<div class="sourceCode" id="cb76"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">==</span> a</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">==</span> a</span></code></pre></div>
 <p>obtendremos la siguiente salida:</p>
 <pre><code>Se invoca el __eq__ de B
 self.valor = b, otro.valor = a</code></pre>
@@ -2895,23 +3135,23 @@ otra.</p></li>
 <li><p>Por ejemplo, si ponemos el <code
 class="sourceCode python"><span class="va">NotImplemented</span></code>
 en la clase <code>A</code>:</p>
-<div class="sourceCode" id="cb78"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.valor <span class="op">=</span> valor</span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
-<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de B&#39;</span>)</span>
-<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
-<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span>
-<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
-<span id="cb78-16"><a href="#cb78-16" aria-hidden="true" tabindex="-1"></a>b <span class="op">==</span> a</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.valor <span class="op">=</span> valor</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de B&#39;</span>)</span>
+<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span>
+<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
+<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>b <span class="op">==</span> a</span></code></pre></div>
 <p>devolvería <code
 class="sourceCode python"><span class="va">False</span></code> e
 imprimiría:</p>
@@ -2925,23 +3165,23 @@ self.valor = b, otro.valor = a</code></pre></li>
 <li><p>En cambio, si ponemos el <code
 class="sourceCode python"><span class="va">NotImplemented</span></code>
 en la clase <code>B</code>:</p>
-<div class="sourceCode" id="cb80"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.valor <span class="op">=</span> valor</span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de A&#39;</span>)</span>
-<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
-<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span>
-<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
-<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb80-12"><a href="#cb80-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
-<span id="cb80-13"><a href="#cb80-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-14"><a href="#cb80-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-15"><a href="#cb80-15" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
-<span id="cb80-16"><a href="#cb80-16" aria-hidden="true" tabindex="-1"></a>b <span class="op">==</span> a</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> A:</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valor):</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.valor <span class="op">=</span> valor</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;Se invoca el __eq__ de A&#39;</span>)</span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&#39;self.valor = </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>valor<span class="sc">}</span><span class="ss">, otro.valor = </span><span class="sc">{</span>otro<span class="sc">.</span>valor<span class="sc">}</span><span class="ss">&#39;</span>)</span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.valor <span class="op">==</span> otro.valor</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> B(A):</span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
+<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">NotImplemented</span></span>
+<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-14"><a href="#cb91-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-15"><a href="#cb91-15" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> A(<span class="st">&#39;a&#39;</span>), B(<span class="st">&#39;b&#39;</span>)</span>
+<span id="cb91-16"><a href="#cb91-16" aria-hidden="true" tabindex="-1"></a>b <span class="op">==</span> a</span></code></pre></div>
 <p>también devolvería <code
 class="sourceCode python"><span class="va">False</span></code> pero
 imprimiría:</p>
@@ -3029,49 +3269,49 @@ tener sentido en muchas situaciones.</p></li>
 cuales tienen todas un ancho y un alto:</p>
 <div class="columns">
 <div class="column" style="width:49%;">
-<div class="sourceCode" id="cb82"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo:</span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
-<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span>
-<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
-<span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
-<span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb82-18"><a href="#cb82-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo:</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
+<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span>
+<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb93-17"><a href="#cb93-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb93-18"><a href="#cb93-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-19"><a href="#cb93-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
 </div><div class="column" style="width:1%;">
 
 </div><div class="column" style="width:49%;">
-<div class="sourceCode" id="cb83"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo:</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
-<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span>
-<span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb83-15"><a href="#cb83-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb83-16"><a href="#cb83-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb83-17"><a href="#cb83-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb83-18"><a href="#cb83-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-19"><a href="#cb83-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo:</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
 </div>
 </div></li>
 </ul>
@@ -3086,46 +3326,46 @@ almacenara esos elementos comunes, de forma que las subclases recibirían
 esos elementos mediante herencia:</p>
 <div class="columns">
 <div class="column" style="width:69%;">
-<div class="sourceCode" id="cb84"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>,</span>
-<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>        ancho: <span class="bu">float</span>,</span>
-<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>        alto: <span class="bu">float</span></span>
-<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
-<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
-<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
-<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
-<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
-<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-19"><a href="#cb84-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb84-20"><a href="#cb84-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>,</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>        ancho: <span class="bu">float</span>,</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>        alto: <span class="bu">float</span></span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
+<span id="cb95-15"><a href="#cb95-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-16"><a href="#cb95-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb95-17"><a href="#cb95-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
+<span id="cb95-18"><a href="#cb95-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-19"><a href="#cb95-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb95-20"><a href="#cb95-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span></code></pre></div>
 </div><div class="column" style="width:1%;">
 
 </div><div class="column" style="width:46%;">
-<div class="sourceCode" id="cb85"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
-<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
-<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb85-12"><a href="#cb85-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb85-13"><a href="#cb85-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb85-14"><a href="#cb85-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-15"><a href="#cb85-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb96-14"><a href="#cb96-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-15"><a href="#cb96-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div>
 </div>
 </div></li>
 </ul>
@@ -3145,10 +3385,10 @@ posible.</p></li>
 mensaje <code>area</code> pero no podemos implementar un cuerpo para ese
 método en la clase <code>Figura</code> porque el cálculo del área
 dependerá de la figura concreta que sea en cada caso:</p>
-<div class="sourceCode" id="cb86"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ¿Qué ponemos aquí?</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb97"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura:</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ¿Qué ponemos aquí?</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.5">
@@ -3176,31 +3416,31 @@ llamada <code>ABC</code> (de <em>Abstract Base Class</em>) del módulo
 
 <ul>
 <li><p>En Python se haría así:</p>
-<div class="sourceCode" id="cb87"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod    <span class="co"># importamos del módulo abc</span></span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura(ABC):                     <span class="co"># Figura es subclase de ABC</span></span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho: <span class="bu">float</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
-<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
-<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
-<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb87-15"><a href="#cb87-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
-<span id="cb87-16"><a href="#cb87-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-17"><a href="#cb87-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb87-18"><a href="#cb87-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span>
-<span id="cb87-19"><a href="#cb87-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-20"><a href="#cb87-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@abstractmethod</span>                    <span class="co"># declaramos el método como abstracto</span></span>
-<span id="cb87-21"><a href="#cb87-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb87-22"><a href="#cb87-22" aria-hidden="true" tabindex="-1"></a>        ...                            <span class="co"># representa que no tiene cuerpo</span></span>
-<span id="cb87-23"><a href="#cb87-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-24"><a href="#cb87-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb98"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> abc <span class="im">import</span> ABC, abstractmethod    <span class="co"># importamos del módulo abc</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Figura(ABC):                     <span class="co"># Figura es subclase de ABC</span></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ancho: <span class="bu">float</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_ancho(ancho)</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.set_alto(alto)</span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_ancho(<span class="va">self</span>, ancho: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__ancho <span class="op">=</span> ancho</span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_alto(<span class="va">self</span>, alto: <span class="bu">float</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__alto <span class="op">=</span> alto</span>
+<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_ancho(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__ancho</span>
+<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_alto(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb98-18"><a href="#cb98-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__alto</span>
+<span id="cb98-19"><a href="#cb98-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-20"><a href="#cb98-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@abstractmethod</span>                    <span class="co"># declaramos el método como abstracto</span></span>
+<span id="cb98-21"><a href="#cb98-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb98-22"><a href="#cb98-22" aria-hidden="true" tabindex="-1"></a>        ...                            <span class="co"># representa que no tiene cuerpo</span></span>
+<span id="cb98-23"><a href="#cb98-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-24"><a href="#cb98-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.7">
@@ -3208,11 +3448,11 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a h
 <ul>
 <li><p>Si intentamos instanciar la clase <code>Figura</code>, obtenemos
 un mensaje de error:</p>
-<div class="sourceCode" id="cb88"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fig <span class="op">=</span> Figura(<span class="fl">4.0</span>, <span class="fl">3.0</span>)</span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Figura with abstract methods area</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb99"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> fig <span class="op">=</span> Figura(<span class="fl">4.0</span>, <span class="fl">3.0</span>)</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Figura with abstract methods area</span></span></code></pre></div></li>
 <li><p>El mensaje de error dice que no se puede instanciar la clase
 abstracta <code>Figura</code> al contener el método abstracto
 <code>area</code>.</p></li>
@@ -3221,11 +3461,11 @@ abstracta <code>Figura</code> al contener el método abstracto
 clases heredarán el método abstracto <code>area</code> y, por tanto, no
 se podrán instanciar a menos que le proporcionen un cuerpo.</p></li>
 <li><p>Eso significa que también serán clases abstractas:</p>
-<div class="sourceCode" id="cb89"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tri <span class="op">=</span> Triangulo(<span class="fl">4.0</span>, <span class="fl">3.0</span>)</span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Triangulo with abstract methods area</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> tri <span class="op">=</span> Triangulo(<span class="fl">4.0</span>, <span class="fl">3.0</span>)</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">&quot;&lt;stdin&gt;&quot;</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: Can<span class="st">&#39;t instantiate abstract class Triangulo with abstract methods area</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.8">
@@ -3235,28 +3475,28 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a h
 <code>Rectangulo</code> se puedan instanciar, basta con que
 sobreescriban el método abstracto <code>area</code> con un cuerpo
 adecuado para cada una:</p>
-<div class="sourceCode" id="cb90"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto() <span class="op">/</span> <span class="fl">2.0</span></span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
-<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
-<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
-<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto()</span>
-<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
-<span id="cb90-20"><a href="#cb90-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-21"><a href="#cb90-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb101"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Triangulo(Figura):</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto() <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  *  &quot;</span>)</span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot; *** &quot;</span>)</span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Rectangulo(Figura):</span>
+<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> area(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb101-14"><a href="#cb101-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.get_ancho() <span class="op">*</span> <span class="va">self</span>.get_alto()</span>
+<span id="cb101-15"><a href="#cb101-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-16"><a href="#cb101-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> dibujar(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb101-17"><a href="#cb101-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb101-18"><a href="#cb101-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb101-19"><a href="#cb101-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;*****&quot;</span>)</span>
+<span id="cb101-20"><a href="#cb101-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-21"><a href="#cb101-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># resto de código</span></span></code></pre></div></li>
 </ul>
 </section>
 </section>

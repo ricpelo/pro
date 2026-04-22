@@ -2366,9 +2366,9 @@ ese objeto.
 
 ## El problema del diamante con polimorfismo
 
-- El problema del diamante que estudiamos en apartados anteriores se complica
-  cuando se incorpora el polimorfismo y la posibilidad de sobreescribir
-  métodos.
+- El problema del diamante (que estudiamos en apartados anteriores al hablar de
+  la herencia múltiple) se complica cuando se incorpora el polimorfismo y la
+  posibilidad de sobreescribir métodos.
 
 - Por ejemplo, supongamos que la clase `Animal` dispone de un método `mover`,
   de forma que todos los animales se mueven.
@@ -2386,7 +2386,7 @@ ese objeto.
 
 - Tenemos, por tanto, la siguiente situación:
 
-  !UML(animales-anfibios-mover-sobreescritura.png)(El método `mover` está en `Terrestre` y `Acuatico`)(width=65%)(width=35%)
+  !UML(animales-anfibios-mover-sobreescritura.png)(El método `mover` está en `Animal` y se sobreescribe en `Terrestre` y `Acuatico`)(width=65%)(width=35%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   skinparam linetype none
   class Animal {
@@ -2419,7 +2419,7 @@ ese objeto.
 
 ::: {.column width=48%}
 
-- La pregunta es: ¿cuál de los métodos `mover` heredará `Anfibio`?:
+- La primera pregunta es: ¿cuál de los métodos `mover` heredará `Anfibio`?:
 
   - ¿El de `Terrestre`?
 
@@ -2429,14 +2429,281 @@ ese objeto.
 
   - ¿Varios a la vez? ¿Todos a la vez?
 
-- Como ya vimos, el mecanismo para resolver esa ambigüedad depende del
-  lenguaje.
+- Y la segunda pregunta es: ¿el constructor de `Animal` se ejecuta una vez o dos?
 
 :::
 
 ::::
 
 ---
+
+- Python resuelve el problema mediante el **_MRO_**.
+
+- Por ejemplo, el siguiente código:
+
+  ```python
+  class A:
+      def metodo(self):
+          print("A")
+
+  class B(A):
+      def metodo(self):
+          print("B")
+
+  class C(A):
+      def metodo(self):
+          print("C")
+
+  class D(B, C):
+      pass
+
+  d = D()
+  d.metodo()
+  ```
+
+  imprime:
+
+  ```
+  B
+  ```
+
+  porque el _MRO_ de `D` es !PYTHON([D, B, C, A, object]).
+
+---
+
+- Otro ejemplo con atributos estáticos:
+
+  ```python
+  class A:
+    x = 1
+
+  class B(A):
+      x = 2
+
+  class C(A):
+      x = 3
+
+  class D(B, C):
+      pass
+
+  d = D()
+  print(d.x)
+  ```
+
+  imprime:
+
+  ```
+  2
+  ```
+
+  porque el intérprete encuentra `x` en `B` antes que en `C`.
+
+---
+
+- El _MRO_ no evita duplicación de variables de instancias creadas en el
+  constructor si no se hace correctamente.
+
+  :::: columns
+
+  ::: {.column width=40%}
+
+  - Por ejemplo:
+
+    ```python
+    class A:
+        def __init__(self):
+            self.x = 1
+
+    class B(A):
+        def __init__(self):
+            A.__init__(self)
+            self.x = 2
+
+    class C(A):
+        def __init__(self):
+            A.__init__(self)
+            self.x = 3
+
+    class D(B, C):
+        def __init__(self):
+            B.__init__(self)
+            C.__init__(self)
+
+    d = D()
+    print(d.x)
+    ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=55%}
+
+  - Imprime:
+
+    ```
+    3
+    ```
+
+  - ¿Por qué ocurre esto?
+
+    - !PYTHON(A.__init__()) se ha llamado dos veces.
+
+    - !PYTHON(self.x) se ha sobrescrito varias veces.
+
+    - El último en ejecutarse gana.
+
+  :::
+
+  ::::
+
+---
+
+- La solución correcta en Python pasa por el uso colaborativo de
+  !PYTHON(super()).
+
+  :::: columns
+
+  ::: {.column width=40%}
+
+  - Por ejemplo:
+
+    ```python
+    class A:
+        def __init__(self):
+            self.x = 1
+            super().__init__()
+
+    class B(A):
+        def __init__(self):
+            super().__init__()
+            self.x = 2
+
+    class C(A):
+        def __init__(self):
+            super().__init__()
+            self.x = 3
+
+    class D(B, C):
+        def __init__(self):
+            super().__init__()
+
+    d = D()
+    print(d.x)
+    ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: {.column width=55%}
+
+  - Imprime:
+
+    ```
+    2
+    ```
+
+  - Aquí:
+
+    - El _MRO_ controla el orden de llamadas a !PYTHON(super()).
+
+    - Cada !PYTHON(__init__) se ejecuta una sola vez.
+
+    - No hay duplicación accidental.
+
+  :::
+
+  ::::
+
+---
+
+- La clave aquí está en recordar que !PYTHON(super()) no significa «llamar al
+  padre», sino «llamar al siguiente en el _MRO_».
+
+- Por tanto, cuando se hace:
+
+  ```python
+  super().__init__()
+  ```
+
+  no se está llamando «al !PYTHON(__init__) de `B`» o «de `A`», sino al
+  siguiente en la cadena del _MRO_.
+
+---
+
+:::: columns
+
+::: {.column width=40%}
+
+- Por ejemplo, el siguiente código:
+
+  ```python
+  class A:
+      def __init__(self):
+          print("A")
+          super().__init__()
+
+  class B(A):
+      def __init__(self):
+          print("B")
+          super().__init__()
+
+  class C(A):
+      def __init__(self):
+          print("C")
+          super().__init__()
+
+  class D(B, C):
+      def __init__(self):
+          print("D")
+          super().__init__()
+
+  d = D()
+  ```
+
+:::
+
+::: {.column width=5%}
+
+:::
+
+::: {.column width=55%}
+
+- Imprime:
+
+  ```
+  D
+  B
+  C
+  A
+  ```
+
+- Secuencia de llamadas:
+
+  1. !PYTHON(D.__init__()) llama a !PYTHON(super())
+
+     → el siguiente en MRO es `B`.
+
+  2. !PYTHON(B.__init__()) llama a !PYTHON(super())
+
+     → el siguiente en MRO es `C`.
+  
+  3. !PYTHON(C.__init__()) llama a !PYTHON(super())
+
+     → el siguiente en MRO es `A`.
+  
+  4. !PYTHON(A.__init__()) llama a !PYTHON(super())
+
+     → el siguiente en MRO es `object`.
+
+:::
+
+::::
 
 ## Igualdad polimórfica
 
