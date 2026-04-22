@@ -1347,7 +1347,8 @@ False
        conjuntos, etc. Por ejemplo, dos listas son iguales si tienen los mismos
        elementos en la misma posición.
 
-   #. **Igualdad por identidad**: Compara la **identidad** de los objetos.
+   #. **Igualdad referencial** o **igualdad por identidad**: Compara la
+      **identidad** de los objetos.
 
       - En este caso, los dos objetos serán iguales cuando sean idénticos,
         definiendo el operador `==` como si fuera un sinónimo de `is`.

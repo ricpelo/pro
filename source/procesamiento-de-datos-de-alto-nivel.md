@@ -272,13 +272,13 @@ $$\text{Tipos} \begin{cases}
 
 - El _hash_ de un dato se calcula en función de alguna característica
   intrínseca al dato, y depende del mecanismo de igualdad que se use para los
-  datos de ese tipo (_igualdad estructural_ o _igualdad por identidad_):
+  datos de ese tipo (_igualdad estructural_ o _igualdad referencial_):
 
   - Si el dato usa **igualdad estructural**, el _hash_ del dato dependerá de su
     estado interno o de su contenido.
 
-  - Si el dato usa **igualdad por identidad**, el _hash_ del dato se calculará
-    a partir de la misma.
+  - Si el dato usa **igualdad referencial**, el _hash_ del dato se calculará a
+    partir de su identidad.
 
 - En cualquiera de ambos casos, el algoritmo concreto que se usa no nos
   preocupa por ahora.
@@ -311,7 +311,7 @@ $$\text{Tipos} \begin{cases}
   - Por ese motivo, los contenedores mutables que se comparan por su contenido
     no son hashables.
 
-  - En cambio, los objetos mutables que usan **igualdad por identidad** (es
+  - En cambio, los objetos mutables que usan **igualdad referencial** (es
     decir, aquellos que son iguales cuando son _idénticos_) sí pueden ser
     hashables.
 

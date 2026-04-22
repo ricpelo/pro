@@ -406,7 +406,8 @@ los dos objetos provoca también el mismo cambio en el otro objeto.
 - Es decir: por defecto, \ $\underline{\textbf{\textit{x}}\ \ \texttt{==}\ \ \textbf{\textit{y}}}$
   \ sólo si \ $\underline{\textbf{\textit{x}}\ \ \texttt{is}\ \ \textbf{\textit{y}}}$.
 
-- Esto es lo que técnicamente se denomina **igualdad por identidad**.
+- Esto es lo que técnicamente se denomina **igualdad referencial** o **igualdad
+  por identidad**.
 
 ---
 
@@ -809,7 +810,7 @@ True
     cambien durante la vida del objeto, y calculando el _hash_ a partir de esos
     campos.
 
-  - Implementando **igualdad por identidad** y calculando el _hash_ a partir de
+  - Implementando **igualdad referencial** y calculando el _hash_ a partir de
     la identidad del objeto.
 
 ---
