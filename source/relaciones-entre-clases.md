@@ -1404,18 +1404,22 @@ El _name mangling_ sólo ocurre si:
 
   - ¿Los dos a la vez?
 
-- Ahí tenemos una ambigüedad que hay que resolver de alguna manera.
+- Además, dado que hay dos caminos de `Animal` a `Anfibio`, ¿los métodos de
+  `Animal` se heredan dos veces en `Anfibio`, o una sola vez?
 
-- Este problema es una versión preliminar del **problema del diamante**, que
-  estudiaremos luego con el _polimorfismo_.
-
-- El mecanismo para resolver esa ambigüedad depende del lenguaje.
+- Ahí tenemos ambigüedades que hay que resolver de alguna manera.
 
 :::
 
 ::::
 
 ---
+
+
+- Este problema es una versión reducida del **problema del diamante**, que
+  estudiaremos luego con el _polimorfismo_.
+
+- El mecanismo para resolver esa ambigüedad depende del lenguaje.
 
 - Python implementa un mecanismo basado en un algoritmo llamado **linealización
   C3**, que establece un orden de prioridad entre todas las clases a la hora de
@@ -2360,24 +2364,19 @@ ese objeto.
       # resto de código
   ```
 
-## El problema del diamante con sobreescritura de métodos
+## El problema del diamante con polimorfismo
 
-- Por si fuera poco, aún tenemos otro problema que con la herencia simple no
-  teníamos, y que es aún más complicado.
+- El problema del diamante que estudiamos en apartados anteriores se complica
+  cuando se incorpora el polimorfismo y la posibilidad de sobreescribir
+  métodos.
 
-- Supongamos que la clase `Animal` dispone de un método `mover`, de forma que
-  todos los animales se mueven.
+- Por ejemplo, supongamos que la clase `Animal` dispone de un método `mover`,
+  de forma que todos los animales se mueven.
 
 - Y supongamos también que tanto la clase `Terrestre` como `Acuatico`
   sobreescriben el método `mover` que heredan de `Animal`, de forma que todos
   los animales terrestres se mueven caminando, mientras que los acuáticos lo
   hacen nadando.
-
-- Por tanto, ambas clases disponen de una implementación distinta del mismo
-  método `mover`.
-
-- Son métodos que tienen la misma signatura pero que se comportan de distinta
-  forma.
 
 ---
 
@@ -2430,17 +2429,14 @@ ese objeto.
 
   - ¿Varios a la vez? ¿Todos a la vez?
 
-- Ahí tenemos una ambigüedad que hay que resolver de alguna manera.
-
-- A este problema se le denomina **problema del diamante**.
-
-- El mecanismo para resolver esa ambigüedad depende del lenguaje.
+- Como ya vimos, el mecanismo para resolver esa ambigüedad depende del
+  lenguaje.
 
 :::
 
 ::::
 
-
+---
 
 ## Igualdad polimórfica
 

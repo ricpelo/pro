@@ -1624,13 +1624,11 @@ alt="El método mover está en Terrestre y Acuatico" />
 <li><p>¿El de <code>Acuatico</code>?</p></li>
 <li><p>¿Los dos a la vez?</p></li>
 </ul></li>
-<li><p>Ahí tenemos una ambigüedad que hay que resolver de alguna
+<li><p>Además, dado que hay dos caminos de <code>Animal</code> a
+<code>Anfibio</code>, ¿los métodos de <code>Animal</code> se heredan dos
+veces en <code>Anfibio</code>, o una sola vez?</p></li>
+<li><p>Ahí tenemos ambigüedades que hay que resolver de alguna
 manera.</p></li>
-<li><p>Este problema es una versión preliminar del <strong>problema del
-diamante</strong>, que estudiaremos luego con el
-<em>polimorfismo</em>.</p></li>
-<li><p>El mecanismo para resolver esa ambigüedad depende del
-lenguaje.</p></li>
 </ul>
 </div>
 </div>
@@ -1638,6 +1636,11 @@ lenguaje.</p></li>
 <section class="slide level5" data-number="2.3.4.0.6">
 
 <ul>
+<li><p>Este problema es una versión reducida del <strong>problema del
+diamante</strong>, que estudiaremos luego con el
+<em>polimorfismo</em>.</p></li>
+<li><p>El mecanismo para resolver esa ambigüedad depende del
+lenguaje.</p></li>
 <li><p>Python implementa un mecanismo basado en un algoritmo llamado
 <strong>linealización C3</strong>, que establece un orden de prioridad
 entre todas las clases a la hora de seleccionar un método de la cadena
@@ -2579,24 +2582,22 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a h
 </ul>
 </section>
 
-<section id="el-problema-del-diamante-con-sobreescritura-de-métodos"
+<section id="el-problema-del-diamante-con-polimorfismo"
 class="title-slide slide level2" data-number="3.7">
 <h2 data-number="3.7"><span class="header-section-number">3.7</span> El
-problema del diamante con sobreescritura de métodos</h2>
+problema del diamante con polimorfismo</h2>
 <ul>
-<li><p>Por si fuera poco, aún tenemos otro problema que con la herencia
-simple no teníamos, y que es aún más complicado.</p></li>
-<li><p>Supongamos que la clase <code>Animal</code> dispone de un método
-<code>mover</code>, de forma que todos los animales se mueven.</p></li>
+<li><p>El problema del diamante que estudiamos en apartados anteriores
+se complica cuando se incorpora el polimorfismo y la posibilidad de
+sobreescribir métodos.</p></li>
+<li><p>Por ejemplo, supongamos que la clase <code>Animal</code> dispone
+de un método <code>mover</code>, de forma que todos los animales se
+mueven.</p></li>
 <li><p>Y supongamos también que tanto la clase <code>Terrestre</code>
 como <code>Acuatico</code> sobreescriben el método <code>mover</code>
 que heredan de <code>Animal</code>, de forma que todos los animales
 terrestres se mueven caminando, mientras que los acuáticos lo hacen
 nadando.</p></li>
-<li><p>Por tanto, ambas clases disponen de una implementación distinta
-del mismo método <code>mover</code>.</p></li>
-<li><p>Son métodos que tienen la misma signatura pero que se comportan
-de distinta forma.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="3.7.0.0.1">
@@ -2627,15 +2628,14 @@ alt="El método mover está en Terrestre y Acuatico" />
 <li><p>¿El de <code>Animal</code>?</p></li>
 <li><p>¿Varios a la vez? ¿Todos a la vez?</p></li>
 </ul></li>
-<li><p>Ahí tenemos una ambigüedad que hay que resolver de alguna
-manera.</p></li>
-<li><p>A este problema se le denomina <strong>problema del
-diamante</strong>.</p></li>
-<li><p>El mecanismo para resolver esa ambigüedad depende del
-lenguaje.</p></li>
+<li><p>Como ya vimos, el mecanismo para resolver esa ambigüedad depende
+del lenguaje.</p></li>
 </ul>
 </div>
 </div>
+</section>
+<section class="slide level5" data-number="3.7.0.0.2">
+
 </section>
 
 <section id="igualdad-polimórfica" class="title-slide slide level2"
