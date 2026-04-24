@@ -517,6 +517,29 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
 
 ---
 
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Internamente:**
+
+- La llamada !PYTHON(iter(x)) equivale a !PYTHON(x.__iter__()).
+
+- La llamada a !PYTHON(next(x)) equivale a !PYTHON(x.__next__()).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**En consecuencia:**
+
+- Un **iterable** es un objeto que responde al método !PYTHON(__iter__).
+
+- Un **iterador** es un objeto que responde a los métodos !PYTHON(__iter__) y
+  !PYTHON(__next__).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
 - Muchas funciones devuelven iteradores en lugar de colecciones porque, al ser
   perezosos, los iteradores son más eficientes en memoria que si se devolviera
   toda una lista o tupla.
