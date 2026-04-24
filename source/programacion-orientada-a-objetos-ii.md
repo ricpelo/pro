@@ -1072,7 +1072,7 @@ True
   repr(v)
   ```
 
-  es equivalente a ésta:
+  se convierte en:
 
   ```python
   v.__repr__()
@@ -1232,7 +1232,7 @@ True
   str(v)
   ```
 
-  es equivalente a ésta:
+  se convierte en:
 
   ```python
   v.__str__()
@@ -1317,6 +1317,117 @@ True
 
 - Recordemos que !PYTHON(print) imprime una cadena por la salida (sin comillas)
   y devuelve !PYTHON(None).
+
+### `__iter__` y `__next__`
+
+- La función !PYTHON(iter) devuelve un iterador sobre un objeto iterable que se
+  le pasa como argumento.
+
+- Lo que hace realmente la expresión !PYTHON(iter(o)) es invocar al método
+  !PYTHON(__iter__) sobre el objeto iterable `o`.
+
+- Por tanto, la expresión !PYTHON(iter(o)) se convierte en
+  !PYTHON(o.__iter__()).
+
+- Por tanto, es necesario que el objeto `o` responda al método
+  !PYTHON(__iter__) si queremos que sea tratado como un **iterable**.
+
+- Si queremos que las instancias de nuestra clase sean _iterables_, debemos
+  definir en la clase el método !PYTHON(__iter__) y que éste devuelva un
+  **iterador**.
+
+- El tipo de un iterador es `Iterator[`_T_`]`, siendo _T_ el tipo de los
+  elementos que devuelve.
+
+  (`Iterator` está definido en el módulo `typing`.)
+
+---
+
+- Los iteradores son objetos que saben cómo recorrer un iterable.
+
+- La función !PYTHON(next) devuelve el siguiente valor del iterable según dicte
+  el iterador que se le pasa como argumento.
+
+- Lo que hace realmente la expresión !PYTHON(next(it)) es invocar al método
+  !PYTHON(__next__) sobre el objeto iterador `it`.
+
+- Por tanto, la expresión !PYTHON(next(it)) se convierte en
+  !PYTHON(it.__next__()).
+
+- Para ello, es necesario que el objeto `it` responda al método
+  !PYTHON(__next__) si queremos que sea tratado como un iterador.
+
+- Además, los iteradores también deben responder al método !PYTHON(__iter__),
+  aunque normalmente se limita a devolverse a sí mismo.
+
+- En principio, no vamos a crear clases cuyas instancias sean iteradores. Es
+  más fácil crearlos a partir de otras construcciones del lenguaje (como las
+  expresiones generadoras) o aprovechar los iteradores de tipos iterables ya
+  predefinidos en el lenguaje.
+
+---
+
+- Ejemplo de iterable (algo bastante frecuente de hacer):
+
+  ```python
+  from typing import Iterator
+
+  class PilaDeEnteros:
+      def __init__(self) -> None:
+          self.elementos: list[int] = []
+
+      def __iter__(self) -> Iterator[int]:
+          return iter(self.elementos)      # Las listas son iterables
+
+      def apilar(self, elem: int) -> None:
+          self.elementos.append(elem)
+
+      def desapilar(self) -> None:
+          self.elementos.pop()
+
+      def cima(self) -> int:
+          return self.elementos[-1]
+  ```
+
+- Aquí, hemos aprovechado que la pila almacena sus elementos dentro de una
+  lista (que es un tipo iterable), por lo que !PYTHON(__iter__) devuelve
+  directamente un iterador sobre la lista.
+
+---
+
+- Ejemplo de iterador (algo que casi nunca vamos a hacer):
+
+  ```python
+   class Contador:
+       def __init__(self, maximo):
+           self.maximo = maximo
+           self.actual = 0
+
+       def __iter__(self):
+           return self
+
+       def __next__(self):
+           if self.actual < self.maximo:
+               self.actual += 1
+               return self.actual
+           else:
+               raise StopIteration
+   ```
+
+- Uso:
+
+  ```python
+  for n in Contador(3):
+      print(n)
+  ```
+
+  imprime:
+
+  ```
+  0
+  1
+  2
+  ```
 
 # Encapsulación
 
