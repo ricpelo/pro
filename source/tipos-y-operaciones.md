@@ -14,7 +14,8 @@ nocite: |
   **operaciones** que se pueden realizar sobre esos valores.
 
 - El **sistema de tipos** de un lenguaje es el conjunto de reglas que asigna un
-  tipo a cada elemento del programa.
+  tipo a todo aquel elemento del programa que pueda representar un valor
+  (identificadores, expresiones, etc.).
 
 - Exceptuando a los lenguajes **no tipados** (Ensamblador, código máquina,
   Forth...) todos los lenguajes tienen su propio sistema de tipos, con sus
@@ -64,6 +65,43 @@ nocite: |
     de tipos **durante la compilación** del programa, es decir, antes incluso
     de ejecutarlo. En tal caso, se abortará la compilación para impedir la
     generación de código objeto erróneo.
+
+## Tipado estático vs. dinámico
+
+- Dependiendo del momento en el que se determinan y se comprueban los tipos de
+  un programa, y si esos tipos son fijos o pueden cambiar durante la ejecución
+  del programa, tenemos dos posibilidades:
+
+  - Tipado estático.
+
+  - Tipado dinámico.
+
+---
+
+- Un **lenguaje de tipado estático** es aquel en el que los tipos se determinan
+  y se verifican antes de ejecutar el programa, y no cambian durante la
+  ejecución.
+
+  - La comprobación ocurre en una fase previa (normalmente durante la
+    compilación, si el lenguaje es compilado).
+
+  - El programa puede ser rechazado antes de ejecutarse si hay errores de
+    tipos.
+
+  - Los elementos del programa tienen un tipo fijo que no cambia en tiempo de
+    ejecución.
+
+---
+
+- Un **lenguaje de tipado dinámico** es aquel en el que los tipos se determinan
+  y se comprueban durante la ejecución del programa.
+
+  - No se rechaza el programa antes de ejecutarlo por errores de tipos.
+
+  - Los errores de tipos aparecen en tiempo de ejecución.
+
+  - Los elementos del programa tienen un tipo que puede variar durante la
+    ejecución del programa.
 
 ## Tipado fuerte vs. débil
 
