@@ -141,124 +141,124 @@ class Tuit {
 
 - Se utiliza cuando se quiere representar el hecho de que las dos clases están
   relacionadas de alguna manera **distinta a la de otros tipos de relaciones
-  más específicas** (dependencia, agregación, composición, generalización,
-  etc.).
+  con semánticas más específicas** (dependencia, agregación, composición,
+  generalización, etc.).
 
-- Tiene más interés en el módulo de _Entornos de desarrollo_, ya que se usa
-  principalmente durante el análisis y diseño preliminar del sistema.
+- Representa el hecho de que una clase _conoce_ a la otra o la _usa_ de alguna
+  manera **permanente** o _a largo plazo_.
 
-- En _Programación_ tiene menos utilidad y casi siempre se puede sustituir por
-  otro tipo de relación más específica.
+- Para ello, los objetos de una clase guardan atributos que almacenan
+  referencias a instancias de la otra clase.
 
 - Las asociaciones suelen llevar nombre, ya que representan una relación
-  conceptual y hay que aclarar cuál es (normalmente es un nombre asociado al
-  **dominio del problema**).
-
-- En ese sentido, se parecen mucho a las relaciones del **modelo
-  Entidad-Relación** que se estudia en _Bases de datos_.
+  conceptual normalmente asociado al **dominio del problema**.
 
 ---
 
-- Por ejemplo, si estamos construyendo una aplicación que simule una
-  calculadora, podríamos tener las clases `Calculadora` y `Numero`.
-
-- En ese caso, podríamos decir que se establece una _asociación_ entre las
-  clases `Calculadora` y `Numero`: la calculadora _manipula_ números.
+- Por ejemplo, podríamos decir que se establece una _asociación_ entre las
+  clases `Profesor` y `Asignatura`: los profesores _imparten_ asignaturas.
 
 - Dicha asociación se puede representar así en un diagrama de clases, usando el
   lenguaje UML:
 
-  :::: columns
-
-  ::: column
-
-  !UML(calculadora-asocia-numero.png)()(width=50%)(width=20%)
+  !UML(profesor-imparte-asignaturas.png)()(width=60%)(width=20%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Calculadora -- Numero : " manipula"
+  left to right direction
+  Profesor "*" -- "*" Asignatura : " imparte"
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  :::
+- Su código correspondiente, donde el profesor guarda en un atributo las
+  asignaturas que imparte:
 
-  ::: column
+  ```python
+  class Asignatura:
+      def __init__(self, nombre: str) -> None:
+          self.__nombre = nombre
 
-  - La asociación se llama _manipula_ y representa una relación que se da
-    conceptualmente en el modelo que estamos haciendo de nuestra aplicación.
-
-  - No hay más pistas sobre qué quiere decir _manipular_ números.
-
-  - Puede ser útil durante el análisis pero no nos ayuda mucho en _Programación_.
-
-  :::
-
-  ::::
+  class Profesor:
+      def __init__(self, nombre: str, asignaturas: list[Asignatura]) -> None:
+          self.__nombre = nombre
+          self.__asignaturas = asignaturas
+  ```
 
 ## Dependencia
 
 - Una **dependencia** es un tipo de relación que representa el hecho de que una
-  clase depende de otra por algún motivo.
+  clase depende de otra (o usa a otra) **puntualmente**, no permanentemente.
 
-- Ese motivo se indica en la misma dependencia usando un **estereotipo**.
+- Por tanto, una dependencia representa una relación **débil** y **temporal**.
 
-- Un _estereotipo_ es una etiqueta entre comillas («») que acompaña a la
-  relación y que indica de qué tipo es, o bien aporta más información.
+- Las dependencias se indican en el diagrama UML usando un **estereotipo**.
 
-- En _Programación_ se puede usar, entre otras cosas, para representar el hecho
-  de que una clase «usa» a la otra de alguna forma.
-
-- Por ejemplo, cuando un método de una clase necesita acceder a una
-  instancia de otra clase.
-
-  En ese caso, esa instancia la puede recibir como argumento, o bien puede
-  crearla y destruirla el propio método.
-
-- También cuando una clase llama a un método de la otra clase.
+- Los _estereotipos_ de UML son etiquetas entre comillas angulares («») que
+  acompañan a una clase o relación y que indican de qué tipo es, o bien aporta
+  más información sobre el elemento al que acompañan.
 
 ---
 
-- Siguiendo con el ejemplo anterior de la calculadora, si partimos del
-  siguiente código:
+- Las dependencias se puede usar, entre otras cosas, para representar el hecho
+  de que una clase **«usa»** a la otra de alguna forma, pero sin que la primera
+  tenga que guardar un atributo con referencias a la otra clase.
+
+- Por ejemplo:
+
+  - Cuando un método de una clase necesita acceder a una instancia de otra
+    clase.
+
+    En ese caso, esa instancia la puede recibir como argumento, o bien puede
+    crearla y destruirla el propio método.
+
+  - Cuando una clase llama a un método de la otra clase.
+
+    En este caso, podemos usar el estereotipo _«llama»_ para representar el
+    hecho de que la clase origen llama a algún método de la clase destino.
+
+!EJEMPLO
+
+- Supongamos una clase `Factura` que utiliza la clase `CalculadoraImpuestos`:
+
+  !UML(calculadora-dependencia-factura.png)()(width=50%)
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  left to right direction
+  Factura ..> CalculadoraImpuestos : " <<usa>>"
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  En lugar del estereotipo _«usa»_, también podríamos haber usado el
+  estereotipo _«llama»_ o _«depende»_.
+
+- Su código correspondiente, donde la factura crea y usa una instancia de la
+  calculadora de impuestos pero sin necesitar guardar la referencia en un
+  atributo del objeto:
 
   ```python
-  class Calculadora:
-      @staticmethod
-      def suma(x: Numero, y: Numero):
-          """Devuelve la suma de dos instancias de la clase Numero."""
-          return x.get_valor() + y.get_valor()
+  class CalculadoraImpuestos:
+      def calcular(self, cantidad: float) -> float:
+          return cantidad * 0.21
+
+  class Factura:
+      def total(self, base: float) -> float:
+          calc = CalculadoraImpuestos()
+          return base + calc.calcular(base)
   ```
-
-- Aquí ya tenemos claro que se establece una _dependencia_ entre las clases
-  `Calculadora` y `Numero`: la clase `Calculadora` _«usa»_ a la clase `Numero`.
-
----
-
-- Esa dependencia se representa gráficamente así:
-
-  !UML(calculadora-dependencia-numero.png)()(width=20%)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Calculadora ..> Numero : " <<usa>>"
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- En lugar del estereotipo _«usa»_, también podríamos haber usado el
-  estereotipo _«llama»_, que representa el hecho de que la clase origen llama a
-  algún método de la clase destino.
 
 ## Agregación
 
 - La **agregación** es una relación que se establece entre una clase (la
   **agregadora**) y otra clase (la **agregada**).
 
-- Representa la relación «**tiene**»: la agregadora _tiene_ a la agregada.
+- Representa la relación «**tiene**» entre un _todo_ y una _parte_: la
+  agregadora _tiene_ a la agregada.
 
-- Podríamos decir que la clase agregada **forma parte** de la agregadora, pero
-  de una forma **débil**, ya que los objetos de la clase agregadora y de la
-  clase agregada tienen su existencia propia, independiente unos de otros.
+- La clase agregada **forma parte** de la agregadora, pero de una forma
+  **débil**, ya que los objetos de la clase agregadora y de la clase agregada
+  tienen su existencia propia, independiente unos de otros.
 
 - Por tanto, un objeto agregado puede estar en varios objetos agregadores al
   mismo tiempo.
 
 - Para ello, los objetos de la clase agregadora **almacenan referencias** a los
-  objetos agregados pero esas no tienen por qué ser las únicas referencias a
-  esos objetos que existen en el programa.
+  objetos agregados pero puede haber más referencias a esos objetos
+  simultáneamente almacenadas en otras partes del programa.
 
 ---
 
@@ -290,6 +290,9 @@ class Tuit {
 
 - La clase `Grupo` «agrega» a la clase `Alumno` y contiene referencias a los
   alumnos del grupo.
+
+- La relación se representa mediante un rombo blanco (o sin rellenar) junto a
+  la clase agregadora.
 
 :::
 
@@ -341,8 +344,8 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
 - La **composición** es una relación que se establece entre una clase (la clase
   **compuesta**) y otra clase (la clase **componente**).
 
-- Representa la relación «**está compuesto por**»: la compuesta _está compuesta
-  por_ sus componentes.
+- Representa la relación «**está compuesto por**» entre un _todo_ y una
+  _parte_: la compuesta _está compuesta por_ sus componentes.
 
 - También se puede decir que la clase componente **forma parte** de la clase
   compuesta, pero de una forma **fuerte**, ya que los objetos componentes sólo
@@ -381,8 +384,8 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
   una cuenta, pero no pueden pertenecer a más de una cuenta al mismo tiempo.
   Cuando se elimina una cuenta, se eliminan todos sus tuits.
 
-- Junto al rombo relleno siempre habrá una multiplicidad de «1», ya que un
-  componente sólo puede formar parte de un objeto compuesto.
+- La relación se representa mediante un rombo negro (o relleno) junto a
+  la clase compuesta.
 
 :::
 
@@ -396,6 +399,10 @@ Cuenta "1" *-- "0..*" Tuit
 :::
 
 ::::
+
+- En la clase compuesta (es decir, junto al rombo negro) siempre habrá una
+  multiplicidad de «1», ya que un componente sólo puede formar parte de un
+  objeto compuesto.
 
 ---
 
