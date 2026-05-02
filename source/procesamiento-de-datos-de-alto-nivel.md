@@ -1701,7 +1701,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - El esquema general es el siguiente, con posibles ligeras variaciones (mayor o
   menor cantidad de etapas):
 
-  !DOT(procesamiento-flujos)()(width=75%)(width=75%)
+  !DOT(procesamiento-flujos.svg)()(width=75%)(width=75%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Generación -> Filtrado -> Transformación -> Acumulación
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1731,7 +1731,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 - Este esquema se puede implementar mediante la composición de funciones ya
   conocidas, de la siguiente forma:
 
-  !DOT(procesamiento-flujos-funciones)()(width=70%)(width=70%)
+  !DOT(procesamiento-flujos-funciones.svg)()(width=70%)(width=70%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fontname = "monospace"]
   range -> filter -> map -> reduce
@@ -1744,7 +1744,7 @@ m2 -> m3 [arrowhead = open, color = teal, minlen = 2]
 
 - Este problema se podría resolver de la siguiente forma:
 
-  !DOT(problema-procesamiento-flujos)()(width=100%)(width=100%)
+  !DOT(problema-procesamiento-flujos.svg)()(width=100%)(width=100%)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   node [fontname = "monospace"]
   "range(n + 1)" -> "filter(lambda x: x % 2 == 0)" -> "map(lambda x: x ** 2)" -> "reduce(add)"
