@@ -341,19 +341,55 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
 
 !UNUN(DIferencia entre asociación y agregación)
 
-- A nivel de código, la asociación y la agregación se implementan igual:
-  almacenando referencias.
+- A nivel de código, **la asociación y la agregación se implementan igual:
+  _almacenando referencias_**.
+
+- Estos dos ejemplos son técnicamente indistinguibles:
+
+  ```python
+  class Jugador:
+      pass
+
+  class Equipo:  # agregación
+      def __init__(self):
+          self.__jugadores: list[Jugador] = []
+  ```
+
+  ```python
+  class Paciente:
+      pass
+
+  class Medico:  # asociación
+      def __init__(self):
+          self.__pacientes: list[Paciente] = []
+  ```
 
 - Pero eso no significa que sean lo mismo.
 
 - La diferencia entre la asociación y la agregación es conceptual y
-  semántica.
+  semántica, no sintáctica o de implementación.
 
-- La agregación representa una relación estructural (el todo posee a las
-  partes).
+---
 
-- La asociación representa una relación funcional más genérica, donde nadie
-  «posee» a nadie.
+- **Agregación:**
+
+  - Representa una relación estructural (el «todo» _posee_ a las «partes»).
+
+  - Suele derivar métodos tipo _agregar_/_quitar_.
+
+  - El «todo» puede considerarse como una _colección_ que contiene a las
+    «partes», por lo que puede tener sentido implementar el método mágico
+    `__iter__` para recorrer el «todo» visitando sus «partes».
+
+- **Asociación:**
+
+  - Representa una relación funcional más genérica, donde nadie «posee» a
+    nadie.
+
+  - Los ciclos de vida de las clases son totalmente independientes.
+
+  - En general, no tiene sentido considerar que una es una colección que
+    almacena instancias de la otra.
 
 ## Composición
 
