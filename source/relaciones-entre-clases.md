@@ -144,8 +144,8 @@ class Tuit {
   con semánticas más específicas** (dependencia, agregación, composición,
   generalización, etc.).
 
-- Representa el hecho de que una clase _conoce_ a la otra o la _usa_ de alguna
-  manera **permanente** o _a largo plazo_.
+- Representa el hecho de que una clase _conoce_ a la otra o la _usa_ de forma
+  **permanente** o **a largo plazo**.
 
 - Para ello, los objetos de una clase guardan atributos que almacenan
   referencias a instancias de la otra clase.
@@ -339,9 +339,27 @@ daw2.meter_alumno(juan)  # juan está en daw1 y daw2 al mismo tiempo
                          # (ahora hay tres referencias al mismo alumno)
 ```
 
+!UNUN(DIferencia entre asociación y agregación)
+
+- A nivel de código, la asociación y la agregación se implementan igual:
+  almacenando referencias.
+
+- Pero eso no significa que sean lo mismo.
+
+- La diferencia entre la asociación y la agregación es conceptual y
+  semántica.
+
+- La agregación representa una relación estructural (el todo posee a las
+  partes).
+
+- La asociación representa una relación funcional más genérica, donde nadie
+  «posee» a nadie.
+
 ## Composición
 
-- La **composición** es una relación que se establece entre una clase (la clase
+- La **composición** es un caso **más fuerte** y restrictivo de _agregación_.
+
+- La composición es una relación que se establece entre una clase (la clase
   **compuesta**) y otra clase (la clase **componente**).
 
 - Representa la relación «**está compuesto por**» entre un _todo_ y una
