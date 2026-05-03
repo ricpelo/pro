@@ -1224,6 +1224,24 @@ Métodos sobre objetos patrón  Finalidad
 
   !IMGP(tupla_en_pythontutor.png)(Tupla almacenada en memoria)(width=50%)(width=50%)
 
+---
+
+- Los identificadores de tipo tupla se pueden anotar usando **anotaciones de
+  tipo** como las siguientes:
+
+  - !PYTHON(tuple): Representa una tupla genérica de cualquier tamaño y con
+    elementos de cualquier tipo.
+
+  - !PYTHON(tuple[str]): Representa una tupla que contiene una cadena.
+
+  - !PYTHON(tuple[str, str]): Representa una tupla que contiene dos cadenas.
+
+  - !PYTHON(tuple[str, int]): Representa una tupla que contiene una cadena y un
+    entero, en ese orden.
+
+  - !PYTHON(tuple[str, ...]): Representa una tupla que puede contener
+    cualquier cantidad de cadenas.
+
 ## Rangos
 
 - Ya vimos que los **rangos** (!PYTHON(range)) representan secuencias
@@ -1358,6 +1376,17 @@ Métodos sobre objetos patrón  Finalidad
   Pythontutor:
 
   !IMGP(lista_en_pythontutor.png)(Lista almacenada en memoria)(width=50%)(width=50%)
+
+---
+
+- Los identificadores de tipo lista se pueden anotar usando **anotaciones de
+  tipo** como las siguientes:
+
+  - !PYTHON(list): Representa una lista genérica de cualquier tamaño y con
+    elementos de cualquier tipo.
+
+  - !PYTHON(list[str]): Representa una lista que puede contener cualquier
+    cantidad de cadenas.
 
 ---
 
