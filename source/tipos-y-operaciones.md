@@ -55,7 +55,7 @@ nocite: |
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Por tanto:**
 
-- El **sistema de tipos** son las reglas formales del sistema (la parte
+- El **sistema de tipos** son las reglas formales del lenguaje (la parte
   «matemática»).
 
 - La **disciplina de tipos** dice cómo y cuándo se aplican esas reglas en el
@@ -81,8 +81,8 @@ nocite: |
 
     - **Tipado fuerte**: el lenguaje impide conversiones implícitas peligrosas.
 
-    - **Tipado débil**: se permiten conversiones implícitas peligrosas o
-      ambiguas.
+    - **Tipado débil**: se permiten ciertas conversiones implícitas peligrosas
+      o ambiguas.
 
 ---
 
