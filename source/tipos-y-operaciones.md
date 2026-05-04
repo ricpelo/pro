@@ -17,6 +17,20 @@ nocite: |
   tipo a todo aquel elemento del programa que pueda representar un valor
   (identificadores, expresiones, etc.).
 
+- Más concretamente, es el conjunto de reglas formales que define:
+
+  - Qué es un tipo.
+
+  - Cómo se asignan tipos a las expresiones.
+
+  - Cómo se combinan los tipos (funciones, operadores, etc.).
+
+  - Qué programas son válidos o no válidos según los tipos.
+
+- El sistema de tipos de un lenguaje es una propiedad del mismo.
+
+---
+
 - Exceptuando a los lenguajes **no tipados** (Ensamblador, código máquina,
   Forth...) todos los lenguajes tienen su propio sistema de tipos, con sus
   características.
@@ -24,7 +38,69 @@ nocite: |
 - El sistema de tipos de un lenguaje depende también del paradigma de
   programación que soporte el lenguaje. Por ejemplo, en los lenguajes
   **orientados a objetos**, el sistema de tipos se construye a partir de los
-  conceptos propios de la orientación a objetos (*clases*, *interfaces*...).
+  conceptos propios de la orientación a objetos (_clases_, _interfaces_,
+  _polimorfismo_ de subtipos, etc.).
+
+---
+
+- Relacionado con el concepto de sistema de tipos, existe otro concepto
+  denominado _disciplina de tipos_.
+
+- La **disciplina de tipos** (_type discipline_) de un lenguaje es el uso
+  concreto del sistema de tipos en la práctica.
+
+- Describe el comportamiento observable del lenguaje respecto a los tipos.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Por tanto:**
+
+- El **sistema de tipos** son las reglas formales del sistema (la parte
+  «matemática»).
+
+- La **disciplina de tipos** dice cómo y cuándo se aplican esas reglas en el
+  lenguaje.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Las disciplinas de tipos se caracterizan por dos propiedades principales:
+
+  - **Cuándo se aplican** esas reglas en un lenguaje real, lo que da lugar a
+    dos posibilidades mutuamente excluyentes:
+
+    - **Tipado estático**: se aplican en tiempo de compilación, en una fase
+      previa a la ejecución.
+
+    - **Tipado dinámico**: se aplican en tiempo de ejecución, durante la
+      evaluación de las expresiones.
+
+  - **Qué tan estrictamente** se aplica, lo que da lugar a otras dos
+    posibilidades mutuamente excluyentes:
+
+    - **Tipado fuerte**: el lenguaje impide conversiones implícitas peligrosas.
+
+    - **Tipado débil**: se permiten conversiones implícitas peligrosas o
+      ambiguas.
+
+---
+
+- Por tanto, la disciplina de tipos de un lenguaje se describe diciendo:
+
+  - si es estático o dinámico, y
+
+  - si es fuerte o débil.
+
+- Por ejemplo:
+
+  - Python es un lenguaje de tipado dinámico y fuerte.
+
+  - Java es un lenguaje de tipado estático y fuerte.
+
+  - PHP es un lenguaje de tipado dinámico y débil.
+
+  - C es un lenguaje de tipado estático y débil.
 
 ## Errores de tipos
 

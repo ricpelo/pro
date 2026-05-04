@@ -17,7 +17,6 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
@@ -119,7 +118,7 @@
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  src="/usr/share/javascript/katex/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -135,7 +134,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  href="/usr/share/javascript/katex/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -220,6 +219,22 @@ realizar sobre esos valores.</p></li>
 conjunto de reglas que asigna un tipo a todo aquel elemento del programa
 que pueda representar un valor (identificadores, expresiones,
 etc.).</p></li>
+<li><p>Más concretamente, es el conjunto de reglas formales que
+define:</p>
+<ul>
+<li><p>Qué es un tipo.</p></li>
+<li><p>Cómo se asignan tipos a las expresiones.</p></li>
+<li><p>Cómo se combinan los tipos (funciones, operadores,
+etc.).</p></li>
+<li><p>Qué programas son válidos o no válidos según los tipos.</p></li>
+</ul></li>
+<li><p>El sistema de tipos de un lenguaje es una propiedad del
+mismo.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.1">
+
+<ul>
 <li><p>Exceptuando a los lenguajes <strong>no tipados</strong>
 (Ensamblador, código máquina, Forth…) todos los lenguajes tienen su
 propio sistema de tipos, con sus características.</p></li>
@@ -227,7 +242,72 @@ propio sistema de tipos, con sus características.</p></li>
 de programación que soporte el lenguaje. Por ejemplo, en los lenguajes
 <strong>orientados a objetos</strong>, el sistema de tipos se construye
 a partir de los conceptos propios de la orientación a objetos
-(<em>clases</em>, <em>interfaces</em>…).</p></li>
+(<em>clases</em>, <em>interfaces</em>, <em>polimorfismo</em> de
+subtipos, etc.).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.2">
+
+<ul>
+<li><p>Relacionado con el concepto de sistema de tipos, existe otro
+concepto denominado <em>disciplina de tipos</em>.</p></li>
+<li><p>La <strong>disciplina de tipos</strong> (<em>type
+discipline</em>) de un lenguaje es el uso concreto del sistema de tipos
+en la práctica.</p></li>
+<li><p>Describe el comportamiento observable del lenguaje respecto a los
+tipos.</p></li>
+</ul>
+<div class="caja">
+<p><strong>Por tanto:</strong></p>
+<ul>
+<li><p>El <strong>sistema de tipos</strong> son las reglas formales del
+sistema (la parte «matemática»).</p></li>
+<li><p>La <strong>disciplina de tipos</strong> dice cómo y cuándo se
+aplican esas reglas en el lenguaje.</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level5" data-number="1.1.0.0.3">
+
+<ul>
+<li><p>Las disciplinas de tipos se caracterizan por dos propiedades
+principales:</p>
+<ul>
+<li><p><strong>Cuándo se aplican</strong> esas reglas en un lenguaje
+real, lo que da lugar a dos posibilidades mutuamente excluyentes:</p>
+<ul>
+<li><p><strong>Tipado estático</strong>: se aplican en tiempo de
+compilación, en una fase previa a la ejecución.</p></li>
+<li><p><strong>Tipado dinámico</strong>: se aplican en tiempo de
+ejecución, durante la evaluación de las expresiones.</p></li>
+</ul></li>
+<li><p><strong>Qué tan estrictamente</strong> se aplica, lo que da lugar
+a otras dos posibilidades mutuamente excluyentes:</p>
+<ul>
+<li><p><strong>Tipado fuerte</strong>: el lenguaje impide conversiones
+implícitas peligrosas.</p></li>
+<li><p><strong>Tipado débil</strong>: se permiten conversiones
+implícitas peligrosas o ambiguas.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.0.0.4">
+
+<ul>
+<li><p>Por tanto, la disciplina de tipos de un lenguaje se describe
+diciendo:</p>
+<ul>
+<li><p>si es estático o dinámico, y</p></li>
+<li><p>si es fuerte o débil.</p></li>
+</ul></li>
+<li><p>Por ejemplo:</p>
+<ul>
+<li><p>Python es un lenguaje de tipado dinámico y fuerte.</p></li>
+<li><p>Java es un lenguaje de tipado estático y fuerte.</p></li>
+<li><p>PHP es un lenguaje de tipado dinámico y débil.</p></li>
+<li><p>C es un lenguaje de tipado estático y débil.</p></li>
+</ul></li>
 </ul>
 </section>
 
