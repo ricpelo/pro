@@ -1957,11 +1957,41 @@ E -> w [lhead = cluster1]
      sólo ahí.
 
   #. Una vez localizado, se devolverá el valor ligado al nombre `pi` en el
-     espacio de nombres de `math`, o se lanzará un error !PYTHON(NameError) en
-     caso de que no haya ninguna ligadura para `pi` en `math`.
+     espacio de nombres de `math`, o se lanzará un error
+     !PYTHON{AttributeError} (no un !PYTHON(NameError)) en caso de que no haya
+     ninguna ligadura para `pi` en `math`.
 
 - Como se puede observar, en ningún momento se usa el entorno para resolver el
   identificador `pi` dentro de `math`.
+
+---
+
+- Para comprobar si un objeto tiene un atributo con un determinado nombre, se
+  puede usar la función !PYTHON(hasattr):
+
+  ```python
+  >>> import math
+  >>> hasattr(math, 'pi')
+  True
+  >>> hasattr(math, 'pepe')
+  False
+  ```
+
+- La función !PYTHON(getattr) devuelve el valor de un atributo de un objeto y,
+  si no existe, devuelve un valor por defecto en lugar de lanzar un
+  !PYTHON(AttributeError):
+
+  ```python
+  >>> import math
+  >>> getattr(math, 'pi')
+  3.141592653589793
+  >>> getattr(math, 'pepe')
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  AttributeError: module 'math' has no attribute 'pepe'
+  >>> getattr(math, 'pepe', 'hola')
+  'hola'
+  ```
 
 # La pila de control
 
