@@ -227,11 +227,11 @@ class Tuit {
   Factura ..> CalculadoraImpuestos : " <<usa>>"
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  En lugar del estereotipo _«usa»_, también podríamos haber usado el
-  estereotipo _«llama»_ o _«depende»_.
+  (En lugar del estereotipo _«usa»_, también podríamos haber usado los
+  estereotipos _«llama»_ o _«depende»_.)
 
 - Su código correspondiente, donde la factura crea y usa una instancia de la
-  calculadora de impuestos pero sin necesitar guardar la referencia en un
+  calculadora de impuestos pero sin necesidad de guardar la referencia en un
   atributo del objeto:
 
   ```python
