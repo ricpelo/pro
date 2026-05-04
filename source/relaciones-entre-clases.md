@@ -194,6 +194,10 @@ class Tuit {
   acompañan a una clase o relación y que indican de qué tipo es, o bien aporta
   más información sobre el elemento al que acompañan.
 
+- ¡Ojo! En sentido amplio, cualquier relación establece una «dependencia» entre
+  dos clases, ya que hace que una necesite a la otra. Lo que aquí se está
+  tratando es un tipo de dependencia más puntual y menos estructural.
+
 ---
 
 - Las dependencias se puede usar, entre otras cosas, para representar el hecho
