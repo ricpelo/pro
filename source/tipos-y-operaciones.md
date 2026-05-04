@@ -158,14 +158,14 @@ nocite: |
   y se verifican antes de ejecutar el programa, y no cambian durante la
   ejecución.
 
-  - La comprobación ocurre en una fase previa (normalmente durante la
+  - La comprobación de tipos ocurre en una fase previa (normalmente durante la
     compilación, si el lenguaje es compilado).
 
   - El programa puede ser rechazado antes de ejecutarse si hay errores de
     tipos.
 
   - Los elementos del programa tienen un tipo fijo que no cambia en tiempo de
-    ejecución.
+    ejecución, ya que los tipos de los operandos y argumentos nunca cambian.
 
 ---
 
@@ -176,8 +176,12 @@ nocite: |
 
   - Los errores de tipos aparecen en tiempo de ejecución.
 
+  - La comprobación de tipos ocurre durante la ejecución, es decir, durante la
+    evaluación de las expresiones.
+
   - Los elementos del programa tienen un tipo que puede variar durante la
-    ejecución del programa.
+    ejecución del programa, ya que el tipo se comprueba durante la evaluación
+    de las expresiones y ésta depende del tipo de los operandos y argumentos.
 
 ## Tipado fuerte vs. débil
 

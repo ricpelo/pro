@@ -17,6 +17,7 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
@@ -118,7 +119,7 @@
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
-  src="/usr/share/javascript/katex/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -134,7 +135,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="/usr/share/javascript/katex/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -377,12 +378,13 @@ durante la ejecución del programa, tenemos dos posibilidades:</p>
 que los tipos se determinan y se verifican antes de ejecutar el
 programa, y no cambian durante la ejecución.</p>
 <ul>
-<li><p>La comprobación ocurre en una fase previa (normalmente durante la
-compilación, si el lenguaje es compilado).</p></li>
+<li><p>La comprobación de tipos ocurre en una fase previa (normalmente
+durante la compilación, si el lenguaje es compilado).</p></li>
 <li><p>El programa puede ser rechazado antes de ejecutarse si hay
 errores de tipos.</p></li>
 <li><p>Los elementos del programa tienen un tipo fijo que no cambia en
-tiempo de ejecución.</p></li>
+tiempo de ejecución, ya que los tipos de los operandos y argumentos
+nunca cambian.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -396,8 +398,12 @@ programa.</p>
 <li><p>No se rechaza el programa antes de ejecutarlo por errores de
 tipos.</p></li>
 <li><p>Los errores de tipos aparecen en tiempo de ejecución.</p></li>
+<li><p>La comprobación de tipos ocurre durante la ejecución, es decir,
+durante la evaluación de las expresiones.</p></li>
 <li><p>Los elementos del programa tienen un tipo que puede variar
-durante la ejecución del programa.</p></li>
+durante la ejecución del programa, ya que el tipo se comprueba durante
+la evaluación de las expresiones y ésta depende del tipo de los
+operandos y argumentos.</p></li>
 </ul></li>
 </ul>
 </section>
