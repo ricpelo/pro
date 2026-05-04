@@ -1115,6 +1115,31 @@ while not salida:
   Formato de datos desconocido.
   ```
 
+---
+
+- Más ejemplos:
+  ```python
+  >>> def entra_cualquier_cosa(x) -> str:
+  ...     match x:
+  ...         case int(x):      # Encaja con un número entero
+  ...             return 'Es un int.'
+  ...         case float(x):    # Encaja con un número real
+  ...             return 'Es un float.'
+  ...         case str(x):      # Encaja con una cadena
+  ...             return 'Es un str.'
+  ...         case _:
+  ...             return 'Es otra cosa.'
+  ...
+  >>> entra_cualquier_cosa(4)
+  'Es un int.'
+  >>> entra_cualquier_cosa(3.5)
+  'Es un float.'
+  >>> entra_cualquier_cosa('hola')
+  'Es un str.'
+  >>> entra_cualquier_cosa([1, 2, 3])
+  'Es otra cosa.'
+  ```
+
 ### Excepciones
 
 - Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede
