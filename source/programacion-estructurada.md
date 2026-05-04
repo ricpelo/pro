@@ -1024,6 +1024,97 @@ while not salida:
   Fin
   ```
 
+### `match`
+
+- La sentencia `match` toma una expresión y trata de encajar su valor con
+  sucesivos patrones indicados en uno o más bloques `case`.
+
+- Lleva a cabo un ajuste de patrones o _pattern matching_.
+
+- Sólo se ejecuta el bloque del primer patrón que encaja con el valor.
+
+- También puede extraer componentes (como secuencias de elementos o atributos
+  de objetos) a partir del valor.
+
+- Si no hay ningún encaje, no se ejecuta ninguna de las ramas.
+
+---
+
+- Ejemplos:
+
+  ```python
+  def http_error(status: int) -> str:
+      match status:
+          case 400:
+              return "Bad request"
+          case 401 | 403 | 404 as codigo_coincidente:
+              return "Not allowed, con código " + str(codigo_coincidente)
+          case 404:
+              return "Not found"
+          case 418:
+              return "I'm a teapot"
+          case _:
+              return "Algo raro pasa en Internet"
+  ```
+
+  ```python
+    match punto:     # punto es una tupla de dos elementos
+      case (0, 0):
+          print("Punto origen")
+      case (0, y):   # la variable 'y' toma el valor del segundo elemento
+          print("La Y vale", y)
+      case (x, 0):   # la variable 'x' toma el valor del primer elemento
+          print("La X vale", x)
+      case (x, y):   # las variables 'x' e 'y' toman los valores de los elementos
+          print("La X vale", x, "y la Y vale", y)
+      case _:
+          raise ValueError("No es un punto")
+  ```
+
+---
+
+- Más ejemplos:
+
+  ```python
+  >>> def comprueba_numero(x):
+  ...     match x:
+  ...         case 10:               # Encaja sólo con el 10
+  ...             print("Encajó con el 10.")
+  ...         case x if x % 2 == 0:  # Encaja con un número par distinto de 10
+  ...             print("Es un número par distinto de 10.")
+  ...         case _:                # Encaja con cualquier otra cosa
+  ...             print("No se encontró ningún encaje.")
+  ... 
+  >>> comprueba_numero(10)
+  Encajó con el 10.
+  >>> comprueba_numero(12)
+  Es un número par distinto de 10.
+  >>> comprueba_numero(15)
+  No se encontró ningún encaje.
+  ```
+
+---
+
+- Más ejemplos:
+
+  ```python
+  >>> def procesar(datos):
+  ...     match datos:
+  ...         case [x, y]:      # Una lista con dos elementos
+  ...             print("Lista de dos elementos:", x, y)
+  ...         case [x, y, z]:   # Una lista con tres elementos
+  ...             print("Lista de tres elementos:", x, y, z)
+  ...         case _:
+  ...             print("Formato de datos desconocido.")
+  ... 
+  >>> procesar([1, 2])
+  Lista de dos elementos: 1, 2
+  >>> procesar([1, 2, 3])
+  Lista de tres elementos: 1, 2, 3
+  >>> procesar([1, 2, 3, 4])
+  Formato de datos desconocido.
+  ```
+
 ### Excepciones
 
 - Incluso aunque una sentencia o expresión sea sintácticamente correcta, puede
