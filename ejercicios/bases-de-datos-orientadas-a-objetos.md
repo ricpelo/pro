@@ -55,7 +55,7 @@ author:
    El objetivo es comprender cómo modelar estructuras persistentes y cómo
    afecta el _commit_.
 
-   Extra: ¿Qué pasa si modificas un objeto pero no haces commit?
+   Extra: ¿Qué pasa si modificas un objeto pero no haces _commit_?
 
 #. Diseña un pequeño sistema de biblioteca:
 
