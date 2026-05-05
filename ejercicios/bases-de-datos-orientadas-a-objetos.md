@@ -13,7 +13,7 @@ author:
 
    #. Abra una base de datos ZODB.
 
-   #. Cree una clase Persona con atributos nombre y edad.
+   #. Cree una clase `Persona` con atributos `nombre` y `edad`.
 
    #. Inserte una instancia en la base de datos.
 
@@ -84,4 +84,3 @@ author:
    - Entender la detección de cambios en ZODB.
 
    - Comprender cuándo ZODB detecta modificaciones automáticamente y cuándo no.
-
