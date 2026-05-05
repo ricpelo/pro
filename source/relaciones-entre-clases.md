@@ -481,23 +481,26 @@ Cuenta "1" *-- "0..*" Tuit
 - Primera opción, donde la clase `Cuenta` se encarga de crear el tuit:
 
   ```python
+  from typing import Iterator
+
   class Cuenta:
       def __init__(self) -> None:
-          self.__tuits = {}             # Guarda referencias a tuits
+          self.__tuits: dict[int, Tuit] = {}  # Guarda referencias a tuits
 
-      def get_tuits(self):
-          return self.__tuits.values()  # Devuelve los tuis de la cuenta
+      def get_tuits(self) -> Iterator[Tuit]:
+          return self.__tuits.values()        # Devuelve los tuis de la cuenta
 
       def crear_tuit(self, texto: str) -> int:
-          t = Tuit(texto)               # El tuit se crea dentro de la cuenta
-          ident = t.get_ident()
-          self.__tuits[ident] = t       # La cuenta almacena el tuit
-          return ident                  # Devuelve el id del tuit
+          t = Tuit(texto)                     # El tuit se crea dentro de la cuenta
+          ident = t.get_ident()             
+          self.__tuits[ident] = t             # La cuenta almacena el tuit
+          return ident                        # Devuelve el id del tuit
 
       def eliminar_tuit(self, ident: int) -> Tuit:
           return self.__tuits[ident]
+  ```
 
-
+  ```python
   c1 = Cuenta()
   id1 = c1.crear_tuit("Este módulo es muy bonito")
   id2 = c1.crear_tuit("Me encanta DAW")
@@ -507,29 +510,30 @@ Cuenta "1" *-- "0..*" Tuit
 
 ---
 
-- Segunda opción, donde el tuit se crea fuera de la clase `Cuenta` y luego se
-  envía a ésta:
+- Segunda opción, donde el tuit se crea fuera de la clase `Cuenta` pero, justo
+  a continuación, se envía a la cuenta (la cuenta guarda la única referencia
+  que existe del tuit):
 
   ```python
+  from typing import Iterator
+
   class Cuenta:
       def __init__(self) -> None:
-          self.__tuits = {}             # Guarda referencias a tuits
+          self.__tuits: dict[int, Tuit] = {}  # Guarda referencias a tuits
 
-      def get_tuits(self):
-          return self.__tuits.values()  # Devuelve los tuits de la cuenta
+      def get_tuits(self) -> Iterator[Tuit]:
+          return self.__tuits.values()        # Devuelve los tuits de la cuenta
 
       def guardar_tuit(self, tuit: Tuit) -> int:
           ident = tuit.get_ident()
-          self.__tuits[ident] = tuit    # La cuenta almacena el tuit
+          self.__tuits[ident] = tuit          # La cuenta almacena el tuit
           return ident
 
       def eliminar_tuit(self, ident: int) -> None:
           del self.__tuits[ident]
+  ```
 
-
-  # Los tuits se crean fuera de la clase Cuenta pero, justo a continuación,
-  # se envían a la cuenta. Así, el objeto cuenta es el único que almacena
-  # una referencia al tuit (es la única referencia que existe de ese tuit):
+  ```python
   c1 = Cuenta()
   id1 = c1.guardar_tuit(Tuit("Este módulo es muy bonito"))
   id2 = c1.guardar_tuit(Tuit("Me encanta DAW"))
