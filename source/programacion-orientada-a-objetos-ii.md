@@ -1692,6 +1692,10 @@ True
   manejarse únicamente mediante operaciones definidas a tal efecto, impidiendo
   el acceso directo a los demás atributos del objeto.
 
+- En Programación orientada a objetos, decir que los objetos están encapsulados
+  desde el punto de vista de la protección de datos, significa que un objeto
+  controla su estado interno y decide cómo se accede o modifica éste.
+
 ---
 
 - Según esto, podemos imaginar que:
