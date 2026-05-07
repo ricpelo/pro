@@ -1843,8 +1843,8 @@ E -> suma [lhead = cluster0]
 - Por convenio, las _docstrings_ siempre se delimitan mediante tres dobles
   comillas (!PYTHON(""")).
 
-- La función !PYTHON(help) (que se usa sobre todo en sesiones interactivas)
-  muestran la _docstring_ de la función para el que se solicita la ayuda.
+- La función !PYTHON{help} (que se usa sobre todo en sesiones interactivas)
+  muestra la _docstring_ de la función para la que se solicita la ayuda.
 
 - Internamente, la _docstring_ se almacena en el atributo !PYTHON(__doc__) de
   la función, ya que para Python una función también es un objeto.
