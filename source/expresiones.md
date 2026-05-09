@@ -1840,8 +1840,7 @@ $$
   - Admite **argumentos de muchos tipos** (se puede calcular el máximo de
     varios números, de varias cadenas... de casi cualquier conjunto de cosas
     que sean _comparables_ entre sí), por lo que decimos que es una función
-    **polimórfica**, aunque además **todos los argumentos deben ser del mismo
-    tipo**.
+    **polimórfica**.
 
   - Admite un **número variable de argumentos** (es una función **variádica**),
     aunque como mínimo debe recibir uno.

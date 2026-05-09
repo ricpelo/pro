@@ -1650,12 +1650,81 @@ mas -> por
 - De la misma forma (aunque se utiliza menos), podemos decir que un **valor
   polimórfico** es un valor que pertenece a un tipo polimórfico.
 
+---
+
 - Asimismo, una **operación polimórfica** es aquella en cuya signatura aparece
   algún tipo polimórfico.
 
-  Por ejemplo, la función !PYTHON(abs) definida con un parámetro de tipo
-  !PYTHON(Number) sería polimórfica, ya que ese parámetro tendría un tipo
-  polimórfico.
+- Por ejemplo, la función definida con la siguiente signatura:
+
+  `abs(`$x$`:` `Number)` `->` `Number`
+
+  es una **función polimórfica**, ya que en la signatura aparece el tipo
+  `Number`, que es un tipo polimórfico.
+
+---
+
+- Según Luca Cardelli y Peter Wegner, existen cuatro variedades de
+  polimorfismo:
+
+  $$\text{Tipos} \begin{cases}
+      \text{Universal} \begin{cases}
+          \text{Paramétrico} \\
+          \text{De subtipos}
+      \end{cases} \\ \\
+      \text{\textit{Ad-hoc}} \begin{cases}
+          \text{Sobrecarga} \\
+          \text{Coerción}
+      \end{cases}
+  \end{cases}$$
+
+- **Polimorfismo paramétrico**: un tipo posee un parámetro de tipo que no
+  representa a un tipo concreto sino a todo un conjunto de tipos.
+
+- **Polimorfismo de subtipos**: un tipo se representa a sí mismo y a todos los
+  tipos que son subtipos suyos.
+
+- **Sobrecarga**: varias operaciones pueden tener el mismo nombre y
+  distinguirse por su signatura.
+
+- **Coerción**: una operación puede esperar un argumento de un cierto tipo y,
+  al recibir un argumento de otro tipo, se convierte al tipo esperado
+  (normalmente de forma implícita).
+
+---
+
+- En el módulo `typing` hay definidos varios tipos polimórficos:
+
+  - `Number`: Representa cualquier tipo numérico (`int`, `float`, etc.).
+
+  - `Union`: Representa varios tipos juntos (la unión de varios tipos).
+
+    Por ejemplo, !PYTHON(Union[str, int]) es el tipo que representa a los tipos
+    `str` y `int`, y se lee: «**_`str` \ o `int`_**».
+
+    Se puede reescribir usando el siguiente _azúcar sintáctico_:
+
+    ```python
+    str | int
+    ```
+
+  - `Optional`: Representa la unión del tipo `NoneType` y otro tipo.
+
+    El tipo `NoneType` es un tipo cuyo único valor posible es `None`, el cual
+    significa «ningún valor» y estudiaremos mejor posteriormente.
+
+    Por ejemplo: !PYTHON(Optional[str]) equivale a !PYTHON(Union[str, NoneType]),
+    que se puede escribir también como:
+
+    ```python
+    str | NoneType
+    ```
+
+    o, como se escribe más habitualmente:
+
+    ```python
+    str | None
+    ```
 
 ## Sobrecarga de operaciones
 

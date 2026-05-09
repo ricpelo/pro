@@ -2376,13 +2376,83 @@ Python</strong>.</p></li>
 <li><p>De la misma forma (aunque se utiliza menos), podemos decir que un
 <strong>valor polimórfico</strong> es un valor que pertenece a un tipo
 polimórfico.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="6.2.0.0.2">
+
+<ul>
 <li><p>Asimismo, una <strong>operación polimórfica</strong> es aquella
-en cuya signatura aparece algún tipo polimórfico.</p>
-<p>Por ejemplo, la función <code
-class="sourceCode python"><span class="bu">abs</span></code> definida
-con un parámetro de tipo <code class="sourceCode python">Number</code>
-sería polimórfica, ya que ese parámetro tendría un tipo
+en cuya signatura aparece algún tipo polimórfico.</p></li>
+<li><p>Por ejemplo, la función definida con la siguiente signatura:</p>
+<p><code>abs(</code><span class="math inline">x</span><code>:</code>
+<code>Number)</code> <code>-&gt;</code> <code>Number</code></p>
+<p>es una <strong>función polimórfica</strong>, ya que en la signatura
+aparece el tipo <code>Number</code>, que es un tipo
 polimórfico.</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="6.2.0.0.3">
+
+<ul>
+<li><p>Según Luca Cardelli y Peter Wegner, existen cuatro variedades de
+polimorfismo:</p>
+<p><span class="math display">\text{Tipos} \begin{cases}
+    \text{Universal} \begin{cases}
+        \text{Paramétrico} \\
+        \text{De subtipos}
+    \end{cases} \\ \\
+    \text{\textit{Ad-hoc}} \begin{cases}
+        \text{Sobrecarga} \\
+        \text{Coerción}
+    \end{cases}
+\end{cases}</span></p></li>
+<li><p><strong>Polimorfismo paramétrico</strong>: un tipo posee un
+parámetro de tipo que no representa a un tipo concreto sino a todo un
+conjunto de tipos.</p></li>
+<li><p><strong>Polimorfismo de subtipos</strong>: un tipo se representa
+a sí mismo y a todos los tipos que son subtipos suyos.</p></li>
+<li><p><strong>Sobrecarga</strong>: varias operaciones pueden tener el
+mismo nombre y distinguirse por su signatura.</p></li>
+<li><p><strong>Coerción</strong>: una operación puede esperar un
+argumento de un cierto tipo y, al recibir un argumento de otro tipo, se
+convierte al tipo esperado (normalmente de forma implícita).</p></li>
+</ul>
+</section>
+<section class="slide level5" data-number="6.2.0.0.4">
+
+<ul>
+<li><p>En el módulo <code>typing</code> hay definidos varios tipos
+polimórficos:</p>
+<ul>
+<li><p><code>Number</code>: Representa cualquier tipo numérico
+(<code>int</code>, <code>float</code>, etc.).</p></li>
+<li><p><code>Union</code>: Representa varios tipos juntos (la unión de
+varios tipos).</p>
+<p>Por ejemplo, <code
+class="sourceCode python">Union[<span class="bu">str</span>, <span class="bu">int</span>]</code>
+es el tipo que representa a los tipos <code>str</code> y
+<code>int</code>, y se lee: «<strong><em><code>str</code>  o
+<code>int</code></em></strong>».</p>
+<p>Se puede reescribir usando el siguiente <em>azúcar
+sintáctico</em>:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span> <span class="op">|</span> <span class="bu">int</span></span></code></pre></div></li>
+<li><p><code>Optional</code>: Representa la unión del tipo
+<code>NoneType</code> y otro tipo.</p>
+<p>El tipo <code>NoneType</code> es un tipo cuyo único valor posible es
+<code>None</code>, el cual significa «ningún valor» y estudiaremos mejor
+posteriormente.</p>
+<p>Por ejemplo: <code
+class="sourceCode python">Optional[<span class="bu">str</span>]</code>
+equivale a <code
+class="sourceCode python">Union[<span class="bu">str</span>, NoneType]</code>,
+que se puede escribir también como:</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span> <span class="op">|</span> NoneType</span></code></pre></div>
+<p>o, como se escribe más habitualmente:</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span> <span class="op">|</span> <span class="va">None</span></span></code></pre></div></li>
+</ul></li>
 </ul>
 </section>
 
@@ -2398,14 +2468,14 @@ sobre los que actúa.</p></li>
 <li><p>Un ejemplo sencillo en Python es el operador <code>+</code>:</p>
 <ul>
 <li><p>Cuando actúa sobre números, representa la operación de suma:</p>
-<div class="sourceCode" id="cb40"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div></li>
 <li><p>Cuando actúa sobre cadenas, representa la <em>concatenación</em>
 de cadenas:</p>
-<div class="sourceCode" id="cb41"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">+</span> <span class="st">&quot;pepe&quot;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;holapepe&#39;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span> <span class="op">+</span> <span class="st">&quot;pepe&quot;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;holapepe&#39;</span></span></code></pre></div></li>
 </ul></li>
 <li><p>Cuando esto ocurre, decimos que el operador (o la función, o el
 método) está <strong>sobrecargado</strong>.</p></li>
@@ -2464,15 +2534,15 @@ que tiene una cadena. Esta operación se puede hacer:</p>
 <li><p>Con la función <code
 class="sourceCode python"><span class="bu">len</span></code>, pasando la
 cadena como argumento:</p>
-<div class="sourceCode" id="cb42"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(<span class="st">&quot;hola&quot;</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 <li><p>Con el método <code
 class="sourceCode python"><span class="fu">__len__</span></code>
 ejecutado sobre la cadena:</p>
-<div class="sourceCode" id="cb43"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">&quot;hola&quot;</span>.<span class="fu">__len__</span>()</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 </section>
@@ -2486,19 +2556,19 @@ otro (<span class="math inline">x^y</span>). Esta operación se puede
 hacer:</p>
 <ul>
 <li><p>Con el operador <code>**</code>:</p>
-<div class="sourceCode" id="cb44"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">**</span> <span class="dv">4</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 <li><p>Con la función <code
 class="sourceCode python"><span class="bu">pow</span></code>:</p>
-<div class="sourceCode" id="cb45"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 <li><p>Con el método <code
 class="sourceCode python"><span class="fu">__pow__</span></code>:</p>
-<div class="sourceCode" id="cb46"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>).<span class="fu">__pow__</span>(<span class="dv">4</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span></span></code></pre></div></li>
 </ul></li>
 </ul>
 <!--

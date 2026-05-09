@@ -185,7 +185,7 @@ cambiar también su estado interno.
 ---
 
 $$\text{Tipos} \begin{cases}
-\text{Escalares (\texttt{int}, \texttt{float}, \texttt{bool}, \texttt{NoneType}, \ldots)} \\ \\
+    \text{Escalares (\texttt{int}, \texttt{float}, \texttt{bool}, \texttt{NoneType}, \ldots)} \\ \\
     \text{Estructurados} \begin{cases}
         \text{Secuencias} \begin{cases}
             \text{Inmutables} \begin{cases}
