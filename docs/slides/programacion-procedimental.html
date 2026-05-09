@@ -834,7 +834,7 @@ style="color:teal">⟨<em>tipo</em>⟩</span>]<strong><code>:</code></strong><br
 <strong><code>identificador</code></strong>]*</div></li>
 <li><p>Es importante recordar que el intérprete no comprueba en ningún
 momento las anotaciones de tipo para verificar que son correctas. Para
-ello se utilizan herramientas externas como <code>pylint</code> o
+ello se utilizan herramientas externas como <code>pyright</code> o
 <code>mypy</code>.</p></li>
 </ul>
 </section>
@@ -2298,8 +2298,8 @@ la la consola.</p></li>
 
 <ul>
 <li><p>En la línea de órdenes del sistema operativo, se puede usar
-<code>pydoc</code> pasándole el nombre de una función, módulo o
-atributo:</p>
+<code>pydoc</code> pasándole el nombre de una función, módulo o atributo
+(NO el nombre de un archivo <code>.py</code>):</p>
 <ol>
 <li><p>Si no se indican más opciones, se visualizará en pantalla la
 documentación del objeto indicado:</p>
@@ -2416,7 +2416,7 @@ comprobar si se cumple una determinada condición.</p></li>
 <li><p>En caso de que no se cumpla, se entenderá que la función <span
 style="color:teal">⟨<em>nombre</em>⟩</span> no ha superado dicha
 prueba.</p></li>
-<li><p>La herramienta se se instala mediante:</p>
+<li><p>La herramienta se instala mediante:</p>
 <div class="sourceCode" id="cb68"><pre
 class="sourceCode console"><code class="sourceCode console"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="kw">$ </span>sudo apt install python3-pytest</span></code></pre></div></li>
 </ul>
@@ -2475,6 +2475,264 @@ empiece por <code>test</code>.</p></li>
 </ul>
 </section>
 
+
+<section id="análisis-estático" class="title-slide slide level2"
+data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span>
+Análisis estático</h2>
+<ul>
+<li><p>El análisis estático de código es el proceso de examinar un
+programa sin ejecutarlo para detectar errores, problemas de diseño o
+posibles mejoras.</p></li>
+<li><p>Dicho de forma simple, es leer y analizar el código como texto en
+lugar de ejecutarlo.</p></li>
+<li><p>Se lleva a cabo usando herramientas externas al propio
+intérprete.</p></li>
+<li><p>Algunas de esas herramientas también realizan transformaciones en
+el código para mejorar algún factor de calidad como:</p>
+<ul>
+<li><p>Legibilidad (formateado).</p></li>
+<li><p>Reusabilidad (detección de código duplicado y realizació de
+tareas de refactorización como renombrados masivos, importaciones
+automáticas, extracción de métodos, etc).</p></li>
+<li><p>Documentación (generación automática de
+<em>docstrings</em>).</p></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.1">
+
+<ul>
+<li><p>Dependiendo de la herramienta usada, nos permite detectar:</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Errores de tipos:</p>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>x: <span class="bu">int</span> <span class="op">=</span> <span class="st">&quot;hola&quot;</span></span></code></pre></div></li>
+<li><p>Errores lógicos comunes:</p>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">=</span> <span class="dv">3</span>:     <span class="co"># Debería ser ==</span></span></code></pre></div></li>
+<li><p>Variables sin usar:</p>
+<div class="sourceCode" id="cb73"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f():</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span></span></code></pre></div></li>
+</ul>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column">
+<ul>
+<li><p>Problemas de estilo:</p>
+<ul>
+<li>Nombres poco claros.</li>
+<li>Funciones demasiado largas.</li>
+<li>Código duplicado.</li>
+</ul></li>
+<li><p>Problemas potenciales (errores «futuros»):</p>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x<span class="op">=</span>[]):</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    x.append(<span class="dv">1</span>)</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div></li>
+</ul>
+</div>
+</div></li>
+<li><p>Qué NO hace:</p>
+<ul>
+<li>No ejecuta el programa.</li>
+<li>No sabe qué pasará con datos reales.</li>
+<li>No garantiza que el programa sea correcto al 100%.</li>
+</ul></li>
+</ul>
+</section>
+<section id="tipos-de-análisis-estático"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Tipos de análisis estático</h5>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 53%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td><strong>Tipo</strong></td>
+<td><strong>Descripción</strong></td>
+<td><strong>Herramientas</strong></td>
+</tr>
+<tr>
+<td><strong><em>Linting</em></strong></td>
+<td>Comprueba el estilo usado y ciertos errores simples o comunes.</td>
+<td><ul>
+<li>Pylint</li>
+<li>Flake8</li>
+<li>Ruff</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Formateado automático</strong></td>
+<td>Reescribe el código con un formato consistente según reglas de
+estilo.</td>
+<td><ul>
+<li>Black</li>
+<li>Ruff</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Comprobación de tipos</strong></td>
+<td>Comprueba el uso correcto de los tipos dentro del programa.</td>
+<td><ul>
+<li>Mypy</li>
+<li>Pyright</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Análisis profundo</strong></td>
+<td><p>Proporciona una mejor experiencia de codificación en el IDE,
+incluyendo:</p>
+<ul>
+<li>Autocompletado.</li>
+<li>Navegación de código («ir a…»).</li>
+<li>Refactorización.</li>
+<li>Inferencia de tipos.</li>
+<li>Agentes de IA.</li>
+</ul></td>
+<td><ul>
+<li>Pylance</li>
+<li>GitHub Copilot</li>
+<li>Claude Code</li>
+<li>…</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="4.3.0.0.2">
+
+<ul>
+<li><p>Diferencia con análisis dinámico:</p>
+<table style="width:96%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 50%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: left;">Cuándo analiza</th>
+<th style="text-align: left;">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Estático</td>
+<td style="text-align: left;">Antes de ejecutar el programa</td>
+<td style="text-align: left;">Pylint, Pylance</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dinámico</td>
+<td style="text-align: left;">En tiempo de ejecución</td>
+<td style="text-align: left;">Pruebas, excepciones</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>El análisis estático intenta responder a la siguiente
+pregunta:</p>
+<div class="caja">
+<p>¿Qué cosas pueden están mal en este código antes de ejecutarlo?</p>
+</div></li>
+</ul>
+</section>
+<section class="slide level5" data-number="4.3.0.0.3">
+
+<ul>
+<li><p>Por qué es importante el análisis estático:</p>
+<ul>
+<li><p>Detecta errores antes incluso de ejecutar el programa.</p></li>
+<li><p>Evita errores en producción.</p></li>
+<li><p>Mejora la legibilidad del código.</p></li>
+<li><p>Ayuda en proyectos grandes.</p></li>
+<li><p>Permite refactorizar con seguridad.</p></li>
+<li><p>Facilita y acelera la escritura de código correcto.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="comparación-rápida"
+class="slide level5 unnumbered unlisted">
+<h5 class="unnumbered unlisted">Comparación rápida</h5>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 30%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: left;">Filosofía</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flake8</td>
+<td style="text-align: left;"><em>Linter</em></td>
+<td style="text-align: left;">Ligero y modular</td>
+</tr>
+<tr>
+<td>Pylint</td>
+<td style="text-align: left;"><em>Linter</em></td>
+<td style="text-align: left;">Muy completo y estricto</td>
+</tr>
+<tr>
+<td>Ruff</td>
+<td style="text-align: left;"><em>Linter</em> + formateador</td>
+<td style="text-align: left;">Reemplazo ultrarrápido de Flake8 + plugins
++ parte de Pylint + formateador</td>
+</tr>
+<tr>
+<td>Black</td>
+<td style="text-align: left;">Formateador</td>
+<td style="text-align: left;">Formateo automático consistente y sin
+apenas configuración</td>
+</tr>
+<tr>
+<td>Mypy</td>
+<td style="text-align: left;">Comprobador de tipos</td>
+<td style="text-align: left;">Tipado estático</td>
+</tr>
+<tr>
+<td>Pyright</td>
+<td style="text-align: left;">Comprobador de tipos</td>
+<td style="text-align: left;">Tipado moderno y rápido</td>
+</tr>
+<tr>
+<td>Pylance</td>
+<td style="text-align: left;">Language server / extensión IDE</td>
+<td style="text-align: left;">Inteligencia de editor basada en
+Pyright</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level5" data-number="4.3.0.0.4">
+
+<ul>
+<li><p>La tendencia actual es usar:</p>
+<ul>
+<li><p>Ruff para <em>linting</em> y formateado.</p></li>
+<li><p>Pyright para comprobación de tipos.</p></li>
+<li><p>Pylance en el IDE (principalmente como extensión en Visual Studio
+Code), el cual ya incluye Pyright integrado.</p></li>
+</ul></li>
+<li><p>Aunque la combinación de Pylint, Black y Mypy se sigue usando
+mucho porque tienen un ecosistema enorme.</p></li>
+</ul>
+</section>
 </section>
 <section id="bibliografía"
 class="title-slide slide level1 unnumbered unlisted">

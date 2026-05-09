@@ -547,7 +547,7 @@ nocite: |
 
 - Es importante recordar que el intérprete no comprueba en ningún momento las
   anotaciones de tipo para verificar que son correctas. Para ello se utilizan
-  herramientas externas como `pylint` o `mypy`.
+  herramientas externas como `pyright` o `mypy`.
 
 ## Llamadas a funciones imperativas
 
@@ -1979,7 +1979,8 @@ saluda(nombre)
 ---
 
 - En la línea de órdenes del sistema operativo, se puede usar `pydoc` pasándole
-  el nombre de una función, módulo o atributo:
+  el nombre de una función, módulo o atributo (NO el nombre de un archivo
+  `.py`):
 
   #. Si no se indican más opciones, se visualizará en pantalla la documentación
      del objeto indicado:
@@ -2091,7 +2092,7 @@ Test passed.
 - En caso de que no se cumpla, se entenderá que la función !NT(nombre) no ha
   superado dicha prueba.
 
-- La herramienta se se instala mediante:
+- La herramienta se instala mediante:
 
   ```console
   $ sudo apt install python3-pytest
@@ -2147,5 +2148,182 @@ Test passed.
       `test`.
 
   - Si se especifica un archivo, ejecuta las pruebas de ese archivo únicamente.
+
+## Análisis estático
+
+- El análisis estático de código es el proceso de examinar un programa sin
+  ejecutarlo para detectar errores, problemas de diseño o posibles mejoras.
+
+- Dicho de forma simple, es leer y analizar el código como texto en lugar de
+  ejecutarlo.
+
+- Se lleva a cabo usando herramientas externas al propio intérprete.
+
+- Algunas de esas herramientas también realizan transformaciones en el código
+  para mejorar algún factor de calidad como:
+
+  - Legibilidad (formateado).
+
+  - Reusabilidad (detección de código duplicado y realizació de tareas de
+    refactorización como renombrados masivos, importaciones automáticas,
+    extracción de métodos, etc).
+
+  - Documentación (generación automática de _docstrings_).
+
+---
+
+- Dependiendo de la herramienta usada, nos permite detectar:
+
+  :::: columns
+
+  ::: column
+
+  - Errores de tipos:
+
+    ```python
+    x: int = "hola"
+    ```
+
+  - Errores lógicos comunes:
+
+    ```python
+    if x = 3:     # Debería ser ==
+    ```
+
+  - Variables sin usar:
+
+    ```python
+    def f():
+        x = 10
+        return 1
+    ```
+
+  :::
+
+  ::: {.column width=5%}
+
+  :::
+
+  ::: column
+
+  - Problemas de estilo:
+
+    - Nombres poco claros.
+    - Funciones demasiado largas.
+    - Código duplicado.
+
+  - Problemas potenciales (errores «futuros»):
+
+    ```python
+    def f(x=[]):
+        x.append(1)
+        return x
+    ```
+
+  :::
+
+  ::::
+
+- Qué NO hace:
+
+  - No ejecuta el programa.
+  - No sabe qué pasará con datos reales.
+  - No garantiza que el programa sea correcto al 100%.
+
+!UNUN(Tipos de análisis estático)
+
++--------------------+------------------------------------------------+-------------------+
+| **Tipo**           | **Descripción**                                | **Herramientas**  |
++--------------------+------------------------------------------------+-------------------+
+| **_Linting_**      | Comprueba el estilo usado y ciertos errores    | - Pylint          |
+|                    | simples o comunes.                             | - Flake8          |
+|                    |                                                | - Ruff            |
++--------------------+------------------------------------------------+-------------------+
+| **Formateado       | Reescribe el código con un formato             | - Black           |
+| automático**       | consistente según reglas de estilo.            | - Ruff            |
++--------------------+------------------------------------------------+-------------------+
+| **Comprobación     | Comprueba el uso correcto de los tipos dentro  | - Mypy            |
+| de tipos**         | del programa.                                  | - Pyright         |
++--------------------+------------------------------------------------+-------------------+
+| **Análisis         | Proporciona una mejor experiencia de           | - Pylance         |
+| profundo**         | codificación en el IDE, incluyendo:            | - GitHub          |
+|                    |                                                |   Copilot         |
+|                    | - Autocompletado.                              | - Claude Code     |
+|                    | - Navegación de código («ir a...»).            | - ...             | 
+|                    | - Refactorización.                             |                   |
+|                    | - Inferencia de tipos.                         |                   |
+|                    | - Agentes de IA.                               |                   |
++--------------------+------------------------------------------------+-------------------+
+
+---
+
+- Diferencia con análisis dinámico:
+
+  --------------------------------------------------------------------
+  Tipo       Cuándo analiza                      Ejemplo
+  ---------- ----------------------------------- ---------------------
+  Estático   Antes de ejecutar el programa       Pylint, Pylance
+                                               
+  Dinámico   En tiempo de ejecución              Pruebas, excepciones
+  --------------------------------------------------------------------
+
+!SALTO
+
+- El análisis estático intenta responder a la siguiente pregunta:
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ¿Qué cosas pueden están mal en este código antes de ejecutarlo?
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Por qué es importante el análisis estático:
+
+  - Detecta errores antes incluso de ejecutar el programa.
+
+  - Evita errores en producción.
+
+  - Mejora la legibilidad del código.
+
+  - Ayuda en proyectos grandes.
+
+  - Permite refactorizar con seguridad.
+
+  - Facilita y acelera la escritura de código correcto.
+
+!UNUN(Comparación rápida)
+
+-------------------------------------------------------------------------------------------------------------
+Herramienta Tipo                              Filosofía                                                        
+----------- --------------------------------- ---------------------------------------------------------------
+Flake8      _Linter_                          Ligero y modular                                                 
+                                                                                                               
+Pylint      _Linter_                          Muy completo y estricto                                          
+                                                                                                               
+Ruff        _Linter_ + formateador            Reemplazo ultrarrápido de Flake8 + plugins + parte de Pylint + formateador
+
+Black       Formateador                       Formateo automático consistente y sin apenas configuración
+
+Mypy        Comprobador de tipos              Tipado estático                                                  
+                                                                                                               
+Pyright     Comprobador de tipos              Tipado moderno y rápido                                          
+                                                                                                               
+Pylance     Language server / extensión IDE   Inteligencia de editor basada en Pyright                         
+-------------------------------------------------------------------------------------------------------------
+
+---
+
+- La tendencia actual es usar:
+
+  - Ruff para _linting_ y formateado.
+
+  - Pyright para comprobación de tipos.
+
+  - Pylance en el IDE (principalmente como extensión en Visual Studio Code), el
+    cual ya incluye Pyright integrado.
+
+- Aunque la combinación de Pylint, Black y Mypy se sigue usando mucho porque
+  tienen un ecosistema enorme.
 
 !BIBLIOGRAFIA
