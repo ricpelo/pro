@@ -1678,8 +1678,8 @@ mas -> por
       \end{cases}
   \end{cases}$$
 
-- **Polimorfismo paramétrico**: un tipo posee un parámetro de tipo que no
-  representa a un tipo concreto sino a todo un conjunto de tipos.
+- **Polimorfismo paramétrico**: un tipo posee variables de tipo que no
+  representan a tipos concretos sino a todo un conjunto de tipos.
 
 - **Polimorfismo de subtipos**: un tipo se representa a sí mismo y a todos los
   tipos que son subtipos suyos.
