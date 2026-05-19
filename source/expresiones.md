@@ -1184,23 +1184,43 @@ $$
 - La **notación** de un operador indica en qué posición se escribe dicho
   operador con respecto a sus operandos en una expresión.
 
-- Los operadores se pueden escribir:
+- Los operadores se pueden escribir usando una de las siguientes notaciones
+  principales:
 
-  - Con **notación prefija**: cuando el operador se escribe _antes_ que los
-    operandos.
+  ---------------------------------------------------------------------------------
+  Notación          ¿Dónde va el operador?                       Ejemplo         
+  ----------------- -------------------------------------------- ------------------
+  _Prefija_         Antes de los operandos                       `-3`            
+                                                                                 
+  _Infija_          Entre los operandos                          `2+4`           
+                                                                                 
+  _Postfija_        Después de los operandos                     `5!`            
+                                                                                 
+  _Circunfija_      Rodeando los operandos                       `(7)`           
+                                                                                 
+  _Postcircunfija_  Después de un operando y rodeando los otros  `max(6, 8)`     
+  ---------------------------------------------------------------------------------
 
-    Es el que se usa habitualmente para los operadores **unarios**, como el
-    operador `-` de cambio de signo.
+---
 
-  - Con **notación infija**: cuando el operador se escribe _entre_ los
-    operandos.
+- Comentarios respecto a la tabla anterior:
 
-    Es el que se usa habitualmente para los operadores **binarios**.
+  - **Prefija**: principalmente usada para operadores **unarios**.
 
-  - Con **notación postfija**: cuando el operador se escribe _después_ que los
-    operandos.
+  - **Infija**: se usa habitualmente para los operadores **binarios**.
 
-    Se usa poco en la práctica, salvo casos especiales.
+  - **Postfija**: se usa en Matemáticas, pero es poco usada en Programación.
+
+  - **Circunfija**: usada principalmente con:
+
+    - paréntesis: `(` , `)`
+
+    - corchetes: `[` , `]`
+
+    - llaves: `{` , `}`
+
+  - **Postcircunfija**: una mezcla de postfija y circunfija, usada sobre todo
+    para llamadas a funciones y métodos.
 
 ### Paréntesis
 
