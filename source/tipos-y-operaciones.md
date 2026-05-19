@@ -39,7 +39,7 @@ nocite: |
   programación que soporte el lenguaje. Por ejemplo, en los lenguajes
   **orientados a objetos**, el sistema de tipos se construye a partir de los
   conceptos propios de la orientación a objetos (_clases_, _interfaces_,
-  _polimorfismo_ de subtipos, etc.).
+  _polimorfismo_ por subtipado, etc.).
 
 ---
 
@@ -1670,26 +1670,26 @@ mas -> por
   $$\text{Tipos} \begin{cases}
       \text{Universal} \begin{cases}
           \text{Paramétrico} \\
-          \text{De subtipos}
+          \text{Por subtipado}
       \end{cases} \\ \\
       \text{\textit{Ad-hoc}} \begin{cases}
-          \text{Sobrecarga} \\
-          \text{Coerción}
+          \text{Por sobrecarga} \\
+          \text{Por coerción}
       \end{cases}
   \end{cases}$$
 
 - **Polimorfismo paramétrico**: un tipo posee variables de tipo que no
   representan a tipos concretos sino a todo un conjunto de tipos.
 
-- **Polimorfismo de subtipos**: un tipo se representa a sí mismo y a todos los
-  tipos que son subtipos suyos.
+- **Polimorfismo por subtipado**: un tipo se representa a sí mismo y a todos
+  los tipos que son subtipos suyos.
 
-- **Sobrecarga**: varias operaciones pueden tener el mismo nombre y
-  distinguirse por su signatura.
+- **Polimorfismo por sobrecarga**: varias operaciones pueden tener el mismo
+  nombre y distinguirse por su signatura.
 
-- **Coerción**: una operación puede esperar un argumento de un cierto tipo y,
-  al recibir un argumento de otro tipo, se convierte al tipo esperado
-  (normalmente de forma implícita).
+- **Polimorfismo por coerción**: una operación puede esperar un argumento de un
+  cierto tipo y, al recibir un argumento de otro tipo, se convierte al tipo
+  esperado (normalmente de forma implícita).
 
 ---
 
@@ -1767,12 +1767,12 @@ mas -> por
   el intérprete llamará a una de las dos operaciones, dependiendo de los tipos
   de !NT(expr)$_1$ y !NT(expr)$_2$. <!-- $_ -->
 
-- La sobrecarga no es polimorfismo, pero induce un cierto tipo de polimorfismo
-  que se denomina **polimorfismo _ad-hoc_**.
+- La sobrecarga induce un cierto tipo de polimorfismo que se denomina,
+  genéricamente, **polimorfismo _ad-hoc_**.
 
-- Esto es así porque tener varias operaciones diferentes con el mismo nombre
-  pero con distinta signatura, equivale a tener una sola operación polimórfica
-  donde algunos operandos pueden tomar un valor de varios tipos.
+- Por tanto, tener varias operaciones diferentes con el mismo nombre y distinta
+  signatura, equivale a tener una sola operación polimórfica donde algunos
+  operandos pueden tomar valores de varios tipos.
 
   Por ejemplo, los tipos de $a$ y $b$ representarían a la vez a `Number` y
   `str`.

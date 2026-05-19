@@ -17,6 +17,7 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
@@ -118,7 +119,7 @@
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
   <script defer=""
-  src="/usr/share/javascript/katex/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -134,7 +135,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="/usr/share/javascript/katex/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
   <style type="text/css">
       #header-left {
@@ -242,8 +243,8 @@ propio sistema de tipos, con sus características.</p></li>
 de programación que soporte el lenguaje. Por ejemplo, en los lenguajes
 <strong>orientados a objetos</strong>, el sistema de tipos se construye
 a partir de los conceptos propios de la orientación a objetos
-(<em>clases</em>, <em>interfaces</em>, <em>polimorfismo</em> de
-subtipos, etc.).</p></li>
+(<em>clases</em>, <em>interfaces</em>, <em>polimorfismo</em> por
+subtipado, etc.).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.2">
@@ -2398,23 +2399,25 @@ polimorfismo:</p>
 <p><span class="math display">\text{Tipos} \begin{cases}
     \text{Universal} \begin{cases}
         \text{Paramétrico} \\
-        \text{De subtipos}
+        \text{Por subtipado}
     \end{cases} \\ \\
     \text{\textit{Ad-hoc}} \begin{cases}
-        \text{Sobrecarga} \\
-        \text{Coerción}
+        \text{Por sobrecarga} \\
+        \text{Por coerción}
     \end{cases}
 \end{cases}</span></p></li>
 <li><p><strong>Polimorfismo paramétrico</strong>: un tipo posee
 variables de tipo que no representan a tipos concretos sino a todo un
 conjunto de tipos.</p></li>
-<li><p><strong>Polimorfismo de subtipos</strong>: un tipo se representa
-a sí mismo y a todos los tipos que son subtipos suyos.</p></li>
-<li><p><strong>Sobrecarga</strong>: varias operaciones pueden tener el
-mismo nombre y distinguirse por su signatura.</p></li>
-<li><p><strong>Coerción</strong>: una operación puede esperar un
-argumento de un cierto tipo y, al recibir un argumento de otro tipo, se
-convierte al tipo esperado (normalmente de forma implícita).</p></li>
+<li><p><strong>Polimorfismo por subtipado</strong>: un tipo se
+representa a sí mismo y a todos los tipos que son subtipos
+suyos.</p></li>
+<li><p><strong>Polimorfismo por sobrecarga</strong>: varias operaciones
+pueden tener el mismo nombre y distinguirse por su signatura.</p></li>
+<li><p><strong>Polimorfismo por coerción</strong>: una operación puede
+esperar un argumento de un cierto tipo y, al recibir un argumento de
+otro tipo, se convierte al tipo esperado (normalmente de forma
+implícita).</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="6.2.0.0.4">
@@ -2503,13 +2506,13 @@ los tipos de <span style="color:teal">⟨<em>expr</em>⟩</span><span
 class="math inline">_1</span> y <span
 style="color:teal">⟨<em>expr</em>⟩</span><span
 class="math inline">_2</span>. <!-- $_ --></p></li>
-<li><p>La sobrecarga no es polimorfismo, pero induce un cierto tipo de
-polimorfismo que se denomina <strong>polimorfismo
+<li><p>La sobrecarga induce un cierto tipo de polimorfismo que se
+denomina, genéricamente, <strong>polimorfismo
 <em>ad-hoc</em></strong>.</p></li>
-<li><p>Esto es así porque tener varias operaciones diferentes con el
-mismo nombre pero con distinta signatura, equivale a tener una sola
-operación polimórfica donde algunos operandos pueden tomar un valor de
-varios tipos.</p>
+<li><p>Por tanto, tener varias operaciones diferentes con el mismo
+nombre y distinta signatura, equivale a tener una sola operación
+polimórfica donde algunos operandos pueden tomar valores de varios
+tipos.</p>
 <p>Por ejemplo, los tipos de <span class="math inline">a</span> y <span
 class="math inline">b</span> representarían a la vez a
 <code>Number</code> y <code>str</code>.</p></li>

@@ -1700,12 +1700,12 @@ Existen **tres formas de polimorfismo**:
   - **Polimorfismo paramétrico**: las operaciones genéricas y los tipos
     genéricos, ambos definidos mediante parámetros de tipo.
 
-  - **Polimorfismo de subtipos**: una subclase es un subtipo de sus
+  - **Polimorfismo por subtipado**: una subclase es un subtipo de sus
     superclases.
 
-El _polimorfismo de subtipos_ es la forma de polimorfismo que, por lo general,
-se tiene en mente cuando se habla de «polimorfismo» en el contexto de la
-programación orientada a objetos.
+El _polimorfismo por subtipado_ es la forma de polimorfismo que, por lo
+general, se tiene en mente cuando se habla de «polimorfismo» en el contexto de
+la programación orientada a objetos.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
