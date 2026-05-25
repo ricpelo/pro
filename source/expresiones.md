@@ -232,23 +232,24 @@ abstracto, al que denominamos el **valor** de la expresión.
 
 ---
 
-- Esos datos pueden ser:
+- El objeto abstracto que representa la información codificada por un dato en
+  un momento dado se denomina **valor** del dato.
 
-  - **Datos de entrada o salida**, que representan información de interés para
-    el usuario del programa y que, o bien se reciben del usuario o bien se
-    envían al usuario, respectivamente.
+- Informalmente, se dice que un dato _tiene_ (o _posee_ o _contiene_) un valor,
+  o que _vale_ ese valor.
+
+- Si el valor de un dato nunca cambia, decimos que ese dato es **constante**.
+
+- En cambio, si el valor de un dato puede cambiar durante el funcionamiento
+    del programa, decimos que es un dato **variable**.
+
+- Por otra parte, los datos pueden ser:
+
+  - **Datos de entrada o salida**: representan información de interés para el
+    usuario del programa, que o bien se recibe del usuario (_entrada_) o bien
+    se envía al usuario (_salida_), respectivamente.
 
   - **Datos internos** que usa el programa para su correcto funcionamiento.
-
-- El objeto abstracto que representa un dato en un momento dado (es decir, la
-  información que actualmente «contiene» el dato) se denomina el **valor** del
-  dato. Se dice que un dato _posee_ (o _tiene_ o _contiene_) un **valor**, o
-  que _vale_ ese valor.
-
-  - Si el valor de un dato nunca cambia, decimos que ese dato es **constante**.
-
-  - En cambio, si el valor de un dato puede cambiar durante el funcionamiento
-    del programa, decimos que es un dato **variable**.
 
 ---
 
