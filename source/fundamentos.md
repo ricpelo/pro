@@ -336,7 +336,9 @@ author: Ricardo Pérez López
 
     - $b$ se puede expresar como $f(a)$.
 
-    - Se puede escribir: $$f: a \longrightarrow b$$
+    - Se puede escribir: $$f: a \mapsto b$$
+
+      y se lee: «la imagen de $a$ en $f$ es $b$».
 
 - Por lo dicho anteriormente, la imagen de $a$ es única, es decir, cada
   elemento de $A$ sólo puede tener una imagen como mucho (puede que ninguna).
