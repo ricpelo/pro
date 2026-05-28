@@ -1516,8 +1516,12 @@ cg [label = "(caso general)"]
   permutas = lambda n: 1 if n == 0 else 1 if n == 1 else 2 if n == 2 else ...
   ```
 
-  que se puede escribir mejor usando la barra invertida (`\`) para poder
-  separar una instrucción en varias líneas:
+  que se puede escribir de manera más legible separando la instrucción en
+  varias líneas usando la barra invertida (`\`) o paréntesis:
+
+  :::: columns
+
+  ::: {.column width=50%}
 
   ```python
   permutas = lambda n: 1 if n == 0 else \
@@ -1525,8 +1529,31 @@ cg [label = "(caso general)"]
                        2 if n == 2 else \
                        6 if n == 3 else \
                        24 if n == 4 else \
-                       ...                    # sigue y sigue
+                       ...  # sigue
   ```
+
+  :::
+
+  ::: {.column width=2%}
+
+  :::
+
+  ::: {.column width=30%}
+
+  ```python
+  permutas = lambda n: (
+      1 if n == 0 else
+      1 if n == 1 else
+      2 if n == 2 else
+      6 if n == 3 else
+      24 if n == 4 else
+      ... # sigue
+  )
+  ```
+
+  :::
+
+  ::::
 
 - Pero este algoritmo en realidad es _tramposo_, porque no calcula nada, sino
   que se limita a asociar el dato de entrada con el de salida, que se ha tenido
@@ -1541,13 +1568,12 @@ cg [label = "(caso general)"]
 
   - Realmente son **tramposos** (no calculan nada).
 
-  - **No son útiles**, porque al final el cálculo se tiene que hacer con otra
-    cosa.
+  - **No son útiles**, porque al final el cálculo se tiene que hacer en otro
+    lado usando otra cosa.
 
-  - Generalmente resulta **imposible** que una función de este tipo abarque
-    todos los posibles datos de entrada, ya que, en principio, puede haber
-    **infinitos** y, por tanto, su código fuente también tendría que ser
-    infinito.
+  - Generalmente resulta **imposible** que una función así abarque
+    todos los posibles datos de entrada, ya que podría haber **infinitos** y,
+    por tanto, su código fuente también tendría que ser infinito.
 
 !CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
