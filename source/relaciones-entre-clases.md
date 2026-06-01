@@ -1332,6 +1332,96 @@ El _name mangling_ sólo ocurre si:
 - También hay operaciones utilizadas internamente por el intérprete durante la
   ejecución del programa para ayudar a su funcionamiento.
 
+---
+
+- Uno de los métodos definidos en la clase `object` es el método estático
+  `__new__`.
+
+- Este método se encarga de crear una instancia de una determinada clase, pero
+  **sin inicializar**.
+
+- Por ejemplo, si intentamos crear un objeto de la clase Trabajador:
+
+  ```python
+  t = Trabajador('Juan')
+  ```
+
+  Python internamente llama a los métodos `__new__` e `__init__`, de forma que
+  la sentencia anterior sería equivalente al siguiente código:
+
+  ```python
+  t = object.__new__(Trabajador, 'Juan')
+  t.__init__('Juan')
+  ```
+
+### Métodos de clase
+
+- Los **métodos de clase** están a medio camino entre los métodos de instancia
+  y los métodos estáticos.
+
+- Un _método de clase_ es un método estático que además recibe la _clase_ (y no
+  la _instancia_) sobre la que se está invocando.
+
+- Para definir un método de clase:
+
+  - Se añade el **decorador** !PYTHON(@classmethod) justo encima de la
+    definición del método.
+
+  - El método recibirá la clase sobre la que se ha invocado a través de su
+    primer parámetro (el cual, por convenio, se suele llamar !PYTHON(cls)) .
+
+- Por tanto, el parámetro !PYTHON(cls) en los métodos de clase es como el
+  !PYTHON(self) en los métodos de instancia, solo que en este caso contendrá la
+  clase y no una instancia de la clase.
+
+---
+
+- Los métodos de clase se suelen usar para crear **constructores alternativos**
+  al `__init__`.
+
+- Por ejemplo:
+
+  ```python
+  class Racional:
+      def __init__(self, denom: int, numer: int) -> None:
+          self.__denom = denom
+          self.__numer = numer
+
+      @classmethod
+      def desde_tupla(cls, tupla: tuple[int, int]) -> Racional:
+          rac = object.__new__(cls)   # Crea una nueva instancia de la clase cls
+          rac.__denom = tupla[0]
+          rac.__numer = tupla[1]
+          return rac
+
+      def __eq__(self, otro):
+          if type(self) != type(otro):
+              return NotImplemented
+          return (self.__denom, self.__numer) == (otro.__denom, otro.__numer)
+  ```
+
+- Y se usaría así:
+
+  ```python
+  >>> r1 = Racional(2, 3)                 # Crea un racional con dos enteros
+  >>> r2 = Racional.desde_tupla((2, 3))   # Crea un racional con una tupla
+  >>> r1 == r2                            # Son formas equivalentes
+  True
+  ```
+
+---
+
+- La pregunta clave es: ¿no se podría haber hecho con un simple método
+  estático?
+
+- La ventaja de los métodos estáticos es que respeta la herencia.
+
+- Eso significa que una subclase de `Racional` podría llamar a `desde_tupla` y
+  recibiría una instancia de la clase correcta.
+
+- Por eso, los constructores alternativos en Python son métodos de clase por
+  convenio.
+
 ### Herencia múltiple
 
 - En la **herencia múltiple**, una subclase puede tener **varias superclases

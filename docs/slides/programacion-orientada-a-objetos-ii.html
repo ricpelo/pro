@@ -3471,76 +3471,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a h
 </div>
 </div>
 </section>
-<section id="métodos-de-clase" class="slide level5 unnumbered unlisted">
-<h5 class="unnumbered unlisted">Métodos de clase</h5>
-<ul>
-<li><p>Los <strong>métodos de clase</strong> están a medio camino entre
-los métodos de instancia y los métodos estáticos.</p></li>
-<li><p>Un <em>método de clase</em> es un método estático que además
-recibe la <em>clase</em> (y no la <em>instancia</em>) sobre la que se
-está invocando.</p></li>
-<li><p>Para definir un método de clase:</p>
-<ul>
-<li><p>Se añade el <strong>decorador</strong> <code
-class="sourceCode python"><span class="at">@classmethod</span></code>
-justo encima de la definición del método.</p></li>
-<li><p>El método recibirá la clase sobre la que se ha invocado a través
-de su primer parámetro (el cual, por convenio, se suele llamar <code
-class="sourceCode python">cls</code>) .</p></li>
-</ul></li>
-<li><p>Por tanto, el parámetro <code
-class="sourceCode python">cls</code> en los métodos de clase es como el
-<code class="sourceCode python"><span class="va">self</span></code> en
-los métodos de instancia, solo que en este caso contendrá la clase y no
-una instancia de la clase.</p></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.2.0.0.7">
-
-<ul>
-<li><p>Los métodos de clase se suelen usar para crear
-<strong>constructores alternativos</strong> al
-<code>__init__</code>.</p></li>
-<li><p>Por ejemplo:</p>
-<div class="sourceCode" id="cb93"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Racional:</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, denom: <span class="bu">int</span>, numer: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__denom <span class="op">=</span> denom</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__numer <span class="op">=</span> numer</span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@classmethod</span></span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> desde_tupla(cls, tupla: <span class="bu">tuple</span>[<span class="bu">int</span>, <span class="bu">int</span>]) <span class="op">-&gt;</span> Racional:</span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>        rac <span class="op">=</span> <span class="bu">object</span>.<span class="fu">__new__</span>(cls)   <span class="co"># Crea una nueva instancia de la clase cls</span></span>
-<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>        rac.__denom <span class="op">=</span> tupla[<span class="dv">0</span>]</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>        rac.__numer <span class="op">=</span> tupla[<span class="dv">1</span>]</span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> rac</span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, otro):</span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">type</span>(<span class="va">self</span>) <span class="op">!=</span> <span class="bu">type</span>(otro):</span>
-<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">NotImplemented</span></span>
-<span id="cb93-16"><a href="#cb93-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (<span class="va">self</span>.__denom, <span class="va">self</span>.__numer) <span class="op">==</span> (otro.__denom, otro.__numer)</span></code></pre></div></li>
-<li><p>Y se usaría así:</p>
-<div class="sourceCode" id="cb94"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r1 <span class="op">=</span> Racional(<span class="dv">2</span>, <span class="dv">3</span>)                 <span class="co"># Crea un racional con dos enteros</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r2 <span class="op">=</span> Racional.desde_tupla((<span class="dv">2</span>, <span class="dv">3</span>))   <span class="co"># Crea un racional con una tupla</span></span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r1 <span class="op">==</span> r2                            <span class="co"># Son formas equivalentes</span></span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div></li>
-</ul>
-</section>
-<section class="slide level5" data-number="3.2.0.0.8">
-
-<ul>
-<li><p>¿No se podría haber hecho con un simple método estático?</p></li>
-<li><p>La ventaja de los métodos estáticos es que respeta la
-herencia.</p></li>
-<li><p>Es decir, que una subclase de Racional podría llamar a
-<code>desde_tupla</code> y recibiría la instancia correcta.</p></li>
-<li><p>Por eso, los constructores alternativos en Python son métodos de
-clase por convenio.</p></li>
-<li><p>El concepto de herencia y subclase lo veremos
-posteriormente.</p></li>
-</ul>
-</section>
 </section>
 <section>
 <section id="clases-genéricas-y-métodos-genéricos"
@@ -3558,8 +3488,8 @@ Definición y uso</h2>
 existen clases genéricas y métodos genéricos.</p></li>
 <li><p>Esquemáticamente, las <strong>clases genéricas</strong> tienen la
 siguiente forma:</p>
-<div class="sourceCode" id="cb95"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pila[T]: ...</span></code></pre></div></li>
+<div class="sourceCode" id="cb93"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pila[T]: ...</span></code></pre></div></li>
 <li><p>Aquí, <code>T</code> es una <strong>variable de tipo</strong> que
 representa a un tipo cualquiera.</p></li>
 <li><p>Al usar la sintaxis <code>[T]</code>, expresamos el hecho de que
@@ -3590,55 +3520,55 @@ de la mano y se definen de forma coordinada.</p></li>
 
 <ul>
 <li><p>Un ejemplo de pila genérica podría ser la siguiente:</p>
-<div class="sourceCode" id="cb96"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pila[T]:</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="st">    Una pila de elementos de tipo T.</span></span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items: <span class="bu">list</span>[T] <span class="op">=</span> []</span>
-<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> apilar(<span class="va">self</span>, item: T) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Añade un elemento a la pila.&quot;&quot;&quot;</span></span>
-<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items.append(item)</span>
-<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> desapilar(<span class="va">self</span>) <span class="op">-&gt;</span> T <span class="op">|</span> <span class="va">None</span>:</span>
-<span id="cb96-14"><a href="#cb96-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Saca y devuelve el último elemento de la pila.&quot;&quot;&quot;</span></span>
-<span id="cb96-15"><a href="#cb96-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.esta_vacia():</span>
-<span id="cb96-16"><a href="#cb96-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb96-17"><a href="#cb96-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__items.pop()</span>
-<span id="cb96-18"><a href="#cb96-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-19"><a href="#cb96-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> cima(<span class="va">self</span>) <span class="op">-&gt;</span> T <span class="op">|</span> <span class="va">None</span>:</span>
-<span id="cb96-20"><a href="#cb96-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Devuelve el elemento en la cima sin quitarlo.&quot;&quot;&quot;</span></span>
-<span id="cb96-21"><a href="#cb96-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.esta_vacia():</span>
-<span id="cb96-22"><a href="#cb96-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb96-23"><a href="#cb96-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__items[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb96-24"><a href="#cb96-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-25"><a href="#cb96-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> esta_vacia(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
-<span id="cb96-26"><a href="#cb96-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Indica si la pila está vacía.&quot;&quot;&quot;</span></span>
-<span id="cb96-27"><a href="#cb96-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.__items) <span class="op">==</span> <span class="dv">0</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb94"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Pila[T]:</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="st">    Una pila de elementos de tipo T.</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items: <span class="bu">list</span>[T] <span class="op">=</span> []</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> apilar(<span class="va">self</span>, item: T) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Añade un elemento a la pila.&quot;&quot;&quot;</span></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__items.append(item)</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> desapilar(<span class="va">self</span>) <span class="op">-&gt;</span> T <span class="op">|</span> <span class="va">None</span>:</span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Saca y devuelve el último elemento de la pila.&quot;&quot;&quot;</span></span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.esta_vacia():</span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__items.pop()</span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> cima(<span class="va">self</span>) <span class="op">-&gt;</span> T <span class="op">|</span> <span class="va">None</span>:</span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Devuelve el elemento en la cima sin quitarlo.&quot;&quot;&quot;</span></span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.esta_vacia():</span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__items[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb94-24"><a href="#cb94-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-25"><a href="#cb94-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> esta_vacia(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<span id="cb94-26"><a href="#cb94-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;&quot;&quot;Indica si la pila está vacía.&quot;&quot;&quot;</span></span>
+<span id="cb94-27"><a href="#cb94-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.__items) <span class="op">==</span> <span class="dv">0</span></span></code></pre></div></li>
 </ul>
 </section>
 <section class="slide level5" data-number="4.1.0.0.3">
 
 <ul>
 <li><p>Ejemplo de uso:</p>
-<div class="sourceCode" id="cb97"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pila de enteros</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>pila_enteros <span class="op">=</span> Pila[<span class="bu">int</span>]()</span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>pila_enteros.apilar(<span class="dv">10</span>)</span>
-<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>pila_enteros.apilar(<span class="dv">20</span>)</span>
-<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.cima())      <span class="co"># 20</span></span>
-<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.desapilar()) <span class="co"># 20</span></span>
-<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.desapilar()) <span class="co"># 10</span></span>
-<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.desapilar()) <span class="co"># None</span></span>
-<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Pila de cadenas</span></span>
-<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>pila_cadenas <span class="op">=</span> Pila[<span class="bu">str</span>]()</span>
-<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>pila_cadenas.apilar(<span class="st">&quot;hola&quot;</span>)</span>
-<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>pila_cadenas.apilar(<span class="st">&quot;mundo&quot;</span>)</span>
-<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_cadenas.cima())      <span class="co"># &quot;mundo&quot;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb95"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pila de enteros</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>pila_enteros <span class="op">=</span> Pila[<span class="bu">int</span>]()</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>pila_enteros.apilar(<span class="dv">10</span>)</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>pila_enteros.apilar(<span class="dv">20</span>)</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.cima())      <span class="co"># 20</span></span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.desapilar()) <span class="co"># 20</span></span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.desapilar()) <span class="co"># 10</span></span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_enteros.desapilar()) <span class="co"># None</span></span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Pila de cadenas</span></span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a>pila_cadenas <span class="op">=</span> Pila[<span class="bu">str</span>]()</span>
+<span id="cb95-12"><a href="#cb95-12" aria-hidden="true" tabindex="-1"></a>pila_cadenas.apilar(<span class="st">&quot;hola&quot;</span>)</span>
+<span id="cb95-13"><a href="#cb95-13" aria-hidden="true" tabindex="-1"></a>pila_cadenas.apilar(<span class="st">&quot;mundo&quot;</span>)</span>
+<span id="cb95-14"><a href="#cb95-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pila_cadenas.cima())      <span class="co"># &quot;mundo&quot;</span></span></code></pre></div></li>
 <li><p>Ventajas de hacer que la clase sea genérica:</p>
 <ul>
 <li><p>Puedes crear <code
