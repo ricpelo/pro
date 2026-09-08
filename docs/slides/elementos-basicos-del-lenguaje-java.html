@@ -14,10 +14,16 @@
     .reveal .sourceCode {  /* see #7635 */
       overflow: visible;
     }
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     /* The extra [class] is a hack that increases specificity enough to
        override a similar rule in reveal.js */
@@ -29,8 +35,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +48,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +103,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -175,7 +181,7 @@
 <section id="title-slide">
   <h1 class="title">Elementos básicos del lenguaje Java</h1>
   <p class="author">Ricardo Pérez López</p>
-  <p class="date">IES Doñana, curso 2025/2026</p>
+  <p class="date">IES Doñana, curso 2026/2027</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -2921,11 +2927,11 @@ es una expresión regular.</p></li>
 class="title-slide slide level1 unnumbered unlisted">
 <h1 class="unnumbered unlisted">Bibliografía</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-gosling_java_2014" class="csl-entry" role="listitem">
 Gosling, James, Bill Joy, Guy L. Steele, Gilad Bracha, and Alex Buckley.
 2014. <em>The <span>Java</span>® Language Specification</em>. Java SE 8
-edition. Upper Saddle River, NJ: Addison-Wesley.
+edition. Addison-Wesley.
 </div>
 </div>
 </section>
@@ -2935,10 +2941,9 @@ edition. Upper Saddle River, NJ: Addison-Wesley.
   <script src="./reveal.js/dist/reveal.js"></script>
 
   <!-- reveal.js plugins -->
-  <script src="./reveal.js/plugin/notes/notes.js"></script>
-  <script src="./reveal.js/plugin/search/search.js"></script>
-  <script src="./reveal.js/plugin/zoom/zoom.js"></script>
-  <script src="./reveal.js/plugin/reveal.js-menu/menu.js"></script>
+  <script src="./reveal.js/dist/plugin/notes.js"></script>
+  <script src="./reveal.js/dist/plugin/search.js"></script>
+  <script src="./reveal.js/dist/plugin/zoom.js"></script>
 
   <script>
 
@@ -3104,7 +3109,6 @@ edition. Upper Saddle River, NJ: Addison-Wesley.
 
         // reveal.js plugins
         plugins: [
-          RevealMenu,
           RevealNotes,
           RevealSearch,
           RevealZoom
