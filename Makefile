@@ -145,7 +145,7 @@ $(BUILDDIR_HTML)/%.html: $(SRCDIR)/%.md $(PP) $(PANDOC) $(REVEAL) $(REVEAL_TEMPL
 		pandoc -s -t revealjs \
 		-V revealjs-url=./reveal.js \
 		--citeproc \
-		--katex \
+		--math-method=katex \
 		--bibliography=$(CITATIONS_BIB) \
 	    --template=$(REVEAL_TEMPLATE) \
 		-H $(HEADER_INCLUDES) \
