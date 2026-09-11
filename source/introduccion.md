@@ -386,7 +386,8 @@ Fetch -> Decode -> Execute -> Fetch[constraint = false];
   numéricos...) y eso hace que pueda haber muchas formas de codificación.
 
 - Incluso un mismo tipo de dato (un número entero, por ejemplo) puede tener
-  distintas codificaciones, cada una con sus características y propiedades.
+  distintas codificaciones, cada una con sus características y propiedades, y
+  en cada caso puede ser útil una u otra.
 
 - Distinguimos la forma en la que se representa la información *internamente*
   en el sistema informático (**codificación interna**) de la que usamos para
@@ -437,12 +438,18 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
   almacenar y procesar un ordenador, y equivale a un **dígito binario**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
 - En la práctica, se usan unidades múltiplos del bit:
 
   - 1 byte = 8 bits
+
   - 1 Kibibyte (KiB) = $2^{10}$ bytes = 1024 bytes
+
   - 1 Mebibyte (MiB) = $2^{20}$ bytes = 1024 Kibibytes
+
   - 1 Gibibyte (GiB) = $2^{30}$ bytes = 1024 Mebibytes
+
   - 1 Tebibyte (TiB) = $2^{40}$ bytes = 1024 Gibibytes
 
 #### Sistema binario
