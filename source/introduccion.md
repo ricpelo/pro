@@ -95,8 +95,13 @@ problemas de los usuarios.
 
 - Esa información se codifica, almacena y manipula en forma de **datos**.
 
-- Los datos, por tanto, son información codificada y almacenada en un formato y
-  en un soporte adecuados para ser manipulados por un sistema informático.
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Datos:**
+
+Información codificada y almacenada en un formato y en un soporte adecuados
+para ser manipulados por un sistema informático.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -116,7 +121,7 @@ E -> Proceso -> S
 - Los programas gobiernan el funcionamiento del *hardware*, indicándole qué
   tiene que hacer y cómo.
 
-!CAJA
+!CAJACENTRADA
 ~~~~~~~~~~~~~~~~~~~~~~~
 La **Programación** es la ciencia y el arte de diseñar dichos programas.
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -166,19 +171,11 @@ La **Programación** es la ciencia y el arte de diseñar dichos programas.
 **Ordenador**:
 
 Un ordenador es una máquina que procesa información automáticamente de
-acuerdo con un programa almacenado.
+acuerdo con un programa.
+
+En el ordenador, el programa está _almacenado_ en la misma memoria interna que
+los datos que manipula (arquitectura de **Von Neumann**).
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Es una *máquina*.
-
-- Su función es *procesar información*.
-
-- El procesamiento se realiza de forma *automática*.
-
-- El procesamiento se realiza siguiendo un *programa* (*software*).
-
-- Este programa está *almacenado* en una memoria interna del mismo ordenador
-  (arquitectura de **Von Neumann**).
 
 ### Funcionamiento básico
 
