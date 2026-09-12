@@ -922,6 +922,452 @@ F -> Analizador
 
   - Probar rápidamente el efecto de una instrucción.
 
+## Licencias de software
+
+- Cuando desarrollamos un programa no solo debemos preocuparnos por su
+  funcionamiento. También debemos tener en cuenta qué derechos tenemos sobre el
+  software y qué podemos hacer con él.
+
+- La **licencia de software** es el conjunto de condiciones jurídicas que
+  establece el titular de los derechos de un programa y que determina **cómo
+  puede utilizarse, copiarse, modificarse y distribuirse**.
+
+- Generalmente se redacta en forma de documento legal que debe acompañar al
+  programa.
+
+---
+
+- Una licencia responde a preguntas como:
+
+  - ¿Puedo utilizar el programa?
+
+  - ¿Puedo copiarlo?
+
+  - ¿Puedo modificarlo?
+
+  - ¿Puedo acceder a su código fuente?
+
+  - ¿Puedo distribuir copias?
+
+  - ¿Puedo utilizarlo en un programa comercial?
+
+  - Si modifico el programa, ¿puedo distribuir mi versión?
+
+---
+
+- Para un programador es especialmente importante distinguir entre tener acceso
+  al código fuente y tener permiso para utilizarlo.
+
+- Encontrar un proyecto publicado en Internet, por ejemplo en un repositorio
+  público, no significa que podamos utilizar libremente su código.
+
+- Por ejemplo, supongamos que encontramos en Internet este código:
+
+  ```python
+  def calcular_precio(precio, descuento):
+    return precio - precio * descuento
+  ```
+
+- Que podamos visualizarlo no significa automáticamente que podamos:
+
+  - Copiarlo a nuestro proyecto.
+
+  - Modificarlo.
+
+  - Publicarlo.
+
+  - Vender un programa que lo utilice.
+
+- Debemos comprobar qué licencia tiene el proyecto del que procede.
+
+---
+
+- Por eso, antes de reutilizar código de terceros, es recomendable comprobar
+  siempre:
+
+  - Quién es el autor o titular de los derechos.
+
+  - Qué licencia tiene el proyecto.
+
+  - Qué usos permite la licencia.
+
+  - Qué obligaciones debemos cumplir.
+
+- Si el autor no ha establecido una licencia que permita determinados usos,
+  debemos actuar con cautela y respetar los derechos de autor.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Por tanto:**
+
+«Está en Internet» no significa «puedo copiarlo».
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Para aplicar una licencia a un software, debemos ser los creadores del mismo
+  y tener el _copyright_.
+
+- Eso nos da derecho a poner a nuestro software la licencia que queramos.
+
+- La licencia no determina cómo funciona un programa; determina qué podemos hacer legalmente con él.
+
+- Por eso, en programación, conocer las licencias es tan importante como saber utilizar correctamente el código de terceros.
+
+- Las licencias de software se clasifican principalmente en:
+
+  - Dominio público.
+
+  - Software privativo.
+
+  - Software libre.
+
+  - Software gratuito (_freeware_).
+
+### Dominio público
+
+- El software de **dominio público** es aquel cuyos derechos exclusivos de
+  autor han expirado, han sido renunciados o no se aplican, por lo que puede
+  utilizarse, copiarse, modificarse y distribuirse libremente, sin las
+  restricciones propias del copyright.
+
+- En la práctica, es como decir que es el software que tuvo un autor y un
+  titular de derechos originalmente, pero que ahora ya no tiene dueño, por los
+  motivos que sea (por fallecimiento del autor o porque el mismo renunció a
+  parte o todos sus derechos de copyright).
+
+- Depende de la legislación aplicable e incluso del país.
+
+### Software privativo
+
+- El software privativo es aquel cuyo titular mantiene el control sobre las
+  condiciones de utilización, modificación y distribución del programa.
+
+- Normalmente, el usuario recibe una licencia que le permite utilizar el
+  programa bajo determinadas condiciones, pero no tiene acceso al código fuente
+  o no tiene permiso para modificarlo y redistribuirlo.
+
+- Por ejemplo, una licencia puede permitir instalar un programa en un
+  ordenador, pero prohibir:
+
+  - Modificar el programa.
+
+  - Realizar ingeniería inversa, dentro de los límites establecidos por la
+    legislación aplicable.
+
+  - Distribuir copias a otras personas.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El hecho de que tengamos una copia de un programa no significa que seamos
+propietarios de los derechos sobre ese programa.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- Cuando compramos una aplicación comercial, normalmente no estamos comprando
+  los derechos de autor del programa. Estamos adquiriendo el derecho a
+  utilizarlo bajo las condiciones establecidas por su licencia.
+
+- Para eso, se utiliza el llamado Contrato de Licencia de Usuario Final (CLUF o
+  EULA).
+
+### Software gratuito (_freeware_&nbsp;)
+
+- Se denomina **_freeware_** al software que puede utilizarse gratuitamente.
+
+- Sin embargo, «gratuito» hace referencia al precio, no a las libertades que
+  tiene el usuario.
+
+- Un programa puede ser gratuito y, al mismo tiempo:
+
+  - No proporcionar su código fuente.
+
+  - Prohibir su modificación.
+
+  - Prohibir su redistribución.
+
+- Por tanto, un programa puede costar 0 € y seguir siendo software privativo.
+
+#### _Shareware_
+
+- El shareware es un modelo de distribución en el que el software se ofrece
+  para que pueda probarse, normalmente con determinadas limitaciones.
+
+- Por ejemplo, una versión shareware puede:
+
+  - Funcionar solamente durante un periodo de tiempo;
+
+  - Ofrecer menos funcionalidades;
+
+  - Mostrar determinados avisos;
+
+  - Requerir el pago para obtener la versión completa.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~
+**Por tanto:**
+
+_Shareware_ describe principalmente un modelo de distribución, no una categoría
+de licencia software.
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Software libre
+
+- El concepto de software libre no hace referencia a que el programa sea
+  gratuito, sino a las libertades que tiene el usuario.
+
+- Las cuatro **libertades esenciales** del software libre son:
+
+  - **Libertad 0**: La libertad de **ejecutar** el programa para cualquier
+    propósito.
+
+  - **Libertad 1**: La libertad de **estudiar cómo funciona** el programa y
+    **modificarlo** para adaptarlo a nuestras necesidades. Para ello es
+    necesario disponer del código fuente.
+
+  - **Libertad 2**: La libertad de **realizar y distribuir copias** del
+    programa para ayudar a otras personas.
+
+  - **Libertad 3**: La libertad de modificar los programas y **distribuir las
+    versiones modificadas** para que otras personas puedan beneficiarse de
+    ellas. También es necesario disponer del código fuente para ejercer esta
+    libertad.
+
+---
+
+- Estas libertades permiten que los usuarios no sean únicamente consumidores
+  del software, sino que puedan estudiarlo, modificarlo y compartirlo.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Importante:**
+
+Que un programa sea gratuito no significa necesariamente que sea software
+libre.
+
+Es decir: freeware ≠ software libre
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+- El concepto de software libre surgió con el nacimiento del **movimiento del
+  software libre**, un movimiento social que apareció con el objetivo de
+  garantizar las libertades que permiten a los usuarios el software en
+  libertad.
+
+- En 1983, sobre la base de las tradiciones y filosofías de la cultura _hacker_
+  y el mundo académico de los años 1970, **Richard Stallman** fundó formalmente
+  el movimiento con el lanzamiento del **Proyecto GNU**.
+
+- En 1985, Stallman estableció la **Fundación del Software Libre** (**_Free
+  Software Foundation_**) para apoyar el movimiento, y publicó el **Manifiesto
+  GNU** para describir el propósito del proyecto y explicar la importancia del
+  software libre.
+
+- En 1986 publicó la definición formal de «software libre» e introdujo el
+  concepto de _copyleft_.
+
+- En 1989 publicó la primera versión de la Licencia Pública General de GNU (GNU
+  GPL).
+
+
+#### Software libre y software de código abierto
+
+- Los términos software libre (_Free Software_) y software de código abierto
+  (_Open Source Software_) están estrechamente relacionados, aunque proceden de
+  movimientos con diferentes enfoques.
+
+- El software de código abierto pone especialmente el énfasis en las ventajas
+  prácticas que representa el hecho de que el código fuente esté disponible y
+  pueda utilizarse y modificarse bajo las condiciones de una licencia que lo
+  permita.
+
+- En cambio, el movimiento del software libre pone el énfasis en la libertad de
+  los usuarios.
+
+- En la práctica, existe una gran zona de coincidencia entre ambos conceptos.
+
+- Siempre que sea posible, se debe hablar de **software libre** y no de
+  _código abierto_.
+
+#### Licencias de software libre y de código abierto
+
+- Existen numerosas licencias que establecen diferentes condiciones para
+  utilizar, modificar y distribuir software.
+
+- Algunas de las más conocidas son:
+
+  - GNU GPL
+
+  - GNU LGPL
+
+  - MIT
+
+  - BSD
+
+  - Apache License
+
+
+- No todas conceden exactamente los mismos derechos ni imponen las mismas
+  obligaciones.
+
+!UNUN(Licencia GNU GPL)
+
+- La GNU General Public License (GPL) es una de las licencias de software libre
+  más conocidas.
+
+- Permite, entre otras cosas:
+
+  - Utilizar el programa.
+
+  - Estudiar su código.
+
+  - Modificarlo.
+
+  - Copiarlo.
+
+  - Distribuirlo.
+
+---
+
+- Una característica fundamental de la GPL es el concepto de _copyleft_.
+
+- Debido al _copyleft_, cuando se distribuye una obra derivada bajo la GPL, las
+  versiones modificadas deben mantenerse bajo las mismas condiciones de la GPL.
+
+- Por ello suele describirse de forma sencilla como una licencia de tipo:
+
+> «Puedes modificarlo y distribuirlo, pero las libertades deben mantenerse en
+> las versiones derivadas.»
+
+!UNUN(Licencia MIT)
+
+- La licencia MIT es una licencia muy permisiva.
+
+- Permite utilizar, copiar, modificar y redistribuir el software, incluso como
+  parte de software propietario, siempre que se respeten las condiciones
+  establecidas por la licencia, entre ellas conservar los avisos de copyright y
+  de licencia.
+
+- Por tanto, una empresa puede utilizar código bajo MIT en un programa
+  comercial sin tener que publicar necesariamente todo el código de su
+  programa.
+
+!UNUN(Licencias BSD)
+
+- Las licencias BSD también son licencias permisivas.
+
+- Permiten utilizar, modificar y redistribuir el código bajo determinadas
+  condiciones.
+
+- Al igual que MIT, permiten su utilización en proyectos que posteriormente
+  pueden ser distribuidos como software propietario.
+
+!UNUN(Apache License)
+
+- La Apache License es otra licencia permisiva.
+
+- Además de permitir utilizar, modificar y redistribuir el software, incluye
+  disposiciones relacionadas, entre otras cuestiones, con los derechos sobre
+  patentes.
+
+- Es una licencia muy utilizada en proyectos de software de gran tamaño.
+
+<!--
+
+- Una **licencia de software** es un documento legal mediante el cual el
+  titular de los derechos de autor (_copyright_) de un programa establece las
+  condiciones, derechos y obligaciones bajo los cuales otras personas (ya sean
+  usuarios finales u otros desarrolladores) pueden utilizar, modificar,
+  integrar, redistribuir o comercializar dicho software o su código fuente.
+
+- A diferencia de la compra de un bien físico, la licencia no transfiere la
+  propiedad del software, sino que otorga un permiso de uso regulado que
+  vincula legalmente a quien lo ejecuta o construye sobre él.
+
+- Dado que el código fuente y los programas están protegidos por las leyes de
+  propiedad intelectual, la licencia es el mecanismo que legaliza su uso; sin
+  ella, la utilización o distribución del programa se consideraría una
+  infracción de los derechos de autor.
+
+---
+
+- En este sentido, podemos decir que:
+
+  - El software es el programa y todo aquello que lo acompaña: su código,
+    ejecutables, documentación, etc.
+
+  - La licencia es el texto legal mediante el cual el titular de los derechos
+    de ese software establece las condiciones de uso, copia, modificación y
+    distribución.
+
+---
+
+- Elementos clave que regula una licencia:
+
+  Elemento                   Descripción
+  -------------------------- ------------------------------------------------
+  Alcance de uso             Determina si es para uso personal, académico o comercial, y el número de dispositivos o usuarios permitidos.
+  Redistribución             Especifica si se puede compartir el programa con terceros o vender copias del mismo.
+  Modificación               Aclara si se tiene acceso al código fuente para adaptarlo o corregirlo.
+  Garantía y responsabilidad Exime habitualmente al creador de responsabilidades ante fallos, pérdidas de datos o daños derivados del uso.
+
+!UNUN(Tipos principales de licencias)
+
+- Las licencias de software se dividen fundamentalmente en dos grandes
+  categorías según las libertades que otorgan:
+
+  - Software libre:
+
+    - Permisivas
+
+    - Restrictivas
+
+  - Software privativo:
+
+    - EULA / CLUF
+
+    - Suscripción / SaaS
+
+    - Freeware / Shareware
+
+---
+
+- Software libre y de código abierto (_Open Source_):
+
+  - Permisivas : Otorgan máxima libertad. Permiten usar, modificar,
+    redistribuir e incluso incorporar el código en proyectos comerciales
+    cerrados sin apenas restricciones (salvo mantener la atribución del autor
+    original).
+
+    Ejemplos: MIT, Apache 2.0, BSD.
+
+  - Con _copyleft_ o restrictivas: Permiten usar, estudiar y modificar el
+    código, pero exigen que cualquier trabajo derivado que se distribuya
+    mantenga exactamente la misma licencia abierta (cláusula «vírica»).
+
+    Ejemplo: GNU GPL.
+
+---
+
+- Software privativo:
+
+  - EULA / CLUF (Contrato de Licencia para Usuario Final): El desarrollador
+    retiene todos los derechos y solo concede un derecho de uso limitado.
+    Prohíbe la modificación, la ingeniería inversa, la redistribución y el
+    acceso al código fuente.
+
+  - Suscripción / SaaS (Software as a Service): Otorga acceso temporal al
+    software alojado en la nube mientras se mantenga activa la cuota (por
+    ejemplo, licencias mensuales o anuales).
+
+  - Freeware / Shareware: Distribución gratuita del programa, aunque el
+    código sigue siendo cerrado y puede haber limitaciones comerciales o
+    temporales.
+
+-->
+
 # Entornos integrados de desarrollo
 
 ## Definición
