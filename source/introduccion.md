@@ -49,34 +49,38 @@ nocite: |
   información, también llamados **sistemas informáticos**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
 - Estos sistemas están formados por:
 
-  - Elementos físicos (**hardware**).
+  - Elementos físicos (**_hardware_**, lo que se puede tocar), que incluye:
 
-  - Elementos lógicos (**software**).
+    - CPU, memoria, almacenamiento, dispositivos de entrada/salida (_hardware_
+      en sentido estricto).
 
-  - Elementos humanos (profesionales y usuarios).
+    - Redes y conectividad (**_netware_**).
+
+  - Elementos lógicos (**_software_**, lo que no se puede tocar), que incluye:
+
+    - Programas (_software_ en sentido estricto).
+
+    - Datos e información (**_dataware_**).
+
+  - Elementos humanos (**_humanware_**, profesionales y usuarios).
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+En este módulo, cuando hablemos de _software_ en general, nos estaremos
+refiriendo a **programas**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
-- El *hardware* es todo aquello que podemos tocar:
+- También hay otros componentes menos conocidos como:
 
-  - Ordenadores
+  - Programas implementados en hardware (**_firmware_**).
 
-  - Soportes de almacenamiento
-
-  - Redes de comunicaciones
-
-  - ...
-
-- El *software* es todo lo que **no** podemos tocar:
-
-  - Datos
-
-  - Programas
-
-- Pero en este módulo, cuando hablemos de *software* en general, nos estaremos
-  refiriendo a **programas**.
+  - Documentación, protocolos, normas, flujos de trabajo (**orgware**).
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
