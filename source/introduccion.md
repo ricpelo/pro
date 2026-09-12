@@ -402,7 +402,7 @@ S [label = <Sistema<br/>informático<br/><br/>(<b><i>Codificación interna</i></
 S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Codificación interna
+---
 
 - Los ordenadores son **sistemas electrónicos digitales** que trabajan
   conmutando entre varios posibles estados de una determinada magnitud física
@@ -428,14 +428,15 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
   almacenar un bit:
 
   - Condensador cargado: bit a 1
+
   - Condensador descargado: bit a 0
 
   !CAJA
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Bit**:
 
-  Un bit es, por tanto, la unidad mínima de información que es capaz de
-  almacenar y procesar un ordenador, y equivale a un **dígito binario**.
+  Un bit es la unidad mínima de información que es capaz de almacenar y
+  procesar un ordenador, y equivale a un **dígito binario**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -494,26 +495,41 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - Decimal codificado en binario (BCD)
 
-#### Codificación externa
+#### Conjuntos de caracteres
 
-- La información enviada desde y hacia el exterior del sistema informático se
-  representa en forma de **cadenas de caracteres**.
+- La información intercambiada con el exterior (o almacenada en soportes
+  secundarios) se convierte en una secuencia de bytes representada mediante
+  **códigos externos** o **códigos de E/S**.
 
-- Para representar cadenas de caracteres y comunicarse con el exterior, el
-  ordenador utiliza **códigos de E/S** o **códigos externos**.
+- Dependiendo del tipo de información a representar, se pueden usar:
 
-- A cada carácter (letra, dígito, signo de puntuación, símbolo especial...) le
-  corresponde un _código_ (que es un número) dentro de un **conjunto de
-  caracteres**.
+  - **Cadenas de caracteres** para la información en forma de texto.
 
-- Existen conjuntos de caracteres:
+  - **Formatos de texto plano** (extensión del caso anterior) para información
+    estructurada que pueda representarse con cadenas de caracteres: XML, HTML,
+    JSON, CVS, etc.
 
-  - De **longitud fija**: a todos los caracteres les corresponden un código, y
-    todos los códigos tienen la misma longitud (mismo número de bytes).
+  - **Formatos binarios** estructurados para imágenes (JPEG, PNG), audio (MP3,
+    OPUS), vídeo (OGM, AVI, WebM), etc.
+
+---
+
+- Para representar cadenas de caracteres, el ordenador hace corresponder a cada
+  carácter (letra, dígito, signo de puntuación, símbolo especial...) un
+  _código_ (que es un número) dentro de un **conjunto de caracteres**.
+
+- Esos conjuntos de caracteres pueden tener un esquema de codificación de
+  longitud fija o variable:
+
+  - De **longitud fija**: todos los códigos tienen la misma longitud (mismo
+    número de bytes).
 
   - De **longitud variable**: en el mismo conjunto de caracteres hay códigos
     más largos y más cortos (por tanto, hay caracteres que ocupan más bytes que
     otros).
+
+- Ejemplos de conjuntos de caracteres más utilizados son ASCII, EBCDIC,
+  ISO-8859-1 y Unicode.
 
 #### ASCII
 
@@ -583,7 +599,7 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 - Cada carácter en Unicode se define mediante un identificador numérico llamado
   *code point*.
 
-- Unicode define tres formas de codificación:
+- Unicode define tres esquemas de codificación:
 
   - **UTF-8**: codificación de 8 bits, de longitud variable (cada *code point*
     puede ocupar de 1 a 4 bytes). **El más usado en la actualidad.**
