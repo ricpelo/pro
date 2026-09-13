@@ -468,6 +468,9 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   Por ejemplo: $$243 = 2 \times 10^2 + 4 \times 10^1 + 3 \times 10^0$$
 
+- El sistema de numeración que usamos para contar con los dedos es el
+  **unario** o sistema en **base uno** (poco práctico).
+
 - El sistema de numeración que usan los ordenadores es el **sistema binario** o
   sistema **en base dos**, en el cual disponemos sólo de dos dígitos (0 y 1) y
   cada peso es múltiplo de una potencia de dos.
@@ -2118,6 +2121,8 @@ intérprete? Razona la respuesta.
 - A esos errores lógicos también se les denomina **_bugs_** («bichos», en
   inglés). Por eso, el proceso de depuración se denomina **_debug_** o
   _debugging_ en inglés.
+
+- Una técnica de depuración es el **método del patito de goma**.
 
 ## Documentación
 
