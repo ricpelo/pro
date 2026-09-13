@@ -519,6 +519,10 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
   - **Formatos binarios** estructurados para imágenes (JPEG, PNG), audio (MP3,
     OPUS), vídeo (OGM, AVI, WebM), etc.
 
+- Internamente (es decir, en la memoria principal) esa misma información se
+  puede representar de formas diferentes que no tienen por qué coincidir con la
+  representación usada externamente.
+
 ---
 
 - Para representar cadenas de caracteres, el ordenador hace corresponder a cada
@@ -616,6 +620,12 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - **UTF-32**: codificación de 32 bits, de longitud fija (cada *code point*
     ocupa 1 palabra de 32 bits).
+
+!EJERCICIOS
+
+@. ¿Cómo se prodría representar (codificar) un color?
+
+@. ¿Cómo se podría representar una imagen?
 
 ## Problema
 
