@@ -623,9 +623,19 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
 !EJERCICIOS
 
-@. ¿Cómo se prodría representar (codificar) un color?
+@. ¿Cómo se podría representar (codificar) lo siguiente?
 
-@. ¿Cómo se podría representar una imagen?
+    a. Un color.
+
+    #. Una imagen.
+
+    #. Un vídeo.
+
+    #. Una nota musical.
+
+    #. Una partitura.
+
+    #. Una grabación de audio.
 
 ## Problema
 
