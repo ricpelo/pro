@@ -908,6 +908,44 @@ Un algoritmo es un método para resolver un problema.
   - **Finito**: debe terminar en algún momento, es decir, debe tener un número
     finito de pasos.
 
+!EJEMPLOS
+
+- Sumar, restar, multiplicar, dividir.
+
+- Algoritmo de Euclides.
+
+- Algoritmos de conteo:
+
+  - De uno en uno.
+  - De dos en dos.
+  - Conteo «divide y vencerás».
+
+- Algoritmos de ordenación:
+
+  - Inserción directa.
+  - Selección directa.
+  - Burbuja.
+  - Ordenación rápida.
+
+- Algoritmos de búsqueda:
+
+  - Búsqueda lineal.
+  - Búsqueda binaria o dicotómica.
+
+!UNUN(Conteo «divide y vencerás»)
+
+1. Ponte de pie y recuerda el número 1.
+
+2. Forma una pareja con otra persona que siga de pie, suma su número y el tuyo,
+   y recuerda la suma.
+
+3. Uno de los dos se sienta (sólo uno).
+
+4. Si sigues de pie, vuelve al paso 2.
+
+5. Se termina cuando sólo queda una persona en pie, y su suma será el conteo
+   final.
+
 ### Representación
 
 :::::: {.columns}
@@ -1418,10 +1456,9 @@ $$\text{Paradigmas} \begin{cases}
     - Escribir un programa imperativo consiste en describir **cómo** se debe
       obtener la solución.
 
----
+!EJEMPLO
 
-- Por ejemplo, supongamos que vamos a un restaurante porque queremos una tarta
-  de chocolate.
+- Supongamos que vamos a un restaurante porque queremos una tarta de chocolate.
 
 - El enfoque declarativo sería decirle al cocinero: «_quiero una tarta de tres
   chocolates con virutas por encima_».
@@ -1429,6 +1466,28 @@ $$\text{Paradigmas} \begin{cases}
 - En cambio, el enfoque imperativo sería darle al cocinero una lista de
   ingredientes y una receta detallada para que la siga al pie de la letra y
   pueda cocinar la tarta de chocolate que yo quiero.
+
+!EJEMPLO
+
+- La raíz cuadrada de un número $x$, representada como $\sqrt{x}$, es el valor
+  $y$ que cumple: $$y^2 = x, \quad y \ge 0$$
+
+  Esta es la definición de raíz cuadrada: un **conocimiento declarativo** que,
+  como tal, **expresa que algo es «verdad»**.
+
+  Pero esta definición no nos sirve de mucha ayuda para calcular cuánto vale la
+  raíz cuadrada de un número dado.
+
+- En cambio, podemos definir un método para calcular la raíz cuadrada de un
+  número que sería un **conocimiento imperativo**, es decir, no describe «qué
+  es» la raíz cuadrada, sino que describe **«cómo» obtenerla** de forma
+  aproximada:
+
+  1. Empezar con una aproximación $\,g$.
+
+  2. Mejorar la aproximación calculando $\,\displaystyle \frac{g + x/g}{2}$.
+
+  3. Seguir mejorando la aproximación hasta que sea lo bastante buena.
 
 ## Imperativo
 
