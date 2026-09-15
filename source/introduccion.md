@@ -1549,7 +1549,7 @@ $$\text{Paradigmas} \begin{cases}
 
 - La programación orientada a objetos está vista como una forma natural de
   entender la programación y es, con diferencia, **el paradigma más usado en la
-  actualidad**.
+  actualidad**, para bien o para mal.
 
 ## Declarativo
 
