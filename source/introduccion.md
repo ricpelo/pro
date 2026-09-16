@@ -363,56 +363,56 @@ graph [rankdir = TB, splines = ortho];
 Fetch -> Decode -> Execute -> Fetch[constraint = false];
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Representación de información
+### Representación de información
 
-- En un sistema informático, toda la información se almacena y se manipula en
-  forma de números.
+- Los ordenadores son **sistemas electrónicos digitales** que trabajan
+  conmutando entre varios posibles estados de una determinada magnitud física
+  (voltaje, intensidad de corriente, etc.).
+
+- A cada uno de esos posibles estados le podemos hacer corresponder
+  (arbitrariamente) un valor numérico.
+
+- Por eso podemos afirmar que, en un sistema informático, toda la información
+  se almacena y se manipula en forma de **números**.
 
 - Por tanto, para que un sistema informático pueda procesar información,
   primero hay que representar dicha información usando números, proceso que se
   denomina **codificación**.
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Codificación**:
+---
 
-  Proceso mediante el cual se representa información dentro de un sistema
-  informático, asociando a cada dato uno o más valores numéricos.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Codificación**:
 
-- Una codificación, por tanto, es una correspondencia entre un conjunto de
-  datos y un conjunto de números llamado **código**. Al codificar, lo que
-  hacemos es asociar a cada dato un determinado número dentro del código.
+Proceso mediante el cual se representa información dentro de un sistema
+informático, asociando a cada dato uno o más valores numéricos según un
+conjunto de reglas preestablecidas.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
+
+- Una codificación, por tanto, es una correspondencia entre un conjunto de
+  datos y un conjunto de secuencias numéricas llamado **código**.
+
+- Al codificar, lo que hacemos es asociar a cada dato una determinada secuencia
+  numérica dentro del código.
+
+- Esa secuencia numérica es **la codificación del dato** en el sistema
+  informático.
 
 - Hay muchos tipos de información (textos, sonidos, imágenes, valores
   numéricos...) y eso hace que pueda haber muchas formas de codificación.
 
 - Incluso un mismo tipo de dato (un número entero, por ejemplo) puede tener
   distintas codificaciones, cada una con sus características y propiedades, y
-  en cada caso puede ser útil una u otra.
+  en cada caso puede ser útil usar una u otra.
 
-- Distinguimos la forma en la que se representa la información *internamente*
-  en el sistema informático (**codificación interna**) de la que usamos para
-  comunicar dicha información *desde y hacia el exterior* (**codificación
-  externa** o **de E/S**).
+#### Sistema binario
 
-!DOT(codificaciones.svg)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-E [label = "Exterior", shape = oval];
-S [label = <Sistema<br/>informático<br/><br/>(<b><i>Codificación interna</i></b> )>];
-
-S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- Los ordenadores son **sistemas electrónicos digitales** que trabajan
-  conmutando entre varios posibles estados de una determinada magnitud física
-  (voltaje, intensidad de corriente, etc.).
-
-- Lo más sencillo y práctico es usar únicamente dos estados posibles.
+- En un sistema electrónico digital, lo más sencillo y práctico es usar
+  **únicamente dos estados posibles** para la magnitud física que estemos
+  considerando.
 
   Por ejemplo:
 
@@ -420,9 +420,19 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - 0 mA y 100 mA de intensidad de corriente.
 
-- A cada uno de los dos posibles estados le hacemos corresponder
-  (arbitrariamente) un valor numérico **0** ó **1**. A ese valor se le denomina
-  **bit** (contracción de *binary digit*, dígito binario).
+- Por tanto, a cada uno de los dos posibles estados le podemos corresponder
+  (arbitrariamente) un valor numérico **0** ó **1**.
+
+- A ese valor se le denomina **bit** (contracción de *binary digit*, dígito
+  binario).
+
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Bit**:
+
+  Un bit es la unidad mínima de información que es capaz de almacenar y
+  procesar un ordenador, y equivale a un **dígito binario**.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -435,17 +445,9 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - Condensador descargado: bit a 0
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Bit**:
+  (La interpretación podría ser al revés, ya que solo es un convenio.)
 
-  Un bit es la unidad mínima de información que es capaz de almacenar y
-  procesar un ordenador, y equivale a un **dígito binario**.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
----
-
-- En la práctica, se usan unidades múltiplos del bit:
+- En la práctica, se usan unidades **múltiplos del bit**:
 
   - 1 byte = 8 bits
 
@@ -457,7 +459,7 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - 1 Tebibyte (TiB) = $2^{40}$ bytes = 1024 Gibibytes
 
-#### Sistema binario
+---
 
 - El sistema de numeración que usamos habitualmente los seres humanos es el
   **decimal** o sistema **en base diez**.
@@ -479,6 +481,8 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
 ---
 
+- El mismo dato se puede codificar de distintas formas según convenga.
+
 - Generalmente, los **números naturales** se codifican internamente mediante su
   representación en binario.
 
@@ -494,39 +498,53 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - Coma fija
 
-  - Coma flotante
+  - Coma flotante (de simple o doble precisión)
 
-    - Simple precisión
+- El decimal codificado en binario (BCD) codifica **cada dígito por separado**
+  en binario usando 4 bits por dígito.
 
-    - Doble precisión
-
-  - Decimal codificado en binario (BCD)
+- La **información textual** (cualquier texto escrito con letras, dígitos y
+  otros símbolos) se representa en forma de **cadenas de caracteres**.
 
 ---
 
-- La información intercambiada con el exterior (o almacenada en soportes
-  secundarios) se convierte en una _secuencia de bytes_ representada mediante
-  **códigos externos** o **códigos de E/S**.
+- La representación interna de un dato puede ser distinta de:
+
+  - La forma en la que se almacena ese dato en soportes secundarios.
+
+    Para esto se utilizan **formatos de almacenamiento**.
+
+  - La forma en la que se transmite entre sistemas o entre componentes del
+    mismo sistema.
+
+    Para esto se utilizan **formatos de intercambio**.
+
+- A veces, un mismo formato puede ser de almacenamiento y de intercambio al
+  mismo tiempo.
+
+---
 
 - Dependiendo del tipo de información a representar, se pueden usar:
 
-  - **Cadenas de caracteres** para la información en forma de texto.
+  - **Formatos de texto plano** para información estructurada que pueda
+    representarse con cadenas de caracteres: XML, HTML, JSON, CVS, etc.
 
-  - **Formatos de texto plano** (extensión del caso anterior) para información
-    estructurada que pueda representarse con cadenas de caracteres: XML, HTML,
-    JSON, CVS, etc.
+    Su característica principal es que resulta _legible_ directamente para el
+    ser humano.
 
   - **Formatos binarios** estructurados para imágenes (JPEG, PNG), audio (MP3,
     OPUS), vídeo (OGM, AVI, WebM), etc.
 
-- Internamente (es decir, en la memoria principal) esa misma información se
-  puede representar de formas diferentes que no tienen por qué coincidir con la
-  representación usada externamente.
-
-- Por tanto, la codificación interna y la externa pueden ser distintas para la
-  misma información representada.
+    Al contrario que los formatos de texto plano, los formatos binarios no se
+    pueden leer directamente como si fueran cadenas de caracteres en texto
+    plano, sino que deben ser interpretados mediante programas que lean y
+    entiendan ese formato.
 
 #### Conjuntos de caracteres
+
+- Las cadenas de caracteres se usan para representar información textual tanto
+  en el interior de la memoria (codificación interna) como externamente
+  (codificación externa).
 
 - Para representar cadenas de caracteres, el ordenador hace corresponder a cada
   carácter (letra, dígito, signo de puntuación, símbolo especial...) un
@@ -545,7 +563,7 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 - Ejemplos de conjuntos de caracteres más utilizados son ASCII, EBCDIC,
   ISO-8859-1 y Unicode.
 
-#### ASCII
+##### ASCII
 
 - *American Standard Code for Information Interchange*.
 
@@ -563,8 +581,11 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
   - Los 32 primeros códigos (del 0 al 31) son no imprimibles (códigos de
     control).
 
-- El ISO-8859-1 es un código de 8 bits que extiende el ASCII con un bit más
-  para contener caracteres latinos.
+- Se denomina **ASCII extendido** a cualquier conjunto de caracteres de 8 bits
+  que extiende el ASCII con un bit más y en el que los códigos 32 a 126
+  coinciden con los caracteres imprimibles del ASCII.
+
+- El **ISO-8859-1** es un ASCII extendido para contener caracteres latinos.
 
 ---
 
@@ -602,7 +623,27 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
   ```
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#### Unicode
+---
+
+!CENTRAR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**¡CUIDADO!**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Es importante distinguir entre (por ejemplo):
+
+  #. el número entero 36 y
+
+  #. la cadena de caracteres `36`, formada por los caracteres `3` y `6`.
+
+- En el primer caso, el número 36 se codificaría en complemento a dos mediante
+  la secuencia de bits 100100.
+
+- En el segundo caso, la cadena `37` se representaría mediante los bytes
+  00110011 y 00110110 según el código ASCII (que en decimal son 51 y 54,
+  respectivamente).
+
+##### Unicode
 
 - Con 8 bits (y con 7 bits aún menos) no es posible representar todos los
   posibles caracteres de todos los sistemas de escritura usados en el mundo.
