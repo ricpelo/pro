@@ -502,10 +502,10 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
 
   - Decimal codificado en binario (BCD)
 
-#### Conjuntos de caracteres
+---
 
 - La información intercambiada con el exterior (o almacenada en soportes
-  secundarios) se convierte en una secuencia de bytes representada mediante
+  secundarios) se convierte en una _secuencia de bytes_ representada mediante
   **códigos externos** o **códigos de E/S**.
 
 - Dependiendo del tipo de información a representar, se pueden usar:
@@ -523,7 +523,10 @@ S -> E [dir = both, label = <<b><i>Código de E/S</i></b>>];
   puede representar de formas diferentes que no tienen por qué coincidir con la
   representación usada externamente.
 
----
+- Por tanto, la codificación interna y la externa pueden ser distintas para la
+  misma información representada.
+
+#### Conjuntos de caracteres
 
 - Para representar cadenas de caracteres, el ordenador hace corresponder a cada
   carácter (letra, dígito, signo de puntuación, símbolo especial...) un
