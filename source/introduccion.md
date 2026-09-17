@@ -372,8 +372,11 @@ Fetch -> Decode -> Execute -> Fetch[constraint = false];
 - A cada uno de esos posibles estados le podemos hacer corresponder
   (arbitrariamente) un valor numérico.
 
-- Por eso podemos afirmar que, en un sistema informático, toda la información
-  se almacena y se manipula en forma de **números**.
+- Por eso, en un sistema informático, toda la información se almacena y se
+  manipula en forma de **números**.
+
+- Por ejemplo, cada una de las celdas de la memoria principal puede almacenar
+  un número de un cierto tamaño.
 
 - Por tanto, para que un sistema informático pueda procesar información,
   primero hay que representar dicha información usando números, proceso que se
@@ -437,9 +440,16 @@ conjunto de reglas preestablecidas.
 ---
 
 - Por ejemplo, la memoria principal de un ordenador está formada por millones
-  de celdas, parecidas a microscópicos condensadores. Cada uno de estos
-  condensadores puede estar cargado o descargado y, por tanto, es capaz de
-  almacenar un bit:
+  de celdas.
+
+- A su vez, cada celda está formada por un número fijo de componentes
+  electrónicos, con características parecidas a microscópicos condensadores.
+
+  Todas las celdas de una misma memoria contienen la misma cantidad de
+  esos condensadores.
+
+- Cada uno de estos condensadores puede estar cargado o descargado y, por
+  tanto, es capaz de almacenar un bit:
 
   - Condensador cargado: bit a 1
 
@@ -447,7 +457,14 @@ conjunto de reglas preestablecidas.
 
   (La interpretación podría ser al revés, ya que solo es un convenio.)
 
-- En la práctica, se usan unidades **múltiplos del bit**:
+- En consecuencia, cada celda de una memoria puede almacenar una cierta
+  cantidad fija de bits, y todas las celdas de la misma memoria puede almacenar
+  la misma cantidad de bits.
+
+---
+
+- Un bit es una unidad muy pequeña, así que en la práctica se usan **múltiplos
+  del bit**:
 
   - 1 byte = 8 bits
 
@@ -642,6 +659,10 @@ conjunto de reglas preestablecidas.
 - En el segundo caso, la cadena `37` se representaría mediante los bytes
   00110011 y 00110110 según el código ASCII (que en decimal son 51 y 54,
   respectivamente).
+
+- Es importante darse cuenta de que la misma secuencia de bits se puede
+  interpretar de distintas formas (como un número, como un carácter, etc.)
+  según el contexto o el programa usado.
 
 ##### Unicode
 
