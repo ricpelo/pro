@@ -1063,6 +1063,24 @@ Un algoritmo es un método para resolver un problema.
 
 ::::::
 
+---
+
+- Ejemplos de **ambigüedad**:
+
+  - «Ayer vi a María con los prismáticos.»
+
+  - «Lo vio venir montado a caballo.»
+
+  - «Hablé con Juan cuando estaba desayunando.»
+
+  - «Tengo más de 20 años.»
+
+  - «Fuimos al banco y nos sentamos un rato.»
+
+  - «El cerdo está listo para comer.»
+
+  - «Vendemos telas para muñecas hechas de lana.»
+
 #### Ordinograma
 
 - Representación gráfica que describe un algoritmo en forma de diagrama de
