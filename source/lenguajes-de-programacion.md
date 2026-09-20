@@ -14,10 +14,12 @@ nocite: |
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Lenguaje de programación:**
 
-Un lenguaje de programación es un **lenguaje formal** que proporciona una serie
-de instrucciones que permiten a un programador escribir programas destinados a
-controlar el comportamiento físico y lógico de un ordenador.
+Un lenguaje de programación es un **lenguaje formal** que proporciona un
+conjunto de **instrucciones** que permiten a un programador escribir programas
+destinados a controlar el comportamiento físico y lógico de un ordenador.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
 
 - Un **programa** es la **codificación de un algoritmo** en un lenguaje de
   programación.
@@ -25,42 +27,52 @@ controlar el comportamiento físico y lógico de un ordenador.
 - Por tanto: cuando escribimos un algoritmo en un lenguaje de programación,
   obtenemos un programa.
 
-- Estos lenguajes están determinados por un conjunto de símbolos (llamado
-  *alfabeto*), reglas gramaticales (léxico/morfológicas y sintácticas) y reglas
-  semánticas, que en conjunto definen las estructuras válidas en el lenguaje y
-  su significado.
+- Como todo lenguaje formal, un lenguaje de programación se define por:
+
+  #. un conjunto de **símbolos** (llamado _alfabeto_),
+
+  #. **reglas gramaticales** (léxico/morfológicas y sintácticas) y
+
+  #. **reglas semánticas**, que en conjunto definen qué textos son válidos en
+     el lenguaje y qué significado tienen.
 
 ---
 
-- Un lenguaje de programación viene definido por:
+- Más formalmente, un lenguaje de programación viene definido por:
 
-  - **Sintaxis**: la forma visible del lenguaje.
+  #. **Sintaxis**: la forma visible del lenguaje, determinado por su alfabeto y
+     sus reglas gramaticales.
 
-  - **Semántica estática**: las restricciones que tiene que cumplir un programa
-    para que sea correcto aunque sea sintácticamente válido. 
+  #. **Semántica estática**: las restricciones que tiene que cumplir un
+     programa para que sea correcto aunque sea sintácticamente válido.
 
-  - **Semántica dinámica**: el significado de cada construcción del lenguaje.
+  #. **Semántica dinámica**: el significado de cada construcción del lenguaje.
 
-  - **Biblioteca estándar**: el conjunto de utilidades básicas que acompañan al
-    lenguaje.
+  #. **Biblioteca estándar**: el conjunto de utilidades básicas que acompañan
+     al lenguaje.
 
 ### Sintaxis
 
-- A la forma visible de un lenguaje de programación se la conoce como
-  **sintaxis**.
+- A la forma visible de un lenguaje se la conoce como **sintaxis**.
 
-- La sintaxis de un lenguaje de programación describe las combinaciones
-  posibles de los símbolos que forman un programa sintácticamente correcto.
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Sintaxis:**
+
+  La sintaxis de un lenguaje de programación define qué símbolos y qué
+  combinaciones de estos permiten formar programas válidos según las reglas de
+  escritura del lenguaje (están «bien escritos»).
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - La sintaxis define dos elementos principales:
 
   - Los **componentes léxicos**, es decir, los elementos mínimos que forman un
     programa (palabras clave, números, identificadores, caracteres de
-    puntuación como paréntesis o comas, etc...) y que representa el _alfabeto_
-    de dicho lenguaje.
+    puntuación como paréntesis o comas, etc...) y que representa el
+    **_alfabeto_** de dicho lenguaje.
 
   - La **estructura gramatical**, es decir, cómo se pueden combinar los
-    componentes léxicos para formar «frases» correctas según la sintaxis del
+    componentes léxicos para formar «_frases_» correctas según la sintaxis del
     lenguaje.
 
 #### Notación EBNF
@@ -68,26 +80,24 @@ controlar el comportamiento físico y lógico de un ordenador.
 - La sintaxis de los lenguajes de programación es definida generalmente
   utilizando:
 
-  - **Expresiones regulares** (para los componentes léxicos)
+  - **Expresiones regulares** (para los componentes léxicos).
 
-  - **Notación de Backus-Naur extendida** (para la estructura gramatical)
+  - **Notación de Backus-Naur extendida** (para la estructura gramatical).
 
 - Cada una de esas notaciones son formalismos usados para describir estructuras
   sintácticas en gramáticas formales.
 
-- Las expresiones regulares las estudiaremos a lo largo del curso, ya que
-  resultan muy útiles para procesar cadenas.
+- Las expresiones regulares las estudiaremos en cierto momento del curso, ya
+  que resultan muy útiles para procesar cadenas.
 
 - Conocer la notación de Backus-Naur resulta de gran interés porque la mayoría
   de los lenguajes de programación la utilizan para documentar su sintaxis.
 
----
+!EJEMPLO
 
 :::: columns
 
 ::: {.column width=51%}
-
-- Ejemplo:
 
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,9 +113,13 @@ controlar el comportamiento físico y lógico de un ordenador.
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Cada regla sintáctica (llamada **producción**) está formada por dos partes
-  separadas por !COLOR(teal)(::=), donde a la izquierda hay un símbolo no
-  terminal y a la derecha puede haber una lista de símbolos terminales y no
-  terminales.
+  separadas por **!COLOR(teal)(::=)**, donde:
+
+  - a la **izquierda** siempre hay un símbolo no terminal y
+  - a la **derecha** puede haber una secuencia de símbolos terminales, no
+    terminales y otros como !COLOR(teal)(|), !COLOR(teal)(!POR),
+    !COLOR(teal)(!MAS), !COLOR{teal}{!ifdef(HTML)(\[)([)},
+    !COLOR{teal}{!ifdef(HTML)(\])(])}, !COLOR{teal}{(} y !COLOR{teal}{)}.
 
 :::
 
@@ -190,7 +204,7 @@ controlar el comportamiento físico y lógico de un ordenador.
 ---
 
 - Otra forma de representarlo es mediante un diagrama llamado **árbol de
-  análisis sintáctico**.
+  análisis sintáctico** (o **_parse tree_**).
 
 !DOT(arbol-analisis.svg)(Árbol de análisis sintáctico para «`el niño grande come mucho.`»)(width=70%)()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -656,9 +670,7 @@ lenguaje.
 
   - **Lenguajes de propósito general**: Con ellos se pueden escribir programas
     muy diversos. No están atados a un tipo concreto de problema a resolver.
-    Ejemplos:
-
-    - LISP, Pascal, C, Java, Ruby, C++, Python, C#, Haskell...
+    Ejemplos: LISP, Pascal, C, Java, Ruby, C++, Python, C#, Haskell...
 
   - **Lenguajes de propósito específico**: Son lenguajes mucho más
     especializados y destinados principalmente a resolver un tipo determinado
@@ -666,34 +678,34 @@ lenguaje.
     dentro de su ámbito de actuación, suelen funcionar mejor que los lenguajes
     de propósito general. Ejemplos:
 
-    - Lenguajes de consulta a bases de datos (SQL)
+    - Lenguajes de consulta a bases de datos (SQL).
 
-    - Lenguajes de descripción de hardware (VHDL)
+    - Lenguajes de descripción de hardware (VHDL).
 
-    - Lenguajes para desarrollo de aplicaciones de gestión (COBOL)
+    - Lenguajes para desarrollo de aplicaciones de gestión (COBOL).
 
 ## Por paradigma
 
 - Dependiendo del paradigma de programación que soporta el lenguaje, podemos
   encontrar:
 
-  - Lenguajes imperativos
+  - Lenguajes imperativos.
 
-  - Lenguajes funcionales
+  - Lenguajes funcionales.
 
-  - Lenguajes orientados a objetos
+  - Lenguajes orientados a objetos.
 
-  - Lenguajes lógicos
+  - Lenguajes lógicos.
 
-  - Lenguajes dirigidos por eventos
+  - Lenguajes dirigidos por eventos.
 
-  - Lenguajes multiparadigma
+  - Lenguajes multiparadigma.
 
 # Traductores e intérpretes
 
 ## Traductores
 
-- El único lenguaje que entiende la máquina directamente es el **lenguaje
+- El único lenguaje que entiende directamente el ordenador es el **lenguaje
   máquina** o **código máquina**, que es un lenguaje de **bajo nivel**.
 
 - Para poder programar con un lenguaje de **alto nivel**, necesitamos usar
@@ -741,17 +753,19 @@ Traductor -> E
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Compilador**:
 
-  Es un traductor que convierte un programa escrito en un lenguaje de **más
-  alto nivel** a un lenguaje de **más bajo nivel**.
+  Es un traductor que baja el nivel de un programa; es decir, convierte un
+  programa escrito en un lenguaje fuente de **más alto nivel** a un lenguaje
+  objeto de **más bajo nivel**.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Generalmente, el lenguaje objeto suele ser **código máquina** y el resultado
-  de la compilación es un **objeto ejecutable** directamente por la máquina.
+- Generalmente, el lenguaje objeto suele ser **código máquina**, y muchas veces
+  el resultado de la compilación es un **programa ejecutable** directamente por
+  la máquina.
 
 !DOT(compilacion.svg)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
-O [label = "Objeto ejecutable\n(código máquina)", shape = note, fillcolor = aliceblue];
+O [label = "Programa ejecutable\n(código máquina)", shape = note, fillcolor = aliceblue];
 F -> Compilador -> O
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -775,7 +789,7 @@ F -> Compilador -> O
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 F [label = "Código fuente\n(lenguaje fuente)", shape = note, fillcolor = aliceblue];
 E [label = "Código ensamblador\n(lenguaje ensamblador)", shape = note, fillcolor = aliceblue];
-O [label = "Objeto ejecutable\n(código máquina)", shape = note, fillcolor = aliceblue];
+O [label = "Programa ejecutable\n(código máquina)", shape = note, fillcolor = aliceblue];
 F -> Compilador -> E -> Ensamblador -> O
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -788,9 +802,9 @@ F -> Compilador -> E -> Ensamblador -> O
   una hasta que se acaba el programa.
 
 - El intérprete funciona, por tanto, como un **emulador** de una máquina que
-  entendiera directamente el lenguaje de alto nivel en el que está escrito el
+  entiende directamente el lenguaje de alto nivel en el que está escrito el
   programa fuente. Esa máquina no existe físicamente, y por eso decimos que es
-  una _máquina abstracta_, para distinguirla de la real.
+  una **_máquina abstracta_**, para distinguirla de la real.
 
 !DOT(interpretes.svg)()(width=60%)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -807,9 +821,9 @@ F -> I
 
 - Un intérprete está formado por un **analizador** y un **emulador**:
 
-  - El **analizador** traduce todo el código fuente a una representación
-    interna llamada **árbol sintáctico** (que no hay que confundir con el
-    _árbol de análisis sintáctico_).
+  - El **analizador** es un traductor que traduce el código fuente a una
+    representación interna llamada **árbol sintáctico** o **AST** (que no hay
+    que confundir con el _árbol de análisis sintáctico_).
 
     Ese árbol sintáctico no se vuelca directamente a la salida, sino que es
     consumida directamente por el _emulador_.
@@ -835,6 +849,36 @@ F -> Analizador
 
 ---
 
+- La interpretación se puede hacer de dos formas diferentes:
+
+  #. **Intérpretes puros (o directos):** Se va traduciendo el programa fuente
+     línea a línea a medida que se va leyendo, y el emulador va ejecutando cada
+     instrucción del programa a medida que se va traduciendo.
+
+     _Ejemplos_: Los intérpretes clásicos de BASIC, _scripts_ de _shell_
+     (`.sh`), _scripts_ sencillos de AWK o versiones antiguas de JavaScript y
+     Tcl.
+
+  #. **Intérpretes basados en _bytecode_ (o híbridos):** Primero se lee y se
+     traduce por completo todo el programa fuente en forma de árbol sintáctico
+     que contiene todo el código, y después el emulador ejecuta las
+     instrucciones que forman el árbol sintáctico.
+
+     Ventajas:
+     
+     - Mucho más rápidos en ejecución que los puros.
+
+     - Si hay un error de sintaxis en la última línea, el programa falla de
+       inmediato sin llegar a ejecutar nada.
+
+     _Ejemplos_: Python (CPython), Ruby (YARV), PHP (Zend Engine), la JVM de
+     Java o la CLI de .NET (antes de compilarse a nativo por JIT).
+
+---
+
+- Hay lenguajes *compilados* y lenguajes *interpretados*, e incluso lenguajes
+  que son ambas cosas (tienen compiladores e intérpretes).
+
 - **Programar** con un intérprete es una tarea **más rápida** de realizar que
   con un compilador, ya que, para poder ejecutar el programa, no hace falta
   compilar ni generar el código objeto, por lo que se evita dar un paso
@@ -844,12 +888,18 @@ F -> Analizador
   fluido programar usando un intérprete (aunque con los modernos _entornos de
   desarrollo_ esto ya no supone tanta diferencia como antes).
 
-- Sin embargo, si el programa fuente tiene _errores sintácticos_ (o ciertos
-  errores de _semántica estática_), el intérprete no informará de ellos hasta
-  el momento en el que intente ejecutar la instrucción errónea.
+---
+
+- Pero si el programa fuente tiene _errores sintácticos_ (o ciertos
+  errores de _semántica estática_), un intérprete no informará de ellos hasta
+  el momento en el que traduzca e intente ejecutar la instrucción errónea.
 
   Es decir: **esos errores se detectarán y se mostrarán en _tiempo de
   ejecución_**, no en _tiempo de compilación_.
+
+  En concreto, dependiendo del intérprete y del tipo de error, puede suponer
+  que el error se muestre cuando se cargue el programa fuente en el intérprete
+  o incluso cuando la ejecución del programa alcance la instrucción errónea.
 
 - Por tanto, muchos errores que pueden ser detectados por un compilador sólo se
   podrán detectar cuando ya se esté ejecutando el programa, lo que hace que el
@@ -860,26 +910,26 @@ F -> Analizador
 - Además, los programas interpretados suelen ser **varias veces más lentos**
   que los compilados, ya que:
 
-  - hay que ir recorriendo continuamente el árbol sintáctico para encontrarse
-    con las instrucciones que allí aparecen, lo que consume tiempo y memoria;
+  - Hay que ir recorriendo continuamente el árbol sintáctico para encontrarse
+    con las instrucciones que allí aparecen, lo que consume tiempo y memoria.
 
-  - hay que traducir las instrucciones de la máquina abstracta a instrucciones
+  - Hay que traducir las instrucciones de la máquina abstracta a instrucciones
     de la máquina real, cosa que no se hace de una vez y para siempre, sino que
     **se va haciendo poco a poco a medida que se va encontrando con una nueva
     instrucción** al recorrer el árbol sintáctico.
+
+  (Existen técnicas de compilación **_Just In Time_** (JIT) que reducen estos
+  inconvenientes.)
 
 - En cambio, **un compilador traduce todas las instrucciones de una vez y sólo
   una vez**, de forma que, al ejecutarlas, ya están todas traducidas al
   lenguaje objeto, formando el código objeto.
 
-- Hay lenguajes *compilados* y lenguajes *interpretados*, e incluso lenguajes
-  que son ambas cosas (tienen compiladores e intérpretes).
-
 ### Interactivos (*REPL*!ifdef(HTML)(&nbsp;)())
 
 - A los intérpretes que hemos visto hasta ahora se les denomina **intérpretes
   por lotes**, ya que tratan al programa fuente como un lote de instrucciones
-  conjuntas.
+  conjuntas, como un compilador.
 
 - A diferencia de los anteriores, los **intérpretes interactivos** son
   programas que solicitan al programador que introduzca por teclado, una a una,
