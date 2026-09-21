@@ -91,21 +91,24 @@ problemas de los usuarios.
 ### Procesamiento automático
 
 - Los sistemas informáticos (en particular, los ordenadores que los forman)
-  procesan la información de forma automática siguiendo las instrucciones de un
+  procesan la información de forma automática siguiendo las indicaciones de un
   programa.
 
-- Las instrucciones que forman el programa son las que dictan qué operaciones
-  hay que realizar con la información.
+- Un programa está formado por **instrucciones** que dictan _qué_ operaciones
+  hay que realizar con la información, _cuándo_ y _cómo_.
 
 - Esa información se codifica, almacena y manipula en forma de **datos**.
 
-!CAJA
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**Datos:**
+  !CAJA
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  **Datos:**
 
-Información codificada y almacenada en un formato y en un soporte adecuados
-para ser manipulados por un sistema informático.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Información codificada y almacenada en un formato y en un soporte adecuados
+  para ser manipulados por un sistema informático.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Instrucciones y datos** son los dos componentes esenciales de todo
+  procesamiento automático.
 
 ---
 
