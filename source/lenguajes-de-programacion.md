@@ -64,34 +64,43 @@ destinados a controlar el comportamiento físico y lógico de un ordenador.
   escritura del lenguaje (están «bien escritos»).
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- La sintaxis define dos elementos principales:
+---
 
-  - Los **componentes léxicos**, es decir, los elementos mínimos que forman un
+- La sintaxis de un lenguaje viene determinada por su **gramática**, la cual
+  define dos elementos principales:
+
+  - Sus **componentes léxicos**, es decir, los elementos mínimos que forman un
     programa (palabras clave, números, identificadores, caracteres de
-    puntuación como paréntesis o comas, etc...) y que representa el
-    **_alfabeto_** de dicho lenguaje.
+    puntuación como paréntesis o comas, etc...) y que representan el
+    **_alfabeto_** de la gramática.
 
-  - La **estructura gramatical**, es decir, cómo se pueden combinar los
+  - Su **estructura gramatical**, es decir, cómo se pueden combinar los
     componentes léxicos para formar «_frases_» correctas según la sintaxis del
     lenguaje.
+
+    Se describe mediante un conjunto de **reglas sintácticas**, también
+    llamadas **producciones**.
+
+- Una **gramática formal**, por tanto, está formada básicamente por un alfabeto
+  y un conjunto de producciones.
+
+- Se le llama «formal» porque usa notaciones precisas basada en la teoría de
+  lenguajes formales.
 
 #### Notación EBNF
 
 - La sintaxis de los lenguajes de programación es definida generalmente
   utilizando:
 
-  - **Expresiones regulares** (para los componentes léxicos).
+  - **Expresiones regulares** para los componentes léxicos.
 
-  - **Notación de Backus-Naur extendida** (para la estructura gramatical).
+    Las estudiaremos en cierto momento del curso, ya que resultan muy útiles
+    para procesar cadenas.
 
-- Cada una de esas notaciones son formalismos usados para describir estructuras
-  sintácticas en gramáticas formales.
+  - **Notación de Backus-Naur extendida** (o **_EBNF_**) para las producciones.
 
-- Las expresiones regulares las estudiaremos en cierto momento del curso, ya
-  que resultan muy útiles para procesar cadenas.
-
-- Conocer la notación de Backus-Naur resulta de gran interés porque la mayoría
-  de los lenguajes de programación la utilizan para documentar su sintaxis.
+    Conocer la notación EBNF resulta de gran interés porque la mayoría de los
+    lenguajes de programación la utilizan para documentar su sintaxis.
 
 !EJEMPLO
 
@@ -112,8 +121,8 @@ destinados a controlar el comportamiento físico y lógico de un ordenador.
 !NT(adverbio) ::= !T(mucho) | !T(poco)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Cada regla sintáctica (llamada **producción**) está formada por dos partes
-  separadas por **!COLOR(teal)(::=)**, donde:
+- Cada producción en notación EBNF está formada por dos partes separadas por
+  **!COLOR(teal)(::=)**, donde:
 
   - a la **izquierda** siempre hay un símbolo no terminal y
   - a la **derecha** puede haber una secuencia de símbolos terminales, no
@@ -153,21 +162,21 @@ destinados a controlar el comportamiento físico y lógico de un ordenador.
 
 ---
 
-- Las gramáticas sirven para _reconocer_ o _producir_ frases correctas en un
-  determinado lenguaje.
+- Las gramáticas sirven para **_reconocer_ o _producir_ frases válidas** en
+  un determinado lenguaje.
 
 - Por ejemplo, podemos preguntarnos si la frase «`el niño grande come mucho.`»
   es sintácticamente correcta según la gramática anterior.
 
-- Para ello, comprobamos si es posible _derivar_ esa frase a partir de las
+- Para ello, comprobamos si es posible **_derivar_** esa frase a partir de las
   producciones de la gramática, partiendo del **símbolo inicial**, que siempre
   es el primer símbolo no terminal que aparece en la gramática (en este caso,
   !NT(frases)).
 
-- Cada paso del procedimiento se llama _derivación_, y consiste en ir
+- Cada paso del procedimiento se llama **_derivación_**, y consiste en ir
   sustituyendo, de izquierda a derecha, los símbolos no terminales que vayamos
   encontrando por su correspondiente definición (lo que hay a la derecha del
-  !COLOR{teal}{::=}).
+  **!COLOR{teal}{::=}**).
 
 - Iremos avanzando mientras encontremos símbolos terminales que coincidan con
   los de la frase.
@@ -1060,9 +1069,11 @@ F -> Analizador
 
 - Eso nos da derecho a poner a nuestro software la licencia que queramos.
 
-- La licencia no determina cómo funciona un programa; determina qué podemos hacer legalmente con él.
+- La licencia no determina cómo funciona un programa; determina qué podemos
+  hacer legalmente con él.
 
-- Por eso, en programación, conocer las licencias es tan importante como saber utilizar correctamente el código de terceros.
+- Por eso, en programación, conocer las licencias es tan importante como saber
+  utilizar correctamente el código de terceros.
 
 - Las licencias de software se clasifican principalmente en:
 

@@ -276,17 +276,31 @@ Sintaxis</h3>
 combinaciones de estos permiten formar programas válidos según las
 reglas de escritura del lenguaje (están «bien escritos»).</p>
 </div></li>
-<li><p>La sintaxis define dos elementos principales:</p>
+</ul>
+</section>
+<section class="slide level5" data-number="1.1.1.0.1">
+
 <ul>
-<li><p>Los <strong>componentes léxicos</strong>, es decir, los elementos
+<li><p>La sintaxis de un lenguaje viene determinada por su
+<strong>gramática</strong>, la cual define dos elementos
+principales:</p>
+<ul>
+<li><p>Sus <strong>componentes léxicos</strong>, es decir, los elementos
 mínimos que forman un programa (palabras clave, números,
 identificadores, caracteres de puntuación como paréntesis o comas, etc…)
-y que representa el <strong><em>alfabeto</em></strong> de dicho
-lenguaje.</p></li>
-<li><p>La <strong>estructura gramatical</strong>, es decir, cómo se
+y que representan el <strong><em>alfabeto</em></strong> de la
+gramática.</p></li>
+<li><p>Su <strong>estructura gramatical</strong>, es decir, cómo se
 pueden combinar los componentes léxicos para formar «<em>frases</em>»
-correctas según la sintaxis del lenguaje.</p></li>
+correctas según la sintaxis del lenguaje.</p>
+<p>Se describe mediante un conjunto de <strong>reglas
+sintácticas</strong>, también llamadas
+<strong>producciones</strong>.</p></li>
 </ul></li>
+<li><p>Una <strong>gramática formal</strong>, por tanto, está formada
+básicamente por un alfabeto y un conjunto de producciones.</p></li>
+<li><p>Se le llama «formal» porque usa notaciones precisas basada en la
+teoría de lenguajes formales.</p></li>
 </ul>
 </section>
 <section id="notación-ebnf" class="title-slide slide level4"
@@ -297,18 +311,16 @@ class="header-section-number">1.1.1.1</span> Notación EBNF</h4>
 <li><p>La sintaxis de los lenguajes de programación es definida
 generalmente utilizando:</p>
 <ul>
-<li><p><strong>Expresiones regulares</strong> (para los componentes
-léxicos).</p></li>
-<li><p><strong>Notación de Backus-Naur extendida</strong> (para la
-estructura gramatical).</p></li>
+<li><p><strong>Expresiones regulares</strong> para los componentes
+léxicos.</p>
+<p>Las estudiaremos en cierto momento del curso, ya que resultan muy
+útiles para procesar cadenas.</p></li>
+<li><p><strong>Notación de Backus-Naur extendida</strong> (o
+<strong><em>EBNF</em></strong>) para las producciones.</p>
+<p>Conocer la notación EBNF resulta de gran interés porque la mayoría de
+los lenguajes de programación la utilizan para documentar su
+sintaxis.</p></li>
 </ul></li>
-<li><p>Cada una de esas notaciones son formalismos usados para describir
-estructuras sintácticas en gramáticas formales.</p></li>
-<li><p>Las expresiones regulares las estudiaremos en cierto momento del
-curso, ya que resultan muy útiles para procesar cadenas.</p></li>
-<li><p>Conocer la notación de Backus-Naur resulta de gran interés porque
-la mayoría de los lenguajes de programación la utilizan para documentar
-su sintaxis.</p></li>
 </ul>
 </section>
 <section id="ejemplo" class="slide level5 unnumbered unlisted">
@@ -348,9 +360,9 @@ style="color:teal">⟨<em>adverbio</em>⟩</span>]<br />
 <strong><code>mucho</code></strong> |
 <strong><code>poco</code></strong></div>
 <ul>
-<li><p>Cada regla sintáctica (llamada <strong>producción</strong>) está
-formada por dos partes separadas por <strong><span
-style="color:teal">::=</span> </strong>, donde:</p>
+<li><p>Cada producción en notación EBNF está formada por dos partes
+separadas por <strong><span style="color:teal">::=</span> </strong>,
+donde:</p>
 <ul>
 <li>a la <strong>izquierda</strong> siempre hay un símbolo no terminal
 y</li>
@@ -391,20 +403,22 @@ juntos.</li>
 <section class="slide level5" data-number="1.1.1.1.1">
 
 <ul>
-<li><p>Las gramáticas sirven para <em>reconocer</em> o <em>producir</em>
-frases correctas en un determinado lenguaje.</p></li>
+<li><p>Las gramáticas sirven para <strong><em>reconocer</em> o
+<em>producir</em> frases válidas</strong> en un determinado
+lenguaje.</p></li>
 <li><p>Por ejemplo, podemos preguntarnos si la frase
 «<code>el niño grande come mucho.</code>» es sintácticamente correcta
 según la gramática anterior.</p></li>
-<li><p>Para ello, comprobamos si es posible <em>derivar</em> esa frase a
-partir de las producciones de la gramática, partiendo del
-<strong>símbolo inicial</strong>, que siempre es el primer símbolo no
-terminal que aparece en la gramática (en este caso, <span
-style="color:teal">⟨<em>frases</em>⟩</span>).</p></li>
-<li><p>Cada paso del procedimiento se llama <em>derivación</em>, y
-consiste en ir sustituyendo, de izquierda a derecha, los símbolos no
-terminales que vayamos encontrando por su correspondiente definición (lo
-que hay a la derecha del <span style="color:teal">::=</span> ).</p></li>
+<li><p>Para ello, comprobamos si es posible
+<strong><em>derivar</em></strong> esa frase a partir de las producciones
+de la gramática, partiendo del <strong>símbolo inicial</strong>, que
+siempre es el primer símbolo no terminal que aparece en la gramática (en
+este caso, <span style="color:teal">⟨<em>frases</em>⟩</span>).</p></li>
+<li><p>Cada paso del procedimiento se llama
+<strong><em>derivación</em></strong>, y consiste en ir sustituyendo, de
+izquierda a derecha, los símbolos no terminales que vayamos encontrando
+por su correspondiente definición (lo que hay a la derecha del
+<strong><span style="color:teal">::=</span> </strong>).</p></li>
 <li><p>Iremos avanzando mientras encontremos símbolos terminales que
 coincidan con los de la frase.</p></li>
 <li><p>El procedimiento finalizará con éxito cuando se acabe la frase, o
