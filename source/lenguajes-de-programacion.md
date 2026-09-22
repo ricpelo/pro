@@ -252,7 +252,7 @@ adverbio -> mucho
 
 !EJERCICIOS
 
-@. Comprobar si son sintácticamente correctas las siguientes frases según la
+@. Comprobar si son sintácticamente válidas las siguientes frases según la
    gramática anterior:
 
      a. `la vaca corre.`
@@ -285,9 +285,9 @@ adverbio -> mucho
   textos válidos que resulta imposible o muy difícil expresar mediante
   formalismos sintácticos estándar como los que acabamos de ver.
 
-- Es decir: hay programas sintácticamente correctos que, sin embargo, no
-  resultan ser programas válidos según las reglas de la semántica estática del
-  lenguaje.
+- Es decir: hay programas sintácticamente válidos que, sin embargo, no
+  resultan ser programas correctos según las reglas de la semántica estática
+  del lenguaje.
 
 - La semántica estática de un lenguaje está fuertemente relacionada con su
   **sistema de tipos**.
@@ -298,13 +298,13 @@ adverbio -> mucho
 
   - Comprobar que los tipos de los datos a operar son los correctos:
 
-    Si intentamos hacer `4 + 'hola'`, sintácticamente puede ser correcto pero
+    Si intentamos hacer `4 + 'hola'`, sintácticamente puede ser válido pero
     no tiene sentido sumar una cadena a un número.
 
   - Comprobar que un nombre está ligado a un valor antes de usarlo en una
     expresión.
 
-    Sintácticamente puede ser correcto hacer `4 + x`, pero si no se sabe qué es
+    Sintácticamente puede ser válido hacer `4 + x`, pero si no se sabe qué es
     `x`, el programa no puede realizar la operación.
 
   - Comprobar que el número y tipo de argumentos en la llamada a una función
@@ -318,13 +318,13 @@ adverbio -> mucho
 ---
 
 - En el ejemplo que vimos de los niños y las vacas, hemos encontrado frases
-  sintácticamente correctas según la gramática pero que no son completamente
+  sintácticamente válidas según la gramática pero que no son completamente
   correctas o lógicas.
 
 - Por ejemplo, la frase «`la niño grande salta poco.`» es sintácticamente
-  correcta (podemos derivarla a partir del símbolo inicial de la gramática),
-  pero sabemos que no es _completamente_ correcta porque no hay concordancia de
-  género entre el artículo `la` y el sustantivo `niño`.
+  válida (podemos derivarla a partir del símbolo inicial de la gramática),
+  pero sabemos que no es correcta porque no hay concordancia de género entre el
+  artículo `la` y el sustantivo `niño`.
 
 - Ese error de concordancia es un error de semántica estática.
 
