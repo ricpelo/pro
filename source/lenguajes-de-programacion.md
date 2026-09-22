@@ -19,37 +19,53 @@ conjunto de **instrucciones** que permiten a un programador escribir programas
 destinados a controlar el comportamiento físico y lógico de un ordenador.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
----
-
 - Un **programa** es la **codificación de un algoritmo** en un lenguaje de
   programación.
 
-- Por tanto: cuando escribimos un algoritmo en un lenguaje de programación,
+- Por tanto, cuando escribimos un algoritmo en un lenguaje de programación,
   obtenemos un programa.
-
-- Como todo lenguaje formal, un lenguaje de programación se define por:
-
-  #. un conjunto de **símbolos** (llamado _alfabeto_),
-
-  #. **reglas gramaticales** (léxico/morfológicas y sintácticas) y
-
-  #. **reglas semánticas**, que en conjunto definen qué textos son válidos en
-     el lenguaje y qué significado tienen.
 
 ---
 
-- Más formalmente, un lenguaje de programación viene definido por:
+- Un lenguaje de programación viene definido por:
 
   #. **Sintaxis**: la forma visible del lenguaje, determinado por su alfabeto y
      sus reglas gramaticales.
 
+     Responde a la pregunta: «_¿Esto está bien escrito?_».
+
   #. **Semántica estática**: las restricciones que tiene que cumplir un
      programa para que sea correcto aunque sea sintácticamente válido.
 
+     Responde a la pregunta: «_¿Esto tiene sentido?_».
+
   #. **Semántica dinámica**: el significado de cada construcción del lenguaje.
 
-  #. **Biblioteca estándar**: el conjunto de utilidades básicas que acompañan
-     al lenguaje.
+     Responde a la pregunta: «_¿Qué significa esto?_».
+
+  #. **Biblioteca estándar**: el conjunto de funcionalidades básicas que
+     acompañan al lenguaje.
+
+     Responde a la pregunta: «_¿Qué puedo empezar a hacer con él?_».
+
+!EJEMPLOS
+
+- La frase «`El niño come una manzana`» está bien escrita, tiene sentido y
+  significa que hay un niño que se come una manzana.
+
+- La frase «`Niño el come manzana una`» no está bien escrita, porque la
+  sintaxis del idioma español dice que el artículo va antes que el sustantivo,
+  y no al revés.
+
+  Hay un problema de _sintaxis_.
+
+- La frase «`La niño come una manzana`» está bien escrita según la sintaxis
+  pero no tiene sentido porque no hay concordancia de género entre el artículo
+  «`La`» y el sustantivo «`niño`».
+
+  Hay un problema de _semántica estática_.
+
+- Si una frase no está bien escrita o no tiene sentido, no tiene significado.
 
 ### Sintaxis
 
@@ -162,7 +178,7 @@ destinados a controlar el comportamiento físico y lógico de un ordenador.
 
 ---
 
-- Las gramáticas sirven para **_reconocer_ o _producir_ frases válidas** en
+- Las gramáticas sirven para **_reconocer_ o _producir_ frases válidas** de
   un determinado lenguaje.
 
 - Por ejemplo, podemos preguntarnos si la frase «`el niño grande come mucho.`»
