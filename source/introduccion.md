@@ -1014,6 +1014,36 @@ Un algoritmo es un método para resolver un problema.
 5. Se termina cuando sólo queda una persona en pie, y su suma será el conteo
    final.
 
+### Cualidades deseables
+
+- **Corrección**: El algoritmo debe solucionar correctamente el problema.
+
+- **Claridad**: Debe ser legible y comprensible para el ser humano.
+
+- **Generalidad**: Un algoritmo debe resolver problemas generales. Por ejemplo,
+  un algoritmo que sume dos números enteros debe servir para sumar cualquier
+  pareja de números enteros, y no, solamente, para sumar dos números
+  determinados, como pueden ser el 3 y el 5.
+
+- **Eficiencia**: Un algoritmo es mejor cuanto menos recursos (tiempo,
+  espacio...) necesita para resolver el problema. Por eso no debe realizar
+  pasos innecesarios ni recordar más información de la necesaria.
+
+- **Sencillez**: Hay que intentar que la solución sea sencilla, aun a costa de
+  perder un poco de eficiencia; es decir, se tiene que buscar un equilibrio
+  entre la claridad y la eficiencia.
+
+- **Modularidad**: Un algoritmo puede formar parte de la solución a un problema
+  mayor. A su vez, dicho algoritmo puede descomponerse en otros si esto
+  favorece a la claridad del mismo.
+
+---
+
+> «Make it correct, make it clear, make it concise, make it fast. In that
+> order.»
+>
+> -– Wes Dyer
+
 ### Representación
 
 :::::: {.columns}
@@ -1114,13 +1144,12 @@ Determinar cuál es el máximo de dos números
   eficiencia o la complejidad del algoritmo.
 
 - En ese sentido, se usa como un lenguaje de programación *idealizado*, es
-  decir, una _abstracción_ de un lenguaje de programación real en el que no se
+  decir, una _abstracción_ de un lenguaje de programación real donde no se
   tienen en cuenta ciertos detalles que resultan innecesarios para entender el
   funcionamiento del algoritmo.
 
-- Por ejemplo, en general no nos tenemos que preocupar de si el resultado de
-  sumar dos números enteros sobrepasa el tamaño máximo establecido para
-  almacenar un entero.
+- Por ejemplo, normalmente no nos tendremos que preocupar por el tamaño de los
+  números, así que supondremos que siempre «caben» en la memoria.
 
 !EJEMPLO
 
@@ -1151,8 +1180,8 @@ Determinar cuál es el máximo de dos números
 
 - Lo más apropiado sería usar un pseudocódigo que se parezca lo más posible al
   lenguaje de programación con el que finalmente se escribirá el programa, de
-  forma que la tarea de traducir el algoritmo en su correspondiente programa
-  sea lo más fácil y directa posible.
+  forma que la tarea de traducir el algoritmo a su correspondiente programa sea
+  lo más fácil y directa posible.
 
 - Por ejemplo, el algoritmo anterior sería relativamente fácil de traducir a
   _lenguaje ensamblador_ o _lenguaje máquina_, ya que las instrucciones que se
@@ -1161,29 +1190,6 @@ Determinar cuál es el máximo de dos números
 
 - En cambio, sería bastante más complicado traducirlo a un lenguaje funcional
   como Haskell, donde no existen esas instrucciones.
-
-### Cualidades deseables
-
-- **Corrección**: El algoritmo debe solucionar correctamente el problema.
-
-- **Claridad**: Debe ser legible y comprensible para el ser humano.
-
-- **Generalidad**: Un algoritmo debe resolver problemas generales. Por ejemplo,
-  un algoritmo que sume dos números enteros debe servir para sumar cualquier
-  pareja de números enteros, y no, solamente, para sumar dos números
-  determinados, como pueden ser el 3 y el 5.
-
-- **Eficiencia**: Un algoritmo es mejor cuanto menos recursos (tiempo,
-  espacio...) necesita para resolver el problema. Por eso no debe realizar
-  pasos innecesarios ni recordar más información de la necesaria.
-
-- **Sencillez**: Hay que intentar que la solución sea sencilla, aun a costa de
-  perder un poco de eficiencia; es decir, se tiene que buscar un equilibrio
-  entre la claridad y la eficiencia.
-
-- **Modularidad**: Un algoritmo puede formar parte de la solución a un problema
-  mayor. A su vez, dicho algoritmo puede descomponerse en otros si esto
-  favorece a la claridad del mismo.
 
 ### Computabilidad
 
@@ -1312,7 +1318,7 @@ La respuesta es que **NO**.
 - La eficiencia de un algoritmo se mide en función del **consumo de recursos**
   que necesita el algoritmo para su ejecución.
 
-  - Los principales recursos son el **tiempo** y el **espacio**.
+  Los principales recursos son el **tiempo** y el **espacio**.
 
 - Dados dos algoritmos distintos que resuelvan el mismo problema, en general
   nos interesará usar el más eficiente de ellos (al margen de otras
@@ -1420,14 +1426,16 @@ La respuesta es que **NO**.
 - El texto del programa escrito en ese lenguaje de programación se denomina
   **programa fuente** o **código fuente**.
 
-- «_Programar_», muy resumidamente, consiste en escribir el código fuente de un
-  programa (proceso que se denomina _codificación_), y es lo que producen los
-  _programadores_ (o sea, nosotros) como resultado de su trabajo, aunque en
-  realidad es una tarea mucho más compleja que consta de más pasos que veremos
-  posteriormente.
+- Los _programadores_ producen código fuente como resultado de su trabajo,
+  aunque en realidad «programar» es una tarea mucho más compleja que consta de
+  varios pasos, no sólo teclear código fuente.
 
-- «_Codificar_» consiste en _reescribir_ un algoritmo en un programa escrito en
-  un determinado lenguaje de programación.
+- Al proceso de escribir el código fuente de un programa se le denomina
+  **_codificación_**, pero no hay que confundirlo con la _codificación de
+  información_.
+
+  Aquí, «_codificar_» consiste en _reescribir_ un algoritmo en un programa
+  escrito en un determinado lenguaje de programación.
 
   Por ello, a veces se usa el término _codificar_ como sinónimo de _programar_,
   si bien no son exactamente lo mismo.
