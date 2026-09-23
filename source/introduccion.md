@@ -732,22 +732,22 @@ conjunto de reglas preestablecidas.
   enteros es un **problema general**, ya que una solución al problema serviría
   para resolver cualquier caso particular de ese problema general.
 
-  - Por ejemplo, esa solución al problema general me serviría para calcular la
-    suma de 4 y 3, de 9 y 5, de 12 y 38, ... De hecho, infinitos casos
-    particulares.
+  Por ejemplo, esa solución al problema general me serviría para calcular la
+  suma de 4 y 3, de 9 y 5, de 12 y 38, ... De hecho, infinitos casos
+  particulares.
 
 ### Ejemplares de un problema
 
 - A los casos particulares de un problema general se les denomina
   **ejemplares** del problema.
 
-  - Por ejemplo, la pareja $(4, 3)$ es un ejemplar del problema general de
-    sumar dos números enteros.
+  Por ejemplo, la pareja $(4, 3)$ es un ejemplar del problema general de sumar
+  dos números enteros.
 
 - Normalmente, un problema consistirá en una colección infinita de ejemplares.
 
-  - Pero también hay problemas finitos (aunque muy grandes) como el de jugar
-    perfectamente al ajedrez.
+  Pero también hay problemas finitos (aunque muy grandes) como el de jugar
+  perfectamente al ajedrez.
 
 - La solución a un problema debe resolver correctamente todos los ejemplares
   del mismo, es decir, debe resolver el problema general de forma que sirva
@@ -758,17 +758,17 @@ conjunto de reglas preestablecidas.
 - El **dominio de definición** de un problema describe con precisión el
   conjunto de sus ejemplares.
 
-  - Por ejemplo: en el problema de sumar dos números enteros, sus ejemplares
-    serán cualquier pareja de números enteros (no vale que los números sean
-    reales o fracciones). Ese es su dominio de definición.
+  Por ejemplo: en el problema de sumar dos números enteros, sus ejemplares
+  serán cualquier pareja de números enteros (no vale que los números sean
+  reales o fracciones). Ese es su dominio de definición.
 
 - La solución al problema debe centrarse en el dominio de definición del
   problema, y no está obligado a resolver ejemplares que se encuentren fuera de
   dicho dominio de definición.
 
-  - Por ejemplo: un programa que resuelva correctamente el problema de sumar
-    dos números enteros no tiene por qué funcionar correctamente si intentamos
-    usarlo para sumar dos fracciones.
+  Por ejemplo: un programa que resuelva correctamente el problema de sumar dos
+  números enteros no tiene por qué funcionar correctamente si intentamos usarlo
+  para sumar dos fracciones.
 
 ### Jerarquías de generalización
 
@@ -777,8 +777,8 @@ conjunto de reglas preestablecidas.
   también son ejemplares de $P$, y además hay ejemplares de $P$ que no lo son
   de $Q$.
 
-  - Es otra forma de decir que el conjunto de ejemplares de $Q$ es un
-    *subconjunto propio* del conjunto de ejemplares de $P$.
+  Es otra forma de decir que el conjunto de ejemplares de $Q$ es un
+  *subconjunto propio* del conjunto de ejemplares de $P$.
 
 - Igualmente, se dice que $Q$ es un problema **menos general** o **más
   particular** que el problema $P$ (o bien, que es una **especialización** del
@@ -1979,7 +1979,7 @@ frase sus características básicas.
   se debe optar por diseñar otro algoritmo más eficiente.
 
 - Los algoritmos ineficientes sólo resultan útiles cuando el tamaño del
-  problema es relativamente pequeño.
+  ejemplar del problema es relativamente pequeño.
 
 - Hay que tener en cuenta que existen problemas para los que no se conoce
   ningún algoritmo eficiente.
