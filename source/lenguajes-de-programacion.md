@@ -633,38 +633,20 @@ diseño.
 
 - Ejemplos de lenguajes de alto nivel:
 
-  :::: columns
-
-  ::: column
-
-  - Fortran
-  - LISP
-  - COBOL
-  - BASIC
-  - Pascal
-  - C
-  - Java
-
-  :::
-
-  ::: column
-
-  - Ruby
-  - C++
-  - Python
-  - JavaScript
-  - C#
-  - PHP
-  - Haskell
-
-  :::
-
-  ::::
+  ------------- -------------------------------------------------- ---------------
+  Fortran       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   Ruby
+  LISP          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   C++
+  COBOL         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   Python
+  BASIC         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   JavaScript
+  Pascal        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   C#
+  C             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   PHP
+  Java          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   Haskell
+  ------------- -------------------------------------------------- ---------------
 
 !EJERCICIO
 
 @. Ordena cronológicamente la lista anterior por el año de creación de cada
-lenguaje.
+   lenguaje.
 
 ## Por generación
 
