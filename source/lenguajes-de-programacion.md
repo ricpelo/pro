@@ -726,7 +726,7 @@ lenguaje.
 
   - Lenguajes multiparadigma.
 
-# Traductores e intérpretes
+# Traductores
 
 ## Traductores
 
