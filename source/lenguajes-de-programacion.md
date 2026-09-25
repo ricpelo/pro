@@ -1100,9 +1100,9 @@ F -> Analizador
 
   - Software privativo.
 
-  - Software libre.
-
   - Software gratuito (_freeware_).
+
+  - Software libre.
 
 ### Dominio público
 
