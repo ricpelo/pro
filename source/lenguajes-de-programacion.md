@@ -353,6 +353,26 @@ adverbio -> mucho
   manera informal en la documentación del lenguaje en función de los
   **efectos** que produce cada construcción del lenguaje dentro de un programa.
 
+### Marco general de un lenguaje
+
+- Al estudiar un nuevo lenguaje por primera vez, lo que un programador debería
+  conocer nada más empezar es lo siguiente:
+
+  - Cuales son los **elementos primitivos** del lenguaje.
+
+    Ejemplo: números, operadores, nombres, etc.
+
+  - Cuáles son los **medios de combinación** que me permiten crear elementos
+    más complejos a partir de otros elementos.
+
+    Ejemplo: expresiones, estructuras de control, etc.
+
+  - Cuáles son los **medios de abstracción** que me permiten crear
+    abstracciones o elementos cuyo diseño interno queda oculto y pueden usarse
+    sin saber cómo están formados por dentro.
+
+    Ejemplo: funciones, módulos, clases, etc.
+
 # Evolución histórica
 
 ## Evolución histórica
