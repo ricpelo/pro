@@ -368,8 +368,9 @@ adverbio -> mucho
     Ejemplo: expresiones, estructuras de control, etc.
 
   - Cuáles son los **medios de abstracción** que me permiten crear
-    abstracciones o elementos cuyo diseño interno queda oculto y pueden usarse
-    sin saber cómo están formados por dentro.
+    abstracciones, es decir, elementos cuyo diseño interno queda oculto y
+    pueden usarse sin saber cómo están formados por dentro, como si fuera un
+    elemento primitivo del lenguaje.
 
     Ejemplo: funciones, módulos, clases, etc.
 
