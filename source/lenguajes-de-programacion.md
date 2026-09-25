@@ -1695,7 +1695,7 @@ Es decir: freeware ≠ software libre
   El mensaje que obtengamos puede que no sea exactamente igual, pero es
   importante comprobar que estamos usando Python 3 y no 2.
 
-- Para salir, se pulsa `Ctrl+D` en Ubuntu o `Ctrl+Z` en Windows.
+- Para salir, se pulsa `Ctrl+D` en Debian o `Ctrl+Z` en Windows.
 
 - El `>>>` es el *prompt* del intérprete de Python, desde el que se ejecutan
   las expresiones y sentencias que tecleemos:
