@@ -824,7 +824,7 @@ cg [label = "(caso general)"]
 
 - Veamos cada paso por separado con detalle.
 
-!UNUN(Paso 1: Abstracción como proceso)
+!UNUN(Paso 1: Abstracción como proceso mental)
 
 - Partimos de casos particulares que se parecen. Por ejemplo, supongamos las
   siguientes expresiones:
@@ -1038,10 +1038,10 @@ cg [label = "(caso general)"]
     solo sus características esenciales y ocultando los detalles irrelevantes
     para el contexto en el que se está usando o estudiando.
 
-  - En la práctica, también es el producto resultante de ese proceso. En ese
-    caso, la abstracción se construye dándole un nombre a una caja negra que
-    expone la información necesaria para saber _qué_ hace la abstracción y
-    oculta los detalles necesarios para saber _cómo_ lo hace.
+  - También se llama así al producto resultante de ese proceso. En ese caso, la
+    abstracción se construye dándole un nombre a una caja negra que expone la
+    información necesaria para saber _qué_ hace la abstracción y oculta los
+    detalles necesarios para saber _cómo_ lo hace.
 
 ---
 

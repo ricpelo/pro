@@ -254,7 +254,7 @@ nocite: |
   es una **sentencia**) con la que vamos a poder hacer **definiciones**.
 
 - A esa sentencia la llamaremos **definición**, y expresa el hecho de que **un
-  _nombre_ representa un _valor_**.
+  _nombre_ representa un _valor_** (o sea, «_le damos un nombre_» a ese valor).
 
 - Las definiciones tienen la siguiente sintaxis:
 
@@ -272,8 +272,18 @@ nocite: |
   A partir de ese momento, el identificador !PYTHON(x) representa el valor
   !PYTHON(25) (por lo que la expresión !PYTHON(x) vale !PYTHON(25)).
 
-  Y si !PYTHON(x) vale !PYTHON(25), la expresión !PYTHON(2 + x * 3) vale
+  Y como !PYTHON(x) vale !PYTHON(25), la expresión !PYTHON((2 + x * 3)) vale
   !PYTHON(77).
+
+!UNUN(Abstracciones)
+
+- Darle un nombre a algo es la forma más básica de crear una **abstracción**.
+
+- En el momento en que podemos usar una cosa simplemente sabiendo su nombre,
+  sin tener que conocer los detalles internos de esa cosa, tenemos una
+  abstracción.
+
+- Este concepto se ampliará y definirá con precisión en temas posteriores.
 
 ## Identificadores y ligaduras (*binding*!ifdef(HTML)(&nbsp;)())
 
