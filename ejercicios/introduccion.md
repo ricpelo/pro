@@ -26,7 +26,8 @@ author:
          los problemas (i), (ii) y (iv).
 
 @. Pregunta a tu profesor en qué consiste el algoritmo de la **suma lenta**
-   para resolver el problema de sumar dos números enteros.
+   (una forma de suma basada en la aritmética de Peano) para resolver el
+   problema de sumar dos números enteros.
 
     - Se pide:
 
