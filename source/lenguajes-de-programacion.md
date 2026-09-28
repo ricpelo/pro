@@ -821,6 +821,27 @@ O [label = "Programa ejecutable\n(código máquina)", shape = note, fillcolor = 
 F -> Compilador -> E -> Ensamblador -> O
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+---
+
+- El **_tool chain_** es el nombre que se le da al proceso de coger código
+  escrito por un humano y convertirlo en algo que el ordenador pueda ejecutar
+  directamente.
+
+- En la práctica, se le llama así al conjunto de herramientas que se usan
+  durante ese proceso.
+
+- Esto incluye:
+
+  - El compilador (o _compiler_).
+
+  - El ensamblador (o _assembler_).
+
+  - El enlazador (o _linker_).
+
+  - El cargador (o _loader_).
+
+  - El depurador (o _debugger_).
+
 ## Intérpretes
 
 - Un **intérprete** es un caso muy especial de traductor.
