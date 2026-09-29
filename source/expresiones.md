@@ -27,8 +27,8 @@ nocite: |
   - Las sentencias pueden contener expresiones.
 
   - En muchos lenguajes de programación, una expresión por sí sola también es
-    una sentencia válida, ya que expresan la orden de calcular el valor de la
-    expresión.
+    una sentencia válida, ya que se puede ver como la orden de calcular el
+    valor de la expresión.
 
 ---
 
