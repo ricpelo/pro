@@ -342,8 +342,9 @@ abstracto, al que denominamos el **valor** de la expresión.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Tipo (o tipo de datos):**
 
-Es un conjunto de **valores** que, indirectamente, define también el conjunto
-de **operaciones** que se pueden realizar sobre esos valores.
+Es un conjunto de **valores** que comparten características comunes, incluyendo
+también el conjunto de **operaciones** que se pueden realizar sobre esos
+valores.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 !CAJA
@@ -365,7 +366,8 @@ dato.
   que contiene, y podemos manipular esos datos a través de las **operaciones**
   que actúan sobre ellos dentro de la expresión.
 
-- Por extensión, el **_tipo_ de una expresión** es el tipo al que pertenece el valor de esa expresión.
+- Por extensión, el **_tipo_ de una expresión** es el tipo al que pertenece el
+  valor de esa expresión.
 
 !CAJA
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
