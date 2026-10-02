@@ -38,15 +38,6 @@ author:
     e. !PYTHON((3.0) + (2 * (18 - 4 ** 2)))
     f. !PYTHON((16 * 6) - (3) * 2)
 
-@. Usar la función !PYTHON(math.sqrt) para escribir dos expresiones en Python
-   que calculen las dos soluciones a la ecuación de segundo grado
-   $$ax^2+bx+c=0.$$
-
-    Recordar que las soluciones son:
-    
-    $$x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
-      x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}$$
-
 @. Escribir como expresiones algebraicas las siguientes expresiones escritas en
    lenguaje Python:
 

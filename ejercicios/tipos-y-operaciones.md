@@ -9,7 +9,16 @@ author:
   IES Doñana
 ---
 
-#. Evaluar las siguientes expresiones escritas en lenguaje Python:
+@. Usar la función !PYTHON(math.sqrt) para escribir dos expresiones en Python
+   que calculen las dos soluciones a la ecuación de segundo grado
+   $$ax^2+bx+c=0.$$
+
+    Recordar que las soluciones son:
+    
+    $$x_1 = -b + \frac{\sqrt{b^2-4ac}}{2a},\quad
+      x_2 = -b - \frac{\sqrt{b^2-4ac}}{2a}$$
+
+@. Evaluar las siguientes expresiones escritas en lenguaje Python:
 
     a. !PYTHON(9 – 5 – 3)
     b. !PYTHON(2 // 3 + 3 / 5)
@@ -24,55 +33,57 @@ author:
     k. !PYTHON(math.cos(math.sqrt(4)))
     l. !PYTHON(math.trunc(815.66) + round(815.66))
 
-#. Evaluar las siguientes expresiones escritas en lenguaje Python:
+\newpage
 
-   #. !PYTHON(True and False or not (1 <= 5) and not True == True)
+@. Evaluar las siguientes expresiones escritas en lenguaje Python:
 
-   #. !PYTHON(not (4 > 5 and 'Hola' > 'hola'))
+    #. !PYTHON(True and False or not (1 <= 5) and not True == True)
 
-#. ¿Qué valores deben tener `a` y `b` para que las siguientes expresiones
+    #. !PYTHON(not (4 > 5 and 'Hola' > 'hola'))
+
+@. ¿Qué valores deben tener `a` y `b` para que las siguientes expresiones
    valgan !PYTHON(True)?
 
-   #. !PYTHON(a and not b or not (a or b))
+    #. !PYTHON(a and not b or not (a or b))
+ 
+    #. !PYTHON(not (a and b) or not a and (b or not b))
 
-   #. !PYTHON(not (a and b) or not a and (b or not b))
-
-#. Demostrar los siguientes teoremas del álgebra de Boole, suponiendo que $A$,
+@. Demostrar los siguientes teoremas del álgebra de Boole, suponiendo que $A$,
    $B$ y $C$ toman valores lógicos:
 
-   #. $A + AB = A$
+    #. $A + AB = A$
 
-   #. $A(A + B) = A$
+    #. $A(A + B) = A$
 
-   #. $AB + A\overline{B} = A$
+    #. $AB + A\overline{B} = A$
 
-   #. $(A + B)(A + \overline{B}) = A$
+    #. $(A + B)(A + \overline{B}) = A$
 
-   #. $A + A\overline{B} = A + B$
+    #. $A + A\overline{B} = A + B$
 
-   #. $A(\overline{A} + B) = AB$
+    #. $A(\overline{A} + B) = AB$
 
-   #. $A + BC = (A + B)(A + C)$
+    #. $A + BC = (A + B)(A + C)$
 
-   #. $AB + \overline{A}C = (A + C)(\overline{A} + B)$
+    #. $AB + \overline{A}C = (A + C)(\overline{A} + B)$
 
-   #. $(A + B)(\overline{A} + C) = AC + \overline{A}B$
+    #. $(A + B)(\overline{A} + C) = AC + \overline{A}B$
 
-   #. $AB + \overline{A}C + BC = AB + \overline{A}C$
+    #. $AB + \overline{A}C + BC = AB + \overline{A}C$
 
-   #. $(A + B)(\overline{A} + C)(B + C) = (A + B)(\overline{A} + C)$
+    #. $(A + B)(\overline{A} + C)(B + C) = (A + B)(\overline{A} + C)$
 
-   #. $\overline{\overline{A}B + A\overline{B}} = AB +
-      \overline{A}\cdot\overline{B}$
+    #. $\overline{\overline{A}B + A\overline{B}} = AB +
+       \overline{A}\cdot\overline{B}$
 
-#. Simplificar las siguientes expresiones lógicas, suponiendo que $A$, $B$, $C$
+@. Simplificar las siguientes expresiones lógicas, suponiendo que $A$, $B$, $C$
    y $D$ toman valores lógicos:
 
-   #. $\overline{\overline{A}(C + D) + \overline{B}(A + D) +
-      \overline{A}\cdot\overline{B}\cdot\overline{C}}$
+    #. $\overline{\overline{A}(C + D) + \overline{B}(A + D) +
+       \overline{A}\cdot\overline{B}\cdot\overline{C}}$
 
-   #. $\overline{\overline{X} + \overline{Y}Z + U(\overline{V + Z})}$
+    #. $\overline{\overline{X} + \overline{Y}Z + U(\overline{V + Z})}$
 
-   #. $\overline{\overline{X}Y + X\overline{Y}}$
+    #. $\overline{\overline{X}Y + X\overline{Y}}$
 
-   #. $\overline{A + \overline{B} + \overline{CD}}$
+    #. $\overline{A + \overline{B} + \overline{CD}}$
