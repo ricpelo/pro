@@ -1599,14 +1599,16 @@ $$
 
 - Esa signatura nos dice que:
 
-  - La función se llama !PYTHON(abs).
+  - La función se llama !PYTHON(abs), así que !PYTHON(abs) es un nombre que
+    representa a la función _valor absoluto_.
 
   - Tiene un único parámetro llamado $\underline{x}$ que puede tomar cualquier
     valor de tipo !PYTHON{int} (un número _entero_).
 
     Por tanto, los argumentos que puede recibir la función (sus datos de
-    entrada) deben ser valores numéricos de tipo entero, ya que los parámetros
-    de una función representan a los argumentos dentro de la función.
+    entrada) deben ser valores numéricos de tipo _entero_, ya que los
+    parámetros de una función representan a los argumentos dentro de la
+    función.
 
   - Su tipo de retorno es !PYTHON(int), por lo que devuelve como resultado un
     número _entero_.
@@ -1617,9 +1619,10 @@ $$
 
 ---
 
-- Las funciones, como cualquier otro valor, también tienen un tipo. Por
-  ejemplo, en Matemáticas y en Teoría de tipos, el tipo de una función se puede
-  representar así:
+- **Las funciones, como cualquier otro valor, también tienen un tipo**.
+
+  Por ejemplo, en Matemáticas y en Teoría de tipos, el tipo de una función se
+  puede representar así:
 
     $abs: \mathbb{Z} \longrightarrow \mathbb{Z}$
 
