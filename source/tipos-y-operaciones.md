@@ -67,30 +67,33 @@ nocite: |
 
 - Las disciplinas de tipos se caracterizan por dos propiedades principales:
 
-  - **Cuándo se aplican** esas reglas en un lenguaje real, lo que da lugar a
-    dos posibilidades mutuamente excluyentes:
+  #. **Cuándo se aplican** esas reglas en un lenguaje real, lo que da lugar a
+     dos posibilidades mutuamente excluyentes:
 
-    - **Tipado estático**: se aplican en tiempo de compilación, en una fase
-      previa a la ejecución.
+     - **Tipado estático**: se aplican en tiempo de compilación, en una fase
+       previa a la ejecución, lo que exige que los elementos del programa nunca
+       cambien su tipo.
 
-    - **Tipado dinámico**: se aplican en tiempo de ejecución, durante la
-      evaluación de las expresiones.
+     - **Tipado dinámico**: se aplican en tiempo de ejecución, durante la
+       evaluación de las expresiones, lo que permite que los elementos del
+       programa puedan cambiar su tipo durante su ejecución.
 
-  - **Qué tan estrictamente** se aplica, lo que da lugar a otras dos
-    posibilidades mutuamente excluyentes:
+  #. **Qué tan estrictamente** se aplica, lo que da lugar a otras dos
+     posibilidades mutuamente excluyentes:
 
-    - **Tipado fuerte**: el lenguaje impide conversiones implícitas peligrosas.
+     - **Tipado fuerte**: el lenguaje impide conversiones implícitas
+       peligrosas.
 
-    - **Tipado débil**: se permiten ciertas conversiones implícitas peligrosas
-      o ambiguas.
+     - **Tipado débil**: se permiten ciertas conversiones implícitas peligrosas
+       o ambiguas.
 
 ---
 
 - Por tanto, la disciplina de tipos de un lenguaje se describe diciendo:
 
-  - si es estático o dinámico, y
+  #. si es estático o dinámico, y
 
-  - si es fuerte o débil.
+  #. si es fuerte o débil.
 
 - Por ejemplo:
 
@@ -165,7 +168,9 @@ nocite: |
     tipos.
 
   - Los elementos del programa tienen un tipo fijo que no cambia en tiempo de
-    ejecución, ya que los tipos de los operandos y argumentos nunca cambian.
+    ejecución. Por tanto, los nombres que aparecen en un programa siempre hacen
+    referencia a valores cuyos tipos están definidos y conocidos en tiempo de
+    compilación.
 
 ---
 
@@ -179,9 +184,10 @@ nocite: |
   - La comprobación de tipos ocurre durante la ejecución, es decir, durante la
     evaluación de las expresiones.
 
-  - Los elementos del programa tienen un tipo que puede variar durante la
-    ejecución del programa, ya que el tipo se comprueba durante la evaluación
-    de las expresiones y ésta depende del tipo de los operandos y argumentos.
+  - Los elementos del programa tienen un tipo que puede variar durante su
+    ejecución, ya que el tipo se comprueba durante la evaluación de las
+    expresiones y los nombres pueden hacer referencia a diferentes valores de
+    diferentes tipos según el momento.
 
 ## Tipado fuerte vs. débil
 
@@ -211,12 +217,12 @@ nocite: |
     construcción u operación del lenguaje.
 
 - Los lenguajes de tipado fuerte no realizan conversiones implícitas de tipos
-  salvo excepciones muy concretas (por ejemplo, conversiones entre enteros y
-  reales en expresiones aritméticas).
+  salvo excepciones muy concretas (por ejemplo, promociones de enteros a reales
+  en expresiones aritméticas).
 
-- Los lenguajes de tipado débil se caracterizan, precisamente, por realizar
-  conversiones implícitas cuando, en una expresión, el tipo de un valor no se
-  corresponde con el tipo necesario.
+- Los lenguajes de tipado débil se caracterizan por realizar conversiones
+  implícitas cuando, en una expresión, el tipo de un valor no se corresponde
+  con el tipo esperado en ese lugar de la expresión.
 
 ---
 
@@ -378,13 +384,13 @@ nocite: |
    `/`     División real       !PYTHON(3 / 4)      !PYTHON(0.75)      Devuelve un
                                                                       !PYTHON(float)
 
-   `%`     Módulo              !PYTHON(4 % 3) \    !PYTHON(1) \       Resto de la división
-                               !PYTHON(8 % 3)      !PYTHON(2)
+   `%`     Módulo              !PYTHON(5 % 3) \    !PYTHON(2) \       Resto de la división
+                               !PYTHON(9 % 3)      !PYTHON(0)
 
    `**`    Exponente           !PYTHON(3 ** 4)     !PYTHON(81)        Devuelve $3^4$
 
-   `//`    División            !PYTHON(4 // 3) \   !PYTHON(1) \       \hfill{} \
-           hacia abajo         !PYTHON(-4 // 3)    !PYTHON(-2)        ¿¿Por qué??
+   `//`    División            !PYTHON(5 // 3) \   !PYTHON(1) \       \hfill{} \
+           hacia abajo         !PYTHON(-5 // 3)    !PYTHON(-2)        ¿¿Por qué??
 --------------------------------------------------------------------------------------------
 
 ## Funciones numéricas predefinidas

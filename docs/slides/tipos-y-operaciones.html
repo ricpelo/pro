@@ -276,14 +276,17 @@ aplican esas reglas en el lenguaje.</p></li>
 <ul>
 <li><p>Las disciplinas de tipos se caracterizan por dos propiedades
 principales:</p>
-<ul>
+<ol>
 <li><p><strong>Cuándo se aplican</strong> esas reglas en un lenguaje
 real, lo que da lugar a dos posibilidades mutuamente excluyentes:</p>
 <ul>
 <li><p><strong>Tipado estático</strong>: se aplican en tiempo de
-compilación, en una fase previa a la ejecución.</p></li>
+compilación, en una fase previa a la ejecución, lo que exige que los
+elementos del programa nunca cambien su tipo.</p></li>
 <li><p><strong>Tipado dinámico</strong>: se aplican en tiempo de
-ejecución, durante la evaluación de las expresiones.</p></li>
+ejecución, durante la evaluación de las expresiones, lo que permite que
+los elementos del programa puedan cambiar su tipo durante su
+ejecución.</p></li>
 </ul></li>
 <li><p><strong>Qué tan estrictamente</strong> se aplica, lo que da lugar
 a otras dos posibilidades mutuamente excluyentes:</p>
@@ -293,7 +296,7 @@ implícitas peligrosas.</p></li>
 <li><p><strong>Tipado débil</strong>: se permiten ciertas conversiones
 implícitas peligrosas o ambiguas.</p></li>
 </ul></li>
-</ul></li>
+</ol></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.1.0.0.4">
@@ -301,10 +304,10 @@ implícitas peligrosas o ambiguas.</p></li>
 <ul>
 <li><p>Por tanto, la disciplina de tipos de un lenguaje se describe
 diciendo:</p>
-<ul>
+<ol>
 <li><p>si es estático o dinámico, y</p></li>
 <li><p>si es fuerte o débil.</p></li>
-</ul></li>
+</ol></li>
 <li><p>Por ejemplo:</p>
 <ul>
 <li><p>Python es un lenguaje de tipado dinámico y fuerte.</p></li>
@@ -386,8 +389,9 @@ durante la compilación, si el lenguaje es compilado).</p></li>
 <li><p>El programa puede ser rechazado antes de ejecutarse si hay
 errores de tipos.</p></li>
 <li><p>Los elementos del programa tienen un tipo fijo que no cambia en
-tiempo de ejecución, ya que los tipos de los operandos y argumentos
-nunca cambian.</p></li>
+tiempo de ejecución. Por tanto, los nombres que aparecen en un programa
+siempre hacen referencia a valores cuyos tipos están definidos y
+conocidos en tiempo de compilación.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -404,9 +408,9 @@ tipos.</p></li>
 <li><p>La comprobación de tipos ocurre durante la ejecución, es decir,
 durante la evaluación de las expresiones.</p></li>
 <li><p>Los elementos del programa tienen un tipo que puede variar
-durante la ejecución del programa, ya que el tipo se comprueba durante
-la evaluación de las expresiones y ésta depende del tipo de los
-operandos y argumentos.</p></li>
+durante su ejecución, ya que el tipo se comprueba durante la evaluación
+de las expresiones y los nombres pueden hacer referencia a diferentes
+valores de diferentes tipos según el momento.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -444,11 +448,11 @@ lenguaje.</p></li>
 </ul></li>
 <li><p>Los lenguajes de tipado fuerte no realizan conversiones
 implícitas de tipos salvo excepciones muy concretas (por ejemplo,
-conversiones entre enteros y reales en expresiones
-aritméticas).</p></li>
-<li><p>Los lenguajes de tipado débil se caracterizan, precisamente, por
-realizar conversiones implícitas cuando, en una expresión, el tipo de un
-valor no se corresponde con el tipo necesario.</p></li>
+promociones de enteros a reales en expresiones aritméticas).</p></li>
+<li><p>Los lenguajes de tipado débil se caracterizan por realizar
+conversiones implícitas cuando, en una expresión, el tipo de un valor no
+se corresponde con el tipo esperado en ese lugar de la
+expresión.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="1.4.0.0.2">
@@ -695,12 +699,12 @@ class="sourceCode python"><span class="bu">float</span></code></td>
 <td style="text-align: center;"><code>%</code></td>
 <td style="text-align: left;">Módulo</td>
 <td style="text-align: center;"><code
-class="sourceCode python"><span class="dv">4</span> <span class="op">%</span> <span class="dv">3</span></code><br />
+class="sourceCode python"><span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span></code><br />
 <code
-class="sourceCode python"><span class="dv">8</span> <span class="op">%</span> <span class="dv">3</span></code></td>
+class="sourceCode python"><span class="dv">9</span> <span class="op">%</span> <span class="dv">3</span></code></td>
 <td style="text-align: center;"><code
-class="sourceCode python"><span class="dv">1</span></code><br />
-<code class="sourceCode python"><span class="dv">2</span></code></td>
+class="sourceCode python"><span class="dv">2</span></code><br />
+<code class="sourceCode python"><span class="dv">0</span></code></td>
 <td style="text-align: left;">Resto de la división</td>
 </tr>
 <tr>
@@ -717,9 +721,9 @@ class="math inline">3^4</span></td>
 <td style="text-align: center;"><code>//</code></td>
 <td style="text-align: left;">División hacia abajo</td>
 <td style="text-align: center;"><code
-class="sourceCode python"><span class="dv">4</span> <span class="op">//</span> <span class="dv">3</span></code><br />
+class="sourceCode python"><span class="dv">5</span> <span class="op">//</span> <span class="dv">3</span></code><br />
 <code
-class="sourceCode python"><span class="op">-</span><span class="dv">4</span> <span class="op">//</span> <span class="dv">3</span></code></td>
+class="sourceCode python"><span class="op">-</span><span class="dv">5</span> <span class="op">//</span> <span class="dv">3</span></code></td>
 <td style="text-align: center;"><code
 class="sourceCode python"><span class="dv">1</span></code><br />
 <code
