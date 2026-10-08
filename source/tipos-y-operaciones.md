@@ -774,7 +774,8 @@ Función                       Descripción           Ejemplo                   
 
 - Por tanto:
 
-  - !PYTHON(max) es la función en sí (un **valor** de tipo _función_).
+  - !PYTHON(max) es un nombre que representa a la función _máximo_ (un
+    **valor** de tipo _función_).
 
   - !PYTHON(max(3, 4)) es una llamada a la función !PYTHON(max) con los
     argumentos !PYTHON(3) y !PYTHON{4} (una **operación** realizada sobre la
@@ -788,7 +789,8 @@ Función                       Descripción           Ejemplo                   
   ```
 
 - Recordemos que **las funciones no tienen expresión canónica**, por lo que el
-  intérprete no intentará nunca visualizar un valor de tipo función.
+  intérprete no intentará nunca visualizar un valor de tipo función o
+  convertirlo a forma normal.
 
 # Álgebra de Boole
 
@@ -1318,6 +1320,8 @@ de Boole.
 - Por tanto, en la expresión condicional nunca se evalúan todos sus operandos,
   sino sólo los estrictamente necesarios.
 
+  A esto se le llama **evaluación perezosa**.
+
 - Además, no se evalúan de izquierda a derecha, como es lo normal.
 
 ---
@@ -1341,6 +1345,9 @@ de Boole.
     siempre es igual a !PYTHON(False), valga lo que valga $\underline{x}$.
 
   En ambos casos no es necesario evaluar $\underline{x}$.
+
+- A esto se le llama **evaluación en cortocircuito**, un caso particular de
+  evaluación perezosa aplicada a los operadores logicos.
 
 !EJERCICIO
 
