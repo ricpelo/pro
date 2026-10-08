@@ -1654,8 +1654,9 @@ mas -> por
 
   `abs(`$x$`:` `Number)` `->` `Number`
 
-  donde !PYTHON(Number) es un tipo que representa a todos los tipos numéricos
-  en Python (como !PYTHON(int) o !PYTHON(float)).
+  donde !PYTHON(Number) es un tipo definido en el módulo !PYTHON(numbers) y que
+  representa a todos los tipos numéricos en Python (como !PYTHON(int) o
+  !PYTHON(float)).
 
 ---
 
@@ -1716,9 +1717,7 @@ mas -> por
 
 ---
 
-- En el módulo `typing` hay definidos varios tipos polimórficos:
-
-  - `Number`: Representa cualquier tipo numérico (`int`, `float`, etc.).
+- En el módulo `typing` podemos encontrar varios tipos polimórficos:
 
   - `Union`: Representa varios tipos juntos (la unión de varios tipos).
 
