@@ -792,6 +792,22 @@ Función                       Descripción           Ejemplo                   
   intérprete no intentará nunca visualizar un valor de tipo función o
   convertirlo a forma normal.
 
+---
+
+- El tipo de la función se deduce a partir de su **signatura**.
+
+  ::: {style="font-size: 0.8em;"}
+
+  Signatura                                                                                                       &nbsp;      Tipo
+  --------------------------------------------------------------------------------------------------------------- ----------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  $\texttt{abs(!VAR(x):\,int)\;->\;int}$                                                                              &nbsp;         $\texttt{int} \longrightarrow \texttt{int}$
+  $\texttt{pow(!VAR(base):\,float,\;!VAR(exp):\,float)\;->\;float}$                                                   &nbsp;         $\texttt{float} \times \texttt{float} \longrightarrow \texttt{float}$                                                                                                            
+  $\texttt{len(!VAR(cadena):\,str)\;->\;int}$                                                                         &nbsp;         $\texttt{str} \longrightarrow \texttt{int}$ 
+
+  :::
+
+- Por tanto, no hay un único tipo _función_.
+
 # Álgebra de Boole
 
 ## El tipo de dato *booleano*
