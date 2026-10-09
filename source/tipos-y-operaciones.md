@@ -798,7 +798,7 @@ Función                       Descripción           Ejemplo                   
 
   ::: {style="font-size: 0.8em;"}
 
-  Signatura                                                                                                       &nbsp;      Tipo
+  Signatura                                                                                                       &nbsp;      !ifndef(HTML)(&nbsp;&nbsp;)Tipo
   --------------------------------------------------------------------------------------------------------------- ----------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   $\texttt{abs(!VAR(x):\,int)\;->\;int}$                                                                              &nbsp;         $\texttt{int} \longrightarrow \texttt{int}$
   $\texttt{pow(!VAR(base):\,float,\;!VAR(exp):\,float)\;->\;float}$                                                   &nbsp;         $\texttt{float} \times \texttt{float} \longrightarrow \texttt{float}$                                                                                                            
