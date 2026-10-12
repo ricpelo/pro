@@ -827,8 +827,8 @@ F -> Compilador -> E -> Ensamblador -> O
   escrito por un humano y convertirlo en algo que el ordenador pueda ejecutar
   directamente.
 
-- En la práctica, se le llama así al conjunto de herramientas que se usan
-  durante ese proceso.
+- En la práctica, también se le llama así al conjunto de herramientas que se
+  usan durante ese proceso.
 
 - Esto incluye:
 
