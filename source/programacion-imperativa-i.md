@@ -611,6 +611,26 @@ y:f1 -> lista
 
 ::::
 
+---
+
+- En realidad, el intérprete de Python puede llevar a cabo una optimización
+  llamada **plegado de constantes** (_constant folding_).
+
+- Según esa optimización, ciertos valores de ciertos tipos pueden compartir
+  referencias si se dan determinadas condiciones.
+
+- Por ejemplo, el intérprete optimizaría el siguiente código para que la tupla
+  sólo se almacene una única vez en la memoria, de forma que las dos variables
+  `x` e `y` se refieran a la misma tupla no resulte evidente al principio:
+
+  ```python
+  x = (1, 2, 3, 4)
+  y = (1, 2, 3, 4)
+  ```
+
+- Por otra parte, los valores enteros comprendidos entre `-5` y `256` se
+  almacenan de forma permanente en una caché global de enteros.
+
 ## Recolección de basura
 
 - Un valor se vuelve **inaccesible** cuando no hay ninguna referencia que
@@ -945,6 +965,9 @@ y:f1 -> lista
 
 ---
 
+\begingroup
+\small
+
 -------------------------------------------------------------------
 Operador         Ejemplo                 Equivalente a
 ---------------- ----------------------- --------------------------
@@ -974,6 +997,8 @@ Operador         Ejemplo                 Equivalente a
                                       
 !PYTHON(<<=)     !PYTHON(x <<= 5 + 2)    !PYTHON(x = x << (5 + 2))
 -------------------------------------------------------------------
+
+\endgroup
 
 ---
 
@@ -1200,54 +1225,26 @@ Operador         Ejemplo                 Equivalente a
 ---
 
 - Python no incluye la instrucción *GOTO* pero se puede simular usando el
-  módulo experimental `with_goto` del paquete llamado `python-goto`:
+  módulo experimental `goto_plus`.
 
-  ```console
-  $ sudo apt install python3-pip
-  $ pip install git+https://github.com/tushar-deepsource/python-goto.git
-  ```
+- Para su instalación, se puede descargar el archivo `goto.py` desde GitHub
+  usando cualquiera de las siguientes URL y guardarlo en el directorio de
+  trabajo con el nombre `goto_plus.py`:
 
-:::: columns
+     - [`abhinav-gg/SyllyPipPackages`](https://raw.githubusercontent.com/abhinav-gg/SillyPipPackages/refs/heads/main/GoTo-Python/goto_plus/goto.py)
 
-::: {.column width=39%}
-
-- Sintaxis:
-
-  !ALGO
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(goto) ::= !T(goto) !NT(etiqueta)
-  !NT(label) ::= !T(label) !NT(etiqueta)
-  !NT(etiqueta) ::= !T(.)!NT(identificador)
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-:::
-
-::: {.column width=61%}
+     - [`ricpelo/SillyPipPackages`](https://raw.githubusercontent.com/ricpelo/SillyPipPackages/refs/heads/main/GoTo-Python/goto_plus/goto.py)
 
 - Un ejemplo de uso:
 
-  ```python
-  from goto import with_goto
+  ```{.python .number-lines}
+  from goto_plus import goto, gotoconfig
+  gotoconfig(__file__)
 
-  CODIGO = """
   i = 0
-  goto .fin
+  goto(7)
   i = 1
-  label .fin
   i = 2
-  """
-
-  exec(with_goto(compile(CODIGO, '', 'exec')))
-  ```
-
-:::
-
-::::
-
-- Si _Pylint_ o _Pylance_ se quejan de la última línea, escribirla así:
-
-  ```python
-  exec(with_goto(compile(CODIGO, '', 'exec'))) # type: ignore pylint: disable=exec-used
   ```
 
 ## Condicionales
@@ -1266,12 +1263,12 @@ Operador         Ejemplo                 Equivalente a
   **si** !NT(condición) **saltar a** (!NT(etiqueta)|!NT(número_línea))
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- En Python, usando el módulo `with_goto`, podríamos implementarlo de la
-  siguiente forma:
+- En Python, usando el módulo `goto_plus`, podríamos implementarlo usando
+  números de línea de la siguiente forma:
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(salto_condicional) ::= !T(if) !NT(condición)!T(:) !T(goto) !NT(etiqueta)
+  !NT(salto_condicional) ::= !T(if) !NT(condición)!T(:)\  !T{goto(}!NT(número_línea)!T{)}
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1284,18 +1281,16 @@ Operador         Ejemplo                 Equivalente a
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **inicio**
-  $primero \longleftarrow 2$
-  $ultimo \longleftarrow 25$
-  $suma \longleftarrow 0$
-  $i \longleftarrow primero$
-  **etiqueta** _bucle_
-  **si** $i = ultimo$ **saltar** a la etiqueta _salir_
-  $suma \longleftarrow suma + i$
-  $i \longleftarrow i + 1$
-  **saltar** a la etiqueta _bucle_
-  **etiqueta** _salir_
-  **fin**
+  1. **inicio**
+  2. $primero \longleftarrow 2$
+  3. $ultimo \longleftarrow 25$
+  4. $suma \longleftarrow 0$
+  5. $i \longleftarrow primero$
+  6. **si** $i = ultimo$ **saltar** a la línea 10
+  7. $suma \longleftarrow suma + i$
+  8. $i \longleftarrow i + 1$
+  9. **saltar** a la línea 6
+  10. **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   ¿Cuánto vale $suma$ al final?
@@ -1312,56 +1307,26 @@ Operador         Ejemplo                 Equivalente a
 
 ---
 
-- Traducción a Python usando el módulo `with_goto`:
+- Traducción a Python usando el módulo `goto_plus`:
 
-  ```python
-  from goto import with_goto
+  ```{.python .number-lines}
+  from goto_plus import goto, gotoconfig
+  gotoconfig(__file__)
 
-  CODIGO = """
   primero = 2
   ultimo = 25
-
   suma = 0
   i = primero
-
-  label .inicio
-  if i == ultimo: goto .fin
-
+  if i == ultimo: goto(12)
   suma += i
   i += 1
-  goto .inicio
-
-  label .fin
-  """
-
-  exec(with_goto(compile(CODIGO, '', 'exec')))
+  goto(8)
+  # Fin
   ```
 
 ---
 
-- También existe el paquete experimental `goto-plus`, que funciona de forma
-  similar pero usando números de línea en lugar de etiquetas.
-
-- Para su instalación, puede usarse cualquiera de estas dos vías:
-
-  1. Ejecutar el siguiente comando:
-
-     ```console
-     $ pip install goto-plus
-     ```
-
-     o bien...
-
-  2. Descargar el archivo `goto.py` desde GitHub usando cualquiera de las
-     siguientes URL y guardarlo en el directorio de trabajo con el nombre
-     `goto_plus.py`:
-
-     - [`abhinav-gg/SyllyPipPackages`](https://raw.githubusercontent.com/abhinav-gg/SillyPipPackages/refs/heads/main/GoTo-Python/goto_plus/goto.py)
-     - [`ricpelo/SillyPipPackages`](https://raw.githubusercontent.com/ricpelo/SillyPipPackages/refs/heads/main/GoTo-Python/goto_plus/goto.py)
-
----
-
-- Ejemplo:
+- Otro ejemplo:
 
   ```{.python .number-lines}
   from goto_plus import goto, gotoconfig
