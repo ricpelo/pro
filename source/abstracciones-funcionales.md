@@ -1979,6 +1979,8 @@ $$fact(n) = n\cdot fact(n-1)\quad \text{si } n > 0\quad \text{(caso recursivo)}$
 
 ---
 
+!ifdef(LATEX)()(<br>* * *<br>)
+
 --------------------------------------------------------------------------------------------
 Tipo de proceso           Número de                          Memoria necesaria
                           reducciones
