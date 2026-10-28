@@ -14,7 +14,7 @@ include-before:
   \fi
 ---
 
-#. Encontrar el valor de la variable `valor` después de la ejecución de las
+#. Hallar el valor de la variable `valor` después de la ejecución de las
    siguientes sentencias:
 
    #.
@@ -36,10 +36,42 @@ include-before:
       valor = valor * x
       ```
 
+#. Dada la siguiente tupla:
+
+    ```python
+    a = (0, 11, 22, 33, 44, 55, 66, 77, 88, 99)
+    ```
+
+    ¿Qué valor devuelven las siguientes expresiones?
+
+    #. !PYTHON(a[0:7:1])
+
+    #. !PYTHON(a[0:7:2])
+
+    #. !PYTHON(a[0:7])
+
+    #. !PYTHON(a[2:7:1])
+
+    #. !PYTHON(a[7:2:1])
+
+    #. !PYTHON(a[7:2:-1])
+
+    #. !PYTHON(a[:7:1])
+
+    #. !PYTHON(a[5::1])
+
+    #. !PYTHON(a[:-5:-1])
+
+    #. !PYTHON(a[-5::-1])
+
+    #. !PYTHON(a[5:-1:1])
+
+    #. !PYTHON(a[-1:5:-1])
+
 #. ¿Cuál es la diferencia entre `[1, 2, 3]` y `[[1, 2, 3]]`?
 
-#. Escribe un programa que salude al usuario con el mensaje «Hola. Encantado de
-   conocerle.».
+#. Escribe un programa que salude al usuario con el mensaje «`Hola. Encantado
+   de conocerle.`».
 
 #. Escribe un programa que pida un número al usuario y a continuación lo
    muestre.

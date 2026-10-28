@@ -3,7 +3,7 @@ title: Programación imperativa (II)
 author: Ricardo Pérez López
 !DATE
 nocite: |
-  @pareja_flores_desarrollo_1997, @aguilar_fundamentos_2008,@python_software_foundation_sitio_nodate
+  @pareja_flores_desarrollo_1997, @aguilar_fundamentos_2008, @python_software_foundation_sitio_nodate
 ---
 
 # Mutabilidad
@@ -270,6 +270,13 @@ z:f1 -> t4
 
 ---
 
+!ifdef(HTML)(::: {style="font-size: 0.8em;"})
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begingroup
+\small
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 --------------------------------------------------------------------------------------------------------------------------
 Operación                                 Resultado
 ----------------------------------------- --------------------------------------------------------------------------------
@@ -301,6 +308,8 @@ $s$!PYTHON(.index)`(`$x$                  El índice de la primera aparición de
 
 $s$!PYTHON(.count)`(`$x$`)`               Número total de apariciones de $\underline{x}$ en $\underline{s}$
 --------------------------------------------------------------------------------------------------------------------------
+
+!ifdef(HTML)(:::)(\endgroup)
 
 ---
 
@@ -442,29 +451,6 @@ s | P | y | t | h | o | n |
   - !PYTHON(s[:]) devuelve una _copia_ de !PYTHON(s).
 
   - !PYTHON(s[::-1]) devuelve una copia invertida de !PYTHON(s).
-
-!EJERCICIO
-
-@. Dada la siguiente tupla:
-
-    ```python
-    a = (0, 11, 22, 33, 44, 55, 66, 77, 88, 99)
-    ```
-
-    ¿Qué valor devuelven las siguientes expresiones?
-
-    a. !PYTHON(a[0:7:1])
-    b. !PYTHON(a[0:7:2])
-    c. !PYTHON(a[0:7])
-    d. !PYTHON(a[2:7:1])
-    e. !PYTHON(a[7:2:1])
-    f. !PYTHON(a[7:2:-1])
-    g. !PYTHON(a[:7:1])
-    h. !PYTHON(a[5::1])
-    i. !PYTHON(a[:-5:-1])
-    j. !PYTHON(a[-5::-1])
-    k. !PYTHON(a[5:-1:1])
-    l. !PYTHON(a[-1:5:-1])
 
 ### Valores mutables: listas
 
