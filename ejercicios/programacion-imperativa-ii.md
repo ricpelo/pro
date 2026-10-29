@@ -90,6 +90,8 @@ include-before:
 
     #. Calcular la suma del primer y el último elemento.
 
+    #. Calcular la nota media.
+
 #. Crear una lista llamada agenda con tres actividades: !PYTHON("estudiar"),
    !PYTHON("cenar"), !PYTHON("dormir").
 
