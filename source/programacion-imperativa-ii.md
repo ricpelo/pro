@@ -1801,13 +1801,13 @@ False
 - Diagrama visual:
 
   ```python
-  def g(a, b, /, c, d, *, e, f):
-           |  |     |  |     |
-           |  |     |  |     +-- parámetros sólo por palabras clave (e, f)
-           |  |     |  +-------- indica inicio de sólo palabras clave
-           |  |     +----------- parámetros posicionales o por palabras clave (c, d)
-           |  +----------------- indica fin de sólo posicionales
-           +-------------------- parámetros sólo posicionales (a, b)
+  g(a, b, /, c, d, *, e, f)
+       |  |     |  |     |
+       |  |     |  |     +-- parámetros sólo por palabras clave (e, f)
+       |  |     |  +-------- indica inicio de sólo palabras clave
+       |  |     +----------- parámetros posicionales o por palabras clave (c, d)
+       |  +----------------- indica fin de sólo posicionales
+       +-------------------- parámetros sólo posicionales (a, b)
   ```
 
 - Ejemplos de llamadas:
