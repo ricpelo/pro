@@ -1378,25 +1378,28 @@ False
 ## Efectos laterales
 
 - Un **efecto lateral** (_side effect_) es cualquier cambio de estado provocado
-  por una parte del programa (por ejemplo, una función) que puede observarse
-  desde otras partes del mismo, las cuales podrían verse afectadas por ese
-  efecto de una manera poco evidente o impredecible.
+  por una parte del programa (p. ej., una función) que puede observarse
+  fuera de la misma, es decir, desde otras partes del programa.
 
-  !CAJA
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  Una función puede provocar efectos laterales, o verse afectada por efectos
-  laterales provocados por otras partes del programa.
+- A menudo, esas partes se ven afectadas por el efecto lateral de maneras
+  que pueden resultar poco evidentes, inesperadas o impredecibles.
 
-  En cualquiera de estos casos, tendríamos una función **impura**.
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- Los casos típicos de efectos laterales en una función son:
+- Los casos típicos de efectos laterales son:
 
   - Cambiar el valor de una variable global.
 
-  - Cambiar el estado de un argumento mutable.
+  - Cambiar el estado de un argumento mutable dentro de una función.
 
   - Realizar una operación de entrada/salida.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Una **función** puede: (1) provocar efectos laterales, (2) verse afectada por
+efectos laterales provocados por otras partes del programa, o (3) ambas cosas a
+la vez.
+
+En cualquiera de estos casos, tendríamos una **función _impura_**.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -1415,7 +1418,7 @@ False
   27
   ```
 
-- Por tanto, cambiar el valor de una variable global (en cualquier parte del
+- Por tanto, cambiar el valor de una variable global (desde cualquier parte del
   programa) es considerado un **efecto lateral**, ya que puede alterar el
   comportamiento de otras partes del programa de formas a menudo impredecibles
   o poco evidentes.
@@ -1425,8 +1428,8 @@ False
 - Cuando el efecto lateral lo produce la propia función también estamos
   perdiendo transparencia referencial, pues en tal caso no podemos sustituir
   libremente la llamada a la función por su valor de retorno, ya que ahora **la
-  función hace _algo más_ que calcular dicho valor**, y ese _algo_ es un efecto
-  observable fuera de la función.
+  función hace «_algo más_» que calcular dicho valor**, y ese «_algo_» es un
+  efecto observable fuera de la función.
 
 - Por ejemplo, una función que imprime por la pantalla o escribe en un archivo
   del disco está provocando un efecto observable fuera de la función, por lo
@@ -1434,7 +1437,7 @@ False
   referencial.
 
 - Lo mismo pasa con las funciones que modifican algún argumento mutable. Por
-  ejemplo:
+  ejemplo, esta función modifica la lista que recibe:
 
   ```python
   >>> ultimo = lambda x: x.pop()

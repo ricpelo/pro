@@ -1707,23 +1707,27 @@ data-number="2.3">
 Efectos laterales</h2>
 <ul>
 <li><p>Un <strong>efecto lateral</strong> (<em>side effect</em>) es
-cualquier cambio de estado provocado por una parte del programa (por
-ejemplo, una función) que puede observarse desde otras partes del mismo,
-las cuales podrían verse afectadas por ese efecto de una manera poco
-evidente o impredecible.</p>
-<div class="caja">
-<p>Una función puede provocar efectos laterales, o verse afectada por
-efectos laterales provocados por otras partes del programa.</p>
-<p>En cualquiera de estos casos, tendríamos una función
-<strong>impura</strong>.</p>
-</div></li>
-<li><p>Los casos típicos de efectos laterales en una función son:</p>
+cualquier cambio de estado provocado por una parte del programa (p. ej.,
+una función) que puede observarse fuera de la misma, es decir, desde
+otras partes del programa.</p></li>
+<li><p>A menudo, esas partes se ven afectadas por el efecto lateral de
+maneras que pueden resultar poco evidentes, inesperadas o
+impredecibles.</p></li>
+<li><p>Los casos típicos de efectos laterales son:</p>
 <ul>
 <li><p>Cambiar el valor de una variable global.</p></li>
-<li><p>Cambiar el estado de un argumento mutable.</p></li>
+<li><p>Cambiar el estado de un argumento mutable dentro de una
+función.</p></li>
 <li><p>Realizar una operación de entrada/salida.</p></li>
 </ul></li>
 </ul>
+<div class="caja">
+<p>Una <strong>función</strong> puede: (1) provocar efectos laterales,
+(2) verse afectada por efectos laterales provocados por otras partes del
+programa, o (3) ambas cosas a la vez.</p>
+<p>En cualquiera de estos casos, tendríamos una <strong>función
+<em>impura</em></strong>.</p>
+</div>
 </section>
 <section class="slide level5" data-number="2.3.0.0.1">
 
@@ -1741,10 +1745,10 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a h
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> z <span class="op">=</span> <span class="dv">20</span></span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> suma(<span class="dv">3</span>, <span class="dv">4</span>)</span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="dv">27</span></span></code></pre></div></li>
-<li><p>Por tanto, cambiar el valor de una variable global (en cualquier
-parte del programa) es considerado un <strong>efecto lateral</strong>,
-ya que puede alterar el comportamiento de otras partes del programa de
-formas a menudo impredecibles o poco evidentes.</p></li>
+<li><p>Por tanto, cambiar el valor de una variable global (desde
+cualquier parte del programa) es considerado un <strong>efecto
+lateral</strong>, ya que puede alterar el comportamiento de otras partes
+del programa de formas a menudo impredecibles o poco evidentes.</p></li>
 </ul>
 </section>
 <section class="slide level5" data-number="2.3.0.0.2">
@@ -1753,15 +1757,15 @@ formas a menudo impredecibles o poco evidentes.</p></li>
 <li><p>Cuando el efecto lateral lo produce la propia función también
 estamos perdiendo transparencia referencial, pues en tal caso no podemos
 sustituir libremente la llamada a la función por su valor de retorno, ya
-que ahora <strong>la función hace <em>algo más</em> que calcular dicho
-valor</strong>, y ese <em>algo</em> es un efecto observable fuera de la
-función.</p></li>
+que ahora <strong>la función hace «<em>algo más</em>» que calcular dicho
+valor</strong>, y ese «<em>algo</em>» es un efecto observable fuera de
+la función.</p></li>
 <li><p>Por ejemplo, una función que imprime por la pantalla o escribe en
 un archivo del disco está provocando un efecto observable fuera de la
 función, por lo que tampoco es una función pura y, por tanto, no cumple
 la transparencia referencial.</p></li>
 <li><p>Lo mismo pasa con las funciones que modifican algún argumento
-mutable. Por ejemplo:</p>
+mutable. Por ejemplo, esta función modifica la lista que recibe:</p>
 <div class="sourceCode" id="cb39"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ultimo <span class="op">=</span> <span class="kw">lambda</span> x: x.pop()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lista <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
