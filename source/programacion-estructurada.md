@@ -301,10 +301,10 @@ nocite: |
   de cualquier programa estructurado.
 
 - Por tanto, un programa estructurado se crea combinando entre sí varias
-  estructuras de control.
+  estructuras de control junto además de acciones primitivas.
 
 - Sintácticamente, una estructura de control es una unidad compuesta por varias
-  sentencias que actúan como una sola.
+  sentencias que actúan como una sola sentencia.
 
 - Toda estructura de control, por tanto, representa una **sentencia compuesta**
   que actúa como un _miniprograma propio_ (y, por tanto, con un único punto de
@@ -1043,32 +1043,31 @@ while not salida:
 - Ejemplos:
 
   ```python
-  def http_error(status: int) -> str:
-      match status:
-          case 400:
-              return "Bad request"
-          case 401 | 403 | 404 as codigo_coincidente:
-              return "Not allowed, con código " + str(codigo_coincidente)
-          case 404:
-              return "Not found"
-          case 418:
-              return "I'm a teapot"
-          case _:
-              return "Algo raro pasa en Internet"
-  ```
-
-  ```python
-    match punto:     # punto es una tupla de dos elementos
-      case (0, 0):
-          print("Punto origen")
-      case (0, y):   # la variable 'y' toma el valor del segundo elemento
-          print("La Y vale", y)
-      case (x, 0):   # la variable 'x' toma el valor del primer elemento
-          print("La X vale", x)
-      case (x, y):   # las variables 'x' e 'y' toman los valores de los elementos
-          print("La X vale", x, "y la Y vale", y)
+  match status:
+      case 400:
+          return "Bad request"
+      case 401 | 403 | 404 as codigo_coincidente:
+          return "Not allowed, con código " + str(codigo_coincidente)
+      case 404:
+          return "Not found"
+      case 418:
+          return "I'm a teapot"
       case _:
-          raise ValueError("No es un punto")
+          return "Algo raro pasa en Internet"
+  ```
+
+  ```python
+  match punto:     # punto es una tupla de dos elementos
+    case (0, 0):
+        print("Punto origen")
+    case (0, y):   # la variable 'y' toma el valor del segundo elemento
+        print("La Y vale", y)
+    case (x, 0):   # la variable 'x' toma el valor del primer elemento
+        print("La X vale", x)
+    case (x, y):   # las variables 'x' e 'y' toman los valores de los elementos
+        print("La X vale", x, "y la Y vale", y)
+    case _:
+        raise ValueError("No es un punto")
   ```
 
 ---
@@ -1076,21 +1075,13 @@ while not salida:
 - Más ejemplos:
 
   ```python
-  >>> def comprueba_numero(x):
-  ...     match x:
-  ...         case 10:               # Encaja sólo con el 10
-  ...             print("Encajó con el 10.")
-  ...         case x if x % 2 == 0:  # Encaja con un número par distinto de 10
-  ...             print("Es un número par distinto de 10.")
-  ...         case _:                # Encaja con cualquier otra cosa
-  ...             print("No se encontró ningún encaje.")
-  ... 
-  >>> comprueba_numero(10)
-  Encajó con el 10.
-  >>> comprueba_numero(12)
-  Es un número par distinto de 10.
-  >>> comprueba_numero(15)
-  No se encontró ningún encaje.
+  match x:
+      case 10:               # Encaja sólo con el 10
+          print("Encajó con el 10.")
+      case x if x % 2 == 0:  # Encaja con un número par distinto de 10
+          print("Es un número par distinto de 10.")
+      case _:                # Encaja con cualquier otra cosa
+          print("No se encontró ningún encaje.")
   ```
 
 ---
@@ -1098,46 +1089,29 @@ while not salida:
 - Más ejemplos:
 
   ```python
-  >>> def procesar(datos):
-  ...     match datos:
-  ...         case [x, y]:      # Una lista con dos elementos
-  ...             print("Lista de dos elementos:", x, y)
-  ...         case [x, y, z]:   # Una lista con tres elementos
-  ...             print("Lista de tres elementos:", x, y, z)
-  ...         case _:
-  ...             print("Formato de datos desconocido.")
-  ... 
-  >>> procesar([1, 2])
-  Lista de dos elementos: 1, 2
-  >>> procesar([1, 2, 3])
-  Lista de tres elementos: 1, 2, 3
-  >>> procesar([1, 2, 3, 4])
-  Formato de datos desconocido.
+  match datos:
+      case [x, y]:      # Una lista con dos elementos
+          print("Lista de dos elementos:", x, y)
+      case [x, y, z]:   # Una lista con tres elementos
+          print("Lista de tres elementos:", x, y, z)
+      case _:
+          print("Formato de datos desconocido.")
   ```
 
 ---
 
 - Más ejemplos:
+
   ```python
-  >>> def entra_cualquier_cosa(x) -> str:
-  ...     match x:
-  ...         case int(x):      # Encaja con un número entero
-  ...             return 'Es un int.'
-  ...         case float(x):    # Encaja con un número real
-  ...             return 'Es un float.'
-  ...         case str(x):      # Encaja con una cadena
-  ...             return 'Es un str.'
-  ...         case _:
-  ...             return 'Es otra cosa.'
-  ...
-  >>> entra_cualquier_cosa(4)
-  'Es un int.'
-  >>> entra_cualquier_cosa(3.5)
-  'Es un float.'
-  >>> entra_cualquier_cosa('hola')
-  'Es un str.'
-  >>> entra_cualquier_cosa([1, 2, 3])
-  'Es otra cosa.'
+  match x:
+      case int(x):      # Encaja con un número entero
+          return 'Es un int.'
+      case float(x):    # Encaja con un número real
+          return 'Es un float.'
+      case str(x):      # Encaja con una cadena
+          return 'Es un str.'
+      case _:
+          return 'Es otra cosa.'
   ```
 
 ### Excepciones
