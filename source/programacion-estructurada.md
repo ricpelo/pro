@@ -394,20 +394,22 @@ nocite: |
   indicadas anteriormente como _A_ y _B_) pueden ser, a su vez, otras
   estructuras de control.
 
-  - Esto es así porque una estructura de control también es una sentencia (en
-    este caso, sería una **sentencia _compuesta_** y no una **sentencia
-    _simple_**).
+- Esto es así porque una estructura de control también es una sentencia (en
+  este caso, sería una **sentencia _compuesta_** y no una **sentencia
+_simple_**).
 
-  - Por tanto, una estructura de control puede aparecer en cualquier lugar
-    donde se espere una sentencia.
+- Por tanto, una estructura de control puede aparecer en cualquier lugar donde
+  se espere una sentencia.
+
+---
 
 - Resumiendo, en un programa podemos tener **dos tipos de sentencias**:
 
-  - **Sentencias _simples_**.
+  #. **Sentencias _simples_**.
 
-  - **Estructuras de control**, que son sentencias **_compuestas_** formadas a
-    su vez por otras sentencias (que podrán ser, a su vez, simples o
-    compuestas, y así recursivamente).
+  #. **Estructuras de control**, que son sentencias **_compuestas_** formadas a
+     su vez por otras sentencias (que podrán ser, a su vez, simples o
+     compuestas, y así recursivamente).
 
 - Por consiguiente, **todo programa puede verse como una única sentencia**,
   simple o compuesta por otras.
@@ -417,8 +419,8 @@ nocite: |
 - Esto tiene una consecuencia más profunda: si un programa es una sentencia,
   también puede decirse que cada sentencia es como un programa en sí mismo.
 
-- Como las estructuras de control también son sentencias, **cada estructura de
-  control es como un _miniprograma_ dentro del programa**.
+- Por tanto, como las estructuras de control también son sentencias, **cada
+  estructura de control es como un _miniprograma_ dentro del programa**.
 
 - Ese miniprograma debe cumplir las propiedades de los programas propios (los
   programas que no son propios no nos interesan).
