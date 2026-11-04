@@ -145,17 +145,17 @@ include-before:
 
     #. ¿Cómo queda la lista al final de cada paso?
 
-#. Definir las listas:
+#. Dadas las listas:
 
    ```python
    equipo_a = ["Ana", "Luis"]
    equipo_b = ["Sofía", "Marcos"]
    ```
 
-    #. Unirlas en una sola lista llamada `gran_equipo`.
+   Unirlas en una sola lista llamada `gran_equipo`.
 
-    #. Crear una lista llamada `silencio` que repita la palabra !PYTHON("shh")
-       cinco veces.
+#. Crear una lista llamada `silencio` que repita la palabra !PYTHON("shh")
+   cinco veces.
 
 #. Escribe un programa que salude al usuario con el mensaje «`Hola. Encantado
    de conocerle.`».
