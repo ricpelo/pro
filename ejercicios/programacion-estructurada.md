@@ -16,12 +16,14 @@ include-before:
 
 #. Explicar la diferencia entre el operador ternario:
 
-   !NT(valor) !T(if) !NT(condición) !T(else) !NT(valor)
+   !NT(expresión1) !T(if) !NT(condición) !T(else) !NT(expresión2)
 
    y la estructura de control:
 
-   | !T(if) !NT(condición):
-   |      !NT(sentencia)
+   | !T(if) !NT(condición)!T(:)
+   |      !NT(sentencia1)
+   | !T(else:)
+   |      !NT(sentencia2)
 
 #. Escribir un programa que pida al usuario su edad y que imprima el mensaje
    «`¡Qué joven!`» si es menor de 25 años.
