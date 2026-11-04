@@ -683,11 +683,11 @@ columna en el archivo fuente) pertenecen a la misma estructura.
   ~~~~~~~~~~~~~~~~~~~~
   !NT(selección) ::=
   !T(if) !NT(condición)!T(:)
-  !SPC(6)      !NT(sentencia)
+  !SPC(12)      !NT(sentencia)
   [!T(elif) !NT(condición)!T(:)
-  !SPC(6)      !NT(sentencia)]*
+  !SPC(12)      !NT(sentencia)]*
   [!T(else)!T(:)
-  !SPC(6)      !NT(sentencia)]
+  !SPC(12)      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~
 
 - También se la llama «**sentencia !PYTHON(if)**».
@@ -825,11 +825,11 @@ columna en el archivo fuente) pertenecen a la misma estructura.
   !NT(estructura) ::= !NT(secuencia) | !NT(selección)
   !NT(selección) ::=
   !T(if) !NT(condición)!T(:)
-  !SPC(6)      !NT(sentencia)
+  !SPC(12)      !NT(sentencia)
   [!T(elif) !NT(condición)!T(:)
-  !SPC(6)      !NT(sentencia)]*
+  !SPC(12)      !NT(sentencia)]*
   [!T(else)!T(:)
-  !SPC(6)      !NT(sentencia)]
+  !SPC(12)      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~
 
 ## Iteración
@@ -841,7 +841,7 @@ columna en el archivo fuente) pertenecen a la misma estructura.
   ~~~~~~~~~~~~~~~~~~~~
   !NT(iteración) ::=
   !T(while) !NT(condición)!T(:)
-  !SPC(6)      !NT(sentencia)
+  !SPC(12)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
 - A esta estructura también se la llama «**sentencia !PYTHON(while)**»,
@@ -1174,13 +1174,13 @@ while not salida:
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(gestión_excepciones) ::=
   !T(try:)
-  !SPC(6)      !NT(sentencia)
+  !SPC(12)      !NT(sentencia)
   \(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-  !SPC(6)      !NT(sentencia))!MAS()
+  !SPC(12)      !NT(sentencia))!MAS()
   [!T(else:)
-  !SPC(6)      !NT(sentencia)]
+  !SPC(12)      !NT(sentencia)]
   [!T(finally:)
-  !SPC(6)      !NT(sentencia)]
+  !SPC(12)      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde:
@@ -1262,13 +1262,13 @@ while not salida:
 !SPC(31) | !NT(gestión_excepciones)
 !NT(gestión_excepciones) ::=
 !T(try:)
-      !NT(sentencia)
+!SPC(12)      !NT(sentencia)
 \(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-      !NT(sentencia))!MAS()
+!SPC(12)      !NT(sentencia))!MAS()
 [!T(else:)
-      !NT(sentencia)]
+!SPC(12)      !NT(sentencia)]
 [!T(finally:)
-      !NT(sentencia)]
+!SPC(12)      !NT(sentencia)]
 ~~~~~~~~~~~~~~~~~~~~
 
 ---
