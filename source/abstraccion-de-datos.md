@@ -430,14 +430,14 @@ Mecanismos de abstracción   Abstracciones funcionales          Abstracciones de
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(espec) !NT(tipo)
-  !SPC(6)      [!T(parámetros)
-  !SPC(12)            !NT(parámetro)!MAS]
-  !SPC(6)      !T(operaciones)
-  !SPC(12)            \(!NT{operación} !T{:} !NT{signatura}\)!MAS
-  !SPC(6)      \[!T(var)
-  !SPC(12)            !NT(decl_var) \(!T(;) !NT(decl_var)\)*]
-  !SPC(6)      !T(ecuaciones)
-  !SPC(12)            !NT(ecuación)!MAS
+  !SPC(9)      [!T(parámetros)
+  !SPC(18)            !NT(parámetro)!MAS]
+  !SPC(9)      !T(operaciones)
+  !SPC(18)            \(!NT{operación} !T{:} !NT{signatura}\)!MAS
+  !SPC(9)      \[!T(var)
+  !SPC(18)            !NT(decl_var) \(!T(;) !NT(decl_var)\)*]
+  !SPC(9)      !T(ecuaciones)
+  !SPC(18)            !NT(ecuación)!MAS
   ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -2636,16 +2636,16 @@ def deposito(fondos):
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **espec** _depósito_
-  !SPC(6)    **operaciones**
-  !SPC(12)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
-  !SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
-  !SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
-  !SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
-  !SPC(6)    **ecuaciones**
-  !SPC(12)          $f < c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ **error**
-  !SPC(12)          $f \geq c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
-  !SPC(12)          `ingresar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f + c$)
-  !SPC(12)          `saldo`(`depósito`($f$)) $\equiv$ $f$
+  !SPC(9)    **operaciones**
+  !SPC(18)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
+  !SPC(18)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+  !SPC(18)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+  !SPC(18)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
+  !SPC(9)    **ecuaciones**
+  !SPC(18)          $f < c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ **error**
+  !SPC(18)          $f \geq c$ $\Longrightarrow$ `retirar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f - c$)
+  !SPC(18)          `ingresar`(`depósito`($f$), $c$) $\equiv$ `depósito`($f + c$)
+  !SPC(18)          `saldo`(`depósito`($f$)) $\equiv$ $f$
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - `depósito` es la operación generadora.
@@ -2664,23 +2664,26 @@ def deposito(fondos):
   debe describir, entre otras cosas, el **efecto** que producen las operaciones
   mutadoras sobre el dato abstracto.
 
+---
+
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _depósito_
-!SPC(6)    **operaciones**
-!SPC(12)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
-!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\emptyset$
-!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\emptyset$
-!SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
-!SPC(6)    **var**
-!SPC(12)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
-!SPC(6)    **ecuaciones**
-!SPC(12)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
-!SPC(47)                                 y lo devuelve }
-!SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
-!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$ \}
-!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ **error**
-!SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
+!SPC(9)    **operaciones**
+!SPC(18)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
+!SPC(18)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\emptyset$
+!SPC(18)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\emptyset$
+!SPC(18)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
+!SPC(9)    **var**
+!SPC(18)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
+!SPC(9)    **ecuaciones**
+!SPC(18)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
+!SPC(53)                                 y lo devuelve }
+!SPC(18)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
+!SPC(18)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos
+!SPC(93)                                                                               del depósito $d$ \}
+!SPC(18)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ **error**
+!SPC(18)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$ \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2714,22 +2717,22 @@ def deposito(fondos):
 !ALGO
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **espec** _depósito_
-!SPC(6)    **operaciones**
-!SPC(12)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
-!SPC(12)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
-!SPC(12)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
-!SPC(12)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
-!SPC(6)    **var**
-!SPC(12)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
-!SPC(6)    **ecuaciones**
-!SPC(12)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
-!SPC(47)                                 y lo devuelve }
-!SPC(12)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
-!SPC(12)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del depósito $d$
-!SPC(88)                                                                               y devuelve el saldo que queda \}
-!SPC(12)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ **error**
-!SPC(12)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
-!SPC(52)                                      y devuelve el saldo que queda \}
+!SPC(9)    **operaciones**
+!SPC(18)          `depósito` : $\mathbb{R}$ $\longrightarrow$ _depósito_
+!SPC(18)          **parcial** `retirar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+!SPC(18)          `ingresar` : _depósito_ $\times$ $\mathbb{R}$ $\longrightarrow$ $\mathbb{R}$
+!SPC(18)          `saldo` : _depósito_ $\longrightarrow$ $\mathbb{R}$
+!SPC(9)    **var**
+!SPC(18)          $d$ : _depósito_; $f$, $c$ : $\mathbb{R}$
+!SPC(9)    **ecuaciones**
+!SPC(18)          `depósito`($f$) \ \ \{ Crea un depósito con un fondo (estado interno) inicial de $f$
+!SPC(53)                                 y lo devuelve }
+!SPC(18)          `saldo`($d$) $\equiv$ «los fondos actuales de $d$»
+!SPC(18)          `saldo`($d$) $\geq$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) \ \ \{ Reduce en $c$ unidades los fondos del
+!SPC(93)                                                                               depósito $d$ y devuelve el saldo que queda \}
+!SPC(18)          `saldo`($d$) $<$ $c$ $\Longrightarrow$ `retirar`($d$, $c$) $\equiv$ **error**
+!SPC(18)          `ingresar`($d$, $c$) \ \ \{ Aumenta en $c$ unidades los fondos del depósito $d$
+!SPC(58)                                      y devuelve el saldo que queda \}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Abstracción de datos y modularidad

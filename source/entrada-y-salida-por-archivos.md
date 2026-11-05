@@ -281,8 +281,8 @@ nocite: |
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(gestor_contexto) ::=
-  !SPC(6) !T(with) !NT(expresión) [!T(as) !NT(identificador)]!T(:)
-  !SPC(12) !NT(sentencia)
+  !T(with) !NT(expresión) [!T(as) !NT(identificador)]!T(:)
+  !SPC(9) !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - El siguiente código es equivalente al anterior:

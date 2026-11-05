@@ -2429,23 +2429,23 @@ propiedades se traducen en invariantes** de la clase.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **espec** _pila_
-  !SPC(6)    **parámetros**
-  !SPC(12)          _elemento_
-  !SPC(6)    **operaciones**
-  !SPC(12)          `pvacia` : $\longrightarrow$ _pila_
-  !SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ _pila_
-  !SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ _pila_
-  !SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
-  !SPC(12)          `vacia?` : _pila_ $\longrightarrow$ $\mathbb{B}$
-  !SPC(6)    **var**
-  !SPC(12)          $p$ : _pila_; $x$ : _elemento_
-  !SPC(6)    **ecuaciones**
-  !SPC(12)          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
-  !SPC(12)          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
-  !SPC(12)          `vacia?`(`pvacia`) $\equiv$ $V$
-  !SPC(12)          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
-  !SPC(12)          `cima`(`pvacia`) $\equiv$ **error**
-  !SPC(12)          `desapilar`(`pvacia`) $\equiv$ **error**
+  !SPC(9)    **parámetros**
+  !SPC(18)          _elemento_
+  !SPC(9)    **operaciones**
+  !SPC(18)          `pvacia` : $\longrightarrow$ _pila_
+  !SPC(18)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ _pila_
+  !SPC(18)          **parcial** `desapilar` : _pila_ $\longrightarrow$ _pila_
+  !SPC(18)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
+  !SPC(18)          `vacia?` : _pila_ $\longrightarrow$ $\mathbb{B}$
+  !SPC(9)    **var**
+  !SPC(18)          $p$ : _pila_; $x$ : _elemento_
+  !SPC(9)    **ecuaciones**
+  !SPC(18)          `cima`(`apilar`($p$, $x$)) $\equiv$ $x$
+  !SPC(18)          `desapilar`(`apilar`($p$, $x$)) $\equiv$ $p$
+  !SPC(18)          `vacia?`(`pvacia`) $\equiv$ $V$
+  !SPC(18)          `vacia?`(`apilar`($p$, $x$)) $\equiv$ $F$
+  !SPC(18)          `cima`(`pvacia`) $\equiv$ **error**
+  !SPC(18)          `desapilar`(`pvacia`) $\equiv$ **error**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -2455,25 +2455,25 @@ propiedades se traducen en invariantes** de la clase.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **espec** _pila_
-  !SPC(6)    **parámetros**
-  !SPC(12)          _elemento_
-  !SPC(6)    **operaciones**
-  !SPC(12)          `pila` : $\longrightarrow$ _pila_
-  !SPC(12)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ $\emptyset$
-  !SPC(12)          **parcial** `desapilar` : _pila_ $\longrightarrow$ $\emptyset$
-  !SPC(12)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
-  !SPC(12)          `vacía?` : _pila_ $\longrightarrow$ $\mathbb{B}$
-  !SPC(12)          _ `==` _ : _pila_ $\times$ _pila_ $\longrightarrow$ $\mathbb{B}$
-  !SPC(6)    **var**
-  !SPC(12)          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
-  !SPC(6)    **ecuaciones**
-  !SPC(12)          $p_1$ `==` $p_2$ $\equiv$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
-  !SPC(12)          `vacía?`($p$) $\equiv$ $p$ `==` `pila`
-  !SPC(12)          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
-  !SPC(12)          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \}
-  !SPC(12)          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
-  !SPC(12)          `vacía?`($p$) $\Longrightarrow$ `desapilar`($p$) $\equiv$ **error**
-  !SPC(12)          `vacía?`($p$) $\Longrightarrow$ `cima`($p$) $\equiv$ **error**
+  !SPC(9)    **parámetros**
+  !SPC(18)          _elemento_
+  !SPC(9)    **operaciones**
+  !SPC(18)          `pila` : $\longrightarrow$ _pila_
+  !SPC(18)          `apilar` : _pila_ $\times$ _elemento_ $\longrightarrow$ $\emptyset$
+  !SPC(18)          **parcial** `desapilar` : _pila_ $\longrightarrow$ $\emptyset$
+  !SPC(18)          **parcial** `cima` : _pila_ $\longrightarrow$ _elemento_
+  !SPC(18)          `vacía?` : _pila_ $\longrightarrow$ $\mathbb{B}$
+  !SPC(18)          _ `==` _ : _pila_ $\times$ _pila_ $\longrightarrow$ $\mathbb{B}$
+  !SPC(9)    **var**
+  !SPC(18)          $p$, $p_1$, $p_2$ : _pila_; $x$ : _elemento_
+  !SPC(9)    **ecuaciones**
+  !SPC(18)          $p_1$ `==` $p_2$ $\equiv$ «$p_1$ y $p_2$ tienen los mismos elementos en el mismo orden»
+  !SPC(18)          `vacía?`($p$) $\equiv$ $p$ `==` `pila`
+  !SPC(18)          `apilar`($p$, $x$) \ \ \{ Apila el elemento $x$ en la cima de la pila $p$ \}
+  !SPC(18)          `desapilar`($p$) \ \ \{ Saca de la pila $p$ el elemento situado en su cima \}
+  !SPC(18)          `cima`($p$) $\equiv$ «el último elemento apilado en $p$ y aún no desapilado»
+  !SPC(18)          `vacía?`($p$) $\Longrightarrow$ `desapilar`($p$) $\equiv$ **error**
+  !SPC(18)          `vacía?`($p$) $\Longrightarrow$ `cima`($p$) $\equiv$ **error**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---

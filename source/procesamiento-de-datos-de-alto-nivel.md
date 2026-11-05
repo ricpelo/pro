@@ -566,7 +566,7 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(for) !NT{variable}(!T{,} !NT{variable})\* !T(in) !NT(iterable)!T(:)
-  !SPC(6) !NT(sentencia)
+  !SPC(9) !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   que no es más que azúcar sintáctico para el siguiente código equivalente:
@@ -575,12 +575,12 @@ Los _hash_ **permiten el acceso _directo_ a un dato** dentro de una colección.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !PYTHON{iterador = iter(}!NT(iterable)!PYTHON{)}
   !PYTHON(while True:)
-  !SPC(6)        !PYTHON(try:)
-  !SPC(12)                !NT{variable}(`,` !NT{variable})\*\  !PYTHON(= next(iterador))
-  !SPC(6)        !PYTHON(except StopIteration:)
-  !SPC(12)                !PYTHON(break)
-  !SPC(6)        !PYTHON(else:)
-  !SPC(12)                !NT(sentencia)
+  !SPC(9)        !PYTHON(try:)
+  !SPC(18)                !NT{variable}(`,` !NT{variable})\*\  !PYTHON(= next(iterador))
+  !SPC(9)        !PYTHON(except StopIteration:)
+  !SPC(18)                !PYTHON(break)
+  !SPC(9)        !PYTHON(else:)
+  !SPC(18)                !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1197,10 +1197,10 @@ True
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !PYTHON{def} !NT(nombre)!PYTHON{(a, b):}
-  !SPC(6)        !PYTHON(suma = 0)
-  !SPC(6)        !PYTHON(for i in range(a, b + 1):)
-  !SPC(12)                !PYTHON(suma +=)\ \ !NT(término)!PYTHON((i))
-  !SPC(6)        !PYTHON(return suma)
+  !SPC(9)        !PYTHON(suma = 0)
+  !SPC(9)        !PYTHON(for i in range(a, b + 1):)
+  !SPC(18)                !PYTHON(suma +=)\ \ !NT(término)!PYTHON((i))
+  !SPC(9)        !PYTHON(return suma)
   ~~~~~~~~~~~~~~~~~~~~
 
 ---

@@ -697,20 +697,22 @@ algebraica</strong>.</li>
 <li><p>Su sintaxis es la siguiente:</p>
 <div class="line-block"><strong><code>espec</code></strong> <span
 style="color:teal">⟨<em>tipo</em>⟩</span><br />
-       [<strong><code>parámetros</code></strong><br />
-             <span style="color:teal">⟨<em>parámetro</em>⟩</span><span
+          [<strong><code>parámetros</code></strong><br />
+                   <span
+style="color:teal">⟨<em>parámetro</em>⟩</span><span
 class="math inline">^+</span>]<br />
-       <strong><code>operaciones</code></strong><br />
-             (<span style="color:teal">⟨<em>operación</em>⟩</span>
+          <strong><code>operaciones</code></strong><br />
+                   (<span style="color:teal">⟨<em>operación</em>⟩</span>
 <strong><code>:</code></strong> <span
 style="color:teal">⟨<em>signatura</em>⟩</span>)<span
 class="math inline">^+</span><br />
-       [<strong><code>var</code></strong><br />
-             <span style="color:teal">⟨<em>decl_var</em>⟩</span>
+          [<strong><code>var</code></strong><br />
+                   <span style="color:teal">⟨<em>decl_var</em>⟩</span>
 (<strong><code>;</code></strong> <span
 style="color:teal">⟨<em>decl_var</em>⟩</span>)*]<br />
-       <strong><code>ecuaciones</code></strong><br />
-             <span style="color:teal">⟨<em>ecuación</em>⟩</span><span
+          <strong><code>ecuaciones</code></strong><br />
+                   <span
+style="color:teal">⟨<em>ecuación</em>⟩</span><span
 class="math inline">^+</span></div></li>
 </ul>
 </div><div class="column" style="width:4%;">
@@ -2997,40 +2999,40 @@ mejor que podemos hacer, en general.</p></li>
 <li><p>Por ejemplo, la especificación del tipo <strong>Depósito</strong>
 podría expresarse así si no hubiera mutabilidad ni estado interno:</p>
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
-       <strong>operaciones</strong><br />
-             <code>depósito</code> : <span
+          <strong>operaciones</strong><br />
+                   <code>depósito</code> : <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <em>depósito</em><br />
-             <strong>parcial</strong> <code>retirar</code> :
+                   <strong>parcial</strong> <code>retirar</code> :
 <em>depósito</em> <span class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-             <code>ingresar</code> : <em>depósito</em> <span
+                   <code>ingresar</code> : <em>depósito</em> <span
 class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-             <code>saldo</code> : <em>depósito</em> <span
+                   <code>saldo</code> : <em>depósito</em> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-       <strong>ecuaciones</strong><br />
-             <span class="math inline">f &lt; c</span> <span
+          <strong>ecuaciones</strong><br />
+                   <span class="math inline">f &lt; c</span> <span
 class="math inline">\Longrightarrow</span>
 <code>retirar</code>(<code>depósito</code>(<span
 class="math inline">f</span>), <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <strong>error</strong><br />
-             <span class="math inline">f \geq c</span> <span
+                   <span class="math inline">f \geq c</span> <span
 class="math inline">\Longrightarrow</span>
 <code>retirar</code>(<code>depósito</code>(<span
 class="math inline">f</span>), <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <code>depósito</code>(<span
 class="math inline">f - c</span>)<br />
-             <code>ingresar</code>(<code>depósito</code>(<span
+                   <code>ingresar</code>(<code>depósito</code>(<span
 class="math inline">f</span>), <span class="math inline">c</span>) <span
 class="math inline">\equiv</span> <code>depósito</code>(<span
 class="math inline">f + c</span>)<br />
-             <code>saldo</code>(<code>depósito</code>(<span
+                   <code>saldo</code>(<code>depósito</code>(<span
 class="math inline">f</span>)) <span class="math inline">\equiv</span>
 <span class="math inline">f</span></div></li>
 <li><p><code>depósito</code> es la operación generadora.</p></li>
@@ -3051,55 +3053,61 @@ dato <strong>Depósito</strong> a partir de otro, sino que
 otras cosas, el <strong>efecto</strong> que producen las operaciones
 mutadoras sobre el dato abstracto.</p></li>
 </ul>
+</section>
+<section class="slide level5" data-number="5.5.0.0.3">
+
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
-       <strong>operaciones</strong><br />
-             <code>depósito</code> : <span
+          <strong>operaciones</strong><br />
+                   <code>depósito</code> : <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <em>depósito</em><br />
-             <strong>parcial</strong> <code>retirar</code> :
+                   <strong>parcial</strong> <code>retirar</code> :
 <em>depósito</em> <span class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\emptyset</span><br />
-             <code>ingresar</code> : <em>depósito</em> <span
+                   <code>ingresar</code> : <em>depósito</em> <span
 class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\emptyset</span><br />
-             <code>saldo</code> : <em>depósito</em> <span
+                   <code>saldo</code> : <em>depósito</em> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-       <strong>var</strong><br />
-             <span class="math inline">d</span> : <em>depósito</em>;
-<span class="math inline">f</span>, <span class="math inline">c</span> :
-<span class="math inline">\mathbb{R}</span><br />
-       <strong>ecuaciones</strong><br />
-             <code>depósito</code>(<span class="math inline">f</span>)
-  { Crea un depósito con un fondo (estado interno) inicial de <span
-class="math inline">f</span><br />
-                                                y lo devuelve }<br />
-             <code>saldo</code>(<span class="math inline">d</span>)
-<span class="math inline">\equiv</span> «los fondos actuales de <span
-class="math inline">d</span>»<br />
-             <code>saldo</code>(<span class="math inline">d</span>)
-<span class="math inline">\geq</span> <span class="math inline">c</span>
-<span class="math inline">\Longrightarrow</span>
-<code>retirar</code>(<span class="math inline">d</span>, <span
-class="math inline">c</span>)   { Reduce en <span
-class="math inline">c</span> unidades los fondos del depósito <span
-class="math inline">d</span> }<br />
-             <code>saldo</code>(<span class="math inline">d</span>)
-<span class="math inline">&lt;</span> <span class="math inline">c</span>
-<span class="math inline">\Longrightarrow</span>
-<code>retirar</code>(<span class="math inline">d</span>, <span
-class="math inline">c</span>) <span class="math inline">\equiv</span>
-<strong>error</strong><br />
-             <code>ingresar</code>(<span class="math inline">d</span>,
-<span class="math inline">c</span>)   { Aumenta en <span
-class="math inline">c</span> unidades los fondos del depósito <span
-class="math inline">d</span> }</div>
+          <strong>var</strong><br />
+                   <span class="math inline">d</span> :
+<em>depósito</em>; <span class="math inline">f</span>, <span
+class="math inline">c</span> : <span
+class="math inline">\mathbb{R}</span><br />
+          <strong>ecuaciones</strong><br />
+                   <code>depósito</code>(<span
+class="math inline">f</span>)   { Crea un depósito con un fondo (estado
+interno) inicial de <span class="math inline">f</span><br />
+                                                      y lo devuelve
+}<br />
+                   <code>saldo</code>(<span
+class="math inline">d</span>) <span class="math inline">\equiv</span>
+«los fondos actuales de <span class="math inline">d</span>»<br />
+                   <code>saldo</code>(<span
+class="math inline">d</span>) <span class="math inline">\geq</span>
+<span class="math inline">c</span> <span
+class="math inline">\Longrightarrow</span> <code>retirar</code>(<span
+class="math inline">d</span>, <span class="math inline">c</span>)   {
+Reduce en <span class="math inline">c</span> unidades los fondos<br />
+                                                                                             
+del depósito <span class="math inline">d</span> }<br />
+                   <code>saldo</code>(<span
+class="math inline">d</span>) <span class="math inline">&lt;</span>
+<span class="math inline">c</span> <span
+class="math inline">\Longrightarrow</span> <code>retirar</code>(<span
+class="math inline">d</span>, <span class="math inline">c</span>) <span
+class="math inline">\equiv</span> <strong>error</strong><br />
+                   <code>ingresar</code>(<span
+class="math inline">d</span>, <span class="math inline">c</span>)   {
+Aumenta en <span class="math inline">c</span> unidades los fondos del
+depósito <span class="math inline">d</span> }</div>
 </section>
-<section class="slide level5" data-number="5.5.0.0.3">
+<section class="slide level5" data-number="5.5.0.0.4">
 
 <ul>
 <li><p>Los <em>efectos</em> que produce una operación se indican entre
@@ -3121,7 +3129,7 @@ habrá cambiado el estado interno del dato abstracto.</p></li>
 operaciones.</p></li>
 </ul>
 </section>
-<section class="slide level5" data-number="5.5.0.0.4">
+<section class="slide level5" data-number="5.5.0.0.5">
 
 <ul>
 <li><p>Otra opción es que las operaciones mutadoras devolvieran un valor
@@ -3131,56 +3139,59 @@ efectivo).</p></li>
 <li><p>En tal caso, podría quedar algo así:</p></li>
 </ul>
 <div class="line-block"><strong>espec</strong> <em>depósito</em><br />
-       <strong>operaciones</strong><br />
-             <code>depósito</code> : <span
+          <strong>operaciones</strong><br />
+                   <code>depósito</code> : <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <em>depósito</em><br />
-             <strong>parcial</strong> <code>retirar</code> :
+                   <strong>parcial</strong> <code>retirar</code> :
 <em>depósito</em> <span class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-             <code>ingresar</code> : <em>depósito</em> <span
+                   <code>ingresar</code> : <em>depósito</em> <span
 class="math inline">\times</span> <span
 class="math inline">\mathbb{R}</span> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-             <code>saldo</code> : <em>depósito</em> <span
+                   <code>saldo</code> : <em>depósito</em> <span
 class="math inline">\longrightarrow</span> <span
 class="math inline">\mathbb{R}</span><br />
-       <strong>var</strong><br />
-             <span class="math inline">d</span> : <em>depósito</em>;
-<span class="math inline">f</span>, <span class="math inline">c</span> :
-<span class="math inline">\mathbb{R}</span><br />
-       <strong>ecuaciones</strong><br />
-             <code>depósito</code>(<span class="math inline">f</span>)
-  { Crea un depósito con un fondo (estado interno) inicial de <span
-class="math inline">f</span><br />
-                                                y lo devuelve }<br />
-             <code>saldo</code>(<span class="math inline">d</span>)
-<span class="math inline">\equiv</span> «los fondos actuales de <span
-class="math inline">d</span>»<br />
-             <code>saldo</code>(<span class="math inline">d</span>)
-<span class="math inline">\geq</span> <span class="math inline">c</span>
-<span class="math inline">\Longrightarrow</span>
-<code>retirar</code>(<span class="math inline">d</span>, <span
-class="math inline">c</span>)   { Reduce en <span
-class="math inline">c</span> unidades los fondos del depósito <span
-class="math inline">d</span><br />
-                                                                                        
-y devuelve el saldo que queda }<br />
-             <code>saldo</code>(<span class="math inline">d</span>)
-<span class="math inline">&lt;</span> <span class="math inline">c</span>
-<span class="math inline">\Longrightarrow</span>
-<code>retirar</code>(<span class="math inline">d</span>, <span
-class="math inline">c</span>) <span class="math inline">\equiv</span>
-<strong>error</strong><br />
-             <code>ingresar</code>(<span class="math inline">d</span>,
-<span class="math inline">c</span>)   { Aumenta en <span
-class="math inline">c</span> unidades los fondos del depósito <span
-class="math inline">d</span><br />
-                                                     y devuelve el saldo
-que queda }</div>
+          <strong>var</strong><br />
+                   <span class="math inline">d</span> :
+<em>depósito</em>; <span class="math inline">f</span>, <span
+class="math inline">c</span> : <span
+class="math inline">\mathbb{R}</span><br />
+          <strong>ecuaciones</strong><br />
+                   <code>depósito</code>(<span
+class="math inline">f</span>)   { Crea un depósito con un fondo (estado
+interno) inicial de <span class="math inline">f</span><br />
+                                                      y lo devuelve
+}<br />
+                   <code>saldo</code>(<span
+class="math inline">d</span>) <span class="math inline">\equiv</span>
+«los fondos actuales de <span class="math inline">d</span>»<br />
+                   <code>saldo</code>(<span
+class="math inline">d</span>) <span class="math inline">\geq</span>
+<span class="math inline">c</span> <span
+class="math inline">\Longrightarrow</span> <code>retirar</code>(<span
+class="math inline">d</span>, <span class="math inline">c</span>)   {
+Reduce en <span class="math inline">c</span> unidades los fondos
+del<br />
+                                                                                             
+depósito <span class="math inline">d</span> y devuelve el saldo que
+queda }<br />
+                   <code>saldo</code>(<span
+class="math inline">d</span>) <span class="math inline">&lt;</span>
+<span class="math inline">c</span> <span
+class="math inline">\Longrightarrow</span> <code>retirar</code>(<span
+class="math inline">d</span>, <span class="math inline">c</span>) <span
+class="math inline">\equiv</span> <strong>error</strong><br />
+                   <code>ingresar</code>(<span
+class="math inline">d</span>, <span class="math inline">c</span>)   {
+Aumenta en <span class="math inline">c</span> unidades los fondos del
+depósito <span class="math inline">d</span><br />
+                                                           y devuelve el
+saldo que queda }</div>
 </section>
 </section>
 <section>
