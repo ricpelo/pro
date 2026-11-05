@@ -368,9 +368,9 @@ nocite: |
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~~~
     **si** $p$ **entonces**
-    !SPC(6)    $A$
+    !SPC(12)    $A$
     **sino**
-    !SPC(6)    $B$
+    !SPC(12)    $B$
     ~~~~~~~~~~~~~~~~~~~~~~~
 
     !SALTO
@@ -380,7 +380,7 @@ nocite: |
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~~~
     **mientras** $p$ **hacer**
-    !SPC(6)    $A$
+    !SPC(12)    $A$
     ~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -466,10 +466,10 @@ forman el programa.
 **leer** $a$
 **leer** $b$
 **mientras** $a !NEQ b$ **hacer**
-!SPC(6)      **si** $a < b$ **entonces**
-!SPC(12)            $b \longleftarrow b - a$
-!SPC(6)      **sino**
-!SPC(12)            $a \longleftarrow a - b$
+!SPC(12)      **si** $a < b$ **entonces**
+!SPC(24)            $b \longleftarrow b - a$
+!SPC(12)      **sino**
+!SPC(24)            $a \longleftarrow a - b$
 **escribir** $a$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -962,7 +962,7 @@ while not salida:
   !NT(estructura) ::= !NT(secuencia) | !NT(selección) | !NT(iteración)
   !NT(iteración) ::=
   !T(while) !NT(condición)!T(:)
-  !SPC(6)      !NT(sentencia)
+  !SPC(12)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
 ## Otras sentencias de control
@@ -1454,8 +1454,8 @@ while not salida:
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(6)      **leer $n$**
-  !SPC(6)      **construir la tabla de $n \times n$**
+  !SPC(12)      **leer $n$**
+  !SPC(12)      **construir la tabla de $n \times n$**
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1497,11 +1497,11 @@ while not salida:
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(6)      **leer $n$**
-  !SPC(6)      $i \longleftarrow 1$
-  !SPC(6)      **mientras** $i \leq n$ **hacer**
-  !SPC(12)              **escribir la fila de $i$**
-  !SPC(12)              $i \longleftarrow i + 1$
+  !SPC(12)      **leer $n$**
+  !SPC(12)      $i \longleftarrow 1$
+  !SPC(12)      **mientras** $i \leq n$ **hacer**
+  !SPC(24)              **escribir la fila de $i$**
+  !SPC(24)              $i \longleftarrow i + 1$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1519,15 +1519,15 @@ while not salida:
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(6)      **leer $n$**
-  !SPC(6)      $i \longleftarrow 1$
-  !SPC(6)      **mientras** $i \leq n$ **hacer**
-  !SPC(12)              $j \longleftarrow 1$
-  !SPC(12)              **mientras** $j \leq n$ **hacer**
-  !SPC(18)                      **escribir** $i \times j$ sin salto de línea
-  !SPC(18)                      $j \longleftarrow j + 1$
-  !SPC(12)              **escribir** un salto de línea
-  !SPC(12)              $i \longleftarrow i + 1$
+  !SPC(12)      **leer $n$**
+  !SPC(12)      $i \longleftarrow 1$
+  !SPC(12)      **mientras** $i \leq n$ **hacer**
+  !SPC(24)              $j \longleftarrow 1$
+  !SPC(24)              **mientras** $j \leq n$ **hacer**
+  !SPC(36)                      **escribir** $i \times j$ sin salto de línea
+  !SPC(36)                      $j \longleftarrow j + 1$
+  !SPC(24)              **escribir** un salto de línea
+  !SPC(24)              $i \longleftarrow i + 1$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
