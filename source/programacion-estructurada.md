@@ -288,7 +288,7 @@ nocite: |
 
 ::: column
 
-!IMGP(estructuras-que-se-cruzan.!EXT)(Estructuras que se cruzan y que, por tanto, no son estructuras)(width=45%)(width=25%)
+!IMGP(estructuras-que-se-cruzan.!EXT)(Estas construcciones se cruzan y, por tanto, no son estructuras)(width=45%)(width=25%)
 
 :::
 
@@ -297,11 +297,11 @@ nocite: |
 ---
 
 - Las **estructuras de control** son estructuras que permiten regular el flujo
-  de control del programa, y constituyen los componentes constructivos básicos
+  de control del programa, y constituyen los mecanismos básicos de construcción
   de cualquier programa estructurado.
 
-- Por tanto, un programa estructurado se crea combinando entre sí varias
-  estructuras de control junto además de acciones primitivas.
+- Por tanto, un programa estructurado se crea combinando entre sí estructuras
+  de control y acciones primitivas.
 
 - Sintácticamente, una estructura de control es una unidad compuesta por varias
   sentencias que actúan como una sola sentencia.
@@ -319,18 +319,17 @@ nocite: |
   - La **estructura secuencial**, **_secuencia_** o **bloque** de una, dos o
     más sentencias *A*, *B*, *C*, etcétera.
 
-    Los lenguajes de programación que permiten la creación de bloques
-    (incluyendo bloques dentro de otros bloques) se denominan **lenguajes
-    estructurados en bloques**.
+    Los lenguajes de programación que permiten la creación de bloques se
+    denominan **lenguajes estructurados en bloques**.
 
   - La **estructura alternativa** o **_selección_** entre dos sentencias *A* y
-    *B* dependiendo de un predicado *p*.
+    *B* dependiendo de una condición o predicado *p*.
 
   - La **estructura repetitiva** o **_iteración_**, que repite una sentencia
-    *A* dependiendo del valor lógico de un predicado *p*.
+    *A* mientras se cumpla una condición o predicado *p*.
 
-- Las estructuras de control son **sentencias compuestas** que contienen, a su
-  vez, otras sentencias.
+- Recordemos que las estructuras de control son **sentencias compuestas** que
+  contienen, a su vez, otras sentencias.
 
 ---
 
@@ -409,7 +408,7 @@ _simple_**).
 
   #. **Estructuras de control**, que son sentencias **_compuestas_** formadas a
      su vez por otras sentencias (que podrán ser, a su vez, simples o
-     compuestas, y así recursivamente).
+     compuestas, y así sucesivamente).
 
 - Por consiguiente, **todo programa puede verse como una única sentencia**,
   simple o compuesta por otras.
@@ -497,16 +496,18 @@ forman el programa.
 
 ---
 
-- Todo programa estructurado presenta una descomposición arborescente en la que
-  cada nodo se corresponde directamente con una sentencia simple o compuesta.
+- Todo programa estructurado presenta una descomposición en forma de árbol, en
+  la que cada nodo se corresponde directamente con una sentencia simple o
+  compuesta.
 
 - Cualquier sentencia compuesta puede ser sustituida por su descomposición
   arborescente y viceversa.
 
 - Esta propiedad simplifica el razonamiento sobre el programa al hacerlo mucho
-  más legible, además de facilitar su mantenimiento, ya que lo más probable es
-  que sólo haya que realizar modificaciones en subárboles de la estructura
-  general.
+  más legible.
+
+- Además, facilita su mantenimiento, ya que lo más probable es que sólo haya
+  que realizar modificaciones dentro de un subárbol.
 
 ---
 
@@ -518,8 +519,9 @@ forman el programa.
   estructurados son:
 
   - Son más fáciles de entender, ya que básicamente **se pueden leer de arriba
-    abajo** de estructura en estructura como cualquier otro texto sin tener que
-    estar continuamente saltando de un punto a otro del programa.
+    abajo**, de estructura en estructura, como cuando leemos cualquier otro
+    texto, sin tener que estar continuamente saltando de un punto a otro del
+    programa.
 
   - Es más fácil demostrar que son correctos, ya que las estructuras anidadas
     pueden verse como bloques más o menos independientes con significado
@@ -862,12 +864,12 @@ columna en el archivo fuente) pertenecen a la misma estructura.
     al principio de la estructura, donde se volverá a comprobar si la condición
     se cumple.
 
-    Este ciclo ciclo de «_comprobación y ejecución_» se repite una y otra vez
-    hasta que se compruebe que la condición ya no se cumple, momento en el que
-    se saldrá del bucle.
+    Este ciclo de «_comprobación y ejecución_» se repite una y otra vez hasta
+    que se compruebe que la condición ya no se cumple, momento en el que se
+    saldrá del bucle.
 
-- Cada vez que se ejecuta el cuerpo del bucle decimos que se ha producido una
-  **iteración** o **paso** del bucle.
+- Cada vez que se ejecuta una vez el cuerpo del bucle decimos que se ha
+  producido una **iteración** o **paso** del bucle.
 
 - Es importante observar que la comprobación de la condición se hace justo al
   principio de cada iteración, es decir, justo antes de ejecutar la sentencia
@@ -1047,15 +1049,15 @@ while not salida:
   ```python
   match status:
       case 400:
-          return "Bad request"
+          print("Bad request")
       case 401 | 403 | 404 as codigo_coincidente:
-          return "Not allowed, con código " + str(codigo_coincidente)
+          print("Not allowed, con código", codigo_coincidente)
       case 404:
-          return "Not found"
+          print("Not found")
       case 418:
-          return "I'm a teapot"
+          print("I'm a teapot")
       case _:
-          return "Algo raro pasa en Internet"
+          print("Algo raro pasa en Internet")
   ```
 
   ```python
@@ -1107,13 +1109,13 @@ while not salida:
   ```python
   match x:
       case int(x):      # Encaja con un número entero
-          return 'Es un int.'
+          print('Es un int.')
       case float(x):    # Encaja con un número real
-          return 'Es un float.'
+          print('Es un float.')
       case str(x):      # Encaja con una cadena
-          return 'Es un str.'
+          print('Es un str.')
       case _:
-          return 'Es otra cosa.'
+          print('Es otra cosa.')
   ```
 
 ### Excepciones
@@ -1285,7 +1287,7 @@ while not salida:
 
     ```python
     if clave in diccionario:
-        return diccionario[clave]
+        print(diccionario[clave])
     ```
 
     puede fallar si otro hilo borra la clave tras la comprobación de la
