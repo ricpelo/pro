@@ -236,15 +236,15 @@ nocite: |
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(6)      **leer $n$**
-  !SPC(6)      $i \longleftarrow 1$
-  !SPC(6)      **mientras** $i \leq n$ **hacer**
-  !SPC(12)              $j \longleftarrow 1$
-  !SPC(12)              **mientras** $j \leq n$ **hacer**
-  !SPC(18)                      **escribir** $i \times j$ sin salto de línea
-  !SPC(18)                      $j \longleftarrow j + 1$
-  !SPC(12)              **escribir** un salto de línea
-  !SPC(12)              $i \longleftarrow i + 1$
+  !SPC(9)      **leer $n$**
+  !SPC(9)      $i \longleftarrow 1$
+  !SPC(9)      **mientras** $i \leq n$ **hacer**
+  !SPC(18)              $j \longleftarrow 1$
+  !SPC(18)              **mientras** $j \leq n$ **hacer**
+  !SPC(27)                      **escribir** $i \times j$ sin salto de línea
+  !SPC(27)                      $j \longleftarrow j + 1$
+  !SPC(18)              **escribir** un salto de línea
+  !SPC(18)              $i \longleftarrow i + 1$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -259,8 +259,8 @@ nocite: |
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(6)      **leer $n$**
-  !SPC(6)      construir_tabla($n$)
+  !SPC(9)      **leer $n$**
+  !SPC(9)      construir_tabla($n$)
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -274,10 +274,10 @@ nocite: |
   **Entrada:** El tamaño $m$
   **Salida:** La tabla de multiplicar de $m \times m$ (por la salida estándar)
   **inicio**
-  !SPC(6)      $i \longleftarrow 1$
-  !SPC(6)      **mientras** $i \leq m$ **hacer**
-  !SPC(12)              escribir_fila($i$, $m$)
-  !SPC(6)              $i \longleftarrow i + 1$
+  !SPC(9)      $i \longleftarrow 1$
+  !SPC(9)      **mientras** $i \leq m$ **hacer**
+  !SPC(18)              escribir_fila($i$, $m$)
+  !SPC(9)              $i \longleftarrow i + 1$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -295,11 +295,11 @@ nocite: |
   **Entrada:** El número ($f$) de la fila a escribir y el tamaño ($t$) de la tabla
   **Salida:** La fila $f$ de la tabla de multiplicar (por la salida estándar)
   **inicio**
-  !SPC(6)      $i \longleftarrow 1$
-  !SPC(6)      **mientras** $i \leq t$ **hacer**
-  !SPC(12)              **escribir** $f \times i$ sin salto de línea
-  !SPC(12)              $i \longleftarrow i + 1$
-  !SPC(6)      **escribir** un salto de línea
+  !SPC(9)      $i \longleftarrow 1$
+  !SPC(9)      **mientras** $i \leq t$ **hacer**
+  !SPC(18)              **escribir** $f \times i$ sin salto de línea
+  !SPC(18)              $i \longleftarrow i + 1$
+  !SPC(9)      **escribir** un salto de línea
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -415,7 +415,7 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(definición_función) ::=
   !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
-  !SPC(6)      !NT(cuerpo)
+  !SPC(9)      !NT(cuerpo)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - donde:
@@ -492,7 +492,7 @@ nocite: |
   !SPC(31) | !NT(definición_función)
   !NT(definición_función) ::=
   !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
-  !SPC(6)      !NT(sentencia)
+  !SPC(9)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -541,7 +541,7 @@ nocite: |
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(definición_función) ::=
   !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}[!T(->) !NT(tipo)]!T(:)
-  !SPC(6)      !NT(cuerpo)
+  !SPC(9)      !NT(cuerpo)
   !NT(lista_parámetros) ::= !T(identificador)[[!T(:) !NT(tipo)] [!T(,) !T(identificador)]\*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -989,8 +989,7 @@ Una función puede llamar a otra.
   | !PYTHON(g(a, b, /, c))                             | `a, b` sólo posicionales, `c` posicional o por palabra clave.                   |
   | !PYTHON(g(a, !POR, b))                             | `a` posicional, `b` sólo por palabra clave.                                     |
   | !PYTHON(g(a, /, b, !POR, c))                       | `a` posicional, `b` posicional o por palabra clave, `c` sólo por palabra clave. |
-  | !PYTHON(g(!POR{}args, b, c))                       | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave\
-                                                         (el `*` de «!PYTHON(!POR{}args)» actúa como el `*` de los ejemplos anteriores). |
+  | !PYTHON(g(!POR{}args, b, c))                       | Número variable de argumentos posicionales, `b` y `c` sólo por palabras clave (el `*` de «!PYTHON(!POR{}args)» actúa como el `*` de los ejemplos anteriores). |
 
 ## La sentencia !PYTHON(return)
 
@@ -1185,7 +1184,7 @@ None
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}!T(:)
-  !SPC(6)      !T(return) !NT(expresión)
+  !SPC(9)      !T(return) !NT(expresión)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Ámbitos en funciones imperativas

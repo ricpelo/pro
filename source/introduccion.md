@@ -1942,10 +1942,10 @@ frase sus características básicas.
   **Salida:** el mayor de ambos
 
   **inicio**
-  !SPC(6)    **si** $n_1 > n_2$ **entonces**
-  !SPC(12)        **devolver** $n_1$
-  !SPC(6)    **sino**
-  !SPC(12)        **devolver** $n_2$
+  !SPC(9)    **si** $n_1 > n_2$ **entonces**
+  !SPC(18)        **devolver** $n_1$
+  !SPC(9)    **sino**
+  !SPC(18)        **devolver** $n_2$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
