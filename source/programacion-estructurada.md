@@ -368,9 +368,9 @@ nocite: |
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~~~
     **si** $p$ **entonces**
-    !SPC(12)    $A$
+    !SPC(9)    $A$
     **sino**
-    !SPC(12)    $B$
+    !SPC(9)    $B$
     ~~~~~~~~~~~~~~~~~~~~~~~
 
     !SALTO
@@ -380,7 +380,7 @@ nocite: |
     !ALGO
     ~~~~~~~~~~~~~~~~~~~~~~~
     **mientras** $p$ **hacer**
-    !SPC(12)    $A$
+    !SPC(9)    $A$
     ~~~~~~~~~~~~~~~~~~~~~~~
 
 :::
@@ -466,10 +466,10 @@ forman el programa.
 **leer** $a$
 **leer** $b$
 **mientras** $a !NEQ b$ **hacer**
-!SPC(12)      **si** $a < b$ **entonces**
-!SPC(24)            $b \longleftarrow b - a$
-!SPC(12)      **sino**
-!SPC(24)            $a \longleftarrow a - b$
+!SPC(9)      **si** $a < b$ **entonces**
+!SPC(18)            $b \longleftarrow b - a$
+!SPC(9)      **sino**
+!SPC(18)            $a \longleftarrow a - b$
 **escribir** $a$
 **fin**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -685,11 +685,11 @@ columna en el archivo fuente) pertenecen a la misma estructura.
   ~~~~~~~~~~~~~~~~~~~~
   !NT(selección) ::=
   !T(if) !NT(condición)!T(:)
-  !SPC(12)      !NT(sentencia)
+  !SPC(9)      !NT(sentencia)
   [!T(elif) !NT(condición)!T(:)
-  !SPC(12)      !NT(sentencia)]*
+  !SPC(9)      !NT(sentencia)]*
   [!T(else)!T(:)
-  !SPC(12)      !NT(sentencia)]
+  !SPC(9)      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~
 
 - También se la llama «**sentencia !PYTHON(if)**».
@@ -827,11 +827,11 @@ columna en el archivo fuente) pertenecen a la misma estructura.
   !NT(estructura) ::= !NT(secuencia) | !NT(selección)
   !NT(selección) ::=
   !T(if) !NT(condición)!T(:)
-  !SPC(12)      !NT(sentencia)
+  !SPC(9)      !NT(sentencia)
   [!T(elif) !NT(condición)!T(:)
-  !SPC(12)      !NT(sentencia)]*
+  !SPC(9)      !NT(sentencia)]*
   [!T(else)!T(:)
-  !SPC(12)      !NT(sentencia)]
+  !SPC(9)      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~
 
 ## Iteración
@@ -843,7 +843,7 @@ columna en el archivo fuente) pertenecen a la misma estructura.
   ~~~~~~~~~~~~~~~~~~~~
   !NT(iteración) ::=
   !T(while) !NT(condición)!T(:)
-  !SPC(12)      !NT(sentencia)
+  !SPC(9)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
 - A esta estructura también se la llama «**sentencia !PYTHON(while)**»,
@@ -962,7 +962,7 @@ while not salida:
   !NT(estructura) ::= !NT(secuencia) | !NT(selección) | !NT(iteración)
   !NT(iteración) ::=
   !T(while) !NT(condición)!T(:)
-  !SPC(12)      !NT(sentencia)
+  !SPC(9)      !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~
 
 ## Otras sentencias de control
@@ -1176,13 +1176,13 @@ while not salida:
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   !NT(gestión_excepciones) ::=
   !T(try:)
-  !SPC(12)      !NT(sentencia)
+  !SPC(9)      !NT(sentencia)
   \(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-  !SPC(12)      !NT(sentencia))!MAS()
+  !SPC(9)      !NT(sentencia))!MAS()
   [!T(else:)
-  !SPC(12)      !NT(sentencia)]
+  !SPC(9)      !NT(sentencia)]
   [!T(finally:)
-  !SPC(12)      !NT(sentencia)]
+  !SPC(9)      !NT(sentencia)]
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   donde:
@@ -1264,13 +1264,13 @@ while not salida:
 !SPC(31) | !NT(gestión_excepciones)
 !NT(gestión_excepciones) ::=
 !T(try:)
-!SPC(12)      !NT(sentencia)
+!SPC(9)      !NT(sentencia)
 \(!T(except) [!NT(excepcion) [!T(as) !NT(identificador)]]!T(:)
-!SPC(12)      !NT(sentencia))!MAS()
+!SPC(9)      !NT(sentencia))!MAS()
 [!T(else:)
-!SPC(12)      !NT(sentencia)]
+!SPC(9)      !NT(sentencia)]
 [!T(finally:)
-!SPC(12)      !NT(sentencia)]
+!SPC(9)      !NT(sentencia)]
 ~~~~~~~~~~~~~~~~~~~~
 
 ---
@@ -1454,8 +1454,8 @@ while not salida:
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(12)      **leer $n$**
-  !SPC(12)      **construir la tabla de $n \times n$**
+  !SPC(9)      **leer $n$**
+  !SPC(9)      **construir la tabla de $n \times n$**
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1497,11 +1497,11 @@ while not salida:
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(12)      **leer $n$**
-  !SPC(12)      $i \longleftarrow 1$
-  !SPC(12)      **mientras** $i \leq n$ **hacer**
-  !SPC(24)              **escribir la fila de $i$**
-  !SPC(24)              $i \longleftarrow i + 1$
+  !SPC(9)      **leer $n$**
+  !SPC(9)      $i \longleftarrow 1$
+  !SPC(9)      **mientras** $i \leq n$ **hacer**
+  !SPC(18)              **escribir la fila de $i$**
+  !SPC(18)              $i \longleftarrow i + 1$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1519,15 +1519,15 @@ while not salida:
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
-  !SPC(12)      **leer $n$**
-  !SPC(12)      $i \longleftarrow 1$
-  !SPC(12)      **mientras** $i \leq n$ **hacer**
-  !SPC(24)              $j \longleftarrow 1$
-  !SPC(24)              **mientras** $j \leq n$ **hacer**
-  !SPC(36)                      **escribir** $i \times j$ sin salto de línea
-  !SPC(36)                      $j \longleftarrow j + 1$
-  !SPC(24)              **escribir** un salto de línea
-  !SPC(24)              $i \longleftarrow i + 1$
+  !SPC(9)      **leer $n$**
+  !SPC(9)      $i \longleftarrow 1$
+  !SPC(9)      **mientras** $i \leq n$ **hacer**
+  !SPC(18)              $j \longleftarrow 1$
+  !SPC(18)              **mientras** $j \leq n$ **hacer**
+  !SPC(27)                      **escribir** $i \times j$ sin salto de línea
+  !SPC(27)                      $j \longleftarrow j + 1$
+  !SPC(18)              **escribir** un salto de línea
+  !SPC(18)              $i \longleftarrow i + 1$
   **fin**
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
