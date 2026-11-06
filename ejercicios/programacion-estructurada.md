@@ -54,6 +54,9 @@ include-before:
 
    se pide:
 
+   #. Describir con una sola frase, usando tus propias palabras y sin términos
+      técnicos, qué hace el programa.
+
    #. Contar cuántas sentencias hay.
 
    #. Por cada una de ellas, indicar si son simples o compuestas.
