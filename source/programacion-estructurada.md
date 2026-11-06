@@ -1050,7 +1050,7 @@ while not salida:
   match status:
       case 400:
           print("Bad request")
-      case 401 | 403 | 404 as codigo_coincidente:
+      case 401 | 403:
           print("Not allowed, con código", codigo_coincidente)
       case 404:
           print("Not found")
