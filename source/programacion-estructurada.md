@@ -1071,7 +1071,7 @@ while not salida:
     case (x, y):   # las variables 'x' e 'y' toman los valores de los elementos
         print("La X vale", x, "y la Y vale", y)
     case _:
-        raise ValueError("No es un punto")
+        print("No es un punto")
   ```
 
 ---
@@ -1310,7 +1310,7 @@ while not salida:
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~
   !NT(raise) ::= !T(raise) !NT(excepción)
-  !NT(excepción) ::= !NT(tipo_excepción)!T{(}!NT(mensaje)!T{)}
+  !NT(excepción) ::= !NT(tipo_excepción)!T{(}[!NT(mensaje)]!T{)}
   ~~~~~~~~~~~~~~~~~~~~
 
   donde !NT(excepción) es una expresión que crea una excepción de un
@@ -1352,15 +1352,15 @@ while not salida:
 
 ## Diseño descendente por refinamiento sucesivo
 
-- El diseño descendente es una técnica de refinamiento por etapas que consiste
-  en descomponer la solución de un problema complejo en instrucciones o pasos
-  más sencillos, realizándose esta operación de forma sucesiva hasta llegar al
-  máximo nivel de detalle en el cual se pueden codificar directamente las
-  operaciones en un lenguaje de programación estructurado.
+- El diseño descendente es una técnica de refinamiento que consiste en
+  descomponer una instrucción compleja en instrucciones o pasos más sencillos,
+  realizándose esta operación de forma sucesiva hasta llegar al máximo nivel de
+  detalle en el cual se pueden codificar directamente las instrucciones en un
+  lenguaje de programación estructurado.
 
 - Con esta técnica, los programas se crean en distintos niveles de
   refinamiento, de forma que cada nuevo nivel define la solución de forma más
-  concreta y subdivide las operaciones en otras más detalladas.
+  concreta y subdivide las instrucciones en otras más detalladas.
 
 - Los programas se diseñan de lo general a lo particular por medio de sucesivos
   refinamientos o descomposiciones que nos van acercando a las instrucciones
