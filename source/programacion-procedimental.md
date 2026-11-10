@@ -145,9 +145,9 @@ nocite: |
   de programación imperativa basada en los conceptos de **subprograma** y
   **llamada a subprogramas**.
 
-  - El adjetivo de «procedimental» se mantiene más bien por motivos históricos,
-    ya que el paradigma se refiere a cualquier tipo de subprograma. Visto así,
-    mejor debería llamarse «_programación con subprogramas_».
+  El adjetivo de «procedimental» se mantiene más bien por motivos históricos,
+  ya que el paradigma se refiere a cualquier tipo de subprograma. Visto así,
+  mejor debería llamarse «_programación con subprogramas_».
 
 - En este paradigma, un programa imperativo está compuesto principalmente por
   subprogramas que se llaman entre sí, los cuales están compuestos, a su vez,
@@ -191,9 +191,10 @@ nocite: |
 
 ::: {.column width=40%}
 
-- Las cajas con trazo discontinuo, que representan los límites de cada
-  estructura, nos hacen entender que podemos ver cada una de esas estructuras
-  como si fuera una sola sentencia.
+- Las cajas con trazo discontinuo representan los límites de cada
+  estructura.
+
+- Cada estructura actúa y se ve como si fuera una sola sentencia.
 
 :::
 
@@ -315,11 +316,11 @@ nocite: |
 - Dependiendo del lenguaje de programación usado, ese programa principal podrá
   ser:
 
-  - otro subprograma «destacado», con un nombre o una marca especial, desde el
+  - Otro subprograma «destacado», con un nombre o una marca especial, desde el
     cual se iniciaría la ejecución del programa (como la función `main` de C o
-    el método `main` de Java), o bien
+    el método `main` de Java).
 
-  - un bloque de código independiente que no pertenece a ningún subprograma
+  - Un bloque de código independiente que no pertenece a ningún subprograma
     (caso de los lenguajes Pascal o Python).
 
 !EJERCICIO
@@ -359,7 +360,7 @@ nocite: |
 
 ---
 
-- El diseño descendente también tiene **inconvenientes**:
+- El diseño descendente con subprogramas también tiene **inconvenientes**:
 
   - Hasta que no se ha llegado al nivel más bajo, no se tiene algo que pueda
     probarse, ensamblarse y ejecutarse.
@@ -370,8 +371,8 @@ nocite: |
 
   - Puede ignorar la reutilización de subprogramas ya existentes.
 
-  - Resulta fácil obtener subprogramas que sólo sean útiles para el programa
-    actual y no se puedan generalizar para su reutilización en otras
+  - Es frecuente crear subprogramas que sólo sean útiles para el programa
+    actual y que no se puedan generalizar para su reutilización en otras
     situaciones.
 
 # Funciones imperativas
