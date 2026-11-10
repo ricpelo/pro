@@ -19,8 +19,9 @@ nocite: |
   parte de un verdadero programa que lo ejecute las veces que sea necesario,
   indicando su nombre o su posición dentro del mismo.
 
-- Visto de esta forma, actúa de manera similar a un virus: no puede vivir por
-  sí solo, sino que necesita otro organismo mayor que lo hospede.
+- Visto de esta forma, un subprograma actúa de manera similar a un virus: no
+  puede vivir por sí solo, sino que necesita otro organismo mayor que lo
+  hospede.
 
 - El objetivo de un subprograma es el de realizar una tarea específica dentro
   de un programa, de manera que se pueda acudir a él cada vez que el programa
@@ -37,8 +38,8 @@ nocite: |
   ejecución.
 
 - Cuando finaliza la ejecución del subprograma, el control vuelve a la
-  instrucción siguiente a la que se había detenido, para continuar la ejecución
-  del programa desde ahí.
+  instrucción detenida desde la que se llamó al subprograma, para continuar la
+  ejecución del programa desde ahí.
 
 - Un subprograma puede llamar a otro subprograma, lo que hace que varias
   instrucciones puedan estar detenidas en un momento dado a la espera de
@@ -61,28 +62,26 @@ nocite: |
   - Evitar repeticiones del mismo código al realizar tareas rutinarias que se
     van a ejecutar varias veces en diferentes puntos del programa.
 
-- En definitiva, los subprogramas son **abstracciones**, si se definen y usan
-  adecuadamente.
+- En definitiva, los subprogramas pueden actuar como **abstracciones**.
 
 ---
 
 - **En programación funcional**:
 
-  - Las funciones que hemos creado hasta ahora con abstracciones lambda son
-    subprogramas **compuestos por una sola expresión** (el cuerpo de la
-    abstracción lambda).
+  - Las funciones que hemos creado con abstracciones lambda son subprogramas
+    **compuestos por una sola expresión** (el cuerpo de la abstracción lambda).
 
   - De hecho, en el paradigma funcional, las funciones son el único tipo de
     subprograma que existe.
 
 - **En programación imperativa**:
 
-  - Un lenguaje de programación imperativo también debería permitir la creación
+  - Un lenguaje de programación imperativa también debería permitir la creación
     de subprogramas.
 
   - En ese caso, los subprogramas deberían estar **compuestos por sentencias**
-    en lugar de por expresiones, ya que las sentencias son la base del
-    paradigma imperativo.
+    en lugar de expresiones, ya que las sentencias son la base del paradigma
+    imperativo.
 
 <!--
 - En el paradigma imperativo, a un bloque de sentencias que realiza una tarea
