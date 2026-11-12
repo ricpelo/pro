@@ -142,7 +142,7 @@ include-before:
 
    ```
    1x^2 + 2x + 3
-   p(2) = 9
+   p(2) = 11
    ```
 
 #. Escribir un programa apropiado para cada una de las siguientes tareas:
