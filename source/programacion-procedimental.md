@@ -10,14 +10,15 @@ nocite: |
 
 ## Subprogramas
 
-- Un **subprograma** o **subrutina** es una porción de código que por sí solo
-  no representa un programa, aunque sigue el mismo esquema de «_entrada
-  $\rightarrow$ proceso $\rightarrow$ salida_» que sigue cualquier programa,
+- Un **subprograma** (o **subrutina**) es una porción de código que por sí solo
+  no representa un programa, aunque sigue el mismo esquema de «_Entrada
+  $\rightarrow$ Proceso $\rightarrow$ Salida_» que sigue cualquier programa,
   por lo que funciona «casi» como si lo fuera.
 
-- Como no es un programa, no puede funcionar por sí solo, sino que debe formar
-  parte de un verdadero programa que lo ejecute las veces que sea necesario,
-  indicando su nombre o su posición dentro del mismo.
+- Como no es un programa, no puede funcionar solo, sino que debe formar parte
+  de un verdadero programa que lo invoque las veces que sea necesario,
+  indicando su nombre (o su posición dentro del mismo, dependiendo del lenguaje
+  utilizado).
 
 - Visto de esta forma, un subprograma actúa de manera similar a un virus: no
   puede vivir por sí solo, sino que necesita otro organismo mayor que lo
@@ -143,30 +144,30 @@ nocite: |
 
 - La **programación procedimental** (_procedural programming_) es un paradigma
   de programación imperativa basada en los conceptos de **subprograma** y
-  **llamada a subprogramas**.
+  **llamadas a subprogramas**.
 
   El adjetivo de «procedimental» se mantiene más bien por motivos históricos,
   ya que el paradigma se refiere a cualquier tipo de subprograma. Visto así,
-  mejor debería llamarse «_programación con subprogramas_».
+  debería más bien llamarse «_programación con subprogramas_».
 
-- En este paradigma, un programa imperativo está compuesto principalmente por
-  subprogramas que se llaman entre sí, los cuales están compuestos, a su vez,
-  por sentencias.
+- En este paradigma, un programa imperativo está compuesto mayoritariamente por
+  subprogramas que se llaman entre sí, los cuales se componen, a su vez, de
+  sentencias.
 
 ---
 
 - Los subprogramas pueden tener **parámetros** a través de los cuales reciben
   sus datos de entrada, caso de necesitarlos.
 
-- A su vez (si los subprogramas son funciones), pueden devolver un
+- Además, si los subprogramas son funciones, también pueden devolver un
   **resultado**, de ser necesario.
 
-- Los subprogramas, dependiendo del lenguaje de programación usado,
-  **introducen su propio ámbito local** y también podrían acceder a otros
-  ámbitos no locales que contengan al suyo, como el ámbito global.
+- Dependiendo del lenguaje de programación usado, los subprogramas **introducen
+  su propio ámbito local** y también pueden acceder a otros ámbitos no locales
+  que contengan al suyo (como el ámbito global).
 
 - Asimismo, los subprogramas suelen contar con un **espacio de nombres propio**
-  que almacena sus nombres locales para evitar el _name clash_.
+  que almacena sus ligaduras locales para evitar el _name clash_.
 
 ## Subprogramas y refinamiento sucesivo
 
@@ -542,7 +543,7 @@ nocite: |
   !NT(definición_función) ::=
   !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}[!T(->) !NT(tipo)]!T(:)
   !SPC(9)      !NT(cuerpo)
-  !NT(lista_parámetros) ::= !T(identificador)[[!T(:) !NT(tipo)] [!T(,) !T(identificador)]\*
+  !NT(lista_parámetros) ::= !T{identificador}[!T{:} !NT{tipo}] (!T{,} !T{identificador}[!T{:} !NT{tipo}] ) \*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Es importante recordar que el intérprete no comprueba en ningún momento las
