@@ -17,8 +17,8 @@ nocite: |
 
 - Como no es un programa, no puede funcionar solo, sino que debe formar parte
   de un verdadero programa que lo invoque las veces que sea necesario,
-  indicando su nombre (o su posición dentro del mismo, dependiendo del lenguaje
-  utilizado).
+  indicando su nombre (o el número de línea donde empieza el código del
+  subprograma, según el lenguaje utilizado).
 
 - Visto de esta forma, un subprograma actúa de manera similar a un virus: no
   puede vivir por sí solo, sino que necesita otro organismo mayor que lo
@@ -40,7 +40,7 @@ nocite: |
 
 - Cuando finaliza la ejecución del subprograma, el control vuelve a la
   instrucción detenida desde la que se llamó al subprograma, para continuar la
-  ejecución del programa desde ahí.
+  ejecución desde ahí.
 
 - Un subprograma puede llamar a otro subprograma, lo que hace que varias
   instrucciones puedan estar detenidas en un momento dado a la espera de
@@ -104,19 +104,19 @@ nocite: |
     así llamadas **funciones _imperativas_**) no son como las funciones del
     paradigma funcional.
 
-  - En concreto, las funciones imperativas están formadas por sentencias, no
-    por expresiones.
+  - En concreto, **las funciones imperativas están formadas por sentencias**,
+    no por expresiones.
 
-- La diferencia entre una función y un procedimiento es que las funciones
-  devuelven valores mientras que los procedimientos no.
+- La diferencia entre una función y un procedimiento es que **las funciones
+  devuelven valores mientras que los procedimientos no**.
 
-- Por ejemplo, en el lenguaje imperativo Pascal se diferencian las _function_
-  (funciones, que devuelven valores) de los _procedure_ (procedimientos, que no
-  devuelven valores).
+- Por ejemplo, en el lenguaje Pascal se diferencian las _function_ (funciones,
+  que devuelven valores) de los _procedure_ (procedimientos, que no devuelven
+  valores).
 
 ---
 
-- Pero hay lenguajes imperativos, como C o Python, que no tienen
+- Pero hay lenguajes imperativos (como C o Python) que no tienen
   procedimientos, sino que todos sus subprogramas son funciones.
 
 - En estos lenguajes, los «procedimientos» son funciones que devuelven un valor
@@ -146,11 +146,11 @@ nocite: |
   de programación imperativa basada en los conceptos de **subprograma** y
   **llamadas a subprogramas**.
 
-  El adjetivo de «procedimental» se mantiene más bien por motivos históricos,
-  ya que el paradigma se refiere a cualquier tipo de subprograma. Visto así,
+  El adjetivo «procedimental» se mantiene más bien por motivos históricos, ya
+  que el paradigma se refiere a cualquier tipo de subprograma. Visto así,
   debería más bien llamarse «_programación con subprogramas_».
 
-- En este paradigma, un programa imperativo está compuesto mayoritariamente por
+- En este paradigma, un programa está compuesto mayoritariamente por
   subprogramas que se llaman entre sí, los cuales se componen, a su vez, de
   sentencias.
 
@@ -160,7 +160,7 @@ nocite: |
   sus datos de entrada, caso de necesitarlos.
 
 - Además, si los subprogramas son funciones, también pueden devolver un
-  **resultado**, de ser necesario.
+  **resultado**.
 
 - Dependiendo del lenguaje de programación usado, los subprogramas **introducen
   su propio ámbito local** y también pueden acceder a otros ámbitos no locales
@@ -172,9 +172,17 @@ nocite: |
 ## Subprogramas y refinamiento sucesivo
 
 - Durante el proceso de diseño descendente por refinamiento sucesivo que
-  estudiamos en programación estructurada, se pueden ir creando subprogramas
-  que representen **diferentes niveles de detalle** en el diseño descendente.
+  estudiamos en programación estructurada, vimos que podemos ir refinando
+  **instrucciones abstractas** (que son «mágicas» ya que no existen en el
+  lenguaje de programación) en otras más concretas.
 
+- En el paradigma procedimental, las instrucciones abstractas se pueden
+  convertir en **llamadas a subprogramas**.
+
+- Esos subprogramas representan **diferentes niveles de detalle** en el diseño
+  descendente.
+
+<!--
 - Recordemos que una estructura de control es una sentencia compuesta y, como
   tal, podemos estudiarla como si fuera una sola sentencia (con su entrada y su
   salida), sin tener que conocer el detalle de cómo funciona por dentro, es
@@ -207,9 +215,13 @@ nocite: |
   actúa como una sentencia compuesta**, formada por varias sentencias (el
   _cuerpo_ del subprograma) que actúan como una sola.
 
+-->
+
 - En ese caso, **el subprograma actúa como un recurso abstracto en un
   determinado nivel** (en ese nivel, se invoca al subprograma aunque aún no
   exista) que luego se implementa en un nivel de mayor refinamiento.
+
+---
 
 - El uso de subprogramas para escribir programas siguiendo un diseño
   descendente nos lleva a un **código descompuesto en partes separadas** en
@@ -256,7 +268,7 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  **Algoritmo:** Tabla de multiplicar de $n \times n$
+  **Algoritmo principal:** Tabla de multiplicar de $n \times n$
   **Entrada:** El tamaño $n$ (por la entrada estándar)
   **Salida:** La tabla de multiplicar de $n \times n$ (por la salida estándar)
   **inicio**
@@ -310,9 +322,9 @@ nocite: |
 
 ---
 
-- Aquí se puede apreciar que existe un algoritmo o **programa principal** y
-  unos subprogramas (que aquí podríamos llamar también _subalgoritmos_) que son
-  usados desde el programa principal o desde otros subprogramas.
+- Aquí existen un algoritmo (o **programa principal**) y unos subprogramas (que
+  podríamos llamar también _subalgoritmos_) que son usados desde el programa
+  principal o desde otros subprogramas.
 
 - Dependiendo del lenguaje de programación usado, ese programa principal podrá
   ser:
@@ -322,7 +334,7 @@ nocite: |
     el método `main` de Java).
 
   - Un bloque de código independiente que no pertenece a ningún subprograma
-    (caso de los lenguajes Pascal o Python).
+    (como en los lenguajes Pascal o Python).
 
 !EJERCICIO
 
@@ -334,23 +346,23 @@ nocite: |
 - El código escrito mediante **descomposición en subprogramas** tiene dos
   grandes **ventajas**:
 
-  - Es más fácil estudiar y entender un código basado en abstracciones
-    independientes y separadas que se llaman entre sí, antes que un código
-    donde todo está en el mismo nivel de refinamiento formando un texto
-    monolítico de principio a fin.
+  #. Es más fácil estudiar y entender un código basado en abstracciones
+     independientes y separadas que se llaman entre sí, antes que un código
+     donde todo está en el mismo nivel de refinamiento formando un texto
+     monolítico de principio a fin.
 
-  - Es probable que los subprogramas así obtenidos puedan _reutilizarse_ en
-    otros programas con poca o ninguna variación, siempre y cuando sean lo
-    suficientemente genéricos e independientes del resto del programa que los
-    utiliza.
+  #. Es probable que los subprogramas así obtenidos puedan _reutilizarse_ en
+     otros programas con poca o ninguna variación, siempre y cuando sean lo
+     suficientemente genéricos e independientes del resto del programa que los
+     utiliza.
 
-    Esta propiedad se conoce como **reusabilidad**.
+     Esta propiedad se conoce como **reusabilidad**.
 
 ---
 
-- Estas ventajas nos están ya haciendo entender que puede resultar interesante
-  diseñar un programa descomponiéndolo en partes separadas, asunto que veremos
-  con más detalle al estudiar la _programación modular_.
+- Estas ventajas nos hacen ver que puede resultar interesante diseñar un
+  programa descomponiéndolo en partes separadas, asunto que veremos con más
+  detalle al estudiar la _programación modular_.
 
 - Pero no debemos confundir la programación procedimental con la programación
   modular, que son términos relacionados pero diferentes.
@@ -358,6 +370,12 @@ nocite: |
 - Asimismo, la mayoría de los lenguajes estructurados permiten la creación de
   subprogramas, lo que a veces lleva a la confusión de creer que la
   programación estructurada y la procedimental son el mismo paradigma.
+
+!CAJA
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+La programación imperativa, la procedimental, la estructurada y la modular
+son conceptos distintos, aunque estén relacionados entre sí.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---
 
@@ -370,7 +388,7 @@ nocite: |
     detalles prácticos ni se conocen perfectamente desde el principio los
     requisitos del programa que hay que constuir.
 
-  - Puede ignorar la reutilización de subprogramas ya existentes.
+  - Es fácil ignorar la reutilización de subprogramas ya existentes.
 
   - Es frecuente crear subprogramas que sólo sean útiles para el programa
     actual y que no se puedan generalizar para su reutilización en otras
@@ -390,23 +408,23 @@ nocite: |
 
 ## Definición de funciones imperativas
 
-- Al igual que ocurre en programación funcional, una función imperativa es una
-  construcción sintáctica que acepta argumentos y produce un resultado.
+- Una función imperativa es una construcción sintáctica que acepta argumentos y
+  produce un resultado.
 
 - Pero a diferencia de lo que ocurre en programación funcional, una función
-  imperativa contiene **sentencias**.
+  imperativa se compone de **sentencias**, y no de expresiones.
 
 - Las funciones imperativas en Python son los bloques constructivos básicos que
-  nos permiten **descomponer un programa en partes** que se combinan entre sí,
-  lo que resulta el complemento perfecto para la programación estructurada.
+  nos permiten **descomponer un programa en subprogramas** que se llaman entre
+  sí, lo que resulta el complemento perfecto para la programación estructurada.
 
 - Todavía podemos construir funciones mediante expresiones lambda, pero las
-  funciones imperativas tienen ventajas:
+  funciones imperativas tienen dos grandes ventajas, entre otras:
 
-  - Podemos escribir **sentencias** dentro de las funciones imperativas.
+  #. Podemos escribir **sentencias** dentro de las funciones imperativas.
 
-  - Podemos escribir funciones que no devuelvan ningún resultado porque su
-    cometido sea provocar algún **efecto lateral**.
+  #. Podemos escribir funciones que no devuelvan ningún resultado porque su
+     cometido sea provocar algún **efecto lateral**.
 
 ---
 
@@ -423,7 +441,7 @@ nocite: |
 
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  !NT(lista_parámetros) ::= !T(identificador) [!T(,) !T(identificador)]\*
+  !NT(lista_parámetros) ::= !T{identificador} (!T(,) !T(identificador))\*
   !NT(cuerpo) ::= !NT(sentencia)
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -447,9 +465,9 @@ nocite: |
 - Por tanto, puede aparecer en cualquier lugar del programa donde pueda haber
   una sentencia.
 
-- Como en cualquier otra estructura, las sentencias que contiene (las que van
-  en el **cuerpo** de la función) van **indentadas** (o *sangradas*) dentro de
-  la definición de la función.
+- Como en cualquier otra estructura, las sentencias que contiene (las que
+  forman el **cuerpo** de la función) van **indentadas** dentro de la
+  definición de la función.
 
 - Por tanto (de nuevo, como en cualquier otra estructura), el final de la
   función se deduce al encontrarse una sentencia **menos indentada** que el
@@ -458,8 +476,8 @@ nocite: |
 ---
 
 - La definición de una función es una sentencia ejecutable que, como cualquier
-  otra definición, **crea una ligadura** entre un identificador (el nombre de
-  la función) y una variable que almacenará **una referencia a la función**.
+  definición, **crea una ligadura** entre un identificador (el nombre de la
+  función) y una variable que almacenará **una referencia a la función**.
 
 - Esta función, como cualquier otro valor, se guardará en el montículo.
 
@@ -471,8 +489,8 @@ nocite: |
   global) y, por tanto, su ligadura y su variable **se almacenarán en el marco
   del ámbito donde se ha definido la función** (normalmente, el marco global).
 
-- Asimismo, **el cuerpo de una función imperativa determina un ámbito**, al
-  igual que ocurría con las expresiones lambda.
+- Asimismo, **el cuerpo de una función imperativa introduce un nuevo ámbito**,
+  al igual que ocurría con las expresiones lambda.
 
 ---
 
@@ -505,9 +523,12 @@ nocite: |
   inglés), y ya los hemos visto anteriormente, por ejemplo al escribir la
   **signatura** de una función.
 
-- En realidad, la primera línea de la definición de una función (que
-  técnicamente se denomina la **cabecera** de la función) podría entenderse que
-  es la signatura de la función, precedida por la palabra clave !PYTHON(def).
+- En realidad, la primera línea de la definición de una función podría
+  entenderse que es la signatura de la función, precedida por la palabra clave
+  !PYTHON(def).
+
+- A esa primera línea (la que empieza por !PYTHON(def)) también se la denomina
+  técnicamente la **cabecera** de la función.
 
 ---
 
@@ -519,14 +540,20 @@ nocite: |
       print('Hola', nombre, apellidos)
   ```
 
-  se podría anotar de la siguiente forma:
+- Su cabecera es la primera línea:
+
+  ```python
+  def saluda(nombre, apellidos):
+  ```
+
+  y se podría anotar de la siguiente forma:
 
   ```python
   def saluda(nombre: str, apellidos: str) -> None:
       print('Hola', nombre, apellidos)
   ```
 
-  lo que nos lleva a que la función tiene la siguiente signatura:
+  por lo que decimos que la función tiene la siguiente signatura:
 
   $\texttt{saluda(!VAR(nombre):\,str,\;!VAR(apellidos):\,str)\;->\;None}$
 
@@ -543,7 +570,7 @@ nocite: |
   !NT(definición_función) ::=
   !T(def) !NT(nombre)!T{(}[!NT(lista_parámetros)]!T{)}[!T(->) !NT(tipo)]!T(:)
   !SPC(9)      !NT(cuerpo)
-  !NT(lista_parámetros) ::= !T{identificador}[!T{:} !NT{tipo}] (!T{,} !T{identificador}[!T{:} !NT{tipo}] ) \*
+  !NT(lista_parámetros) ::= !T{identificador}[!T{:} !NT{tipo}] (!T{,} !T{identificador}[!T{:} !NT{tipo}] )\*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Es importante recordar que el intérprete no comprueba en ningún momento las
@@ -552,12 +579,12 @@ nocite: |
 
 ## Llamadas a funciones imperativas
 
-- Sabemos que una llamada a cualquier función es una expresión que, como
-  cualquier otra expresión, se evalúa en busca de su valor.
+- Sabemos que una llamada a cualquier función es una expresión que se evalúa en
+  busca de su valor, como ocurre con cualquier expresión.
 
-- De la misma forma, una llamada a una función imperativa es una expresión que
-  se evalúa para determinar su valor, pero, al hacerlo, se provoca la ejecución
-  de las sentencias que forman el cuerpo de la misma.
+- Igualmente, una llamada a una función imperativa es una expresión que se
+  evalúa para determinar su valor, pero, al hacerlo, se provoca la ejecución de
+  las sentencias que forman el cuerpo de la función.
 
 - Por eso, cuando llamamos a la función también decimos que estamos
   _ejecutando_ la función, ya que estamos provocando la ejecución de las
@@ -601,28 +628,32 @@ nocite: |
 
 ---
 
-- Como una expresión, por sí sola, es también una sentencia válida según la
-  sintaxis de Python, podemos usar una llamada a una función como una sentencia
-  simple allí donde se espera una sentencia cualquiera.
+- Recordemos que, en Python, una expresión sola también es una sentencia válida
+  según las reglas del lenguaje.
 
+- Por ello, podemos usar una llamada a una función como una sentencia simple
+  allí donde se espere una sentencia cualquiera.
+
+<!--
 - En consecuencia, podemos considerar que una sentencia formada únicamente por
   una llamada a una función es una sentencia simple que, en realidad, actúa
   como una sentencia compuesta: una estructura secuencial (o bloque), que es el
   cuerpo de la función y que se ejecuta cuando se llama a ésta.
+-->
 
-- Debemos tener en cuenta que, en ese caso, el valor de retorno se perdería ya
-  que no se usaría.
+- Debemos tener en cuenta que, en ese caso, el valor de retorno de la función
+  se perdería ya que no se usaría ni se guardaría en ninguna parte.
 
 ---
 
-- Por ejemplo, supongamos que la función `saluda` que vimos antes devolviera el
-  número de caracteres que tiene el nombre que recibe como argumento.
+- Por ejemplo, supongamos que la función `saluda` devuelve el número de
+  caracteres que tiene el nombre que recibe como argumento.
 
-- Si llamamos a la función como una expresión, podríamos usar ese valor de
-  retorno:
+- Si llamamos a la función como una expresión dentro de otra sentencia,
+  podríamos usar ese valor de retorno:
 
   ```python
-  n = saluda('Manuel', 'Gonzalez')
+  n = saluda('Manuel', 'Gonzalez')  # Se usa la llamada dentro de una asignación
   print('El nombre de pila tiene', n, 'caracteres')
   ```
 
@@ -757,14 +788,14 @@ Una función puede llamar a otra.
 
 ## Paso de argumentos
 
-- En el marco de la función llamada se almacenan, entre otras cosas, los
+- Entre otras cosas, en el marco de la función llamada se almacenan los
   parámetros de la función.
 
 - Al entrar en la función, los parámetros contendrán los valores de los
-  argumentos que se hayan pasado a la función al llamar a la misma.
+  argumentos que se hayan pasado a la función al llamar a esta.
 
-- Existen distintos mecanismos de paso de argumentos, dependiendo del lenguaje
-  de programación utilizado.
+- Existen distintos **mecanismos de paso de argumentos**, dependiendo del
+  lenguaje de programación utilizado.
 
 - Los más conocidos son los llamados **paso de argumentos _por valor_** y
   **paso de argumentos _por referencia_**.
