@@ -1987,6 +1987,181 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a h
 </ul>
 <!--
 
+El diseño descendente (top-down design) por refinamiento sucesivo consiste en abordar un problema complejo descomponiéndolo en subproblemas más sencillos (Nivel 0 → Nivel 1 → Nivel 2...), reduciendo la complejidad paso a paso hasta llegar a instrucciones que una computadora pueda ejecutar directamente.A continuación encontrarás 3 ejercicios de diferente nivel explicados paso a paso con su proceso de refinamiento.Ejercicio 1: Cajero Automático (Nivel Fácil)Problema: Diseñar el algoritmo para realizar un retiro de dinero en efectivo en un cajero automático.Paso 1: Nivel 0 (Idea General)Proceso RetirarDineroCajero
+    1. Validar tarjeta y usuario.
+    2. Gestionar el monto a retirar.
+    3. Entregar dinero y comprobante.
+FinProceso
+Paso 2: Nivel 1 (Refinamiento Intermedio)Descomponemos cada punto en pasos lógicos más detallados.Proceso RetirarDineroCajero
+    // 1. Validar tarjeta y usuario
+    Leer Tarjeta
+    Solicitar y Validar PIN (máximo 3 intentos)
+    Si PIN es incorrecto Entonces
+        Bloquear tarjeta y Salir
+    FinSi
+
+    // 2. Gestionar el monto a retirar
+    Solicitar Monto
+    Consultar Saldo de la cuenta
+    Si Saldo < Monto Entonces
+        Mostrar "Saldo insuficiente" y Salir
+    FinSi
+
+    // 3. Entregar dinero y comprobante
+    Descontar Monto del Saldo
+    Dispensar Billetes
+    Imprimir Comprobante
+    Devolver Tarjeta
+FinProceso
+Paso 3: Nivel 2 (Pseudocódigo / Detalle Final)Fragmento de códigoAlgoritmo RetirarDinero
+    Definir pinIngresado, pinCorrecto, intentos, saldo, monto Como Real
+    Definir tarjetaValida, pinValido Como Logico
+    
+    intentos <- 0
+    pinCorrecto <- 1234  // Ejemplo
+    saldo <- 500000      // Ejemplo
+    pinValido <- Falso
+
+    // 1. Validar usuario
+    Mientras intentos < 3 Y NO pinValido Hacer
+        Escribir "Ingrese su PIN:"
+        Leer pinIngresado
+        Si pinIngresado = pinCorrecto Entonces
+            pinValido <- Verdadero
+        Sino
+            intentos <- intentos + 1
+            Escribir "PIN incorrecto. Intentos restantes: ", 3 - intentos
+        FinSi
+    FinMientras
+
+    Si NO pinValido Entonces
+        Escribir "Tarjeta bloqueada por seguridad."
+    Sino
+        // 2. Gestionar monto
+        Escribir "Ingrese el monto a retirar:"
+        Leer monto
+        
+        Si monto > saldo Entonces
+            Escribir "Error: Saldo insuficiente."
+        Sino
+            // 3. Entregar dinero
+            saldo <- saldo - monto
+            Escribir "Entregando $", monto, " en efectivo..."
+            Escribir "Nuevo saldo disponible: $", saldo
+            Escribir "Imprimiendo recibo..."
+        FinSi
+    FinSi
+    
+    Escribir "Por favor, retire su tarjeta. Gracias."
+FinAlgoritmo
+Ejercicio 2: Cálculo de Calificaciones de una Clase (Nivel Intermedio)Problema: Crear un programa que procese las notas finales de $N$ estudiantes, determine cuántos aprobaron/reprobaron y calcule el promedio del grupo.Paso 1: Nivel 0 (Visión Global)1. Inicializar variables y pedir la cantidad de estudiantes.
+2. Procesar las notas de cada estudiante.
+3. Mostrar estadísticas del grupo.
+Paso 2: Nivel 1 (Primer Desglose)1. Inicializar sumador de notas en 0, contador de aprobados en 0, reprobados en 0.
+2. Pedir número total de estudiantes N.
+3. Para i = 1 hasta N hacer:
+   3.1. Leer nota válida (entre 0 y 10).
+   3.2. Sumar nota al acumulador.
+   3.3. Si nota >= 6 entones incrementar aprobados, si no reprobados.
+4. Calcular promedio = suma / N.
+5. Imprimir aprobados, reprobados y promedio.
+Paso 3: Nivel 2 (Detalle Estructurado en Pseudocódigo)Fragmento de códigoAlgoritmo EstadisticasNotas
+    Definir n, i, aprobados, reprobados Como Entero
+    Definir nota, sumaNotas, promedio Como Real
+    
+    aprobados <- 0
+    reprobados <- 0
+    sumaNotas <- 0
+    
+    Escribir "Ingrese la cantidad de estudiantes:"
+    Leer n
+    
+    Para i <- 1 Hasta n Con Paso 1 Hacer
+        // Validación de entrada (Refinamiento local)
+        Repetir
+            Escribir "Ingrese la nota del estudiante ", i, " (0 a 10):"
+            Leer nota
+        Hasta Que nota >= 0 Y nota <= 10
+        
+        sumaNotas <- sumaNotas + nota
+        
+        Si nota >= 6.0 Entonces
+            aprobados <- aprobados + 1
+        Sino
+            reprobados <- reprobados + 1
+        FinSi
+    FinPara
+    
+    promedio <- sumaNotas / n
+    
+    Escribir "--- RESULTADOS ---"
+    Escribir "Total de estudiantes: ", n
+    Escribir "Aprobados: ", aprobados
+    Escribir "Reprobados: ", reprobados
+    Escribir "Promedio general: ", Redondear(promedio * 100) / 100
+FinAlgoritmo
+Ejercicio 3: Sistema de Facturación de Tienda (Nivel Avanzado)Problema: Diseñar un sistema que procese una compra con múltiples productos, aplique descuentos si el monto supera un límite y sume el impuesto correspondiente.Paso 1: Nivel 01. Capturar datos del cliente y productos.
+2. Calcular subtotal, descuentos e impuestos.
+3. Imprimir factura final.
+Paso 2: Nivel 11. Inicializar subtotal = 0.
+2. Mientras el usuario desee ingresar más productos:
+   2.1. Pedir nombre del producto, precio unitario y cantidad.
+   2.2. Calcular costo_item = precio * cantidad.
+   2.3. Acumular subtotal = subtotal + costo_item.
+3. Calcular Descuento:
+   - Si subtotal > $100.000 -> aplicar 10% de descuento.
+   - Si no -> descuento = 0.
+4. Calcular IVA (19% sobre (subtotal - descuento)).
+5. Total = subtotal - descuento + IVA.
+6. Mostrar desglose de factura.
+Paso 3: Nivel 2 (Implementación en Pseudocódigo Modular)Fragmento de códigoAlgoritmo FacturacionTienda
+    Definir subtotal, descuento, iva, total, precio, costoItem Como Real
+    Definir cantidad Como Entero
+    Definir respuesta Como Cadena
+    
+    subtotal <- 0
+    respuesta <- "S"
+    
+    // 1. Procesar carrito de compras
+    Mientras Mayusculas(respuesta) = "S" Hacer
+        Escribir "Ingrese precio del producto:"
+        Leer precio
+        Escribir "Ingrese cantidad:"
+        Leer cantidad
+        
+        costoItem <- precio * cantidad
+        subtotal <- subtotal + costoItem
+        
+        Escribir "¿Desea agregar otro producto? (S/N):"
+        Leer respuesta
+    FinMientras
+    
+    // 2. Aplicar reglas de negocio
+    Si subtotal > 100000 Entonces
+        descuento <- subtotal * 0.10
+    Sino
+        descuento <- 0
+    FinSi
+    
+    iva <- (subtotal - descuento) * 0.19
+    total <- (subtotal - descuento) + iva
+    
+    // 3. Imprimir comprobante
+    Escribir "=============================="
+    Escribir "        FACTURA DE VENTA      "
+    Escribir "=============================="
+    Escribir "Subtotal:        $", subtotal
+    Escribir "Descuento (10%): -$", descuento
+    Escribir "IVA (19%):       +$", iva
+    Escribir "------------------------------"
+    Escribir "TOTAL A PAGAR:   $", total
+    Escribir "=============================="
+FinAlgoritmo
+Consejos para aplicar Diseño DescendenteNo intentes programar de golpe: Escribe en lenguaje natural lo que debe hacer el programa en 3 a 5 pasos generales.Aplica "divide y vencerás": Si un paso dice "validar contraseña", no te preocupes por el ciclo todavía en el Nivel 0; refínalo en el Nivel 1.Detén el refinamiento: Sabrás que alcanzaste el nivel suficiente cuando cada instrucción equivalga a 1 o 2 líneas directas de código (variables, asignaciones, condiciones Si/Sino o bucles Mientras/Para).
+
+-->
+<!--
+
 ## *Docstrings*
 
 - Python implementa un mecanismo muy sencillo y elegante para documentar partes
