@@ -265,7 +265,6 @@ nocite: |
 
 - El ejemplo anterior, descompuesto en subprogramas, podría ser así:
 
-
   !ALGO
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   **Algoritmo principal:** Tabla de multiplicar de $n \times n$
@@ -785,6 +784,29 @@ Una función puede llamar a otra.
 
   hola()
   ```
+
+!EJEMPLO
+
+- Sabiendo todo lo que ya sabemos, podemos codificar en Python el ejemplo de la
+  tabla de multiplicar de $n\times n$ usando funciones imperativas:
+
+  ```python
+  def construir_tabla(m: int) -> None:
+      i = 1
+      while i <= m:
+          escribir_fila(i, m)
+          i += 1
+
+  def escribir_fila(f: int, t: int) -> None:
+      j = 1
+      while j <= t:
+          print(f * j, end=' ')
+          j += 1
+      print()
+
+  n = int(input('Introduzca el valor de n: '))
+  construir_tabla(n)
+  ``` 
 
 ## Paso de argumentos
 
@@ -1358,6 +1380,31 @@ E -> suma [lhead = cluster0]
   UnboundLocalError: local variable 'x' referenced before assignment
   ```
 
+---
+
+- En el ejemplo de la tabla de multiplicar de $n \times n$, los contadores `i`
+  y `j` podrían tener el mismo nombre y no habría interferencias entre ellas,
+  ya que cada varible es local a la función en la que se crea.
+
+- Así, la variable `i` de `construir_tabla` no es la misma que la `i` de
+  `escribir_fila`, ya que cada una sólo existe y es visible dentro de su
+  correspondiente función:
+
+  ```python
+  def construir_tabla(m: int) -> None:
+      i = 1
+      while i <= m:
+          escribir_fila(i, m)
+          i += 1
+
+  def escribir_fila(f: int, t: int) -> None:
+      i = 1
+      while i <= t:
+          print(f * i, end=' ')
+          i += 1
+      print()
+  ```
+
 ### Variables globales
 
 - Desde dentro de una función es posible usar variables globales, ya que se
@@ -1374,6 +1421,9 @@ E -> suma [lhead = cluster0]
   prueba()       # imprime 4
   ```
 
+- El intérprete busca la `x` en el entorno, primero en el marco de `prueba` (no
+  la encuentra) y después en el marco global (ahí sí la encuentra).
+
 ---
 
 - Pero para poder **cambiar** una variable global es necesario que la función
@@ -1386,7 +1436,7 @@ E -> suma [lhead = cluster0]
   x = 4          # esta variable es global
 
   def prueba():
-      x = 5      # crea una variable local
+      x = 5      # crea una variable local que hace sombra a la global
 
   prueba()
   print(x)       # imprime 4
@@ -1434,7 +1484,7 @@ E -> suma [lhead = cluster0]
   x = 4
 
   def prueba():
-      global x  # informa que la variable 'x' es global
+      global x  # declara que la variable 'x' es global
       x = 5     # cambia el valor de la variable global 'x'
 
   prueba()
@@ -1700,7 +1750,8 @@ E -> suma [lhead = cluster0]
       return nueva                  # devuelve la copia
 
   l = [1, 2, 3, 4]
-  print(cambia(l, 2, 99))           # imprime [1, 2, 99, 4]
+  l = cambia(l, 2, 99)
+  print(l)                          # imprime [1, 2, 99, 4]
   ```
 
 ## Funciones locales a funciones
@@ -1724,7 +1775,7 @@ E -> suma [lhead = cluster0]
   - `f` **contiene** a `g`.
 
 - Como `g` se define **dentro** de `f`, sólo es visible dentro de `f`, ya que
-  el **ámbito** de `g` es el cuerpo de `f`.
+  el **ámbito** en el que se define `g` es el cuerpo de `f`.
 
 - El uso de funciones locales evita la superpoblación de funciones en un
   espacio de nombres cuando esa función sólo tiene sentido usarla en un ámbito
