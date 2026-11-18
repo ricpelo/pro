@@ -1124,9 +1124,6 @@ Una función puede llamar a otra.
 - También es posible usar la sentencia !PYTHON(return) sin devolver ningún
   valor.
 
-- En ese caso, su utilidad es la de finalizar la ejecución de la función en
-  algún punto intermedio de su código.
-
 - Pero en Python todas las funciones devuelven algún valor.
 
 - Lo que ocurre en este caso es que la función devuelve el valor !PYTHON(None).
