@@ -967,11 +967,11 @@ Un algoritmo es un método para resolver un problema.
 
     - Al *orden* de los pasos que han de llevarse a cabo.
 
-    - Al *contenido* de los pasos, pues en cada uno hay que saber qué hacer
+    - Al *significado* de los pasos, pues en cada uno hay que saber qué hacer
       exactamente.
 
-  - **Determinado**: si se sigue un algoritmo dos veces, se debe obtener el
-    mismo resultado cada vez.
+  - **Determinado**: si se sigue un algoritmo dos veces con la misma entrada,
+    se debe obtener el mismo resultado cada vez.
 
   - **Finito**: debe terminar en algún momento, es decir, debe tener un número
     finito de pasos.

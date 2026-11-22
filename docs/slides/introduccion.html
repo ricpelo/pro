@@ -18,6 +18,12 @@
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
     span.smallcaps{font-variant: small-caps;}
+    em, em em em, em em em em em {
+      font-style: italic;
+    }
+    em em, em em em em {
+      font-style: normal;
+    }
     div.columns{display: flex; gap: 1.5em;}
     div.column{flex: auto;}
     @media screen {
@@ -118,6 +124,26 @@
     }
     div.csl-indent {
       margin-left: 2em;
+    }@media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
     }  </style>
   <link rel="stylesheet" href="./reveal.js/dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="custom.css"/>
@@ -1163,11 +1189,12 @@ precisión afecta por igual a dos aspectos:</p>
 <ul>
 <li><p>Al <em>orden</em> de los pasos que han de llevarse a
 cabo.</p></li>
-<li><p>Al <em>contenido</em> de los pasos, pues en cada uno hay que
+<li><p>Al <em>significado</em> de los pasos, pues en cada uno hay que
 saber qué hacer exactamente.</p></li>
 </ul></li>
-<li><p><strong>Determinado</strong>: si se sigue un algoritmo dos veces,
-se debe obtener el mismo resultado cada vez.</p></li>
+<li><p><strong>Determinado</strong>: si se sigue un algoritmo dos veces
+con la misma entrada, se debe obtener el mismo resultado cada
+vez.</p></li>
 <li><p><strong>Finito</strong>: debe terminar en algún momento, es
 decir, debe tener un número finito de pasos.</p></li>
 </ul></li>
