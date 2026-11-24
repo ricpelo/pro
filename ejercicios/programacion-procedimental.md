@@ -60,8 +60,6 @@ include-before:
    [1, 2, 4, 3, 5, 6]
    ```
 
-   (Nota: El último `1` no se elimina porque no es consecutivo a los primeros).
-
 #. Escribir una función `eliminar_duplicados_consecutivos(lista)` que reciba
    una lista de elementos y la modifique eliminando los elementos repetidos que
    aparezcan de forma consecutiva, de forma que sólo aparezcan una vez, en el
